@@ -88,7 +88,7 @@
 }
 
 #chatroom-list .chatroom{
-  width: 900px;
+  width: 100%;
   border-top: 1px #000000 solid;
   display: grid;
   padding-top: 10px;

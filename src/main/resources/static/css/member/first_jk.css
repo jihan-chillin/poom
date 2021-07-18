@@ -1,0 +1,117 @@
+/* 글꼴 - 나눔고딕(googlefonts) */
+/* font-family: 'Nanum Gothic', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+
+/* 사용색상 */
+/* 청록색 - #287094 , 주황색 - #F77B1E */
+
+/* 화면기본설정 */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+div#wrapper {
+    width: 1920px;
+    background: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+div#content {
+    width: 1056px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+}
+div#content>p {
+    width: 230px;
+    height: 45px;
+    border-radius: 30px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+    background: #287094;
+    line-height: 45px;
+    margin-bottom: 20px;
+}
+div#content>div {
+	width: 1056px;
+    display: flex;
+    justify-content: space-between;
+}
+div#content>div>img {
+    width: 55%;
+    transform: translateZ(0);
+}
+form.login {
+    width: 30%;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+form.login label {
+    width: 100%;
+    height: 45px;
+    margin: 7px 0;
+    line-height: 45px;
+    padding-left: 5%;
+    border-radius: 30px;
+    background: #f7f7f7;
+    font-weight: bold;
+    color: #287094;
+}
+form.login input {
+    width: 75%;
+    margin-left: 3%;
+    border: none;
+    background: none;
+    outline: none;
+}
+form.login label:first-of-type input {
+    margin-left: 7%;
+}
+div.signup {
+    display: flex;
+    justify-content: center;
+}
+div.signup>span>a {
+    padding: 0 10px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+    color: #287094;
+    border-right: 1px solid lightgray;
+}
+div.signup>span:last-of-type>a {
+    border: none;
+}
+div#content>div>button {
+    width: 104px;
+    height: 104px;
+    margin-top: 7px;
+    border-radius: 20px;
+    border: none;
+    background: #287094;
+    outline: none;
+    color: white;
+    font-weight: bold;
+    font-size: 25px;
+    cursor: pointer;
+}
