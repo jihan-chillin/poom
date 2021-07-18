@@ -18,6 +18,7 @@ $(document).ready(function(){
         $(this).height(this.scrollHeight);
     });
 
+
 });
 
 //프로필 부분 채팅아이콘 클릭시 채팅리스트로 이동
@@ -29,3 +30,4 @@ function moveChatList(){
 function messageBox(){
     location.replace("/message");
 }
+
