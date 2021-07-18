@@ -10,7 +10,9 @@
         <!-- 헤더바 -->
         <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
         
-        <div id="section">
+        <!-- 관리자 메뉴바 -->
+        <div th:replace="/fragments/admin_nav.html :: admin_nav"></div>
+        <!-- <div id="section">
             <span id="admin_title">
                 <img th:src="@{/images/admin/admin.jpg}" style="width:150px; height:150px; border-radius:100%;">
                 <br><br>
@@ -29,7 +31,7 @@
                 <p class="admin_menu_title">결제관리</p>
                 <p class="admin_menu_content">회원별 결제 내역을 조회할 수 있습니다.</p>
             </div>
-        </div>
+        </div> -->
     </div>
         
 </body>
