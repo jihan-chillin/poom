@@ -3,7 +3,7 @@ $("#blame_menu").parent().click((e)=>{
             $("#blame_menu").toggle(500);
 });
 //type에 따라 메뉴 이름 색상 넣기
-$(function(){
+/*$(function(){
 	var adminTitle=$("#admin_page_title").html();
 	console.log(adminTitle);
 	if(adminTitle=="blame"){
@@ -15,4 +15,6 @@ $(function(){
 	}else if(adminTitle=="pay"){
 		$("#admin_menu>ul>li:last").css("color","#F77B1E");
 	}
-});
+}); */
+
+//ajax시도해보기

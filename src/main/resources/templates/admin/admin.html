@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- 내 css -->
+	<link th:href="@{/css/admin/admin_blame.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/admin/admin_main.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/admin/admin_notice.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/admin/admin_pay.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/admin/admin_notice_write.css}" rel="stylesheet" type="text/css">
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+</head>
+<body>
+    <div id="wrapper">
+        <!-- 헤더바 -->
+        <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+        
+        <!-- 관리자 메뉴바 -->
+        <div th:replace="/fragments/admin_nav.html :: admin_nav"></div>
+        
+        <!-- ajax 구현해보기 -->
+        <div id="target">
+			<p th:text="${type1}"></p>
+        </div>
+     </div>
+     
+     
+     <script th:inline="javascript">
+     	//controller에서 보낸값 바로 출력하기
+     	var type=[[${type}]];
+     	console.log(type);
+     	//console.log($("#target").children().first().text());
+     	if(type=='notice'){
+     		$.ajax({
+     			url:"/admin/notice",
+     			data:{"type":type},
+     		}).done(function (fragment) {
+     			$("#target").replaceWith(fragment);
+     		});
+     	}else if(type=='blame'){
+     		
+     	}else if(type=='pay'){
+     		
+     	}
+     </script>
+</body>
+</html>
