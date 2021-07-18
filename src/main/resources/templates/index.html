@@ -1,36 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="fragment-header">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>poom</title>
-    
-    <!-- css -->
-	<link th:href="@{/css/member/first_jk.css}" rel="stylesheet" type="text/css">
-
-    <!-- Jquery 3.6.0 CND -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<head>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
 </head>
 
 <body>
-    <div id="wrapper">
-        <div id="content">
-            <p>지역기반커뮤니티 '품'</p>
-            <div>
-            	<img th:src="@{/images/ui/logo.png}" alt="poom로고">
-                <form action=""  class="login">
-                    <label>#ID<input type="text" id="id"></label>
-                    <label for="pw">#PW<input type="password" id="pw"></label>
-                    <div class="signup">
-                        <span><a href="#">ID찾기</a></span>
-                        <span><a href="#">PW찾기</a></span>
-                        <span><a href="#">회원가입</a></span>
-                    </div>
-                </form>
-                <button>로그인</button>
+<div id="wrapper">
+
+    <!-- 헤더바 -->
+    <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+    <!-- 좌측메뉴바 -->
+    <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+
+    <!-- 우측콘텐츠 / 고정+변동 -->
+    <div id="content">
+
+        <!-- 프로필 -->
+        <div th:replace="/fragments/profile.html :: fragment-profile"></div>
+
+        <!-- main 피드 -->
+        <div class="feed">
+            <div class="feed_write">
+                <select name="category" id="category">
+                    <option value="1">출산,육아,교육</option>
+                    <option value="2">분실물</option>
+                    <option value="3">일손(품앗이)</option>
+                    <option value="4">공동구매</option>
+                </select>
+                <input type="text" value="" placeholder="제목을 입력하세요">
+                <hr>
+                <textarea name="" id="" cols="30" rows="3" placeholder="내용을 입력하세요"></textarea>
+                <hr>
+                <button>파일</button>
+                <button>태그</button>
+                <button>등록</button>
             </div>
+            <div class="feed_new"></div>
         </div>
+
+        <!-- HOT키워드순위창 -->
+        <div th:replace="/fragments/rank.html :: fragment-rank"></div>
+
     </div>
+</div>
 </body>
+
+<script th:src="@{/js/main/main_jk.js}"></script>
+<script th:src="@{/js/chatting/chatting_js_hu.js}"></script>
+
 </html>
