@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+</head>
+
+<body>
+<div id="wrapper">
+
+    <!-- 헤더바 -->
+    <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+    <!-- 좌측메뉴바 -->
+    <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+
+    <!-- 우측콘텐츠 / 고정+변동 -->
+    <div id="content">
+
+        <!-- 프로필 -->
+        <div th:replace="/fragments/profile.html :: fragment-profile"></div>
+
+        <!-- main 피드 -->
+
+      <div>
+          <a>쪽지함 만들곳</a>
+
+      </div>
+
+        <!-- HOT키워드순위창 -->
+
+
+    </div>
+</div>
+</body>
+
+<script th:src="@{/js/main/main_js_jk.js}"></script>
+
+</html>
