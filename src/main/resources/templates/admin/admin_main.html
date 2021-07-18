@@ -11,28 +11,30 @@
         <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
         
         <!-- 관리자 메뉴바 -->
-        <div th:replace="/fragments/admin_nav.html :: admin_nav"></div>
-        <!-- <div id="section">
+        <!-- <div th:replace="/fragments/admin_nav.html :: admin_nav"></div> -->
+        
+        <!-- content -->
+        <div id="section">
             <span id="admin_title">
                 <img th:src="@{/images/admin/admin.jpg}" style="width:150px; height:150px; border-radius:100%;">
                 <br><br>
                 관리자님, 환영합니다.<br>
                 <span>POOM 관리자 페이지 입니다.</span>
             </span >
-            <div id="notice" onclick="alert('공지사항이동');">
+            <div id="notice" onclick="location.assign('/admin/notice?type=notice');">
                 <p class="admin_menu_title">공지사항관리</p>
                 <p class="admin_menu_content">게시판별 공지사항을 관리할 수 있습니다.</p>
             </div>
-            <div id="blame" onclick="alert('신고이동');">
+            <div id="blame" onclick="location.assign('/admin/blame?type=blame');">
                 <p class="admin_menu_title">신고관리</p>
                 <p class="admin_menu_content">신고된 게시글 및 댓글, 유저를 관리할 수 있습니다.</p>
             </div>
-            <div id="pay" onclick="alert('결제이동');">
+            <div id="pay" onclick="location.assign('/admin/pay?type=pay');">
                 <p class="admin_menu_title">결제관리</p>
                 <p class="admin_menu_content">회원별 결제 내역을 조회할 수 있습니다.</p>
             </div>
-        </div> -->
-    </div>
+        </div>
+       </div>
         
 </body>
 </html>

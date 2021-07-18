@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- 내 css -->
+	<link th:href="@{/css/admin/admin_blame.css}" rel="stylesheet" type="text/css">
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+</head>
+<body>
+    <div id="wrapper">
+        <!-- 헤더바 -->
+        <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+        
+        <!-- 관리자 메뉴바 -->
+        <div th:replace="/fragments/admin_nav.html :: admin_nav"></div>
+        
+        <div id="admin_section">
+            <div id="admin_page_title" th:text="${type}">admin 페이지 제목</div>
+            <div id="admin_content">
+                <!-- <select name="del_status" id="del_status">
+                    <option value="n">N</option>
+                    <option value="y">Y</option>
+                </select> -->
+                <table id="blame_table">
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox"></th>
+                        <th>번호</th>
+                        <th>작성자</th>
+                        <th>게시글 제목</th>
+                        <th>누적 신고 수</th>
+                        <th>삭제여부<br>
+                            <input type="radio" name="del_status" value="n" checked>N
+                            <input type="radio" name="del_status" value="y">Y
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>1</td>
+                            <td>qwerasdf</td>
+                            <td>★★몸짱되는법</td>
+                            <td>10</td>
+                            <td>N</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>2</td>
+                            <td>asdfasdf</td>
+                            <td>★★얼짱되는법</td>
+                            <td>10</td>
+                            <td>N</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>3</td>
+                            <td>zxcvzxcv</td>
+                            <td>★★코딩짱되는법</td>
+                            <td>30</td>
+                            <td>Y</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>4</td>
+                            <td>rewqrewq</td>
+                            <td>★★부자되고싶으면클릭</td>
+                            <td>40</td>
+                            <td>N</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>5</td>
+                            <td>fdsafdsa</td>
+                            <td>★★싸움짱되는법</td>
+                            <td>5</td>
+                            <td>N</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>6</td>
+                            <td>fdsafdsa</td>
+                            <td>★★일찐되는법</td>
+                            <td>5</td>
+                            <td>N</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>7</td>
+                            <td>fdsafdsa</td>
+                            <td>★★로또당첨되는법</td>
+                            <td>5</td>
+                            <td>Y</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>8</td>
+                            <td>fdsafdsa</td>
+                            <td>★★불사신되는법</td>
+                            <td>5</td>
+                            <td>N</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>9</td>
+                            <td>fdsafdsa</td>
+                            <td>★★~~~되는법</td>
+                            <td>5</td>
+                            <td>N</td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>10</td>
+                            <td>fdsafdsa</td>
+                            <td>★★~~~되는법</td>
+                            <td>5</td>
+                            <td>N</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="pagebar">
+                    페이지바
+                </div>
+                <button>삭제</button>
+            </div>
+        </div>
+    </div>
+    <script>
+    	$(function(){
+    		var adminTitle=$("#admin_page_title").html();
+    		if(adminTitle=="blame"){
+    			$("#blame_menu").parent().css("color","#F77B1E");
+    			$("#blame_menu").show();
+    			$("#blame_menu").children().first().css({"color":"#F77B1E","list-style-type": "disc"});
+    		}
+    	})
+    </script>
+<!-- <script th:src="@{/js/admin/admin_js_he.js}"></script> -->
+
+</body>
+</html>

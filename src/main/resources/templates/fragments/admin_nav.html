@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <!-- 관리자 메뉴바> -->
-<div id="section" th:fragment="admin_nav">
-    <span id="admin_title">
-        <img th:src="@{/images/admin/admin.jpg}" style="width:150px; height:150px; border-radius:100%;">
-        <br><br>
-        관리자님, 환영합니다.<br>
-        <span>POOM 관리자 페이지 입니다.</span>
-    </span >
-    <div id="notice" onclick="alert('공지사항이동');">
-        <p class="admin_menu_title">공지사항관리</p>
-        <p class="admin_menu_content">게시판별 공지사항을 관리할 수 있습니다.</p>
+<nav th:fragment="admin_nav">
+    <div id="admin_menu">
+        <div id="admin_profile">
+            <img th:src="@{/images/admin/admin.jpg}" width="150px" height="150px">
+            <br>
+            <br>
+            <br>
+            <span>POOM 관리자님, 환영합니다.</span>
+        </div>
+        <ul>
+            <li onclick="location.assign('/admin/notice?type=notice');">
+            	<img th:src="@{/images/admin/notice.png}" >공지사항관리
+            </li>
+            <li onclick="location.assign('/admin/blame?type=blame');">
+            	<img th:src="@{/images/admin/siren.PNG}" >신고관리
+                <ul id="blame_menu" style="display:none">
+                    <li>신고된 게시글</li>
+                    <li>신고된 댓글</li>
+                    <li>신고된 유저</li>
+                </ul>
+            </li>
+            <li onclick="location.assign('/admin/pay?type=pay');">
+            	<img th:src="@{/images/admin/pay.png}" >결제관리
+            	</li>
+        </ul>
     </div>
-    <div id="blame" onclick="alert('신고이동');">
-        <p class="admin_menu_title">신고관리</p>
-        <p class="admin_menu_content">신고된 게시글 및 댓글, 유저를 관리할 수 있습니다.</p>
-    </div>
-    <div id="pay" onclick="alert('결제이동');">
-        <p class="admin_menu_title">결제관리</p>
-        <p class="admin_menu_content">회원별 결제 내역을 조회할 수 있습니다.</p>
-    </div>
-</div>
-        
+<script th:src="@{/js/admin/admin_js_he.js}"></script>  
+</nav>
 </html>
