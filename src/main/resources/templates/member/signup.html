@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+
+    <!-- style -->
+    <link rel="stylesheet" href="css/signup_jk.css" type="text/css">
+
+    <!-- Jquery 3.6.0 CND -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="js/signup_jk.js"></script>
+
+</head>
+<body>
+    <div id="wrapper">
+        <img src="images/logo.png" alt="poom로고">
+        <div id="content">
+            <form action="" id="signUp">
+                <table class="signup_table">
+                    <tr>
+                        <th>아이디<span class="red_star">*</span></th>
+                        <td><input type="text" id="id"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>비밀번호<span class="red_star">*</span></th>
+                        <td><input type="password" id="pw"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>비밀번호확인<span class="red_star">*</span></th>
+                        <td><input type="password" id="pwc"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>이름<span class="red_star">*</span></th>
+                        <td><input type="text" id="name"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>생년월일<span class="red_star">*</span></th>
+                        <td><input type="text" id="birth"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>위치인증<span class="red_star">*</span></th>
+                        <td><input type="text" id="location"></td>
+                        <td><button>인증</button></td>
+                    </tr>
+                    <tr>
+                        <th>이메일<span class="red_star">*</span></th>
+                        <td><input type="email" id="email"></td>
+                        <td><button>인증</button></td>
+                    </tr>
+                </table>
+                <hr>
+                <div id="keyword">
+                    <p>
+                        #관심키워드<br>
+                        <span class="red_star">(최대3개선택)</span>
+                    </p>
+                    <label><input type="checkbox" name="keyword" value="baby"> 육아</label>
+                    <label><input type="checkbox" name="keyword" value="study"> 교육</label>
+                    <label><input type="checkbox" name="keyword" value="friend"> 친목</label>
+                    <label><input type="checkbox" name="keyword" value="hobby"> 취미</label>
+                    <label><input type="checkbox" name="keyword" value="trade"> 중고거래</label>
+                    <label><input type="checkbox" name="keyword" value="work"> 일손</label>
+                    <label><input type="checkbox" name="keyword" value="eat"> 맛집</label>
+                    <label><input type="checkbox" name="keyword" value="lost"> 분실물</label>
+                    <label><input type="checkbox" name="keyword" value="review"> 후기</label>
+                </div>
+                <hr>
+                <div class="signup_btn">
+                    <button class="button_able">가입</button>
+                    <button>취소</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

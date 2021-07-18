@@ -22,15 +22,14 @@ a {
     color: inherit;
 }
 div#wrapper {
-    width: 100%;
-    max-width: 1920px;
+    width: 1920px;
     height: auto;
     background: white;
 }
 
 /* 헤더 css */
 div#header {
-    width: 100%;
+    width: 1920px;
     height: 120px;
     position: fixed;
     top: 0;
@@ -106,8 +105,7 @@ ul.header_ui>li:last-child {
 
 /* 좌측메뉴바 css */
 div#nav {
-    width: 15.6%;
-    max-width: 300px;
+    width: 300px;
     height: 100%;
     position: fixed;
     top: 120px;
@@ -210,11 +208,10 @@ div.city_bar>ul>li:hover {
 
 /* 우측콘텐츠 css */
 div#content {
-    width: 84.4%;
-    max-width: 1620px;
+    width: 1620px;
     position: fixed;
     top: 130px;
-    left: 15.6%;
+    left: 300px;
     display: flex;
     justify-content: space-evenly;
     align-items: flex-start;

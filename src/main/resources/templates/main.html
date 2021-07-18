@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+</head>
+
+<body>
+<div id="wrapper">
+
+    <!-- 헤더바 -->
+    <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+    <!-- 좌측메뉴바 -->
+    <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+
+    <!-- 우측콘텐츠 / 고정+변동 -->
+    <div id="content">
+
+        <!-- 프로필 -->
+        <div th:replace="/fragments/profile.html :: fragment-profile"></div>
+
+        <!-- main 피드 -->
+        <div class="feed">
+            <div class="feed_write">
+                <select name="category" id="category">
+                    <option value="1">출산,육아,교육</option>
+                    <option value="2">분실물</option>
+                    <option value="3">일손(품앗이)</option>
+                    <option value="4">공동구매</option>
+                </select>
+                <input type="text" value="" placeholder="제목을 입력하세요">
+                <hr>
+                <textarea name="" id="" cols="30" rows="3" placeholder="내용을 입력하세요"></textarea>
+                <hr>
+                <button>파일</button>
+                <button>태그</button>
+                <button>등록</button>
+            </div>
+            <div class="feed_new"></div>
+        </div>
+
+        <!-- HOT키워드순위창 -->
+        <div th:replace="/fragments/rank.html :: fragment-rank"></div>
+
+    </div>
+</div>
+</body>
+
+<script th:src="@{/js/main/main_jk.js}"></script>
+<script th:src="@{/js/chatting/chatting_js_hu.js}"></script>
+
+</html>
