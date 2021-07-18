@@ -2,6 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <!--message css-->
+    <link th:href="@{css/message/message_main.css}" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
@@ -20,7 +23,8 @@
 
         <!-- main 피드 -->
 
-      <div>
+      <div class="messagebox">
+
           <a>쪽지함 만들곳</a>
 
       </div>

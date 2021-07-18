@@ -1,0 +1,17 @@
+/* 글꼴 - 나눔고딕(googlefonts) */
+/* font-family: 'Nanum Gothic', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+
+/* 사용색상 */
+/* 청록색 - #287094 , 주황색 - #F77B1E */
+
+
+
+/*쪽지함 전체*/
+div.messagebox{
+    background: #fdfdfd;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    padding:30px;
+}
