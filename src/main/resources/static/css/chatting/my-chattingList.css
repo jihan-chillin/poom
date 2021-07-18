@@ -25,7 +25,7 @@
 }
 
 #chatlist-container{
-  width: 1000px;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: repeat(2,minmax(60px,auto));
@@ -39,32 +39,50 @@
   -o-border-radius: 20px;
 }
 /* 채팅방 */
-#chatlist-container>:nth-child(1){
+.chat-title{
   font-size: 50px;
   font-family: 'NEXON Lv2 Gothic Bold';
   justify-self: center;
   align-self: center;
 }
-#chatlist-container>:nth-child(2){
-  justify-self: center;
-  align-self: center;
+.my-chat-list-status{
+  /*font-family: 'NEXON Lv1 Gothic OTF';*/
+  font-size: 25px;
+  display:grid;
+  grid-template-columns: 1fr 20px 1fr;
+  align-content: center;
 }
-#chatlist-container>:nth-child(2)>:nth-child(2n-1){
-  font-size: 30px;
-}
-#chatlist-container>:nth-child(2)>:nth-child(2){
-  font-size: 30px;
-}
-#chatlist-container>:nth-child(2)>:nth-child(2n-1):hover{
+.my-chat-list-status>:nth-child(1) {
+  justify-self: end;
   cursor: pointer;
 }
+.my-chat-list-status>:nth-child(2) {
+  justify-self: center;
+}
+.my-chat-list-status>:nth-child(3) {
+  justify-self: start;
+  cursor: pointer;
+}
+/*.my-chat-list-status>:nth-child(2){*/
+/*  justify-self: center;*/
+/*  align-self: center;*/
+/*}*/
+/*.my-chat-list-status>:nth-child(2)>:nth-child(2n-1){*/
+/*  font-size: 30px;*/
+/*}*/
+/*.my-chat-list-status>:nth-child(2)>:nth-child(2){*/
+/*  font-size: 30px;*/
+/*}*/
+/*.my-chat-list-status>:nth-child(2)>:nth-child(2n-1):hover{*/
+/*  cursor: pointer;*/
+/*}*/
 
-#chatlist-container .joined-chatroom{
-  font-size:20px;
-}
-#chatlist-container .interested-chatroom{
-  font-size:20px;
-}
+/*.my-chat-list-status .joined-chatroom{*/
+/*  font-size:20px;*/
+/*}*/
+/*.my-chat-list-status .interested-chatroom{*/
+/*  font-size:20px;*/
+/*}*/
 #chatroom-list>ul{
   margin-left: 40px;
 }

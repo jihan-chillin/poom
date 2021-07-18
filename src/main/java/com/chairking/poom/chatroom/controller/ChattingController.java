@@ -13,6 +13,6 @@ public class ChattingController {
 //    리스트 연결 테스트용. 수정예정
     @GetMapping("/chat/list")
     public String chattingList(){
-        return "chatting/chatroom-list";
+        return "chatting/my-chattingList";
     }
 }
