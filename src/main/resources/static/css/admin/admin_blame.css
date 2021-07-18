@@ -1,0 +1,140 @@
+nav{
+    position:fixed;
+    top: 120px;
+    height:100%;
+    justify-content: center;
+    width:300px;
+    /* background-color: #297094; */
+    border-right: 1px solid lightgray;
+}
+div#admin_profile>img{
+    border-radius: 100%;
+    margin:30px 0 0 75px;
+}
+div#admin_profile{
+    width:300px;
+    height:300px;
+    background-color:#F77B1E;
+    margin-bottom:20px;
+}
+div#admin_profile>span{
+    color:white;
+    font-size:20px;
+    margin-left:25px;
+    font-weight: bold;
+}
+div#admin_menu>ul{
+    width: 200px;
+    padding: 15px;
+    margin: auto;
+    margin-bottom: 7px;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: left;
+    color: black;
+    cursor: pointer;
+}
+div#admin_menu>ul>li{
+    font-size: 22px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    line-height: 48px;
+    /* text-align: center; */
+    justify-content: center;
+    align-items: center;
+}
+div#admin_menu>ul>li img{
+    width:25px;
+    height:25px;
+    margin-right:10px;
+    vertical-align:middle;
+}
+div#admin_menu>ul>li:hover{
+    color:#F77B1E;
+}
+ul#blame_menu li{
+    margin-left:50px;
+    font-size: 16px;
+    color:black;
+}
+ul#blame_menu li:hover{
+    list-style-type: disc;
+    color:#F77B1E;
+}
+div#admin_section{
+    position: fixed;
+    top:120px;
+    left:300px;
+    height:100%;
+    width:1620px;
+    justify-content: center;
+}
+div#admin_page_title{
+    height:130px;
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
+    line-height: 130px;
+}
+div#admin_content{
+    position:absolute;
+    top:130px;
+    margin-left:165px;
+}
+div#admin_content select{
+    display:block;
+    float:right;
+    width:80px;
+    margin-bottom:20px;
+    text-align: center;
+}
+/*테이블 설정*/
+table#blame_table{
+    border-collapse: collapse;
+    width:1300px;
+    border-top : 2px solid gray;
+    border-bottom : 2px solid gray;
+    text-align: center;
+    font-size: 14px;
+}
+table#blame_table input[type="radio"]{
+    margin-top:5px;
+}
+table#blame_table>thead>tr{
+    border-bottom : 2px solid gray;
+}
+table#blame_table td, #blame_table th{
+    height:50px;
+}
+table#blame_table tr{
+    border-bottom:1px lightgray solid;
+}
+/*테이블 넓이 설정*/
+table#blame_table input[type="checkbox"]{
+    width:20px;
+}
+table#blame_table tr td:nth-child(2), table#blame_table tr th:nth-child(2){
+    width: 50px;
+}
+table#blame_table tr td:nth-child(3), table#blame_table tr th:nth-child(3),table#blame_table tr td:nth-child(6), table#blame_table tr th:nth-child(6),
+table#blame_table tr td:nth-child(5), table#blame_table tr th:nth-child(5){
+    width: 150px;
+}
+
+div#admin_content button{
+    float: right;
+    width: 90px;
+    height: 50px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    /* background: rgb(6, 102, 146); */
+    background:#287094;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left:17px;
+}
+
+
+

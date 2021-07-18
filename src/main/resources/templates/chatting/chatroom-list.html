@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="room-container" th:fragment="chatroomList">
+<!--      채팅방 리스트 css-->
+      <link rel="stylesheet" type="text/css" th:href="@{/css/chatting/chatroom-list.css}">
+
+      <div class="board-title">제목</div>
+    <div class="room-menu">
+      <div>
+        <select>
+          <option>모집중</option>
+          <option>모집마감</option>
+        </select>
+      </div>
+      <div>
+        <form action="/chatroom" method="GET">
+          <input type="submit" value="채팅방 만들기" id="make-chatroom-btn"> 
+        </form>
+      </div>
+    </div>
+    <div class="chatroom-list-container">
+      <!-- 예시 1 -->
+      <div class="chatroom-info">
+          <div class="chatroom-info-header">
+            <div>
+              <span class="chatroom-icon">
+                스터디
+              </span>
+            </div>
+            <div>
+              <!-- 모집중 // 모집마감  -->
+              <span>모집중</span>
+            </div>
+            <div>
+              <div>
+                ...
+              </div>
+            </div>
+          </div>
+          <div class="chatroom-content-container">
+              <div class="chatroom-content-title">
+                제목 / 일자
+              </div>
+              <div class="chatroom-content-info">
+                내용
+              </div>
+          </div>
+          <div class="chatroom-mem">
+              <span> </span>
+              <span><img style="width:25px; height: 25px;"></span> 
+              <!-- 참여인원 수  -->
+              <span>1</span>
+              <span>/</span>
+              <!-- 전체인원수 -->
+              <span>10명</span>
+          </div>
+      </div>
+
+      <!-- 예시 2 -->
+      <div class="chatroom-info">
+        <div class="chatroom-info-header">
+          <div>
+            <span class="chatroom-icon">
+              스터디
+            </span>
+          </div>
+          <div>
+            <!-- 모집중 // 모집마감  -->
+            <span>모집중 2</span>
+          </div>
+          <div>
+            <div>
+              ...
+            </div>
+          </div>
+        </div>
+        <div class="chatroom-content-container">
+            <div class="chatroom-content-title">
+              제목 / 일자
+            </div>
+            <div class="chatroom-content-info">
+              내용
+            </div>
+        </div>
+        <div class="chatroom-mem">
+            <span> </span>
+            <span><img style="width:25px; height: 25px;"></span> 
+            <!-- 참여인원 수  -->
+            <span>1</span>
+            <span>/</span>
+            <!-- 전체인원수 -->
+            <span>10명</span>
+        </div>
+      </div>  
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+@font-face {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NEXON Lv2 Gothic Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+*{
+  text-decoration: none;
+  list-style: none;
+}
+
+#chatlist-container{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2,minmax(60px,auto));
+  /*border: 1px black solid;*/
+  background: #f7f7f7;
+  border-radius: 20px;
+  font-family: 'NEXON Lv1 Gothic OTF';
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+/* 채팅방 */
+.chat-title{
+  font-size: 50px;
+  font-family: 'NEXON Lv2 Gothic Bold';
+  justify-self: center;
+  align-self: center;
+}
+.my-chat-list-status{
+  /*font-family: 'NEXON Lv1 Gothic OTF';*/
+  font-size: 25px;
+  display:grid;
+  grid-template-columns: 1fr 20px 1fr;
+  align-content: center;
+}
+.my-chat-list-status>:nth-child(1) {
+  justify-self: end;
+  cursor: pointer;
+}
+.my-chat-list-status>:nth-child(2) {
+  justify-self: center;
+}
+.my-chat-list-status>:nth-child(3) {
+  justify-self: start;
+  cursor: pointer;
+}
+/*.my-chat-list-status>:nth-child(2){*/
+/*  justify-self: center;*/
+/*  align-self: center;*/
+/*}*/
+/*.my-chat-list-status>:nth-child(2)>:nth-child(2n-1){*/
+/*  font-size: 30px;*/
+/*}*/
+/*.my-chat-list-status>:nth-child(2)>:nth-child(2){*/
+/*  font-size: 30px;*/
+/*}*/
+/*.my-chat-list-status>:nth-child(2)>:nth-child(2n-1):hover{*/
+/*  cursor: pointer;*/
+/*}*/
+
+/*.my-chat-list-status .joined-chatroom{*/
+/*  font-size:20px;*/
+/*}*/
+/*.my-chat-list-status .interested-chatroom{*/
+/*  font-size:20px;*/
+/*}*/
+#chatroom-list>ul{
+  margin-left: 40px;
+}
+
+#chatroom-list .chatroom{
+  width: 900px;
+  border-top: 1px #000000 solid;
+  display: grid;
+  padding-top: 10px;
+  grid-template-columns: 14% 62% 5% 7% 1% 7%;
+  /* column-gap: 10px; */
+  justify-items: center;
+  padding-bottom: 10px;
+}
+
+#chatroom-list .chatroom .chatroom-icon{
+  /* border: 1px solid #000000; */
+  border-radius: 20px;
+  padding: 4px;
+  width: 65px;
+  margin-left: 10px;
+  text-align: center;
+  vertical-align: center;
+  /* 색상변경해야함 */
+  background-color: red;
+  color:#ffffff;
+  border:2px #000000 solid;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  cursor: pointer;
+}
+
+#chatroom-list .chatroom .chatroom-title{
+  font-family: 'NanumSquareRound';
+  font-size:25px;
+  font-weight: bolder;
+  justify-self: start;
+  align-self: center;
+}
+#chatroom-list .chatroom .chatroom-title>a{
+  color:#000000;
+}

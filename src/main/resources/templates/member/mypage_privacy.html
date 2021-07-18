@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- CSS -->
+    <link th:href="@{/css/main/main_style_jk.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/member/member_jh.css}" rel="stylesheet" type="text/css">
+
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+</head>
+
+<body>
+<div id = "wrapper">
+    <!--헤더-->
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <!--메뉴바-->
+    <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+
+
+
+    <!-- 정보 수정란 -->
+    <div id = "info-modi">
+
+        <table>
+            <colgroup>
+            <tbody>
+            <tr>
+                <td class="modi-bold">아이디</td>
+                <td><input type="text" class="normal-size" value="아이디 불러오기"></td>
+            </tr>
+
+            <tr>
+                <td class="modi-bold pw" id="pw-modi">비밀번호</td>
+                <td><input type="password" class="normal-size" value=""></td>
+            </tr>
+            <tr>
+                <td class="modi-bold" id="pwcheck-modi">비밀번호 확인</td>
+                <td>
+                    <input type="password" class="normal-size" value="">
+                    <span id="alert-success" style="display: none;">비밀번호가 일치합니다.</span>
+                    <span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다.</span>
+
+                </td>
+            </tr>
+            <tr>
+                <td lass="modi-bold">생년월일</td>
+                <td><input type="number" class="small-size" value="1996">
+                    <input type="number" class="small-size" value="07">
+                    <input type="number" class="small-size" value="07"></td>
+            </tr>
+            <tr>
+                <td class="modi-bold">이메일</td>
+                <td><input type="email" class="normal-size"  value="kimjihah">
+                    <input type="button" class="blue-btn" value="인증"></td>
+            </tr>
+            <tr>
+                <td class="modi-bold">위치인증</td>
+                <td><input type="text" class="normal-size"  value="위치인증" >
+                    <input type="button" class="blue-btn" value="인증"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input class="blue-btn" type="button" value="수정">
+                    <input class="blacksolid-btn" type="button" value="취소">
+                </td>
+            </tr>
+
+
+            </tbody>
+            </colgroup>
+        </table>
+
+    </div>
+
+</div>
+</body>
+
+<script th:src="@{/js/main/main_js_jk.js}"></script>
+<script th:src="@{/js/main/member_jh.js}"></script>
+
+</html>

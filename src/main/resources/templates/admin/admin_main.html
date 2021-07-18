@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- 내 css -->
+	<link th:href="@{/css/admin/admin_main.css}" rel="stylesheet" type="text/css">
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+</head>
+<body>
+    <div id="wrapper">
+        <!-- 헤더바 -->
+        <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+        
+        <!-- 관리자 메뉴바 -->
+        <!-- <div th:replace="/fragments/admin_nav.html :: admin_nav"></div> -->
+        
+        <!-- content -->
+        <div id="section">
+            <span id="admin_title">
+                <img th:src="@{/images/admin/admin.jpg}" style="width:150px; height:150px; border-radius:100%;">
+                <br><br>
+                관리자님, 환영합니다.<br>
+                <span>POOM 관리자 페이지 입니다.</span>
+            </span >
+            <div id="notice" onclick="fn_admin_move('notice');">
+                <p class="admin_menu_title">공지사항관리</p>
+                <p class="admin_menu_content">게시판별 공지사항을 관리할 수 있습니다.</p>
+            </div>
+            <div id="blame" onclick="fn_admin_move('blame');">
+                <p class="admin_menu_title">신고관리</p>
+                <p class="admin_menu_content">신고된 게시글 및 댓글, 유저를 관리할 수 있습니다.</p>
+            </div>
+            <div id="pay" onclick="fn_admin_move('pay');">
+                <p class="admin_menu_title">결제관리</p>
+                <p class="admin_menu_content">회원별 결제 내역을 조회할 수 있습니다.</p>
+            </div>
+        </div>
+       </div>
+       <script>
+       	function fn_admin_move(type){
+       		location.assign("/admin/main?type="+type);
+       	}
+       </script>
+</body>
+</html>

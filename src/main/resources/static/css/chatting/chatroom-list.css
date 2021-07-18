@@ -1,0 +1,164 @@
+@font-face {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NEXON Lv2 Gothic Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+*{
+  text-decoration: none;
+  list-style: none;
+}
+
+#room-container{
+  width: 900px;
+  display: grid;
+  /* border: 1px #000000 solid; */
+  margin-left: 10px;
+  margin-right: 10px;
+  /* width: 100%; */
+  height: auto;
+  background: #f7f7f7;
+  border-radius: 20px;
+  padding: 30px;
+  grid-template-rows: repeat(3,minmax(50px,auto));
+}
+
+#room-container .board-title{
+  /* margin-top: 20px; */
+  font-family: 'NEXON Lv2 Gothic Bold';
+  font-size:40px;
+  justify-self: center;
+  align-self: center;
+}
+
+#room-container .room-menu{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+#room-container .room-menu>:nth-child(1){
+  margin-left: 50px;
+}
+#room-container .room-menu>:nth-child(1) *{
+  font-size: 25px;
+}
+#room-container .room-menu>:nth-child(2){
+  justify-self: end;
+  margin-right: 50px;
+}
+#room-container .room-menu #make-chatroom-btn{
+  font-family: 'NanumSquareRound';
+  width:130px;
+  height: 40px;
+  background-color: #287094;
+  border: none;
+  color:#ffffff;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px;
+  cursor: pointer;
+}
+
+.chatroom-list-container{
+  display: grid;
+  /* width: 900px; */
+  grid-template-rows: repeat(1,minmax(200px,auto));
+}
+.chatroom-list-container .chatroom-info{
+  display: grid;
+  grid-template-rows: 45px 110px 45px;
+  width: 850px;
+  margin: auto;
+  border:1px #000000 solid;
+  margin-bottom: 20px;
+}
+.chatroom-list-container .chatroom-info .chatroom-info-header{
+  display: grid;
+  grid-template-columns: 100px 700px 50px;
+  justify-content: center;
+  font-family: 'NEXON Lv1 Gothic OTF';
+  font-weight: bold;
+  align-content: center;
+  border-bottom: 1px #000000 solid;
+}
+
+.chatroom-list-container .chatroom-info .chatroom-info-header .chatroom-icon{
+  /* border: 1px solid #000000; */
+  border-radius: 20px;
+  padding: 4px;
+  width: 50px;
+  margin-left: 10px;
+  font-size:15px;
+  text-align: center;
+  /* 색상변경해야함 */
+  background-color: red;
+  color:#ffffff;
+  border:2px #000000 solid;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  cursor: pointer;
+}
+.chatroom-list-container .chatroom-info .chatroom-info-header>:nth-child(2)>span{
+  font-family: 'NEXON Lv1 Gothic OTF';
+  font-weight: bold;
+  font-size: 20px;
+}
+.chatroom-list-container .chatroom-info .chatroom-info-header>:nth-child(3)>div{
+  cursor: pointer;
+  font-size: 25px;
+}
+.chatroom-list-container .chatroom-content-container{
+  display: grid;
+  grid-template-rows: 70px 40px;
+  font-family: 'NanumSquareRound';
+}
+.chatroom-list-container .chatroom-content-container .chatroom-content-title{
+  font-weight: bold;
+  font-size:35px;
+}
+.chatroom-list-container .chatroom-content-container .chatroom-content-info{
+  font-size:20px;
+  border-bottom: 1px #000000 solid;
+}
+
+.chatroom-list-container .chatroom-info .chatroom-mem{
+  font-family: 'NanumSquareRound';
+  justify-self: end;
+  margin-right: 15px;
+  display: grid;
+  grid-template-columns: 600px 40px 45px 20px 45px;
+  justify-content: center;
+  align-content: center;
+}
+.chatroom-list-container .chatroom-info .chatroom-mem>:nth-child(1)>img{
+  margin-top: 10px;
+  margin-right: 20px;
+}
+.chatroom-list-container .chatroom-info .chatroom-mem>:nth-child(2n){
+  font-size:20px;
+  justify-self: start;
+  align-self: center;
+}
+.chatroom-list-container .chatroom-info .chatroom-mem>:nth-child(2n-1){
+  font-size:20px;
+  justify-self: start;
+  align-self: center;
+}
