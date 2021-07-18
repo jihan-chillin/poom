@@ -1,0 +1,130 @@
+@font-face {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NEXON Lv2 Gothic Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#chatroom-container{
+  font-family: 'NEXON Lv1 Gothic OTF';
+  display: grid;
+  width: 900px;
+  grid-template-rows: 60px 40px 480px 60px 60px;
+  /* border:1px #000000 solid; */
+  background: #f7f7f7;
+  border-radius: 20px;
+}
+
+#chatroom-container .chatroom-header{
+  display: grid;
+  grid-template-columns: 300px 500px 100px;
+  border-bottom:1px #000000 solid;
+}
+#chatroom-container .chatroom-header>:nth-child(1){
+  justify-self: end;
+  align-self: center;
+  margin-right: 40px;
+}
+#chatroom-container .chatroom-header>:nth-child(3){
+  cursor: pointer;
+}
+#chatroom-container .chatroom-header .chatroom-icon{
+  /*border: 1px solid #000000;
+  */
+  border-radius: 20px;
+  padding: 4px;
+  width: 50px;
+  margin-left: 10px;
+  font-size:15px;
+  text-align: center;
+  /*색상변경해야함*/
+  background-color: red;
+  color:#ffffff;
+  border:2px #000000 solid;
+  cursor: pointer;
+}
+#chatroom-container .chatroom-header>:nth-child(2){
+  font-family: 'NEXON Lv2 Gothic Bold';
+  font-size:40px;
+  align-self: center;
+}
+#chatroom-container .chatroom-header>:nth-child(3){
+  font-family: 'NEXON Lv2 Gothic Bold';
+  font-size:40px;
+  align-self: center;
+}
+
+#chatroom-container .chatroom-nav{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size:25px;
+  border-bottom:1px #000000 solid;
+  align-content: center;
+}
+#chatroom-container .chatroom-nav .chatroom-status{
+  margin-left: 30px;
+}
+#chatroom-container .chatroom-nav .chatroom-maker{
+  justify-self: end;
+  margin-right: 30px;
+}
+
+#chatroom-container .chatroom-content{
+  font-family: 'NanumSquareRound';
+  font-weight: bold;
+  font-size:30px;
+}
+#chatroom-container .chatroom-content>div{
+  margin: 50px 50px 50px 50px;
+}
+
+#chatroom-container .chatroom-const{
+  border-top:1px #000000 solid;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+}
+#chatroom-container .chatroom-const>:nth-child(1){
+  justify-self: center;
+  align-self: center;
+}
+
+#chatroom-container .chatroom-const>:nth-child(2){
+  justify-self: center;
+  align-self: center;
+}
+#chatroom-container .enter-btn{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 1px #000000 solid;
+}
+#chatroom-container .enter-btn>div{
+  justify-self: center;
+  align-self: center;
+}
+#chatroom-container .enter-btn input{
+  background-color: #ffffff;
+  font-size:25px;
+  padding: 8px 8px 8px 8px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+

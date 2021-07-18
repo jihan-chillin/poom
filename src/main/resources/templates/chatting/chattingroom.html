@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="room-container" th:fragment="chattingroom">
+<!--    채팅방 css-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/chatting/chattingroom.css}">
+
+    <div class="chatroom-header">
+      <div>
+        <span class="chatroom-icon">
+          스터디
+        </span>
+      </div>
+      <div>
+        제목 / 날짜
+      </div>
+      <div>
+        ...
+      </div>
+    </div>
+
+    <div id="chat-container">
+      <div class="chat-content-container">
+      <!-- 메세지 부분 -->
+        <div class="msg-container">
+          <div class="others-profile">
+            <img width="30px" height="30px">
+            아이디
+          </div>
+          <div class="message-blue">
+              <div class="message-content">다른 사람 메시지입니다.</div>
+          </div>
+
+          <div  class="my-profile">
+            <img width="30px" height="30px">
+            아이디gdgd
+          </div>
+          <div class="message-orange">
+              <div class="message-content">이거는 내 메시지</div>
+          </div>  
+        </div>
+        
+        <div>
+          <!-- 보내기 부분 -->
+          <div class="send-container">
+            <input type="text" class="send-msg-content" placeholder="메시지를 입력하세요" />
+            <button class="send-btn">보내기</button>
+          </div>
+          <img width="40px" height="40px"/> 첨부파일
+
+        </div>
+      </div>
+
+      <div class="entered-mem-container">
+        <div class="entered-mem-list">
+          <div>
+            <!-- 참여자 반복 -->
+            <div class="entered-mem">
+              <span>
+                <img width="30" height="30">
+              </span>
+              <span>참여자 1</span>
+            </div>
+
+            <div class="entered-mem">
+              <span>
+                <img width="30" height="30">
+              </span>
+              <span>참여자 1</span>
+            </div>
+
+          </div>
+        </div> 
+
+        <div>
+          <div>
+            <button>나가기</button>
+          </div>
+        </div>
+
+
+        
+      </div>
+    </div>
+  </div>
+</body>
+</html>

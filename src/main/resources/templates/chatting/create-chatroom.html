@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Document</title>
+</head>
+<body>
+  <div id="create-chatroom-container" th:fragment="createChatroom">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/chatting/create-chatroom.css}">
+    <div class="create-room-selector">
+        <!-- js로 체크 여부 확인해야함 -->
+        <span><input type="radio" value="stu" name="select-cate">스터디</span>
+        <span><input type="radio" value="team" name="select-cate">소모임</span>
+    </div>
+  
+    <div>
+      <input type="text" class="chatroom-title" placeholder="제목을 입력해주세요" required>
+    </div>
+    
+    <div>
+      <textarea class="chatroom-content" placeholder="내용을 입력해주세요"
+      style="resize: none;"required></textarea>
+    </div>
+    
+    <div>
+      <textarea class="chatroom-content" placeholder="원하는 조건을 입력해주세요" style="resize: none;"></textarea>
+    </div>
+
+    <div>
+      <div>참여인원 수</div>
+      <div>
+        <span>+&nbsp;</span>
+        <span> 0 </span>
+        <span>&nbsp;-</span>
+      </div>
+    </div>
+
+    <div>
+      <div>모임 날짜</div>
+      <div>
+        <input type="date" class="gather-date">
+      </div>
+    </div>
+
+    <div>
+      <div>
+        <button class="send-btn">보내기</button>
+      </div>
+      <div>
+        <button class="send-btn">취소</button>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

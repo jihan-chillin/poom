@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="chatroom-container" th:fragment="chatroom-list-detail">
+<!--    채팅방 리스트 세부-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/chatting/chatroom-list-detail.css}">
+
+    <div class="chatroom-header">
+      <div>
+        <span class="chatroom-icon">
+          스터디
+        </span>
+      </div>
+      <div>
+        제목 / 날짜
+      </div>
+      <div>
+        ...
+      </div>
+    </div>
+    <div class="chatroom-nav">
+      <div class="chatroom-status">
+        모집 중
+      </div>
+      <div class="chatroom-maker">
+        <span>모임장 : </span>
+        <span>체어킹</span>
+      </div>
+    </div>
+    <div class="chatroom-content">
+      <div>
+        ㅎㅇ
+      </div>
+    </div>
+    <div class="chatroom-const">
+      <div>
+          <span><img style="width:25px; height: 25px;"></span> 
+          <!-- 참여인원 수  -->
+          <span> 1 </span>
+          <span> / </span>
+          <!-- 전체인원수 -->
+          <span> 10명</span>
+      </div>
+      <div>
+        <span><img style="width:25px; height: 25px;"></span> 
+        <span>
+          제한사항
+        </span>
+      </div>
+    </div>
+
+    <div class="enter-btn">
+      <div>
+        <form action="/chatroom">
+          <input type="submit" value="참여하기">
+        </form>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

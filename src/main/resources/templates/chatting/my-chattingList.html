@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>채팅창</title>
+</head>
+<body>
+  <div id="chatlist-container" th:fragment="myChatrommList">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/chatting/my-chattingList.css}">
+    <div>
+      채팅창
+    </div>
+    <div>
+      <span class="joined-chatroom">
+        참여중인 채팅방
+      </span>
+      <span>ㅣ</span>
+      <span class="interested-chatroom">
+        관심 채팅방
+      </span>
+    </div>
+    <div id="chatroom-list">
+      <ul>
+        <li class="chatroom">
+          <!-- 스터디 or 동호회 -->
+          <span class="chatroom-icon">
+            스터디
+          </span>
+          <span class="chatroom-title">
+            <a href="/chatroom.do">
+              스터디 제목
+            </a>
+          </span>
+          <!--  사람모양 이미지 넣을자리 -->
+          <span><img style="width:25px; height: 25px;"></span> 
+          <!-- 참여인원 수  -->
+          <span>1</span>
+          <span>/</span>
+          <!-- 전체인원수 -->
+          <span>10명</span>
+        </li>
+        <li class="chatroom">
+          <!-- 스터디 or 동호회 -->
+          <span class="chatroom-icon">
+            스터디
+          </span>
+          <span class="chatroom-title">
+            <a href="/chatroom.do">
+              스터디 제목
+            </a>
+          </span>
+          <!--  사람모양 이미지 넣을자리 -->
+          <span><img style="width:25px; height: 25px;"></span> 
+          <!-- 참여인원 수  -->
+          <span>1</span>
+          <span>/</span>
+          <!-- 전체인원수 -->
+          <span>10명</span>
+          <li class="chatroom">
+            <!-- 스터디 or 동호회 -->
+            <span class="chatroom-icon">
+              스터디
+            </span>
+            <span class="chatroom-title">
+              <a href="/chatroom.do">
+                스터디 제목
+              </a>
+            </span>
+            <!--  사람모양 이미지 넣을자리 -->
+            <span><img style="width:25px; height: 25px;"></span> 
+            <!-- 참여인원 수  -->
+            <span>1</span>
+            <span>/</span>
+            <!-- 전체인원수 -->
+            <span>10명</span>
+          </li>
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

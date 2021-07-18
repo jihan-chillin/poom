@@ -1,0 +1,104 @@
+@font-face {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+@font-face {
+  font-family: 'NEXON Lv2 Gothic Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400);
+
+#create-chatroom-container{
+  font-family: 'NEXON Lv1 Gothic OTF';
+  /* border: 1px solid #000000; */
+  border-radius: 20px;
+  width: 600px;
+  display: grid;
+  grid-template-rows: 60px 60px 250px 150px 60px 60px 60px;
+  justify-content: center;
+  align-content: center;
+  background: #f7f7f7;
+}
+#create-chatroom-container div{
+  justify-self: center;
+}
+/* 스터디 or 소모임 */
+#create-chatroom-container>:nth-child(1){
+  font-size: 25px;
+  width: 250px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+}
+
+/* 제목 */
+#create-chatroom-container>:nth-child(2)>input{
+  width :500px;
+  height: 40px;
+  font-size: 25px;
+}
+/* 내용 */
+#create-chatroom-container>:nth-child(3)>textarea{
+  margin-top: 10px;
+  width :500px;
+  height: 210px;
+  font-size: 20px;  
+}
+/* 조건 */
+#create-chatroom-container>:nth-child(4)>textarea{
+  /* margin-top: 10px; */
+  width :500px;
+  height: 100px;
+  font-size: 20px;  
+}
+
+/* 참여인원 수 */
+#create-chatroom-container>:nth-child(5){
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 30px;
+  /* justify-self: center; */
+}#create-chatroom-container>:nth-child(5)>:nth-child(2)>:nth-child(2n-1){
+  cursor: pointer;
+}
+
+#create-chatroom-container>:nth-child(6){
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 30px;
+}
+#create-chatroom-container>:nth-child(7){
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.gather-date{
+  /* height: 30px; */
+  font-size: 17px;
+}
+
+.send-btn {
+  width:120px;
+  height: 40px;
+  background-color: #287094;
+  border: none;
+  color:#fff;
+  /* padding: 15px 0; */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px;
+  cursor: pointer;
+}
