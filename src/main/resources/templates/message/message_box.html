@@ -2,6 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <!--message css-->
+    <link th:href="@{/css/message/message_tap.css}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -21,6 +23,23 @@
         <!-- message 구역  -->
         <div class="feed">
             <a>쪽지함 구성</a>
+            <ul class="tabs">
+                <li class="tab-link current" data-tab="tab-1">받은쪽지</li>
+                <li class="tab-link" data-tab="tab-2">보낸쪽지</li>
+                <li class="tab-link" data-tab="tab-3">차단함</li>
+                <li><input type="text" value="쪽지 검색창 "></li>
+            </ul>
+
+            <div id="tab-1" class="tab-content current">
+                받은 쪽지 확인은 여기
+            </div>
+            <div id="tab-2" class="tab-content">
+                보낸 쪽지 확인은 여기
+            </div>
+            <div id="tab-3" class="tab-content">
+               차단 쪽지 확인은 여기
+            </div>
+
         </div>
 
 
@@ -30,5 +49,6 @@
 </body>
 
 <script th:src="@{/js/main/main_js_jk.js}"></script>
+<script th:src="@{/js/message/message_js_sh.js}"></script>
 
 </html>
