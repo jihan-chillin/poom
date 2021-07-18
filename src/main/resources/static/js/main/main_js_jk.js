@@ -24,3 +24,8 @@ $(document).ready(function(){
 function moveChatList(){
     location.replace("/chat/list");
 }
+
+//프로필 부분 쪽지아이콘 클릭스 쪽지 페이지로 이동
+function messageBox(){
+    location.replace("/message");
+}
