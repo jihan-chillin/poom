@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<style>
+	#pay_container{
+		/* position:absolute;
+		top:130px; */
+		border:1px solid black;
+		width:100%;	height:700px;
+		padding:50px;
+	}
+	/* 페이지 제목 */
+	#pay_container>p{
+	    text-align: center;
+	    font-weight: bold;
+	    font-size:30px;
+	    margin-bottom:30px;
+	}
+	
+	/* form태그 */
+	#pay_container>form{
+	    background:#f7f7f7;;
+	    border-radius: 20px;
+	    padding:20px;
+	    height:430px;
+	    margin:0 auto;
+/* 	    display:flex; 
+    	flex-direction: column;
+    	justify-content:space-evenly; */
+	}
+	#pay_container ul{
+	    padding:0; margin:0;
+	    vertical-align: center;
+	    
+	}
+	#pay_container li{
+	    list-style:none;
+	    margin:30px;
+	    height:60px;
+	    border-radius: 25px;
+	    background-color: #ffffff;
+	}
+	#pay_container li>*{
+	    display:inline-block;
+	    width:100px;
+	    position:relative;
+	    top:15px; left:30px;
+	    font-size:20px;
+	}
+	#pay_container li input{
+		display:none;
+	}
+	#pay_container li label{
+	    width:150px;
+	}
+	/* 화살표 */
+	#pay_container li>span:nth-of-type(2){
+	    text-align:center;
+	    /* font-size:40px; height:10px;
+	    display:inline-block; */
+	}
+	/* 할인 전 가격 */
+	#pay_container li :nth-child(2){
+	    text-decoration: line-through;
+	}
+	/* 버튼 포함된 div */
+	#pay_container>form>div{
+	    display:flex;
+	    justify-content: center;
+	    margin-top:20px;
+	}
+	/* 버튼 */
+	#pay_container>form>div *{
+	    width:150px; height:60px;
+	    cursor:pointer;
+	    border:1px solid gray;
+	    border-radius: 3px;
+	    background-color: #fdfdfd;
+	}
+	#pay_container>form>div>input{
+	    background-color:#F77B1E;
+	}
+</style>
+<body>
+    <div id="wrapper">
+    
+    	<!-- 헤더바 -->
+        <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+    	<!-- 좌측메뉴바 -->
+        <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+   
+   		<div id="content">
+	        <!-- 구매화면 -->
+	        <div id="pay_container">
+	            <p>열람권 구매하기</p>
+	            <form action="" method="post">
+	                <ul>
+	                    <li>
+	                        <label><input type="radio" name="itemNo" value="">7일 이용권</label>
+	                        <span>\ 4,900</span>
+	                        <span>➔</span>
+	                        <span>\ 2,900</span>
+	                    </li>
+	                    <li>
+	                        <label><input type="radio" name="itemNo" value="">14일 이용권</label>
+	                        <span>\ 9,900</span>
+	                        <span>➔</span>
+	                        <span>\ 4,900</span>
+	                    </li>
+	                    <li>
+	                        <label><input type="radio" name="itemNo" value="">30일 이용권</label>
+	                        <span>\ 19,800</span>
+	                        <span>➔</span>
+	                        <span>\ 5,900</span>
+	                    </li>
+	                </ul>
+	                <div>
+	                    <input type="submit" class="btn" value="결제"/>&nbsp;&nbsp;
+	                    <button type="button" class="btn" onclick="">취소</button>
+	                </div>
+	            </form>
+	        </div>
+        </div>
+    </div>
+    
+
+    
+</body>
+</html>
