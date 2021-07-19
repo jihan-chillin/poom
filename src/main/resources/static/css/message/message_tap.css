@@ -1,45 +1,36 @@
-ul.tabs{
-    margin: 0px;
-    padding: 0px;
-    list-style: none;
-}
-ul.tabs li{
-    background: none;
-    color: #222;
-    display: inline-block;
-    padding: 10px 15px;
-    cursor: pointer;
-}
-
-ul.tabs li.current{
-    /*background: #f7f7f7;*/
-    /*color: #222;*/
-}
-
-.tab-content{
-    display: none;
-    background: #f7f7f7;
-    padding: 15px;
-    border-radius: 20px;
-}
-
-.tab-content.current{
-    display: inherit;
-}
-
-.buttonbox{
-    font-size: 25px;
-}
-<!--테이블 css -->
-
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
-    border-radius: 20px;
+}
+body{
+    margin-top: 100px;
+    margin-left: 100px;
+}
+.col {
+    border-collapse: collapse;
 }
 
-tablebox{
-    width : 900px;
-    backgroundcolor: f7f7f7;
+button {
+    background-color: #f7f7f7;
+    padding: 8px 30px !important;
+    width: 140px;
+    font-size: 20px;
+    color: black;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border: 0px solid transparent;
+    float: left;
+}
+
+button:hover {
+    background-color: #f7f7f7;
+}
+
+input msgsearch{
+    font-size: 20px;
+    width: 140px;
+    border-radius: 20px;
 
 
 }
@@ -50,23 +41,20 @@ tablebox{
 table {
     text-align: center;
     font-size: 17px;
-
-    /*!*margin-top: 100px;*!*/
-    /*<!--margin-left: 100px;-->*/
 }
 
 th {
-    background-color: #fdfdfd;
-    border-radius: 20px;
+    background-color: #f7f7f7;
+    border: 1px solid rgba(224, 224, 224, 0.2);
     height: 34px;
     color: black;
-    font-size: 15px;
+    font-size: 20px;
 }
 
 tr,
 td {
     padding: 4px 0px;
-    border-radius: 20px;
-    font-size: 15px;
+    border: 1px solid rgba(224, 224, 224, 0.2);
+    font-size: 17px;
 }
 

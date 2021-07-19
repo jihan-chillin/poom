@@ -24,12 +24,6 @@ $(document).ready(function() {
         $("#table2").hide();
         $("#table3").show();
     })
-    $("#btn_4").click(function() {
-
-        $("#table1").hide();
-        $("#table2").hide();
-        $("#table3").hide();
-    })
 })
 
 
