@@ -22,7 +22,7 @@
 
         <!-- message 구역  -->
         <div class="feed">
-            <a>쪽지함 구성</a>
+
             <ul class="tabs">
                 <li class="tab-link current" data-tab="tab-1">받은쪽지</li>
                 <li class="tab-link" data-tab="tab-2">보낸쪽지</li>
@@ -30,10 +30,72 @@
                 <li><input type="text" value="쪽지 검색창 "></li>
             </ul>
 
-            <!--테이블 부분-->
-            <div th:replace="/message/messagetable.html :: fragment-messagetable"></div>
+            <!--쪽지함 테이블 -->
+<!--            <div th:replace="/message/messagetable.html :: fragment-messagetable"></div>-->
+
+            <div id="tab-1" class="tab-content">
+                <table class="col-100 col">
+                    <colgroup>
+                        <col width="10%">
+                        <col width="20%">
+                        <col width="*%">
+                        <col width="*%">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>보낸사람</th>
+                        <th>제목</th>
+                        <th>내용</th>
+                        <th>일자</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div class="checkbox2 m-0">
+                                <input id="checkbox1" type="checkbox">
+                                <label for="checkbox1">
+                                </label>
+                            </div>
+                        </td>
+                        <td>♥</td>
+                        <td>♥</td>
+                        <td>♥</td>
+                        <td>♥</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox2 m-0">
+                                <input id="checkbox2" type="checkbox">
+                                <label for="checkbox2">
+                                </label>
+                            </div>
+                        </td>
+                        <td>♥</td>
+                        <td>♥</td>
+                        <td>♥</td>
+                        <td>♥</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="checkbox2 m-0">
+                                <input id="checkbox3" type="checkbox">
+                                <label for="checkbox3">
+                                </label>
+                            </div>
+                        </td>
+                        <td>♥</td>
+                        <td>♥</td>
+                        <td>♥</td>
+                        <td>♥</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <div id="tab-2" class="tab-content">
-                <div th:replace="/message/messagetable.html :: fragment-messagetable"></div>
+                보낸쪽지
             </div>
             <div id="tab-3" class="tab-content">
                차단 쪽지 확인은 여기
