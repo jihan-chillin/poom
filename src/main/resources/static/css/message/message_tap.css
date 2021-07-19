@@ -27,6 +27,9 @@ ul.tabs li.current{
     display: inherit;
 }
 
+.buttonbox{
+    font-size: 25px;
+}
 <!--테이블 css -->
 
 * {
@@ -46,7 +49,7 @@ tablebox{
 
 table {
     text-align: center;
-    font-size: 14px;
+    font-size: 17px;
 
     /*!*margin-top: 100px;*!*/
     /*<!--margin-left: 100px;-->*/
@@ -57,13 +60,13 @@ th {
     border-radius: 20px;
     height: 34px;
     color: black;
-    font-size: 12px;
+    font-size: 15px;
 }
 
 tr,
 td {
     padding: 4px 0px;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 15px;
 }
 
