@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_form.css}">
+	
+    <div id="wrapper">
+    
+    	<!-- 헤더바 -->
+        <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+    	<!-- 좌측메뉴바 -->
+        <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+   
+   		<div id="content">
+	        <!-- 구매화면 -->
+	        <div id="board_form">
+	            <form action="@{/board/boardForm}" method="post">
+	            	<ul>
+	            		<li><span>제목</span><input type="text" name="boardTitle"></li>
+	            		<li><span>첨부파일</span><input type="file" name="boardImg"></li>
+	            		<li>
+	            			<span>내용</span><br>
+	            			<textarea name="boardContent"></textarea>
+	            		</li>
+	            		<li>
+	            			<input type="text" placeholder="태그를 입력하세요(최대 10자)">
+	            		</li>
+	            	</ul>
+	                <div>
+	                    <input type="submit" class="btn" value="등록"/>&nbsp;&nbsp;
+	                    <button type="button" class="btn" onclick="location.assign('/');">취소</button>
+	                </div>
+	            </form>
+	        </div>
+        </div>
+    </div>
+    
+	<script>
+		$("div#pay_container li").click((e)=>{
+			console.log($(e).target.find("input"));
+		});
+	</script>
+    
+</body>
+</html>
