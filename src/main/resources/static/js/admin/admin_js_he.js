@@ -15,6 +15,42 @@ $("#blame_menu").parent().click((e)=>{
 	}else if(adminTitle=="pay"){
 		$("#admin_menu>ul>li:last").css("color","#F77B1E");
 	}
-}); */
+});*/
 
 //ajax시도해보기
+//Chart.js
+
+$(document).ready(function(){
+	function cash_chart(){
+		new Chart(document.getElementById("line-chart"), {
+		type: 'line',
+		data: {
+		    labels: [1,2,3,4,5,6,7],
+		    datasets: [{ 
+		        label: "7일권",
+		        data: [2900,5800,8700,0,2900,2900,8700],
+		        borderColor: "#4285F4",
+		        fill: false
+		    }, { 
+		        data: [0,0,4900,14700,9800,9800,4900],
+		        label: "14일권",
+		        borderColor: "#DB4437",
+		        fill: false
+		    }, { 
+		        data: [11800,5900,0,0,59000,29500,11800],
+		        label: "30일권",
+		        borderColor: "#F4B400",
+		        fill: false
+		    }
+		    ]
+		},
+		options: {
+		    title: {
+		    display: true,
+		    text: '이번주 결제 현황'
+		    }
+		}
+		});
+	}
+	cash_chart();
+});

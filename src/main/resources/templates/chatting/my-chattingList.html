@@ -17,13 +17,18 @@
       <ul>
         <li class="chatroom">
           <!-- 스터디 or 동호회 -->
+          <div></div>
+          <div id="nochatroom">
+            참여중인 채팅방이 없습니다.
+          </div>
+
           <span class="chatroom-icon">
             스터디
           </span>
           <span class="chatroom-title">
-            <a href="/chatroom.do">
+            <span>
               스터디 제목
-            </a>
+            </span>
           </span>
           <!--  사람모양 이미지 넣을자리 -->
           <span><img style="width:25px; height: 25px;"></span>
@@ -35,5 +40,6 @@
         </li>
       </ul>
     </div>
+<!--    <script th:src="@{/js/chatting/chatting_js_hu.js}"></script>-->
   </div>
 </html>

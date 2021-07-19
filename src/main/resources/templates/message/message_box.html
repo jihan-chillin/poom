@@ -22,25 +22,121 @@
 
         <!-- message 구역  -->
         <div class="feed">
-            <a>쪽지함 구성</a>
-            <ul class="tabs">
-                <li class="tab-link current" data-tab="tab-1">받은쪽지</li>
-                <li class="tab-link" data-tab="tab-2">보낸쪽지</li>
-                <li class="tab-link" data-tab="tab-3">차단함</li>
-                <li><input type="text" value="쪽지 검색창 "></li>
-            </ul>
 
-            <!--테이블 부분-->
-            <div th:replace="/message/messagetable.html :: fragment-messagetable"></div>
-            <div id="tab-2" class="tab-content">
-                <div th:replace="/message/messagetable.html :: fragment-messagetable"></div>
+
+            <div class="buttonbox">
+                <button type="button" id="btn_1">받은쪽지</button>
+                <button type="button" id="btn_2">보낸쪽지</button>
+                <button type="button" id="btn_3">차단함</button>
             </div>
-            <div id="tab-3" class="tab-content">
-               차단 쪽지 확인은 여기
+            <div >
+            <input type="msgsearch" value="쪽지 검색창">
             </div>
+            <div>
+                <div id="table1">
+                    <table class="col-100 col">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="20%">
+                            <col width="*%">
+                            <col width="*%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>보낸사람</th>
+                            <th>제목</th>
+                            <th>내용</th>
+                            <th>보낸일자</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="checkbox2 m-0">
+                                    <input id="check" type="checkbox">
+                                    <label for="check">
+                                    </label>
+                                </div>
+                            </td>
+                            <td>서연</td>
+                            <td>뭐해?</td>
+                            <td>잘지내?</td>
+                            <td>2021.07.19</td>
+                        </tr>
+                        </tbody>
+                    </table>
 
-
-
+                </div>
+                <div id="table2" >
+                    <table class="col-100 col">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="20%">
+                            <col width="*%">
+                            <col width="*%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>받은사람</th>
+                            <th>제목</th>
+                            <th>내용</th>
+                            <th>읽음여부</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="checkbox2 m-0">
+                                    <input id="check2" type="checkbox">
+                                    <label for="check2">
+                                    </label>
+                                </div>
+                            </td>
+                            <td>혜현</td>
+                            <td>일은 잘돼가?</td>
+                            <td>밥은 잘 챙겨먹고?</td>
+                            <td>2021.07.19.14:03 읽음</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="table3" >
+                    <table class="col-100 col">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="20%">
+                            <col width="*%">
+                            <col width="*%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>보낸사람</th>
+                            <th>제목</th>
+                            <th>내용</th>
+                            <th>보낸일자</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="checkbox2 m-0">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label for="checkbox1">
+                                    </label>
+                                </div>
+                            </td>
+                            <td>OK저축은행</td>
+                            <td>대출상담문의</td>
+                            <td>10만원 소액대출가능</td>
+                            <td>2021.06.18</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <!-- HOT키워드순위창 -->
