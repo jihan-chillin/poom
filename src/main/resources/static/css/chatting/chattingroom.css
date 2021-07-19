@@ -28,13 +28,13 @@
 
 #room-container{
   display: grid;
-  width: 900px;
+  width: 100%;
   grid-template-rows: 60px 840px;
   border : 1px #000000 solid;
 }
 #room-container .chatroom-header{
   display: grid;
-  grid-template-columns: 300px 500px 100px;
+  grid-template-columns: 400px 530px 100px;
   border-bottom:1px #000000 solid;
   align-content: center;
 }
@@ -73,11 +73,11 @@
 /* 채팅 내용 */
 #chat-container{
   display: grid;
-  grid-template-columns: 750px 150px;
+  grid-template-columns: 885px 150px;
 }
 #chat-container .chat-content-container{
   display: grid;
-  grid-template-rows: 640px 200px;
+  grid-template-rows: 640px 150px;
 }
 #chat-container .chat-content-container .chat-list-container>div>ul li{
     margin-bottom: 15px;
@@ -93,7 +93,7 @@
 
 /* 메세지 내용 */
 .msg-container{
-  width: 740px;
+  width: 885px;
   padding: 10px;
   font-size: 20px;
 }
@@ -237,7 +237,7 @@ font-size: 18px;
 }
 #chat-container .send-container .send-msg-content{
   border:none;
-  width: 80%;
+  width: 84.7%;
   height: 100px;
   font-size: 27px;
 }
