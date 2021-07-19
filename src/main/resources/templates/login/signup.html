@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원가입</title>
-
-    <!-- style -->
-    <link rel="stylesheet" href="css/signup_jk.css" type="text/css">
-
-    <!-- Jquery 3.6.0 CND -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="js/signup_jk.js"></script>
-
+	<div th:replace="/fragments/header.html :: fragment-header"></div>
+	<!-- css -->
+	<link th:href="@{/css/login/signup_jk.css}" rel="stylesheet" type="text/css">
 </head>
+
 <body>
-    <div id="wrapper">
-        <img src="images/logo.png" alt="poom로고">
-        <div id="content">
+    <div id="signup_wrapper">
+        <img th:src="@{/images/ui/logo.png}" alt="poom로고">
+        <div id="signup_content">
             <form action="" id="signUp">
                 <table class="signup_table">
                     <tr>
@@ -57,7 +49,7 @@
                     </tr>
                 </table>
                 <hr>
-                <div id="keyword">
+                <div id="signup_keyword">
                     <p>
                         #관심키워드<br>
                         <span class="red_star">(최대3개선택)</span>
@@ -75,10 +67,12 @@
                 <hr>
                 <div class="signup_btn">
                     <button class="button_able">가입</button>
-                    <button>취소</button>
+                    <button onclick="goIndex();">취소</button>
                 </div>
             </form>
         </div>
     </div>
 </body>
+
+<script th:src="@{/js/login/signup_js_jk.js}"></script>
 </html>
