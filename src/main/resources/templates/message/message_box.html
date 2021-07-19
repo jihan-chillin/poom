@@ -30,19 +30,21 @@
                 <li><input type="text" value="쪽지 검색창 "></li>
             </ul>
 
-            <div id="tab-1" class="tab-content current">
-                받은 쪽지 확인은 여기
-            </div>
+            <!--테이블 부분-->
+            <div th:replace="/message/messagetable.html :: fragment-messagetable"></div>
             <div id="tab-2" class="tab-content">
-                보낸 쪽지 확인은 여기
+                <div th:replace="/message/messagetable.html :: fragment-messagetable"></div>
             </div>
             <div id="tab-3" class="tab-content">
                차단 쪽지 확인은 여기
             </div>
 
+
+
         </div>
 
-
+        <!-- HOT키워드순위창 -->
+        <div th:replace="/fragments/rank.html :: fragment-rank"></div>
 
     </div>
 </div>
