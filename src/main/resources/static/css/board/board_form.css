@@ -1,0 +1,69 @@
+div#board_form{
+	width:1620px; height:700px;
+	padding:50px;
+}
+div#board_form>form{
+    border-radius: 20px;
+    padding:20px;
+    width:80%; height:430px;
+    margin:0 auto;
+}
+#board_form ul{
+    padding:0; margin:0;
+    vertical-align: center;
+    
+}
+#board_form li{
+    list-style:none;
+    margin:30px;
+    /* height:60px; */
+    padding:20px 0;
+    border-radius: 25px;
+    background-color: #ffffff;
+}
+#board_form li *{
+    display:inline-block;
+    width:100px;
+    position:relative;
+    top:15px; left:30px;
+    font-size:20px;
+}
+#board_form li input{
+    width: 900px;
+    /* padding: 10px;
+    padding-left: 20px;
+    margin-right: 20px; */
+    outline: none;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    font-size: 20px;
+}
+#board_form li>textarea{
+	border:1px solid lightgray;
+	width:1000px;
+	height:300px;
+	margin-top:30px;
+}
+#board_form li:last-child input{
+	border:1px solid lightgray;
+	width:1000px;
+	padding:10px;
+}
+/* 버튼 포함된 div */
+#board_form>form>div{
+    display:flex;
+    justify-content: center;
+    margin-top:20px;
+}
+/* 버튼 */
+#board_form>form>div *{
+    width:150px; height:60px;
+    cursor:pointer;
+    border:1px solid gray;
+    border-radius: 3px;
+    background-color: #fdfdfd;
+
+}
+#board_form>form>div>input{
+    background-color:#F77B1E;
+}
