@@ -76,7 +76,7 @@ div.search_bar>button {
     border: none;
     background: rgb(6, 102, 146);
     color: white;
-    font-size: bolder;
+    /*font-size: bold;*/
     cursor: pointer;
 }
 ul.header_ui {
@@ -228,6 +228,17 @@ div.profile {
     display: flex;
     flex-direction: column;
 }
+
+.edit-btn{
+    border-radius: 10px;
+    width: 50px;
+    margin: 10px 0 0 170px;
+    height: 20px;
+    background-color: #287094;
+    border: none;
+    color: white;
+    font-size: 10px;
+}
 div.profile>img {
     width: 200px;
     height: 200px;
@@ -249,7 +260,7 @@ div.profile>p:nth-of-type(2) {
     height: auto;
     background: #fdfdfd;
     border-radius: 20px;
-    padding: 20px;
+    padding: 20px 20px 10px 20px;
     font-size: 15px;
     margin-bottom: 10px;
 }
