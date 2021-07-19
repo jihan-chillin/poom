@@ -1,168 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<!-- 내 css -->
-	<link th:href="@{/css/admin/admin_pay.css}" rel="stylesheet" type="text/css">
-    <div th:replace="/fragments/header.html :: fragment-header"></div>
-</head>
-<body>
-    <div id="wrapper">
-        <<!-- 헤더바 -->
-        <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
-        
-        <!-- 관리자 메뉴바 -->
-        <div th:replace="/fragments/admin_nav.html :: admin_nav"></div>
-        
-        <div id="admin_page_title" th:text="${type}" style="display:none;">admin 페이지 제목</div>
-        
-        <div id="pay_section">
-            <div>
-                <div id="chart">
-                    <canvas id="line-chart" ></canvas>
-                </div>
-                <div id="sales">
-                    <h1>어제 총 매출액 : 1,000,000원</h1>
-                    <h2>당월 예상 매출액 : 1,000,000원</h2>
-                </div>
-            </div>
-            <div id="pay_table_content">
-                <p>최근 구매 내역</p>
-                <table id="pay_table">
-                    <select name="pay_days" id="pay_days">
-                        <option value="all" selected>전체</option>
-                        <option value="7">7일권</option>
-                        <option value="14">14일권</option>
-                        <option value="30">30일권</option>
-                    </select>
-                    <thead>
-                    <tr>
-                        <th>구매일시</th>
-                        <th>아이디</th>
-                        <th>닉네임</th>
-                        <th>이용권 종류</th>
-                    </tr>
-                    </thead>
-               
-                    <tr>
-                        <td>2021.07.18</td>
-                        <td>qwerqwer</td>
-                        <td>체어킹</td>
-                        <td>30일권</td>
-                    </tr>
-                    <tr>
-                        <td>2021.07.17</td>
-                        <td>qwer2</td>
-                        <td>체어킹2</td>
-                        <td>7일권</td>
-                    </tr>
-                    <tr>
-                        <td>2021.07.16</td>
-                        <td>qwer3</td>
-                        <td>3체어킹</td>
-                        <td>14일권</td>
-                    </tr>
-                    <tr>
-                        <td>2021.07.15</td>
-                        <td>qwer4</td>
-                        <td>체어킹4</td>
-                        <td>14일권</td>
-                    </tr>
-                    <tr>
-                        <td>2021.07.14</td>
-                        <td>qwerqwer5</td>
-                        <td>체어킹</td>
-                        <td>7일권</td>
-                    </tr>
-                </table>
-            </div>
-            <!-- <div id="linechart_material" style="width: 900px; height: 500px"></div> -->
-               
+<div id="admin_page_title" th:text="${type}" style="display:none;">admin 페이지 제목</div>
+
+<div id="pay_section">
+    <div>
+        <div id="chart">
+            <canvas id="line-chart" ></canvas>
+        </div>
+        <div id="sales">
+            <h1>어제 총 매출액 : 1,000,000원</h1>
+            <h2>당월 예상 매출액 : 1,000,000원</h2>
         </div>
     </div>
+    <div id="pay_table_content">
+        <p>최근 구매 내역</p>
+        <table id="pay_table">
+            <select name="pay_days" id="pay_days">
+                <option value="all" selected>전체</option>
+                <option value="7">7일권</option>
+                <option value="14">14일권</option>
+                <option value="30">30일권</option>
+            </select>
+            <thead>
+            <tr>
+                <th>구매일시</th>
+                <th>아이디</th>
+                <th>닉네임</th>
+                <th>이용권 종류</th>
+            </tr>
+            </thead>
+       
+            <tr>
+                <td>2021.07.18</td>
+                <td>qwerqwer</td>
+                <td>체어킹</td>
+                <td>30일권</td>
+            </tr>
+            <tr>
+                <td>2021.07.17</td>
+                <td>qwer2</td>
+                <td>체어킹2</td>
+                <td>7일권</td>
+            </tr>
+            <tr>
+                <td>2021.07.16</td>
+                <td>qwer3</td>
+                <td>3체어킹</td>
+                <td>14일권</td>
+            </tr>
+            <tr>
+                <td>2021.07.15</td>
+                <td>qwer4</td>
+                <td>체어킹4</td>
+                <td>14일권</td>
+            </tr>
+            <tr>
+                <td>2021.07.14</td>
+                <td>qwerqwer5</td>
+                <td>체어킹</td>
+                <td>7일권</td>
+            </tr>
+        </table>
+    </div>
+       
+</div>
+   <!--  </div> -->
 
 <!--     <script>
         $("#blame_menu").parent().click((e)=>{
             $("#blame_menu").toggle(500);
         });
     </script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> -->
     <script>
         //chart.js
-        new Chart(document.getElementById("line-chart"), {
-        type: 'line',
-        data: {
-            labels: [1,2,3,4,5,6,7],
-            datasets: [{ 
-                label: "7일권",
-                data: [2900,5800,8700,0,2900,2900,8700],
-                borderColor: "#4285F4",
-                fill: false
-            }, { 
-                data: [0,0,4900,14700,9800,9800,4900],
-                label: "14일권",
-                borderColor: "#DB4437",
-                fill: false
-            }, { 
-                data: [11800,5900,0,0,59000,29500,11800],
-                label: "30일권",
-                borderColor: "#F4B400",
-                fill: false
-            }
-            ]
-        },
-        options: {
-            title: {
-            display: true,
-            text: '이번주 결제 현황'
-            }
-        }
-        });
+		 $(document).ready(function(){
+			function cash_chart(){
+				new Chart(document.getElementById("line-chart"), {
+				type: 'line',
+				data: {
+				    labels: [1,2,3,4,5,6,7],
+				    datasets: [{ 
+				        label: "7일권",
+				        data: [2900,5800,8700,0,2900,2900,8700],
+				        borderColor: "#4285F4",
+				        fill: false
+				    }, { 
+				        data: [0,0,4900,14700,9800,9800,4900],
+				        label: "14일권",
+				        borderColor: "#DB4437",
+				        fill: false
+				    }, { 
+				        data: [11800,5900,0,0,59000,29500,11800],
+				        label: "30일권",
+				        borderColor: "#F4B400",
+				        fill: false
+				    }
+				    ]
+				},
+				options: {
+				    title: {
+				    display: true,
+				    text: '이번주 결제 현황'
+				    }
+				}
+				});
+			}
+			cash_chart();
+		});
     </script>
-    
-    <!--구글차트-->
-    <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['line']});
-      google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart() {
-
-      var data = new google.visualization.DataTable();
-      data.addColumn('number', '이번주 결제현황');
-      data.addColumn('number', '7일권');
-      data.addColumn('number', '14일권');
-      data.addColumn('number', '30일권');
-
-      data.addRows([
-        [1,  2900,0,11800],
-        [2,  5800,0,5900],
-        [3,  8700,4900,0],
-        [4,  0,14700,0],
-        [5,  2900,9800,59000],
-        [6,   2900,9800,29500],
-        [7,   8700,4900,11800],
-        // [8,  12.3, 29.2, 10.6],
-        // [9,  16.9, 42.9, 14.8],
-        // [10, 12.8, 30.9, 11.6],
-        // [11,  5.3,  7.9,  4.7],
-        // [12,  6.6,  8.4,  5.2],
-        // [13,  4.8,  6.3,  3.6],
-        // [14,  4.2,  6.2,  3.4]
-      ]);
-
-      var options = {
-        chart: {
-          title: '이번주 결제현황',
-        //   subtitle: 'in millions of dollars (USD)'
-        },
-        width: 900,
-        height: 500
-      };
-
-      var chart = new google.charts.Line(document.getElementById('linechart_material'));
-
-      chart.draw(data, google.charts.Line.convertOptions(options));
-    }
-    </script> -->
+<!-- 
 </body>
-</html>
+</html> -->
