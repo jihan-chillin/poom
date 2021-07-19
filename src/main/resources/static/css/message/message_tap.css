@@ -12,16 +12,58 @@ ul.tabs li{
 }
 
 ul.tabs li.current{
-    background: #ededed;
-    color: #222;
+    /*background: #f7f7f7;*/
+    /*color: #222;*/
 }
 
 .tab-content{
     display: none;
-    background: #ededed;
+    background: #f7f7f7;
     padding: 15px;
+    border-radius: 20px;
 }
 
 .tab-content.current{
     display: inherit;
 }
+
+<!--테이블 css -->
+
+* {
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+tablebox{
+    width : 900px;
+    backgroundcolor: f7f7f7;
+
+
+}
+.col-100 {
+    width: 100%;
+}
+
+table {
+    text-align: center;
+    font-size: 14px;
+
+    /*!*margin-top: 100px;*!*/
+    /*<!--margin-left: 100px;-->*/
+}
+
+th {
+    background-color: #fdfdfd;
+    border-radius: 20px;
+    height: 34px;
+    color: black;
+    font-size: 12px;
+}
+
+tr,
+td {
+    padding: 4px 0px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
