@@ -1,27 +1,60 @@
-ul.tabs{
-    margin: 0px;
-    padding: 0px;
-    list-style: none;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-ul.tabs li{
-    background: none;
-    color: #222;
-    display: inline-block;
-    padding: 10px 15px;
-    cursor: pointer;
+body{
+    margin-top: 100px;
+    margin-left: 100px;
 }
-
-ul.tabs li.current{
-    background: #ededed;
-    color: #222;
+.col {
+    border-collapse: collapse;
 }
 
-.tab-content{
-    display: none;
-    background: #ededed;
-    padding: 15px;
+button {
+    background-color: #f7f7f7;
+    padding: 8px 30px !important;
+    width: 140px;
+    font-size: 20px;
+    color: black;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border: 0px solid transparent;
+    float: left;
 }
 
-.tab-content.current{
-    display: inherit;
+button:hover {
+    background-color: #f7f7f7;
 }
+
+input msgsearch{
+    font-size: 20px;
+    width: 140px;
+    border-radius: 20px;
+
+
+}
+.col-100 {
+    width: 100%;
+}
+
+table {
+    text-align: center;
+    font-size: 17px;
+}
+
+th {
+    background-color: #f7f7f7;
+    border: 1px solid rgba(224, 224, 224, 0.2);
+    height: 34px;
+    color: black;
+    font-size: 20px;
+}
+
+tr,
+td {
+    padding: 4px 0px;
+    border: 1px solid rgba(224, 224, 224, 0.2);
+    font-size: 17px;
+}
+

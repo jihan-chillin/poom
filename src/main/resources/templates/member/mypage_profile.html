@@ -4,7 +4,8 @@
 <head>
     <!-- CSS -->
     <link th:href="@{/css/main/main_style_jk.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/member/member_jh.css}" rel="stylesheet" type="text/css">
+    <!--내 css -->
+    <link rel="stylesheet" type="text/css" href="/css/member/member_modi.css">
 
     <div th:replace="/fragments/header.html :: fragment-header"></div>
 </head>
@@ -39,47 +40,49 @@
 
             <!-- 정보 수정란 -->
             <div id = "info-modi">
-                <table>
-                    <colgroup>
-                    <tbody>
-                    <tr>
-                        <td class="modi-bold">닉네임</td>
-                        <td><input type="text" class="normal-size" value="닉네임 불러오기"></td>
-                    </tr>
-                    <tr>
-                        <td class="modi-bold">자기소개</td>
-                        <td><textarea name="intro" cols="50" rows="5" placeholder="30자 이내로 멋진 자기소개를 해보아요!"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td class="modi-bold">프로필사진</td>
-                        <td class="profile-container">
-                            <div class="profile-img">
-                                <img id = "img">
-                            </div>
-                            <div class="profile-txt">
-                                <p>
-                                    프로필 이미지는<br>
-                                    가로 161px 섬네일로 생성됩니다.
-                                </p>
+                <form action="" method="post" enctype="multipart/form-data">
+                    <table>
+                        <colgroup>
+                        <tbody>
+                        <tr>
+                            <td class="modi-bold">닉네임</td>
+                            <td><input type="text" class="normal-size" value="닉네임 불러오기"></td>
+                        </tr>
+                        <tr>
+                            <td class="modi-bold">자기소개</td>
+                            <td><textarea name="intro" cols="50" rows="5" placeholder="30자 이내로 멋진 자기소개를 해보아요!"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="modi-bold">프로필사진</td>
+                            <td class="profile-container">
+                                <div class="profile-img">
+                                    <img id = "img" alt="">
+                                </div>
+                                <div class="profile-txt">
+                                    <p>
+                                        프로필 이미지는<br>
+                                        가로 161px 섬네일로 생성됩니다.
+                                    </p>
 
-                                <label id="label-btn" class="input-file" for="input-file">
-                                    등록
-                                    <input type="file" id="input-file" name="input-file" accept=".jpg,.jpeg,.png,.gif,.bmp" style="display: none;">
-                                </label>
-                                <input type="button" class="blacksolid-btn" value="삭제">
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <input class="blue-btn" type="button" value="수정">
-                            <input class="blacksolid-btn" type="button" value="취소">
-                        </td>
-                    </tr>
+                                    <label id="label-btn" class="input-file" for="input-file">
+                                        등록
+                                        <input type="file" id="input-file" name="input-file" accept=".jpg,.jpeg,.png,.gif,.bmp" style="display: none;">
+                                    </label>
+                                    <input type="button" class="blacksolid-btn" value="삭제">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input class="blue-btn" type="button" value="수정">
+                                <input class="blacksolid-btn" type="button" value="취소">
+                            </td>
+                        </tr>
 
-                    </tbody>
-                    </colgroup>
-                </table>
+                        </tbody>
+                        </colgroup>
+                    </table>
+                </form>
             </div>
         </div>
 
@@ -88,6 +91,6 @@
 </body>
 
 <script th:src="@{/js/main/main_js_jk.js}"></script>
-<script th:src="@{/js/main/member_jh.js}"></script>
+<script th:src="@{/js/member/member_jh.js}"></script>
 
 </html>
