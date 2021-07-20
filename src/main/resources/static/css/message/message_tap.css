@@ -63,3 +63,13 @@ td {
     font-size: 17px;
 }
 
+div.tablebox>input{
+    width: 170px;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background: rgb(6, 102, 146);
+    color: white;
+}
+
