@@ -1,7 +1,12 @@
+/* 글꼴 - 나눔고딕(googlefonts) */
+/* font-family: 'Nanum Gothic', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 body{
     margin-top: 100px;
