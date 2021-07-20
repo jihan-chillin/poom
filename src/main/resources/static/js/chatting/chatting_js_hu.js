@@ -1,13 +1,13 @@
 'use strict';
 
 //프로필 부분 채팅아이콘 클릭시 채팅리스트로 이동
-function moveChatList(){
+function moveMyChatList(){
   // location.replace("/chat/list");
   $('.feed_write').remove();
   $('.feed_new').remove();
 
   $.ajax({
-    url:'/chat/list',
+    url:'/chat/mylist/page',
     success:function(data){
         $('.feed').html(data)
     },
@@ -36,8 +36,10 @@ function moveChatList(){
         val+= '<span class="chatroom-title">';
         val+= '<span onclick="moveMyChatroom('+chatNo+')">'+data.list.CHAT_TITLE+'</span></span>';
         val+= '<span><img style="width:25px; height: 25px;"></span>';
-        val+= '<span>1</span>';
+        // 채팅방 참여인원수
+        val+= '<span>'+data.countMember+'</span>';
         val+= '<span>/</span>';
+        // 채팅방 제한 인원
         val+= '<span>'+data.list.CHAT_PERSON+'명</span>';
 
         // 채팅방 번호 전달
@@ -69,7 +71,7 @@ function moveMyChatroom(chatNo){
   // 데이터 보내고
   // 페이지 가져오기
   $.ajax({
-    url:'/chat/chatroom',
+    url:'/chat/chatroom/page',
     success:data=>{
       $('#chatlist-container').remove();
       $('.feed').html(data);
@@ -127,15 +129,100 @@ function getChatList(chatNo,url){
       chatNo
     },
     success:data=>{
-      let val = '';
       console.log(data);
+
+      $('.msg-container>*').remove();
+      let val = '';
       // 로그인 한 아이디와 일치하면
       // .my-profile .message-orange
       // 다르면
       // .others-profile .message-blue
       // 나눠야함.
-      // 로그인이 안만들어져서 그냥 함. -> 수정필요함.
+      // 로그인이 안만들어져서 test 아이디로 함. -> 수정필요함.
+      let loginId = 'test';
 
+      for(let i=0; i<data.messageContent.length; i++){
+      // 내가 쓴 메세지 일때
+        if(loginId === data.messageContent[i].MEMBER_ID){
+          val += '<div  class="my-profile">';
+          val += '<img width="30px" height="30px">'+data.messageContent[i].MEMBER_ID+'</div>';
+          val += '<div class="message-orange"><div class="message-content">';
+          val += data.messageContent[i].MESSAGE_CONTENT+'</div></div>';
+        }else{
+          val += '<div class="others-profile">';
+          val += '<img width="30px" height="30px">'+data.messageContent[i].MEMBER_ID+'</div>';
+          val += '<div class="message-blue"><div class="message-content">';
+          val += data.messageContent[i].MESSAGE_CONTENT+'</div></div>';
+        }
+      }
+
+      $('.msg-container').append(val);
     }
   });
+}
+
+function moveChatList(){
+  $('.feed_write').remove();
+  $('.feed_new').remove();
+
+  $.ajax({
+    url:'/chat/list/page',
+    success:function(data){
+      $('.feed').html(data);
+      $('.feed').attr('style','height:905px');
+    },
+    error:(e,m,i)=>{
+      console.log(e);
+      console.log(m);
+      console.log(i);
+    }
+  });
+
+  $.ajax({
+    url:'/chat/list/data',
+    success:data=>{
+      $('.chatroom-list-container>*').remove();
+      let val = '';
+      console.log(data);
+
+      for(let i=0; i<data.chatList.length; i++){
+
+        val +='<div class="chatroom-info">';
+        val +='<div class="chatroom-info-header"><div>';
+
+        if(data.chatList[i].CATEGORY_NO ==='0'){
+          val +='<span class="chatroom-icon">스터디</span></div>';
+        }else{
+          val +='<span class="chatroom-icon">소모임</span></div>';
+        }
+
+        // 모집중 // 모집마감 설정
+        // chat_person하고 현재 채팅방에 있는 사람 수 비교해야함.
+        if(data.chatList[i].CHAT_PERSON > data.chatRoomMemCount[i] ){
+          val += '<div><span>모집중</span></div>';
+        }else{
+          val += '<div><span>모집마감</span></div>';
+        }
+
+        val += '<div><div>...</div></div></div>'
+        val += '<div class="chatroom-content-container"><div class="chatroom-content-title">';
+        // 제목
+        val += data.chatList[i].CHAT_TITLE +'</div><div class="chatroom-content-info">';
+        // 내용
+        val += data.chatList[i].CHAT_CONTENT +'</div></div>';
+
+        val += '<div class="chatroom-mem"><span> </span>';
+        val += '<span><img style="width:25px; height: 25px;"></span>';
+        val += '<span>'+data.chatRoomMemCount[i]+'명</span>';
+        val += '<span>/</span>';
+        val += '<span>'+data.chatList[i].CHAT_PERSON+'명</span></div></div></div>';
+      }
+
+      $('.chatroom-list-container').append(val);
+    }
+  });
+}
+
+function moveChatListDetail(){
+
 }

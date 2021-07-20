@@ -22,4 +22,6 @@ public interface ChattingMapper {
     @Insert("insert into chatmessage values (seq_chatmessage.nextval,#{messageContent},sysdate,#{memberId},'5')")
     public int saveMessage(ChatMessage chatMessage);
 
+    @Select("select * from chat")
+    public List<Map<String,Object>> getChatList();
 }
