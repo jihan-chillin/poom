@@ -1,11 +1,14 @@
 'use strict';
-let memberId=null;
+// 로그인한 세션 아이디를 가져와서 넣어야함
+// 우선 없어서 임시로 넣음
+let memberId='test';
 let stompClient=null;
 
+let messageForm = $('#messageForm');
+let sendMsgContent=$('.send-msg-content');
 
-function webSocketConnect(event){
-  // 로그인한 세션 아이디를 가져와서 넣어야함
-  // 우선 없어서 임시로 넣음
+
+function connect(event){
   memberId = 'test';
 
   if(memberId){
@@ -24,7 +27,7 @@ function onConnected(){
   stompClient.subscribe('/topic/chatroom',onMessageReceived);
 
   stompClient.send("/chat.addUser",{},
-    JSON.stringify({memberId:memberId, type:'JOIN'})
+    JSON.stringify({sender:memberId, type:'JOIN'})
   );
 
 }
@@ -34,19 +37,22 @@ function onError(error){
 }
 
 function sendMessage(event) {
-  let messageContent = $('.send-msg-content').value.trim();
+  let messageContent = sendMsgContent.val();
+
+  // console.log(messageContent);
 
   if(messageContent && stompClient) {
     let chatMessage = {
       memberId: memberId,
-      content: $('.send-msg-content').value,
+      messageContent: messageContent,
       type: 'CHAT'
     };
     stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
 
-    $('.send-msg-content').value = '';
+    sendMsgContent.val('');
   }
-  event.preventDefault();
+
+  return false;
 }
 
 function onMessageReceived(payload){
@@ -54,10 +60,10 @@ function onMessageReceived(payload){
   let messageElement = $('.msg-container');
 
   if(message.type ==='JOIN'){
-    message.content = message.memberId+'채팅방에 참여했습니다.';
+    message.messageContent = message.memberId+'채팅방에 참여했습니다.';
 
   }else if(message.type ==='LEAVE'){
-    message.content = message.memberId+'채팅방을 나갔습니다.';
+    message.messageContent = message.memberId+'채팅방을 나갔습니다.';
 
   }else{
 
@@ -66,5 +72,15 @@ function onMessageReceived(payload){
 
 }
 
-webSocketConnect();
-$('.send-btn').click(sendMessage,true);
+connect();
+// messageForm.addEventListener('submit', sendMessage, true)
+
+let submitAction = e=>{
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+$('form').bind('submit',submitAction);
+messageForm.submit(e=>{
+  sendMessage(e);
+});
