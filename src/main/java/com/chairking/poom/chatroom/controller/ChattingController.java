@@ -35,9 +35,12 @@ public class ChattingController {
     @SendTo("/topic/chatroom")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage){
         log.info("컨트롤러에서 보내는 페이로드 : {}",chatMessage);
+        log.info("메세지 내용 : {}",chatMessage.getMessageContent());
+        log.info("메세지 보낸 아이디 : {}",chatMessage.getMemberId());
+
         // 메세지 디비로 저장하는 메소드
         // 구현 해야함
-//        service.saveMessage(chatMessage);
+        service.saveMessage(chatMessage);
         return chatMessage;
     }
 

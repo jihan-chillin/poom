@@ -2,6 +2,7 @@ package com.chairking.poom.chatroom.model.service;
 
 import com.chairking.poom.chatroom.mapper.ChattingMapper;
 import com.chairking.poom.chatroom.model.dao.ChattingDao;
+import com.chairking.poom.chatroom.model.vo.ChatMessage;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,10 @@ public class ChattingServiceImpl implements ChattingService{
     @Override
     public List<Map> messageContent(String chatNo,int ref) {
         return dao.messageContent(cm,chatNo,ref);
+    }
+
+    @Override
+    public int saveMessage(ChatMessage chatMessage) {
+        return dao.saveMessage(cm,chatMessage);
     }
 }
