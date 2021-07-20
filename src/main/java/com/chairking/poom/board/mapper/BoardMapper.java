@@ -12,7 +12,8 @@ import com.chairking.poom.board.model.vo.Board;
 public interface BoardMapper {
 	
 	//게시글 등록 쿼리
-	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.NEXTVAL, #{})")
+	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.NEXTVAL, #{boardTitle}, "
+			+ "#{boardContent}, DEFAULT, DEFAULT, DEFAULT, #{boardLoc}, DEFAULT, #{boardCate}, #{memberId})")
 	public int insertBoard(Board b);
 	
 	//모든 게시글 조회
