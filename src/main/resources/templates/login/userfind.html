@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <!-- css -->
+	<link th:href="@{/css/login/userfind_jk.css}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div id="userfind_wrapper">
+        <img th:src="@{/images/ui/logo.png}" alt="poom로고">
+        <ul class="findtab">
+            <li th:classappend="${type}==id?tab_on" data-tab="findtab-1">아이디찾기</li>
+            <li th:classappend="${type}==pw?tab_on" data-tab="findtab-2">비밀번호찾기</li>
+        </ul>
+        <div id="userfind_content">
+            <form action="" id="userfind">
+                <div th:classappend="${type}==id?tab_on" id="findtab-1" class="findtab_con">
+                    <p>아이디찾기</p>
+                    <table class="userfind_table">
+                        <tr>
+                            <th>이름<span class="red_star">*</span></th>
+                            <td colspan="2"><input type="text" id="id" required></td>
+                        </tr>
+                        <tr>
+                            <th>이메일<span class="red_star" >*</span></th>
+                            <td colspan="2"><input type="password" id="pw" required></td>
+                        </tr>
+                    </table>
+                    <button type="submit">확인</button>
+                    <button onclick="goIndex();">취소</button>
+                </div>
+                <div th:classappend="${type}==pw?tab_on" id="findtab-2" class="findtab_con">
+                    <p>비밀번호찾기</p>
+                    <table class="userfind_table">
+                        <tr>
+                            <th>ID<span class="red_star">*</span></th>
+                            <td><input type="text" id="id" required></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>이름<span class="red_star">*</span></th>
+                            <td><input type="password" id="pw" required></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>이메일<span class="red_star">*</span></th>
+                            <td><input type="email" id="email" required></td>
+                            <td><button name="email">인증</button></td>
+                        </tr>
+                        <tr class="email_number">
+                            <th>인증번호<span class="red_star">*</span></th>
+                            <td><input type="text" id="email_number" required></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <button type="submit">확인</button>
+                    <button onclick="goIndex();">취소</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+<script th:src="@{/js/login/userfind_js_jk.js}"><</script>
+</html>
