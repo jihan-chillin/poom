@@ -1,74 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<!-- 내 css -->
-	<link th:href="@{/css/admin/admin_notice.css}" rel="stylesheet" type="text/css">
-    <div th:replace="/fragments/header.html :: fragment-header"></div>
-</head>
-<body>
-    <div id="wrapper">
-        <<!-- 헤더바 -->
-        <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
-        
-        <!-- 관리자 메뉴바 -->
-        <div th:replace="/fragments/admin_nav.html :: admin_nav"></div>
-        
-        <div id="admin_section">
-            <div id="admin_page_title" th:text="${type}">admin 페이지 제목</div>
-            <div id="admin_content">
-                <table id="notice_table">
-                    <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>게시판종류</th>
-                        <th>제목</th>
-                        <th>등록날짜</th>
-                        <th>게시여부</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <td>1</td>
-                        <td>출산/육아/교육</td>
-                        <td>지역구별 학군 관련 공지사항</td>
-                        <td>21.07.01</td>
-                        <td>게시중</td>
-                    </tbody>
-                    <tbody>
-                        <td>2</td>
-                        <td>분실물</td>
-                        <td>00시기준 분실물 접수 현황</td>
-                        <td>21.07.02</td>
-                        <td>게시중</td>
-                    </tbody>
-                    <tbody>
-                        <td>3</td>
-                        <td>일손(품앗이)</td>
-                        <td>일손(품앗이) 게시글 작성 공지</td>
-                        <td>21.07.03</td>
-                        <td>삭제</td>
-                    </tbody>
-                    <tbody>
-                        <td>4</td>
-                        <td>스터디/소모임</td>
-                        <td>애인목적 사절합니다. 적발시 영구정지</td>
-                        <td>21.07.04</td>
-                        <td>게시중</td>
-                    </tbody>
-                    <tbody>
-                        <td>5</td>
-                        <td>공동구매</td>
-                        <td>총대분들 공지확인하세요. 먹튀에겐 죽음뿐..</td>
-                        <td>21.07.05</td>
-                        <td>게시중</td>
-                    </tbody>
-                </table>
-                <div id="notice_pagebar">
-                    공지사항 페이지바
-                </div>
-                <button class="admin_buttons">작성하기</button>
-            </div>
+<div id="admin_section">
+    <div id="admin_page_title">공지사항 관리</div>
+    <div id="admin_content">
+        <table id="notice_table" th:if="${list!=null}">
+            <thead>
+            <tr >
+                <th>번호</th>
+                <th>게시판종류</th>
+                <th>제목</th>
+                <th>등록날짜</th>
+                <th>게시여부</th>
+            </tr>
+            </thead>
+            <tbody>
+            	<tr th:each="n : ${list}">
+            		<td>1</td>
+            		<td th:text="${n.CATEGORY_NAME}"></td>
+            		<td th:text="${n.NOTICE_TITLE}"></td>
+            		<td th:text="${#dates.format(n.NOTICE_DATE,'yyyy-MM-dd')}"></td>
+            		<td th:text="${n.NOTICE_STATUS} eq 0?'게시중':'삭제'"></td>
+                </tr>
+            </tbody>
+            
+        </table>
+        <div id="notice_pagebar">
+            공지사항 페이지바
         </div>
+        <button class="admin_buttons" onclick="fn_notice_write();">작성하기</button>
     </div>
-
-</body>
-</html>
+</div>

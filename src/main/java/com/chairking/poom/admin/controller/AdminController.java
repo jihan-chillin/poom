@@ -1,19 +1,24 @@
 package com.chairking.poom.admin.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chairking.poom.admin.model.service.AdminService;
-import com.chairking.poom.admin.model.vo.Notice;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/admin")
+@Slf4j
 public class AdminController {
 
 	@Autowired
@@ -36,12 +41,13 @@ public class AdminController {
 	@GetMapping("/notice")
 	public String notice(String type,Model m) {
 		int count =service.countAllNotice();
-		List<Notice> list = service.allNotice();
+		//List<Notice> list = service.allNotice();
+		//System.out.println(list.size());
+		
+		List<Map<String,Object>> list = service.allNotice();
 		m.addAttribute("list", list);
 		m.addAttribute("count", count);
-		m.addAttribute("type1", type);
-		System.out.println(list.size());
-		return "admin/admin_notice_ajax";
+		return "admin/admin_notice";
 	}
 	
 	//ajax
@@ -58,6 +64,20 @@ public class AdminController {
 		mv.addObject("type",type);
 		mv.setViewName("admin/admin_pay");
 		return mv;
+	}
+	
+	//공지사항글쓰기
+	@GetMapping("/moveWrite")
+	public ModelAndView moveWrite(ModelAndView mv) {
+		mv.addObject("type", "등록1");
+		mv.setViewName("admin/admin_notice_write");
+		return mv;
+	}
+	
+	@PostMapping("/noticeWrite")
+	public void noticeWrite(Map map, ModelAndView mv) {
+		System.out.println(map);
+		//return mv;
 	}
 	
 

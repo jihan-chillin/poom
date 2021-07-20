@@ -1,6 +1,7 @@
 package com.chairking.poom.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,16 @@ public class AdminServiceImpl implements AdminService {
 	public int countAllNotice() {
 		return dao.countAllNotice(mapper);
 	}
+//	@Override
+//	public List<Notice> allNotice() {
+//		return dao.allNotice(mapper);
+//	}
+
 	@Override
-	public List<Notice> allNotice() {
+	public List<Map<String,Object>> allNotice() {
 		return dao.allNotice(mapper);
 	}
+	
+	
 
 }

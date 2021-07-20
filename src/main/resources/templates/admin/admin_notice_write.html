@@ -1,86 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>Document</title>
-    <link rel="stylesheet" href="admin_notice_write.css" type="text/css">
-    <link rel="stylesheet" href="css/main_style_jk.css" type="text/css">
-</head>
-<body>
-    <div id="wrapper">
-        <div id="header">
-            <div class="logo"></div>
-            <div class="search_bar">
-                <input type="text" placeholder="#품 #지역기반커뮤니티 #무엇이든 검색하세요!">
-                <button>go</button>
-            </div>
-            <ul class="header_ui">
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-        </div>
-        <nav>
-            <div id="admin_menu">
-                <div id="admin_profile">
-                    <img src="images/admin.jpg" width="150px" height="150px">
-                    <br>
-                    <br>
-                    <br>
-                    <span>POOM 관리자님, 환영합니다.</span>
-                </div>
-                <ul>
-                    <li><img src="images/notice.png">공지사항관리</li>
-                    <li><img src="images/siren.png">신고관리
-                        <ul id="blame_menu" style="display:none">
-                            <li>신고된 게시글</li>
-                            <li>신고된 댓글</li>
-                            <li>신고된 유저</li>
-                        </ul>
-                    </li>
-                    <li><img src="images/pay.png" >결제관리</li>
-                </ul>
-            </div>
-        </nav>
-        <div id="notice_section">
-            <div id="notice_page_title">
-                공지사항 작성
-            </div>
-            <div id="notice_content">
-                <div id="notice_content_title">
-                    <span class="title_bold" >제목</span>  │<input type="text" placeholder="공지사항 제목을 입력하세요.">
-                </div>
-                <div id="notice_category">
-                    <span class="title_bold">게시판 카테고리</span>
-                    │
-                    <label><input type="checkbox" >전체</label>
-                    <label><input type="checkbox" value="1"> 출산, 육아, 교육</label>
-                    <label><input type="checkbox" value="2"> 분실물</label>
-                    <label><input type="checkbox" value="3"> 일손(품앗이)</label>
-                    <label><input type="checkbox" value="4"> 스터디, 소모임</label>
-                    <label><input type="checkbox" value="5"> 공동구매</label>
-                       
-                    
-                </div>
-                <div id="notice_content_content">
-                    <textarea name="notice_content_write" id="notice_content_write" placeholder="내용을 입력해주세요."></textarea>
-                </div>
-            </div>  
-            <div id="admin_buttons">
-                <button class="admin_buttons">등록</button>
-                <button class="admin_buttons">수정</button>
-                <button class="admin_buttons1">삭제</button>
-            </div>
-        </div>
+<div id="notice_section">
+    <div id="notice_page_title">
+        공지사항 작성
     </div>
-
-    <script>
-        $("#blame_menu").parent().click((e)=>{
-            $("#blame_menu").toggle(500);
-        });
-    </script>
-</body>
-</html>
+    <div id="notice_content">
+        <form th:action="@{/admin/noticeWrite}" method="post">
+	        <div id="notice_content_title">
+	            <span class="title_bold" >제목</span>  │
+	            <input type="text" name="title" placeholder="공지사항 제목을 입력하세요.">
+	        </div>
+	        <div id="notice_category">
+	            <span class="title_bold">게시판 카테고리</span>
+	            │
+	            <label><input type="checkbox" name="cateChk" class="allCheck" value="-1">전체</label>
+	            <label><input type="checkbox" name="cateChk" class="chk" value="1"> 출산, 육아, 교육</label>
+	            <label><input type="checkbox" name="cateChk" class="chk" value="2"> 분실물</label>
+	            <label><input type="checkbox" name="cateChk" class="chk" value="3"> 일손(품앗이)</label>
+	            <label><input type="checkbox" name="cateChk" class="chk" value="4"> 스터디, 소모임</label>
+	            <label><input type="checkbox" name="cateChk" class="chk" value="5"> 공동구매</label>
+	        </div>
+	        <div id="notice_content_content">
+	            <textarea name="notice_content_write" id="notice_content_write" placeholder="내용을 입력해주세요."></textarea>
+	        </div>
+		    <div id="admin_buttons">
+		        <button class="admin_buttons" th:text="${type} eq '등록'?'등록':'수정'"></button>
+		        <!-- <button class="admin_buttons">수정</button> -->
+		        <!-- <button class="admin_buttons1">삭제</button> -->
+		    </div>
+	    </form> 
+    </div>  
+</div>
