@@ -29,4 +29,9 @@ public class ChattingDaoImpl implements ChattingDao{
     public int saveMessage(ChattingMapper cm,ChatMessage chatMessage) {
         return cm.saveMessage(chatMessage);
     }
+
+    @Override
+    public List<Map<String,Object>> getChatList(ChattingMapper cm) {
+        return cm.getChatList();
+    }
 }
