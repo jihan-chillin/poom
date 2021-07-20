@@ -38,6 +38,7 @@ div#header {
     align-items: center;
     justify-content: space-evenly;
     border-bottom: 1px solid lightgray;
+
 }
 div.logo {
     width: 248px;
