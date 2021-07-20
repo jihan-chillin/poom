@@ -39,8 +39,8 @@
                     </tr>
                     <tr>
                         <th>위치인증<span class="red_star">*</span></th>
-                        <td><input type="text" id="location"></td>
-                        <td><button>인증</button></td>
+                        <td><input type="text" id="location" value="" readonly></td>
+                        <td><button type="button" id="findLocation">인증</button></td>
                     </tr>
                     <tr>
                         <th>이메일<span class="red_star">*</span></th>
@@ -67,12 +67,14 @@
                 <hr>
                 <div class="signup_btn">
                     <button class="button_able">가입</button>
-                    <button onclick="goIndex();">취소</button>
+                    <button type="button" onclick="goIndex();">취소</button>
                 </div>
             </form>
         </div>
     </div>
 </body>
 
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1172cfb757d529781bcdcd466392d241&libraries=services"></script>
 <script th:src="@{/js/login/signup_js_jk.js}"></script>
+
 </html>
