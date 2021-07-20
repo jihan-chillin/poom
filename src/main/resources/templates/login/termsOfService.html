@@ -3,7 +3,7 @@
 <head>
     <div th:replace="/fragments/header.html :: fragment-header"></div>
     <!-- css -->
-	<link th:href="@{/css/login/signup_jk.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/login/termsofservice_jk.css}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -44,12 +44,12 @@
                 </ul>
                 <div class="terms_btn">
                     <button class="agree">확인</button>
-                    <button onclick="goIndex();">취소</button>
+                    <button type="button" onclick="goIndex();">취소</button>
                 </div>
             </form>
         </div>
     </div>
 </body>
 
-<script th:src="@{/js/login/signup_js_jk.js}"></script>
+<script th:src="@{/js/login/termsofservice_js_jk.js}"></script>
 </html>
