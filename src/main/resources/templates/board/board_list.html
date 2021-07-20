@@ -4,11 +4,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-	<p th:text="${list}"></p>
 	<th:block th:if="${!list.isEmpty()}">
+		<ul>
 		<th:block th:each="b:${list}">
-			
+			<li>
+				전체 : <span th:text="${b}"></span><br>
+				작성자 : <span th:text="${b['MEMBER_ID']}"></span>
+			</li>
 		</th:block>
+		</ul>
 	</th:block>
 </body>
 </html>
