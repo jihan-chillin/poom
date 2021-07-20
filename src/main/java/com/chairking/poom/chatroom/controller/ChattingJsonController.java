@@ -5,11 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,17 +27,21 @@ public class ChattingJsonController {
     }
 
     @GetMapping("/chat/mychat/member")
-    public Map getMyChatroom(HttpServletRequest req){
-//        log.info("채팅방 번호 :{}", req.getParameter("chatNo"));
+    public Map getMyChatroomData(HttpServletRequest req){
         String chatNo =req.getParameter("chatNo");
 
-        // 참여자
         Map<String,List> list = new HashMap<>();
-        list.put("list",service.enteredMem(chatNo));
-
-        // 채팅 내용
-        list.put("messageContent",service.messageContent(chatNo));
-
+        list.put("list",getEnteredMem(chatNo));
+        list.put("messageContent",getPastChattingList(chatNo,7));
         return list;
+    }
+    // 채팅방 참여자 리스트 가져옴
+    public List getEnteredMem(String chatNo){
+        return service.enteredMem(chatNo);
+    }
+
+    //채팅 내용
+    public List getPastChattingList(String chatNo,int ref){
+        return service.messageContent(chatNo,ref);
     }
 }

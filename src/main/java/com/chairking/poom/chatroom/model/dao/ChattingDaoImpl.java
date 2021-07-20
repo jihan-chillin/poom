@@ -20,7 +20,7 @@ public class ChattingDaoImpl implements ChattingDao{
     }
 
     @Override
-    public List<Map> messageContent(ChattingMapper cm, String chatNo) {
-        return cm.messageContent(chatNo);
+    public List<Map> messageContent(ChattingMapper cm, String chatNo,int ref) {
+        return cm.messageContent(chatNo,ref);
     }
 }
