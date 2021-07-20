@@ -66,10 +66,17 @@ function onMessageReceived(payload){
     message.messageContent = message.memberId+'채팅방을 나갔습니다.';
 
   }else{
-
     console.log("페이로드"+payload)
+    // 채팅방 번호 받아와야함 -> 수정필요
+    getChatList('5','/chat/mychat/member');
   }
+}
 
+function disconnection(){
+  if(stompClient !== null){
+    stompClient.disconnect();
+    $('.chat-icon').click();
+  }
 }
 
 connect();

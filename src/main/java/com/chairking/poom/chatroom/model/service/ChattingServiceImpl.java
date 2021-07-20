@@ -36,4 +36,9 @@ public class ChattingServiceImpl implements ChattingService{
     public int saveMessage(ChatMessage chatMessage) {
         return dao.saveMessage(cm,chatMessage);
     }
+
+    @Override
+    public List<Map<String,Object>> getChatList() {
+        return dao.getChatList(cm);
+    }
 }
