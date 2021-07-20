@@ -38,6 +38,7 @@ div#header {
     align-items: center;
     justify-content: space-evenly;
     border-bottom: 1px solid lightgray;
+
 }
 div.logo {
     width: 248px;
@@ -238,6 +239,7 @@ div.profile {
     border: none;
     color: white;
     font-size: 10px;
+    cursor:pointer;
 }
 div.profile>img {
     width: 200px;

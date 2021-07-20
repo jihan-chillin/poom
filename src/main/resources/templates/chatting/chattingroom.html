@@ -41,8 +41,10 @@
         <div>
           <!-- 보내기 부분 -->
           <div class="send-container">
-            <input type="text" class="send-msg-content" placeholder="메시지를 입력하세요" />
-            <button class="send-btn">보내기</button>
+            <form id="messageForm" name="messageForm" onsubmit="return sendMessage();">
+              <input type="text" class="send-msg-content" placeholder="메시지를 입력하세요" />
+              <button type="submit" class="send-btn">보내기</button>
+            </form>
           </div>
           <img width="40px" height="40px"/> 첨부파일
 
@@ -64,7 +66,7 @@
 
         <div>
           <div>
-            <button>나가기</button>
+            <button class="close-chatroom" onclick="disconnection();">나가기</button>
           </div>
         </div>
 

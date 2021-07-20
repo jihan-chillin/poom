@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+	<p th:text="${list}"></p>
+	<th:block th:if="${!list.isEmpty()}">
+		<th:block th:each="b:${list}">
+			
+		</th:block>
+	</th:block>
+</body>
+</html>

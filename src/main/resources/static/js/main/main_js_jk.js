@@ -26,13 +26,14 @@ $(document).ready(function(){
 
 });
 
-//프로필 부분 채팅아이콘 클릭시 채팅리스트로 이동
-function moveChatList(){
-    location.replace("/chat/list");
-}
 
 //프로필 부분 쪽지아이콘 클릭스 쪽지 페이지로 이동
 function messageBox(){
     location.replace("/message");
+}
+
+// 프로필 부분 edit버튼 클릭시 정보수정 페이지로 이동
+function membermodi(){
+    location.assign("/member/modiprofile");
 }
 

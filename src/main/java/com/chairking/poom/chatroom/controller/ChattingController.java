@@ -16,16 +16,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ChattingController {
     @Autowired
     private ChattingService service;
-
-//    리스트 연결 테스트용. 수정예정
 //    html 가져오기용 Controller
-    @GetMapping("/chat/list")
-    public String chattingList(){
+
+    // 내 채팅방 리스트
+    @GetMapping("/chat/mylist/page")
+    public String myChattingList(){
         return "chatting/my-chattingList";
     }
 
-    // 채팅방 가져오기
-    @GetMapping("/chat/chatroom")
+    // 채팅방 입장
+    @GetMapping("/chat/chatroom/page")
     public String chatroom(){
         return "chatting/chattingroom";
     }
@@ -35,9 +35,11 @@ public class ChattingController {
     @SendTo("/topic/chatroom")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage){
         log.info("컨트롤러에서 보내는 페이로드 : {}",chatMessage);
-        // 메세지 디비로 저장하는 메소드
-        // 구현 해야함
-//        service.saveMessage(chatMessage);
+        log.info("메세지 내용 : {}",chatMessage.getMessageContent());
+        log.info("메세지 보낸 아이디 : {}",chatMessage.getMemberId());
+
+       // 메세지 저장 서비스.
+        service.saveMessage(chatMessage);
         return chatMessage;
     }
 
@@ -47,6 +49,12 @@ public class ChattingController {
     public ChatMessage addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor){
         headerAccessor.getSessionAttributes().put("username",chatMessage.getMemberId());
         return chatMessage;
+    }
+
+    // 채팅방 리스트 가져오기
+    @GetMapping("/chat/list/page")
+    public String chattingList(){
+        return "chatting/chatroom-list";
     }
 
 }
