@@ -1,6 +1,7 @@
 package com.chairking.poom.chatroom.model.dao;
 
 import com.chairking.poom.chatroom.mapper.ChattingMapper;
+import com.chairking.poom.chatroom.model.vo.ChatMessage;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -22,5 +23,10 @@ public class ChattingDaoImpl implements ChattingDao{
     @Override
     public List<Map> messageContent(ChattingMapper cm, String chatNo,int ref) {
         return cm.messageContent(chatNo,ref);
+    }
+
+    @Override
+    public int saveMessage(ChattingMapper cm,ChatMessage chatMessage) {
+        return cm.saveMessage(chatMessage);
     }
 }
