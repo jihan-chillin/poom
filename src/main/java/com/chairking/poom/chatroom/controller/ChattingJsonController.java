@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @Slf4j
@@ -21,7 +19,11 @@ public class ChattingJsonController {
     @GetMapping("/chat/mychat/list")
     public Map<String,Object>  getMyChatList(){
         Map<String,Object> list = new HashMap<>();
-        list.put("list",service.getMyChatList());
+        Map myChatList = service.getMyChatList();
+        list.put("list",myChatList);
+
+        String chatNo = (String) myChatList.get("CHAT_NO");
+        list.put("countMember",getEnteredMem(chatNo).size());
 
         return list;
     }
@@ -43,5 +45,26 @@ public class ChattingJsonController {
     //채팅 내용
     public List getPastChattingList(String chatNo,int ref){
         return service.messageContent(chatNo,ref);
+    }
+
+    @GetMapping("/chat/list/data")
+    public Map getChatList(){
+        Map<String,Object> result = new HashMap<>();
+
+        List<Map<String,Object>> chatList = service.getChatList();
+
+        String chatNo = "";
+        List memCount = new ArrayList();
+
+        for(int i=0; i<chatList.size(); i++ ) {
+//            log.info("채팅리스트 : {}", chatList.get(i).get("CHAT_NO"));
+            chatNo = (String)chatList.get(i).get("CHAT_NO");
+            memCount.add(i,getEnteredMem(chatNo).size());
+        }
+
+        result.put("chatRoomMemCount",memCount);
+        result.put("chatList",chatList);
+
+        return result;
     }
 }

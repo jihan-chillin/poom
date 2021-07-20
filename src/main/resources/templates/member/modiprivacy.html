@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <!-- CSS -->
-    <link th:href="@{/css/main/main_style_jk.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/member/member_jh.css}" rel="stylesheet" type="text/css">
 
-    <div th:replace="/fragments/header.html :: fragment-header"></div>
-</head>
+    <div id="privacy-info-bar">
 
-<body>
-<div id = "wrapper">
-    <!--헤더-->
-    <div th:replace="/fragments/header.html :: fragment-header"></div>
-    <!--메뉴바-->
-    <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+        <!--정보수정 카테고리-->
+        <ul class="privacy-left">
+            <li><button class="profile-btn" onclick="modiprofile();">프로필 정보</button></li>
+            <li><button class="privacy-btn">개인 정보</button></li>
+        </ul>
 
+
+        <!-- 우측 아이콘 : 채팅 , 쪽지, 해시태그, 내가 쓴 글-->
+        <ul class="privacy-right">
+            <li><div><img src="/../../images/ui/write.png" alt="" ></div></li>
+            <li><div><img src="/../../images/ui/tag.png" alt="" ></div></li>
+            <li><div><img src="/../../images/ui/msg.png" alt="" onclick="messageBox();"></div></li>
+            <li><div><img src="/../../images/ui/chat.png" alt="" onclick="moveChatList();"></div></li>
+        </ul>
+    </div>
 
 
     <!-- 정보 수정란 -->
-    <div id = "info-modi">
+    <div id = "privacy-info-modi">
 
         <table>
-            <colgroup>
+
             <tbody>
             <tr>
                 <td class="modi-bold">아이디</td>
@@ -67,15 +70,14 @@
 
 
             </tbody>
-            </colgroup>
+
         </table>
 
     </div>
 
-</div>
 </body>
 
 <script th:src="@{/js/main/main_js_jk.js}"></script>
-<script th:src="@{/js/main/member_jh.js}"></script>
+<script th:src="@{/js/main/membermodi_jh.js}"></script>
 
 </html>
