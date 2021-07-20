@@ -27,7 +27,7 @@ public class ChattingServiceImpl implements ChattingService{
     }
 
     @Override
-    public List<Map> messageContent(String chatNo) {
-        return dao.messageContent(cm,chatNo);
+    public List<Map> messageContent(String chatNo,int ref) {
+        return dao.messageContent(cm,chatNo,ref);
     }
 }

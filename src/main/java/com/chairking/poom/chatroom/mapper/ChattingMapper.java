@@ -14,7 +14,7 @@ public interface ChattingMapper {
     @Select("select * from CHATMEMBER where CHAT_NO=#{chatNo}")
     public List<Map> enteredMem(String chatNo);
 
-    @Select("select * from chatmessage where chat_no=#{chatNo}")
-    public List<Map> messageContent(String chatNo);
+    @Select("select * from chatmessage where chat_no= #{chatNo} and message_date between sysdate-#{ref} and sysdate")
+    public List<Map> messageContent(String chatNo,int ref);
 
 }

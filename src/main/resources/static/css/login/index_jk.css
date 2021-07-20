@@ -19,7 +19,9 @@ a {
     text-decoration: none;
     color: inherit;
 }
-div#wrapper {
+
+/* index.html css */
+div#index_wrapper {
     width: 1920px;
     background: white;
     position: absolute;
@@ -31,14 +33,14 @@ div#wrapper {
     justify-content: center;
     align-items: center;
 }
-div#content {
+div#index_content {
     width: 1056px;
     height: 300px;
     display: flex;
     flex-direction: column;
     justify-items: flex-start;
 }
-div#content>p {
+div#index_content>p {
     width: 230px;
     height: 45px;
     border-radius: 30px;
@@ -50,12 +52,12 @@ div#content>p {
     line-height: 45px;
     margin-bottom: 20px;
 }
-div#content>div {
-	width: 1056px;
+div#index_content>div {
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
-div#content>div>img {
+div#index_content>div>img {
     width: 55%;
     transform: translateZ(0);
 }
@@ -102,7 +104,7 @@ div.signup>span>a {
 div.signup>span:last-of-type>a {
     border: none;
 }
-div#content>div>button {
+div#index_content>div>button {
     width: 104px;
     height: 104px;
     margin-top: 7px;

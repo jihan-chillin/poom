@@ -10,6 +10,6 @@ import java.util.Map;
 public interface ChattingDao {
     Map<String, List> getMyChatList(ChattingMapper cm);
     List<Map> enteredMem(ChattingMapper cm,String chatNo);
-    List<Map> messageContent(ChattingMapper cm,String chatNo);
+    List<Map> messageContent(ChattingMapper cm,String chatNo,int ref);
 
 }

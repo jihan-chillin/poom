@@ -1,0 +1,143 @@
+/* 글꼴 - 나눔고딕(googlefonts) */
+/* font-family: 'Nanum Gothic', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+
+/* 사용색상 */
+/* 청록색 - #287094 , 주황색 - #F77B1E */
+
+/* 화면기본설정 */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+div#userfind_wrapper {
+    width: 1920px;
+    background: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: #f7f7f7;
+}
+
+/* userfind.html css - 이용약관 */
+div#userfind_wrapper>img {
+    width: 270px;
+    margin-top: 150px;
+    margin-bottom: 50px;
+    transform: translateZ(0);
+}
+ul.findtab {
+    width: 500px;
+    display: flex;
+    justify-content: space-around;
+}
+ul.findtab li {
+    width: 50%;
+    padding: 15px 0;
+    font-size: 22px;
+    text-align: center;
+    border-radius: 7px 7px 0 0;
+    background: white;
+    box-shadow: 0px 1px 5px lightgray;
+    cursor: pointer;
+}
+ul.findtab li.tab_on {
+    font-weight: bold;
+    background: #247094 !important; 
+    color: white;
+}
+div#userfind_content {
+    width: 500px;
+    border-radius: 0 0 7px 7px;
+    box-shadow: 1px 1px 5px lightgray;
+    background: white;
+}
+div.findtab_con {
+    display: none;
+}
+div.findtab_con.tab_on {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+div.findtab_con p {
+    width: 70%;
+    text-align: center;
+    padding-bottom: 20px;
+    margin-top: 70px;
+    font-size: 30px;
+}
+table.userfind_table {
+    width: 100%;
+    margin: 20px;
+    border-collapse: collapse;
+}
+table.userfind_table th {
+    width: 25%;
+    text-align: right;
+    padding-right: 10px;
+    font-size: 15px;
+}
+table.userfind_table tr>td:first-of-type {
+    width: 50%;
+    height: 50px;
+}
+table.userfind_table tr>td:first-of-type>input {
+    width: 220px;
+    height: 30px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background: #f7f7f7;
+    padding-left: 15px;
+}
+table.userfind_table tr>td:last-of-type>button {
+    width: 50%;
+    height: 30px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background: #287094;
+    color: white;
+    cursor: pointer;
+}
+div.findtab_con>button {
+    width: 70px;
+    margin: auto;
+    height: 35px;
+    border-radius: 30px;
+    margin: 0 5px 70px 5px;
+    outline: none;
+    border: none;
+    background: #287094;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+div.findtab_con>button:last-of-type {
+    background: #f7f7f7;
+    color: black;
+    border: 1px solid lightgray;
+}
+span.red_star {
+    color: rgb(216, 4, 4);
+    font-size: 13px;
+}
+tr.email_number {
+    display: none;
+}
