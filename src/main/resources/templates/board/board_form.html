@@ -18,7 +18,7 @@
    		<div id="content">
 	        <!-- 구매화면 -->
 	        <div id="board_form">
-	            <form action="@{/board/boardForm}" method="post">
+	            <form action="@{/board/insert}" method="post" enctype="multipart/form-data">
 	            	<ul>
 	            		<li><span>제목</span><input type="text" name="boardTitle"></li>
 	            		<li><span>첨부파일</span><input type="file" name="boardImg"></li>
