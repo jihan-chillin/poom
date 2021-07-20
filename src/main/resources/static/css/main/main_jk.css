@@ -238,6 +238,7 @@ div.profile {
     border: none;
     color: white;
     font-size: 10px;
+    cursor:pointer;
 }
 div.profile>img {
     width: 200px;
