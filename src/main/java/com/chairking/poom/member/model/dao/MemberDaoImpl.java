@@ -1,5 +1,6 @@
 package com.chairking.poom.member.model.dao;
 
+import com.chairking.poom.member.mapper.MemberMapper;
 import com.chairking.poom.member.model.vo.Member;
 
 public class MemberDaoImpl implements MemberDao{
