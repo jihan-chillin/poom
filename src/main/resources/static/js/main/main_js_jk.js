@@ -17,6 +17,11 @@ $(document).ready(function(){
         $(this).css('height','auto');
         $(this).height(this.scrollHeight);
     });
+    
+    //로고 클릭시 메인화면으로 이동
+    $('div.logo').click(function(){
+    	location.href="/login";
+    });
 
 
 });
@@ -30,5 +35,9 @@ function messageBox(){
 // 프로필 부분 edit버튼 클릭시 정보수정 페이지로 이동
 function membermodi(){
     location.assign("/member/modiprofile");
+}
+
+function mywrite(){
+    location.assign("/member/mywrite");
 }
 

@@ -28,33 +28,39 @@ public class BoardController {
 	@Autowired
 	private BoardService service;
 	
+	//게시글 등록 페이지로 이동
 	@RequestMapping(path="/board/boardForm", method=RequestMethod.GET)
 	public String boardForm() {
 		return "board/board_form";
 	}
 	
+	//게시글 등록 서비스
 	@PostMapping("/board/insert")
-	public ModelAndView insertBoard(Board board, ModelAndView mv, MultipartFile[] upFile, HttpServletRequest req) {
+	public ModelAndView insertBoard(Board board, ModelAndView mv, MultipartFile[] boardImg, HttpServletRequest req) {
 		board.setMemberId("test");
 		board.setBoardLoc("1");
 		
 		//받아온 게시글 첨부파일을 imgs객체로 저장하기
 		List<BoardImage> imgs=new ArrayList<>();
-		if(upFile !=null) {
+		
+		if(boardImg !=null) {
 			String path=req.getServletContext().getRealPath("/resources/static/images/board/");
 			File dir=new File(path);
 			if(!dir.exists()) dir.mkdirs();
 			
-			for(MultipartFile f:upFile) {
+			for(MultipartFile f:boardImg) {
 				if(!f.isEmpty()) {
 					String oriName=f.getOriginalFilename();
 					String ext=oriName.substring(oriName.lastIndexOf("."));
 					SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
 					int rndNum=(int)(Math.random()*10000);
 					String reName=sdf.format(System.currentTimeMillis())+"_"+rndNum+ext+"_"+board.getBoardCate();
+					
+					System.out.println(oriName+" -> "+reName);
+					
 					try {
 						f.transferTo(new File(path+reName));
-						imgs.add(BoardImage.builder().boardNo(Integer.parseInt(board.getBoardNo())).originImg(oriName).renameImg(reName).build());
+						imgs.add(BoardImage.builder().originImg(oriName).renameImg(reName).build());
 					}catch(IOException e) {
 						e.printStackTrace();
 					}
@@ -62,14 +68,13 @@ public class BoardController {
 			}
 		}
 		
-		board.setImages(imgs);
-		
 		int result=service.insertBoard(board);
 		
 		mv.setViewName("board/board_view");
 		return mv;
 	}
 	
+	//모든 게시글 리스트 가져오는 서비스
 	@GetMapping("/board/selectAll")
 	public ModelAndView selectAllBoard(ModelAndView mv) {
 		mv.setViewName("board/board_list");
@@ -77,5 +82,12 @@ public class BoardController {
 		return mv;
 	}
 	
+	//게시글 조회
+	@GetMapping("/board/boardView")
+	public ModelAndView boardView(String boardNo, ModelAndView mv) {
+		mv.setViewName("board/board_view");
+		mv.addObject("board", service.selectBoard(boardNo));
+		return mv;
+	}
 	
 }

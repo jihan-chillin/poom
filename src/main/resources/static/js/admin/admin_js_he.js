@@ -17,10 +17,31 @@ $("#blame_menu").parent().click((e)=>{
 	}
 });*/
 
+//공지사항 글쓰기 이동
+function fn_notice_write(){
+	$.ajax({
+		url:"/admin/moveWrite",
+	}).done(function (fragment){
+		$("#admin_section").html(fragment);
+	});
+}
+
+//공지사항 글쓰기 체크박스
+// $(".allCheck").click(e=>{
+// 	alert('체크');
+// })
+
+
+
+
+
+
+
+
 //ajax시도해보기
 //Chart.js
 
-$(document).ready(function(){
+/*$(document).ready(function(){
 	function cash_chart(){
 		new Chart(document.getElementById("line-chart"), {
 		type: 'line',
@@ -53,4 +74,6 @@ $(document).ready(function(){
 		});
 	}
 	cash_chart();
-});
+}); */
+
+

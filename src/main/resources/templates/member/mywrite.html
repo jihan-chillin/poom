@@ -3,65 +3,83 @@
 
 <head>
     <!-- CSS -->
-    <link th:href="@{/css/main/main_style_jk.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/member/member_jh.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/main/main_jk.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/member/mywrite_jh.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/member/mylike_jh.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/member/mycomment_jh.css}" rel="stylesheet" type="text/css">
 
-    <div th:replace="/fragments/header.html :: fragment-header"></div>
-    <title>mywrite</title>
+    <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+
 </head>
-
 <body>
     <div id = "wrapper">
         <!--헤더-->
         <div th:replace="/fragments/header.html :: fragment-header"></div>
         <!--메뉴바-->
         <div th:replace="/fragments/nav.html :: fragment-nav"></div>
-        <!--프로필 영역-->
-        <div th:replace="/fragments/profile.html :: fragment-profile"></div>
 
-        <!-- 내가 쓴 글 / 댓글 / 찜한 글 리스트 보여주기  -->
-        <div id="mywrite-container">
-            <div class="mywrite-bar">
-                <span class="">내가 쓴 글</span>
-                <span class="mywrite-category">내가 쓴 댓글</span>
-                <span class="mywrite-category">내가 찜한 글</span>
+        <div id="content">
+            <!--프로필 영역 -->
+            <div th:replace="/fragments/profile.html :: fragment-profile"></div>
+
+            <div id="ajaxcontent">
+                <div id ="mywrite-content">
+                    <!-- 글 카테고리 -->
+                    <div id="write-bar">
+                        <ul>
+                            <li><img src="/../../images/ui/write.png"></li>
+                            <li><button class="mywrite-btn">내가 쓴 글</button></li>
+                            <li><button onclick="mycomment();">내가 쓴 댓글</button></li>
+                            <li><button onclick="mylike();">내가 찜한 글</button></li>
+<!--                            <li><img src="/../../images/mywrite/pencil.png"></li>-->
+                        </ul>
+                    </div>
+
+                    <!--글 리스트-->
+                    <div id="write-list">
+                        <table>
+                            <thead>
+<!--                                <th><img src="/../../images/ui/write.png"></th>-->
+                                <th>작성자</th>
+                                <th>게시판</th>
+                                <th>제목(댓글수)</th>
+                                <th>날짜</th>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+<!--                                    <td></td>-->
+                                    <td>코줍</td>
+                                    <td>서울 >> 분실물</td>
+                                    <td>코치 검정색 장지갑 찾습니다!</td>
+                                    <td>2021-07-21</td>
+                                </tr>
+                                <tr>
+<!--                                    <td></td>-->
+                                    <td>코줍</td>
+                                    <td>서울 >> 분실물</td>
+                                    <td>코치 검정색 장지갑 찾습니다!</td>
+                                    <td>2021-07-21</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                  </div>
+
             </div>
+
+
+
+            <!-- 키워드 순위 -->
+            <div th:replace="/fragments/rank.html :: fragment-rank" ></div>
         </div>
-
-
-        <!--순위 차트-->
-        <div th:replace="/fragments/rank.html :: fragment-rank"></div>
-
-
     </div>
+
+
 </body>
 
-<!-- 스크립트 -->
-<script>
-    $(document).ready(function(){
+<script th:src="@{/js/main/main_jk.js}"></script>
+<script th:src="@{/js/member/mywrite_jh.js}"></script>
 
-        // 좌측메뉴바 show/hide 스크립트
-        $('.menu_open').on('click', function(){
-            $('.city_bar').show().animate({
-                left:0
-            });
-        });
-        $('.city_bar>button').on('click', function(){
-            $('.city_bar').show().animate({
-                left:-300
-            });
-        });
-
-        // main피드 작성시 textarea 영역 변동 스크립트
-        $('.feed_write>textarea').keyup(function(e) {
-            $(this).css('height','auto');
-            $(this).height(this.scrollHeight);
-        });
-
-    });
-
-
-</script>
 </html>
-
-
