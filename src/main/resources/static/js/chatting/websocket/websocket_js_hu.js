@@ -1,6 +1,7 @@
 'use strict';
 // 로그인한 세션 아이디를 가져와서 넣어야함
 // 우선 없어서 임시로 넣음
+// let memberId=sessionStorage.getItem("memberId");
 let memberId='test';
 let stompClient=null;
 
@@ -55,7 +56,7 @@ function sendMessage(event) {
   return false;
 }
 
-function onMessageReceived(payload){
+function onMessageReceived(payload,chatNo){
   let message = JSON.parse(payload.body);
   let messageElement = $('.msg-container');
 
@@ -68,7 +69,7 @@ function onMessageReceived(payload){
   }else{
     console.log("페이로드"+payload)
     // 채팅방 번호 받아와야함 -> 수정필요
-    getChatList('5','/chat/mychat/member');
+    // getChatList('5','/chat/mychat/member');
   }
 }
 
