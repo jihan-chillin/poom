@@ -133,10 +133,12 @@
 .chatroom-list-container .chatroom-content-container .chatroom-content-title{
   font-weight: bold;
   font-size:35px;
+  cursor: pointer;
 }
 .chatroom-list-container .chatroom-content-container .chatroom-content-info{
   font-size:20px;
   border-bottom: 1px #000000 solid;
+  cursor: pointer;
 }
 
 .chatroom-list-container .chatroom-info .chatroom-mem{
