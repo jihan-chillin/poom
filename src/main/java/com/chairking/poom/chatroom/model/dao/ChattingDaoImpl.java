@@ -11,7 +11,7 @@ import java.util.Map;
 public class ChattingDaoImpl implements ChattingDao{
 
     @Override
-    public Map<String, List> getMyChatList(ChattingMapper cm) {
+    public List<Map> getMyChatList(ChattingMapper cm) {
         return cm.getMyChatList();
     }
 
@@ -39,4 +39,21 @@ public class ChattingDaoImpl implements ChattingDao{
     public Map getChatroomData(ChattingMapper cm, String chatNo) {
         return cm.getChatroomData(chatNo);
     }
+
+    @Override
+    public int insertChatroomData(ChattingMapper cm, Map<String, Object> data) {
+        return cm.insertChatroomData(data);
+    }
+
+    @Override
+    public String getChatNo(ChattingMapper cm) {
+        return cm.getChatNo();
+    }
+
+    @Override
+    public int enterChatRoom(ChattingMapper cm, String id, String chatNo) {
+        return cm.enterChatRoom(id,chatNo);
+    }
+
+
 }

@@ -28,7 +28,7 @@ function moveMyChatList(){
       if(chatNo !== null){
         // 채팅방 리스트가 있다면
 
-        if(data.list.CATEGORY_NO ==='0'){
+        if(data.list.CATEGORY_NO ==='1'){
           val+= '<span class="chatroom-icon-study">스터디</span>'
         }else{
           val+= '<span class="chatroom-icon-gather">소모임</span>'
@@ -72,9 +72,16 @@ function moveMyChatroom(chatNo){
   // 페이지 가져오기
   $.ajax({
     url:'/chat/chatroom/page',
+    data:{
+      "chatNo":
+      chatNo
+    },
     success:data=>{
       $('#chatlist-container').remove();
       $('.feed').html(data);
+      $('.feed').append(
+        '<input type="hidden" class="chatNo" value="'+chatNo+'">'
+      );
       $('.feed').attr('style','height:905px')
     },
     error:(e,m,i)=>{
@@ -130,8 +137,6 @@ function getChatList(chatNo,url){
       chatNo
     },
     success:data=>{
-      console.log(data);
-
       $('.msg-container>*').remove();
       let val = '';
       // 로그인 한 아이디와 일치하면
@@ -163,8 +168,7 @@ function getChatList(chatNo,url){
 }
 
 function moveChatList(){
-  $('.feed_write').remove();
-  $('.feed_new').remove();
+  $('.feed>*').remove();
 
   $.ajax({
     url:'/chat/list/page',
@@ -184,14 +188,12 @@ function moveChatList(){
     success:data=>{
       $('.chatroom-list-container>*').remove();
       let val = '';
-      console.log(data);
-
       for(let i=0; i<data.chatList.length; i++){
 
         val +='<div class="chatroom-info">';
         val +='<div class="chatroom-info-header"><div>';
 
-        if(data.chatList[i].CATEGORY_NO ==='0'){
+        if(data.chatList[i].CATEGORY_NO ==='1'){
           val +='<span class="chatroom-icon">스터디</span></div>';
         }else{
           val +='<span class="chatroom-icon">소모임</span></div>';
@@ -256,13 +258,13 @@ function chatListDetailData(chatNo){
       // header
       val += '<div class="chatroom-header"><div>';
 
-      if(data.chatData.CATEGORY_NO === '0'){
+      if(data.chatData.CATEGORY_NO === '1'){
         val += '<span class="chatroom-icon"> 스터디</span></div>';
       }else{
         val += '<span class="chatroom-icon"> 소모임</span></div>';
       }
 
-      val += '<div>'+data.chatData.CHAT_TITLE+"/"+data.chatData.GRUOP_DATE+'</div>';
+      val += '<div>'+data.chatData.CHAT_TITLE+"/"+data.chatData.GROUP_DATE.substring(0,10)+'</div>';
       val += '<div>...</div></div>';
 
       // nav
@@ -310,4 +312,92 @@ function chatListDetailData(chatNo){
 
     }
   });
+}
+
+// 채팅방 만들기 페이지로 이동
+// create-chatroom.css 수정해야함.
+// radio 크기
+// button 모양등
+function createChatroom(){
+  $.ajax({
+    url:'/chat/room/page',
+    success:data=>{
+      $('.feed>*').remove();
+      $('.feed').html(data);
+
+      countMem();
+    }
+  });
+  return false;
+}
+// 채팅방 인원수 증감
+function countMem(){
+  const plus = $('.increase-mem');
+  const min = $('.decrease-mem');
+  // const val = $('.memCount').text();
+  let countMem =1;
+
+  plus.click(e=>{
+    countMem =countMem+1;
+    $('.memCount').text(countMem);
+  });
+
+  min.click(e=>{
+    countMem = countMem - 1;
+
+    if(countMem<1){
+      alert("참여인원은 최소한 1명이어야합니다.");
+    }else {
+      $('.memCount').text(countMem);
+    }
+  });
+
+}
+
+// 채팅방 데이터 가져오기
+// 세션 아이디를 넣어야하지만 로그인 구현 안돼서 임시로 넣음
+// test
+function chatroomData(){
+  let category = '';
+
+  if($('[name=select-cate]:checked').val() === 'stu'){
+    category='1';
+  }else{
+    category='0';
+  }
+
+  const title = $('.chatroom-title').val();
+  const content = $('.chatroom-content').val();
+  const condition = $('.chatroom-condition').val();
+  const memCount =$('.memCount').text();
+  const gatherDate = $('.gather-date').val();
+
+  // try {
+  //   const memberId=sessionStorage.getItem("memberId");
+  // }catch (error){
+  //   alert("로그인 후 이용해주세요");
+  //   return;
+  // }
+  const memberId = 'test';
+
+  return {category, title, content, condition, memCount, gatherDate,memberId};
+}
+
+// 채팅방 만드는 데이터 보내기
+function sendChatroomData(data){
+  $.ajax({
+    url:'/chat/room/data',
+    data:{
+      "category":data.category,
+      "title":data.title,
+      "content":data.content,
+      "condition":data.condition,
+      "memCount":data.memCount,
+      "date":data.gatherDate,
+      "memberId":data.memberId,
+    },
+  });
+
+  moveChatList();
+  return true;
 }

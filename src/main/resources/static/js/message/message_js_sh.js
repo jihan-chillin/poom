@@ -9,7 +9,7 @@ $(document).ready(function() {
     $("#btn_1").click(function() {
 
         $("#table1").show();
-        $("#table").hide();
+        $("#table2").hide();
         $("#table3").hide();
     })
     $("#btn_2").click(function() {
@@ -26,8 +26,11 @@ $(document).ready(function() {
     })
 })
 
-function showPopup(){
-    window.open("message_popup.html");
+function showPopup(type){
+    if(type==1)
+        window.open("/message/popup","message","width=400,height=300");
+    else if(type==2)
+        window.open("/message/receiver","receiver","width=400,height=300");
 }
 
 

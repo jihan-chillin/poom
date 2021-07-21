@@ -1,12 +1,12 @@
 'use strict';
 // 로그인한 세션 아이디를 가져와서 넣어야함
 // 우선 없어서 임시로 넣음
+// let memberId=sessionStorage.getItem("memberId");
 let memberId='test';
 let stompClient=null;
 
 let messageForm = $('#messageForm');
 let sendMsgContent=$('.send-msg-content');
-
 
 function connect(event){
   memberId = 'test';
@@ -38,6 +38,7 @@ function onError(error){
 
 function sendMessage(event) {
   let messageContent = sendMsgContent.val();
+  let chatNo = $('.chatNo').val();
 
   // console.log(messageContent);
 
@@ -45,6 +46,7 @@ function sendMessage(event) {
     let chatMessage = {
       memberId: memberId,
       messageContent: messageContent,
+      chatNo:chatNo,
       type: 'CHAT'
     };
     stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
@@ -68,7 +70,7 @@ function onMessageReceived(payload){
   }else{
     console.log("페이로드"+payload)
     // 채팅방 번호 받아와야함 -> 수정필요
-    getChatList('5','/chat/mychat/member');
+    // getChatList('5','/chat/mychat/member');
   }
 }
 

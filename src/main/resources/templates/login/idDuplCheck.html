@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <!-- css -->
+	<link th:href="@{/css/login/termsofservice_jk.css}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<span th:text="${id}"></span><span th:text="${m!=null}?'는 사용중인 아이디입니다.':'는 사용가능한 아이디입니다.'"></span>
+</body>
+</html>

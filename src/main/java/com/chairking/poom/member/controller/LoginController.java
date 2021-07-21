@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.chairking.poom.member.model.service.LoginService;
+import com.chairking.poom.member.model.vo.Member;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 

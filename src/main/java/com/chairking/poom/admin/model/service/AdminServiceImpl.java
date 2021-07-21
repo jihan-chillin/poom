@@ -28,8 +28,8 @@ public class AdminServiceImpl implements AdminService {
 //	}
 
 	@Override
-	public List<Map<String,Object>> allNotice() {
-		return dao.allNotice(mapper);
+	public List<Map<String,Object>> allNotice(int cPage, int numPerpage) {
+		return dao.allNotice(mapper, cPage, numPerpage);
 	}
 	
 	@Override

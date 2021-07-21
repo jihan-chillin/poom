@@ -26,15 +26,18 @@ public class ChattingJsonController {
     public List getPastChattingList(String chatNo,int ref){
         return service.messageContent(chatNo,ref);
     }
-
+//    자료형 수정해야함
     @GetMapping("/chat/mychat/list")
-    public Map<String,Object>  getMyChatList(){
+    public Map<String,Object> getMyChatList(){
         Map<String,Object> list = new HashMap<>();
-        Map myChatList = service.getMyChatList();
+
+        List<Map> myChatList = service.getMyChatList();
         list.put("list",myChatList);
 
-        String chatNo = (String) myChatList.get("CHAT_NO");
-        list.put("countMember",getEnteredMem(chatNo).size());
+        for(int i =0; i<myChatList.size(); i++) {
+            String chatNo = (String) myChatList.get(i).get("CHAT_NO");
+            list.put("countMember",getEnteredMem(chatNo).size());
+        }
 
         return list;
     }
@@ -81,5 +84,26 @@ public class ChattingJsonController {
         result.put("memCount",getEnteredMem(chatNo).size());
 
         return result;
+    }
+
+    @GetMapping("/chat/room/data")
+    public void createChatroom(HttpServletRequest req){
+        Map<String,Object> data = new HashMap<>();
+
+        data.put("category",req.getParameter("category"));
+        data.put("title",req.getParameter("title"));
+        data.put("content",req.getParameter("content"));
+        data.put("condition",req.getParameter("condition"));
+        data.put("memCount",Integer.parseInt(req.getParameter("memCount")));
+        data.put("date",req.getParameter("date"));
+        data.put("memberId",req.getParameter("memberId"));
+
+        // 채팅방 생성
+        service.insertChatroomData(data);
+        // 생성된 채팅방 번호 가져옴
+        String chatNo = service.getChatNo();
+        // 생성자 채팅방 입장
+        service.enterChatRoom((String)data.get("memberId"),chatNo);
+
     }
 }
