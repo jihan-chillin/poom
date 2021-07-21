@@ -6,7 +6,7 @@
         <form action="/admin/noticeWrite" method="post">
 	        <div id="notice_content_title">
 	            <span class="title_bold" >제목</span>  │
-	            <input type="text" name="title" placeholder="공지사항 제목을 입력하세요.">
+	            <input type="text" name="noticeTitle" placeholder="공지사항 제목을 입력하세요.">
 	        </div>
 	        <div id="notice_category">
 	            <span class="title_bold">게시판 카테고리</span>
@@ -19,7 +19,7 @@
 	            <label><input type="checkbox" name="cateChk" class="chk" value="5"> 공동구매</label>
 	        </div>
 	        <div id="notice_content_content">
-	            <textarea name="notice_content_write" id="notice_content_write" placeholder="내용을 입력해주세요."></textarea>
+	            <textarea name="noticeContent" id="notice_content_write" placeholder="내용을 입력해주세요."></textarea>
 	        </div>
 		    <div id="admin_buttons">
 		        <button class="admin_buttons" th:text="${type} eq '등록'?'등록':'수정'"></button>

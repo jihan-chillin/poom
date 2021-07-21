@@ -2,6 +2,7 @@ package com.chairking.poom.admin.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chairking.poom.admin.model.service.AdminService;
+import com.chairking.poom.admin.model.vo.Notice;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -74,13 +76,21 @@ public class AdminController {
 		return mv;
 	}
 	
+	//공지사항 작성=>db등록
 	@PostMapping("/noticeWrite")
-	public ModelAndView noticeWrite(@RequestParam Map map, String[] cateChk,ModelAndView mv) {
-		map.put("cate", cateChk);
-		for(String s: cateChk) {
-			System.out.println(s);
+	public ModelAndView noticeWrite(@RequestParam Map<String,String> param, String[] cateChk,ModelAndView mv) {
+		int result;
+		Notice n;
+		if(cateChk.length==1) {
+			n=Notice.builder().cate(cateChk[0]).noticeTitle(param.get("noticeTitle")).noticeContent(param.get("noticeContent")).build();
+			result=service.insertNotice(n);
+		}else {
+			Notice notice;
+			for(int i=0;i<cateChk.length;i++) {
+				n=Notice.builder().cate(cateChk[i]).noticeTitle(param.get("noticeTitle")).noticeContent(param.get("noticeContent")).build();
+				result=service.insertNotice(n);
+			}
 		}
-		int result = service.insertNotice(map);
 		mv.setViewName("admin/admin");
 		return mv;
 	}

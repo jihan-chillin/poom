@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import com.chairking.poom.admin.model.vo.Notice;
+
 @Mapper
 public interface AdminMapper {
 
@@ -19,6 +21,6 @@ public interface AdminMapper {
 	@Select("select * from notice join category using(category_no) order by notice_date desc")
 	public List<Map<String,Object>> allNotice();
 	
-	@Insert("INSERT INTO NOTICE VALUES(SEQ_NOTICENO.NEXTVAL,#{cate},#{title},#{content},sysdate,default)")
-	public int insertNotice(Map map);
+	@Insert("INSERT INTO NOTICE VALUES(SEQ_NOTICENO.NEXTVAL,#{cate},#{noticeTitle},#{noticeContent},sysdate,default)")
+	public int insertNotice(Notice n);
 }

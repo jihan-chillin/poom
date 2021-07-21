@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.chairking.poom.admin.mapper.AdminMapper;
+import com.chairking.poom.admin.model.vo.Notice;
 @Repository
 public class AdminDaoImpl implements AdminDao {
 
@@ -25,8 +26,8 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public int insertNotice(Map map,AdminMapper mapper) {
-		return mapper.insertNotice(map);
+	public int insertNotice(Notice n,AdminMapper mapper) {
+		return mapper.insertNotice(n);
 	}
 
 
