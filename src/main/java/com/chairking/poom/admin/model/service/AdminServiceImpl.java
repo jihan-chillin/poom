@@ -32,6 +32,9 @@ public class AdminServiceImpl implements AdminService {
 		return dao.allNotice(mapper);
 	}
 	
-	
+	@Override
+	public int insertNotice(Map map) {
+		return dao.insertNotice(map,mapper);
+	}
 
 }

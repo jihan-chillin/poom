@@ -24,5 +24,10 @@ public class AdminDaoImpl implements AdminDao {
 		return mapper.countAllNotice();
 	}
 
+	@Override
+	public int insertNotice(Map map,AdminMapper mapper) {
+		return mapper.insertNotice(map);
+	}
+
 
 }

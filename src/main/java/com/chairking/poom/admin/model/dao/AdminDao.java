@@ -10,4 +10,5 @@ public interface AdminDao {
 	int countAllNotice(AdminMapper mapper);
 	//List<Notice> allNotice(AdminMapper mapper);
 	List<Map<String,Object>> allNotice(AdminMapper mapper);
+	int insertNotice(Map map,AdminMapper mapper);
 }

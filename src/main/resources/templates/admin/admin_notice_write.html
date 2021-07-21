@@ -3,7 +3,7 @@
         공지사항 작성
     </div>
     <div id="notice_content">
-        <form th:action="@{/admin/noticeWrite}" method="post">
+        <form action="/admin/noticeWrite" method="post">
 	        <div id="notice_content_title">
 	            <span class="title_bold" >제목</span>  │
 	            <input type="text" name="title" placeholder="공지사항 제목을 입력하세요.">

@@ -8,4 +8,5 @@ public interface AdminService {
 	int countAllNotice();
 	//List<Notice> allNotice();
 	List<Map<String,Object>> allNotice();
+	int insertNotice(Map map);
 }

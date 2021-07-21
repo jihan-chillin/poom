@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chairking.poom.admin.model.service.AdminService;
@@ -69,15 +69,20 @@ public class AdminController {
 	//공지사항글쓰기
 	@GetMapping("/moveWrite")
 	public ModelAndView moveWrite(ModelAndView mv) {
-		mv.addObject("type", "등록1");
+		mv.addObject("type", "등록");
 		mv.setViewName("admin/admin_notice_write");
 		return mv;
 	}
 	
 	@PostMapping("/noticeWrite")
-	public void noticeWrite(Map map, ModelAndView mv) {
-		System.out.println(map);
-		//return mv;
+	public ModelAndView noticeWrite(@RequestParam Map map, String[] cateChk,ModelAndView mv) {
+		map.put("cate", cateChk);
+		for(String s: cateChk) {
+			System.out.println(s);
+		}
+		int result = service.insertNotice(map);
+		mv.setViewName("admin/admin");
+		return mv;
 	}
 	
 
