@@ -1,13 +1,16 @@
 package com.chairking.poom.message.controller;
 
 
+import com.chairking.poom.member.model.vo.Member;
 import com.chairking.poom.message.model.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MessageController {
@@ -22,8 +25,27 @@ public class MessageController {
     }
 
     //팝업창
-    @GetMapping("message/popup")
-    public String popup(){
-        return"message/message_popup";
+    @GetMapping("/message/popup")
+    public String messagePopup(){
+        return"/message/message_popup";
     }
+
+    //받는사람 팝업
+    @GetMapping("/message/receiver")
+    public String receiverPopup(Model m){
+        List<Map<String,Object>> list = service.searchReceiver();
+        m.addAttribute("list", list);
+        return"message/message_receiver";
+    }
+
+    //받는사람 검색
+//    @GetMapping("/message/rSearch")
+//    public ModelAndView searchReceiver(ModelAndView mv){
+//
+//        List<Member> list = service.searchReceiver();
+//        mv.addObject("list", list);
+//        mv.setViewName("message_receiver");
+//        return mv;
+//    }
+
 }
