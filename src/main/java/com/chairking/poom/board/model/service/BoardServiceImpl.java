@@ -31,14 +31,14 @@ public class BoardServiceImpl implements BoardService {
 		if(b.getImages()!=null && result!=0) {
 			//게시글 번호
 			int boardNo=selectBoardNo(b);
-			System.out.println(boardNo);
+//			System.out.println(boardNo);
 			
 			for(BoardImage bi:b.getImages()) {
 				if(result!=0 && bi!=null) {
 					bi.setBoardNo(boardNo);
 					result=insertBoardImg(bi);
 				}
-				System.out.println(bi);
+//				System.out.println(bi);
 			}
 		}
 		return result;

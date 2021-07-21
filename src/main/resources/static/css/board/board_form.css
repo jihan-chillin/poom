@@ -1,3 +1,13 @@
+#header{
+	background-color:white;
+	z-index: 1000;
+}
+
+div#content{
+	position:absolute;
+	height:1000px;
+}
+
 div#board_form{
 	width:1620px; height:800px;
 	/* overflow-y:scroll;
@@ -51,6 +61,9 @@ div#board_form>form{
 	margin-top:30px;
 	resize: none;
 	padding:20px;
+}
+#board_form li>select{
+	height:30px;width:165px;
 }
 #board_form li:last-child input{
 	width:1000px;

@@ -6,8 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.chairking.poom.board.model.service.BoardService;
 import com.chairking.poom.board.model.vo.Board;
@@ -36,7 +35,7 @@ public class BoardController {
 	
 	//게시글 등록 서비스
 	@PostMapping("/board/insert")
-	public ModelAndView insertBoard(Board board, ModelAndView mv, MultipartFile[] boardImg, HttpServletRequest req) {
+	public ModelAndView insertBoard(Board board, ModelAndView mv, MultipartFile[] boardImg, RedirectAttributes rttr) throws IOException {
 		board.setMemberId("test");
 		board.setBoardLoc("1");
 		
@@ -44,7 +43,8 @@ public class BoardController {
 		List<BoardImage> imgs=new ArrayList<>();
 		
 		if(boardImg !=null) {
-			String path=req.getServletContext().getRealPath("/images/board/");
+//			String path=req.getServletContext().getRealPath("/images/board/");
+			String path="";
 			File dir=new File(path);
 			if(!dir.exists()) dir.mkdirs();
 			
@@ -56,8 +56,7 @@ public class BoardController {
 					int rndNum=(int)(Math.random()*10000);
 					String reName=sdf.format(System.currentTimeMillis())+"_"+rndNum+ext+"_"+board.getBoardCate();
 					
-					System.out.println(oriName+" -> "+reName);
-					
+//					System.out.println(oriName+" -> "+reName);
 					
 					try {
 						f.transferTo(new File(path+reName));
@@ -78,8 +77,13 @@ public class BoardController {
 		//게시글 등록
 		int result=service.insertBoard(board);
 		
-		mv.addObject("board", service.selectBoard(String.valueOf(service.selectBoardNo(board))));
-		mv.setViewName("board/board_view");
+		if(result!=0) {
+			mv.addObject("board", service.selectBoard(String.valueOf(service.selectBoardNo(board))));
+			mv.setViewName("board/board_view");
+		}else {
+			//에러 처리
+			mv.setViewName("index");
+		}
 		return mv;
 	}
 	
