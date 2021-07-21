@@ -37,3 +37,7 @@ function membermodi(){
     location.assign("/member/modiprofile");
 }
 
+function mywrite(){
+    location.assign("/member/mywrite");
+}
+

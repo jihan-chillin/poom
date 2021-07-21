@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+
+            <div id ="mylike-content">
+                <!-- 글 카테고리 -->
+                <div id="like-bar">
+                    <ul>
+                        <li><img src="/../../images/ui/like.png"></li>
+                        <li><button class="mywrite-btn" onclick="barmywrite();">내가 쓴 글</button></li>
+                        <li><button class="mycomment-btn" onclick="mycomment();">내가 쓴 댓글</button></li>
+                        <li><button class="mylike-btn" >내가 찜한 글</button></li>
+<!--                        <li><img src="/../../images/mywrite/heart.png"></li>-->
+                    </ul>
+                </div>
+
+                <!--찜 리스트-->
+                <div id="like-list">
+                    <table>
+                        <thead>
+                        <th>작성자</th>
+                        <th>게시판</th>
+                        <th>제목(댓글수)</th>
+                        <th>날짜</th>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <td>코줍</td>
+                            <td>서울 >> 분실물</td>
+                            <td>코치 검정색 장지갑 찾습니다!</td>
+                            <td>2021-07-21</td>
+                        </tr>
+                        <tr>
+                            <td>코줍</td>
+                            <td>서울 >> 분실물</td>
+                            <td>코치 검정색 장지갑 찾습니다!</td>
+                            <td>2021-07-21</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+</html>

@@ -2,16 +2,26 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <-- 팝업창 css -->
     <link th:href="@{/css/message/message_popup.css}" rel="stylesheet" type="text/css">
+
+    <script>
+        $(window).load(function() {
+            window.resizeTo(500, 400 );
+        });
+    </script>
 </head>
 <body>
     <div id="popup_wrapper">
         <div id="popup+content">
-            <h1>메세지 보내기</h1>
+            <h1>쪽지 보내기</h1>
+            <input type="text" placeholder="받는사람"><input type="button" value="주소록" onclick="showPopup(2);" >
+            <br><br>
+            <textarea>쪽지내용</textarea>
         </div>
+        <input type="button" value="보내기">
 
     </div>
 
 </body>
+<script th:src="@{/js/message/message_js_sh.js}"></script>
 </html>

@@ -19,9 +19,21 @@ public class MemberController {
         return "/member/modiprivacy";
     }
 
-    // 내가 쓴 글 & 내가 쓴 댓글 & 찜한 글
+    // 내가 쓴 글
     @GetMapping("/mywrite")
     public String mywrite(){
         return "/member/mywrite";
+    }
+
+    // 내가 쓴 댓글
+    @GetMapping("/mycomment")
+    public String mycomment(){
+        return "/member/mycomment";
+    }
+
+    // 내가 찜한 글
+    @GetMapping("/mylike")
+    public String mylike(){
+        return "/member/mylike";
     }
 }
