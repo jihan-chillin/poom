@@ -102,6 +102,21 @@ span.red_star {
     color: rgb(216, 4, 4);
     font-size: 13px;
 }
+tr.email_number {
+    display: none;
+}
+.correct {
+	color:green;
+	font-style: italic;
+	font-size: 13px;
+	font-weight: bold;
+}
+.incorrect {
+	color:red;
+	font-style: italic;
+	font-size: 13px;
+	font-weight: bold;
+}
 form#signUp hr {
     border: 1px solid #f7f7f7;
 }
