@@ -8,7 +8,6 @@ let stompClient=null;
 let messageForm = $('#messageForm');
 let sendMsgContent=$('.send-msg-content');
 
-
 function connect(event){
   memberId = 'test';
 
@@ -39,6 +38,7 @@ function onError(error){
 
 function sendMessage(event) {
   let messageContent = sendMsgContent.val();
+  let chatNo = $('.chatNo').val();
 
   // console.log(messageContent);
 
@@ -46,6 +46,7 @@ function sendMessage(event) {
     let chatMessage = {
       memberId: memberId,
       messageContent: messageContent,
+      chatNo:chatNo,
       type: 'CHAT'
     };
     stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
@@ -56,7 +57,7 @@ function sendMessage(event) {
   return false;
 }
 
-function onMessageReceived(payload,chatNo){
+function onMessageReceived(payload){
   let message = JSON.parse(payload.body);
   let messageElement = $('.msg-container');
 

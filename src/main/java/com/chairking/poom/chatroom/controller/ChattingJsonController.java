@@ -26,15 +26,18 @@ public class ChattingJsonController {
     public List getPastChattingList(String chatNo,int ref){
         return service.messageContent(chatNo,ref);
     }
-
+//    자료형 수정해야함
     @GetMapping("/chat/mychat/list")
-    public Map<String,Object>  getMyChatList(){
+    public Map<String,Object> getMyChatList(){
         Map<String,Object> list = new HashMap<>();
-        Map myChatList = service.getMyChatList();
+
+        List<Map> myChatList = service.getMyChatList();
         list.put("list",myChatList);
 
-        String chatNo = (String) myChatList.get("CHAT_NO");
-        list.put("countMember",getEnteredMem(chatNo).size());
+        for(int i =0; i<myChatList.size(); i++) {
+            String chatNo = (String) myChatList.get(i).get("CHAT_NO");
+            list.put("countMember",getEnteredMem(chatNo).size());
+        }
 
         return list;
     }

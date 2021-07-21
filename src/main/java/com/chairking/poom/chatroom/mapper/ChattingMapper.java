@@ -10,7 +10,7 @@ import java.util.Map;
 public interface ChattingMapper {
 //    수정해야댐. member id
     @Select("select * from chat where member_id='test'")
-    public Map<String,List> getMyChatList();
+    public List<Map> getMyChatList();
 
     @Select("select * from CHATMEMBER where CHAT_NO=#{chatNo}")
     public List<Map> enteredMem(String chatNo);
@@ -19,7 +19,7 @@ public interface ChattingMapper {
     public List<Map> messageContent(String chatNo,int ref);
 
 //  채팅방 번호 수정해야함.
-    @Insert("insert into chatmessage values (seq_chatmessage.nextval,#{messageContent},sysdate,#{memberId},'5')")
+    @Insert("insert into chatmessage values (seq_chatmessage.nextval,#{messageContent},sysdate,#{memberId},#{chatNo})")
     public int saveMessage(ChatMessage chatMessage);
 
     @Select("select * from chat")

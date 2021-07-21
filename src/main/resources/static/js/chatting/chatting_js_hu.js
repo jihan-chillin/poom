@@ -79,6 +79,9 @@ function moveMyChatroom(chatNo){
     success:data=>{
       $('#chatlist-container').remove();
       $('.feed').html(data);
+      $('.feed').append(
+        '<input type="hidden" class="chatNo" value="'+chatNo+'">'
+      );
       $('.feed').attr('style','height:905px')
     },
     error:(e,m,i)=>{

@@ -11,7 +11,7 @@ import java.util.Map;
 public class ChattingDaoImpl implements ChattingDao{
 
     @Override
-    public Map<String, List> getMyChatList(ChattingMapper cm) {
+    public List<Map> getMyChatList(ChattingMapper cm) {
         return cm.getMyChatList();
     }
 
