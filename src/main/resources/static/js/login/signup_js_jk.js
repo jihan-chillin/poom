@@ -1,60 +1,89 @@
-//약관동의 스크립트
-//모두 체크 or 해제
-function allCheck(a) {
-    if($(a).prop("checked")){
-        $(".nomal").prop("checked",true);
-        $("button.agree").prop("disabled",false).addClass('button_able');
-    }else {
-        $(".nomal").prop("checked",false); 
-        $("button.agree").prop("disabled",true).removeClass('button_able'); 
-    }
-};
-
-//아래 체크갯수에 따라 전체항목 체크여부 바꾸기
-function oneCheck(a) {
-    var allChkBox = $("#checkAll");
-    var chkBoxName = $(a).attr("class");
-
-    if($(a).prop("checked")) {
-        //전체체크박스 수(모두동의하기 체크박스 제외)
-        checkBoxLength = $("[class="+ chkBoxName +"]").length;
-        //체크된 체크박스 수
-        checkedLength = $("[class="+ chkBoxName +"]:checked").length;
-
-        if( checkBoxLength == checkedLength ) {
-            //전체체크박스수 == 체크된 체크박스 수 같다면 모두체크
-            allChkBox.prop("checked", true);
-            $("button.agree").prop("disabled",false).addClass('button_able');
-        }else {
-            allChkBox.prop("checked", false);
-            $("button.agree").removeClass('button_able');
-        }
-        
-    }else {
-        allChkBox.prop("checked", false);
-        
-    }
-};
-
-$(function(){
-    //모두동의하기 체크박스 클릭시
-    $("#checkAll").click(function(){
-            allCheck(this);
-    });
-    $(".nomal").each(function(){
-        $(this).click(function(){
-            oneCheck(this);
-        });
-    });
-});
-
-//약관동의 후 확인 클릭시 회원가입창으로 이동
-$("button.agree").click(function() {
-	location.replace("/signup");
-});
-
 //취소버튼 클릭시 메인페이지로 이동
 function goIndex() {
-	location.href="/";
+	location.replace("/");
 }
 
+//지역인증 -> 지역받아오기
+var options = {
+    enableHighAccuracy : true,
+    timeout : 5000,
+    maximumAge : 0
+};
+
+function success(pos) {
+	//위도,경도 받아오기
+    var crd = pos.coords;
+    lat = crd.latitude;
+    lon = crd.longitude;
+
+    getAddr(lat,lon);
+    function getAddr(lat,lon){
+        let geocoder = new kakao.maps.services.Geocoder();
+
+        let coord = new kakao.maps.LatLng(lat, lon);
+        let callback = function(result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                //지역명 받아오기
+                var locate = result[0].address.region_1depth_name;
+                console.log(locate);
+                $('input#location').val(locate);
+            }
+        };
+
+        geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+    }
+    
+};
+
+function error(err) {
+    console.warn('ERROR(' + err.code + '): ' + err.message);
+};
+
+$("button#findLocation").click(function() {
+    navigator.geolocation.getCurrentPosition(success, error, options);
+
+})
+
+//이메일인증 -> 인증키 메일로 보내고 키값 데이터 받아오기
+var code = "";
+
+$("button#emailSend").click(function() {// 메일 입력 유효성 검사
+	var mail = $("input#email").val(); //사용자의 이메일 입력값.
+	
+	if (mail == "") {
+		alert("메일 주소가 입력되지 않았습니다.");
+	} else {
+		$.ajax({
+			type : 'post',
+			url : '/CheckMail',
+			data : {
+				mail:mail
+				},
+			dataType :'json',
+			success : function(data) {
+		        $('tr.email_number').show();
+		        code = data.key;
+				console.log(data.key);
+			}
+		});
+	
+		alert("인증번호가 전송되었습니다. 메일을 확인해주세요!") 
+		isCertification=true; //추후 인증 여부를 알기위한 값
+	}
+});
+
+//인증번호 비교
+$(".email_number input").keyup(function(){
+    
+    var inputCode = $(".email_number input").val();        // 입력코드    
+    var checkResult = $("#emailCheck");    // 비교 결과     
+    
+    if(inputCode == code){                            // 일치할 경우
+        checkResult.html("O 일치");
+        checkResult.attr("class", "correct");        
+    } else {                                            // 일치하지 않을 경우
+        checkResult.html("X 불일치");
+        checkResult.attr("class", "incorrect");
+    }    
+    
+});
