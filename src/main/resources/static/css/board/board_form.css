@@ -1,7 +1,14 @@
 div#board_form{
-	width:1620px; height:700px;
-	padding:50px;
+	width:1620px; height:800px;
+	/* overflow-y:scroll;
+    -ms-overflow-style: none; IE and Edge
+    scrollbar-width: none; Firefox */
 }
+div#board_form::-webkit-scrollbar {
+   /*  display: none; Chrome, Safari, Opera */
+}
+
+
 div#board_form>form{
     border-radius: 20px;
     padding:20px;
@@ -17,9 +24,7 @@ div#board_form>form{
     list-style:none;
     margin:30px;
     /* height:60px; */
-    padding:20px 0;
-    border-radius: 25px;
-    background-color: #ffffff;
+    padding:10px 0;
 }
 #board_form li *{
     display:inline-block;
@@ -35,17 +40,19 @@ div#board_form>form{
     margin-right: 20px; */
     outline: none;
     border: none;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid lightgray; 
     font-size: 20px;
+    padding:10px;
 }
 #board_form li>textarea{
 	border:1px solid lightgray;
 	width:1000px;
 	height:300px;
 	margin-top:30px;
+	resize: none;
+	padding:20px;
 }
 #board_form li:last-child input{
-	border:1px solid lightgray;
 	width:1000px;
 	padding:10px;
 }

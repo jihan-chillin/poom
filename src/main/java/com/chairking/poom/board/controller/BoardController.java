@@ -44,7 +44,7 @@ public class BoardController {
 		List<BoardImage> imgs=new ArrayList<>();
 		
 		if(boardImg !=null) {
-			String path=req.getServletContext().getRealPath("/resources/static/images/board/");
+			String path=req.getServletContext().getRealPath("/images/board/");
 			File dir=new File(path);
 			if(!dir.exists()) dir.mkdirs();
 			
@@ -58,9 +58,14 @@ public class BoardController {
 					
 					System.out.println(oriName+" -> "+reName);
 					
+					
 					try {
 						f.transferTo(new File(path+reName));
-						imgs.add(BoardImage.builder().originImg(oriName).renameImg(reName).build());
+						BoardImage bi=new BoardImage();
+						bi.setOriginImg(oriName);
+						bi.setRenameImg(reName);
+						System.out.println(bi);
+						imgs.add(bi);
 					}catch(IOException e) {
 						e.printStackTrace();
 					}
@@ -68,8 +73,12 @@ public class BoardController {
 			}
 		}
 		
+		board.setImages(imgs);
+
+		//게시글 등록
 		int result=service.insertBoard(board);
 		
+		mv.addObject("board", service.selectBoard(String.valueOf(service.selectBoardNo(board))));
 		mv.setViewName("board/board_view");
 		return mv;
 	}
