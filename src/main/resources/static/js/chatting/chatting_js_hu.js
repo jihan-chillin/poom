@@ -262,7 +262,7 @@ function chatListDetailData(chatNo){
         val += '<span class="chatroom-icon"> 소모임</span></div>';
       }
 
-      val += '<div>'+data.chatData.CHAT_TITLE+"/"+data.chatData.GRUOP_DATE+'</div>';
+      val += '<div>'+data.chatData.CHAT_TITLE+"/"+data.chatData.GROUP_DATE.substring(0,10)+'</div>';
       val += '<div>...</div></div>';
 
       // nav
@@ -310,4 +310,88 @@ function chatListDetailData(chatNo){
 
     }
   });
+}
+
+// 채팅방 만들기 페이지로 이동
+// create-chatroom.css 수정해야함.
+// radio 크기
+// button 모양등
+function createChatroom(){
+  $.ajax({
+    url:'/chat/room/page',
+    success:data=>{
+      $('.feed>*').remove();
+      $('.feed').html(data);
+
+      countMem();
+    }
+  });
+  return false;
+}
+// 채팅방 인원수 증감
+function countMem(){
+  const plus = $('.increase-mem');
+  const min = $('.decrease-mem');
+  // const val = $('.memCount').text();
+  let countMem =1;
+
+  plus.click(e=>{
+    countMem =countMem+1;
+    $('.memCount').text(countMem);
+  });
+
+  min.click(e=>{
+    countMem = countMem - 1;
+
+    if(countMem<1){
+      alert("참여인원은 최소한 1명이어야합니다.");
+    }else {
+      $('.memCount').text(countMem);
+    }
+  });
+
+}
+
+// 채팅방 데이터 가져오기
+// 세션 아이디를 넣어야하지만 로그인 구현 안돼서 임시로 넣음
+// test
+function chatroomData(){
+  const category = $('[name=select-cate]').val();
+  const title = $('.chatroom-title').val();
+  const content = $('.chatroom-content').val();
+  const condition = $('.chatroom-condition').val();
+  const memCount =$('.memCount').text();
+  const gatherDate = $('.gather-date').val();
+
+  // try {
+  //   const memberId=sessionStorage.getItem("memberId");
+  // }catch (error){
+  //   alert("로그인 후 이용해주세요");
+  //   return;
+  // }
+  const memberId = 'test';
+
+  return {category, title, content, condition, memCount, gatherDate,memberId};
+}
+
+// 채팅방 만드는 데이터 보내기
+function sendChatroomData(data){
+  console.log(data.gatherDate);
+
+  $.ajax({
+    url:'/chat/room/data',
+    data:{
+      "category":data.category,
+      "title":data.title,
+      "content":data.content,
+      "condition":data.condition,
+      "memCount":data.memCount,
+      "date":data.gatherDate,
+      "memberId":data.memberId,
+    },
+    success:data=>{
+      console.log(data);
+    }
+  });
+  return true;
 }
