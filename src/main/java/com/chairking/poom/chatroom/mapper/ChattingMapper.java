@@ -24,4 +24,7 @@ public interface ChattingMapper {
 
     @Select("select * from chat")
     public List<Map<String,Object>> getChatList();
+
+    @Select("select * from chat where chat_no = #{chatNo}")
+    public Map getChatroomData(String chatNo);
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 @RestController
@@ -15,6 +16,16 @@ public class ChattingJsonController {
     // JSON 전송용 Controller
     @Autowired
     private ChattingService service;
+
+    // 채팅방 참여자 리스트 가져옴
+    public List getEnteredMem(String chatNo){
+        return service.enteredMem(chatNo);
+    }
+
+    //채팅 내용
+    public List getPastChattingList(String chatNo,int ref){
+        return service.messageContent(chatNo,ref);
+    }
 
     @GetMapping("/chat/mychat/list")
     public Map<String,Object>  getMyChatList(){
@@ -34,17 +45,9 @@ public class ChattingJsonController {
 
         Map<String,List> list = new HashMap<>();
         list.put("list",getEnteredMem(chatNo));
+//       1주일 전까지 메세지만 가져옴 기준 -> int ref = 7
         list.put("messageContent",getPastChattingList(chatNo,7));
         return list;
-    }
-    // 채팅방 참여자 리스트 가져옴
-    public List getEnteredMem(String chatNo){
-        return service.enteredMem(chatNo);
-    }
-
-    //채팅 내용
-    public List getPastChattingList(String chatNo,int ref){
-        return service.messageContent(chatNo,ref);
     }
 
     @GetMapping("/chat/list/data")
@@ -64,6 +67,18 @@ public class ChattingJsonController {
 
         result.put("chatRoomMemCount",memCount);
         result.put("chatList",chatList);
+
+        return result;
+    }
+
+    // 채팅방 세부화면
+    @GetMapping("/chat/detail/data")
+    public Map getChatListDetailData(HttpServletRequest req){
+        String chatNo =req.getParameter("chatNo");
+//        log.info(chatNo);
+        Map result = new HashMap();
+        result.put("chatData",service.getChatroomData(chatNo));
+        result.put("memCount",getEnteredMem(chatNo).size());
 
         return result;
     }

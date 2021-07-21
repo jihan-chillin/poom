@@ -57,4 +57,8 @@ public class ChattingController {
         return "chatting/chatroom-list";
     }
 
+    @GetMapping("/chat/list/detail")
+    public String detailChatroom(){
+        return "chatting/chatroom-list-detail";
+    }
 }
