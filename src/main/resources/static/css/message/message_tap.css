@@ -1,7 +1,12 @@
+/* 글꼴 - 나눔고딕(googlefonts) */
+/* font-family: 'Nanum Gothic', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 body{
     margin-top: 100px;
@@ -56,5 +61,15 @@ td {
     padding: 4px 0px;
     border: 1px solid rgba(224, 224, 224, 0.2);
     font-size: 17px;
+}
+
+div.tablebox>input{
+    width: 170px;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background: rgb(6, 102, 146);
+    color: white;
 }
 
