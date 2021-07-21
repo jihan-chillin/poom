@@ -1,4 +1,4 @@
-package com.chairking.poom.member.controller;
+package com.chairking.poom.login.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,21 +15,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.chairking.poom.member.model.service.LoginService;
 import com.chairking.poom.member.model.vo.Member;
 import com.google.gson.Gson;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
 public class LoginController {
 
-	@Autowired	
-	LoginService service;
-	
 	//로그인 버튼 클릭시 메인화면으로 이동
 	@GetMapping("/login")
 	public String logIn() {
@@ -83,18 +78,6 @@ public class LoginController {
 		data.put("key", key);
 		
 		response.getWriter().print(gson.toJson(data));
-	}
-	
-	//아이디 중복확인
-	@GetMapping("/idDuplCheck")
-	public ModelAndView idDuplCheck(@RequestParam String id, ModelAndView mv) {
-		
-		Member m = service.idDuplCheck(id);
-		
-		mv.addObject("m",m);
-		mv.addObject("id",id);
-		mv.setViewName("login/idDuplCheck");
-		return mv;
 	}
 	 
 }

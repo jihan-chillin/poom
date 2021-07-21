@@ -18,7 +18,7 @@ public class ChattingServiceImpl implements ChattingService{
     private ChattingMapper cm;
 
     @Override
-    public Map<String, List> getMyChatList() {
+    public List<Map> getMyChatList() {
         return dao.getMyChatList(cm);
     }
 

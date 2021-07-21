@@ -28,7 +28,7 @@ function moveMyChatList(){
       if(chatNo !== null){
         // 채팅방 리스트가 있다면
 
-        if(data.list.CATEGORY_NO ==='0'){
+        if(data.list.CATEGORY_NO ==='1'){
           val+= '<span class="chatroom-icon-study">스터디</span>'
         }else{
           val+= '<span class="chatroom-icon-gather">소모임</span>'
@@ -72,9 +72,16 @@ function moveMyChatroom(chatNo){
   // 페이지 가져오기
   $.ajax({
     url:'/chat/chatroom/page',
+    data:{
+      "chatNo":
+      chatNo
+    },
     success:data=>{
       $('#chatlist-container').remove();
       $('.feed').html(data);
+      $('.feed').append(
+        '<input type="hidden" class="chatNo" value="'+chatNo+'">'
+      );
       $('.feed').attr('style','height:905px')
     },
     error:(e,m,i)=>{
@@ -130,8 +137,6 @@ function getChatList(chatNo,url){
       chatNo
     },
     success:data=>{
-      console.log(data);
-
       $('.msg-container>*').remove();
       let val = '';
       // 로그인 한 아이디와 일치하면
@@ -163,8 +168,7 @@ function getChatList(chatNo,url){
 }
 
 function moveChatList(){
-  $('.feed_write').remove();
-  $('.feed_new').remove();
+  $('.feed>*').remove();
 
   $.ajax({
     url:'/chat/list/page',
@@ -184,14 +188,12 @@ function moveChatList(){
     success:data=>{
       $('.chatroom-list-container>*').remove();
       let val = '';
-      console.log(data);
-
       for(let i=0; i<data.chatList.length; i++){
 
         val +='<div class="chatroom-info">';
         val +='<div class="chatroom-info-header"><div>';
 
-        if(data.chatList[i].CATEGORY_NO ==='0'){
+        if(data.chatList[i].CATEGORY_NO ==='1'){
           val +='<span class="chatroom-icon">스터디</span></div>';
         }else{
           val +='<span class="chatroom-icon">소모임</span></div>';
@@ -256,7 +258,7 @@ function chatListDetailData(chatNo){
       // header
       val += '<div class="chatroom-header"><div>';
 
-      if(data.chatData.CATEGORY_NO === '0'){
+      if(data.chatData.CATEGORY_NO === '1'){
         val += '<span class="chatroom-icon"> 스터디</span></div>';
       }else{
         val += '<span class="chatroom-icon"> 소모임</span></div>';
@@ -356,7 +358,14 @@ function countMem(){
 // 세션 아이디를 넣어야하지만 로그인 구현 안돼서 임시로 넣음
 // test
 function chatroomData(){
-  const category = $('[name=select-cate]').val();
+  let category = '';
+
+  if($('[name=select-cate]:checked').val() === 'stu'){
+    category='1';
+  }else{
+    category='0';
+  }
+
   const title = $('.chatroom-title').val();
   const content = $('.chatroom-content').val();
   const condition = $('.chatroom-condition').val();
@@ -376,8 +385,6 @@ function chatroomData(){
 
 // 채팅방 만드는 데이터 보내기
 function sendChatroomData(data){
-  console.log(data.gatherDate);
-
   $.ajax({
     url:'/chat/room/data',
     data:{
@@ -389,9 +396,8 @@ function sendChatroomData(data){
       "date":data.gatherDate,
       "memberId":data.memberId,
     },
-    success:data=>{
-      console.log(data);
-    }
   });
+
+  moveChatList();
   return true;
 }
