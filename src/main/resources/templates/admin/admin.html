@@ -89,18 +89,16 @@
 	     		});
 	     	};
      	}
-     	//메뉴바 누르면 화면뜨기
-		/* $("#notice_menu").click(e=>{
-			console.log(e.target);
-			$.ajax({
-     			url:"/admin/notice",
-     			data:{"type":type},
-	     		success:data=>{
-	     			$("#target").html("");
-	     			$("#target").html(data);
-	     		}
-     		})
-		}) */
+
+		//  function fn_notice_write(){
+		// 	$.ajax({
+		// 		url:"/admin/noticeWrite",
+		// 	}).done(function (fragment){
+		// 		$("#admin_content").html(fragment);
+		// 	});
+		
+
+		
      </script>
 	 <script th:src="@{/js/admin/admin_js_he.js}"></script>
 </body>
