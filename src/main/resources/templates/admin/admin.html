@@ -51,7 +51,7 @@
      
      <script th:inline="javascript">
      	//누르자마자 화면 뜨기
-     	let type=[[${type}]];
+     	const type=[[${type}]];
      	console.log(type);
      	$(function(){
 	     	fn_load(type);
@@ -90,15 +90,6 @@
 	     	};
      	}
 
-		//  function fn_notice_write(){
-		// 	$.ajax({
-		// 		url:"/admin/noticeWrite",
-		// 	}).done(function (fragment){
-		// 		$("#admin_content").html(fragment);
-		// 	});
-		
-
-		
      </script>
 	 <script th:src="@{/js/admin/admin_js_he.js}"></script>
 </body>

@@ -15,4 +15,7 @@ public interface ChattingDao {
     int saveMessage(ChattingMapper cm,ChatMessage chatMessage);
     List<Map<String,Object>> getChatList(ChattingMapper cm);
     Map getChatroomData(ChattingMapper cm,String chatNo);
+    int insertChatroomData(ChattingMapper m, Map<String,Object> data);
+    String getChatNo(ChattingMapper cm);
+    int enterChatRoom(ChattingMapper cm,String id,String chatNo);
 }

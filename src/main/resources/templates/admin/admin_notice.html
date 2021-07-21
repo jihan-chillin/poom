@@ -23,7 +23,63 @@
             
         </table>
         <div id="notice_pagebar">
-            공지사항 페이지바
+        <!-- <div>
+        	<p th:text="${cPage}"></p>
+        	<p th:text="${pageNo}"></p>
+        	<p th:text="${pageEnd}"></p>
+        	<p th:text="${totalPage}"></p>
+        	<p th:text="not (${pageNo} > ${pageEnd} or ${pageNo} > ${totalPage})?'1':'2'"></p>
+        	
+        </div>
+            <div th:if="${pageNo}eq 1">&lt;</div>
+            <div th:unless="${pageNo} eq 1">
+            	<a th:href="@{/admin/notice?cPage=(${cPage}-1)}">&lt;</a>
+            </div>
+         <th:block th:unless="not (${pageNo} > ${pageEnd} or  ${pageNo} > ${totalPage})"
+         			th:each="num : ${#numbers.sequence(1,5)}"
+         	>
+         	<p th:text="${num}"/>
+            <div th:if="${pageNo} eq ${cPage}" th:text="${pageNo}">
+            </div>
+            <div th:unless="${pageNo} eq ${cPage}">
+            	<a th:href="@{/admin/notice?cPage=(${pageNo})}" th:text="${pageNo}"></a>
+            </div>
+          </th:block>
+          	<div th:if="${pageNo}>${totalPage}">&gt;</div>
+            <div th:unless="${pageNo}>${totalPage}">
+            	<a th:href="@{/admin/notice?cPage='${pageNo}'}">&gt;</a>
+            </div> -->	
+            
+            <!-- 페이지바 실패 -->
+ <!--            <ul class="pagebar">
+				 <li class="page-item">
+				     <a class="page-link" th:href="@{/admin/notice?cPage=1}" aria-label="Previous">
+				       <span aria-hidden="true">처음</span>
+				     </a>
+				   </li>
+				   <li class="page-item">
+				     <a class="page-link" th:href="@{/admin/notice?cPage={cPage} (page = ${pagebar.prevBlock})}" aria-label="Previous">
+				       <span aria-hidden="true">이전</span>
+				     </a>
+				   </li>
+				   <th:block  th:with="start = ${pagebar.startPage}, end = ${pagebar.endPage}">
+				    <li class="page-item" 
+				    		 th:with="start = ${pagebar.startPage}, end = ${pagebar.endPage}"
+				    		th:each="pageButton : ${#numbers.sequence(start, end)}">
+				    		<a class="page-link" th:href="@{/admin/notice?cPage={cPage} (page = ${pageButton})}" th:text=${pageButton}></a>
+				    </li>
+				   </th:block>
+				   <li class="page-item">
+				     <a class="page-link" th:href="@{?page={page} (page = ${pagebar.nextBlock})}" aria-label="Next">
+				       <span aria-hidden="true">다음</span>
+				     </a>
+				   </li>
+				   <li class="page-item">
+				     <a class="page-link" th:href="@{?page={page} (page = ${pagebar.totalPage})}" aria-label="Previous">
+				       <span aria-hidden="true">끝</span>
+				     </a>
+				   </li>
+				 </ul> -->
         </div>
         <button class="admin_buttons" onclick="fn_notice_write();">작성하기</button>
     </div>

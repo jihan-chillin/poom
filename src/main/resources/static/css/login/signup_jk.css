@@ -66,8 +66,12 @@ table.signup_table {
     border-collapse: collapse;
     margin-bottom: 20px;
 }
+table.signup_table input::placeholder {
+	font-style: italic;
+	font-size: 13px;
+}
 table.signup_table th {
-    width: 28%;
+    width: 27%;
     text-align: right;
     padding-right: 10px;
     font-size: 15px;
@@ -75,6 +79,14 @@ table.signup_table th {
 table.signup_table tr>td:first-of-type {
     width: 50%;
     height: 50px;
+    position: relative;
+}
+table.signup_table tr>td:first-of-type>span {
+	position: absolute;
+	height:50px;
+	line-height: 50px;
+	top: 0;
+	right: 17px;
 }
 table.signup_table tr>td:first-of-type>input {
     width: 100%;
@@ -83,13 +95,16 @@ table.signup_table tr>td:first-of-type>input {
     outline: none;
     border: none;
     background: #f7f7f7;
-    padding-left: 15px;
+    padding-left: 17px;
+}
+input[type=password] {
+	font-family:'Malgun gothic', dotum, sans-serif;
 }
 table.signup_table tr>td:last-of-type {
     padding-left: 3%;
 }
 table.signup_table tr>td:last-of-type>button {
-    width: 60%;
+    width: 80%;
     height: 30px;
     border-radius: 30px;
     outline: none;
@@ -97,6 +112,7 @@ table.signup_table tr>td:last-of-type>button {
     background: #287094;
     color: white;
     cursor: pointer;
+    font-size: 12px;
 }
 span.red_star {
     color: rgb(216, 4, 4);
@@ -108,13 +124,13 @@ tr.email_number {
 .correct {
 	color:green;
 	font-style: italic;
-	font-size: 13px;
+	font-size: 12px;
 	font-weight: bold;
 }
 .incorrect {
 	color:red;
 	font-style: italic;
-	font-size: 13px;
+	font-size: 12px;
 	font-weight: bold;
 }
 form#signUp hr {

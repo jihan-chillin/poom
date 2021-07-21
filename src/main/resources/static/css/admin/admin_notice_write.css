@@ -64,7 +64,9 @@ div#admin_buttons{
     position: fixed;
     top:850px;
     width: 1200px;
-    align-items: center;
+    /* align-items: center; */
+    border-bottom:none !important;
+    text-align:center;
 }
 button.admin_buttons{
     width: 90px;
@@ -74,12 +76,12 @@ button.admin_buttons{
     border: none;
     background:#F77B1E;
     color: white;
-    /* font-weight: bolder; */
+    margin-right:10px;
     font-size: 16px;
     cursor: pointer;
 }
 button.admin_buttons1{
-    float: right;
+    /* float: right; */
     width: 90px;
     height: 50px;
     border-radius: 30px;

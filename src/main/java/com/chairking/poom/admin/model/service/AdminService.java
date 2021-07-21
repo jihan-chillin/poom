@@ -9,6 +9,6 @@ public interface AdminService {
 
 	int countAllNotice();
 	//List<Notice> allNotice();
-	List<Map<String,Object>> allNotice();
+	List<Map<String,Object>> allNotice(int cPage, int numPerpage);
 	int insertNotice(Notice n);
 }

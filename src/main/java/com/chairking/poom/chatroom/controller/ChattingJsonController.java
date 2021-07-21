@@ -82,4 +82,25 @@ public class ChattingJsonController {
 
         return result;
     }
+
+    @GetMapping("/chat/room/data")
+    public void createChatroom(HttpServletRequest req){
+        Map<String,Object> data = new HashMap<>();
+
+        data.put("category",req.getParameter("category"));
+        data.put("title",req.getParameter("title"));
+        data.put("content",req.getParameter("content"));
+        data.put("condition",req.getParameter("condition"));
+        data.put("memCount",Integer.parseInt(req.getParameter("memCount")));
+        data.put("date",req.getParameter("date"));
+        data.put("memberId",req.getParameter("memberId"));
+
+        // 채팅방 생성
+        service.insertChatroomData(data);
+        // 생성된 채팅방 번호 가져옴
+        String chatNo = service.getChatNo();
+        // 생성자 채팅방 입장
+        service.enterChatRoom((String)data.get("memberId"),chatNo);
+
+    }
 }
