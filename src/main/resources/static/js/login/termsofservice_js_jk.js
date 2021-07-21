@@ -27,7 +27,7 @@ function oneCheck(a) {
             $("button.agree").prop("disabled",false).addClass('button_able');
         }else {
             allChkBox.prop("checked", false);
-            $("button.agree").removeClass('button_able');
+            $("button.agree").prop("disabled",false).removeClass('button_able');
         }
         
     }else {
