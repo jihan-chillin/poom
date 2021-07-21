@@ -70,7 +70,7 @@ ul.left li button{
     cursor: pointer;
 }
 
-ul.left li button:hover {
+ul.left li:nth-of-type(1) button{
     border: 1px solid #287094;
     background-color: #287094;
     color: white;
@@ -78,6 +78,13 @@ ul.left li button:hover {
     cursor: pointer;
 }
 
+.privacy-btn:hover{
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: white;
+    font-weight: bolder;
+    cursor:pointer;
+}
 
 /* 우측 아이콘 hover 됐을 때, 배경 색 바꾸기  */
 ul.right li{
@@ -96,12 +103,19 @@ ul.right li div{
     text-align: center;
 }
 
+ul.right li div img{
+    width: 50%;
+    height: auto;
+    padding-top: 10px;
+}
+
 ul.right li:nth-of-type(even) div:hover{
     background-color:rgb(6, 102, 146);
     border-radius: 50px;
     width: 40px;
     height: 40px;
     text-align: center;
+    filter: invert(100%);
 }
 
 ul.right li:nth-of-type(odd) div:hover{
@@ -110,6 +124,7 @@ ul.right li:nth-of-type(odd) div:hover{
     width: 40px;
     height: 40px;
     text-align: center;
+    filter: invert(100%);
 }
 
 ul.right li img{
@@ -226,44 +241,3 @@ input.small-size{
     color: black;
     cursor: pointer;
 }
-
-/* mywrite : 내가 쓴 글 나타내기 */
-div#mywrite-container{
-    width:1036px;
-    height: 1000px;
-    /* border: 1px solid black; */
-    border-radius: 20px;
-    background-color: #f7f7f7;
-    text-align: center;
-}
-
-div.mywrite-bar{
-    width: 95%;
-    display: inline-block;
-    height: 70px;
-    border-bottom: black 1px solid;
-    padding: 0 150px;
-    align-items: center;
-    justify-content: center;
-}
-
-div.mywrite-bar span{
-    width: 120px;
-    border-radius: 20px;
-    /* text-align: center; */
-    display: inline-block;
-    margin: 20px 50px;
-    font-size: 20px;
-    line-height: 40px;
-    cursor: pointer;
-}
-
-div.mywrite-bar span:hover{
-    background-color: #287094;
-    color: white;
-    font-weight: bolder;
-    cursor: pointer;
-}
-
-
-
