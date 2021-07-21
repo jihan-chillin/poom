@@ -4,7 +4,7 @@ import com.chairking.poom.member.model.dao.MemberDao;
 import com.chairking.poom.member.model.vo.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class MemberServiceImpl implements MemberSerivce{
+public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private MemberDao dao;
