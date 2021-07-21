@@ -1,6 +1,5 @@
 package com.chairking.poom.login.controller;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
