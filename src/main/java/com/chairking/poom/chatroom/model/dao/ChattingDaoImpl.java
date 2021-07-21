@@ -34,4 +34,9 @@ public class ChattingDaoImpl implements ChattingDao{
     public List<Map<String,Object>> getChatList(ChattingMapper cm) {
         return cm.getChatList();
     }
+
+    @Override
+    public Map getChatroomData(ChattingMapper cm, String chatNo) {
+        return cm.getChatroomData(chatNo);
+    }
 }

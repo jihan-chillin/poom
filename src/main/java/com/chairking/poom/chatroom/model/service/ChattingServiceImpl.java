@@ -41,4 +41,9 @@ public class ChattingServiceImpl implements ChattingService{
     public List<Map<String,Object>> getChatList() {
         return dao.getChatList(cm);
     }
+
+    @Override
+    public Map getChatroomData(String chatNo) {
+        return dao.getChatroomData(cm,chatNo);
+    }
 }

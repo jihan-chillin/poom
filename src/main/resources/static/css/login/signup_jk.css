@@ -34,10 +34,11 @@ div#signup_wrapper {
     background: #f7f7f7;
 }
 
-/* termsOfService.html css - 이용약관 */
+/* signup.html css - 회원가입 */
 div#signup_wrapper>img {
     width: 270px;
     margin-bottom: 30px;
+    transform: translateZ(0);
 }
 div#signup_content {
     width: 576px;
@@ -56,51 +57,6 @@ div#signup_content label {
 div#signup_content input {
     outline: none;
 }
-ul.terms_list>li:first-child {
-    margin-bottom: 30px;
-}
-ul.terms_list>li:first-child label {
-    text-decoration: underline;
-    text-underline-position: under;
-}
-ul.terms_list>li:first-child span {
-    padding-left: 22px;
-}
-ul.terms_list>li {
-    margin-bottom: 15px;
-}
-ul.terms_list>li>input {
-    margin-bottom: 10px;
-}
-ul.terms_list>li>div {
-    height: 70px;
-    padding: 10px;
-    font-size: 13px;
-    line-height: 20px;
-    border: 1px solid lightgray;
-    overflow-y: scroll;
-}
-div.terms_btn {
-    display: flex;
-    justify-content: space-evenly;
-}
-div.terms_btn button {
-    width: 45%;
-    height: 40px;
-    outline: none;
-    font-weight: bold;
-    font-size: 17px;
-    border-radius: 5px;
-    border: 1px solid lightgray;
-    cursor: pointer;
-}
-.button_able {
-    color: white;
-    background: #287094;
-    border: none;
-}
-
-/* signup.html css - 회원가입 */
 form#signUp {
     display: flex;
     flex-direction: column;
@@ -140,10 +96,26 @@ table.signup_table tr>td:last-of-type>button {
     border: none;
     background: #287094;
     color: white;
+    cursor: pointer;
 }
 span.red_star {
     color: rgb(216, 4, 4);
     font-size: 13px;
+}
+tr.email_number {
+    display: none;
+}
+.correct {
+	color:green;
+	font-style: italic;
+	font-size: 13px;
+	font-weight: bold;
+}
+.incorrect {
+	color:red;
+	font-style: italic;
+	font-size: 13px;
+	font-weight: bold;
 }
 form#signUp hr {
     border: 1px solid #f7f7f7;

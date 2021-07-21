@@ -14,5 +14,5 @@ public interface ChattingDao {
     List<Map> messageContent(ChattingMapper cm,String chatNo,int ref);
     int saveMessage(ChattingMapper cm,ChatMessage chatMessage);
     List<Map<String,Object>> getChatList(ChattingMapper cm);
-
+    Map getChatroomData(ChattingMapper cm,String chatNo);
 }

@@ -22,7 +22,7 @@
 #chatroom-container{
   font-family: 'NEXON Lv1 Gothic OTF';
   display: grid;
-  width: 900px;
+  width: 100%;
   grid-template-rows: 60px 40px 480px 60px 60px;
   /* border:1px #000000 solid; */
   background: #f7f7f7;
@@ -31,7 +31,7 @@
 
 #chatroom-container .chatroom-header{
   display: grid;
-  grid-template-columns: 300px 500px 100px;
+  grid-template-columns: 40% 50% 10%;
   border-bottom:1px #000000 solid;
 }
 #chatroom-container .chatroom-header>:nth-child(1){
