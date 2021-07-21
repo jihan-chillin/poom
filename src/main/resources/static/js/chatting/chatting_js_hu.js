@@ -91,6 +91,7 @@ function moveMyChatroom(chatNo){
   // 채팅내용 불러오기
   getChatList(chatNo,url);
 
+  return false;
 }
 // 참여인원 불러오기
 function getMyChatroom(chatNo,url){
@@ -205,7 +206,7 @@ function moveChatList(){
         }
 
         val += '<div><div>...</div></div></div>'
-        val += '<div class="chatroom-content-container"><div class="chatroom-content-title">';
+        val += '<div class="chatroom-content-container"><div class="chatroom-content-title" onclick="moveChatListDetail('+data.chatList[i].CHAT_NO+');">';
         // 제목
         val += data.chatList[i].CHAT_TITLE +'</div><div class="chatroom-content-info">';
         // 내용
@@ -223,6 +224,90 @@ function moveChatList(){
   });
 }
 
-function moveChatListDetail(){
+// 세부 채팅방 세부화면으로
+// 화면 가져오기용.
+function moveChatListDetail(chatNo){
+  $('.feed>*').remove();
 
+  $.ajax({
+    url:'/chat/list/detail',
+    data:chatNo,
+    success:data=>{
+     $('.feed').html(data);
+     $('.feed').attr('style','height:905px; width:100%;');
+    }
+  });
+  chatListDetailData(chatNo);
+}
+
+function chatListDetailData(chatNo){
+
+  $.ajax({
+    url:'/chat/detail/data',
+    data:{
+      "chatNo":
+      chatNo
+    },
+    success:data=>{
+      // console.log(data);
+
+      let val = '';
+      val +='<link rel="stylesheet" type="text/css" href="/css/chatting/chatroom-list-detail.css">';
+      // header
+      val += '<div class="chatroom-header"><div>';
+
+      if(data.chatData.CATEGORY_NO === '0'){
+        val += '<span class="chatroom-icon"> 스터디</span></div>';
+      }else{
+        val += '<span class="chatroom-icon"> 소모임</span></div>';
+      }
+
+      val += '<div>'+data.chatData.CHAT_TITLE+"/"+data.chatData.GRUOP_DATE+'</div>';
+      val += '<div>...</div></div>';
+
+      // nav
+      val += '<div class="chatroom-nav"><div class="chatroom-status">';
+      if(data.chatData.CHAT_PERSON > data.memCount){
+        val +='모집중</div>';
+      }else{
+        val +='모집마감</div>';
+      }
+
+      val += '<div class="chatroom-maker">';
+      val += '<span> 모임장 </span>';
+      val += '<span>'+data.chatData.MEMBER_ID+'</span></div></div>';
+
+      val += '<div class="chatroom-content"><div>';
+      val += data.chatData.CHAT_CONTENT;
+      val += '</div></div>';
+
+      val += '<div class="chatroom-const"><div>';
+      val += '<span><img style="width:25px; height: 25px;"></span>';
+      val += '<span>'+data.memCount+'명</span>';
+      val += '<span> / </span>';
+      val += '<span>'+data.chatData.CHAT_PERSON +'명</span></div>';
+
+      val += '<div><span><img style="width:25px; height: 25px;"></span>';
+      val += '<span>'+data.chatData.CHAT_CONDITION+'</span></div></div>';
+
+      val += '<div class="enter-btn"><div>';
+      val += '<form onsubmit="return moveMyChatroom('+data.chatData.CHAT_NO+')">';
+      val += '<input type="submit" value="참여하기"></form>';
+      val += '</div>';
+
+      $('.chatroom-header').remove();
+      $('.chatroom-nav').remove();
+      $('.chatroom-content').remove();
+      $('.chatroom-const').remove();
+      $('.enter-btn').remove();
+
+      $('#chatroom-container').html(val);
+
+     if($('.chatroom-status').text() ==='모집마감'){
+       $('.enter-btn>div>form').remove();
+       $('.enter-btn>div').html("모집이 마감되었습니다.")
+     }
+
+    }
+  });
 }

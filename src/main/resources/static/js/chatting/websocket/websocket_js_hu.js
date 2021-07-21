@@ -75,7 +75,8 @@ function onMessageReceived(payload){
 function disconnection(){
   if(stompClient !== null){
     stompClient.disconnect();
-    $('.chat-icon').click();
+    // $('.chat-icon').click();
+    location.replace('/');
   }
 }
 
