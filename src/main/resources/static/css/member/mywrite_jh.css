@@ -1,0 +1,76 @@
+/* 전체 컨텐츠 영역 */
+div#ajaxcontent{
+    background: #f7f7f7;
+    border-radius: 20px;
+    padding: 10px 0;
+}
+
+div#mywrite-content{
+    width: 1020px;
+}
+
+/* 카테고리 바 영역*/
+div#write-bar{
+    border-bottom: 1px solid black;
+}
+
+div#write-bar ul {
+    display: flex;
+    flex-direction: row;
+    margin: 30px;
+}
+
+div#write-bar ul li {
+    margin: 0 20px;
+}
+
+div#write-bar li:nth-of-type(3) button,
+div#write-bar li:nth-of-type(4) button{
+    width: 150px;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background-color: #f7f7f7;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+div#write-bar li:nth-of-type(2) button{
+    width: 150px;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    border: 1px solid #287094;
+    background-color: #287094;
+    color: white;
+    font-size: 20px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+div#write-bar li:nth-of-type(3) button:hover,
+div#write-bar li:nth-of-type(4) button:hover{
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: white;
+    font-weight: bolder;
+    cursor:pointer;
+}
+
+/*글 리스트 나오는 부분*/
+div#write-list table{
+    margin: 20px auto;
+    width: 800px;
+    text-align: center;
+    border-spacing: 25px;
+}
+
+div#write-list thead{
+    font-size: 20px;
+}
+
+div#write-bar img{
+    width: 40px;
+    height: 40px;
+}
