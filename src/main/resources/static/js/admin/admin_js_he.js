@@ -30,8 +30,30 @@ function fn_notice_write(){
 // $(".allCheck").click(e=>{
 // 	alert('체크');
 // })
+//공지사항 등록버튼
+function fn_notice_submit(){
+	alert('공지사항이 등록되었습니다.');
+	$.ajax({
+		url:"/admin/noticeWrite",
+		data: $("#notice_form").serialize(),
+		type:"POST"
+	}).done(function (fragment){
+		$("#target").html(fragment);
+	})
+}
 
 
+
+//공지사항 취소버튼
+function fn_cancle(){
+	if(confirm('작성을 취소하시겠습니까?')){
+		$.ajax({
+			url:"/admin/notice",	
+		}).done(function(fragment){
+			$("#target").html(fragment);
+		})
+	}
+}
 
 
 

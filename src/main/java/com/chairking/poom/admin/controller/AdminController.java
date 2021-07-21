@@ -2,11 +2,9 @@ package com.chairking.poom.admin.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.chairking.poom.admin.model.service.AdminService;
 import com.chairking.poom.admin.model.vo.Notice;
+import com.chairking.poom.common.Pagination;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,15 +40,33 @@ public class AdminController {
 	
 	//ajax
 	@GetMapping("/notice")
-	public String notice(String type,Model m) {
-		int count =service.countAllNotice();
-		//List<Notice> list = service.allNotice();
-		//System.out.println(list.size());
+	public ModelAndView notice(String type,ModelAndView mv, 
+						@RequestParam(value="cPage", defaultValue="1") int cPage) {
+		int totalData =service.countAllNotice();
+		int numPerpage=5;
+		//구글페이징처리해보기
+		Pagination paging= new Pagination(totalData,cPage);
+		int startIndex=paging.getStartIndex();
+		int pageSize=paging.getpageBarSize();
 		
-		List<Map<String,Object>> list = service.allNotice();
-		m.addAttribute("list", list);
-		m.addAttribute("count", count);
-		return "admin/admin_notice";
+		List<Map<String,Object>> list = service.allNotice(startIndex,pageSize);
+		
+		//mv.addObject("pagebar", PageFactory.getPageBar(totalData, cPage, numPerpage, "notice"));
+		
+//		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
+//		int pageBarSize=5;
+//		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
+//		int pageEnd=pageNo+pageBarSize-1;
+//		mv.addObject("cPage",cPage);
+//		mv.addObject("pageNo",pageNo);
+//		mv.addObject("totalPage",totalPage);
+//		mv.addObject("pageEnd",pageEnd);
+		
+		mv.addObject("list", list);
+//		mv.addObject("pagebar",paging);
+//		mv.addObject("totalData", totalData);
+		mv.setViewName("admin/admin_notice");
+		return mv;
 	}
 	
 	//ajax
@@ -90,7 +107,8 @@ public class AdminController {
 				result=service.insertNotice(n);
 			}
 		}
-		mv.setViewName("admin/admin");
+		//mv.addObject("type", "notice");
+		mv.setViewName("redirect:/admin/main");
 		return mv;
 	}
 	

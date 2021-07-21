@@ -18,8 +18,8 @@ public interface AdminMapper {
 //	@Select("select category_name as cate, notice_title as noticeTitle, notice_content as noticeContent, notice_date as noticeDate, notice_status as noticeStatus from notice join category using(category_no) order by 4 desc")
 //	public List<Notice> allNotice();
 	
-	@Select("select * from notice join category using(category_no) order by notice_date desc")
-	public List<Map<String,Object>> allNotice();
+	@Select("select * from (select rownum as rnum, a.* from (select * from notice join category using(category_no) order by notice_date desc) a ) where rnum between #{cPage} and #{numPerpage}")
+	public List<Map<String,Object>> allNotice(int cPage, int numPerpage);
 	
 	@Insert("INSERT INTO NOTICE VALUES(SEQ_NOTICENO.NEXTVAL,#{cate},#{noticeTitle},#{noticeContent},sysdate,default)")
 	public int insertNotice(Notice n);
