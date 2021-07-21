@@ -85,7 +85,6 @@ public class AdminController {
 			n=Notice.builder().cate(cateChk[0]).noticeTitle(param.get("noticeTitle")).noticeContent(param.get("noticeContent")).build();
 			result=service.insertNotice(n);
 		}else {
-			Notice notice;
 			for(int i=0;i<cateChk.length;i++) {
 				n=Notice.builder().cate(cateChk[i]).noticeTitle(param.get("noticeTitle")).noticeContent(param.get("noticeContent")).build();
 				result=service.insertNotice(n);
