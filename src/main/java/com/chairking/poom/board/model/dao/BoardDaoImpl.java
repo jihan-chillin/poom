@@ -1,6 +1,7 @@
 package com.chairking.poom.board.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -16,9 +17,13 @@ public class BoardDaoImpl implements BoardDao {
 	}
 	
 	@Override
-	public List<Board> selectAllBoard(BoardMapper mapper){
+	public List<Map> selectAllBoard(BoardMapper mapper){
 		return mapper.selectAllBoard();
 	}
 	
+	@Override
+	public Map selectBoard(BoardMapper mapper, String boardNo) {
+		return mapper.selectBoard(boardNo);
+	}
 
 }

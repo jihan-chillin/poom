@@ -1,0 +1,70 @@
+/* 전체 컨텐츠 영역 */
+div#mycomment-content{
+    width: 1020px;
+}
+
+/* 카테고리 바 영역*/
+div#comment-bar{
+    border-bottom: 1px solid black;
+}
+
+div#comment-bar ul {
+    display: flex;
+    flex-direction: row;
+    margin: 30px;
+}
+
+div#comment-bar li {
+    margin: 0 20px;
+}
+
+div#comment-bar li:nth-of-type(2) button,
+div#comment-bar li:nth-of-type(4) button{
+    width: 150px;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background-color: #f7f7f7;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+div#comment-bar li:nth-of-type(3) button{
+    width: 150px;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    border: 1px solid #287094;
+    background-color: #287094;
+    color: white;
+    font-size: 20px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+div#comment-bar li:nth-of-type(2) button:hover,
+div#comment-bar li:nth-of-type(4) button:hover{
+    border: 1px solid lightgray;
+    background-color: lightgray;
+    color: white;
+    font-weight: bolder;
+    cursor:pointer;
+}
+
+div#comment-bar img{
+    width: 40px;
+    height: 40px;
+}
+
+/*댓글 리스트 나오는 부분*/
+div#comment-list table{
+    margin: 20px auto;
+    width: 800px;
+    text-align: center;
+    border-spacing: 25px;
+}
+
+div#comment-list thead{
+    font-size: 20px;
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+<!--  <link th:href="@{/css/message/message_tap.css}" rel="stylesheet" type="text/css">-->
+</head>
+<body>
+<h1>받는 사람</h1>
+<input type="text" placeholder="받는사람"><input type="button" value="검색" >
+<table border="1" class="col-100 col" th:if="${list!=null}">
+<thead>
+<tr>
+  <th>아이디</th>
+  <th>닉네임</th>
+  <th>이름</th>
+  <th>이메일</th>
+</tr>
+</thead>
+  <tbody>
+  <tr th:each="m : ${list}">
+    <td th:text="${m.memberId}"></td>
+    <td th:text="${m.memberNickname}"></td>
+    <td th:text="${m.memberName}"></td>
+    <td th:text="${m.memberEmail}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>

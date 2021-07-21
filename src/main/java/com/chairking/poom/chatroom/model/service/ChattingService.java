@@ -12,4 +12,7 @@ public interface ChattingService {
     int saveMessage(ChatMessage chatMessage);
     List<Map<String,Object>> getChatList();
     Map getChatroomData(String chatNo);
+    int insertChatroomData(Map<String,Object> data);
+    String getChatNo();
+    int enterChatRoom(String id,String chatNo);
 }

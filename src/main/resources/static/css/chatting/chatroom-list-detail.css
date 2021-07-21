@@ -31,7 +31,7 @@
 
 #chatroom-container .chatroom-header{
   display: grid;
-  grid-template-columns: 40% 50% 10%;
+  grid-template-columns: 30% 60% 10%;
   border-bottom:1px #000000 solid;
 }
 #chatroom-container .chatroom-header>:nth-child(1){

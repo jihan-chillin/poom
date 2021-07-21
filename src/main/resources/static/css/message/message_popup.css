@@ -6,9 +6,13 @@
     font-family: 'Nanum Gothic', sans-serif;
 }
 
-body{
-    width: 400px;
-    height: 300px;
-    left: 100px;
-    top: 50px;
+textarea{
+    width: 380px;
+    height: 280px;
+    resize:none; //크기고정
 }
+
+body{
+    text-align: center;
+}
+

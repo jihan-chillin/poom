@@ -24,7 +24,7 @@
   font-family: 'NEXON Lv1 Gothic OTF';
   /* border: 1px solid #000000; */
   border-radius: 20px;
-  width: 600px;
+  /*width: 600px;*/
   display: grid;
   grid-template-rows: 60px 60px 250px 150px 60px 60px 60px;
   justify-content: center;

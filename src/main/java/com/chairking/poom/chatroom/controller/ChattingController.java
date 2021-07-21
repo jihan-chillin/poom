@@ -11,6 +11,10 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
+
 @Controller
 @Slf4j
 public class ChattingController {
@@ -56,9 +60,15 @@ public class ChattingController {
     public String chattingList(){
         return "chatting/chatroom-list";
     }
-
+    // 채팅방 상세
     @GetMapping("/chat/list/detail")
     public String detailChatroom(){
         return "chatting/chatroom-list-detail";
+    }
+
+    // 채팅방 만들기
+    @GetMapping("/chat/room/page")
+    public String createChatroom(){
+        return "chatting/create-chatroom";
     }
 }
