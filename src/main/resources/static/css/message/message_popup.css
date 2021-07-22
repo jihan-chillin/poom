@@ -10,6 +10,7 @@
 
     width: 500px;
     height: 280px;
+    margin-bottom: 5px;
     resize:none; //크기고정
 
 
@@ -39,9 +40,21 @@ body{
     border-bottom: 1px solid lightgray;
     font-size: 16px;
 }
+
+.find-name{
+    width: 60px;
+    height: 30px;
+    font-size: 13px;
+    border-radius: 30px;
+    outline: none;
+    border :none;
+    background:#287094;
+    color: white;
+
+}
 div#message_buttons {
     width: 390px;
-    top: 370px;
+    top: 375px;
     margin-left: 90px;
     margin-top: 15px;
     position: fixed;
@@ -52,29 +65,30 @@ div#message_buttons {
 }
 
 button.message_buttons{
-    width: 90px;
-    height: 50px;
-    border-radius: 30px;
+    width: 75px;
+    height: 40px;
+    border-radius: 20px;
     outline: none;
     border :none;
-    background:#F77B1E;
+    background:#287094;
     color: white;
     margin-right:10px;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
 
 }
 
 button.message_buttons2{
-    width: 90px;
-    height: 50px;
-    border-radius: 30px;
+    width: 75px;
+    height: 40px;
+    border-radius: 20px;
     outline: none;
     border :none;
-    background:#287094;
-    color: white;
-    font-size: 16px;
+    background:#f7f7f7;
+    color: black;
+    font-size: 15px;
     cursor: pointer;
     margin-bottom: 10px;
+
 }
 
