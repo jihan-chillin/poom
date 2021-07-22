@@ -38,6 +38,6 @@ function membermodi(){
 }
 
 function mywrite(){
-    location.assign("/member/mywrite");
+    location.assign("/mywrite");
 }
 
