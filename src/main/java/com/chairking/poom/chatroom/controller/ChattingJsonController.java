@@ -32,12 +32,15 @@ public class ChattingJsonController {
         Map<String,Object> list = new HashMap<>();
 
         List<Map> myChatList = service.getMyChatList();
-        list.put("list",myChatList);
+        String chatNo = "";
+        List memCount = new ArrayList();
 
         for(int i =0; i<myChatList.size(); i++) {
-            String chatNo = (String) myChatList.get(i).get("CHAT_NO");
-            list.put("countMember",getEnteredMem(chatNo).size());
+            chatNo = (String) myChatList.get(i).get("CHAT_NO");
+            memCount.add(i,getEnteredMem(chatNo).size());
         }
+        list.put("countMember",memCount);
+        list.put("list",myChatList);
 
         return list;
     }
