@@ -21,7 +21,7 @@ function success(pos) {
                 //지역명 받아오기
                 var locate = result[0].address.region_1depth_name;
                 console.log(locate);
-                $('input[name=location]').val(locate);
+                $('input[name=memberLoc]').val(locate);
             }
         };
 
@@ -43,7 +43,7 @@ $("button#findLocation").click(function() {
 var code = "";
 
 $("button#emailSend").click(function() {// 메일 입력 유효성 검사
-	var mail = $("input[name=email]").val(); //사용자의 이메일 입력값.
+	var mail = $("input[name=memberEmail]").val(); //사용자의 이메일 입력값.
 	
 	if (mail == "") {
 		alert("메일 주소가 입력되지 않았습니다.");
@@ -62,8 +62,8 @@ $("button#emailSend").click(function() {// 메일 입력 유효성 검사
 			}
 		});
 	
-		alert("인증번호가 전송되었습니다. 메일을 확인해주세요!") 
-		isCertification=true; //추후 인증 여부를 알기위한 값
+		alert("인증번호가 전송되었습니다. 메일을 확인해주세요!");
+		$("[name=checked_email]").val("y");
 	}
 });
 
@@ -75,7 +75,8 @@ $(".email_number input").keyup(function(){
     
     if(inputCode == code){ //일치할 경우
         checkResult.html("O 일치");
-        checkResult.attr("class", "correct");        
+        checkResult.attr("class", "correct");
+        $("[name=checked_emailNumber]").val("y");
     } else { //일치하지 않을 경우
         checkResult.html("X 불일치");
         checkResult.attr("class", "incorrect");
@@ -92,10 +93,10 @@ function goIndex() {
 $(function(){
     //id 중복확인 & 유효성검사
     $("#idCheck").on("click",function() {
-        var id = $("[name=id]").val();
+        var id = $("[name=memberId]").val();
         if(id=="") {
             alert("아이디를 입력해주세요");
-            $("[name=id]").focus();
+            $("[name=memberId]").focus();
             return;
         } 
 
@@ -104,16 +105,16 @@ $(function(){
         var result = idCheck.exec(id);
 
         if(result !=null) {
-            window.open("/idDuplCheck?id="+id,"","width=500px,height=300px,top=300px,left=200px");
+            window.open("/duplCheck?type=id&check="+id,"","width=500px,height=300px,top=300px,left=200px");
         }else {
             alert("아이디는 4~15자의 영어소문자+숫자 조합으로 사용해야 합니다.");
-            $("[name=id]").focus();
+            $("[name=memberId]").focus();
         }
     });
 
     //비밀번호 유효성검사
     $("[name=pw]").on("blur",function() {
-    	var pw = $("[name=pw]").val();
+    	var pw = $("[name=memberPw]").val();
         if(pw=="") {
             alert("비밀번호를 입력해주세요");
             return;
@@ -132,7 +133,7 @@ $(function(){
     $("[name=pwc]").on("keyup",function() {
         var checkResult = $("#pwCheck");
 
-        if($("[name=pw]").val() == $("[name=pwc]").val()) {
+        if($("[name=memberPw]").val() == $("[name=pwc]").val()) {
             checkResult.html("O 일치");
             checkResult.attr("class", "correct");
         }else {
@@ -143,10 +144,10 @@ $(function(){
     
     //닉네임 중복확인 & 유효성검사
     $("#nicknameCheck").on("click",function() {
-        var nickname = $("[name=nickname]").val();
+        var nickname = $("[name=memberNickname]").val();
         if(nickname=="") {
             alert("닉네임을 입력해주세요");
-            $("[name=nickname]").focus();
+            $("[name=memberNickname]").focus();
             return;
         } 
 
@@ -155,22 +156,33 @@ $(function(){
         var result = nicknameCheck.exec(nickname);
 
         if(result !=null) {
-            window.open("uidDuplCheck.html?nickname="+nickname,"","width=500px,height=300px,top=300px,left=200px");
+            window.open("/duplCheck?type=nick&check="+nickname,"","width=500px,height=300px,top=300px,left=200px");
         }else {
             alert("닉네임은 2~8자의 영어소문자 또는 한글로 사용해야 합니다.");
-            $("[name=nickname]").focus();
+            $("[name=memberNickname]").focus();
         }
     });
     
+    //관심키워드박스 3개제한
+    $("input[type='checkbox']").on("click",function(){
+        let count = $("input:checked[type='checkbox']").length;
+
+        if(count>3) {
+            $(this).prop("checked",false);
+            alert('3개까지만 선택할 수 있습니다.')
+        }
+    });
+    
+    
     //회원가입 버튼 눌렀을 때, 빈칸 있으면 다시 유효성 검사진행    
     $("button[type=submit]").on("click",function(){
-        var id = $("[name=id]").val();
-        var pw = $("[name=pw]").val();
-        var name = $("[name=name]").val();
-        var nickname = $("[name=nickname").val();
-        var birth = $("[name=birth]").val();
-        var location = $("[name=location]").val();
-        var email = $("[name=email]").val();
+        var id = $("[name=memberId]").val();
+        var pw = $("[name=memberPw]").val();
+        var name = $("[name=memberName]").val();
+        var nickname = $("[name=memberNickname").val();
+        var birth = $("[name=memberBirth]").val();
+        var location = $("[name=memberLoc]").val();
+        var email = $("[name=memberEmail]").val();
         
         var nameCheck = /[가-힣]{2,}/;
         var birthCheck= /^[0-9]*$/;
@@ -178,54 +190,92 @@ $(function(){
         
         if(id == ""){
             alert("아이디는 필수입력사항입니다.");
-            $("[name=id]").focus();
+            $("[name=memberId]").focus();
+            return false;
+        }
+        if($("[name=checked_id]").val() =="") {
+        	alert("아이디 중복체크를 해주세요.");
             return false;
         }
         
         if(pw == ""){
             alert("비밀번호는 필수입력사항입니다.");
-            $("[name=pw]").focus();
+            $("[name=memberPw]").focus();
             return false;
+        }
+        if($("[name=memberPw]").val() != $("[name=pwc]").val()) {
+        	alert("비밀번호가 일치하지 않습니다! 다시 설정해주세요.");
+        	return false;
         }
 
         var nameCheck = nameCheck.exec(name);
         if(name == ""){
             alert("이름은 필수입력사항입니다.");
-            $("[name=name]").focus();
+            $("[name=memberName]").focus();
             return false;
         }else if(nameCheck == null) { 
             alert("이름은 한글만 입력 가능합니다.");
-            $("[name=name]").focus();
+            $("[name=memberName]").focus();
             return false;
         }
 
         if(nickname == ""){
             alert("닉네임은 필수입력사항입니다.");
-            $("[name=nickname]").focus();
+            $("[name=memberNickname]").focus();
+            return false;
+        }
+        if($("[name=checked_nick]").val() =="") {
+        	alert("닉네임 중복체크를 해주세요.");
             return false;
         }
 
+		if(birth == ""){
+            alert("생년월일은 필수입력사항입니다.");
+            $("[name=memberBirth]").focus();
+            return false;
+        }
+        if(birth.length != 8) {
+        	alert("생년월일 형식을 맞춰주세요! ex)20210811");
+            $("[name=memberBirth]").focus();
+            return false;
+          }
+        
         if(location == ""){
             alert("지역인증버튼을 눌러 지역을 인증하세요!");
             return false;
         }
 
-        var emailCheck = emailCheck.exec(email);
         if(email == ""){
             alert("이메일은 필수입력사항입니다. 입력 후 인증하세요!");
-            $("[name=email]").focus();
+            $("[name=memberEmail]").focus();
             return false;
-        }else if(nameCheck == null) { 
-            alert("이메일 형식에 맞춰 작성해주세요.");
-            $("[name=email]").focus();
+        }
+        if($("[name=checked_email]").val() =="") {
+        	alert("이메일을 인증해주세요.");
             return false;
+        }
+        if($("[name=checked_emailNumber]").val() =="") {
+        	alert("이메일 인증번호가 일치하지 않습니다.");
+        	return false;
         }
         
         //빈칸 없을 때 제출.
         $("[name=signUp_form]").submit();
     
     })
-    
-    
 })
+
+
+function setDupl(dupl,type,checked) {
+	if(type == 'id') {
+		$("[name=memberId]").val(dupl);
+		$("[name=checked_id]").val(checked);
+		$("[name=memberId]").focus();
+	}else {
+		$("[name=memberNickname]").val(dupl);
+		$("[name=checked_nick]").val(checked);
+		$("[name=memberNickname]").focus();
+	}
+}
+
 
