@@ -63,13 +63,43 @@ td {
     font-size: 17px;
 }
 
+.send-message{
+    float: right;
+}
 div.tablebox>input{
-    width: 170px;
-    height: 40px;
-    border-radius: 30px;
+    width: 87px;
+    height: 27px;
+    border-radius: 20px;
     outline: none;
     border: none;
     background: rgb(6, 102, 146);
     color: white;
+    margin-top: 10px;
 }
 
+.search-message{
+    width: 250px;
+    margin-right: 20px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    font-size: 16px;
+    float: right;
+    margin-top: 10px;
+    text-align: center;
+    color: #d3d3d3;
+}
+
+.msg-cancel{
+    text-align: center;
+    width: 117px;
+    font-size: 15px;
+    border-radius: 20px;
+}
+
+.msg-cancel1{
+    text-align: center;
+    width: 200px;
+    font-size:15px;
+    border-radius: 20px;
+}

@@ -98,7 +98,7 @@
   border-bottom: 1px #000000 solid;
 }
 
-.chatroom-list-container .chatroom-info .chatroom-info-header .chatroom-icon{
+.chatroom-list-container .chatroom-info .chatroom-info-header .chatroom-icon-study{
   /* border: 1px solid #000000; */
   border-radius: 20px;
   padding: 4px;
@@ -116,6 +116,25 @@
   -o-border-radius: 20px;
   cursor: pointer;
 }
+.chatroom-list-container .chatroom-info .chatroom-info-header .chatroom-icon-gather{
+  /* border: 1px solid #000000; */
+  border-radius: 20px;
+  padding: 4px;
+  width: 50px;
+  margin-left: 10px;
+  font-size:15px;
+  text-align: center;
+  /* 색상변경해야함 */
+  background-color: #287094;
+  color:#ffffff;
+  border:2px #000000 solid;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  cursor: pointer;
+}
+
 .chatroom-list-container .chatroom-info .chatroom-info-header>:nth-child(2)>span{
   font-family: 'NEXON Lv1 Gothic OTF';
   font-weight: bold;

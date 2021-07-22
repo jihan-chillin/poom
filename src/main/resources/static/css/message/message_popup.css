@@ -6,13 +6,89 @@
     font-family: 'Nanum Gothic', sans-serif;
 }
 
-textarea{
-    width: 380px;
+.msg-content textarea{
+
+    width: 500px;
     height: 280px;
+    margin-bottom: 5px;
     resize:none; //크기고정
+
+
 }
 
 body{
     text-align: center;
+    margin-top: 40px;
+}
+
+/*h1{*/
+/*    font-size: 25px;*/
+/*}*/
+
+.search-receiver{
+    text-align: left;
+    margin-left: 40px;
+    margin-bottom: 15px;
+}
+
+.search-name{
+    width: 250px;
+    margin-right: 20px;
+    /*text-align: center;*/
+    outline: none;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    font-size: 16px;
+}
+
+.find-name{
+    width: 60px;
+    height: 30px;
+    font-size: 13px;
+    border-radius: 30px;
+    outline: none;
+    border :none;
+    background:#287094;
+    color: white;
+
+}
+div#message_buttons {
+    width: 390px;
+    top: 375px;
+    margin-left: 90px;
+    margin-top: 15px;
+    position: fixed;
+    border-bottom: none;
+    text-align: center;
+
+
+}
+
+button.message_buttons{
+    width: 75px;
+    height: 40px;
+    border-radius: 20px;
+    outline: none;
+    border :none;
+    background:#287094;
+    color: white;
+    margin-right:10px;
+    font-size: 15px;
+    cursor: pointer;
+
+}
+
+button.message_buttons2{
+    width: 75px;
+    height: 40px;
+    border-radius: 20px;
+    outline: none;
+    border :none;
+    background:#f7f7f7;
+    color: black;
+    font-size: 15px;
+    cursor: pointer;
+    margin-bottom: 10px;
+
 }
 

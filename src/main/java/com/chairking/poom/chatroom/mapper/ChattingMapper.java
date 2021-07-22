@@ -36,4 +36,7 @@ public interface ChattingMapper {
 
     @Insert("insert into CHATMEMBER values(#{id},#{chatNo})")
     public int enterChatRoom(String id, String chatNo);
+
+    @Select("select count(*) from CHATMEMBER where CHAT_NO=#{chatNo} and MEMBER_ID=#{memberId}")
+    public int checkEnterChatroom(String memberId,String chatNo);
 }
