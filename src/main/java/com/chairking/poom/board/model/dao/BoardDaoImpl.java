@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.chairking.poom.board.mapper.BoardMapper;
 import com.chairking.poom.board.model.vo.Board;
+import com.chairking.poom.board.model.vo.BoardImage;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -14,6 +15,11 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public int insertBoard(BoardMapper mapper, Board b) {
 		return mapper.insertBoard(b);
+	}
+
+	@Override
+	public int insertBoardImg(BoardMapper mapper, BoardImage bi) {
+		return mapper.insertBoardImg(bi);
 	}
 	
 	@Override
@@ -25,5 +31,12 @@ public class BoardDaoImpl implements BoardDao {
 	public Map selectBoard(BoardMapper mapper, String boardNo) {
 		return mapper.selectBoard(boardNo);
 	}
+
+	@Override
+	public int selectBoardNo(BoardMapper mapper, Board b) {
+		return mapper.selectBoardNo(b);
+	}
+	
+	
 
 }
