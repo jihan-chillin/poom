@@ -21,40 +21,47 @@ function moveMyChatList(){
   $.ajax({
     url:'/chat/mychat/list',
     success:data=>{
+      console.log(data);
       $('.chatroom').children().remove();
-      const chatNo = data.list.CHAT_NO;
-      let val = '';
 
-      if(chatNo !== null){
-        // 채팅방 리스트가 있다면
+      for(let i = 0; i<data.list.length; i++){
+        let val = '';
 
-        if(data.list.CATEGORY_NO ==='1'){
-          val+= '<span class="chatroom-icon-study">스터디</span>'
+        const chatNo = data.list[i].CHAT_NO;
+
+        if(chatNo !== null){
+          // 채팅방 리스트가 있다면
+
+          if(data.list.CATEGORY_NO ==='1'){
+            val+= '<span class="chatroom-icon-study">스터디</span>'
+          }else{
+            val+= '<span class="chatroom-icon-gather">소모임</span>'
+          }
+          val+= '<span class="chatroom-title">';
+          val+= '<span onclick="moveMyChatroom('+chatNo+')">'+data.list[i].CHAT_TITLE+'</span></span>';
+          val+= '<span><img style="width:25px; height: 25px;"></span>';
+          // 채팅방 참여인원수
+          val+= '<span>'+data.countMember[i]+'</span>';
+          val+= '<span>/</span>';
+          // 채팅방 제한 인원
+          val+= '<span>'+data.list[i].CHAT_PERSON+'명</span>';
+
+          // 채팅방 번호 전달
+          // $('.chatroom-title>span').click(e=>{
+          //   moveMyChatroom(data.list.CHAT_NO);
+          //
+          // });
+
         }else{
-          val+= '<span class="chatroom-icon-gather">소모임</span>'
+          // 참여중인 채팅방이 없으면.
+          val += '<div></div>'
+          val += '<div id="nochatroom">참여중인 채팅이 없습니다.</div>'
         }
-        val+= '<span class="chatroom-title">';
-        val+= '<span onclick="moveMyChatroom('+chatNo+')">'+data.list.CHAT_TITLE+'</span></span>';
-        val+= '<span><img style="width:25px; height: 25px;"></span>';
-        // 채팅방 참여인원수
-        val+= '<span>'+data.countMember+'</span>';
-        val+= '<span>/</span>';
-        // 채팅방 제한 인원
-        val+= '<span>'+data.list.CHAT_PERSON+'명</span>';
+        $('.chatroom').append(val);
 
-        // 채팅방 번호 전달
-        // $('.chatroom-title>span').click(e=>{
-        //   moveMyChatroom(data.list.CHAT_NO);
-        //
-        // });
-
-      }else{
-        // 참여중인 채팅방이 없으면.
-        val += '<div></div>'
-        val += '<div id="nochatroom">참여중인 채팅이 없습니다.</div>'
       }
 
-      $('.chatroom').append(val);
+
 
     },
     error:(e,m,i)=>{
