@@ -12,7 +12,7 @@ public class MemberDaoImpl implements MemberDao{
     }
 
     @Override
-    public int updatePrivacy(MemberMapper mapper, Member m) {
+    public int updatePrivacy(Member m) {
         return 0;
     }
 }

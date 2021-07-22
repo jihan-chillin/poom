@@ -28,13 +28,19 @@ public class MemberController {
     // 2. 프로필 수정완료되면 프로필 수정페이지로 이동
     // 파라미터가 String인 것들만 받을 거기 때문에 RequestBody로 가져옴.
     @PostMapping("/updateProfile")
-    public ModelAndView updateProfile(ModelAndView mv, MultipartFile[] inputfile, @RequestBody Map<String, String> param){
+    public ModelAndView updateProfile(ModelAndView mv,Member m,  MultipartFile[] inputfile, @RequestBody Map<String, String> param){
+
+        // 파라미터 값 변수에 저장
         String memberId = param.get("memberId");
         String nick = param.get("nick");
         String intro = param.get("intro");
-        String profile = param.get("inputfile");
+//        String profile = param.get("inputfile");
 
         System.out.println(memberId+nick+intro);
+
+        //
+
+        int result = service.updatePrivacy(m);
 
         mv.setViewName("member/modiprofile");
 
@@ -55,11 +61,26 @@ public class MemberController {
         // ▼ 회원 아이디 sessionr값 가져올 때
         //HttpSession session = req.getSession();
 
+        // 임의 아이디
+        String id="test";
+
+        // 파라미터 값 변수에 저장
         String pw = param.get("pw");
         String email = param.get("email");
         String loc = param.get("loc");
 
+        // 객체에 파라미터 set
+        m.setMemberId(id);
+        m.setMemberPw(pw);
+        m.setMemberEmail(email);
+        m.setMemberLoc(loc);
 
+        System.out.println(m);
+
+        int result = service.updatePrivacy(m);
+
+        mv.addObject("m", m);
+        mv.setViewName("member/modiprivacy");
 
         return mv;
     }
