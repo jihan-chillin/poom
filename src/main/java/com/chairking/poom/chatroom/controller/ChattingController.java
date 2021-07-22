@@ -38,7 +38,7 @@ public class ChattingController {
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/chatroom")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage){
-        log.info("컨트롤러에서 보내는 페이로드 : {}",chatMessage);
+//        log.info("컨트롤러에서 보내는 페이로드 : {}",chatMessage);
         log.info("메세지 내용 : {}",chatMessage.getMessageContent());
         log.info("메세지 보낸 아이디 : {}",chatMessage.getMemberId());
         log.info("채팅방 번호 : {}",chatMessage.getChatNo());

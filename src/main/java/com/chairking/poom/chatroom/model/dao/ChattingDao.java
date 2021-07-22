@@ -16,4 +16,5 @@ public interface ChattingDao {
     int insertChatroomData(ChattingMapper m, Map<String,Object> data);
     String getChatNo(ChattingMapper cm);
     int enterChatRoom(ChattingMapper cm,String id,String chatNo);
+    int checkEnterChatroom(ChattingMapper cm,String id,String chatNo);
 }

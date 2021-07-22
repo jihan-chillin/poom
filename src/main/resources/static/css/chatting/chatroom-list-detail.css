@@ -42,7 +42,7 @@
 #chatroom-container .chatroom-header>:nth-child(3){
   cursor: pointer;
 }
-#chatroom-container .chatroom-header .chatroom-icon{
+#chatroom-container .chatroom-header .chatroom-icon-study{
   /*border: 1px solid #000000;
   */
   border-radius: 20px;
@@ -53,6 +53,22 @@
   text-align: center;
   /*색상변경해야함*/
   background-color: red;
+  color:#ffffff;
+  border:2px #000000 solid;
+  cursor: pointer;
+}
+
+#chatroom-container .chatroom-header .chatroom-icon-gather{
+  /*border: 1px solid #000000;
+  */
+  border-radius: 20px;
+  padding: 4px;
+  width: 50px;
+  margin-left: 10px;
+  font-size:15px;
+  text-align: center;
+  /*색상변경해야함*/
+  background-color: #287094;
   color:#ffffff;
   border:2px #000000 solid;
   cursor: pointer;
