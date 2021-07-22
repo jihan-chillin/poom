@@ -13,13 +13,18 @@
 <body>
     <div id="popup_wrapper">
         <div id="popup+content">
-            <h1>쪽지 보내기</h1>
-            <input type="text" placeholder="받는사람"><input type="button" value="주소록" onclick="showPopup(2);" >
-            <br><br>
-            <textarea>쪽지내용</textarea>
+<!--            <h1>쪽지 보내기</h1>-->
+            <div class="search-receiver">
+                <input type="text" class="search-name" placeholder="받는사람"><input type="button" value="주소록" onclick="showPopup(2);" >
+            </div>
+            <div class="msg-content">
+                <textarea>쪽지내용</textarea>
+            </div>
+            <div id="message_buttons">
+                <button class="message_buttons" type="button">보내기</button>
+                <button class="message_buttons2" type="button">취소</button>
+            </div>
         </div>
-        <input type="button" value="보내기">
-
     </div>
 
 </body>
