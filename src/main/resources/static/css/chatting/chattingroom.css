@@ -49,12 +49,12 @@
   align-self: center;
   cursor: pointer;
 }
-#room-container .chatroom-header .chatroom-icon{
+#room-container .chatroom-header .chatroom-icon-study{
   /*border: 1px solid #000000;
   */
   border-radius: 20px;
   padding: 4px;
-  width: 50px;
+  width: 55px;
   margin-left: 10px;
   font-size:15px;
   text-align: center;
@@ -64,6 +64,22 @@
   border:2px #000000 solid;
   cursor: pointer;
 }
+#room-container .chatroom-header .chatroom-icon-gather{
+  /*border: 1px solid #000000;
+  */
+  border-radius: 20px;
+  padding: 4px;
+  width: 55px;
+  margin-left: 10px;
+  font-size:15px;
+  text-align: center;
+  /*색상변경해야함*/
+  background-color: #287094;
+  color:#ffffff;
+  border:2px #000000 solid;
+  cursor: pointer;
+}
+
 #room-container .chatroom-header>:nth-child(2){
   font-family: 'NEXON Lv2 Gothic Bold';
   font-size:30px;
