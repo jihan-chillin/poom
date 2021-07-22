@@ -1,4 +1,4 @@
-package com.chairking.poom.login.controller;
+package com.chairking.poom.member.controller;
 
 import java.util.HashMap;
 import java.util.Map;
