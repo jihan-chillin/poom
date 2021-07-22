@@ -30,19 +30,19 @@ public class LoginController {
 	public String logIn() {
 		return "main/main";
 	}
-	
+
 	//회원가입 클릭시 이용약관화면으로 이동
 	@GetMapping("/termsofservice")
 	public String termsOfService() {
 		return "login/termsOfService";
 	}
-	
+
 	//이용약관 선택 후 확인클릭시 회원가입화면으로 이동
 	@GetMapping("/signup")
 	public String signUp() {
 		return "login/signup";
 	}
-	
+
 	//ID찾기, PW찾기 이동
 	@GetMapping("/userfind")
 	public String userFind(@RequestParam String type, Model model) {
@@ -53,12 +53,12 @@ public class LoginController {
 	//이메일인증
 	@Autowired
     public JavaMailSender emailSender;
-	
+
 	@RequestMapping("/CheckMail")
 	@ResponseBody
 	public void SendMail(HttpServletResponse response, @RequestParam String mail) throws Exception {
 		Gson gson = new Gson();
-		
+
 		Map<String, Object> data = new HashMap<String,Object>();
 		Random random = new Random();
 		String key = "";
@@ -76,8 +76,8 @@ public class LoginController {
 		message.setText("인증 번호 : " + key);
 		emailSender.send(message);
 		data.put("key", key);
-		
+
 		response.getWriter().print(gson.toJson(data));
 	}
-	 
+
 }
