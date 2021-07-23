@@ -14,4 +14,7 @@ public interface AdminDao {
 	Map<String,Object> selectNotice(AdminMapper mapper, String no);
 	int noticeDelete(AdminMapper mapper, String no);
 	int realDelete(AdminMapper mapper, String no);
+	int changeStatus(AdminMapper mapper, String no);
+	
+	List<Map<String,Object>> allBoardBlame(AdminMapper mapper, int cPage, int numPerpage);
 }

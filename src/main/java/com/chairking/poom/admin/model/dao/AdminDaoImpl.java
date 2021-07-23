@@ -41,5 +41,17 @@ public class AdminDaoImpl implements AdminDao {
 		return mapper.realDelete(no);
 	}
 
+	@Override
+	public int changeStatus(AdminMapper mapper, String no) {
+		return mapper.changeStatus(no);
+	}
+
+	@Override
+	public List<Map<String, Object>> allBoardBlame(AdminMapper mapper, int cPage, int numPerpage) {
+		return mapper.allBoardBlame(cPage,numPerpage);
+	}
+	
+	
+
 	
 }

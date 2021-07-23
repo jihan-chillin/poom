@@ -50,7 +50,7 @@ public class AdminController {
 		int startIndex=paging.getStartIndex();
 		int pageSize=paging.getpageBarSize();
 		
-		List<Map<String,Object>> list = service.allNotice(startIndex,pageSize);
+		List<Map<String,Object>> list = service.allNotice(startIndex,10);
 		
 		//mv.addObject("pagebar", PageFactory.getPageBar(totalData, cPage, numPerpage, "notice"));
 		
@@ -70,10 +70,23 @@ public class AdminController {
 		return mv;
 	}
 	
-	//ajax
+	//신고관리 메뉴 페이지
 	@GetMapping("/blame")
-	public ModelAndView blame(String type,ModelAndView mv) {
-		mv.addObject("type",type);
+	public ModelAndView blame(String type,ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1") int cPage) {
+		List<Map<String,Object>> list = null;
+		String title=null;
+		switch(type) {
+			case "blame": case "1" : list = service.allBoardBlame(cPage,10); title="신고된 게시글 관리";break;
+			case "2" : list = service.allBoardBlame(cPage,10); title="신고된 댓글 관리";break;
+			case "3" : list = service.allBoardBlame(cPage,10); title="신고된 채팅 관리";break;
+			case "4" : list = service.allBoardBlame(cPage,10); title="정지된 회원 관리";break;
+		}
+		
+		mv.addObject("list", list);
+		mv.addObject("type", type);
+		System.out.println("type : "+type);
+		mv.addObject("blame_title", title);
 		mv.setViewName("admin/admin_blame");
 		return mv;
 	}
@@ -173,6 +186,18 @@ public class AdminController {
 			mv.setViewName("redirect:/admin/notice");
 		}else {
 			System.out.println("공지사항 수정 실패");
+		}
+		return mv;
+	}
+	
+	//공지사항 재게시하기
+	@GetMapping("/changeStatus")
+	@Transactional
+	public ModelAndView changeStatus(@RequestParam String no, ModelAndView mv) {
+		int result=service.changeStatus(no);
+		if(result>0) {
+			mv.addObject("type", "notice");
+			mv.setViewName("redirect:/admin/notice");
 		}
 		return mv;
 	}

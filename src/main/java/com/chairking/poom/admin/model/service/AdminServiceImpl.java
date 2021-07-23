@@ -48,5 +48,17 @@ public class AdminServiceImpl implements AdminService {
 		return dao.realDelete(mapper, no);
 	}
 
+	@Override
+	public int changeStatus(String no) {
+		return dao.changeStatus(mapper, no);
+	}
+
+	@Override
+	public List<Map<String, Object>> allBoardBlame(int cPage, int numPerpage) {
+		return dao.allBoardBlame(mapper,cPage,numPerpage);
+	}
+	
+	
+
 	
 }

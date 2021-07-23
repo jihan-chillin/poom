@@ -50,9 +50,9 @@ div#admin_menu>ul>li img{
     margin-right:10px;
     vertical-align:middle;
 }
-div#admin_menu>ul>li:hover{
+/* div#admin_menu>ul>li:hover{
     color:#F77B1E;
-}
+} */
 ul#blame_menu li{
     margin-left:50px;
     font-size: 16px;
@@ -77,11 +77,11 @@ div#admin_page_title{
     height:130px;
     font-size: 30px;
     font-weight: bolder;
-    /* text-align: center; */
-    padding-left:485px;
+    text-align: center;
+    /* padding-left:485px; */
     line-height: 130px;
-    margin-left:195px;
-    width:1300px;
+    margin-left:160px;
+    width:1200px;
 }
 div#admin_content{
     position:absolute;
@@ -151,7 +151,7 @@ div#admin_content select{
 /*테이블 설정*/
 table#blame_table{
     border-collapse: collapse;
-    width:1300px;
+    width:1200px;
     border-top : 2px solid gray;
     border-bottom : 2px solid gray;
     text-align: center;
@@ -170,13 +170,15 @@ table#blame_table tr{
     border-bottom:1px lightgray solid;
 }
 /*테이블 넓이 설정*/
-table#blame_table input[type="checkbox"]{
-    width:20px;
+/*table#blame_table>thead>tr>th>input[type="checkbox"]*/
+table#blame_table tr td:nth-child(1), table#blame_table tr th:nth-child(1){
+    width:30px;
 }
 table#blame_table tr td:nth-child(2), table#blame_table tr th:nth-child(2){
     width: 50px;
 }
-table#blame_table tr td:nth-child(3), table#blame_table tr th:nth-child(3),table#blame_table tr td:nth-child(6), table#blame_table tr th:nth-child(6),
+table#blame_table tr td:nth-child(3), table#blame_table tr th:nth-child(3),
+table#blame_table tr td:nth-child(6), table#blame_table tr th:nth-child(6),
 table#blame_table tr td:nth-child(5), table#blame_table tr th:nth-child(5){
     width: 150px;
 }

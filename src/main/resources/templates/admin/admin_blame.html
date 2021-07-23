@@ -1,5 +1,5 @@
 <div id="admin_section">
-    <div id="admin_page_title" th:text="${type}">admin 페이지 제목</div>
+    <div id="admin_page_title" th:text="${blame_title}"></div>
     <div id="admin_content">
         <!-- <select name="del_status" id="del_status">
             <option value="n">N</option>
@@ -8,10 +8,27 @@
         <table id="blame_table">
             <thead>
             <tr>
-                <th><input type="checkbox"></th>
+                <th><input type="checkbox" name="brd_blame_allChk"></th>
                 <th>번호</th>
-                <th>작성자</th>
-                <th>게시글 제목</th>
+                <th:block th:switch="${type}">
+                <th th:case="'1'">작성자</th>
+                
+                <th th:case="'blame'">작성자</th>
+                
+                <th th:case="'2'">작성자</th>
+               	
+                <th th:case="'3'">방장</th>
+                
+                <th th:case="'4'">작성자</th>
+                
+                </th:block>
+                <th:block th:switch="${type}">
+                <th th:case="'1'">게시글 제목</th>
+                <th th:case="'blame'">게시글 제목</th>
+                <th th:case="'2'">댓글 내용</th>
+                <th th:case="'3'">채팅방 이름</th>
+                <th th:case="'4'">게시글 제목</th>
+                </th:block>
                 <th>누적 신고 수</th>
                 <th>삭제여부<br>
                     <input type="radio" name="del_status" value="n" checked>N
@@ -20,104 +37,14 @@
             </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>1</td>
-                    <td>qwerasdf</td>
-                    <td>★★몸짱되는법</td>
-                    <td>10</td>
-                    <td>N</td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>2</td>
-                    <td>asdfasdf</td>
-                    <td>★★얼짱되는법</td>
-                    <td>10</td>
-                    <td>N</td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>3</td>
-                    <td>zxcvzxcv</td>
-                    <td>★★코딩짱되는법</td>
-                    <td>30</td>
-                    <td>Y</td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>4</td>
-                    <td>rewqrewq</td>
-                    <td>★★부자되고싶으면클릭</td>
-                    <td>40</td>
-                    <td>N</td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>5</td>
-                    <td>fdsafdsa</td>
-                    <td>★★싸움짱되는법</td>
-                    <td>5</td>
-                    <td>N</td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>6</td>
-                    <td>fdsafdsa</td>
-                    <td>★★일찐되는법</td>
-                    <td>5</td>
-                    <td>N</td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>7</td>
-                    <td>fdsafdsa</td>
-                    <td>★★로또당첨되는법</td>
-                    <td>5</td>
-                    <td>Y</td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>8</td>
-                    <td>fdsafdsa</td>
-                    <td>★★불사신되는법</td>
-                    <td>5</td>
-                    <td>N</td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>9</td>
-                    <td>fdsafdsa</td>
-                    <td>★★~~~되는법</td>
-                    <td>5</td>
-                    <td>N</td>
-                </tr>
-            </tbody>
-            <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>10</td>
-                    <td>fdsafdsa</td>
-                    <td>★★~~~되는법</td>
-                    <td>5</td>
-                    <td>N</td>
-                </tr>
+            	<tr th:each="b : ${list}">
+            		<td><input type="checkbox" name="brd_blame_chk" th:title="${b.BOARD_NO}"></td>
+            		<td>1</td>
+            		<td th:text="${b.MEMBER_ID}"></td>
+            		<td th:text="${b.BOARD_TITLE}"></td>
+            		<td>누적신고수(추후 COUNT)</td>
+            		<td th:text="${b.DEL_STATUS} eq 0?'N':'Y'"></td>
+            	</tr>
             </tbody>
         </table>
         <div id="pagebar">
@@ -126,17 +53,33 @@
         <button>삭제</button>
     </div>
 </div>
-    <script>
-    	$(function(){
-    		var adminTitle=$("#admin_page_title").html();
-    		if(adminTitle=="blame"){
-    			$("#blame_menu").parent().css("color","#F77B1E");
-    			$("#blame_menu").show();
-    			$("#blame_menu").children().first().css({"color":"#F77B1E","list-style-type": "disc"});
-    		}
-    	})
-    </script>
-<!-- <script th:src="@{/js/admin/admin_js_he.js}"></script> -->
+<script th:inline="javascript">
+$(function(){
+	$("#blame_menu").show();
+	$("#blame_menu").click(e=>{
+		e.stopPropagation();
+	})
+})
+
+//신고관리 전체 체크박스
+$("[name='brd_blame_allChk']").click(e=>{                     
+	if($("[name='brd_blame_allChk']").is(":checked")){          //전체 체크박스 checked되면
+		$("[name='brd_blame_chk']").prop("checked",true);           //모든 chk(일반 개별 체크박스)들 true->checked로 변경
+	}else{
+		$("[name='brd_blame_chk']").prop("checked",false);
+	}
+});
+//하나라도 체크 빠지면 전체체크 해제
+//length나중에 페이징처리하고 수정하기
+$("[name='brd_blame_chk']").click(e=>{
+	if($("[name='brd_blame_chk']:checked").length==5){    
+		$("[name='brd_blame_allChk']").prop("checked",true);
+	}else{
+		$("[name='brd_blame_allChk']").prop("checked",false);
+	}
+});
+
+</script>
 
 </body>
 </html>
