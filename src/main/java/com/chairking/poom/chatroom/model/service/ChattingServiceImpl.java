@@ -66,4 +66,19 @@ public class ChattingServiceImpl implements ChattingService{
     public int checkEnterChatroom(String id, String chatNo) {
         return dao.checkEnterChatroom(cm,id,chatNo);
     }
+
+    @Override
+    public int checkAlreadyChatroom(String chatNo, String memberId, String ref,String refId,String refNo) {
+        return dao.checkAlreadyChatroom(cm,chatNo,memberId,ref,refId,refNo);
+    }
+
+    @Override
+    public int likeChatroom(String chatNo, String memberId) {
+        return dao.likeChatroom(cm,chatNo,memberId);
+    }
+
+    @Override
+    public int blameChatroom(String chatNo, String memberId) {
+        return dao.blameChatroom(cm,chatNo,memberId);
+    }
 }

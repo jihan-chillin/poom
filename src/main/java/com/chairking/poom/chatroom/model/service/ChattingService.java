@@ -16,4 +16,8 @@ public interface ChattingService {
     String getChatNo();
     int enterChatRoom(String id,String chatNo);
     int checkEnterChatroom(String id,String chatNo);
+    int checkAlreadyChatroom(String chatNo, String memberId, String ref,String refId,String refNo);
+    int likeChatroom(String chatNo,String memberId);
+    int blameChatroom(String chatNo,String memberId);
+
 }

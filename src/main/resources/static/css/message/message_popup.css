@@ -34,12 +34,13 @@ body{
 .search-name{
     width: 250px;
     margin-right: 20px;
-    /*text-align: center;*/
     outline: none;
     border: none;
     border-bottom: 1px solid lightgray;
     font-size: 16px;
 }
+
+
 
 .find-name{
     width: 60px;
@@ -52,6 +53,19 @@ body{
     color: white;
 
 }
+
+.find-name2{
+    width: 60px;
+    height: 30px;
+    font-size: 13px;
+    border-radius: 30px;
+    outline: none;
+    border :none;
+    background:#287094;
+    color: white;
+
+}
+
 div#message_buttons {
     width: 390px;
     top: 375px;
@@ -91,4 +105,5 @@ button.message_buttons2{
     margin-bottom: 10px;
 
 }
+
 

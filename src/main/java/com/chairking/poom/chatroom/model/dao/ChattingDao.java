@@ -17,4 +17,7 @@ public interface ChattingDao {
     String getChatNo(ChattingMapper cm);
     int enterChatRoom(ChattingMapper cm,String id,String chatNo);
     int checkEnterChatroom(ChattingMapper cm,String id,String chatNo);
+    int checkAlreadyChatroom(ChattingMapper cm,String chatNo, String memberId, String ref,String refId,String refNo);
+    int likeChatroom(ChattingMapper cm,String chatNo,String memberId);
+    int blameChatroom(ChattingMapper cm,String chatNo,String memberId);
 }
