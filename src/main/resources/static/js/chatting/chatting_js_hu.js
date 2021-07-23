@@ -32,7 +32,7 @@ function moveMyChatList(){
         if(chatNo !== null){
           // 채팅방 리스트가 있다면
           val +='<li class="chatroom">';
-          if(data.list.CATEGORY_NO ==='1'){
+          if(data.list[i].CATEGORY_NO ==='1'){
             val+= '<span class="chatroom-icon-study">스터디</span>'
           }else{
             val+= '<span class="chatroom-icon-gather">소모임</span>'
