@@ -10,25 +10,20 @@
             <tr>
                 <th><input type="checkbox" name="brd_blame_allChk"></th>
                 <th>번호</th>
-                <th:block th:switch="${type}">
+              <th:block th:switch="${type}">
                 <th th:case="'1'">작성자</th>
-                
                 <th th:case="'blame'">작성자</th>
-                
                 <th th:case="'2'">작성자</th>
-               	
                 <th th:case="'3'">방장</th>
-                
                 <th th:case="'4'">작성자</th>
-                
-                </th:block>
-                <th:block th:switch="${type}">
+              </th:block>
+              <th:block th:switch="${type}">
                 <th th:case="'1'">게시글 제목</th>
                 <th th:case="'blame'">게시글 제목</th>
                 <th th:case="'2'">댓글 내용</th>
                 <th th:case="'3'">채팅방 이름</th>
                 <th th:case="'4'">게시글 제목</th>
-                </th:block>
+              </th:block>
                 <th>누적 신고 수</th>
                 <th>삭제여부<br>
                     <input type="radio" name="del_status" value="n" checked>N
