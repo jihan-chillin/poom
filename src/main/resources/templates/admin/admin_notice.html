@@ -15,7 +15,9 @@
             	<tr th:each="n : ${list}">
             		<td>1</td>
             		<td th:text="${n.CATEGORY_NAME}"></td>
-            		<td th:text="${n.NOTICE_TITLE}"></td>
+            		<td th:text="${n.NOTICE_TITLE}" name="moveToView" th:title="${n.NOTICE_NO}">
+						<!-- <a th:href="@{/admin/noticeView(no=${n.NOTICE_NO})}" ></a> -->
+					</td>
             		<td th:text="${#dates.format(n.NOTICE_DATE,'yyyy-MM-dd')}"></td>
             		<td th:text="${n.NOTICE_STATUS} eq 0?'게시중':'삭제'"></td>
                 </tr>
@@ -84,3 +86,16 @@
         <button class="admin_buttons" onclick="fn_notice_write();">작성하기</button>
     </div>
 </div>
+<script th:inline="javascript">
+//공지사항 view 이동
+$("[name=moveToView]").click((e)=>{
+	const no=e.target.title;
+	console.log(no);
+	$.ajax({
+		url:"/admin/noticeView",
+		data:{"no":no}
+	}).done(function (fragment){
+		$("#target").html(fragment);
+	});
+});
+</script>

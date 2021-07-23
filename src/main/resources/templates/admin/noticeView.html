@@ -1,0 +1,75 @@
+<div id="notice_section">
+    <div id="notice_page_title">
+        공지사항 조회
+    </div>
+    <div id="notice_content" style="border: none;">
+        <form id="notice_form" method="post">
+	        <div id="notice_content_title">
+	            <span class="title_bold" >제목</span>  │
+	            <input type="text" name="noticeTitle" placeholder="공지사항 제목을 입력하세요." th:value="${notice.NOTICE_TITLE}" readonly>
+	        </div>
+	        <div id="notice_category">
+	            <span class="title_bold">게시판 카테고리</span>
+	            │
+	            <th:block th:switch="${notice.CATEGORY_NO}">
+	            	<span th:case="1">출산, 육아, 교육</span>
+	            	<span th:case="2">분실물</span>
+	            	<span th:case="3">일손(품앗이)</span>
+	            	<span th:case="4">스터디, 소모임</span>
+	            	<span th:case="5">공동구매</span>
+	            </th:block>
+	        </div>
+	        <div id="notice_content_content">
+	            <textarea name="noticeContent" id="notice_content_write" placeholder="내용을 입력해주세요." th:text="${notice.NOTICE_CONTENT}" readonly style="font-size: 18px;padding: 10px;"></textarea>
+	        </div>
+		    <div id="admin_buttons">
+		        <button type="button" onclick="fn_edit_notice();" class="admin_buttons" th:text="${type}"></button>
+		        <button class="admin_buttons1" type="button" onclick="fn_del_notice();" th:text="${notice.NOTICE_STATUS} eq 1?'재게시':'삭제'">삭제</button>
+				<button type="button" onclick="moveToList();" class="admin_buttons2">목록으로</button>
+		    </div>
+	    </form> 
+    </div>  
+</div>
+<script th:inline="javascript">
+//공지사항 view에서 삭제
+//공지사항번호가져오기
+var noticeNo=[[${notice.NOTICE_NO}]];
+//공지사항상태 가져오기 / 0=>게시중 / 1=>삭제됨
+var n_status=[[${notice.NOTICE_STATUS}]];
+
+function fn_del_notice(){
+	console.log(noticeNo);
+	console.log(n_status);
+	if(n_status==1){  //게시글이 삭제된 상태라면 재게시 처리
+		if(confirm('공지사항을 다시 게시하시겠습니까?')){
+			$.ajax({
+				url:"/admin/changeStatus",
+			})
+		}
+		
+	}else{	//게시글 삭제하기
+		if(confirm('공지사항을 삭제하시겠습니까?')){
+			$.ajax({
+				url:"/admin/noticeDelete",
+				data:{"no":noticeNo}
+			}).done(function (fragment){
+				alert('공지사항이 삭제 처리되었습니다.');
+				$("#target").html(fragment);
+			}).fail(function(){
+				alert('공지사항 삭제 오류!!');
+			})
+		};
+	}
+}
+
+//공지사항 수정하러가기
+function fn_edit_notice(){
+	console.log(noticeNo);
+	$.ajax({
+		url:"/admin/noticeEdit",
+		data:{"no":noticeNo}
+	}).done(function(fragment){
+		$("#target").html(fragment);
+	});
+}
+</script>
