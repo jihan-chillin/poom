@@ -38,7 +38,7 @@ div#header {
     align-items: center;
     justify-content: space-evenly;
     border-bottom: 1px solid lightgray;
-
+    z-index: 9999;
 }
 div.logo {
     width: 248px;
@@ -216,6 +216,7 @@ div#content {
     display: flex;
     justify-content: space-evenly;
     align-items: flex-start;
+    z-index: 1;
 }
 div.profile {
     /* position: fixed;
