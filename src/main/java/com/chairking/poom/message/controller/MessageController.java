@@ -18,17 +18,56 @@ public class MessageController {
     @Autowired
     private MessageService service;
 
-    //쪽지함 보이는 페이지
+    //쪽지함 보이는 메인페이지
     @GetMapping("/message")
     public String message(){
         return "/message/message_box";
     }
+
+
+    //ajax 받은 쪽지 페이지
+    @GetMapping("receiveMessage")
+    public ModelAndView receiveMessage(String type, ModelAndView mv){
+        List<Map<String,Object>> list = service.receiveMessage();
+        mv.addObject("list",list);
+        mv.setViewName("message/message_receiveMessage");
+        return mv;
+    }
+
+    //ajax 보낸 쪽지 페이지
+    @GetMapping("sendMessage")
+    public ModelAndView sendMessage(ModelAndView mv){
+        List<Map<String,Object>>list = service.sendMessage();
+        mv.addObject("list",list);
+        mv.setViewName("message/message_sendMessage");
+        return mv;
+    }
+
+
 
     //팝업창
     @GetMapping("/message/popup")
     public String messagePopup(){
         return"/message/message_popup";
     }
+
+    //받은 쪽지 리스트 출력
+//    @GetMapping("/message/messagelist")
+//    public String messageBox(Model m){
+//        List<Map<String,Object>> list = service.messageBox();
+//        m.addAttribute("list",list);
+//        return "/message/message_box";
+//    }
+    
+//    //보낸 쪽지 리스트 출력 
+//    @GetMapping("/message/send")
+//    public String sendMessage(Model m){
+//        List<Map<String,Object>> list = service.sendMessage();
+//        m.addAttribute("list", list);
+//        return "/message/message_box";
+//        
+//    }
+
 
     //받는사람 팝업
     @GetMapping("/message/receiver")
@@ -47,5 +86,7 @@ public class MessageController {
 //        mv.setViewName("message_receiver");
 //        return mv;
 //    }
+
+
 
 }

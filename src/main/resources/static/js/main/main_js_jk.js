@@ -38,7 +38,7 @@ function membermodi(){
 }
 
 function mywrite(){
-    location.assign("/member/mywrite");
+    location.assign("/mywrite");
 }
 
 //로그아웃ui 클릭시 로그아웃+index로 이동

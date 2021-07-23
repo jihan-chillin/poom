@@ -124,6 +124,45 @@ public class ChattingJsonController {
         String chatNo = service.getChatNo();
         // 생성자 채팅방 입장
         service.enterChatRoom((String)data.get("memberId"),chatNo);
+    }
 
+    // 채팅방 신고, 관심채팅방에 등록됐는지 조회
+    @GetMapping("/chat/room/check")
+    public int checkAlreadyChatroom(HttpServletRequest req){
+        String chatNo = req.getParameter("chatNo");
+        String memberId = req.getParameter("memberId");
+        String ref = req.getParameter("ref");
+
+        String refTable ="";
+        String refId = "";
+        String refNo = "";
+
+        if (ref.equals("inter")){
+            refTable ="CHAT_BLAME";
+            refId ="CH_AIM_ID";
+            refNo ="CH_TARGET_CHAT";
+        }else{
+            refTable = "LIKECHATROOM";
+            refId= "MEMBER_ID";
+            refNo ="CHAT_NO";
+        }
+
+        return service.checkAlreadyChatroom(chatNo,memberId,refTable,refId,refNo);
+    }
+
+    @GetMapping("/chat/room/like")
+    public int likeChatroom(HttpServletRequest req){
+        String chatNo = req.getParameter("chatNo");
+        String memberId = req.getParameter("memberId");
+
+        return service.likeChatroom(chatNo,memberId);
+    }
+
+    @GetMapping("/chat/room/blame")
+    public int blameChatroom(HttpServletRequest req){
+        String chatNo = req.getParameter("chatNo");
+        String memberId = req.getParameter("memberId");
+
+        return service.blameChatroom(chatNo,memberId);
     }
 }

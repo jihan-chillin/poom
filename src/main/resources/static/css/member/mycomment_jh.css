@@ -6,6 +6,8 @@ div#mycomment-content{
 /* 카테고리 바 영역*/
 div#comment-bar{
     border-bottom: 1px solid black;
+    width: 90%;
+    margin: 0 auto;
 }
 
 div#comment-bar ul {

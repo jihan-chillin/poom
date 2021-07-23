@@ -1,0 +1,40 @@
+package com.chairking.poom.mywrite.model.service;
+
+import com.chairking.poom.board.model.vo.Board;
+import com.chairking.poom.mywrite.mapper.MywriteMapper;
+import com.chairking.poom.mywrite.model.dao.MywriteDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class MywriteServiceImpl implements MywriteService{
+
+    @Autowired
+    private MywriteDao dao;
+
+    @Autowired
+    private MywriteMapper mapper;
+
+    @Override
+    public int countMyWrite() {
+        return dao.countMyWrite(mapper);
+    }
+
+    @Override
+    public List<Map<String, Object>> MywriteList(int cPage, int numPerpage) {
+        return dao.MywriteList(mapper, cPage, numPerpage);
+    }
+
+    @Override
+    public int countMyComment() {
+        return dao.countMyComment(mapper);
+    }
+
+    @Override
+    public List<Map<String, Object>> MyCommentList(int cPage, int numPerpage) {
+        return dao.MyCommentList(mapper, cPage, numPerpage);
+    }
+}

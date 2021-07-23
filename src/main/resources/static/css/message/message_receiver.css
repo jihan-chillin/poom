@@ -1,0 +1,66 @@
+/* 글꼴 - 나눔고딕(googlefonts) */
+/* font-family: 'Nanum Gothic', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+
+*{
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+body{
+    text-align: center;
+    margin-top: 40px;
+}
+
+.popup_header{
+    float: left;
+    margin-left:20px;
+}
+/*받는 사람(receiver) 검색 css */
+.search-name2{
+    width: 250px;
+    margin-right: 20px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.find-name2{
+    width: 60px;
+    height: 30px;
+    font-size: 13px;
+    border-radius: 30px;
+    outline: none;
+    border :none;
+    background:#287094;
+    color: white;
+
+}
+
+.popup_table{
+    border-collapse: collapse;
+    background:white;
+    border-radius:10px;
+    width:100%;
+    margin:0 auto;
+    position:relative;
+}
+.popup_table>thead>tr{
+    color: black;
+
+}
+th{
+    background-color: #f7f7f7;
+    border: 1px solid rgba(224, 224, 224, 0.2);
+    height: 35px;
+    color: black;
+    font-size: 20px;
+}
+
+tr, td {
+    padding: 4px 0px;
+    border: 1px solid rgba(224, 224, 224, 0.2);
+    /*font-size: 17px;*/
+}
+
