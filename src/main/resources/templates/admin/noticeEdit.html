@@ -1,0 +1,46 @@
+<div id="notice_section">
+    <div id="notice_page_title">
+        공지사항 수정
+    </div>
+    <div id="notice_edit_content">
+        <form id="notice_form" method="post">
+	        <div id="notice_content_title">
+	            <span class="title_bold" >제목</span>  │
+	            <input type="text" name="noticeTitle" placeholder="공지사항 제목을 입력하세요." th:value="${notice.NOTICE_TITLE}">
+	        </div>
+	        <div id="notice_category">
+	            <span class="title_bold">게시판 카테고리</span>
+	            │
+	            <input type="hidden" name="noticeNo" th:value="${notice.NOTICE_NO}"/>
+	            <label><input type="checkbox" name="cateChk" class="allCheck" value="-1">전체</label>
+	            <label><input type="checkbox" th:checked="${notice.CATEGORY_NO eq '1'}" name="cateChk" class="chk" value="1"> 출산, 육아, 교육</label>
+	            <label><input type="checkbox" th:checked="${notice.CATEGORY_NO eq '2'}" name="cateChk" class="chk" value="2"> 분실물</label>
+	            <label><input type="checkbox" th:checked="${notice.CATEGORY_NO eq '3'}" name="cateChk" class="chk" value="3"> 일손(품앗이)</label>
+	            <label><input type="checkbox" th:checked="${notice.CATEGORY_NO eq '4'}" name="cateChk" class="chk" value="4"> 스터디, 소모임</label>
+	            <label><input type="checkbox" th:checked="${notice.CATEGORY_NO eq '5'}" name="cateChk" class="chk" value="5"> 공동구매</label>
+	        </div>
+	        <div id="notice_content_content">
+	            <textarea name="noticeContent" id="notice_content_write" placeholder="내용을 입력해주세요." th:text="${notice.NOTICE_CONTENT}" style="border: 1px solid #287094;padding:10px;"></textarea>
+	        </div>
+		    <div id="admin_buttons">
+		        <button type="button" onclick="fn_edit_notice_end();" class="admin_buttons">등록</button>
+		        <button class="admin_buttons1" type="button" onclick="fn_cancle();">취소</button>
+				<button type="button" onclick="moveToList();" class="admin_buttons2">목록으로</button>
+		    </div>
+	    </form> 
+    </div>  
+</div>
+<script>
+function fn_edit_notice_end(){
+	$.ajax({
+		url:"/admin/noticeUpdate",
+		data:$("#notice_form").serialize(),
+		type:"POST"
+	}).done(function (fragment){
+		alert('공지사항이 수정되었습니다.');
+		$("#target").html(fragment);
+	}).fail(function(){
+		alert('공지사항 등록 오류!!');
+	})
+}
+</script>

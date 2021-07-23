@@ -22,16 +22,17 @@
 
         <!-- message 구역  -->
         <div class="feed">
-
-
-            <div class="buttonbox">
-                <button type="button" id="btn_1">받은쪽지</button>
-                <button type="button" id="btn_2">보낸쪽지</button>
-                <button type="button" id="btn_3">차단함</button>
+            <div class="message-header">
+                <div class="buttonbox">
+                    <button type="button" id="btn_1">받은쪽지</button>
+                    <button type="button" id="btn_2">보낸쪽지</button>
+                    <button type="button" id="btn_3">차단함</button>
+                </div>
+                <div >
+                    <input class="search-message" type="msgsearch" value="쪽지 검색해보세요~">
+                </div>
             </div>
-            <div >
-            <input type="msgsearch" value="쪽지 검색창">
-            </div>
+
             <div class="tablebox">
                 <div id="table1">
                     <table class="col-100 col">
@@ -45,9 +46,9 @@
                         <tr>
                             <th></th>
                             <th>보낸사람</th>
-                            <th>제목</th>
                             <th>내용</th>
                             <th>보낸일자</th>
+                            <th>차단</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -62,7 +63,7 @@
                             <td>서연</td>
                             <td>뭐해?</td>
                             <td>잘지내?</td>
-                            <td>2021.07.19</td>
+                            <td><button class="msg-cancel1">차단함으로 이동</button></td>
                         </tr>
                         </tbody>
                     </table>
@@ -80,9 +81,9 @@
                         <tr>
                             <th></th>
                             <th>받은사람</th>
-                            <th>제목</th>
                             <th>내용</th>
                             <th>읽음여부</th>
+                            <th>발송취소</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -96,8 +97,8 @@
                             </td>
                             <td>혜현</td>
                             <td>일은 잘돼가?</td>
-                            <td>밥은 잘 챙겨먹고?</td>
-                            <td>2021.07.19.14:03 읽음</td>
+                            <td> 안읽음 </td>
+                            <td><button class="msg-cancel">발송취소</button></td>
                         </tr>
                         </tbody>
                     </table>
@@ -114,7 +115,6 @@
                         <tr>
                             <th></th>
                             <th>보낸사람</th>
-                            <th>제목</th>
                             <th>내용</th>
                             <th>보낸일자</th>
                         </tr>
@@ -129,14 +129,13 @@
                                 </div>
                             </td>
                             <td>OK저축은행</td>
-                            <td>대출상담문의</td>
                             <td>10만원 소액대출가능</td>
                             <td>2021.06.18</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <input type="button" value="쪽지보내기" onclick="showPopup(1);">
+                <input type="button" class="send-message" value="쪽지보내기" onclick="showPopup(1);">
 
             </div>
         </div>

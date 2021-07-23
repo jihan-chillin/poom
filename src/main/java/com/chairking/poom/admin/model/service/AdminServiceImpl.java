@@ -22,10 +22,6 @@ public class AdminServiceImpl implements AdminService {
 	public int countAllNotice() {
 		return dao.countAllNotice(mapper);
 	}
-//	@Override
-//	public List<Notice> allNotice() {
-//		return dao.allNotice(mapper);
-//	}
 
 	@Override
 	public List<Map<String,Object>> allNotice(int cPage, int numPerpage) {
@@ -37,4 +33,20 @@ public class AdminServiceImpl implements AdminService {
 		return dao.insertNotice(n,mapper);
 	}
 
+	@Override
+	public Map<String, Object> selectNotice(String no) {
+		return dao.selectNotice(mapper, no);
+	}
+
+	@Override
+	public int noticeDelete(String no) {
+		return dao.noticeDelete(mapper,no);
+	}
+
+	@Override
+	public int realDelete(String no) {
+		return dao.realDelete(mapper, no);
+	}
+
+	
 }
