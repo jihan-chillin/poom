@@ -24,7 +24,7 @@
         <div class="feed">
             <div class="message-header">
                 <div class="buttonbox">
-                    <button type="button" id="btn_1">받은쪽지</button>
+                    <button type="button" id="btn_1" onclick="fn_receive_message();">받은쪽지</button>
                     <button type="button" id="btn_2">보낸쪽지</button>
                     <button type="button" id="btn_3">차단함</button>
                 </div>
@@ -33,9 +33,9 @@
                 </div>
             </div>
 
-            <div class="tablebox">
+            <div class="tablebox" th:if="${list!=null}">
                 <div id="table1" >
-                    <table class="col-100 col" th:if="${list!=null}">
+                    <table class="col-100 col" >
                         <colgroup>
                             <col width="10%">
                             <col width="20%">
@@ -70,7 +70,7 @@
 
                 </div>
                 <div id="table2" >
-                    <table class="col-100 col">
+                    <table class="col-100 col" >
                         <colgroup>
                             <col width="10%">
                             <col width="20%">
@@ -86,7 +86,7 @@
                             <th>발송취소</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody th:each="m:${list}">
                         <tr>
                             <td>
                                 <div class="checkbox2 m-0">
@@ -95,9 +95,10 @@
                                     </label>
                                 </div>
                             </td>
-                            <td>혜현</td>
-                            <td>일은 잘돼가?</td>
-                            <td> 안읽음 </td>
+                            <td th:text="${m.RECV_MEMBER}"></td>
+                            <td th:text="${m.MSG_CONTENT}"></td>
+                            <td th:if="m.READ_CHECK==0" th:text="안읽음">  </td>
+                            <td th:unless="m.READ_CHECK!=0" th:text="읽음">  </td>
                             <td><button class="msg-cancel">발송취소</button></td>
                         </tr>
                         </tbody>

@@ -15,5 +15,5 @@ public interface MessageMapper {
 
 
     @Select("SELECT * FROM MESSAGE")
-    public List<Map<String,Object>> receivedMessage();
+    public List<Map<String,Object>> receiveMessage();
 }

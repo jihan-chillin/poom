@@ -16,9 +16,9 @@ public class MessageDaoImpl implements MessageDao{
     }
 
     @Override
-    public List<Map<String, Object>> receivedMessage(MessageMapper mapper){
+    public List<Map<String, Object>> receiveMessage(MessageMapper mapper){
 
-        return mapper.receivedMessage();
+        return mapper.receiveMessage();
     }
 
 }
