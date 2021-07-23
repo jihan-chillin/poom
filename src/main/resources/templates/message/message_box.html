@@ -34,8 +34,8 @@
             </div>
 
             <div class="tablebox">
-                <div id="table1">
-                    <table class="col-100 col">
+                <div id="table1" >
+                    <table class="col-100 col" th:if="${list!=null}">
                         <colgroup>
                             <col width="10%">
                             <col width="20%">
@@ -52,7 +52,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr th:each="m:${list}">
                             <td>
                                 <div class="checkbox2 m-0">
                                     <input id="check" type="checkbox">
@@ -60,9 +60,9 @@
                                     </label>
                                 </div>
                             </td>
-                            <td>서연</td>
-                            <td>뭐해?</td>
-                            <td>잘지내?</td>
+                            <td th:text="${m.MEMBER_ID}"></td>
+                            <td th:text="${m.MSG_CONTENT}" ></td>
+                            <td th:text="${m.MSG_DATE}"></td>
                             <td><button class="msg-cancel1">차단함으로 이동</button></td>
                         </tr>
                         </tbody>

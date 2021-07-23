@@ -9,5 +9,5 @@ public interface MessageService {
 
     List<Map<String,Object>> searchReceiver();
 
-
+    List<Map<String,Object>> receivedMessage();
 }

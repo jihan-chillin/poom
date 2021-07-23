@@ -8,4 +8,6 @@ import java.util.Map;
 public interface MessageDao {
 
     List<Map<String, Object>> searchReceiver(MessageMapper mapper);
+
+    List<Map<String, Object>> receivedMessage(MessageMapper mapper);
 }

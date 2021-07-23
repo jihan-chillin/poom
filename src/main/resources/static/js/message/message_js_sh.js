@@ -8,7 +8,7 @@ window.onload = function() {
 $(document).ready(function() {
     $("#btn_1").click(function() {
 
-        $("#table1").show();
+        location.replace("/message/received").show();
         $("#table2").hide();
         $("#table3").hide();
     })

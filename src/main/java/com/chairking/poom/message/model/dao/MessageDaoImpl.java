@@ -11,6 +11,14 @@ public class MessageDaoImpl implements MessageDao{
 
     @Override
     public List<Map<String, Object>> searchReceiver(MessageMapper mapper){
+
         return mapper.searchReceiver();
     }
+
+    @Override
+    public List<Map<String, Object>> receivedMessage(MessageMapper mapper){
+
+        return mapper.receivedMessage();
+    }
+
 }

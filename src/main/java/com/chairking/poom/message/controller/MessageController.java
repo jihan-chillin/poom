@@ -30,6 +30,15 @@ public class MessageController {
         return"/message/message_popup";
     }
 
+    //받은 쪽지 리스트 출력
+    @GetMapping("/message/received")
+    public String receivedMessage(Model m){
+        List<Map<String,Object>> list = service.receivedMessage();
+        m.addAttribute("list",list);
+        return "/message/message_box";
+    }
+
+
     //받는사람 팝업
     @GetMapping("/message/receiver")
     public String receiverPopup(Model m){
@@ -47,5 +56,7 @@ public class MessageController {
 //        mv.setViewName("message_receiver");
 //        return mv;
 //    }
+
+
 
 }
