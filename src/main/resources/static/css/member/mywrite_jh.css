@@ -12,6 +12,8 @@ div#mywrite-content{
 /* 카테고리 바 영역*/
 div#write-bar{
     border-bottom: 1px solid black;
+    width: 90%;
+    margin: 0 auto;
 }
 
 div#write-bar ul {
