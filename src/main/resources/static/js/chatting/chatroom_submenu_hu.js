@@ -75,8 +75,9 @@ function blameChatroom(check,chatNo,memberId){
       return;
     }else{
 
+      // 신고페이지 연결해줘야함.
       $.ajax({
-        url:'/chat/room/blame',
+        url:'',
         data:{
           "chatNo":chatNo,
           "memberId":memberId
