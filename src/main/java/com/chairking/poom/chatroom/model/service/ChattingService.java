@@ -15,4 +15,5 @@ public interface ChattingService {
     int insertChatroomData(Map<String,Object> data);
     String getChatNo();
     int enterChatRoom(String id,String chatNo);
+    int checkEnterChatroom(String id,String chatNo);
 }

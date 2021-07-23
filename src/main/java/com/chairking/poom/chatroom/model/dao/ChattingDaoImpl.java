@@ -55,5 +55,10 @@ public class ChattingDaoImpl implements ChattingDao{
         return cm.enterChatRoom(id,chatNo);
     }
 
+    @Override
+    public int checkEnterChatroom(ChattingMapper cm, String id, String chatNo) {
+        return cm.checkEnterChatroom(id,chatNo);
+    }
+
 
 }

@@ -49,12 +49,29 @@ public class ChattingJsonController {
     public Map getMyChatroomData(HttpServletRequest req){
         String chatNo =req.getParameter("chatNo");
 
-        Map<String,List> list = new HashMap<>();
+        Map<String,Object> list = new HashMap<>();
         list.put("list",getEnteredMem(chatNo));
 //       1주일 전까지 메세지만 가져옴 기준 -> int ref = 7
         list.put("messageContent",getPastChattingList(chatNo,7));
+        list.put("chatData",service.getChatroomData(chatNo));
+
         return list;
     }
+    @GetMapping("/chat/chatroom/enter")
+    public int enterChatroom(HttpServletRequest req){
+        String chatNo = req.getParameter("chatNo");
+        String memberId =req.getParameter("memberId");
+
+        return service.enterChatRoom(memberId,chatNo);
+    }
+    @GetMapping("/chat/chatroom/check")
+    public int checkEnterChatroom(HttpServletRequest req){
+        String chatNo = req.getParameter("chatNo");
+        String memberId =req.getParameter("memberId");
+
+        return service.checkEnterChatroom(memberId,chatNo);
+    }
+
 
     @GetMapping("/chat/list/data")
     public Map getChatList(){

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+    
+    <!-- css -->
+    <style>
+        #dupleCheck_wrapper {
+            width: 100%;
+            height: 299px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content:center;
+        }
+        #dupleCheck_wrapper>p {
+            margin-bottom: 20px;
+            font-size: 19px;
+            line-height: 27px;
+        }
+        #dupleCheck_wrapper>p>span:first-child{
+            font-weight: bold;
+            font-size: 23px;
+            font-style: italic;
+        }
+        #dupleCheck_wrapper>button {
+            width: 80px;
+            height: 40px;
+            border-radius: 30px;
+            background: #287094;
+            outline: none;
+            border: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+	<div id="dupleCheck_wrapper">
+        <p>
+            <span th:text="${check}"></span><span th:utext="((${m!=null})?' 는 사용중입니다.<br>다시 입력해주세요.':' 는 사용가능합니다.')"></span>
+        </p>
+        <button onclick="sendDupl();">확인</button>
+    </div>
+</body>
+<script th:inline="javascript">
+	function sendDupl() {
+		var type = [[${type}]]
+		if([[${m}]]!=null) {
+			var dupl = "";
+			var checked = "";
+		}else {
+			dupl = [[${check}]];
+			checked = "y";
+		}
+		opener.setDupl(dupl,type,checked);
+		window.close();
+	}
+
+</script>
+</html>
