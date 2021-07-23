@@ -26,23 +26,24 @@ function fn_notice_write(){
 	});
 }
 
-//공지사항 글쓰기 체크박스
-// $(".allCheck").click(e=>{
-// 	alert('체크');
-// })
+//공지사항 글쓰기 전체 체크박스
+
+
+
 //공지사항 등록버튼
 function fn_notice_submit(){
-	alert('공지사항이 등록되었습니다.');
+	
 	$.ajax({
 		url:"/admin/noticeWrite",
 		data: $("#notice_form").serialize(),
 		type:"POST"
 	}).done(function (fragment){
+		alert('공지사항이 등록되었습니다.');
 		$("#target").html(fragment);
+	}).fail(function(){
+			alert('공지사항 등록 오류!! 모든 항목을 입력해주세요.');
 	})
 }
-
-
 
 //공지사항 취소버튼
 function fn_cancle(){
@@ -55,7 +56,14 @@ function fn_cancle(){
 	}
 }
 
-
+//공지사항 목록으로 돌아가ㅣㄱ
+function moveToList(){
+	$.ajax({
+		url:"/admin/notice"
+	}).done(function (fragment){
+		$("#target").html(fragment);
+	})
+}
 
 
 

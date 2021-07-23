@@ -77,18 +77,21 @@ div#admin_page_title{
     height:130px;
     font-size: 30px;
     font-weight: bolder;
-    text-align: center;
+    /* text-align: center; */
+    padding-left:485px;
     line-height: 130px;
+    margin-left:195px;
+    width:1300px;
 }
 div#admin_content{
     position:absolute;
     top:130px;
-    margin-left:165px;
+    margin-left:195px;
 }
 /*공지사항 테이블설정*/
 table#notice_table{
     border-collapse: collapse;
-    width:1300px;
+    width:1200px;
     border-top : 2px solid gray;
     border-bottom : 2px solid gray;
     text-align: center;
@@ -102,6 +105,11 @@ table#notice_table td, #notice_table th{
 }
 table#notice_table tr{
     border-bottom:1px lightgray solid;
+}
+
+table#notice_table>tbody tr td:nth-child(3):hover{
+	text-decoration:underline;
+	cursor:pointer;
 }
 /*테이블 너비 설정*/
 table#notice_table tr td:nth-child(2), table#notice_table tr th:nth-child(2),
@@ -119,8 +127,8 @@ div#admin_content button{
     cursor: pointer;
 }
 button.admin_buttons{
-    width: 90px;
-    height: 50px;
+    width: 80px;
+    height: 40px;
     border-radius: 30px;
     outline: none;
     border: none;
@@ -175,15 +183,14 @@ table#blame_table tr td:nth-child(5), table#blame_table tr th:nth-child(5){
 
 div#admin_content button{
     float: right;
-    width: 90px;
-    height: 50px;
+    width: 80px;
+    height: 40px;
     border-radius: 30px;
     outline: none;
     border: none;
-    /* background: rgb(6, 102, 146); */
     background:#F77B1E;
     color: white;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
     margin-left:17px;
 }

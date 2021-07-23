@@ -8,7 +8,9 @@ import com.chairking.poom.admin.model.vo.Notice;
 public interface AdminService {
 
 	int countAllNotice();
-	//List<Notice> allNotice();
 	List<Map<String,Object>> allNotice(int cPage, int numPerpage);
 	int insertNotice(Notice n);
+	Map<String,Object> selectNotice(String no);
+	int noticeDelete(String no);
+	int realDelete(String no);
 }
