@@ -1,0 +1,111 @@
+div#notice_section{
+    position: fixed;
+    top:120px;
+    left:300px;
+    height:100%;
+    width:1620px;
+    justify-content: center;
+}
+div#notice_page_title{
+    height:130px;
+    font-size: 30px;
+    font-weight: bolder;
+    padding-left:485px;
+    line-height: 130px;
+    margin-left:195px;
+    width:1300px;
+}
+div#notice_edit_content{
+    position:absolute;
+    top:130px;
+    margin-left:195px;
+    border: 1px solid #287094;
+    width:1200px;
+    height:550px;
+    padding:20px;
+}
+div#notice_edit_content>form>div{
+    border-bottom: 1px solid #287094;
+    padding:5px;
+}
+.title_bold{
+    font-weight: bolder;
+    display: inline-block;
+    width:150px;
+    font-size: 20px;
+}
+div#notice_edit_content>form>div:first-child>input{
+    width:70%;
+    height:50px;
+    font-size: 18px;
+    border:none;
+    outline: none;
+}
+div#notice_edit_content input{
+    margin-left: 10px;
+}
+div#notice_edit_content>form>div:nth-child(2) {
+    width:100%;
+    height:60px;
+    line-height: 50px;
+}
+select#notice_cate{
+    height:30px;
+    width:180px;
+    font-size: 14px;
+}
+div#notice_edit_content_content>textarea{
+    width:100%;
+    height:370px;
+    border:none;
+    outline: none;
+    font-size: 16px;
+}
+div#admin_buttons{
+    position: fixed;
+    top:820px;
+    width: 1200px;
+    /* align-items: center; */
+    border-bottom:none !important;
+    left:495px;
+    text-align:center;
+    margin-top:10px;
+}
+button.admin_buttons{
+    width: 80px;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background:#F77B1E;
+    color: white;
+    margin-right:10px;
+    font-size: 15px;
+    cursor: pointer;
+}
+button.admin_buttons1{
+    /* float: right; */
+    width: 80px;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background:#287094;
+    color: white;
+    /* font-weight: bolder; */
+    font-size: 15px;
+    cursor: pointer;
+}
+button.admin_buttons2{
+	width: 80px;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background:#f7f7f7;
+    font-size: 15px;
+    cursor: pointer;
+    border:1px solid lightgray;
+    float:right;
+}
+

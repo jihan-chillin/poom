@@ -25,7 +25,7 @@
 }
 
 #room-container{
-  width: 900px;
+  width: 98%;
   display: grid;
   /* border: 1px #000000 solid; */
   margin-left: 10px;
@@ -98,7 +98,7 @@
   border-bottom: 1px #000000 solid;
 }
 
-.chatroom-list-container .chatroom-info .chatroom-info-header .chatroom-icon{
+.chatroom-list-container .chatroom-info .chatroom-info-header .chatroom-icon-study{
   /* border: 1px solid #000000; */
   border-radius: 20px;
   padding: 4px;
@@ -116,15 +116,64 @@
   -o-border-radius: 20px;
   cursor: pointer;
 }
+.chatroom-list-container .chatroom-info .chatroom-info-header .chatroom-icon-gather{
+  /* border: 1px solid #000000; */
+  border-radius: 20px;
+  padding: 4px;
+  width: 50px;
+  margin-left: 10px;
+  font-size:15px;
+  text-align: center;
+  /* 색상변경해야함 */
+  background-color: #287094;
+  color:#ffffff;
+  border:2px #000000 solid;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  cursor: pointer;
+}
+
 .chatroom-list-container .chatroom-info .chatroom-info-header>:nth-child(2)>span{
   font-family: 'NEXON Lv1 Gothic OTF';
   font-weight: bold;
   font-size: 20px;
 }
-.chatroom-list-container .chatroom-info .chatroom-info-header>:nth-child(3)>div{
+.chatroom-list-container .chatroom-info .chatroom-info-header>:nth-child(3)>span{
   cursor: pointer;
   font-size: 25px;
+  position: relative;
+  display: inline-block;
 }
+.chatroom-submenu{
+  display: none;
+  position: absolute;
+  background-color: #F9F9F9;
+  min-width: 160px;
+  height: 80px;
+  padding: 8px;
+  font-size: 23px;
+  /*left:1000px;*/
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border: 1px solid #000000;
+}
+.chatroom-submenu>div{
+  height: 40px;
+}
+.interested-chatroom{
+  font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
+}
+.blame-chatroom{
+  font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
+}
+.chatroom-submenu>div:hover>span{
+  border-bottom: 2px solid #000000;
+}
+.chatroom-list-container .chatroom-info .chatroom-info-header>:nth-child(3):hover .chatroom-submenu{
+  display: block;
+}
+
 .chatroom-list-container .chatroom-content-container{
   display: grid;
   grid-template-rows: 70px 40px;

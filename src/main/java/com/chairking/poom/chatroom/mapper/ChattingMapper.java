@@ -36,4 +36,16 @@ public interface ChattingMapper {
 
     @Insert("insert into CHATMEMBER values(#{id},#{chatNo})")
     public int enterChatRoom(String id, String chatNo);
+
+    @Select("select count(*) from CHATMEMBER where CHAT_NO=#{chatNo} and MEMBER_ID=#{memberId}")
+    public int checkEnterChatroom(String memberId,String chatNo);
+
+    @Select("select count(*) from #{refTable} where #{refNo} = #{chatNo} and #{refId} =#{memberId}")
+    public int checkAlreadyChatroom(String chatNo, String memberId, String refTable,String refId,String refNo);
+
+    @Insert("insert into likechatroom values(#{memberId},#{chatNo})")
+    public int likeChatroom(String chatNo,String memberId);
+
+    @Insert("insert into chat_blame values(seq_chat_blameno.nextval,sysdate,#{memberId},#{chatNo})")
+    public int blameChatroom(String chatNo,String memberId);
 }

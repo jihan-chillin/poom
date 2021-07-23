@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<div th:replace="/fragments/header.html :: fragment-header"></div>
+</head>
+<body>
+	<script th:inline="javascript">
+		alert([[${msg}]]);
+		location.replace([[${loc}]]);
+	</script>
+</body>
+</html>

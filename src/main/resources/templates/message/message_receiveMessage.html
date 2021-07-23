@@ -1,0 +1,37 @@
+<div id="message_section">
+    <div id="table1" th:if="${list!=null}" >
+        <table class="col-100 col" >
+            <colgroup>
+                <col width="10%">
+                <col width="20%">
+                <col width="*%">
+                <col width="*%">
+            </colgroup>
+            <thead>
+            <tr>
+                <th></th>
+                <th>보낸사람</th>
+                <th>내용</th>
+                <th>보낸일자</th>
+                <th>차단</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="mv:${list}">
+                <td>
+                    <div class="checkbox2 m-0">
+                        <input id="check" type="checkbox">
+                        <label for="check">
+                        </label>
+                    </div>
+                </td>
+                <td th:text="${mv.MEMBER_ID}"></td>
+                <td th:text="${mv.MSG_CONTENT}" ></td>
+                <td th:text="${mv.MSG_DATE}"></td>
+                <td><button class="msg-cancel1">차단함으로 이동</button></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
