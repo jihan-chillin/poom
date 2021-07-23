@@ -12,16 +12,16 @@
             <p>지역기반커뮤니티 '품'</p>
             <div>
                 <img th:src="@{/images/ui/logo.png}" alt="poom로고">
-                <form action=""  class="login">
-                    <label>#ID<input type="text" id="id"></label>
-                    <label for="pw">#PW<input type="password" id="pw"></label>
+                <form action="/memberLogin" method="post" name="login_form"  class="login">
+                    <label>#ID<input type="text" name="id" id="id"></label>
+                    <label for="pw">#PW<input type="password" name="pw" id="pw"></label>
                     <div class="signup">
                         <span><a href="/userfind?type=id">ID찾기</a></span>
                         <span><a href="/userfind?type=pw">PW찾기</a></span>
                         <span><a href="/termsofservice">회원가입</a></span>
                     </div>
                 </form>
-                <button onclick="logIn();">로그인</button>
+                <button type="submit">로그인</button>
             </div>
         </div>
     </div>

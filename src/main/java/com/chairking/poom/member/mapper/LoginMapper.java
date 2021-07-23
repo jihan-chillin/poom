@@ -19,4 +19,8 @@ public interface LoginMapper {
 	
 	@Insert("INSERT INTO MEMBERTAG VALUES (SEQ_MTAGNO.NEXTVAL,#{id},#{keyword})")
 	public int inesrtMemberKeyword(Map memberTag);
+	
+	@Select("SELECT * FROM MEMBER WHERE MEMBER_ID=#{id}")
+	public Map<String,Object> memberLogin(Map param);
+	
 }

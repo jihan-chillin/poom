@@ -24,6 +24,12 @@ public class LoginDaoImpl implements LoginDao {
 	public int inesrtMemberKeyword(LoginMapper mapper, Map memberTag) {
 		return mapper.inesrtMemberKeyword(memberTag);
 	}
+
+	@Override
+	public Map<String,Object> memberLogin(LoginMapper mapper, Map param) {
+		return mapper.memberLogin(param);
+	}
+	
 	
 	
 
