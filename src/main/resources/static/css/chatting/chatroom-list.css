@@ -25,7 +25,7 @@
 }
 
 #room-container{
-  width: 900px;
+  width: 98%;
   display: grid;
   /* border: 1px #000000 solid; */
   margin-left: 10px;
@@ -140,10 +140,40 @@
   font-weight: bold;
   font-size: 20px;
 }
-.chatroom-list-container .chatroom-info .chatroom-info-header>:nth-child(3)>div{
+.chatroom-list-container .chatroom-info .chatroom-info-header>:nth-child(3)>span{
   cursor: pointer;
   font-size: 25px;
+  position: relative;
+  display: inline-block;
 }
+.chatroom-submenu{
+  display: none;
+  position: absolute;
+  background-color: #F9F9F9;
+  min-width: 160px;
+  height: 80px;
+  padding: 8px;
+  font-size: 23px;
+  /*left:1000px;*/
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border: 1px solid #000000;
+}
+.chatroom-submenu>div{
+  height: 40px;
+}
+.interested-chatroom{
+  font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
+}
+.blame-chatroom{
+  font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
+}
+.chatroom-submenu>div:hover>span{
+  border-bottom: 2px solid #000000;
+}
+.chatroom-list-container .chatroom-info .chatroom-info-header>:nth-child(3):hover .chatroom-submenu{
+  display: block;
+}
+
 .chatroom-list-container .chatroom-content-container{
   display: grid;
   grid-template-rows: 70px 40px;
