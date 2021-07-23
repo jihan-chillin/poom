@@ -175,7 +175,7 @@ function getMyChatroom(chatNo,url){
         val2 += '<span class="chatroom-icon-gather">소모임</span>';
       }
       val2 += '<div>'+data.chatData.CHAT_TITLE+'</div>';
-      val2 += '<div>...</div>';
+      val2 += '<div><span>...</span><div class="chatroom-submenu"><div><span class="interested-chatroom">관심 채팅방에 추가</span></div><div><span class="blame-chatroom">신고하기</span></div></div></div>';
 
       $('.chatroom-header').append(val2);
     },
@@ -262,6 +262,11 @@ function moveChatList(){
   $.ajax({
     url:'/chat/list/data',
     success:data=>{
+      // 아이디
+      // 없으니까 임시로 test
+      // const memberId = sessionStorage.getItem("memberId");
+      const memberId = 'testId';
+
       $('.chatroom-list-container>*').remove();
       let val = '';
       for(let i=0; i<data.chatList.length; i++){
@@ -282,8 +287,17 @@ function moveChatList(){
         }else{
           val += '<div><span>모집마감</span></div>';
         }
+        // val += "<div>...</div></div>";
 
-        val += '<div><div>...</div></div></div>'
+        val += '<div>';
+          val += '<span>...</span>';
+          val += '<div class="chatroom-submenu">';
+              val += '<div><span class="interested-chatroom">관심 채팅방에 추가</span></div>';
+              val += '<div><span class="blame-chatroom">신고하기</span></div>';
+          val += '</div>';
+        val += '</div></div>';
+
+
         val += '<div class="chatroom-content-container"><div class="chatroom-content-title" onclick="moveChatListDetail('+data.chatList[i].CHAT_NO+');">';
         // 제목
         val += data.chatList[i].CHAT_TITLE +'</div><div class="chatroom-content-info">';
@@ -341,7 +355,12 @@ function chatListDetailData(chatNo){
       }
 
       val += '<div>'+data.chatData.CHAT_TITLE+"/"+data.chatData.GROUP_DATE.substring(0,10)+'</div>';
-      val += '<div>...</div></div>';
+      val += '<div>';
+      val += '<span>...</span>';
+      val += '<div class="chatroom-submenu">';
+      val += '<div><span class="interested-chatroom">관심 채팅방에 추가</span></div>';
+      val += '<div><span class="blame-chatroom">신고하기</span></div>';
+      val += '</div></div></div></div>';
 
       // nav
       val += '<div class="chatroom-nav"><div class="chatroom-status">';
