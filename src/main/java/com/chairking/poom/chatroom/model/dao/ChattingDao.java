@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface ChattingDao {
-    List<Map> getMyChatList(ChattingMapper cm);
+    List<String> getMyChatroomNum(ChattingMapper cm,String memberId);
+    List<Map> getMyChatList(ChattingMapper cm,String chatNo);
     List<Map> enteredMem(ChattingMapper cm,String chatNo);
     List<Map> messageContent(ChattingMapper cm,String chatNo,int ref);
     int saveMessage(ChattingMapper cm,ChatMessage chatMessage);
