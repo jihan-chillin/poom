@@ -48,13 +48,14 @@ function interestedChatroom(check,chatNo,memberId){
 // 이미 신고됐는지 테이블 조회
 function checkAlreadyBlame(chatNo,memberId){
   $.ajax({
-    url:'/chat/room/check"',
+    url:'/chat/room/check',
     data:{
       "chatNo":chatNo,
       "memberId":memberId,
       "ref":"blame"
     },
     success:data=>{
+      console.log(data);
       if(data === 1){
         alert("이미 신고한 채팅방입니다.");
         return;
@@ -64,7 +65,7 @@ function checkAlreadyBlame(chatNo,memberId){
     }
   });
 
-  return blameChatroom(false);
+  // return blameChatroom(false);
 }
 
 function blameChatroom(chatNo,memberId){

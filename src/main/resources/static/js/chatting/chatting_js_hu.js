@@ -301,8 +301,8 @@ function moveChatList(){
         val += '<div>';
           val += '<span>...</span>';
           val += '<div class="chatroom-submenu">';
-              val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatList.CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
-              val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatList.CHAT_NO+',\''+memberId+'\')">신고하기</span></div>';
+              val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+              val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">신고하기</span></div>';
           val += '</div>';
         val += '</div></div>';
 

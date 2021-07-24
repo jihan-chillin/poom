@@ -40,7 +40,7 @@ public interface ChattingMapper {
     @Select("select count(*) from CHATMEMBER where CHAT_NO=#{chatNo} and MEMBER_ID=#{memberId}")
     public int checkEnterChatroom(String memberId,String chatNo);
 
-    @Select("select count(*) from #{refTable} where #{refNo} = #{chatNo} and #{refId} =#{memberId}")
+    @Select("select count(*) from ${refTable} where ${refNo} = #{chatNo} and ${refId} =#{memberId}")
     public int checkAlreadyChatroom(String chatNo, String memberId, String refTable,String refId,String refNo);
 
     @Insert("insert into likechatroom values(#{memberId},#{chatNo})")
