@@ -21,4 +21,7 @@ public interface MywriteService {
     // 내가 쓴 댓글 리스트
     List<Map<String, Object>> MyCommentList(int cPage, int numPerpage);
 
+
+    // 해당 글에 있는 댓글 가져오기
+    List<Map<String, Object>> commentCount(int cPage, int numPerpage);
 }

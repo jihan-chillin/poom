@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @RestController
@@ -17,8 +17,8 @@ public class ChattingJsonController {
     @Autowired
     private ChattingService service;
 
-    // 채팅방 참여자 리스트 가져옴
-    public List getEnteredMem(String chatNo){
+    // 채팅방 몇명 참여했는지
+    public List<Map> getEnteredMem(String chatNo){
         return service.enteredMem(chatNo);
     }
 
@@ -26,19 +26,30 @@ public class ChattingJsonController {
     public List getPastChattingList(String chatNo,int ref){
         return service.messageContent(chatNo,ref);
     }
-//    자료형 수정해야함
     @GetMapping("/chat/mychat/list")
-    public Map<String,Object> getMyChatList(){
-        Map<String,Object> list = new HashMap<>();
+    public Map<String,Object> getMyChatList(HttpServletRequest req){
+        HttpSession session = req.getSession();
+        // 세션에서 내 아이디 가져옴
+        Map<String,String> val = (Map<String,String>)session.getAttribute("loginMember");
+        String memberId = val.get("MEMBER_ID");
+        log.info("내 아이디 : {}",memberId);
 
-        List<Map> myChatList = service.getMyChatList();
-        String chatNo = "";
+        // 아이디로 내가 참가한 채팅방 번호 가져옴
+        List<String> myChatroomNum = service.getMyChatroomNum(memberId);
+
+        // 내가 참여한 채팅방 리스트 전부
+        List<List<Map>> myChatList = new ArrayList<>();
+
+        // 채팅방에 몇명 참여했는지
         List memCount = new ArrayList();
 
-        for(int i =0; i<myChatList.size(); i++) {
-            chatNo = (String) myChatList.get(i).get("CHAT_NO");
-            memCount.add(i,getEnteredMem(chatNo).size());
+        for(int i =0; i<myChatroomNum.size(); i++){
+            myChatList.add(i, service.getMyChatList(myChatroomNum.get(i)));
+            memCount.add(i,getEnteredMem(myChatroomNum.get(i)).size());
         }
+
+        Map<String,Object> list = new HashMap<>();
+
         list.put("countMember",memCount);
         list.put("list",myChatList);
 
@@ -54,6 +65,7 @@ public class ChattingJsonController {
 //       1주일 전까지 메세지만 가져옴 기준 -> int ref = 7
         list.put("messageContent",getPastChattingList(chatNo,7));
         list.put("chatData",service.getChatroomData(chatNo));
+        list.put("loginMember",req.getSession().getAttribute("loginMember"));
 
         return list;
     }
@@ -74,7 +86,7 @@ public class ChattingJsonController {
 
 
     @GetMapping("/chat/list/data")
-    public Map getChatList(){
+    public Map getChatList(HttpServletRequest req){
         Map<String,Object> result = new HashMap<>();
 
         List<Map<String,Object>> chatList = service.getChatList();
@@ -90,6 +102,7 @@ public class ChattingJsonController {
 
         result.put("chatRoomMemCount",memCount);
         result.put("chatList",chatList);
+        result.put("loginMember",req.getSession().getAttribute("loginMember"));
 
         return result;
     }
@@ -102,6 +115,7 @@ public class ChattingJsonController {
         Map result = new HashMap();
         result.put("chatData",service.getChatroomData(chatNo));
         result.put("memCount",getEnteredMem(chatNo).size());
+        result.put("loginMember",req.getSession().getAttribute("loginMember"));
 
         return result;
     }
@@ -117,6 +131,7 @@ public class ChattingJsonController {
         data.put("memCount",Integer.parseInt(req.getParameter("memCount")));
         data.put("date",req.getParameter("date"));
         data.put("memberId",req.getParameter("memberId"));
+        data.put("loginMember",req.getSession().getAttribute("loginMember"));
 
         // 채팅방 생성
         service.insertChatroomData(data);

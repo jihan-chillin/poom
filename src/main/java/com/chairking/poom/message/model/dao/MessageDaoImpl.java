@@ -21,4 +21,9 @@ public class MessageDaoImpl implements MessageDao{
         return mapper.receiveMessage();
     }
 
+    @Override
+    public List<Map<String, Object>> messageContent(MessageMapper mapper, String msgNo) {
+        return mapper.messageContent(msgNo);
+    }
+
 }

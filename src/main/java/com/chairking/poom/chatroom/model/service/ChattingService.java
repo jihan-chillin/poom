@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface ChattingService {
-    List<Map> getMyChatList();
+    List<String> getMyChatroomNum(String memberId);
+    List<Map> getMyChatList(String chatNo);
     List<Map> enteredMem(String chatNo);
     List<Map> messageContent(String chatNo,int ref);
     int saveMessage(ChatMessage chatMessage);

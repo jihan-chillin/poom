@@ -48,50 +48,37 @@ function interestedChatroom(check,chatNo,memberId){
 // 이미 신고됐는지 테이블 조회
 function checkAlreadyBlame(chatNo,memberId){
   $.ajax({
-    url:'/chat/room/check"',
+    url:'/chat/room/check',
     data:{
       "chatNo":chatNo,
       "memberId":memberId,
       "ref":"blame"
     },
     success:data=>{
+      console.log(data);
       if(data === 1){
-        return blameChatroom(true,chatNo,memberId);
+        alert("이미 신고한 채팅방입니다.");
+        return;
       }else{
-        return blameChatroom(false);
+        blameChatroom(chatNo,memberId);
       }
     }
   });
 
-  return blameChatroom(false);
+  // return blameChatroom(false);
 }
 
-function blameChatroom(check,chatNo,memberId){
-  if(check){
-    alert("이미 신고한 채팅방입니다.");
-    return;
-  }else{
+function blameChatroom(chatNo,memberId){
     if(!confirm("이 채팅방을 신고하시겠습니까?")){
       return;
     }else{
-
-      // 신고페이지 연결해줘야함.
       $.ajax({
-        url:'',
+        url:'/blame/chatBlame',
         data:{
           "chatNo":chatNo,
           "memberId":memberId
-        },
-        success:data=>{
-          if(data === 1){
-            alert("신고가 완료되었습니다.");
-          }else{
-            alert("다시 시도해주세요");
-          }
         }
       });
-
-    }
   }
 
 }

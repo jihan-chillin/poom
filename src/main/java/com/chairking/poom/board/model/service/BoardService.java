@@ -14,4 +14,5 @@ public interface BoardService {
 	Map selectBoard(String boardNo);
 	int insertBoardImg(BoardImage bi);
 	int selectBoardNo(Board b);
+	List<Map> selectCommentList(String boardNo);
 }

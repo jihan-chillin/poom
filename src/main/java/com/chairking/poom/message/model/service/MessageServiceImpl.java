@@ -39,4 +39,9 @@ public class MessageServiceImpl implements MessageService {
     public List<Map<String,Object>> sendMessage(){
         return dao.receiveMessage(mapper);
     }
+
+    @Override
+    public List<Map<String,Object>> messageContent(String msgNo){
+        return dao.messageContent(mapper, msgNo);
+    }
 }

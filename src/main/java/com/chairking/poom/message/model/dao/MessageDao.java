@@ -10,4 +10,6 @@ public interface MessageDao {
     List<Map<String, Object>> searchReceiver(MessageMapper mapper);
 
     List<Map<String, Object>> receiveMessage(MessageMapper mapper);
+
+    List<Map<String, Object>> messageContent(MessageMapper mapper, String msgNo);
 }

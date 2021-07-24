@@ -28,14 +28,14 @@ public class BoardController {
 	private BoardService service;
 	
 	//게시글 등록 페이지로 이동
-	@RequestMapping(path="/board/boardForm", method=RequestMethod.GET)
+	@RequestMapping(path="/board/form", method=RequestMethod.GET)
 	public String boardForm() {
 		return "board/board_form";
 	}
 	
 	//게시글 등록 서비스
 	@PostMapping("/board/insert")
-	public ModelAndView insertBoard(Board board, ModelAndView mv, MultipartFile[] boardImg, RedirectAttributes rttr) throws IOException {
+	public ModelAndView insertBoard(Board board, ModelAndView mv, MultipartFile[] boardImg) throws IOException {
 		board.setMemberId("test");
 		board.setBoardLoc("1");
 		
@@ -88,7 +88,7 @@ public class BoardController {
 	}
 	
 	//모든 게시글 리스트 가져오는 서비스
-	@GetMapping("/board/selectAll")
+	@GetMapping("/board/all")
 	public ModelAndView selectAllBoard(ModelAndView mv) {
 		mv.setViewName("board/board_list");
 		mv.addObject("list", service.selectAllBoard());
@@ -96,10 +96,11 @@ public class BoardController {
 	}
 	
 	//게시글 조회
-	@GetMapping("/board/boardView")
+	@GetMapping("/board/view")
 	public ModelAndView boardView(String boardNo, ModelAndView mv) {
 		mv.setViewName("board/board_view");
 		mv.addObject("board", service.selectBoard(boardNo));
+		mv.addObject("commentList", service.selectCommentList(boardNo));
 		return mv;
 	}
 	

@@ -4,18 +4,18 @@
 }
 
 div#content{
-	position:absolute;
-	height:1000px;
+	/* position:absolute;
+	height:1000px; */
 }
 
 div#board_form{
 	width:1620px; height:800px;
-	/* overflow-y:scroll;
-    -ms-overflow-style: none; IE and Edge
-    scrollbar-width: none; Firefox */
+	overflow-y:scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
 div#board_form::-webkit-scrollbar {
-   /*  display: none; Chrome, Safari, Opera */
+   display: none; /* Chrome, Safari, Opera */
 }
 
 

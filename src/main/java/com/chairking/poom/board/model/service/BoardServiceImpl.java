@@ -63,7 +63,11 @@ public class BoardServiceImpl implements BoardService {
 	public int selectBoardNo(Board b) {
 		return dao.selectBoardNo(mapper, b);
 	}
-	
-	
 
+	@Override
+	public List<Map> selectCommentList(String boardNo) {
+		return dao.selectCommentList(mapper, boardNo);
+	}
+	
+	
 }
