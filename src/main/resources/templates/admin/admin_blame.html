@@ -56,6 +56,27 @@ $(function(){
 	})
 })
 
+//title에 맞게 왼쪽 메뉴 hover지정해놓기
+$(function(){
+	var title=[[${type}]];
+	switch(title){
+		case "1": 
+		case "blame" :
+			$("#blame_menu").children().css({"color":"black","list-style-type": "none"});
+   			$("#blame_menu").children().first().css({"color":"#F77B1E","list-style-type": "disc"});
+			break;
+		case "2" : 
+			$("#blame_menu").children().css({"color":"black","list-style-type": "none"});
+			$("#blame_menu").children().eq(1).css({"color":"#F77B1E","list-style-type": "disc"}); break;
+		case "3" : 
+			$("#blame_menu").children().css({"color":"black","list-style-type": "none"});
+			$("#blame_menu").children().eq(2).css({"color":"#F77B1E","list-style-type": "disc"}); break;
+		case "4" : 
+			$("#blame_menu").children().css({"color":"black","list-style-type": "none"});
+			$("#blame_menu").children().eq(3).css({"color":"#F77B1E","list-style-type": "disc"}); break;
+	}
+});
+
 //신고관리 전체 체크박스
 $("[name='brd_blame_allChk']").click(e=>{                     
 	if($("[name='brd_blame_allChk']").is(":checked")){          //전체 체크박스 checked되면
