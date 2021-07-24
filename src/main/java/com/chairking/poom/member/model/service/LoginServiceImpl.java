@@ -34,8 +34,18 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public Map<String,Object> memberLogin(Map param) {
-		return dao.memberLogin(mapper, param);
+	public Map<String,Object> selectMember(Map param) {
+		return dao.selectMember(mapper, param);
+	}
+
+	@Override
+	public Map<String, Object> idFind(Map param) {
+		return dao.idFind(mapper,param);
+	}
+
+	@Override
+	public Map<String, Object> pwFind(Map param) {
+		return dao.pwFind(mapper,param);
 	}
 	
 	
