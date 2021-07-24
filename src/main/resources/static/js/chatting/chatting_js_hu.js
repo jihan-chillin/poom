@@ -75,13 +75,14 @@ function checkEnterChatroom(memberId,chatNo){
         moveMyChatroom(chatNo);
       }else{
         if(confirm("채팅방에 입장하시겠습니까?")){
+
           if(enterChatroom(chatNo,memberId,'/chat/chatroom/enter') === 1){
             moveMyChatroom(chatNo);
-
           }else{
             alert("채팅방에 입장하지 못했습니다. 다시 시도해주세요");
             return;
           }
+
         }else{
           return;
         }
@@ -127,7 +128,7 @@ function moveMyChatroom(chatNo){
   // 채팅내용 불러오기
   getChatList(chatNo,url);
 
-  return false;
+  return;
 }
 // 참여인원 불러오기
 function getMyChatroom(chatNo,url){
@@ -140,8 +141,6 @@ function getMyChatroom(chatNo,url){
     success:data=>{
       // 멤버 아이디. 지금은 없으니까 'test'로 대체
       const memberId = data.loginMember.MEMBER_ID;
-
-      console.log(data.chatData);
       $('.entered-mem').remove();
       $('.chatroom-header>*').remove();
       let val ='';
@@ -226,7 +225,7 @@ function enterChatroom(chatNo,memberId,url){
       "memberId":memberId
     },
     success:data=>{
-      if( data === 1){
+      if( data == 1){
         return 1;
       }else{
         return 0;
@@ -443,8 +442,7 @@ function countMem(){
 }
 
 // 채팅방 데이터 가져오기
-// 세션 아이디를 넣어야하지만 로그인 구현 안돼서 임시로 넣음
-// test
+
 function chatroomData(){
   let category = '';
 
@@ -459,14 +457,7 @@ function chatroomData(){
   const condition = $('.chatroom-condition').val();
   const memCount =$('.memCount').text();
   const gatherDate = $('.gather-date').val();
-
-  // try {
-  //   const memberId=sessionStorage.getItem("memberId");
-  // }catch (error){
-  //   alert("로그인 후 이용해주세요");
-  //   return;
-  // }
-  const memberId = 'test2';
+  const memberId = $('#memberId').val();
 
   return {category, title, content, condition, memCount, gatherDate,memberId};
 }

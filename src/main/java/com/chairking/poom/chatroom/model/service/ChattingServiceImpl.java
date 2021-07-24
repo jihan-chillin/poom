@@ -28,7 +28,7 @@ public class ChattingServiceImpl implements ChattingService{
     }
 
     @Override
-    public int enteredMem(String chatNo) {
+    public List<Map> enteredMem(String chatNo) {
         return dao.enteredMem(cm,chatNo);
     }
 

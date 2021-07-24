@@ -18,7 +18,7 @@ public class ChattingJsonController {
     private ChattingService service;
 
     // 채팅방 몇명 참여했는지
-    public int getEnteredMem(String chatNo){
+    public List<Map> getEnteredMem(String chatNo){
         return service.enteredMem(chatNo);
     }
 
@@ -45,7 +45,7 @@ public class ChattingJsonController {
 
         for(int i =0; i<myChatroomNum.size(); i++){
             myChatList.add(i, service.getMyChatList(myChatroomNum.get(i)));
-            memCount.add(i,getEnteredMem(myChatroomNum.get(i)));
+            memCount.add(i,getEnteredMem(myChatroomNum.get(i)).size());
         }
 
         Map<String,Object> list = new HashMap<>();
@@ -97,7 +97,7 @@ public class ChattingJsonController {
         for(int i=0; i<chatList.size(); i++ ) {
 //            log.info("채팅리스트 : {}", chatList.get(i).get("CHAT_NO"));
             chatNo = (String)chatList.get(i).get("CHAT_NO");
-            memCount.add(i,getEnteredMem(chatNo));
+            memCount.add(i,getEnteredMem(chatNo).size());
         }
 
         result.put("chatRoomMemCount",memCount);
@@ -114,7 +114,7 @@ public class ChattingJsonController {
 //        log.info(chatNo);
         Map result = new HashMap();
         result.put("chatData",service.getChatroomData(chatNo));
-        result.put("memCount",getEnteredMem(chatNo));
+        result.put("memCount",getEnteredMem(chatNo).size());
         result.put("loginMember",req.getSession().getAttribute("loginMember"));
 
         return result;

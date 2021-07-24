@@ -8,7 +8,7 @@ import java.util.Map;
 public interface ChattingService {
     List<String> getMyChatroomNum(String memberId);
     List<Map> getMyChatList(String chatNo);
-    int enteredMem(String chatNo);
+    List<Map> enteredMem(String chatNo);
     List<Map> messageContent(String chatNo,int ref);
     int saveMessage(ChatMessage chatMessage);
     List<Map<String,Object>> getChatList();

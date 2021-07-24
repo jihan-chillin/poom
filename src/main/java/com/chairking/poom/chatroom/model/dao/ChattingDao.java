@@ -9,7 +9,7 @@ import java.util.Map;
 public interface ChattingDao {
     List<String> getMyChatroomNum(ChattingMapper cm,String memberId);
     List<Map> getMyChatList(ChattingMapper cm,String chatNo);
-    int enteredMem(ChattingMapper cm,String chatNo);
+    List<Map> enteredMem(ChattingMapper cm,String chatNo);
     List<Map> messageContent(ChattingMapper cm,String chatNo,int ref);
     int saveMessage(ChattingMapper cm,ChatMessage chatMessage);
     List<Map<String,Object>> getChatList(ChattingMapper cm);

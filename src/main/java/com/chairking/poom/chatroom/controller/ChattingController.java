@@ -10,6 +10,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -69,11 +70,9 @@ public class ChattingController {
 
     // 채팅방 만들기
     @GetMapping("/chat/room/page")
-    public String createChatroom(){
-        return "chatting/create-chatroom";
+    public ModelAndView createChatroom(ModelAndView model,HttpServletRequest req){
+        model.addObject("memberId",((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+        model.setViewName("chatting/create-chatroom");
+        return model;
     }
-
-//    public void checkId(Session){
-//
-//    }
 }
