@@ -1,6 +1,7 @@
 
 //ajax
 function fn_receive_message(){
+    console.log("fn_receive_message");
         $.ajax({
             url: "/message/receiveMessage",
         }).done(function (fragment) {
@@ -41,6 +42,11 @@ function showPopup(type) {
         window.open("/message/popup", "message", "width=400,height=300");
     else if (type == 2)
         window.open("/message/receiver", "receiver", "width=400,height=300");
+}
+
+function showMsgDtl(msgNo) {
+    window.open("/message/content?msgNo=" + msgNo,"content","width=400,height=300");
+
 }
 
 

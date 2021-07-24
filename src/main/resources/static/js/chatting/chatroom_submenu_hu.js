@@ -68,26 +68,16 @@ function checkAlreadyBlame(chatNo,memberId){
 }
 
 function blameChatroom(chatNo,memberId){
- if(!confirm("이 채팅방을 신고하시겠습니까?")){
+    if(!confirm("이 채팅방을 신고하시겠습니까?")){
       return;
     }else{
-      location.replace("/blame/chatBlame");
-      // // 신고페이지 연결해줘야함.
-      // $.ajax({
-      //   url:'',
-      //   data:{
-      //     "chatNo":chatNo,
-      //     "memberId":memberId
-      //   },
-      //   success:data=>{
-      //     if(data === 1){
-      //       alert("신고가 완료되었습니다.");
-      //     }else{
-      //       alert("다시 시도해주세요");
-      //     }
-      //   }
-      // });
-
+      $.ajax({
+        url:'/blame/chatBlame',
+        data:{
+          "chatNo":chatNo,
+          "memberId":memberId
+        }
+      });
   }
 
 }
