@@ -1,5 +1,7 @@
 package com.chairking.poom.member.model.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +19,26 @@ public class LoginServiceImpl implements LoginService {
 	LoginMapper mapper;
 	
 	@Override
-	public Member idDuplCheck(String id) {
-		return dao.idDuplCheck(mapper,id);
+	public Map<String,Object> duplCheck(String duplsql) {
+		return dao.duplCheck(mapper,duplsql);
 	}
+
+	@Override
+	public int insertMember(Map m) {
+		return dao.insertMember(mapper,m);
+	}
+
+	@Override
+	public int inesrtMemberKeyword(Map memberTag) {
+		return dao.inesrtMemberKeyword(mapper,memberTag);
+	}
+
+	@Override
+	public Map<String,Object> memberLogin(Map param) {
+		return dao.memberLogin(mapper, param);
+	}
+	
+	
+	
 
 }

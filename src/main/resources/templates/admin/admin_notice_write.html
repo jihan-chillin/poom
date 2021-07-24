@@ -11,7 +11,8 @@
 	        <div id="notice_category">
 	            <span class="title_bold">게시판 카테고리</span>
 	            │
-	            <label><input type="checkbox" name="cateChk" class="allCheck" value="-1">전체</label>
+	            <label><input type="checkbox" class="allCheck" >전체 선택</label>
+	            &nbsp;&nbsp;&nbsp;
 	            <label><input type="checkbox" name="cateChk" class="chk" value="1"> 출산, 육아, 교육</label>
 	            <label><input type="checkbox" name="cateChk" class="chk" value="2"> 분실물</label>
 	            <label><input type="checkbox" name="cateChk" class="chk" value="3"> 일손(품앗이)</label>
@@ -29,3 +30,21 @@
 	    </form> 
     </div>  
 </div>
+<script>
+//공지사항 글쓰기 전체 체크박스
+$(".allCheck").click(e=>{                     
+	if($(".allCheck").is(":checked")){          //전체 체크박스 checked되면
+		$(".chk").prop("checked",true);           //모든 chk(일반 개별 체크박스)들 true->checked로 변경
+	}else{
+		$(".chk").prop("checked",false);
+	}
+});
+//하나라도 체크 빠지면 전체체크 해제
+$(".chk").click(e=>{
+	if($("input[name='cateChk']:checked").length==5){    
+		$(".allCheck").prop("checked",true);
+	}else{
+		$(".allCheck").prop("checked",false);
+	}
+});
+</script>

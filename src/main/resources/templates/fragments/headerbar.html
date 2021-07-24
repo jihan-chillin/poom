@@ -9,9 +9,45 @@
         <button>go</button>
     </div>
     <ul class="header_ui">
+        <li class="noti_icon">
+            <div id="modal" class="modal-overlay" style="display: none">
+                <div class="modal-window" id="modal-window" >
+                    <div class="modal-title">
+                        <span class="noti-info-alarm">알림창</span>
+                        <span class="noti-info-message">쪽지함</span>
+                    </div>
+                    <div class="modal-content-list">
+                        <div class="noti-content-box">
+                            <div class="noti-img">이미지</div>
+                            <div class="noti-detail"><a th:href="@{'/'}">내용</a></div>
+                        </div>
+                        <div class="noti-content-box">
+                            <div class="noti-img">이미지</div>
+                            <div class="noti-detail"><a th:href="@{'/'}">내용</a></div>
+                        </div>
+                        <div class="noti-content-box">
+                            <div class="noti-img">이미지</div>
+                            <div class="noti-detail"><a th:href="@{'/'}">내용</a></div>
+                        </div>
+                        <div class="noti-content-box">
+                            <div class="noti-img">이미지</div>
+                            <div class="noti-detail"><a th:href="@{'/'}">내용</a></div>
+                        </div>
+                        <div class="noti-content-box">
+                            <div class="noti-img">이미지</div>
+                            <div class="noti-detail"><a th:href="@{'/'}">내용</a></div>
+                        </div>
+                        <div class="noti-content-box">
+                            <div class="noti-img">이미지</div>
+                            <div class="noti-detail"><a th:href="@{'/'}">내용</a></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </li>
         <li></li>
-        <li></li>
-        <li></li>
+        <li onclick="logOut();"></li>
     </ul>
 </div>
         

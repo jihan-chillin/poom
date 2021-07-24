@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/message/message_popup.css}" rel="stylesheet" type="text/css">
+
+    <script>
+        $(window).load(function () {
+            window.resizeTo(500, 400);
+        });
+    </script>
+</head>
+<body>
+<div id="popup_wrapper">
+    <div id="popup+content">
+<!--        <div th:text="${list.get(0)}"></div>-->
+        받는사람<div class="search-receiver" th:text="${list.get(0).MEMBER_ID}"></div>
+        <div class="msg-content" th:text="${list.get(0).MSG_CONTENT}"></div>
+        <div id="message_buttons">
+            <button class="message_buttons" type="button">보내기</button>
+            <button class="message_buttons2" type="button">취소</button>
+        </div>
+    </div>
+</div>
+
+</body>
+<script th:src="@{/js/message/message_js_sh.js}"></script>
+</html>

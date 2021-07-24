@@ -11,11 +11,6 @@ import com.chairking.poom.admin.model.vo.Notice;
 @Repository
 public class AdminDaoImpl implements AdminDao {
 
-//	@Override
-//	public List<Notice> allNotice(AdminMapper mapper) {
-//		return mapper.allNotice();
-//	}
-
 	@Override
 	public List<Map<String,Object>> allNotice(AdminMapper mapper, int cPage, int numPerpage) {
 		return mapper.allNotice(cPage,numPerpage);
@@ -31,5 +26,32 @@ public class AdminDaoImpl implements AdminDao {
 		return mapper.insertNotice(n);
 	}
 
+	@Override
+	public Map<String, Object> selectNotice(AdminMapper mapper, String no) {
+		return mapper.selectNotice(no);
+	}
 
+	@Override
+	public int noticeDelete(AdminMapper mapper, String no) {
+		return mapper.noticeDelete(no);
+	}
+
+	@Override
+	public int realDelete(AdminMapper mapper, String no) {
+		return mapper.realDelete(no);
+	}
+
+	@Override
+	public int changeStatus(AdminMapper mapper, String no) {
+		return mapper.changeStatus(no);
+	}
+
+	@Override
+	public List<Map<String, Object>> allBoardBlame(AdminMapper mapper, int cPage, int numPerpage) {
+		return mapper.allBoardBlame(cPage,numPerpage);
+	}
+	
+	
+
+	
 }

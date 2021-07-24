@@ -21,14 +21,14 @@ public class MemberController {
     // 1. 프로필정보 수정창으로 이동
     // 화면 전환용
     @GetMapping("/modiprofile")
-    public String membermodi(){
+    public String membermodi() {
         return "/member/modiprofile";
     }
 
     // 2. 프로필 수정완료되면 프로필 수정페이지로 이동
     // 파라미터가 String인 것들만 받을 거기 때문에 RequestBody로 가져옴.
     @PostMapping("/updateProfile")
-    public ModelAndView updateProfile(ModelAndView mv,Member m,  MultipartFile[] inputfile, @RequestBody Map<String, String> param){
+    public ModelAndView updateProfile(ModelAndView mv, Member m, MultipartFile[] inputfile, @RequestBody Map<String, String> param) {
 
         // 파라미터 값 변수에 저장
         String memberId = param.get("memberId");
@@ -36,7 +36,7 @@ public class MemberController {
         String intro = param.get("intro");
 //        String profile = param.get("inputfile");
 
-        System.out.println(memberId+nick+intro);
+        System.out.println(memberId + nick + intro);
 
         //
 
@@ -50,19 +50,19 @@ public class MemberController {
 
     // 3. 개인정보 수정창으로 이동
     @GetMapping("/modiprivacy")
-    public String modiprivacy(){
+    public String modiprivacy() {
         return "/member/modiprivacy";
     }
 
     // 4. 개인정보 update완료 시 개인정보 창으로 이동
     @PostMapping("/updatePrivacy")
-    public ModelAndView updatePrivacy(HttpServletRequest req, ModelAndView mv, Member m, @RequestBody Map<String, String> param ){
+    public ModelAndView updatePrivacy(HttpServletRequest req, ModelAndView mv, Member m, @RequestBody Map<String, String> param) {
 
         // ▼ 회원 아이디 sessionr값 가져올 때
         //HttpSession session = req.getSession();
 
         // 임의 아이디
-        String id="test";
+        String id = "test";
 
         // 파라미터 값 변수에 저장
         String pw = param.get("pw");
@@ -85,21 +85,4 @@ public class MemberController {
         return mv;
     }
 
-    // 내가 쓴 글
-    @GetMapping("/mywrite")
-    public String mywrite(){
-        return "/member/mywrite";
-    }
-
-    // 내가 쓴 댓글
-    @GetMapping("/mycomment")
-    public String mycomment(){
-        return "/member/mycomment";
-    }
-
-    // 내가 찜한 글
-    @GetMapping("/mylike")
-    public String mylike(){
-        return "/member/mylike";
-    }
 }

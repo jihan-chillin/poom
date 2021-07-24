@@ -1,9 +1,13 @@
 package com.chairking.poom.member.model.dao;
 
+import java.util.Map;
+
 import com.chairking.poom.member.mapper.LoginMapper;
 import com.chairking.poom.member.model.vo.Member;
 
 public interface LoginDao {
-
-	Member idDuplCheck(LoginMapper mapper, String id);
+	Map<String,Object> duplCheck(LoginMapper mapper, String duplsql);
+	int insertMember(LoginMapper mapper, Map m);
+	int inesrtMemberKeyword(LoginMapper mapper, Map memberTag);
+	Map<String,Object> memberLogin(LoginMapper mapper, Map param);
 }

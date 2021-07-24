@@ -3,9 +3,11 @@ package com.chairking.poom.admin.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.chairking.poom.admin.model.vo.Notice;
 
@@ -23,4 +25,20 @@ public interface AdminMapper {
 	
 	@Insert("INSERT INTO NOTICE VALUES(SEQ_NOTICENO.NEXTVAL,#{cate},#{noticeTitle},#{noticeContent},sysdate,default)")
 	public int insertNotice(Notice n);
+	
+	@Select("SELECT * FROM NOTICE WHERE NOTICE_NO=#{no}")
+	public Map<String,Object> selectNotice(String no);
+	
+	@Update("UPDATE NOTICE SET NOTICE_STATUS=1 WHERE NOTICE_NO=#{no}")
+	public int noticeDelete(String no);
+	
+	@Delete("DELETE FROM NOTICE WHERE NOTICE_NO=#{no}")
+	public int realDelete(String no);
+	
+	@Update("UPDATE NOTICE SET NOTICE_STATUS=0 WHERE NOTICE_NO=#{no}")
+	public int changeStatus(String no);
+	
+	
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM BOARD_BLAME LEFT JOIN BOARD ON B_TARGET_BOARD_NO = BOARD_NO ORDER BY B_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{cPage} and #{numPerpage}")
+	public List<Map<String,Object>> allBoardBlame(int cPage, int numPerpage);
 }

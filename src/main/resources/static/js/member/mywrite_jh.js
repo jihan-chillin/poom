@@ -3,7 +3,7 @@ function mycomment(){
     $('#mywrite-content').remove();
 
     $.ajax({
-        url:'/member/mycomment',
+        url:'/mycomment',
         success:function(result){
             $('#ajaxcontent').html(result)
         }
@@ -15,7 +15,7 @@ function mylike(){
     $('#mywrite-content').remove();
 
     $.ajax({
-        url:'/member/mylike',
+        url:'/mylike',
         success:function(result){
             $('#ajaxcontent').html(result)
         }
@@ -24,5 +24,5 @@ function mylike(){
 
 // 3. 다른 카테고리에서 내가 쓴 글 영역 넘어갈 때
 function barmywrite(){
-    location.assign("/member/mywrite");
+    location.assign("/mywrite");
 }

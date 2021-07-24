@@ -14,4 +14,9 @@ public interface MessageMapper {
     public List<Map<String,Object>> searchReceiver();
 
 
+    @Select("SELECT * FROM MESSAGE")
+    public List<Map<String,Object>> receiveMessage();
+
+    @Select("SELECT * FROM MESSAGE WHERE MSG_NO = #{msgNo}")
+    List<Map<String, Object>> messageContent(String msgNo);
 }

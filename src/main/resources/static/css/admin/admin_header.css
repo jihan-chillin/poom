@@ -1,0 +1,40 @@
+/* 헤더 css */
+div#admin_header {
+    width: 1920px;
+    height: 120px;
+    position: fixed;
+    top: 0;
+    left:0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid lightgray;
+    z-index: 9999;
+}
+div.admin_logo {
+	/* margin-left:200px; */
+    width: 248px;
+    height: 70px;
+    background: url(../../images/ui/logo.png) no-repeat center;
+    background-size: contain;
+    text-align:center;
+    transform: translateZ(0);
+    cursor: pointer;
+    position:fixed;
+    left:35px;
+}
+ul.admin_header_ui{
+	position:fixed;
+	left:1720px;
+}
+ul.admin_header_ui>li {
+    width: 40px;
+    height: 40px;
+    margin-left: 30px;
+    list-style: none;
+    cursor: pointer;
+    background: url(../../images/ui/logout.png) no-repeat center;
+    background-size: contain;
+}
+
+
