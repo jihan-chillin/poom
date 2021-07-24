@@ -19,21 +19,17 @@
         <table>
             <thead>
             <th>작성자</th>
-            <th>제목(게시판)</th>
+            <th>제목</th>
             <th>내 댓글</th>
             <th>날짜</th>
             </thead>
 
             <tbody>
-            <tr th:each=" c : ${cList}">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-<!--                <td>코줍</td>-->
-<!--                <td>서울 >> 분실물</td>-->
-<!--                <td>코치 검정색 장지갑 찾습니다!</td>-->
-<!--                <td>2021-07-21</td>-->
+            <tr th:each="c : ${cList}" >
+                <td th:text="${c.MEMBER_NICKNAME}"></td>
+                <td th:text="${c.BOARD_TITLE}"></td>
+                <td th:test="${c.COMMENT_CONTENT}"></td>
+                <td th:text="${#dates.format(c.COMMENT_DATE, 'yyyy-MM-dd')}"></td>
             </tr>
 
             </tbody>
@@ -43,4 +39,3 @@
 
 </div>
 
-</html>

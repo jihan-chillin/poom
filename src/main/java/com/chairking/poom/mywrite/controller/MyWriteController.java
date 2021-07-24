@@ -39,14 +39,15 @@ public class MyWriteController {
             mv.addObject("list", list);
 
 
-            // 2. 해당 글의 댓글 수
-            // int commentCount = service.commentCount();
+            // 2. 해당 글의 댓글 수, 타이틀 가져오자.
+            List<Map<String, Object>> commentCount = service.commentCount(cPage, numPerpage);
+            mv.addObject("c", commentCount);
             mv.setViewName("/member/mywrite");
             return mv;
     }
 
 
-    // 내가 쓴 댓글
+    // 내가 쓴 댓글 리스트
     @GetMapping("/mycomment")
     public String mycomment(ModelAndView mv,
                             @RequestParam(value = "cPage", defaultValue = "1") int cPage)
