@@ -158,9 +158,9 @@ function getMyChatroom(chatNo,url){
     },
     success:data=>{
       // 멤버 아이디. 지금은 없으니까 'test'로 대체
-      // const memberId = sessionStorage.getItem("memberId");
-      const memberId ='test';
+      const memberId = data.loginMember.MEMBER_ID;
 
+      console.log(data.chatData);
       $('.entered-mem').remove();
       $('.chatroom-header>*').remove();
       let val ='';
@@ -182,8 +182,8 @@ function getMyChatroom(chatNo,url){
         val2 += '<div>';
           val2 += '<span>...</span>';
           val2 += '<div class="chatroom-submenu">';
-            val2 += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatData.CHAT_NO+','+memberId+')">관심 채팅방에 추가</span></div>';
-            val2 += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatData.CHAT_NO+','+memberId+')">신고하기</span></div>';
+            val2 += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatData.CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+            val2 += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatData.CHAT_NO+',\''+memberId+'\')">신고하기</span></div>';
         val2 += '</div>';
       val2 += '</div>';
 
@@ -274,8 +274,7 @@ function moveChatList(){
     success:data=>{
       // 아이디
       // 없으니까 임시로 test
-      // const memberId = sessionStorage.getItem("memberId");
-      const memberId = 'test';
+      const memberId = data.loginMember.MEMBER_ID;
 
       $('.chatroom-list-container>*').remove();
       let val = '';
@@ -302,8 +301,8 @@ function moveChatList(){
         val += '<div>';
           val += '<span>...</span>';
           val += '<div class="chatroom-submenu">';
-              val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatList.CHAT_NO+','+memberId+')">관심 채팅방에 추가</span></div>';
-              val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatList.CHAT_NO+','+memberId+')">신고하기</span></div>';
+              val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatList.CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+              val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatList.CHAT_NO+',\''+memberId+'\')">신고하기</span></div>';
           val += '</div>';
         val += '</div></div>';
 
@@ -351,11 +350,7 @@ function chatListDetailData(chatNo){
       chatNo
     },
     success:data=>{
-      // console.log(data);
-      // 아이디
-      // 없으니까 임시로 test
-      // const memberId = sessionStorage.getItem("memberId");
-      const memberId = 'test';
+      const memberId = data.loginMember.MEMBER_ID;
 
       let val = '';
       val +='<link rel="stylesheet" type="text/css" href="/css/chatting/chatroom-list-detail.css">';
@@ -372,8 +367,8 @@ function chatListDetailData(chatNo){
       val += '<div>';
       val += '<span>...</span>';
       val += '<div class="chatroom-submenu">';
-      val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatData.CHAT_NO+','+memberId+')">관심 채팅방에 추가</span></div>';
-      val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatData.CHAT_NO+','+memberId+')">신고하기</span></div>';
+      val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatData.CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+      val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatData.CHAT_NO+',\''+memberId+'\')">신고하기</span></div>';
       val += '</div></div></div></div>';
 
       // nav
