@@ -1,4 +1,4 @@
-@import "https://cssicon.space/css/icons.css";
+@import url('https://css.gg/user.css');
 
 @font-face {
   font-family: 'NEXON Lv1 Gothic OTF';
@@ -205,6 +205,41 @@
   margin-top: 10px;
   margin-right: 20px;
 }
+
+.gg-user {
+  display: block;
+  transform: scale(var(--ggs,1));
+  box-sizing: border-box;
+  width: 24px;
+  height: 36px;
+}
+
+.gg-user::after,
+.gg-user::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  border: 2px solid
+}
+
+.gg-user::before {
+  width: 10px;
+  height: 10px;
+  border-radius: 30px;
+  top: 0;
+  left: 3.5px
+}
+
+.gg-user::after {
+  width: 19px;
+  height: 15px;
+  border-bottom: 0;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  top: 10px
+}
+
 .chatroom-list-container .chatroom-info .chatroom-mem>:nth-child(2n){
   font-size:20px;
   justify-self: start;

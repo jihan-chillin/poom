@@ -8,12 +8,15 @@ import java.util.Map;
 
 @Mapper
 public interface ChattingMapper {
-//    수정해야댐. member id
-    @Select("select * from chat where member_id='test'")
-    public List<Map> getMyChatList();
+//    수정해야댐. member
+    @Select("select chat_no from CHATMEMBER where member_id=#{memberId}")
+    public List<String> getMyChatroomNum(String memberId);
 
-    @Select("select * from CHATMEMBER where CHAT_NO=#{chatNo}")
-    public List<Map> enteredMem(String chatNo);
+    @Select("select * from chat where chat_no=#{chatNo}")
+    public List<Map> getMyChatList(String chatNo);
+
+    @Select("select count(*) from CHATMEMBER where CHAT_NO=#{chatNo}")
+    public int enteredMem(String chatNo);
 
     @Select("select * from chatmessage where chat_no= #{chatNo} and message_date between sysdate-#{ref} and sysdate")
     public List<Map> messageContent(String chatNo,int ref);

@@ -11,12 +11,17 @@ import java.util.Map;
 public class ChattingDaoImpl implements ChattingDao{
 
     @Override
-    public List<Map> getMyChatList(ChattingMapper cm) {
-        return cm.getMyChatList();
+    public List<String> getMyChatroomNum(ChattingMapper cm, String memberId) {
+        return cm.getMyChatroomNum(memberId);
     }
 
     @Override
-    public List<Map> enteredMem(ChattingMapper cm, String chatNo) {
+    public List<Map> getMyChatList(ChattingMapper cm,String  chatNo) {
+        return cm.getMyChatList(chatNo);
+    }
+
+    @Override
+    public int enteredMem(ChattingMapper cm, String chatNo) {
         return cm.enteredMem(chatNo);
     }
 
