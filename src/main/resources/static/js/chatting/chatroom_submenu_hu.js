@@ -76,13 +76,6 @@ function blameChatroom(chatNo,memberId){
         data:{
           "chatNo":chatNo,
           "memberId":memberId
-        },
-        success:data=>{
-          if(data === 1){
-            alert("신고가 완료되었습니다.");
-          }else{
-            alert("다시 시도해주세요");
-          }
         }
       });
   }
