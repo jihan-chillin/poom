@@ -12,4 +12,6 @@ public interface MessageService {
     List<Map<String,Object>> receiveMessage();
 
     List<Map<String,Object>> sendMessage();
+
+    List<Map<String,Object>> messageContent(String msgNo);
 }

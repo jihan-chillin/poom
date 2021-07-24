@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class MessageController {
 
 
     //ajax 받은 쪽지 페이지
-    @GetMapping("receiveMessage")
+    @GetMapping("/receivedMessage")
     public ModelAndView receiveMessage(String type, ModelAndView mv){
         List<Map<String,Object>> list = service.receiveMessage();
         mv.addObject("list",list);
@@ -75,6 +76,14 @@ public class MessageController {
         List<Map<String,Object>> list = service.searchReceiver();
         m.addAttribute("list", list);
         return"message/message_receiver";
+    }
+
+    //쪽지내용 팝업
+    @GetMapping("/message/content")
+    public String contentPopup(@RequestParam String msgNo, Model m){
+        List<Map<String,Object>> list = service.messageContent(msgNo);
+        m.addAttribute("list",list);
+        return "message/message_content";
     }
 
     //받는사람 검색
