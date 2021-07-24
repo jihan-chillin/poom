@@ -35,6 +35,12 @@ public class MywriteServiceImpl implements MywriteService{
 
     @Override
     public List<Map<String, Object>> MyCommentList(int cPage, int numPerpage) {
+
         return dao.MyCommentList(mapper, cPage, numPerpage);
+    }
+
+    @Override
+    public  List<Map<String, Object>> commentCount(int cPage, int numPerpage) {
+        return dao.commentCount(mapper,cPage, numPerpage);
     }
 }

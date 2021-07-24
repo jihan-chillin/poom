@@ -21,12 +21,12 @@ public class BoardDaoImpl implements BoardDao {
 	public int insertBoardImg(BoardMapper mapper, BoardImage bi) {
 		return mapper.insertBoardImg(bi);
 	}
-	
+
 	@Override
-	public List<Map> selectAllBoard(BoardMapper mapper){
-		return mapper.selectAllBoard();
+	public List<Map<String, Object>> selectAllBoard(BoardMapper mapper, int cPage, int numPerpage) {
+		return mapper.selectAllBoard(cPage, numPerpage);
 	}
-	
+
 	@Override
 	public Map selectBoard(BoardMapper mapper, String boardNo) {
 		return mapper.selectBoard(boardNo);
