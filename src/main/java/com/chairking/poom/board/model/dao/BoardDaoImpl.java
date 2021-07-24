@@ -36,7 +36,13 @@ public class BoardDaoImpl implements BoardDao {
 	public int selectBoardNo(BoardMapper mapper, Board b) {
 		return mapper.selectBoardNo(b);
 	}
+
+	@Override
+	public List<Map> selectCommentList(BoardMapper mapper, String boardNo) {
+		return mapper.selectCommentList(boardNo);
+	}
 	
+	 
 	
 
 }

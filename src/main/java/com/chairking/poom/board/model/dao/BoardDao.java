@@ -14,4 +14,5 @@ public interface BoardDao {
 	Map selectBoard(BoardMapper mapper, String boardNo);
 	int insertBoardImg(BoardMapper mapper, BoardImage bi);
 	int selectBoardNo(BoardMapper mapper, Board b);
+	List<Map> selectCommentList(BoardMapper mapper, String boardNo);
 }

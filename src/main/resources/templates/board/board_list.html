@@ -1,18 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<head>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/board/board_list.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_view.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_form.css}">
 </head>
-	<th:block th:if="${!list.isEmpty()}">
-		<ul>
-		<th:block th:each="b:${list}">
-			<li>
-				전체 : <span th:text="${b}"></span><br>
-				작성자 : <span th:text="${b['MEMBER_ID']}"></span>
-			</li>
+<body>
+<div id="wrapper">
+
+	<!-- 헤더바 -->
+    <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+	<!-- 좌측메뉴바 -->
+    <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+    
+	<div id="content">
+	
+		 <!-- 프로필 -->
+	   	<div th:replace="/fragments/profile.html :: fragment-profile"></div>
+			
+		<!-- 게시글 리스트 -->
+		<th:block th:if="${!list.isEmpty()}">
+			<ul>
+			<th:block th:each="b:${list}">
+				<li>
+					<button onclick="writeBoard();">글쓰기</button>
+				<button onclick="viewBoard();">글보기</button>
+				</li>
+				<li>
+					전체 : <span th:text="${b}"></span><br>
+					작성자 : <span th:text="${b['MEMBER_ID']}"></span>
+				</li>
+			</th:block>
+			</ul>
 		</th:block>
-		</ul>
-	</th:block>
+	
+		<!-- HOT키워드순위창 -->
+	   <div th:replace="/fragments/rank.html :: fragment-rank"></div>
+		
+	</div>
+</div>
 </body>
+	
+<script th:src="@{/js/board/board_list_sh.js}"></script>
+<script th:src="@{/js/board/board_form_sh.js}"></script>
+	
 </html>
