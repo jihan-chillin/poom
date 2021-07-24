@@ -32,6 +32,7 @@
 </div>
 <script th:inline="javascript">
 //공지사항 view에서 삭제
+
 //공지사항번호가져오기
 var noticeNo=[[${notice.NOTICE_NO}]];
 //공지사항상태 가져오기 / 0=>게시중 / 1=>삭제됨
@@ -44,7 +45,13 @@ function fn_del_notice(){
 		if(confirm('공지사항을 다시 게시하시겠습니까?')){
 			$.ajax({
 				url:"/admin/changeStatus",
-			})
+				data:{"no":noticeNo}
+			}).done(function (fragment){
+				alert('해당 공지사항을 정상 등록 처리하였습니다.');
+				$("#target").html(fragment);
+			}).fail(function (fragment){
+				alert('공지사항 재게시 오류!');
+			});
 		}
 		
 	}else{	//게시글 삭제하기

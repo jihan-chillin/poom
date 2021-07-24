@@ -13,4 +13,7 @@ public interface AdminService {
 	Map<String,Object> selectNotice(String no);
 	int noticeDelete(String no);
 	int realDelete(String no);
+	int changeStatus(String no);
+	
+	List<Map<String,Object>> allBoardBlame(int cPage, int numPerpage);
 }

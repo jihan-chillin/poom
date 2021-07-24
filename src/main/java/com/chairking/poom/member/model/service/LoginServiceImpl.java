@@ -32,6 +32,12 @@ public class LoginServiceImpl implements LoginService {
 	public int inesrtMemberKeyword(Map memberTag) {
 		return dao.inesrtMemberKeyword(mapper,memberTag);
 	}
+
+	@Override
+	public Map<String,Object> memberLogin(Map param) {
+		return dao.memberLogin(mapper, param);
+	}
+	
 	
 	
 

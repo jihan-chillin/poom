@@ -26,13 +26,8 @@ function fn_notice_write(){
 	});
 }
 
-//공지사항 글쓰기 전체 체크박스
-
-
-
 //공지사항 등록버튼
 function fn_notice_submit(){
-	
 	$.ajax({
 		url:"/admin/noticeWrite",
 		data: $("#notice_form").serialize(),

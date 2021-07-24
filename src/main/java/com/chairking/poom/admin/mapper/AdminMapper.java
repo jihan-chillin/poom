@@ -34,4 +34,11 @@ public interface AdminMapper {
 	
 	@Delete("DELETE FROM NOTICE WHERE NOTICE_NO=#{no}")
 	public int realDelete(String no);
+	
+	@Update("UPDATE NOTICE SET NOTICE_STATUS=0 WHERE NOTICE_NO=#{no}")
+	public int changeStatus(String no);
+	
+	
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM BOARD_BLAME LEFT JOIN BOARD ON B_TARGET_BOARD_NO = BOARD_NO ORDER BY B_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{cPage} and #{numPerpage}")
+	public List<Map<String,Object>> allBoardBlame(int cPage, int numPerpage);
 }

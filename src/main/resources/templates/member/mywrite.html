@@ -37,7 +37,7 @@
 
                     <!--글 리스트-->
                     <div id="write-list">
-                        <table>
+                        <table> <!--th:if="${list!=null}"-->
                             <thead>
 <!--                                <th><img src="/../../images/ui/write.png"></th>-->
                                 <th>작성자</th>
@@ -47,19 +47,12 @@
                             </thead>
 
                             <tbody>
-                                <tr>
-<!--                                    <td></td>-->
-                                    <td>코줍</td>
-                                    <td>서울 >> 분실물</td>
-                                    <td>코치 검정색 장지갑 찾습니다!</td>
-                                    <td>2021-07-21</td>
-                                </tr>
-                                <tr>
-<!--                                    <td></td>-->
-                                    <td>코줍</td>
-                                    <td>서울 >> 분실물</td>
-                                    <td>코치 검정색 장지갑 찾습니다!</td>
-                                    <td>2021-07-21</td>
+                                <tr th:each="m : ${list}">
+                                    <td th:text="${m.MEMBER_NICKNAME}"></td>
+                                    <td th:text="${m.CATEGORY_NAME}"></td>
+                                    <td th:text="${m.BOARD_TITLE}"></td>
+                                    <td th:text="${#dates.format(m.BOARD_DATE, 'yyyy-MM-dd')}"></td>
+<!--                                    <td th:text="${#temporals.format(m.BOARD_DATE, 'yyyy-MM-dd')}"></td>-->
                                 </tr>
                             </tbody>
                         </table>

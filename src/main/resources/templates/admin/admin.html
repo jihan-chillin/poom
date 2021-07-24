@@ -2,18 +2,17 @@
 <html lang="en">
 <head>
 	<!-- 내 css -->
-<!-- 	<link th:href="@{/css/admin/admin_blame.css}" rel="stylesheet" type="text/css">
-	<link th:href="@{/css/admin/admin_main.css}" rel="stylesheet" type="text/css">
-	<link th:href="@{/css/admin/admin_notice.css}" rel="stylesheet" type="text/css">
-	<link th:href="@{/css/admin/admin_pay.css}" rel="stylesheet" type="text/css"> -->
 	<link th:href="@{/css/admin/admin_notice_write.css}" rel="stylesheet" type="text/css">
 	<link th:href="@{/css/admin/admin.css}" rel="stylesheet" type="text/css">
+	<!-- <link th:href="@{/css/admin/admin_header.css}" rel="stylesheet" type="text/css"> -->
     <div th:replace="/fragments/header.html :: fragment-header"></div>
+    
 </head>
 <body>
     <div id="wrapper">
         <!-- 헤더바 -->
-        <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+        <!-- <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div> -->
+        <div th:replace="/fragments/admin_header.html :: admin_header"></div>
         
         <!-- 관리자 메뉴바> -->
 		<nav >
@@ -32,9 +31,10 @@
 		            <li onclick="fn_load('blame');">
 		            	<img th:src="@{/images/admin/siren.PNG}" >신고관리
 		                <ul id="blame_menu" style="display:none">
-		                    <li>신고된 게시글</li>
-		                    <li>신고된 댓글</li>
-		                    <li>신고된 유저</li>
+		                    <li onclick="fn_moveToBlame('1');">신고된 게시글</li>
+		                    <li onclick="fn_moveToBlame('2');">신고된 댓글</li>
+		                    <li onclick="fn_moveToBlame('3');">신고된 채팅</li>
+                    		<li onclick="fn_moveToBlame('4');">정지된 회원 관리</li>
 		                </ul>
 		            </li>
 		            <li onclick="fn_load('pay');">
@@ -49,48 +49,61 @@
      </div>
      
      
-     <script th:inline="javascript">
-     	//누르자마자 화면 뜨기
-     	const type=[[${type}]];
-     	console.log(type);
-     	$(function(){
-	     	fn_load(type);
-     	});
-     	function fn_load(type){
-     		
-	     	if(type=='notice'){
-	     		$("#admin_menu>ul>li").css("color","black");
-	     		$("#admin_menu>ul>li:first").css("color","#F77B1E");
-	     		$.ajax({
-	     			url:"/admin/notice",
-	     			data:{"type":type},
-	     		}).done(function (fragment) {
-	     			$("#target").html(fragment);
-	     		});
-	     	}else if(type=='blame'){
-	     		$("#admin_menu>ul>li").css("color","black");
-	     		$("#blame_menu").parent().css("color","#F77B1E");
-	    		$("#blame_menu").show();
-	    		$("#blame_menu").children().first().css({"color":"#F77B1E","list-style-type": "disc"});
-	     		$.ajax({
-	     			url:"/admin/blame",
-	     			data:{"type":type},
-	     		}).done(function (fragment) {
-	     			$("#target").html(fragment);
-	     		});
-	     	}else if(type=='pay'){
-	     		$("#admin_menu>ul>li").css("color","black");
-	     		$("#admin_menu>ul>li:last").css("color","#F77B1E");
-	     		$.ajax({
-	     			url:"/admin/pay",
-	     			data:{"type":type},
-	     		}).done(function (fragment) {
-	     			$("#target").html(fragment);
-	     		});
-	     	};
-     	}
-
-     </script>
-	 <script th:inline="javascript" th:src="@{/js/admin/admin_js_he.js}"></script>
+  <script th:inline="javascript">
+  	//누르자마자 화면 뜨기
+  	const type=[[${type}]];
+  	console.log(type);
+  	
+  	$(function(){
+   		fn_load(type);
+  	});
+  	
+  	function fn_load(type){
+	   	if(type=='notice'){
+	   		$.ajax({
+	   			url:"/admin/notice",
+	   			data:{"type":type},
+	   		}).done(function (fragment) {
+	   			$("#target").html(fragment);
+	    		$("#admin_menu>ul>li").css("color","black");
+	    		$("#blame_menu").hide();
+	   			$("#admin_menu>ul>li:first").css("color","#F77B1E");
+	   		});
+	   	}else if(type=='blame'){
+	   		$.ajax({
+	   			url:"/admin/blame",
+	   			data:{"type":type},
+	   		}).done(function (fragment) {
+	   			$("#target").html(fragment);
+	    		$("#admin_menu>ul>li").css("color","black");
+	    		$("#blame_menu").parent().css("color","#F77B1E");
+	   		$("#blame_menu").show();
+	   		$("#blame_menu").children().first().css({"color":"#F77B1E","list-style-type": "disc"});
+	   		});
+	   	}else if(type=='pay'){
+	   		$.ajax({
+	   			url:"/admin/pay",
+	   			data:{"type":type},
+	   		}).done(function (fragment) {
+	   			$("#target").html(fragment);
+	    		$("#admin_menu>ul>li").css("color","black");
+	    		$("#admin_menu>ul>li:last").css("color","#F77B1E");
+	    		$("#blame_menu").hide();
+	   		});
+	   	};
+  	}
+  	
+  	//신고 소 메뉴들 클릭시 이동시키기
+  	function fn_moveToBlame(i){
+  		$.ajax({
+  			url:"/admin/blame",
+  			data:{"type":i},
+  		}).done(function(fragment){
+  			$("#target").html(fragment);
+  		})
+  	}
+  </script>
+   
+<script th:inline="javascript" th:src="@{/js/admin/admin_js_he.js}"></script>
 </body>
 </html>
