@@ -21,6 +21,9 @@ public interface LoginMapper {
 	public int inesrtMemberKeyword(Map memberTag);
 	
 	@Select("SELECT * FROM MEMBER WHERE MEMBER_ID=#{id}")
-	public Map<String,Object> memberLogin(Map param);
+	public Map<String,Object> selectMember(Map param);
+	
+	@Select("SELECT * FROM MEMBER WHERE MEMBER_EMAIL=#{memberEmail}")
+	public Map<String,Object> idFind(Map param);
 	
 }
