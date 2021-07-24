@@ -39,7 +39,7 @@ function moveMyChatList(){
           }
           val+= '<span class="chatroom-title">';
           val+= '<span onclick="moveMyChatroom('+chatNo+')">'+data.list[i].CHAT_TITLE+'</span></span>';
-          val+= '<span><img style="width:25px; height: 25px;"></span>';
+          val+= '<span></span>';
           // 채팅방 참여인원수
           val+= '<span>'+data.countMember[i]+'</span>';
           val+= '<span>/</span>';
@@ -302,8 +302,8 @@ function moveChatList(){
         val += '<div>';
           val += '<span>...</span>';
           val += '<div class="chatroom-submenu">';
-              val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatData.CHAT_NO+','+memberId+')">관심 채팅방에 추가</span></div>';
-              val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatData.CHAT_NO+','+memberId+')">신고하기</span></div>';
+              val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatList.CHAT_NO+','+memberId+')">관심 채팅방에 추가</span></div>';
+              val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatList.CHAT_NO+','+memberId+')">신고하기</span></div>';
           val += '</div>';
         val += '</div></div>';
 
@@ -315,7 +315,7 @@ function moveChatList(){
         val += data.chatList[i].CHAT_CONTENT +'</div></div>';
 
         val += '<div class="chatroom-mem"><span> </span>';
-        val += '<span><img style="width:25px; height: 25px;"></span>';
+        val += '<span></span>';
         val += '<span>'+data.chatRoomMemCount[i]+'명</span>';
         val += '<span>/</span>';
         val += '<span>'+data.chatList[i].CHAT_PERSON+'명</span></div></div></div>';
@@ -352,6 +352,10 @@ function chatListDetailData(chatNo){
     },
     success:data=>{
       // console.log(data);
+      // 아이디
+      // 없으니까 임시로 test
+      // const memberId = sessionStorage.getItem("memberId");
+      const memberId = 'test';
 
       let val = '';
       val +='<link rel="stylesheet" type="text/css" href="/css/chatting/chatroom-list-detail.css">';
@@ -389,7 +393,7 @@ function chatListDetailData(chatNo){
       val += '</div></div>';
 
       val += '<div class="chatroom-const"><div>';
-      val += '<span><img style="width:25px; height: 25px;"></span>';
+      val += '<span></span>';
       val += '<span>'+data.memCount+'명</span>';
       val += '<span> / </span>';
       val += '<span>'+data.chatData.CHAT_PERSON +'명</span></div>';
