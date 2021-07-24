@@ -72,4 +72,8 @@ public class ChattingController {
     public String createChatroom(){
         return "chatting/create-chatroom";
     }
+
+//    public void checkId(Session){
+//
+//    }
 }

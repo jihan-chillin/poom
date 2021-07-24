@@ -28,7 +28,7 @@ public class ChattingJsonController {
     }
 //    자료형 수정해야함
     @GetMapping("/chat/mychat/list")
-    public Map<String,Object> getMyChatList(){
+    public Map<String,Object> getMyChatList(HttpServletRequest req){
         Map<String,Object> list = new HashMap<>();
 
         List<Map> myChatList = service.getMyChatList();
@@ -41,6 +41,7 @@ public class ChattingJsonController {
         }
         list.put("countMember",memCount);
         list.put("list",myChatList);
+        list.put("loginMember",req.getSession().getAttribute("loginMember"));
 
         return list;
     }
@@ -54,6 +55,7 @@ public class ChattingJsonController {
 //       1주일 전까지 메세지만 가져옴 기준 -> int ref = 7
         list.put("messageContent",getPastChattingList(chatNo,7));
         list.put("chatData",service.getChatroomData(chatNo));
+        list.put("loginMember",req.getSession().getAttribute("loginMember"));
 
         return list;
     }
@@ -74,7 +76,7 @@ public class ChattingJsonController {
 
 
     @GetMapping("/chat/list/data")
-    public Map getChatList(){
+    public Map getChatList(HttpServletRequest req){
         Map<String,Object> result = new HashMap<>();
 
         List<Map<String,Object>> chatList = service.getChatList();
@@ -90,6 +92,7 @@ public class ChattingJsonController {
 
         result.put("chatRoomMemCount",memCount);
         result.put("chatList",chatList);
+        result.put("loginMember",req.getSession().getAttribute("loginMember"));
 
         return result;
     }
@@ -102,6 +105,7 @@ public class ChattingJsonController {
         Map result = new HashMap();
         result.put("chatData",service.getChatroomData(chatNo));
         result.put("memCount",getEnteredMem(chatNo).size());
+        result.put("loginMember",req.getSession().getAttribute("loginMember"));
 
         return result;
     }
@@ -117,6 +121,7 @@ public class ChattingJsonController {
         data.put("memCount",Integer.parseInt(req.getParameter("memCount")));
         data.put("date",req.getParameter("date"));
         data.put("memberId",req.getParameter("memberId"));
+        data.put("loginMember",req.getSession().getAttribute("loginMember"));
 
         // 채팅방 생성
         service.insertChatroomData(data);
