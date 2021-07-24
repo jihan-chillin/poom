@@ -20,7 +20,7 @@ $(document).ready(function(){
     
     //로고 클릭시 메인화면으로 이동
     $('div.logo').click(function(){
-    	location.href="/login";
+    	location.href="/main";
     });
 
 
@@ -41,3 +41,7 @@ function mywrite(){
     location.assign("/mywrite");
 }
 
+//로그아웃ui 클릭시 로그아웃+index로 이동
+function logOut(){
+    location.replace("/logOut");
+}
