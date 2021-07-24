@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <!--message css-->
+    <link th:href="@{/css/message/message_tap.css}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="wrapper">
+
+    <!-- 헤더바 -->
+    <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+    <!-- 좌측메뉴바 -->
+    <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+
+    <!-- 우측콘텐츠 / 고정+변동 -->
+    <div id="content">
+
+        <!-- 프로필 -->
+        <div th:replace="/fragments/profile.html :: fragment-profile"></div>
+
+
+        <!-- message 구역  -->
+        <div class="feed">
+            <div class="message-header">
+                <div class="buttonbox">
+                    <button type="button" id="btn_1" onclick="fn_message_move('receive');">받은쪽지</button>
+                    <button type="button" id="btn_2" onclick="fn_message_move('send');">보낸쪽지</button>
+                    <button type="button" id="btn_3" onclick="fn_message_move('block');">차단함</button>
+                </div>
+                <div>
+                    <input class="search-message" type="msgsearch" value="쪽지 검색해보세요~">
+                </div>
+            </div>
+
+            <div class="tablebox" th:if="${list!=null}">
+                <div id="table1">
+                    <table class="col-100 col">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="20%">
+                            <col width="*%">
+                            <col width="*%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>보낸사람</th>
+                            <th>내용</th>
+                            <th>보낸일자</th>
+                            <th>차단</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="m:${list}">
+                            <td>
+                                <div class="checkbox2 m-0">
+                                    <input id="check" type="checkbox">
+                                    <label for="check">
+                                    </label>
+                                </div>
+                            </td>
+                            <td th:text="${m.MEMBER_ID}"></td>
+                            <td th:text="${m.MSG_CONTENT}"></td>
+                            <td th:text="${m.MSG_DATE}"></td>
+                            <td>
+                                <button class="msg-cancel1">차단함으로 이동</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div id="table2">
+                    <table class="col-100 col">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="20%">
+                            <col width="*%">
+                            <col width="*%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>받은사람</th>
+                            <th>내용</th>
+                            <th>읽음여부</th>
+                            <th>발송취소</th>
+                        </tr>
+                        </thead>
+                        <tbody th:each="m:${list}">
+                        <tr>
+                            <td>
+                                <div class="checkbox2 m-0">
+                                    <input id="check2" type="checkbox">
+                                    <label for="check2">
+                                    </label>
+                                </div>
+                            </td>
+                            <td th:text="${m.RECV_MEMBER}"></td>
+                            <td th:text="${m.MSG_CONTENT}"></td>
+                            <td th:if="m.READ_CHECK==0" th:text="안읽음"></td>
+                            <td th:unless="m.READ_CHECK!=0" th:text="읽음"></td>
+                            <td>
+                                <button class="msg-cancel">발송취소</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="table3">
+                    <table class="col-100 col">
+                        <colgroup>
+                            <col width="10%">
+                            <col width="20%">
+                            <col width="*%">
+                            <col width="*%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>보낸사람</th>
+                            <th>내용</th>
+                            <th>보낸일자</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="checkbox2 m-0">
+                                    <input id="checkbox1" type="checkbox">
+                                    <label for="checkbox1">
+                                    </label>
+                                </div>
+                            </td>
+                            <td>OK저축은행</td>
+                            <td>10만원 소액대출가능</td>
+                            <td>2021.06.18</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <input type="button" class="send-message" value="쪽지보내기" onclick="showPopup(1);">
+
+            </div>
+            <div id="target"></div>
+        </div>
+
+        <!-- HOT키워드순위창 -->
+        <div th:replace="/fragments/rank.html :: fragment-rank"></div>
+
+
+    </div>
+</div>
+</div>
+</body>
+
+<script th:src="@{/js/main/main_js_jk.js}"></script>
+
+
+<script th:inline="javascript">
+    const type=[[${type}]];
+    console.log(type);
+
+    $(function (){
+        fn_message_move(type);
+    });
+
+    function fn_message_move(type){
+
+        if(type=='receive'){
+            $.ajax({
+                url:"/message/receive",
+                data:{"type":type},
+            }).done(function (fragment){
+                $("#target").html(fragment);
+            })
+        }
+    }
+
+    function showPopup(type) {
+        if (type == 1)
+            window.open("/message/popup", "message", "width=400,height=300");
+        else if (type == 2)
+            window.open("/message/receiver", "receiver", "width=400,height=300");
+    }
+
+    function showMsgDtl(msgNo) {
+        window.open("/message/content?msgNo=" + msgNo,"content","width=400,height=300");
+
+    }
+</script>
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
