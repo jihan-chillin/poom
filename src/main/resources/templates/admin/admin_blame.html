@@ -62,11 +62,10 @@
 				"boardNo":brdNo,
 				"nickname":"memberNick"
 			},
+			dataType:"json",
 			type:"POST", 
 			success:data=>{
-				//alert("알람");
-				//pop.location.href="blame_pop.html";
-				//openPopup(data);
+				console.log(data);
 				window.open("/blame/report/page","","width=490px,height=470px,top=260px,left=800px");
 			}
 		});
