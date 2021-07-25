@@ -23,6 +23,7 @@
 		            <br>
 		            <br>
 		            <span>POOM 관리자님, 환영합니다.</span>
+		            
 		        </div>
 		        <ul>
 		            <li onclick="fn_load('notice');">
@@ -50,6 +51,10 @@
      
      
   <script th:inline="javascript">
+  	
+  
+  
+  
   	//누르자마자 화면 뜨기
   	const type=[[${type}]];
   	console.log(type);
@@ -77,8 +82,8 @@
 	   			$("#target").html(fragment);
 	    		$("#admin_menu>ul>li").css("color","black");
 	    		$("#blame_menu").parent().css("color","#F77B1E");
-	   		$("#blame_menu").show();
-	   		$("#blame_menu").children().first().css({"color":"#F77B1E","list-style-type": "disc"});
+	   			$("#blame_menu").show();
+	   			$("#blame_menu").children().first().css({"color":"#F77B1E","list-style-type": "disc"});
 	   		});
 	   	}else if(type=='pay'){
 	   		$.ajax({

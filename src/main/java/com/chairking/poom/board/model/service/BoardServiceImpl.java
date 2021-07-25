@@ -48,12 +48,12 @@ public class BoardServiceImpl implements BoardService {
 	public int insertBoardImg(BoardImage bi) {
 		return dao.insertBoardImg(mapper, bi);
 	}
-	
+
 	@Override
-	public List<Map> selectAllBoard(){
-		return dao.selectAllBoard(mapper);
+	public List<Map<String, Object>> selectAllBoard(int cPage, int numPerpage) {
+		return dao.selectAllBoard(mapper, cPage, numPerpage);
 	}
-	
+
 	@Override
 	public Map selectBoard(String boardNo) {
 		return dao.selectBoard(mapper, boardNo);

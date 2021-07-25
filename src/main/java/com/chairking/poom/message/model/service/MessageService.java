@@ -9,9 +9,9 @@ public interface MessageService {
 
     List<Map<String,Object>> searchReceiver();
 
-    List<Map<String,Object>> receiveMessage();
-
-    List<Map<String,Object>> sendMessage();
+    List<Map<String,Object>> getMessage(String condition);
 
     List<Map<String,Object>> messageContent(String msgNo);
+
+    int deleteMessage(String msgNo);
 }

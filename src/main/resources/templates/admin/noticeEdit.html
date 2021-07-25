@@ -31,6 +31,17 @@
     </div>  
 </div>
 <script>
+//수정시 textarea 마지막에 focus하기
+$(function(){
+	var textarea = $("#notice_content_write");
+	var v = textarea.val();
+	textarea.focus().val('').val(v); //마지막 글자에 focus
+	$("#notice_content_write").scrollTop($("#notice_content_write")[0].scrollHeight); //textarea하단으로 위치 이동
+})
+
+
+
+//등록버튼
 function fn_edit_notice_end(){
 	$.ajax({
 		url:"/admin/noticeUpdate",

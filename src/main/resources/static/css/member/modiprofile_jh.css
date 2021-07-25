@@ -10,11 +10,10 @@ div#wrapper{
 #modi-wrapper{
     width: 83.4%;
     max-width: 1620px;
-    /* border: 1px solid black; */
     position: relative;
     height: auto;
-    top: 130px;
-    left: 15.6%;
+    top: 120px;
+    left: 300px;
     display: flex;
     justify-content: space-evenly;
     align-items: flex-start;

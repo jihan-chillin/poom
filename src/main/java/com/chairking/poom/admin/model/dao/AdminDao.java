@@ -17,4 +17,5 @@ public interface AdminDao {
 	int changeStatus(AdminMapper mapper, String no);
 	
 	List<Map<String,Object>> allBoardBlame(AdminMapper mapper, int cPage, int numPerpage);
+	int insertBlame(AdminMapper mapper, Map<String,String> map);
 }

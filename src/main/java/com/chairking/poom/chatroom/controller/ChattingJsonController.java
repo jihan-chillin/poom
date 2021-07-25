@@ -1,6 +1,7 @@
 package com.chairking.poom.chatroom.controller;
 
 import com.chairking.poom.chatroom.model.service.ChattingService;
+import com.sun.tools.jconsole.JConsoleContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +33,6 @@ public class ChattingJsonController {
         // 세션에서 내 아이디 가져옴
         Map<String,String> val = (Map<String,String>)session.getAttribute("loginMember");
         String memberId = val.get("MEMBER_ID");
-        log.info("내 아이디 : {}",memberId);
 
         // 아이디로 내가 참가한 채팅방 번호 가져옴
         List<String> myChatroomNum = service.getMyChatroomNum(memberId);
@@ -50,6 +50,7 @@ public class ChattingJsonController {
 
         Map<String,Object> list = new HashMap<>();
 
+        list.put("loginId",memberId);
         list.put("countMember",memCount);
         list.put("list",myChatList);
 
@@ -142,27 +143,19 @@ public class ChattingJsonController {
     }
 
     // 채팅방 신고, 관심채팅방에 등록됐는지 조회
-    @GetMapping("/chat/room/check")
-    public int checkAlreadyChatroom(HttpServletRequest req){
+    @GetMapping("/chat/room/check/inter")
+    public int checkAlreadyInterested(HttpServletRequest req){
         String chatNo = req.getParameter("chatNo");
         String memberId = req.getParameter("memberId");
-        String ref = req.getParameter("ref");
 
-        String refTable ="";
-        String refId = "";
-        String refNo = "";
+        return service.checkAlreadyInterested(chatNo,memberId);
+    }
+    @GetMapping("/chat/room/check/blame")
+    public int checkAlreadyBlame(HttpServletRequest req){
+        String chatNo = req.getParameter("chatNo");
+        String memberId = req.getParameter("memberId");
 
-        if (ref.equals("inter")){
-            refTable ="CHAT_BLAME";
-            refId ="CH_AIM_ID";
-            refNo ="CH_TARGET_CHAT";
-        }else{
-            refTable = "LIKECHATROOM";
-            refId= "MEMBER_ID";
-            refNo ="CHAT_NO";
-        }
-
-        return service.checkAlreadyChatroom(chatNo,memberId,refTable,refId,refNo);
+        return service.checkAlreadyBlame(chatNo,memberId);
     }
 
     @GetMapping("/chat/room/like")
@@ -170,6 +163,7 @@ public class ChattingJsonController {
         String chatNo = req.getParameter("chatNo");
         String memberId = req.getParameter("memberId");
 
+        log.info("like : {},{}", chatNo, memberId);
         return service.likeChatroom(chatNo,memberId);
     }
 
