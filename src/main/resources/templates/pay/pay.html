@@ -3,6 +3,8 @@
 <head>
     <div th:replace="/fragments/header.html :: fragment-header"></div>
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- iamport.payment.js -->
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 
 <body>
@@ -41,7 +43,7 @@
 	                    </li>
 	                </ul>
 	                <div>
-	                    <input type="submit" class="btn" value="결제"/>&nbsp;&nbsp;
+	                    <input type="submit" class="btn" value="결제" onclick="pay()"/>&nbsp;&nbsp;
 	                    <button type="button" class="btn" onclick="location.assign('/');">취소</button>
 	                </div>
 	            </form>
@@ -49,11 +51,7 @@
         </div>
     </div>
     
-	<script>
-		$("div#pay_container li").click((e)=>{
-			console.log($(e).target.find("input"));
-		});
-	</script>
+	<script th:src="@{/js/pay/pay_sh.js}"></script>
     
 </body>
 </html>
