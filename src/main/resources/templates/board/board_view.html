@@ -1,42 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <div th:replace="/fragments/header.html :: fragment-header"></div>
-    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-
-<body>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_view.css}">
-	
-    <div id="wrapper">
-    
-    	<!-- 헤더바 -->
-        <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
-    	<!-- 좌측메뉴바 -->
-        <div th:replace="/fragments/nav.html :: fragment-nav"></div>
-   
-   		<div id="content">
-	        <!-- 게시글 상세화면 -->
-	        <div id="board_view">
-	            <ul>
-	            	<li><p th:text="${board['BOARD_TITLE']}"/></li>
-	            	<li><P th:text="${board['MEMBER_ID']}"/></li>
-	            	<li><P th:text="${board['BOARD_DATE']}"/></li>
-	            	<li><P th:text="${board['BOARD_CONTENT']}"/></li>
-	            </ul>
-	        </div>
-	        
-	         <!-- HOT키워드순위창 -->
-	        <div th:replace="/fragments/rank.html :: fragment-rank"></div>
-	        
+<div id="board_view">
+<!-- 게시글 상세화면 -->
+    <div id="board_container">
+    	<ul>
+    		<li><span th:text="${board['BOARD_TITLE']}"></span></li>
+    		<li><span th:text="${board['BOARD_CONTENT']}"></span></li>
+    		<li><span th:text="${board['B_WRITER']}"></span></li>
+    		<li>
+    			<span>태그</span><span></span>
+    		</li>
+    	</ul>
+        <div>
+        	<span>
+        		<button type="button" class="btn" onsubmit="move_list();">목록으로</button>
+        	</span>
+            <span>
+            	<button type="button" class="btn" onsubmit="">신고</button>&nbsp;&nbsp;
+            	<button type="button" class="btn" onsubmit="board_modify();">수정</button>&nbsp;&nbsp;
+            	<button type="button" class="btn" onclick="location.assign('/');">취소</button>
+            </span>
         </div>
-        
-        
     </div>
-    
-	<script>
-
-	</script>
-    
-</body>
-</html>
+    <div id="comment_container">
+ 	    <ul>
+ 	    	<th:block th:each="c:${commentList}">
+    		<li>
+		    	<span th:text="${c['C_NICKNAME']}"></span><span>...</span><br>
+	   			<span th:text="${c['COMMENT_CONTENT']}"></span>
+    		</li>
+   			</th:block>
+    	</ul>
+    	<div>
+			<input type="text" name="commentContent"/>
+			<input type="submit" value="입력"/>
+    	</div>
+    </div>
+</div>
+<!-- HOT키워드순위창 -->
+<div th:replace="/fragments/rank.html :: fragment-rank"></div>

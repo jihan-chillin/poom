@@ -1,0 +1,67 @@
+#header{
+	background-color:white;
+	z-index: 1000;
+}
+
+/* div#content{
+	position:absolute;
+	height:1000px;
+} */
+div#board_view{
+	width:1300px;
+	display:flex;
+	justify-content:space-between;
+}
+div#board_view>div{
+	background: #f7f7f7;
+    border-radius: 20px;
+    padding: 20px 0;
+}
+#board_view ul{
+    padding:0 20px; margin:0;
+    vertical-align: center;
+}
+#board_view li{
+    list-style:none;
+    /* margin:30px; */
+    padding:20px 0;
+    padding-left: 20px;
+    margin: auto;
+    font-size: 17px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    background: #fdfdfd;
+}
+
+/* 게시글 부분 */
+div#board_container{
+	width:730px;
+}
+div#board_container li:nth-child(2){
+	height:300px;
+	overflow-y:scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+div#board_container li:nth-child(2)::-webkit-scrollbar {
+   display: none; /* Chrome, Safari, Opera */
+}
+/* 버튼 */
+div#board_container>div:last-child{
+	display:flex;
+	justify-content:space-between;
+	padding:0 20px; padding-top:10px;
+}
+div#board_container>div:last-child button{
+	display:inline-block;
+	height:30px;
+} 
+
+/* 댓글 부분 */
+div#comment_container{
+	width:550px; padding:0 20px;
+	display:flex; flex-direction: column;
+	justify-content:space-between;
+}
+/* 댓글 입력창 */

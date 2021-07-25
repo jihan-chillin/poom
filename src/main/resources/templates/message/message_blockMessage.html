@@ -1,10 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="msg" th:fragment="message_receive">
+    <div id="message_section">
+        <div id="table3" th:if="${list!=null}" >
+            <table class="col-100 col">
+                <colgroup>
+                    <col width="10%">
+                    <col width="20%">
+                    <col width="*%">
+                    <col width="*%">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>보낸사람</th>
+                    <th>내용</th>
+                    <th>보낸일자</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="checkbox2 m-0">
+                            <input id="checkbox1" type="checkbox">
+                            <label for="checkbox1">
+                            </label>
+                        </div>
+                    </td>
+                    <td>OK저축은행</td>
+                    <td>10만원 소액대출가능</td>
+                    <td>2021.06.18</td>
+                </tr>
+                </tbody>
+            </table>
+            <input type="button" class="send-message" value="쪽지보내기" onclick="showPopup(1);">
 
-</body>
-</html>
+        </div>
+    </div>
+</div>
+    <script th:src="@{/js/message/message_js_sh.js}"></script>
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
