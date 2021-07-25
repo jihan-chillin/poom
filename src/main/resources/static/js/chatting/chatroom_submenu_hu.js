@@ -2,22 +2,21 @@
 // 이미 관심목록 등록 됐는지 조회
 function checkAlreadyInterestedChatroom(chatNo,memberId){
   $.ajax({
-    url:'/chat/room/check"',
+    url:'/chat/room/check/inter',
     data:{
       "chatNo":chatNo,
       "memberId":memberId,
-      "ref":"inter"
     },
     success:data=>{
       if(data === 1){
         return interestedChatroom(true,chatNo,memberId);
       }else{
-        return interestedChatroom(false);
+        return interestedChatroom(false,chatNo,memberId);
       }
     }
   });
 
-  return blameChatroom(false);
+  // return blameChatroom(false);
 }
 function interestedChatroom(check,chatNo,memberId){
   if(check){
@@ -48,11 +47,10 @@ function interestedChatroom(check,chatNo,memberId){
 // 이미 신고됐는지 테이블 조회
 function checkAlreadyBlame(chatNo,memberId){
   $.ajax({
-    url:'/chat/room/check"',
+    url:'/chat/room/check/blame',
     data:{
       "chatNo":chatNo,
       "memberId":memberId,
-      "ref":"blame"
     },
     success:data=>{
       if(data === 1){
@@ -64,7 +62,7 @@ function checkAlreadyBlame(chatNo,memberId){
     }
   });
 
-  return blameChatroom(false);
+  // return blameChatroom(false);
 }
 
 function blameChatroom(chatNo,memberId){

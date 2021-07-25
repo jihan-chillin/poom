@@ -1,3 +1,155 @@
-div#board_list{
-	width:100%;
+#board-content{
+	width: 1600px;
+	position: fixed;
+	top: 130px;
+	left: 300px;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: flex-start;
+	z-index: 1;
 }
+
+div#board_list{
+	width: 1020px;
+	background-color: #f7f7f7;
+	border-radius: 20px;
+	text-align: center;
+	padding: 30px 0;
+	margin-bottom: 20px;
+	height: 800px;
+	overflow-y: scroll;
+}
+
+/* 카테고리 부분 */
+div#board-list-catebar{
+	width: 90%;
+	margin: 20px auto;
+	border-bottom: black 1px solid;
+	padding-bottom: 60px;
+
+}
+
+.write-btn{
+	margin-top: 20px;
+	float: right;
+	width: 80px;
+	height: 25px;
+}
+
+div#board-list-catebar span:nth-of-type(1), span:nth-of-type(3){
+	font-size: 35px;
+	font-weight: bold;
+	color : #F77B1E;
+}
+
+div#board_list span:nth-of-type(3){
+	font-size: 15px;
+	font-weight: bold;
+	color: #287094;
+}
+
+/* 테이블 부분 */
+table#all-boardlist-table{
+	margin: 10px auto;
+	width: 900px;
+	text-align: center;
+	border-spacing: 25px;
+	border-collapse: collapse;
+}
+
+table#all-boardlist-table td:nth-of-type(1){
+	text-align: left;
+	padding: 0 90px 0 40px;
+	border-bottom: 1px solid black;
+}
+table#all-boardlist-table td>span:nth-of-type(2){
+	font-size: 12px;
+	color: grey;;
+}
+
+table#all-boardlist-table td:nth-of-type(2){
+	text-align: center;
+	padding: 10px 0;
+	border-bottom: 1px solid black;
+}
+
+
+table#all-boardlist-table td:nth-of-type(1)>span:nth-of-type(1){
+	font-size: 30px;
+	padding-right: 10px;
+}
+
+table#all-boardlist-table td:nth-of-type(4){
+	width: 250px;
+}
+
+table#all-boardlist-table td:nth-of-type(1)>div{
+	margin: 20px 3px;
+}
+
+table#all-boardlist-table td:nth-of-type(2)>div {
+	width: 200px;
+	height: 200px;
+	border: solid 1px black;
+	background-color: black;
+	padding: 25px 0;
+	margin: 20px;
+}
+
+table#all-boardlist-table img{
+	width: 50px;
+	height: 50px;
+}
+
+
+.textlimit{
+width: 300px;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+/* 제목 / 제목+내용 검색 창 & 글쓰기 버튼 */
+input#title-searchbar{
+	width: 400px;
+	height: 35px;
+	border: 1px solid #lightgrey;
+	text-align: center;
+	margin: 0 15px;
+}
+
+.search-btn{
+	width: 70px;
+	height: 35px;
+}
+
+.blue-btn{
+	width: 80px;
+	height: 40px;
+	background-color: #287094;
+	/* background-color: #F77B1E; */
+	border: 1px white solid;
+	border-radius: 20px;
+	color: white;
+	cursor: pointer;
+}
+
+table#all-boardlist-table tr:last-of-type td{
+	padding: 50px 0 15px 50px;
+	border: none;
+	text-align: center;
+}
+
+.goto-write-btn:hover{
+	color: black;
+	font-weight: bolder;
+	cursor: pointer;
+}
+
+/*페이지 바 */
+.page-tr td{
+	text-align: center !important;
+	padding: 20px !important;
+}
+
+

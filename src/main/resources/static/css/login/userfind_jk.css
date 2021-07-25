@@ -96,6 +96,14 @@ table.userfind_table th {
 table.userfind_table tr>td:first-of-type {
     width: 50%;
     height: 50px;
+    position: relative;
+}
+tr.email_number span {
+	position: absolute;
+	height: 50px;
+	line-height: 50px;
+	top: 0;
+	right: 25px;
 }
 table.userfind_table tr>td:first-of-type>input {
     width: 220px;
@@ -140,4 +148,16 @@ span.red_star {
 }
 tr.email_number {
     display: none;
+}
+.correct {
+	color:green;
+	font-style: italic;
+	font-size: 12px;
+	font-weight: bold;
+}
+.incorrect {
+	color:red;
+	font-style: italic;
+	font-size: 12px;
+	font-weight: bold;
 }

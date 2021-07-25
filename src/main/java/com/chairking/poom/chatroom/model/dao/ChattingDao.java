@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface ChattingDao {
-    List<Map> getMyChatList(ChattingMapper cm);
+    List<String> getMyChatroomNum(ChattingMapper cm,String memberId);
+    List<Map> getMyChatList(ChattingMapper cm,String chatNo);
     List<Map> enteredMem(ChattingMapper cm,String chatNo);
     List<Map> messageContent(ChattingMapper cm,String chatNo,int ref);
     int saveMessage(ChattingMapper cm,ChatMessage chatMessage);
@@ -17,7 +18,8 @@ public interface ChattingDao {
     String getChatNo(ChattingMapper cm);
     int enterChatRoom(ChattingMapper cm,String id,String chatNo);
     int checkEnterChatroom(ChattingMapper cm,String id,String chatNo);
-    int checkAlreadyChatroom(ChattingMapper cm,String chatNo, String memberId, String ref,String refId,String refNo);
+    int checkAlreadyInterested(ChattingMapper cm,String chatNo,String id);
+    int checkAlreadyBlame(ChattingMapper cm,String chatNo,String id);
     int likeChatroom(ChattingMapper cm,String chatNo,String memberId);
     int blameChatroom(ChattingMapper cm,String chatNo,String memberId);
 }

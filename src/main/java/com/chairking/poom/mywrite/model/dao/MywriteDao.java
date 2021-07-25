@@ -16,4 +16,6 @@ public interface MywriteDao {
     int countMyComment(MywriteMapper mapper);
 
     List<Map<String, Object>> MyCommentList(MywriteMapper mapper, int cPage, int numPerpage);
+
+    List<Map<String, Object>> commentCount(MywriteMapper mapper, int cPage, int numPerpage);
 }

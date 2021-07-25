@@ -8,9 +8,12 @@ import java.util.Map;
 
 @Mapper
 public interface ChattingMapper {
-//    수정해야댐. member id
-    @Select("select * from chat where member_id='test'")
-    public List<Map> getMyChatList();
+//    수정해야댐. member
+    @Select("select chat_no from CHATMEMBER where member_id=#{memberId}")
+    public List<String> getMyChatroomNum(String memberId);
+
+    @Select("select * from chat where chat_no=#{chatNo}")
+    public List<Map> getMyChatList(String chatNo);
 
     @Select("select * from CHATMEMBER where CHAT_NO=#{chatNo}")
     public List<Map> enteredMem(String chatNo);
@@ -28,7 +31,7 @@ public interface ChattingMapper {
     @Select("select * from chat where chat_no = #{chatNo}")
     public Map getChatroomData(String chatNo);
 
-    @Insert("insert into chat values(seq_chatno.nextval,#{memberId},#{title},#{content},#{memCount},#{condition},'0',to_date(#{date},'YYYY-MM-DD'),#{category})")
+    @Insert("insert into chat values(seq_chatno.nextval,#{memberId},#{title},#{content},#{memCount},#{condition},'0',to_date(#{date},'YYYY-MM-DD'),#{category},default)")
     public int insertChatroomData(Map<String,Object> data);
 
     @Select("select a.CHAT_NO from( select CHAT_NO from chat order by ROWNUM desc) a where ROWNUM = 1")
@@ -40,10 +43,12 @@ public interface ChattingMapper {
     @Select("select count(*) from CHATMEMBER where CHAT_NO=#{chatNo} and MEMBER_ID=#{memberId}")
     public int checkEnterChatroom(String memberId,String chatNo);
 
-    @Select("select count(*) from #{refTable} where #{refNo} = #{chatNo} and #{refId} =#{memberId}")
-    public int checkAlreadyChatroom(String chatNo, String memberId, String refTable,String refId,String refNo);
+    @Select("select count(*) from LIKECHATROOM where CHAT_NO=#{chatNo} and MEMBER_ID=#{memberId}")
+    public int checkAlreadyInterested(String chatNo, String memberId);
+    @Select("select count(*) from chat_blame where CH_TARGET_CHAT=#{chatNo} and CH_AIM_ID=#{memberId}")
+    public int checkAlreadyBlame(String chatNo, String memberId);
 
-    @Insert("insert into likechatroom values(#{memberId},#{chatNo})")
+    @Insert("insert into LIKECHATROOM values(#{memberId},#{chatNo})")
     public int likeChatroom(String chatNo,String memberId);
 
     @Insert("insert into chat_blame values(seq_chat_blameno.nextval,sysdate,#{memberId},#{chatNo})")

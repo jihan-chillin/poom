@@ -1,6 +1,7 @@
 // 1. 내가 쓴 댓글 영역 ajax
 function mycomment(){
     $('#mywrite-content').remove();
+    $('#write-list').remove();
 
     $.ajax({
         url:'/mycomment',
