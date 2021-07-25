@@ -21,7 +21,7 @@
             <tr th:each="mv:${list}" onclick="showMsgDtl($(this).children('.msgNo').html())">
                 <td>
                     <div class="checkbox2 m-0">
-                        <input id="check" type="checkbox">
+                        <input class="targetChk" id="check" type="checkbox">
                         <label for="check">
                         </label>
 
@@ -36,6 +36,12 @@
             </tbody>
         </table>
         <input type="button" class="send-message" value="쪽지보내기" onclick="showPopup(1);">
+        <form id="deleteMsg" type="post" action="message/delete">
+            <input id="delMsgNo" name="msgNo" type="hidden" value="-1"/>
+            <input type="button" class="delete-message" value="삭제" onclick="deleteMsg()";>
+        </form>
+
+        <input type="button" class="move-message" value="차단" onclick="";>
 
     </div>
 </div>

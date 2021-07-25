@@ -1,5 +1,4 @@
-<div class="msg" th:fragment="message_receive">
-    <div id="message_section">
+ <div id="message_section">
         <div id="table3" th:if="${list!=null}" >
             <table class="col-100 col">
                 <colgroup>
@@ -16,7 +15,7 @@
                     <th>보낸일자</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody th:each="mv:${list}">
                 <tr>
                     <td>
                         <div class="checkbox2 m-0">
@@ -25,9 +24,9 @@
                             </label>
                         </div>
                     </td>
-                    <td>OK저축은행</td>
-                    <td>10만원 소액대출가능</td>
-                    <td>2021.06.18</td>
+                    <td th:text="${mv.MEMBER_ID}"></td>
+                    <td th:text="${mv.MSG_CONTENT}"></td>
+                    <td th:text="${mv.MSG_DATE}"></td>
                 </tr>
                 </tbody>
             </table>
@@ -37,4 +36,4 @@
     </div>
 </div>
     <script th:src="@{/js/message/message_js_sh.js}"></script>
-    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!--    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>-->

@@ -34,116 +34,7 @@
                 </div>
             </div>
 
-            <div class="tablebox" th:if="${list!=null}">
-                <div id="table1">
-                    <table class="col-100 col">
-                        <colgroup>
-                            <col width="10%">
-                            <col width="20%">
-                            <col width="*%">
-                            <col width="*%">
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>보낸사람</th>
-                            <th>내용</th>
-                            <th>보낸일자</th>
-                            <th>차단</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="m:${list}">
-                            <td>
-                                <div class="checkbox2 m-0">
-                                    <input id="check" type="checkbox">
-                                    <label for="check">
-                                    </label>
-                                </div>
-                            </td>
-                            <td th:text="${m.MEMBER_ID}"></td>
-                            <td th:text="${m.MSG_CONTENT}"></td>
-                            <td th:text="${m.MSG_DATE}"></td>
-                            <td>
-                                <button class="msg-cancel1">차단함으로 이동</button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
 
-                </div>
-                <div id="table2">
-                    <table class="col-100 col">
-                        <colgroup>
-                            <col width="10%">
-                            <col width="20%">
-                            <col width="*%">
-                            <col width="*%">
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>받은사람</th>
-                            <th>내용</th>
-                            <th>읽음여부</th>
-                            <th>발송취소</th>
-                        </tr>
-                        </thead>
-                        <tbody th:each="m:${list}">
-                        <tr>
-                            <td>
-                                <div class="checkbox2 m-0">
-                                    <input id="check2" type="checkbox">
-                                    <label for="check2">
-                                    </label>
-                                </div>
-                            </td>
-                            <td th:text="${m.RECV_MEMBER}"></td>
-                            <td th:text="${m.MSG_CONTENT}"></td>
-                            <td th:if="m.READ_CHECK==0" th:text="안읽음"></td>
-                            <td th:unless="m.READ_CHECK!=0" th:text="읽음"></td>
-                            <td>
-                                <button class="msg-cancel">발송취소</button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="table3">
-                    <table class="col-100 col">
-                        <colgroup>
-                            <col width="10%">
-                            <col width="20%">
-                            <col width="*%">
-                            <col width="*%">
-                        </colgroup>
-                        <thead>
-                        <tr>
-                            <th></th>
-                            <th>보낸사람</th>
-                            <th>내용</th>
-                            <th>보낸일자</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                <div class="checkbox2 m-0">
-                                    <input id="checkbox1" type="checkbox">
-                                    <label for="checkbox1">
-                                    </label>
-                                </div>
-                            </td>
-                            <td>OK저축은행</td>
-                            <td>10만원 소액대출가능</td>
-                            <td>2021.06.18</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <input type="button" class="send-message" value="쪽지보내기" onclick="showPopup(1);">
-
-            </div>
             <div id="target"></div>
         </div>
 
@@ -153,29 +44,52 @@
 
     </div>
 </div>
-</div>
 </body>
 
 <script th:src="@{/js/main/main_js_jk.js}"></script>
 
 
 <script th:inline="javascript">
-    const type=[[${type}]];
+    const type = [[${type}]];
+    const result = [[${result}]];
+    console.log("result: " + result);
+    if (result != null) {
+        if (result > 0) {
+            alert("삭제되었습니다.");
+        } else {
+            alert("삭제에 실패하였습니다.");
+        }
+    }
+
     console.log(type);
 
-    $(function (){
+    $(function () {
         fn_message_move(type);
     });
 
-    function fn_message_move(type){
-
-        if(type=='receive'){
+    function fn_message_move(type) {
+        console.log(type);
+        if (type == 'receive') {
             $.ajax({
-                url:"/message/receive",
+                url: "/message/receive",
+                data: {"type": type},
+            }).done(function (fragment) {
+                $("#target").html(fragment);
+            });
+        }else if(type=='send'){
+            $.ajax({
+                url:"/message/send",
                 data:{"type":type},
             }).done(function (fragment){
                 $("#target").html(fragment);
-            })
+            });
+        }else if(type=='block'){
+            $.ajax({
+                url:"/message/block",
+                data:{"type":type},
+            }).done(function (fragment){
+                $("#target").html(fragment);
+            });
         }
     }
 
@@ -187,8 +101,23 @@
     }
 
     function showMsgDtl(msgNo) {
-        window.open("/message/content?msgNo=" + msgNo,"content","width=400,height=300");
+        window.open("/message/content?msgNo=" + msgNo, "content", "width=400,height=300");
 
+    }
+
+    function deleteMsg(){
+        if (confirm("삭제하시겠습니까?")){
+            $('.targetChk').each(function (){
+                if($(this).is(':checked')){
+                    var msgNo = $(this).closest('tr').children('.msgNo').html();
+                    var loc = "/message/delete";
+                    $('#deleteMsg').attr("action", loc);
+                    $('#delMsgNo').val(msgNo);
+                    $('#deleteMsg').submit();
+                }
+            });
+        }
+        else alert("삭제안한다");
     }
 </script>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
