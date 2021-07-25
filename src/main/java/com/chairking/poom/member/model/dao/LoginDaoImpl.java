@@ -26,9 +26,20 @@ public class LoginDaoImpl implements LoginDao {
 	}
 
 	@Override
-	public Map<String,Object> memberLogin(LoginMapper mapper, Map param) {
-		return mapper.memberLogin(param);
+	public Map<String,Object> selectMember(LoginMapper mapper, Map param) {
+		return mapper.selectMember(param);
 	}
+
+	@Override
+	public Map<String, Object> idFind(LoginMapper mapper, Map param) {
+		return mapper.idFind(param);
+	}
+
+	@Override
+	public Map<String, Object> pwFind(LoginMapper mapper, Map param) {
+		return null;
+	}
+	
 	
 	
 	

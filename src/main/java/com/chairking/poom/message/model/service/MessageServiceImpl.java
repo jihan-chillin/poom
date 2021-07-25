@@ -29,19 +29,21 @@ public class MessageServiceImpl implements MessageService {
         return dao.searchReceiver(mapper);
     };
 
-
+    //메세지 리스트 불러오기용
     @Override
-    public List<Map<String,Object>> receiveMessage(){
-        return dao.receiveMessage(mapper);
+    public List<Map<String,Object>> getMessage(String condition){
+        return dao.getMessage(mapper, condition);
     }
 
-    @Override
-    public List<Map<String,Object>> sendMessage(){
-        return dao.receiveMessage(mapper);
-    }
+
 
     @Override
     public List<Map<String,Object>> messageContent(String msgNo){
         return dao.messageContent(mapper, msgNo);
+    }
+
+    @Override
+    public int deleteMessage(String msgNo) {
+        return dao.deleteMessage(mapper, msgNo);
     }
 }

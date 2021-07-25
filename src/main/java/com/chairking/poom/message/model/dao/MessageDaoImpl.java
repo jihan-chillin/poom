@@ -16,14 +16,19 @@ public class MessageDaoImpl implements MessageDao{
     }
 
     @Override
-    public List<Map<String, Object>> receiveMessage(MessageMapper mapper){
+    public List<Map<String, Object>> getMessage(MessageMapper mapper,String condition){
 
-        return mapper.receiveMessage();
+        return mapper.getMessage(condition);
     }
 
     @Override
     public List<Map<String, Object>> messageContent(MessageMapper mapper, String msgNo) {
         return mapper.messageContent(msgNo);
+    }
+
+    @Override
+    public int deleteMessage(MessageMapper mapper, String msgNo) {
+        return mapper.deleteMessage(msgNo);
     }
 
 }

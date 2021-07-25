@@ -5,13 +5,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -89,9 +87,18 @@ public class BoardController {
 	
 	//모든 게시글 리스트 가져오는 서비스
 	@GetMapping("/board/all")
-	public ModelAndView selectAllBoard(ModelAndView mv) {
+	public ModelAndView selectAllBoard(ModelAndView mv,
+									   @RequestParam(value="cPage", defaultValue = "1") int cPage) {
+
+		// 게시글 조회수
+		// 얘는 나중에 로그인 session값으로 들어오는 거 적용되면 할 것
+		//int readcount = service.readcount();
+		int numPerpage = 5;
+
+		List<Map<String, Object>> oList = service.selectAllBoard(cPage, numPerpage);
+
+		mv.addObject("oList", oList);
 		mv.setViewName("board/board_list");
-		mv.addObject("list", service.selectAllBoard());
 		return mv;
 	}
 	

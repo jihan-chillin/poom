@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <!--message css-->
+    <link th:href="@{/css/message/message_tap.css}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="wrapper">
+
+    <!-- 헤더바 -->
+    <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+    <!-- 좌측메뉴바 -->
+    <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+
+    <!-- 우측콘텐츠 / 고정+변동 -->
+    <div id="content">
+
+        <!-- 프로필 -->
+        <div th:replace="/fragments/profile.html :: fragment-profile"></div>
+
+
+        <!-- message 구역  -->
+        <div class="feed">
+            <div class="message-header">
+                <div class="buttonbox">
+                    <button type="button" id="btn_1" onclick="fn_message_move('receive');">받은쪽지</button>
+                    <button type="button" id="btn_2" onclick="fn_message_move('send');">보낸쪽지</button>
+                    <button type="button" id="btn_3" onclick="fn_message_move('block');">차단함</button>
+                </div>
+                <div>
+                    <input class="search-message" type="msgsearch" value="쪽지 검색해보세요~">
+                </div>
+            </div>
+
+
+            <div id="target"></div>
+        </div>
+
+        <!-- HOT키워드순위창 -->
+        <div th:replace="/fragments/rank.html :: fragment-rank"></div>
+
+
+    </div>
+</div>
+</body>
+
+<script th:src="@{/js/main/main_js_jk.js}"></script>
+
+
+<script th:inline="javascript">
+    const type = [[${type}]];
+    const result = [[${result}]];
+    console.log("result: " + result);
+    if (result != null) {
+        if (result > 0) {
+            alert("삭제되었습니다.");
+        } else {
+            alert("삭제에 실패하였습니다.");
+        }
+    }
+
+    console.log(type);
+
+    $(function () {
+        fn_message_move(type);
+    });
+
+    function fn_message_move(type) {
+        console.log(type);
+        if (type == 'receive') {
+            $.ajax({
+                url: "/message/receive",
+                data: {"type": type},
+            }).done(function (fragment) {
+                $("#target").html(fragment);
+            });
+        }else if(type=='send'){
+            $.ajax({
+                url:"/message/send",
+                data:{"type":type},
+            }).done(function (fragment){
+                $("#target").html(fragment);
+            });
+        }else if(type=='block'){
+            $.ajax({
+                url:"/message/block",
+                data:{"type":type},
+            }).done(function (fragment){
+                $("#target").html(fragment);
+            });
+        }
+    }
+
+    function showPopup(type) {
+        if (type == 1)
+            window.open("/message/popup", "message", "width=400,height=300");
+        else if (type == 2)
+            window.open("/message/receiver", "receiver", "width=400,height=300");
+    }
+
+    function showMsgDtl(msgNo) {
+        window.open("/message/content?msgNo=" + msgNo, "content", "width=400,height=300");
+
+    }
+
+    function deleteMsg(){
+        if (confirm("삭제하시겠습니까?")){
+            $('.targetChk').each(function (){
+                if($(this).is(':checked')){
+                    var msgNo = $(this).closest('tr').children('.msgNo').html();
+                    var loc = "/message/delete";
+                    $('#deleteMsg').attr("action", loc);
+                    $('#delMsgNo').val(msgNo);
+                    $('#deleteMsg').submit();
+                }
+            });
+        }
+        else alert("삭제안한다");
+    }
+</script>
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
