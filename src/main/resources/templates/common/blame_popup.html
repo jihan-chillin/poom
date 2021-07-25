@@ -5,15 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
     <title>신고하기</title>
 
 	<style>
+		*{
+    		font-family: 'Nanum Gothic', sans-serif;
+    	}
 		div#popupWrapper{
 			width:470px;
-			/* padding:5px;  */
 			border: 1px solid #287094;
-			
 		}
 		#blame_title{
 			font-size: 22px;
@@ -23,18 +24,11 @@
 			color:white;
 			font-weight: bold;
 			padding-left:40px;
-			/* text-align: center; */
 		}
 		div#blame_target{
 			padding-left:40px;
 			border-bottom:1px solid #287094;
 		}
-		/* div#blame_target>span{
-			font-size: 22px;
-			margin-top:20px;
-			font-weight: bolder;
-			display:inline-block;
-		} */
 		div#blame_target ul{
 			list-style-type: none;
 			padding-left:0;
@@ -53,7 +47,6 @@
 			font-size: 22px;
 			font-weight: bolder;
 			color:#287094;
-			/* margin-bottom:10px; */
 		}
 		div#select_reason input{
 			margin-bottom:20px;
@@ -67,8 +60,6 @@
 			margin-left:64px;
 		}
 		div#select_reason>textarea{
-			/* margin-top:5px; */
-			/* margin-left:20px */;
 			margin-bottom:20px;
 			background-color: #f7f7f7;
 		}
@@ -85,7 +76,6 @@
 			padding-left:40px;
 		}
 		div#blame_button button{
-		    /* float: right; */
 		    width: 80px;
 		    height: 40px;
 		    border-radius: 30px;
@@ -150,7 +140,13 @@
 		//form submit하기
 		function fn_blameForm_submit(){
 			$("#blameFrm").submit();
-			console.log('submit');
+			
+			/* $.ajax({
+				url:"/blame/blameSuccess",	
+			}).done(function (fragment){
+				$("#popupWrapper").html(fragment);
+			}); */
+			//console.log('submit');
 			
 			//window.close();
 		}
