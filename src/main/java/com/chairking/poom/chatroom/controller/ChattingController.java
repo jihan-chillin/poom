@@ -31,8 +31,11 @@ public class ChattingController {
 
     // 채팅방 입장
     @GetMapping("/chat/chatroom/page")
-    public String chatroom(){
-        return "chatting/chattingroom";
+    public ModelAndView chatroom(ModelAndView model,HttpServletRequest req){
+        Map memberId = ((Map)req.getSession().getAttribute("loginMember"));
+        model.addObject("memberId",memberId.get("MEMBER_ID"));
+        model.setViewName("chatting/chattingroom");
+        return model;
     }
 
     // 메세지 보냄

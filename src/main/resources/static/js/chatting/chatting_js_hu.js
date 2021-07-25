@@ -30,6 +30,8 @@ function moveMyChatList(){
           let val = '';
 
           const chatNo = data.list[0][i].CHAT_NO;
+          // 로그인 아이디.
+          const memberId = data.loginId;
 
           if(chatNo !== null){
             // 채팅방 리스트가 있다면
@@ -40,7 +42,7 @@ function moveMyChatList(){
               val+= '<span class="chatroom-icon-gather">소모임</span>'
             }
             val+= '<span class="chatroom-title">';
-            val+= '<span onclick="moveMyChatroom('+chatNo+')">'+data.list[0][i].CHAT_TITLE+'</span></span>';
+            val+= '<span onclick="moveMyChatroom(\''+chatNo+'\',\''+memberId+'\')">'+data.list[0][i].CHAT_TITLE+'</span></span>';
             val+= '<span></span>';
             // 채팅방 참여인원수
             val+= '<span>'+data.countMember[i]+'</span>';
@@ -72,12 +74,12 @@ function checkEnterChatroom(memberId,chatNo){
     success: data=>{
       // 입장해 있다면
       if (data === 1){
-        moveMyChatroom(chatNo);
+        moveMyChatroom(chatNo,memberId);
       }else{
         if(confirm("채팅방에 입장하시겠습니까?")){
 
           if(enterChatroom(chatNo,memberId,'/chat/chatroom/enter') === 1){
-            moveMyChatroom(chatNo);
+            moveMyChatroom(chatNo,memberId);
           }else{
             alert("채팅방에 입장하지 못했습니다. 다시 시도해주세요");
             return;
@@ -95,7 +97,7 @@ function checkEnterChatroom(memberId,chatNo){
 }
 
 // 채팅방으로 이동
-function moveMyChatroom(chatNo){
+function moveMyChatroom(chatNo,memberId){
   // 참여한 채팅방으로 이동
 
   // 데이터 보내고
@@ -126,7 +128,7 @@ function moveMyChatroom(chatNo){
   getMyChatroom(chatNo,url);
 
   // 채팅내용 불러오기
-  getChatList(chatNo,url);
+  getChatList(chatNo,url,memberId);
 
   return;
 }
@@ -139,7 +141,6 @@ function getMyChatroom(chatNo,url){
       chatNo
     },
     success:data=>{
-      // 멤버 아이디. 지금은 없으니까 'test'로 대체
       const memberId = data.loginMember.MEMBER_ID;
       $('.entered-mem').remove();
       $('.chatroom-header>*').remove();
@@ -178,7 +179,7 @@ function getMyChatroom(chatNo,url){
 }
 
 // 채팅방 내용 불러오기
-function getChatList(chatNo,url){
+function getChatList(chatNo,url,memberId){
   $.ajax({
     url:url,
     data:{
@@ -194,7 +195,7 @@ function getChatList(chatNo,url){
       // .others-profile .message-blue
       // 나눠야함.
       // 로그인이 안만들어져서 test 아이디로 함. -> 수정필요함.
-      let loginId = 'test';
+      let loginId =  memberId;
 
       for(let i=0; i<data.messageContent.length; i++){
       // 내가 쓴 메세지 일때
