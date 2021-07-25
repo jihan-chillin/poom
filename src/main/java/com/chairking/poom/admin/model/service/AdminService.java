@@ -16,4 +16,5 @@ public interface AdminService {
 	int changeStatus(String no);
 	
 	List<Map<String,Object>> allBoardBlame(int cPage, int numPerpage);
+	int insertBlame(Map<String,String> map);
 }

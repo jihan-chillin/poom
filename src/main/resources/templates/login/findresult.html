@@ -2,64 +2,39 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="/fragments/header.html :: fragment-header"></div>
-    
-    <!-- css -->
-    <style>
-        #dupleCheck_wrapper {
-            width: 100%;
-            height: 299px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content:center;
-        }
-        #dupleCheck_wrapper>p {
-            margin-bottom: 20px;
-            font-size: 19px;
-            line-height: 27px;
-        }
-        #dupleCheck_wrapper>p>span:first-child{
-            font-weight: bold;
-            font-size: 23px;
-            font-style: italic;
-        }
-        #dupleCheck_wrapper>button {
-            width: 80px;
-            height: 40px;
-            border-radius: 30px;
-            background: #287094;
-            outline: none;
-            border: none;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 15px;
-        }
-    </style>
+	<!-- css -->
+	<link th:href="@{/css/login/findresult_jk.css}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 	<div id="dupleCheck_wrapper">
-        <p>
-            <span th:text="${m.get('MEMBER_ID')}"></span>
-        </p>
-        <button onclick="sendDupl();">확인</button>
+		
+		<div th:if="${m}!=null">
+		
+			<div th:if="${type}==id" class="idfind">
+				<p>회원님의 아이디는 <span th:text="${m.get('MEMBER_ID')}"></span> 입니다.</p>
+		        <div>
+		        	<button>로그인</button>
+		        	<button>비밀번호찾기</button>
+		        </div>
+			</div>
+	        
+	        <div th:unless="${type}==id" class="pwfind">
+	        	<input type=password>새비밀번호
+	        	<input type=password>새비밀번호 확인
+	        	<button>확인</button>
+	        </div>
+	    
+	    </div>
+	    
+	    <div th:unless="${m}!=null" class="nullfind">
+			<p>해당하는 회원정보가 없습니다.</p>
+			<div>
+	        	<button>회원가입</button>
+	        	<button>취소</button>
+	        </div>
+        </div>
+	
     </div>
 </body>
-<!-- <script th:inline="javascript">
-	function sendDupl() {
-		var type = [[${type}]]
-		if([[${m}]]!=null) {
-			var dupl = "";
-			var checked = "";
-		}else {
-			dupl = [[${check}]];
-			checked = "y";
-		}
-		opener.setDupl(dupl,type,checked);
-		window.close();
-	}
-
-</script> -->
 </html>

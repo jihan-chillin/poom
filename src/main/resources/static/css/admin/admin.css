@@ -232,11 +232,17 @@ div#sales{
 div#sales p, div#sales span{
 	margin-left:100px;
 	font-weight:bold;
+	margin-top:10px;
 }
-.span_font{
+div#sales p:nth-child(2){
+	margin-bottom:10px;
+}
+span.span_font{
+	display:inline-block;
 	font-size:20px;
+	padding-top:10px;
 }
-.p_font2{
+p.p_font2{
 	font-size:25px;
 }
 div#sales p:nth-child(2){
@@ -267,7 +273,7 @@ div#pay_table_content>table{
     width:1300px;
     border-top : 2px solid gray;
     border-bottom : 2px solid gray;
-    margin-top: 10px;
+    margin-top: 50px;
     margin-bottom:20px;
 }
 table#pay_table>thead>tr{

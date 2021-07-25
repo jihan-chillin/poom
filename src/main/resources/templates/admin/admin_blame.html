@@ -45,16 +45,68 @@
         <div id="pagebar">
             페이지바
         </div>
-        <button>삭제</button>
+        <button onclick="fn_goBlame();">신고팝업테스트</button>
+        <button>삭제</button><!-- 각 del_status의 상태를 바꾸는 것 -->
     </div>
 </div>
 <script th:inline="javascript">
+//신고하기 팝업 테스트
+ 	function fn_goBlame(){
+		var type="bc";
+		var no=2;
+		var nick="닉네임";
+		console.log(type,no,nick);
+		window.open("/blame/report?t="+type+"&no="+no+"&n="+nick,"","width=495px,height=530px,top=260px,left=800px,status=no,toolbar=no,scrollbars=no");
+		
+		
+		/* $.ajax({
+			url:"/blame/report",
+			data:{
+				"type":type,
+				"boardNo":brdNo,
+				"nickname":"memberNick"
+			},
+			dataType:"json",
+			type:"POST", 
+			success:data=>{
+				console.log(data);
+				window.open("/blame/report/page?i="+brdNo,"","width=490px,height=470px,top=260px,left=800px,status=no,toolbar=no,scrollbars=no');
+			}
+		}); */
+	}
+	
+	 
+
+
+
+
 $(function(){
 	$("#blame_menu").show();
 	$("#blame_menu").click(e=>{
 		e.stopPropagation();
 	})
 })
+
+//title에 맞게 왼쪽 메뉴 hover지정해놓기
+$(function(){
+	var title=[[${type}]];
+	switch(title){
+		case "1": 
+		case "blame" :
+			$("#blame_menu").children().css({"color":"black","list-style-type": "none"});
+   			$("#blame_menu").children().first().css({"color":"#F77B1E","list-style-type": "disc"});
+			break;
+		case "2" : 
+			$("#blame_menu").children().css({"color":"black","list-style-type": "none"});
+			$("#blame_menu").children().eq(1).css({"color":"#F77B1E","list-style-type": "disc"}); break;
+		case "3" : 
+			$("#blame_menu").children().css({"color":"black","list-style-type": "none"});
+			$("#blame_menu").children().eq(2).css({"color":"#F77B1E","list-style-type": "disc"}); break;
+		case "4" : 
+			$("#blame_menu").children().css({"color":"black","list-style-type": "none"});
+			$("#blame_menu").children().eq(3).css({"color":"#F77B1E","list-style-type": "disc"}); break;
+	}
+});
 
 //신고관리 전체 체크박스
 $("[name='brd_blame_allChk']").click(e=>{                     

@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -160,7 +161,7 @@ public class LoginController {
 			mv.addObject("loginMember",m);
 			msg="로그인 성공! "+m.get("MEMBER_NAME")+"님, poom에 오신걸 환영합니다!";
 			loc="main";
-		}else if(m!=null && param.get("id").equals("admin")) {
+		}else if(m!=null && param.get("id").equals("admin") && pwEncoder.matches((String)param.get("pw"), (String)m.get("MEMBER_PW"))) {
 			mv.addObject("loginMember",m);
 			msg="poom 관리자님! 관리자페이지에 오신걸 환영합니다!";
 			loc="admin";
@@ -188,21 +189,21 @@ public class LoginController {
 	//ID 찾기
 	@PostMapping("/idFind")
 	public ModelAndView idFind(@RequestParam Map param, ModelAndView mv) {
-		
-		System.out.println(param);
 		Map<String, Object> m = service.idFind(param);
 
+		mv.addObject("type","id");
 		mv.addObject("m",m);
 		mv.setViewName("login/findresult");
 		
 		return mv;
 	}
 
-	//ID 찾기
+	//PW 찾기
 	@PostMapping("/pwFind")
 	public ModelAndView pwFind(@RequestParam Map param, ModelAndView mv) {
 		Map<String, Object> m = service.selectMember(param);
 		
+		mv.addObject("type","pw");
 		mv.addObject("m",m);
 		mv.setViewName("login/findresult");
 		
