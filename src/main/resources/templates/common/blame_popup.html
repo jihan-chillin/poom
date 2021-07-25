@@ -4,6 +4,8 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    
     <title>신고하기</title>
 
 	<style>
@@ -39,6 +41,9 @@
 			padding-left:20px;
 			margin-top:10px;
 		}
+		div#blame_target li{
+			margin-bottom:5px;
+		}
 		span.target_span{
 			font-weight: bolder;
 		}
@@ -65,7 +70,7 @@
 			/* margin-top:5px; */
 			margin-left:20px;
 			margin-bottom:10px;
-			background-color: lightgray;
+			background-color: #f7f7f7;
 		}
 		span#text_cnt{
 			float:right;
@@ -98,15 +103,26 @@
 		<div id="blame_title">
 			<span>신고하기</span>
 		</div>
-		<form action="/blame/insertblame">
+		<form action="/blame/insertblame" method="post">
 			<div id="blame_target">
 				<span>신고대상</span>
 				<ul>
 					<li>
-						<span class="target_span">구분 : </span>댓글 / 게시판 / 채팅
+						<span class="target_span">구분 : </span>
+						<th:block th:switch="${map.t}">
+						<span th:case="b" >게시판</span>
+						<span th:case="bc" >댓글</span>
+						<span th:case="ch" >채팅</span>
+						</th:block>
+						<th:block th:switch="${map.t}">
+						<input type="hidden" name="type" th:value="b" >
+						<input type="hidden" name="type" th:value="bc">
+						<input type="hidden" name="type" th:value="ch">
+						</th:block>
 					</li>
 					<li>
-						<span class="target_span">내용(또는 제목) : </span>~~~~~
+						<span class="target_span" >신고 대상자 : </span><span th:text="${map.n}"></span>
+						<input type="hidden" name="target_mem" th:value="${map.n}"/>
 					</li>
 				</ul>
 			</div>
@@ -120,7 +136,7 @@
 					<input type="radio" name="blame_reason" value="기타">기타 : 사유작성</label>
 					<span id="text_cnt">(0/20)</span>
 					<br>
-					<textarea readonly cols="50" rows="3" placeholder="20자 이내로 작성해주세요"></textarea>
+					<textarea id="reason_write" name="textarea" readonly cols="50" rows="3" placeholder="20자 이내로 작성해주세요"></textarea>
 			</div>
 			<div id="blame_button">
 				<button>신고하기</button>
@@ -129,10 +145,29 @@
 		</form>
 	</div>
 	<script>
-		
+		//기타 누를때만 textarea 작성
+		$("input[name='blame_reason']:last").click(e=>{
+			$("#reason_write").attr("readonly",false);
+			$("#reason_write").css("background","white");
+			
+		});
+		$("input[name='blame_reason']").not("input[name='blame_reason']:last").click(e=>{
+			$("#reason_write").attr("readonly",true);
+			$("#reason_write").css("background","#f7f7f7");
+			
+		})
+	
+		//textarea 글자수 세기
+		$(function() {
+		    $('#reason_write').on('keyup', function() {
+		        $('#text_cnt').html("("+$(this).val().length+" / 20)");
+		 
+		        if($(this).val().length > 20) {
+		            $(this).val($(this).val().substring(0, 20));
+		            $('#text_cnt').html("(20 / 20)");
+		        }
+		    });
+		});
 	</script>
-
-
-
 </body>
 </html>

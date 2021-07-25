@@ -53,9 +53,13 @@
 //신고하기 팝업 테스트
  	function fn_goBlame(){
 		var type="bc";
-		var brdNo=2;
-		console.log(type,brdNo);
-		$.ajax({
+		var no=2;
+		var nick="닉네임";
+		console.log(type,no,nick);
+		window.open("/blame/report?t="+type+"&no="+no+"&n="+nick,"","width=490px,height=475px,top=260px,left=800px,status=no,toolbar=no,scrollbars=no");
+		
+		
+		/* $.ajax({
 			url:"/blame/report",
 			data:{
 				"type":type,
@@ -66,9 +70,9 @@
 			type:"POST", 
 			success:data=>{
 				console.log(data);
-				window.open("/blame/report/page","","width=490px,height=470px,top=260px,left=800px");
+				window.open("/blame/report/page?i="+brdNo,"","width=490px,height=470px,top=260px,left=800px,status=no,toolbar=no,scrollbars=no');
 			}
-		});
+		}); */
 	}
 	
 	 
