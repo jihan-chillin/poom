@@ -165,9 +165,11 @@
 }
 .interested-chatroom{
   font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
+  cursor: pointer;
 }
 .blame-chatroom{
   font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
+  cursor: pointer;
 }
 .chatroom-submenu>div:hover>span{
   border-bottom: 2px solid #000000;
