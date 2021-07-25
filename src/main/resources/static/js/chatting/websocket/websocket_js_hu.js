@@ -60,7 +60,6 @@ function sendMessage(event) {
 
 function onMessageReceived(payload){
   let message = JSON.parse(payload.body);
-  let messageElement = $('.msg-container');
   let chatNo = $('.chatNo').val();
 
   if(message.type ==='JOIN'){
@@ -71,7 +70,6 @@ function onMessageReceived(payload){
 
   }else{
     console.log("페이로드"+payload)
-    // 채팅방 번호 받아와야함 -> 수정필요
     // messageElement.append(message.messageContent);
     getChatList(chatNo,'/chat/mychat/member',message.memberId);
   }

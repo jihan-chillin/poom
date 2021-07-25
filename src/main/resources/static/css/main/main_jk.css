@@ -32,6 +32,7 @@ div#header {
     width: 1920px;
     height: 120px;
     position: fixed;
+    background-color: white;
     top: 0;
     left: 0;
     display: flex;

@@ -57,6 +57,11 @@ public class AdminServiceImpl implements AdminService {
 	public List<Map<String, Object>> allBoardBlame(int cPage, int numPerpage) {
 		return dao.allBoardBlame(mapper,cPage,numPerpage);
 	}
+
+	@Override
+	public int insertBlame(Map<String, String> map) {
+		return dao.insertBlame(mapper, map);
+	}
 	
 	
 
