@@ -46,6 +46,9 @@ public class BlameController {
 	@PostMapping("/insertblame")
 	@Transactional
 	public ModelAndView insertBlame(@RequestParam Map<String,String> map, ModelAndView mv) {
+			if(map.get("textarea").length()>1) {
+				map.put("blame_reason", "기타:"+map.get("textarea"));
+			}
 			System.out.println("insertblame:"+map);
 			//type에따라 각 해당하는 신고테이블에 넣기
 			int result=service.insertBlame(map);

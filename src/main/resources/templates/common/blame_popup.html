@@ -22,23 +22,22 @@
 			background-color: #287094;
 			color:white;
 			font-weight: bold;
-			padding-left:20px;
+			padding-left:40px;
 			/* text-align: center; */
 		}
 		div#blame_target{
+			padding-left:40px;
 			border-bottom:1px solid #287094;
 		}
-		div#blame_target>span{
-			font-size: 18px;
-			padding-left:20px;
+		/* div#blame_target>span{
+			font-size: 22px;
 			margin-top:20px;
 			font-weight: bolder;
 			display:inline-block;
-			/* text-align: center; */
-		}
+		} */
 		div#blame_target ul{
 			list-style-type: none;
-			padding-left:20px;
+			padding-left:0;
 			margin-top:10px;
 		}
 		div#blame_target li{
@@ -48,11 +47,12 @@
 			font-weight: bolder;
 		}
 		div#select_reason{
-			padding-left:20px;
+			padding-left:40px;
 		}
-		div#select_reason>p{
-			font-size: 18px;
+		div#select_reason>p,div#blame_target>p{
+			font-size: 22px;
 			font-weight: bolder;
+			color:#287094;
 			/* margin-bottom:10px; */
 		}
 		div#select_reason input{
@@ -68,8 +68,8 @@
 		}
 		div#select_reason>textarea{
 			/* margin-top:5px; */
-			margin-left:20px;
-			margin-bottom:10px;
+			/* margin-left:20px */;
+			margin-bottom:20px;
 			background-color: #f7f7f7;
 		}
 		span#text_cnt{
@@ -80,8 +80,9 @@
 		}
 		div#blame_button{
 			display:flex;
-			margin-bottom: 10px;
+			margin-bottom: 20px;
 			justify-content: center;
+			padding-left:40px;
 		}
 		div#blame_button button{
 		    /* float: right; */
@@ -105,7 +106,7 @@
 		</div>
 		<form action="/blame/insertblame" method="post" id="blameFrm">
 			<div id="blame_target">
-				<span>신고대상</span>
+				<p>신고대상</p>
 				<ul>
 					<li>
 						<span class="target_span">구분 : </span>
