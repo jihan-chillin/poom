@@ -53,7 +53,6 @@ function checkAlreadyBlame(chatNo,memberId){
       "memberId":memberId,
     },
     success:data=>{
-      console.log(data);
       if(data === 1){
         alert("이미 신고한 채팅방입니다.");
         return;

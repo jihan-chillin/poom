@@ -39,6 +39,7 @@ function onError(error){
 function sendMessage(event) {
   let messageContent = sendMsgContent.val();
   let chatNo = $('.chatNo').val();
+  let memberId=$('#chatmem_id').val();
 
   // console.log(messageContent);
 
@@ -72,7 +73,7 @@ function onMessageReceived(payload){
     console.log("페이로드"+payload)
     // 채팅방 번호 받아와야함 -> 수정필요
     // messageElement.append(message.messageContent);
-    getChatList(chatNo,'/chat/mychat/member');
+    getChatList(chatNo,'/chat/mychat/member',message.memberId);
   }
 }
 
