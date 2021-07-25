@@ -103,22 +103,23 @@
 		<div id="blame_title">
 			<span>신고하기</span>
 		</div>
-		<form action="/blame/insertblame" method="post">
+		<form action="/blame/insertblame" method="post" id="blameFrm">
 			<div id="blame_target">
 				<span>신고대상</span>
 				<ul>
 					<li>
 						<span class="target_span">구분 : </span>
 						<th:block th:switch="${map.t}">
-						<span th:case="b" >게시판</span>
-						<span th:case="bc" >댓글</span>
-						<span th:case="ch" >채팅</span>
+							<span th:case="b" >게시판</span>
+							<span th:case="bc" >댓글</span>
+							<span th:case="ch" >채팅</span>
 						</th:block>
 						<th:block th:switch="${map.t}">
-						<input type="hidden" name="type" th:value="b" >
-						<input type="hidden" name="type" th:value="bc">
-						<input type="hidden" name="type" th:value="ch">
+							<input th:case="b" type="hidden" name="type" th:value="b" >
+							<input th:case="bc" type="hidden" name="type" th:value="bc">
+							<input th:case="ch" type="hidden" name="type" th:value="ch">
 						</th:block>
+						<input type="hidden" name="no" th:value="${map.no}">
 					</li>
 					<li>
 						<span class="target_span" >신고 대상자 : </span><span th:text="${map.n}"></span>
@@ -139,12 +140,20 @@
 					<textarea id="reason_write" name="textarea" readonly cols="50" rows="3" placeholder="20자 이내로 작성해주세요"></textarea>
 			</div>
 			<div id="blame_button">
-				<button>신고하기</button>
+				<button type="button" onclick="fn_blameForm_submit();">신고하기</button>
 				<button type="button" style="background-color: #f7f7f7;color:black;" onclick="window.close();">닫기</button>
 			</div>
 		</form>
 	</div>
 	<script>
+		//form submit하기
+		function fn_blameForm_submit(){
+			$("#blameFrm").submit();
+			console.log('submit');
+			
+			//window.close();
+		}
+		
 		//기타 누를때만 textarea 작성
 		$("input[name='blame_reason']:last").click(e=>{
 			$("#reason_write").attr("readonly",false);

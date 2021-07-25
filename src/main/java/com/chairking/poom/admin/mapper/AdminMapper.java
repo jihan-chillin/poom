@@ -41,4 +41,7 @@ public interface AdminMapper {
 	
 	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM BOARD_BLAME LEFT JOIN BOARD ON B_TARGET_BOARD_NO = BOARD_NO ORDER BY B_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{cPage} and #{numPerpage}")
 	public List<Map<String,Object>> allBoardBlame(int cPage, int numPerpage);
+	
+	@Insert("INSERT INTO COMMENTS_BLAME VALUES(SEQ_BC_BLAME_NO.NEXTVAL,#{target_mem},sysdate,'테스트',#{no},#{blame_reason})")
+	public int insertBlame(Map<String,String> map);
 }

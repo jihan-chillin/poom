@@ -3,7 +3,6 @@ package com.chairking.poom.admin.model.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
 
 import com.chairking.poom.admin.mapper.AdminMapper;
@@ -50,7 +49,12 @@ public class AdminDaoImpl implements AdminDao {
 	public List<Map<String, Object>> allBoardBlame(AdminMapper mapper, int cPage, int numPerpage) {
 		return mapper.allBoardBlame(cPage,numPerpage);
 	}
-	
+
+	@Override
+	public int insertBlame(AdminMapper mapper, Map<String, String> map) {
+		return mapper.insertBlame(map);
+	}
+
 	
 
 	
