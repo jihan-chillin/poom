@@ -84,7 +84,7 @@ public class BoardController {
 		}
 		return mv;
 	}
-	
+
 	//모든 게시글 리스트 가져오는 서비스
 	@GetMapping("/board/all")
 	public ModelAndView selectAllBoard(ModelAndView mv,
