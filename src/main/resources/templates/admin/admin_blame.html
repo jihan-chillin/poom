@@ -45,10 +45,38 @@
         <div id="pagebar">
             페이지바
         </div>
+        <button onclick="fn_goBlame();">신고팝업테스트</button>
         <button>삭제</button><!-- 각 del_status의 상태를 바꾸는 것 -->
     </div>
 </div>
 <script th:inline="javascript">
+//신고하기 팝업 테스트
+ 	function fn_goBlame(){
+		var type="bc";
+		var brdNo=2;
+		console.log(type,brdNo);
+		$.ajax({
+			url:"/blame/report",
+			data:{
+				"type":type,
+				"boardNo":brdNo,
+				"nickname":"memberNick"
+			},
+			type:"POST", 
+			success:data=>{
+				//alert("알람");
+				//pop.location.href="blame_pop.html";
+				//openPopup(data);
+				window.open("/blame/report/page","","width=490px,height=470px,top=260px,left=800px");
+			}
+		});
+	}
+	
+	 
+
+
+
+
 $(function(){
 	$("#blame_menu").show();
 	$("#blame_menu").click(e=>{

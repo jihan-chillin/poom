@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신고하기</title>
+
+	<style>
+		div#popupWrapper{
+			width:470px;
+			/* padding:5px;  */
+			border: 1px solid #287094;
+			
+		}
+		#blame_title{
+			font-size: 22px;
+			height:50px;
+			line-height: 50px;
+			background-color: #287094;
+			color:white;
+			font-weight: bold;
+			padding-left:20px;
+			/* text-align: center; */
+		}
+		div#blame_target{
+			border-bottom:1px solid #287094;
+		}
+		div#blame_target>span{
+			font-size: 18px;
+			padding-left:20px;
+			margin-top:20px;
+			font-weight: bolder;
+			display:inline-block;
+			/* text-align: center; */
+		}
+		div#blame_target ul{
+			list-style-type: none;
+			padding-left:20px;
+			margin-top:10px;
+		}
+		span.target_span{
+			font-weight: bolder;
+		}
+		div#select_reason{
+			padding-left:20px;
+		}
+		div#select_reason>p{
+			font-size: 18px;
+			font-weight: bolder;
+			/* margin-bottom:10px; */
+		}
+		div#select_reason input{
+			margin-bottom:20px;
+			margin-right:5px;
+			padding-right:10px;
+		}
+		#label1{
+			margin-left:70px;
+		}
+		#label2{
+			margin-left:64px;
+		}
+		div#select_reason>textarea{
+			/* margin-top:5px; */
+			margin-left:20px;
+			margin-bottom:10px;
+			background-color: lightgray;
+		}
+		span#text_cnt{
+			float:right;
+			margin-right:55px;
+			margin-top:15px;
+			font-size: 14px;
+		}
+		div#blame_button{
+			display:flex;
+			margin-bottom: 10px;
+			justify-content: center;
+		}
+		div#blame_button button{
+		    /* float: right; */
+		    width: 80px;
+		    height: 40px;
+		    border-radius: 30px;
+		    outline: none;
+		    border: none;
+		    background:#287094;
+		    color: white;
+		    font-size: 15px;
+		    cursor: pointer;
+		    margin-right:17px;
+		}
+	</style>
+</head>
+<body>
+	<div id="popupWrapper">
+		<div id="blame_title">
+			<span>신고하기</span>
+		</div>
+		<form action="/blame/insertblame">
+			<div id="blame_target">
+				<span>신고대상</span>
+				<ul>
+					<li>
+						<span class="target_span">구분 : </span>댓글 / 게시판 / 채팅
+					</li>
+					<li>
+						<span class="target_span">내용(또는 제목) : </span>~~~~~
+					</li>
+				</ul>
+			</div>
+			<div id="select_reason">
+				<p>신고사유</p>
+				<label><input type="radio" name="blame_reason" value="음란성/선정성">음란성/선정성</label>
+				<label id="label1"><input type="radio" name="blame_reason" value="욕설/인신공격">욕설/인신공격</label><br>
+				<label><input type="radio" name="blame_reason" value="스팸/광고/도배">스팸/광고/도배</label>
+				<label id="label2"><input type="radio" name="blame_reason" value="권리침해">권리침해</label><br>
+				<label>
+					<input type="radio" name="blame_reason" value="기타">기타 : 사유작성</label>
+					<span id="text_cnt">(0/20)</span>
+					<br>
+					<textarea readonly cols="50" rows="3" placeholder="20자 이내로 작성해주세요"></textarea>
+			</div>
+			<div id="blame_button">
+				<button>신고하기</button>
+				<button type="button" style="background-color: #f7f7f7;color:black;" onclick="window.close();">닫기</button>
+			</div>
+		</form>
+	</div>
+	<script>
+		
+	</script>
+
+
+
+</body>
+</html>
