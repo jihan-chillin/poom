@@ -11,91 +11,97 @@
                 <th>게시여부</th>
             </tr>
             </thead>
-            <tbody>
+            <!-- 페이징처리 전에 map으로 가져왔던 것 -->
+<!--             <tbody>
             	<tr th:each="n : ${list}">
             		<td>1</td>
             		<td th:text="${n.CATEGORY_NAME}"></td>
             		<td th:text="${n.NOTICE_TITLE}" name="moveToView" th:title="${n.NOTICE_NO}">
-						<!-- <a th:href="@{/admin/noticeView(no=${n.NOTICE_NO})}" ></a> -->
+						<a th:href="@{/admin/noticeView(no=${n.NOTICE_NO})}" ></a>
 					</td>
             		<td th:text="${#dates.format(n.NOTICE_DATE,'yyyy-MM-dd')}"></td>
             		<td th:text="${n.NOTICE_STATUS} eq 0?'게시중':'삭제'"></td>
                 </tr>
-            </tbody>
-            
+            </tbody> -->
+	        <tbody>
+	        	<tr th:each="n : ${list}">
+	        		<td th:text="${n.noticeNo}"></td>
+	        		<td th:text="${n.categoryNo}"></td>
+	        		<td th:text="${n.noticeTitle}" name="moveToView" th:title="${n.noticeNo}">
+			<!-- <a th:href="@{/admin/noticeView(no=${n.NOTICE_NO})}" ></a> -->
+					</td>
+	        		<td th:text="${#dates.format(n.noticeDate,'yyyy-MM-dd')}"></td>
+	        		<td th:text="${n.noticeStatus} eq 0?'게시중':'삭제'"></td>
+	            </tr>
+	        </tbody>    
         </table>
-        <div id="notice_pagebar">
-        <!-- <div>
-        	<p th:text="${cPage}"></p>
-        	<p th:text="${pageNo}"></p>
-        	<p th:text="${pageEnd}"></p>
-        	<p th:text="${totalPage}"></p>
-        	<p th:text="not (${pageNo} > ${pageEnd} or ${pageNo} > ${totalPage})?'1':'2'"></p>
-        	
+        <div id="admin_pagebar">
+			<!-- 이전 -->
+        	<div>
+        		<a href="#" th:if="${cPage} eq 1" >&lt;</a>
+        		<a th:unless="${cPage} eq 1" th:onclick="|fn_ajax_paging('${cPage-1}')|">&lt;</a>
+       		</div>
+       		<!-- th:onclick="${1==cPage}?'|javascript:fn_ajax_paging();|':'|javascript:fn_ajax_paging();|'" -->
+       		<!-- 페이지블록 -->
+	        <div th:each="n:${#numbers.sequence(startpage,endpage)}">
+	        	<!-- <a th:href="@{/admin/notice(page=${n-1})}" th:text="${n}">1</a> -->
+	        	<a th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}">1</a>
+        	</div>
+        	<!-- 다음 -->
+	        <div>
+	        	<a th:if="${endpage==cPage}" href="#">&gt;</a>
+	        	<a th:unless="${endpage==cPage}" th:onclick="|fn_ajax_paging('${cPage+1}')|">&gt;</a>
+        	</div>
+        
+        
+<!--         	<ul class="pagination justify-content-center">
+		  1페이지일대 이전 불가
+		    <li class="page-item" th:classappend="${1==cPage}?'disabled'">
+		      <a class="page-link" href="#" th:href="@{/admin/notice(page=${cPage})}"tabindex="-1" aria-disabled="true">Previous</a>
+		    </li>
+		    
+		    th:classappend => true일때만 class적용하기, i와 현재페이지가 같을 때 disabled적용
+		    <li class="page-item " th:classappend="${i==cPage}?'disabled'" th:each="i :${#numbers.sequence(startpage,endpage)}">
+		    	<a class="page-link" href="#" th:href="@{/admin/notice(page=${i-1})}" th:text="${i}">1</a>
+	    	</li>
+	    	
+	    	마지막페이지일때 다음 불가
+		    <li class="page-item" th:classappend="${list.totalPages==cPage}?'disabled'">
+		      <a class="page-link" href="#" th:href="@{/admin/notice(page=${list.pageable.pageNumber+1})}">Next</a>
+		    </li>
+		  </ul> -->
         </div>
-            <div th:if="${pageNo}eq 1">&lt;</div>
-            <div th:unless="${pageNo} eq 1">
-            	<a th:href="@{/admin/notice?cPage=(${cPage}-1)}">&lt;</a>
-            </div>
-         <th:block th:unless="not (${pageNo} > ${pageEnd} or  ${pageNo} > ${totalPage})"
-         			th:each="num : ${#numbers.sequence(1,5)}"
-         	>
-         	<p th:text="${num}"/>
-            <div th:if="${pageNo} eq ${cPage}" th:text="${pageNo}">
-            </div>
-            <div th:unless="${pageNo} eq ${cPage}">
-            	<a th:href="@{/admin/notice?cPage=(${pageNo})}" th:text="${pageNo}"></a>
-            </div>
-          </th:block>
-          	<div th:if="${pageNo}>${totalPage}">&gt;</div>
-            <div th:unless="${pageNo}>${totalPage}">
-            	<a th:href="@{/admin/notice?cPage='${pageNo}'}">&gt;</a>
-            </div> -->	
-            
-            <!-- 페이지바 실패 -->
- <!--            <ul class="pagebar">
-				 <li class="page-item">
-				     <a class="page-link" th:href="@{/admin/notice?cPage=1}" aria-label="Previous">
-				       <span aria-hidden="true">처음</span>
-				     </a>
-				   </li>
-				   <li class="page-item">
-				     <a class="page-link" th:href="@{/admin/notice?cPage={cPage} (page = ${pagebar.prevBlock})}" aria-label="Previous">
-				       <span aria-hidden="true">이전</span>
-				     </a>
-				   </li>
-				   <th:block  th:with="start = ${pagebar.startPage}, end = ${pagebar.endPage}">
-				    <li class="page-item" 
-				    		 th:with="start = ${pagebar.startPage}, end = ${pagebar.endPage}"
-				    		th:each="pageButton : ${#numbers.sequence(start, end)}">
-				    		<a class="page-link" th:href="@{/admin/notice?cPage={cPage} (page = ${pageButton})}" th:text=${pageButton}></a>
-				    </li>
-				   </th:block>
-				   <li class="page-item">
-				     <a class="page-link" th:href="@{?page={page} (page = ${pagebar.nextBlock})}" aria-label="Next">
-				       <span aria-hidden="true">다음</span>
-				     </a>
-				   </li>
-				   <li class="page-item">
-				     <a class="page-link" th:href="@{?page={page} (page = ${pagebar.totalPage})}" aria-label="Previous">
-				       <span aria-hidden="true">끝</span>
-				     </a>
-				   </li>
-				 </ul> -->
-        </div>
-        <button class="admin_buttons" onclick="fn_notice_write();">작성하기</button>
+        	<button class="admin_buttons" onclick="fn_notice_write();">작성하기</button>
     </div>
 </div>
 <script th:inline="javascript">
-//공지사항 view 이동
-$("[name=moveToView]").click((e)=>{
-	const no=e.target.title;
-	console.log(no);
-	$.ajax({
-		url:"/admin/noticeView",
-		data:{"no":no}
-	}).done(function (fragment){
-		$("#target").html(fragment);
+	//페이지바 설정하기
+	var cPage=[[${cPage}]];
+	console.log(cPage);
+
+	
+	//ajax 페이징처리
+	function fn_ajax_paging(i){
+		$.ajax({
+			url:"/admin/notice",
+			data:{
+				"page":i-1
+			}
+		}).done(function(fragment){
+			$("#target").html(fragment);
+		});
+	};
+	
+	
+	//공지사항 view 이동
+	$("[name=moveToView]").click((e)=>{
+		const no=e.target.title;
+		console.log(no);
+		$.ajax({
+			url:"/admin/noticeView",
+			data:{"no":no}
+		}).done(function (fragment){
+			$("#target").html(fragment);
+		});
 	});
-});
 </script>

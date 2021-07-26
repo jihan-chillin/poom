@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.chairking.poom.admin.model.vo.Notice1;
 import com.chairking.poom.admin.mapper.AdminMapper;
 import com.chairking.poom.admin.model.dao.AdminDao;
-import com.chairking.poom.admin.model.vo.Notice;
 @Service
 public class AdminServiceImpl implements AdminService {
 
@@ -33,7 +33,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	//공지사항 등록
 	@Override
-	public int insertNotice(Notice n) {
+	public int insertNotice(Notice1 n) {
 		return dao.insertNotice(n,mapper);
 	}
 

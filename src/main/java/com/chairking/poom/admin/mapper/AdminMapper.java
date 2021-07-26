@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-import com.chairking.poom.admin.model.vo.Notice;
+import com.chairking.poom.admin.model.vo.Notice1;
 
 @Mapper
 public interface AdminMapper {
@@ -21,7 +21,7 @@ public interface AdminMapper {
 	public List<Map<String,Object>> allNotice(int cPage, int numPerpage);
 	
 	@Insert("INSERT INTO NOTICE VALUES(SEQ_NOTICENO.NEXTVAL,#{cate},#{noticeTitle},#{noticeContent},sysdate,default)")
-	public int insertNotice(Notice n);
+	public int insertNotice(Notice1 n);
 	
 	@Select("SELECT * FROM NOTICE WHERE NOTICE_NO=#{no}")
 	public Map<String,Object> selectNotice(String no);
