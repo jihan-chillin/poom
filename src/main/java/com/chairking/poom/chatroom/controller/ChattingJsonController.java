@@ -5,6 +5,7 @@ import com.sun.tools.jconsole.JConsoleContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -88,9 +89,11 @@ public class ChattingJsonController {
 
     @GetMapping("/chat/list/data")
     public Map getChatList(HttpServletRequest req){
+        int numPerPage = 4;
+        int cPage = Integer.parseInt(req.getParameter("cPage"));
         Map<String,Object> result = new HashMap<>();
 
-        List<Map<String,Object>> chatList = service.getChatList();
+        List<Map<String,Object>> chatList = service.getChatList(cPage,numPerPage);
 
         String chatNo = "";
         List memCount = new ArrayList();
