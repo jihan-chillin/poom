@@ -103,7 +103,7 @@ public class BoardController {
 	}
 	
 	//게시글 조회
-	@GetMapping("/board/view/{no}")
+	@GetMapping("/board/view?boadNo={no}")
 	public ModelAndView boardView(@PathVariable("no") String boardNo, ModelAndView mv) {
 		;
 		mv.setViewName("board/board_view");

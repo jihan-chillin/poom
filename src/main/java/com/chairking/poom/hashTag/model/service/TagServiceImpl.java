@@ -15,7 +15,7 @@ public class TagServiceImpl implements TagService{
     private TagMapper mapper;
 
     @Override
-    public int insertTag(Map tag) {
+    public int insertTag(String tag) {
         return dao.insertTag(mapper,tag);
     }
 }

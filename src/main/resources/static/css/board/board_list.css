@@ -75,9 +75,14 @@ table#all-boardlist-table td:nth-of-type(2){
 }
 
 
-table#all-boardlist-table td:nth-of-type(1)>span:nth-of-type(1){
+table#all-boardlist-table td:nth-of-type(1)>a>span:nth-of-type(1){
 	font-size: 30px;
 	padding-right: 10px;
+}
+
+table#all-boardlist-table td:nth-of-type(1)>span:first-of-type{
+	font-size: 15px;
+	color: grey;
 }
 
 table#all-boardlist-table td:nth-of-type(4){

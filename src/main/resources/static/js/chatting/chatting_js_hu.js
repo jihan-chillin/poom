@@ -256,6 +256,11 @@ function enterChatroom(chatNo,memberId,url){
 }
 
 
+let listCount = 0;
+let targetContainer = $('#room-container');
+let winTop;
+let onTop;
+
 function moveChatList(){
   $('.feed>*').remove();
 
@@ -274,6 +279,9 @@ function moveChatList(){
 
   $.ajax({
     url:'/chat/list/data',
+    data:{
+      "cPage":listCount
+    },
     success:data=>{
       const memberId = data.loginMember.MEMBER_ID;
 
@@ -323,7 +331,50 @@ function moveChatList(){
       $('.chatroom-list-container').append(val);
     }
   });
+  listCount++;
 }
+//
+// function listCall(){
+//   // winTop = $('#room-container').prop('scrollHeight');
+//
+//   winTop = $('.feed').height();
+//
+//   onTop = $('.feed').height()-$('.chatroom-list-container').height()
+//     -$('.room-menu').height()-$('.board-title').height();
+//   console.log("winTop" + winTop);
+//   console.log("onTop" + onTop);
+// }
+//
+// $('#room-container').scroll(e=>{
+//   listCall();
+// });
+
+$(function(){
+  let win = $('.feed');
+
+// Each time the user scrolls
+  win.scroll(function() {
+    // console.log("gd");
+    // console.log(win.height());
+    // console.log(win.scrollTop());
+
+    // console.log($('#room-container').height());
+
+    // End of the document reached?
+    // console.log(win.prop('scrollHeight')- doc.prop('scrollHeight'));
+    // console.log( win.scrollTop()
+    // );
+
+    // console.log($('#room-container').height()-win.height());
+    let height = $('#room-container').height()-win.height();
+    if ( win.scrollTop() === height) {
+
+      console.log("스크롤 탑 : " + win.scrollTop());
+      console.log("높이  : " + height);
+    }
+  });
+
+});
 
 // 세부 채팅방 세부화면으로
 // 화면 가져오기용.
