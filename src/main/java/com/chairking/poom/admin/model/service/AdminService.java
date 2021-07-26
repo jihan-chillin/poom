@@ -6,7 +6,7 @@ import java.util.Map;
 import com.chairking.poom.admin.model.vo.Notice;
 
 public interface AdminService {
-
+	//공지
 	int countAllNotice();
 	List<Map<String,Object>> allNotice(int cPage, int numPerpage);
 	int insertNotice(Notice n);
@@ -15,6 +15,5 @@ public interface AdminService {
 	int realDelete(String no);
 	int changeStatus(String no);
 	
-	List<Map<String,Object>> allBoardBlame(int cPage, int numPerpage);
-	int insertBlame(Map<String,String> map);
+	
 }

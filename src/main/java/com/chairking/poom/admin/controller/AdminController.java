@@ -70,35 +70,6 @@ public class AdminController {
 		return mv;
 	}
 	
-	//신고관리 메뉴 페이지
-	@GetMapping("/blame")
-	public ModelAndView blame(String type,ModelAndView mv,
-			@RequestParam(value="cPage", defaultValue="1") int cPage) {
-		List<Map<String,Object>> list = null;
-		String title=null;
-		switch(type) {
-			case "blame": case "1" : list = service.allBoardBlame(cPage,10); title="신고된 게시글 관리";break;
-			case "2" : list = service.allBoardBlame(cPage,10); title="신고된 댓글 관리";break;
-			case "3" : list = service.allBoardBlame(cPage,10); title="신고된 채팅 관리";break;
-			case "4" : list = service.allBoardBlame(cPage,10); title="정지된 회원 관리";break;
-		}
-		
-		mv.addObject("list", list);
-		mv.addObject("type", type);
-		System.out.println("type : "+type);
-		mv.addObject("blame_title", title);
-		mv.setViewName("admin/admin_blame");
-		return mv;
-	}
-	
-	//ajax
-	@GetMapping("/pay")
-	public ModelAndView pay(String type,ModelAndView mv) {
-		mv.addObject("type",type);
-		mv.setViewName("admin/admin_pay");
-		return mv;
-	}
-	
 	//공지사항글쓰기
 	@GetMapping("/moveWrite")
 	public ModelAndView moveWrite(ModelAndView mv) {

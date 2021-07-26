@@ -1,8 +1,7 @@
 package com.chairking.poom.admin.controller;
 
+import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,20 +13,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.chairking.poom.admin.model.service.AdminService;
+import com.chairking.poom.admin.model.service.BlameService;
 
 @Controller
 @RequestMapping("/blame")
 public class BlameController {
 	@Autowired
-	private AdminService service;
+	private BlameService service;
 	
-	//채팅방 신고
-	@GetMapping("/chatBlame")
-	public ModelAndView chatBlame(HttpServletRequest req, ModelAndView mv) {
-		//System.out.println("chatNo:"+req.getParameter("chatNo"));
-		//System.out.println("memberId:"+req.getParameter("memberId"));
-		mv.setViewName("admin/admin");
+	//신고관리 메뉴 페이지
+	@GetMapping()
+	public ModelAndView blame(String type,ModelAndView mv,
+			@RequestParam(value="cPage", defaultValue="1") int cPage) {
+		String title=null;
+		switch(type) {
+			case "blame": case "1" : title="신고된 게시글 관리";break;
+			case "2" : title="신고된 댓글 관리";break;
+			case "3" : title="신고된 채팅 관리";break;
+			case "4" : title="정지된 회원 관리";break;
+		}
+		List<Map<String,Object>> list = service.allBlameList(cPage,10);;
+		
+		mv.addObject("list", list);
+		mv.addObject("type", type);
+		System.out.println("type : "+type);
+		mv.addObject("blame_title", title);
+		mv.setViewName("admin/admin_blame");
 		return mv;
 	}
 	
@@ -35,7 +46,6 @@ public class BlameController {
 	@RequestMapping(value="/report",method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView report(@RequestParam Map<String,String> map,ModelAndView mv) {
 		//신고대상 값 보내야함
-		
 		System.out.println("blame/report"+map);
 		mv.addObject("map", map);
 		

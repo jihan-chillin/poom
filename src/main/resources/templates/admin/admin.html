@@ -51,10 +51,6 @@
      
      
   <script th:inline="javascript">
-  	
-  
-  
-  
   	//누르자마자 화면 뜨기
   	const type=[[${type}]];
   	console.log(type);
@@ -76,7 +72,7 @@
 	   		});
 	   	}else if(type=='blame'){
 	   		$.ajax({
-	   			url:"/admin/blame",
+	   			url:"/blame",
 	   			data:{"type":type},
 	   		}).done(function (fragment) {
 	   			$("#target").html(fragment);
@@ -101,7 +97,7 @@
   	//신고 소 메뉴들 클릭시 이동시키기
   	function fn_moveToBlame(i){
   		$.ajax({
-  			url:"/admin/blame",
+  			url:"/blame",
   			data:{"type":i},
   		}).done(function(fragment){
   			$("#target").html(fragment);

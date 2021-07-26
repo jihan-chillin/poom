@@ -15,12 +15,4 @@ public interface AdminDao {
 	int noticeDelete(AdminMapper mapper, String no);
 	int realDelete(AdminMapper mapper, String no);
 	int changeStatus(AdminMapper mapper, String no);
-	
-	List<Map<String,Object>> allBoardBlame(AdminMapper mapper, int cPage, int numPerpage);
-	int insertBoardBlame(AdminMapper mapper, Map<String,String> map);
-	int updateBrdBlameCount(AdminMapper mapper, String no);
-	int insertCommentsBlame(AdminMapper mapper, Map<String,String> map);
-	int updateCommentsBlameCount(AdminMapper mapper, String no);
-	int insertChatBlame(AdminMapper mapper, Map<String,String> map);
-	int updateChatBlameCount(AdminMapper mapper, String no);
 }

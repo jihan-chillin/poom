@@ -17,6 +17,7 @@
                 <th th:case="'3'">방장</th>
                 <th th:case="'4'">작성자</th>
               </th:block>
+              <th>신고 사유</th>
               <th:block th:switch="${type}">
                 <th th:case="'1'">게시글 제목</th>
                 <th th:case="'blame'">게시글 제목</th>
@@ -36,6 +37,7 @@
             		<td><input type="checkbox" name="brd_blame_chk" th:title="${b.BOARD_NO}"></td>
             		<td>1</td>
             		<td th:text="${b.MEMBER_ID}"></td>
+            		<td th:text="${b.BLAME_REASON}"></td>
             		<td th:text="${b.BOARD_TITLE}"></td>
             		<td>누적신고수(추후 COUNT)</td>
             		<td th:text="${b.DEL_STATUS} eq 0?'N':'Y'"></td>
@@ -57,28 +59,7 @@
 		var nick="닉네임";
 		console.log(type,no,nick);
 		window.open("/blame/report?t="+type+"&no="+no+"&id="+nick,"","width=495px,height=530px,top=260px,left=800px,status=no,toolbar=no,scrollbars=no");
-		
-		
-		/* $.ajax({
-			url:"/blame/report",
-			data:{
-				"type":type,
-				"boardNo":brdNo,
-				"nickname":"memberNick"
-			},
-			dataType:"json",
-			type:"POST", 
-			success:data=>{
-				console.log(data);
-				window.open("/blame/report/page?i="+brdNo,"","width=490px,height=470px,top=260px,left=800px,status=no,toolbar=no,scrollbars=no');
-			}
-		}); */
 	}
-	
-	 
-
-
-
 
 $(function(){
 	$("#blame_menu").show();

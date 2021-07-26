@@ -60,43 +60,4 @@ public class AdminServiceImpl implements AdminService {
 	public int changeStatus(String no) {
 		return dao.changeStatus(mapper, no);
 	}
-
-	//게시글 신고 전체 리스트
-	@Override
-	public List<Map<String, Object>> allBoardBlame(int cPage, int numPerpage) {
-		return dao.allBoardBlame(mapper,cPage,numPerpage);
-	}
-
-	//신고하기 팝업 / 신고하기=> insert 각 신고테이블 & 게시글/댓글/채팅 테이블 컬럼 count+1하기
-	@Override
-	@Transactional
-	public int insertBlame(Map<String, String> map) {
-		int result=0;
-		switch(map.get("type")) {
-			case "b" : 
-				result=dao.insertBoardBlame(mapper,map);
-				//각 신고테이블에 들어갔으면 게시글 테이블 컬럼 count+1하기
-				if(result>0) {
-					result=dao.updateBrdBlameCount(mapper,map.get("no"));
-				}
-				break;
-			case "bc" : 
-				result=dao.insertCommentsBlame(mapper,map);
-				if(result>0) {
-					result=dao.updateCommentsBlameCount(mapper,map.get("no"));
-				}
-				break;
-			case "ch" : 
-				result=dao.insertChatBlame(mapper,map);
-				if(result>0) {
-					result=dao.updateChatBlameCount(mapper,map.get("no"));
-				}
-				break;
-		}
-		return result;
-	}
-	
-	
-
-	
 }
