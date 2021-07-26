@@ -84,7 +84,7 @@ public class BoardController {
 		}
 		return mv;
 	}
-	
+
 	//모든 게시글 리스트 가져오는 서비스
 	@GetMapping("/board/all")
 	public ModelAndView selectAllBoard(ModelAndView mv,
@@ -103,8 +103,9 @@ public class BoardController {
 	}
 	
 	//게시글 조회
-	@GetMapping("/board/view")
-	public ModelAndView boardView(String boardNo, ModelAndView mv) {
+	@GetMapping("/board/view/{no}")
+	public ModelAndView boardView(@PathVariable("no") String boardNo, ModelAndView mv) {
+		;
 		mv.setViewName("board/board_view");
 		mv.addObject("board", service.selectBoard(boardNo));
 		mv.addObject("commentList", service.selectCommentList(boardNo));

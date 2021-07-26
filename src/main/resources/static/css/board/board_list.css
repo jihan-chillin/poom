@@ -1,4 +1,4 @@
-#board-content{
+#board-whole-content{
 	width: 1600px;
 	position: fixed;
 	top: 130px;
@@ -10,7 +10,7 @@
 }
 
 div#board_list{
-	width: 1020px;
+	width: 1036px;
 	background-color: #f7f7f7;
 	border-radius: 20px;
 	text-align: center;
@@ -18,6 +18,7 @@ div#board_list{
 	margin-bottom: 20px;
 	height: 800px;
 	overflow-y: scroll;
+	margin-left: 65px;
 }
 
 /* 카테고리 부분 */
@@ -84,7 +85,7 @@ table#all-boardlist-table td:nth-of-type(4){
 }
 
 table#all-boardlist-table td:nth-of-type(1)>div{
-	margin: 20px 3px;
+	margin: 25px 3px;
 }
 
 table#all-boardlist-table td:nth-of-type(2)>div {

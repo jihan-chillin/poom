@@ -68,6 +68,6 @@ public class BoardServiceImpl implements BoardService {
 	public List<Map> selectCommentList(String boardNo) {
 		return dao.selectCommentList(mapper, boardNo);
 	}
-	
-	
+
+
 }

@@ -66,7 +66,7 @@ $(".email_number input").keyup(function(){
 });
 
 //유효성검사
-$("button[type=submit]").on("click",function(){
+$("button.btn_submit").on("click",function(){
     var email = $("[name=memberEmail2]").val();
     
     if($(this).hasClass('pwBtn')===true) {
@@ -78,11 +78,12 @@ $("button[type=submit]").on("click",function(){
 	    	alert("이메일 인증번호가 일치하지 않습니다.");
 	    	return false;
 	    }
+	    window.open("","popup_window","width=500px,height=300px,top=300px,left=200px");
 	    $("[name=pwFind_form]").submit();
-    }
-    
-    $("[name=idFind_form]").submit();
-    window.open("/duplCheck?type=id&check="+id,"","width=500px,height=300px,top=300px,left=200px");
+    }else {
+	    window.open("","popup_window","width=500px,height=300px,top=300px,left=200px");
+	    $("[name=idFind_form]").submit();
+	}
 })
 
 //취소버튼 클릭시 메인페이지로 이동

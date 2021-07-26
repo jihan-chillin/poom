@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <title>신고하기</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+    	*{
+    		font-family: 'Nanum Gothic', sans-serif;
+    	}
+   		div#popupWrapper{
+			width:470px;
+			border: 1px solid #287094;
+			height:506px;
+		}
+		#blame_title{
+			font-size: 22px;
+			height:50px;
+			line-height: 50px;
+			background-color: #287094;
+			color:white;
+			font-weight: bold;
+			padding-left:40px;
+		}
+		div#popupWrapper>div:first-child{
+			padding-left:40px;
+		}
+		div#popupWrapper>div:nth-child(2){
+			height:300px;
+			text-align:center;
+		}
+		div#popupWrapper>div:nth-child(2)>p{
+			font-size:25px;
+			font-weight:bold;
+			margin-top:70px;
+		}
+		div#popupWrapper>div:nth-child(2) ul{
+			list-style-type: none;
+			padding-left:0;
+			margin-top:10px;
+			border:1px solid #287094;
+			margin:0 30px;
+			display:flex;
+			height:200px;
+			flex-direction:column;
+			justify-content:center;
+		}
+		div#popupWrapper>div:nth-child(3) button{
+		    width: 80px;
+		    height: 40px;
+		    border-radius: 30px;
+		    outline: none;
+		    border: none;
+		    background:#287094;
+		    color: white;
+		    font-size: 15px;
+		    cursor: pointer;
+		    margin-right:17px;
+		    text-align:center;
+		}
+		div#popupWrapper>div:nth-child(3){
+			justify-content: center;
+			align-items:center;
+			display:flex;
+		}
+		.target_span{
+			font-weight: bolder;
+			margin:10px 0;
+		}
+		#popupWrapper span{
+			font-weight: normal;
+		}
+    </style>
+</head>
+<body>
+	<div id="popupWrapper">
+		<div id="blame_title">
+			<span>신고하기</span>
+		</div>
+		<div>
+			<p>신고처리가 완료되었습니다.</p>
+			<ul>
+				<li>
+					<p class="target_span">구분 : 
+					<th:block th:switch="${map.type}">
+						<span th:case="b" >게시판</span>
+						<span th:case="bc" >댓글</span>
+						<span th:case="ch" >채팅</span>
+					</th:block>
+					</p>
+				</li>
+				<li>
+					<p class="target_span" >신고 대상자 : 
+					<span th:text="${map.target_mem}"></span></p>
+				</li>
+				<li>
+					<p class="target_span">사유 : 
+					<span th:text="${map.blame_reason}"></span></p>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<button onclick="window.close();">닫기</button>
+		</div>
+	</div>
+</body>
+</html>

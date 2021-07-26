@@ -125,9 +125,9 @@ table.userfind_table tr>td:last-of-type>button {
     cursor: pointer;
 }
 div.findtab_con>button {
-    width: 70px;
+    width: 80px;
     margin: auto;
-    height: 35px;
+    height: 40px;
     border-radius: 30px;
     margin: 0 5px 70px 5px;
     outline: none;

@@ -23,7 +23,7 @@ public interface LoginMapper {
 	@Select("SELECT * FROM MEMBER WHERE MEMBER_ID=#{id}")
 	public Map<String,Object> selectMember(Map param);
 	
-	@Select("SELECT * FROM MEMBER WHERE MEMBER_EMAIL=#{memberEmail}")
+	@Select("SELECT * FROM MEMBER WHERE MEMBER_NAME=#{memberName} AND MEMBER_EMAIL=#{memberEmail}")
 	public Map<String,Object> idFind(Map param);
 	
 }

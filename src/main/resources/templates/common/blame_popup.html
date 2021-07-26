@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+    <title>신고하기</title>
+
+	<style>
+		*{
+    		font-family: 'Nanum Gothic', sans-serif;
+    	}
+		div#popupWrapper{
+			width:470px;
+			border: 1px solid #287094;
+		}
+		#blame_title{
+			font-size: 22px;
+			height:50px;
+			line-height: 50px;
+			background-color: #287094;
+			color:white;
+			font-weight: bold;
+			padding-left:40px;
+		}
+		div#blame_target{
+			padding-left:40px;
+			border-bottom:1px solid #287094;
+		}
+		div#blame_target ul{
+			list-style-type: none;
+			padding-left:0;
+			margin-top:10px;
+		}
+		div#blame_target li{
+			margin-bottom:5px;
+		}
+		span.target_span{
+			font-weight: bolder;
+		}
+		div#select_reason{
+			padding-left:40px;
+		}
+		div#select_reason>p,div#blame_target>p{
+			font-size: 22px;
+			font-weight: bolder;
+			color:#287094;
+		}
+		div#select_reason input{
+			margin-bottom:20px;
+			margin-right:5px;
+			padding-right:10px;
+		}
+		#label1{
+			margin-left:70px;
+		}
+		#label2{
+			margin-left:64px;
+		}
+		div#select_reason>textarea{
+			margin-bottom:20px;
+			background-color: #f7f7f7;
+		}
+		span#text_cnt{
+			float:right;
+			margin-right:55px;
+			margin-top:15px;
+			font-size: 14px;
+		}
+		div#blame_button{
+			display:flex;
+			margin-bottom: 20px;
+			justify-content: center;
+			padding-left:40px;
+		}
+		div#blame_button button{
+		    width: 80px;
+		    height: 40px;
+		    border-radius: 30px;
+		    outline: none;
+		    border: none;
+		    background:#287094;
+		    color: white;
+		    font-size: 15px;
+		    cursor: pointer;
+		    margin-right:17px;
+		}
+	</style>
+</head>
+<body>
+	<div id="popupWrapper">
+		<div id="blame_title">
+			<span>신고하기</span>
+		</div>
+		<form action="/blame/insertblame" method="post" id="blameFrm">
+			<div id="blame_target">
+				<p>신고대상</p>
+				<ul>
+					<li>
+						<span class="target_span">구분 : </span>
+						<th:block th:switch="${map.type}">
+							<span th:case="b" >게시판</span>
+							<span th:case="bc" >댓글</span>
+							<span th:case="ch" >채팅</span>
+						</th:block>
+						<th:block th:switch="${map.type}">
+							<input th:case="b" type="hidden" name="type" th:value="b" >
+							<input th:case="bc" type="hidden" name="type" th:value="bc">
+							<input th:case="ch" type="hidden" name="type" th:value="ch">
+						</th:block>
+						<input type="hidden" name="no" th:value="${map.no}">
+					</li>
+					<li>
+						<span class="target_span" >신고 대상자 : </span><span th:text="${map.id}"></span>
+						<input type="hidden" name="target_mem" th:value="${map.id}"/>
+					</li>
+				</ul>
+			</div>
+			<div id="select_reason">
+				<p>신고사유</p>
+				<label><input type="radio" name="blame_reason" value="음란성/선정성">음란성/선정성</label>
+				<label id="label1"><input type="radio" name="blame_reason" value="욕설/인신공격">욕설/인신공격</label><br>
+				<label><input type="radio" name="blame_reason" value="스팸/광고/도배">스팸/광고/도배</label>
+				<label id="label2"><input type="radio" name="blame_reason" value="권리침해">권리침해</label><br>
+				<label>
+					<input type="radio" name="blame_reason" value="기타">기타 : 사유작성</label>
+					<span id="text_cnt">(0/20)</span>
+					<br>
+					<textarea id="reason_write" name="textarea" readonly cols="50" rows="3" placeholder="20자 이내로 작성해주세요"></textarea>
+			</div>
+			<div id="blame_button">
+				<button type="button" onclick="fn_blameForm_submit();">신고하기</button>
+				<button type="button" style="background-color: #f7f7f7;color:black;" onclick="window.close();">닫기</button>
+			</div>
+		</form>
+	</div>
+	<script>
+		//form submit하기
+		function fn_blameForm_submit(){
+			$("#blameFrm").submit();
+			
+			/* $.ajax({
+				url:"/blame/blameSuccess",	
+			}).done(function (fragment){
+				$("#popupWrapper").html(fragment);
+			}); */
+			//console.log('submit');
+			
+			//window.close();
+		}
+		
+		//기타 누를때만 textarea 작성
+		$("input[name='blame_reason']:last").click(e=>{
+			$("#reason_write").attr("readonly",false);
+			$("#reason_write").css("background","white");
+			
+		});
+		$("input[name='blame_reason']").not("input[name='blame_reason']:last").click(e=>{
+			$("#reason_write").attr("readonly",true);
+			$("#reason_write").css("background","#f7f7f7");
+			
+		})
+	
+		//textarea 글자수 세기
+		$(function() {
+		    $('#reason_write').on('keyup', function() {
+		        $('#text_cnt').html("("+$(this).val().length+" / 20)");
+		 
+		        if($(this).val().length > 20) {
+		            $(this).val($(this).val().substring(0, 20));
+		            $('#text_cnt').html("(20 / 20)");
+		        }
+		    });
+		});
+	</script>
+</body>
+</html>
