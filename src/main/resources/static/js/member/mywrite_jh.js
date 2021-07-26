@@ -6,7 +6,8 @@ function mycomment(){
     $.ajax({
         url:'/mycomment',
         success:function(result){
-            $('#ajaxcontent').html(result)
+            $('.feed').html(result)
+            $('.feed').attr('style', 'height:1000px')
         }
     })
 }
@@ -18,7 +19,7 @@ function mylike(){
     $.ajax({
         url:'/mylike',
         success:function(result){
-            $('#ajaxcontent').html(result)
+            $('.feed').html(result)
         }
     })
 }

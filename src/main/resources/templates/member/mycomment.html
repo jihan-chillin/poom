@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
+<div id="mycomment-whole-content">
+    <div id ="mycomment-content">
+        <!-- 글 카테고리 -->
+        <div id="comment-bar">
+            <ul>
+                <li><img src="/../../images/ui/chat.png"></li>
+                <li><button class="mywrite-btn" onclick="barmywrite();">내가 쓴 글</button></li>
+                <li><button class="mycomment-btn" >내가 쓴 댓글</button></li>
+                <li><button class="mylike-btn" onclick="mylike();">내가 찜한 글</button></li>
+                <!--            <li><img src="/../../images/mywrite/comment.png"></li>-->
+            </ul>
+        </div>
 
-<div id ="mycomment-content">
-    <!-- 글 카테고리 -->
-    <div id="comment-bar">
-        <ul>
-            <li><img src="/../../images/ui/chat.png"></li>
-            <li><button class="mywrite-btn" onclick="barmywrite();">내가 쓴 글</button></li>
-            <li><button class="mycomment-btn" >내가 쓴 댓글</button></li>
-            <li><button class="mylike-btn" onclick="mylike();">내가 찜한 글</button></li>
-<!--            <li><img src="/../../images/mywrite/comment.png"></li>-->
-        </ul>
-    </div>
+        <!--댓글 리스트-->
+        <div id="comment-list">
+            <table>
+                <thead>
+                <th>닉네임</th>
+                <th>제목</th>
+                <th>내 댓글</th>
+                <th>날짜</th>
+                </thead>
 
-    <!--댓글 리스트-->
-    <div id="comment-list">
-        <table>
-            <thead>
-            <th>닉네임</th>
-            <th>제목</th>
-            <th>내 댓글</th>
-            <th>날짜</th>
-            </thead>
+                <tbody>
+                <tr>
+                    <!--            <tr th:each="c : ${cList}" >-->
+                    <!--                <td th:text="${c.MEMBER_NICKNAME}"></td>-->
+                    <!--                <td th:text="${c.BOARD_TITLE}"></td>-->
+                    <!--                <td th:test="${c.COMMENT_CONTENT}"></td>-->
+                    <!--                <td th:text="${#dates.format(c.COMMENT_DATE, 'yyyy-MM-dd')}"></td>-->
+                    <td>코줍</td>
+                    <td>이거제목</td>
+                    <td>이거 댓글</td>
+                    <td>댓글 날짜 </td>
+                </tr>
 
-            <tbody>
-            <tr>
-<!--            <tr th:each="c : ${cList}" >-->
-<!--                <td th:text="${c.MEMBER_NICKNAME}"></td>-->
-<!--                <td th:text="${c.BOARD_TITLE}"></td>-->
-<!--                <td th:test="${c.COMMENT_CONTENT}"></td>-->
-<!--                <td th:text="${#dates.format(c.COMMENT_DATE, 'yyyy-MM-dd')}"></td>-->
-                <td>코줍</td>
-                <td>이거제목</td>
-                <td>이거 댓글</td>
-                <td>댓글 날짜 </td>
-            </tr>
+                </tbody>
+            </table>
 
-            </tbody>
-        </table>
+        </div>
 
     </div>
 
 </div>
+
 
