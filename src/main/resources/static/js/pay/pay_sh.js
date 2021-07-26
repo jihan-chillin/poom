@@ -2,7 +2,7 @@
 function pay()	{
 	console.log("${loginMember}");
 	var IMP = window.IMP; // 생략가능
-	IMP.init('iamport'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+	IMP.init('imp65464808'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 	// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 	// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
 	IMP.request_pay({
@@ -29,42 +29,32 @@ function pay()	{
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : '7일 이용권',
 	    /* 결제창에서 보여질 이름 */
-	    amount : 1,
+	    amount : 10,
 	    /* 가격 */
 	    buyer_email : 'test@test.com',
 	    buyer_name : '테스트',
-	    item : 'item',
-	    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
-	    /*
-	    	모바일 결제시,
-	    	결제가 끝나고 랜딩되는 URL을 지정
-	    	(카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
-	    */
+	    buyer_id : 'test'
 	}, function(rsp) {
 	    if ( rsp.success ) {
-	        var msg = '결제가 완료되었습니다.';
-	        msg += '고유ID : ' + 'test'; //유저아이디
-	        msg += '상점 거래ID : ' + rsp.merchant_uid;
-	        msg += '결제 금액 : ' + 1;
-	        msg += '카드 승인번호 : ' + rsp.apply_num;
+	    	alert("아임포트 서버 결제성공");
 	        
 	        /* db에 결제내역 전송 */
 	        $.ajax({
 	        	url:"/pay/payment",
+	        	method:"post",
 	        	data:{
-	        		memberId:"test",
-	        		itemNo:"1"
+					memberId:"test",
+					itemNo:"1"
 	        	},
 	        	success:data=>{
-	        		$("#content").html(data);
+	        		console.log("서버 저장 성공");
+	        		//$("#content").html(data);
 	        	}
 	        });
 	        
 	    } else {
-	        var msg = '결제에 실패하였습니다.';
-	        msg += '에러내용 : ' + rsp.error_msg;
+	        alert("아임포트 서버 결제실패");
 	    }
-	    alert(msg);
 	});
 }
 
