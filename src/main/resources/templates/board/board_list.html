@@ -1,85 +1,59 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<head>
-    <div th:replace="/fragments/header.html :: fragment-header"></div>
-    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/board/board_list.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_view.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_form.css}">
-</head>
-<body>
-<div id="wrapper">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
-	<!-- 헤더바 -->
-    <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
-	<!-- 좌측메뉴바 -->
-    <div th:replace="/fragments/nav.html :: fragment-nav"></div>
-    
-	<div id="board-content">
+<!--  boardList 스타일 적용-->
 
-		 <!-- 프로필 -->
-	   	<div th:replace="/fragments/profile.html :: fragment-profile"></div>
+<div id="board-whole-content">
 
-		<!-- 게시글 리스트 -->
-
-		<div id="board_list">
-			<div id = board-list-catebar>
-				<span>카테고리명</span><br>
-				<button type="button" class="write-btn goto-write-btn" onclick="movetoForm();">글쓰기</button>
-			</div>
-
-			<div id ="board_list-table">
-				<form>
-					<table id = "all-boardlist-table">
-						<tbody>
-						<!--글 리스트 -->
-						<tr th:each=" b:${oList}">
-<!--							<td th:text="${b.BOARD_TITLE} + '('+${b.CNT}+')'"></td>-->
-<!--							<td><div class="textlimit"><a href="#" th:text="${b.BOARD_CONTENT}"></div></a></td>-->
-<!--							<td th:text="${#dates.format(b.BOARD_DATE, 'yyyy-MM-dd')}"></td>-->
-<!--							<td><div><img src="/../../images/ui/tag.png" alt=""> </div></td>-->
-								<td colspan="3">
-									<span th:text="${b.BOARD_TITLE} + '('+${b.CNT}+')'" onclick=""></span>
-									<span th:text="${#dates.format(b.BOARD_DATE, 'yyyy-MM-dd')}"></span><br>
-									<div class="textlimit"><span><a href="#" th:text="${b.BOARD_CONTENT}"></a></span></div>
-								</td>
-								<td>
-									<div><img src="/../../images/ui/tag.png" alt=""></div>
-								</td>
-						</tr>
-
-						<!-- 페이지 바 -->
-						<tr class="page-tr">
-							<td colspan="4">
-								<span>페이지바</span>
-							</td>
-						</tr>
-
-						<!-- 제목 / 제목+내용 검색 창 & 글쓰기 버튼-->
-						<tr>
-							<td colspan="4">
-								<input type="text" id="title-searchbar" name="searchbar" placeholder="- 제목 / 제목+내용">
-								<input type="submit" class="search-btn" name="search-btn" value="검색">
-							</td>
-						</tr>
-						</tbody>
-					</table>
-				</form>
-			</div>
-
+	<div id="board_list">
+		<div id = board-list-catebar>
+			<span>전체 글</span><br>
+			<button type="button" class="write-btn goto-write-btn" onclick="movetoForm();">글쓰기</button>
 		</div>
 
-		<!-- HOT키워드순위창 -->
-	   <div th:replace="/fragments/rank.html :: fragment-rank"></div>
-		
+		<div id ="board_list-table">
+			<form>
+				<table id = "all-boardlist-table">
+					<tbody>
+					<!--글 리스트 -->
+					<tr th:each=" b:${oList}">
+
+						<td colspan="3">
+
+							<a th:href="@{'/board/view?boardNo='+${b.BOARD_NO}}">
+								<span th:text="${b.BOARD_TITLE} + '('+${b.CNT}+')'"></span>
+							</a>
+
+							<span th:text="${#dates.format(b.BOARD_DATE, 'yyyy-MM-dd')}"></span><br>
+
+							<div class="textlimit"><span><a href="#" th:text="${b.BOARD_CONTENT}"></a></span></div>
+
+						</td>
+
+						<td>
+							<div><img src="/../../images/ui/tag.png" alt=""></div>
+						</td>
+					</tr>
+
+					<!-- 페이지 바 -->
+					<tr class="page-tr">
+						<td colspan="4">
+							<span>페이지바</span>
+						</td>
+					</tr>
+
+					<!-- 제목 / 제목+내용 검색 창 & 글쓰기 버튼-->
+					<tr>
+						<td colspan="4">
+							<input type="text" id="title-searchbar" name="searchbar" placeholder="- 제목 / 제목+내용">
+							<input type="submit" class="search-btn" name="search-btn" value="검색">
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+
 	</div>
+
 </div>
-</body>
-	
-<script th:src="@{/js/board/board_list_sh.js}"></script>
-<script th:src="@{/js/board/board_form_sh.js}"></script>
-	
-</html>

@@ -68,7 +68,7 @@ function onMessageReceived(payload){
     message.messageContent = message.memberId+'채팅방을 나갔습니다.';
 
   }else{
-    console.log("페이로드"+payload)
+    // console.log("페이로드"+payload)
     // messageElement.append(message.messageContent);
 
     getChatList(chatNo,'/chat/mychat/member',message.memberId);
@@ -76,7 +76,7 @@ function onMessageReceived(payload){
 }
 
 function getAvatarColor(messageSender){
-  console.log(messageSender);
+  // console.log(messageSender);
 
   let hash = 0;
   for (let i = 0; i < messageSender.length; i++) {

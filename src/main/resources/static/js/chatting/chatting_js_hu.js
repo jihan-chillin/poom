@@ -148,7 +148,6 @@ function getMyChatroom(chatNo,url){
 
       for(let i =0; i < data.list.length; i++){
         val += '<div class="entered-mem"><span>';
-        val += '<img width="30" height="30"></span>';
         val += '<span>'+data.list[i].MEMBER_ID+'</span></div>';
       }
       $('.entered-mem-list>div').html(val);
@@ -200,20 +199,28 @@ function getChatList(chatNo,url,memberId){
       for(let i=0; i<data.messageContent.length; i++){
       // 내가 쓴 메세지 일때
         if(loginId === data.messageContent[i].MEMBER_ID){
-          val += '<div class="my-profile">';
+          val += '<div class="my-chat">';
+          // val += data.messageContent[i].MEMBER_ID+'</div>';
+          val += '<div></div>';
+          val += '<div></div>';
+          val += '<div></div>';
+          val += '<div class="message-blue"><div class="message-content">';
+          val += data.messageContent[i].MESSAGE_CONTENT+'</div>';
+          // val += '<div class="my-profile">';
           // 아바타 만들기
-          val +='<i class="chat-avatar">'+(data.messageContent[i].MEMBER_ID).substring(0,1)+'</i>';
-          val += data.messageContent[i].MEMBER_ID+'</div>';
-
-          val += '<div class="message-orange"><div class="message-content">';
-          val += data.messageContent[i].MESSAGE_CONTENT+'</div></div>';
+          // val +='<i class="chat-avatar">'+(data.messageContent[i].MEMBER_ID).substring(0,1)+'</i></div>';
+          val += '</div></div>';
         }else{
+          val += '<div class="other-chat">';
           val += '<div class="others-profile">';
           // 아바타 만들기
-          val +='<i class="chat-avatar">'+(data.messageContent[i].MEMBER_ID).substring(0,1)+'</i>';
-          val += data.messageContent[i].MEMBER_ID+'</div>';
+          val +='<i class="chat-avatar">'+(data.messageContent[i].MEMBER_ID).substring(0,1)+'</i></div>';
+          // val += data.messageContent[i].MEMBER_ID+'</div>';
+          val += '<div>'+data.messageContent[i].MEMBER_ID+'</div>';
+          val += '<div></div>';
           val += '<div class="message-blue"><div class="message-content">';
-          val += data.messageContent[i].MESSAGE_CONTENT+'</div></div>';
+          val += data.messageContent[i].MESSAGE_CONTENT+'</div>';
+          val += '</div></div>';
         }
 
 
