@@ -42,11 +42,17 @@ public class LoginServiceImpl implements LoginService {
 	public Map<String, Object> idFind(Map param) {
 		return dao.idFind(mapper,param);
 	}
-
+	
 	@Override
 	public Map<String, Object> pwFind(Map param) {
 		return dao.pwFind(mapper,param);
 	}
+
+	@Override
+	public int updatePw(Map param) {
+		return dao.updatePw(mapper, param);
+	}
+	
 	
 	
 	

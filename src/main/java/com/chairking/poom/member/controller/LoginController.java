@@ -142,7 +142,7 @@ public class LoginController {
 				memberTag.put("keyword",keyword[i]);
 				result2 = service.inesrtMemberKeyword(memberTag);
 				// 테그 테이블에 회원가입시 입력한 태그들 추가. by 희웅
-				tagController.insertTag(memberTag);
+				//tagController.insertTag(memberTag);
 				mv.addObject("msg",result>0&&result2>0?"회원가입성공":"회원가입실패, 다시 시도해주세요.");
 			}
 		}else {
@@ -207,11 +207,30 @@ public class LoginController {
 	//PW 찾기
 	@PostMapping("/pwFind")
 	public ModelAndView pwFind(@RequestParam Map param, ModelAndView mv) {
-		Map<String, Object> m = service.selectMember(param);
+		Map<String, Object> m = service.pwFind(param);
 		
 		mv.addObject("type","pw");
 		mv.addObject("m",m);
 		mv.setViewName("login/findresult");
+		
+		return mv;
+	}
+	
+	//PW찾기 -> 새 비밀번호로 변경
+	@PostMapping("/updatePw")
+	public ModelAndView updatePw(@RequestParam Map param, ModelAndView mv) {
+		System.out.println(param);
+		//비밀번호 암호화
+		param.put("memberPw", pwEncoder.encode((String)param.get("memberPw")));
+		System.out.println(param.put("memberPw", pwEncoder.encode((String)param.get("memberPw"))));
+		
+		int result = service.updatePw(param);
+		
+		if(result>0) {
+			mv.addObject("goIndex","goIndex");
+			mv.addObject("msg","비밀번호 변경을 완료하였습니다.");
+			mv.setViewName("common/msg");
+		}
 		
 		return mv;
 	}
