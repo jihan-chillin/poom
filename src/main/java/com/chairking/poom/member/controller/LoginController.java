@@ -7,6 +7,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.chairking.poom.hashTag.controller.TagController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -32,7 +33,10 @@ import lombok.extern.slf4j.Slf4j;
 @SessionAttributes("loginMember")
 @Slf4j
 public class LoginController {
-	
+
+	@Autowired
+	TagController tagController;
+
 	@Autowired	
 	LoginService service;
 	
@@ -137,6 +141,8 @@ public class LoginController {
 				memberTag.put("id", (String)m.get("memberId"));
 				memberTag.put("keyword",keyword[i]);
 				result2 = service.inesrtMemberKeyword(memberTag);
+				// 테그 테이블에 회원가입시 입력한 태그들 추가. by 희웅
+				tagController.insertTag(memberTag);
 				mv.addObject("msg",result>0&&result2>0?"회원가입성공":"회원가입실패, 다시 시도해주세요.");
 			}
 		}else {

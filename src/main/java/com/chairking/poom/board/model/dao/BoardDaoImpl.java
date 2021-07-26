@@ -41,8 +41,8 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Map> selectCommentList(BoardMapper mapper, String boardNo) {
 		return mapper.selectCommentList(boardNo);
 	}
-	
-	 
-	
+
+
+
 
 }
