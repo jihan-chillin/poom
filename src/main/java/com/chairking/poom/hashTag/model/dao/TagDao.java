@@ -5,5 +5,5 @@ import com.chairking.poom.hashTag.mapper.TagMapper;
 import java.util.Map;
 
 public interface TagDao {
-    int insertTag(TagMapper mapper, Map tag);
+    int insertTag(TagMapper mapper, String tag);
 }

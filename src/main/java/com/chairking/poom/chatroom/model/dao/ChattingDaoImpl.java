@@ -2,12 +2,14 @@ package com.chairking.poom.chatroom.model.dao;
 
 import com.chairking.poom.chatroom.mapper.ChattingMapper;
 import com.chairking.poom.chatroom.model.vo.ChatMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;
 
 @Repository
+@Slf4j
 public class ChattingDaoImpl implements ChattingDao{
 
     @Override
@@ -35,9 +37,11 @@ public class ChattingDaoImpl implements ChattingDao{
         return cm.saveMessage(chatMessage);
     }
 
+    // 페이징 처리
     @Override
-    public List<Map<String,Object>> getChatList(ChattingMapper cm) {
-        return cm.getChatList();
+    public List<Map<String,Object>> getChatList(ChattingMapper cm,int cPage, int numPerPage) {
+        return cm.getChatList((cPage-1)*numPerPage+1,numPerPage*cPage);
+//        return cm.getChatList(cPage,numPerPage);
     }
 
     @Override

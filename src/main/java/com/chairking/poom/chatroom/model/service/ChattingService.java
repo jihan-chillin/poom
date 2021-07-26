@@ -11,7 +11,7 @@ public interface ChattingService {
     List<Map> enteredMem(String chatNo);
     List<Map> messageContent(String chatNo,int ref);
     int saveMessage(ChatMessage chatMessage);
-    List<Map<String,Object>> getChatList();
+    List<Map<String,Object>> getChatList(int cPage, int numPerPage);
     Map getChatroomData(String chatNo);
     int insertChatroomData(Map<String,Object> data);
     String getChatNo();

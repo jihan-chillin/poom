@@ -148,7 +148,6 @@ function getMyChatroom(chatNo,url){
 
       for(let i =0; i < data.list.length; i++){
         val += '<div class="entered-mem"><span>';
-        val += '<img width="30" height="30"></span>';
         val += '<span>'+data.list[i].MEMBER_ID+'</span></div>';
       }
       $('.entered-mem-list>div').html(val);
@@ -179,7 +178,7 @@ function getMyChatroom(chatNo,url){
 }
 
 // 채팅방 내용 불러오기
-function getChatList(chatNo,url,memberId,avatar){
+function getChatList(chatNo,url,memberId){
   $.ajax({
     url:url,
     data:{
@@ -196,23 +195,37 @@ function getChatList(chatNo,url,memberId,avatar){
       // 나눠야함.
       // 로그인이 안만들어져서 test 아이디로 함. -> 수정필요함.
       let loginId =  memberId;
-      console.log(avatar);
 
       for(let i=0; i<data.messageContent.length; i++){
       // 내가 쓴 메세지 일때
         if(loginId === data.messageContent[i].MEMBER_ID){
-          val += '<div  class="my-profile">';
-          val += '<img width="30px" height="30px">'+data.messageContent[i].MEMBER_ID+'</div>';
-          val += '<div class="message-orange"><div class="message-content">';
-          val += data.messageContent[i].MESSAGE_CONTENT+'</div></div>';
-        }else{
-          val += '<div class="others-profile">';
-          val += '<img width="30px" height="30px">'+data.messageContent[i].MEMBER_ID+'</div>';
+          val += '<div class="my-chat">';
+          // val += data.messageContent[i].MEMBER_ID+'</div>';
+          val += '<div></div>';
+          val += '<div></div>';
+          val += '<div></div>';
           val += '<div class="message-blue"><div class="message-content">';
-          val += data.messageContent[i].MESSAGE_CONTENT+'</div></div>';
+          val += data.messageContent[i].MESSAGE_CONTENT+'</div>';
+          // val += '<div class="my-profile">';
+          // 아바타 만들기
+          // val +='<i class="chat-avatar">'+(data.messageContent[i].MEMBER_ID).substring(0,1)+'</i></div>';
+          val += '</div></div>';
+        }else{
+          val += '<div class="other-chat">';
+          val += '<div class="others-profile">';
+          // 아바타 만들기
+          val +='<i class="chat-avatar" style="background-color:'+getAvatarColor(data.messageContent[i].MEMBER_ID)+'">';
+          val += (data.messageContent[i].MEMBER_ID).substring(0,1)+'</i></div>';
+          // val += data.messageContent[i].MEMBER_ID+'</div>';
+          val += '<div>'+data.messageContent[i].MEMBER_ID+'</div>';
+          val += '<div></div>';
+          val += '<div class="message-blue"><div class="message-content">';
+          val += data.messageContent[i].MESSAGE_CONTENT+'</div>';
+          val += '</div></div>';
         }
+
+
       }
-      $('.my-profile').html(avatar);
       $('.msg-container').append(val);
     }
   });
@@ -238,6 +251,8 @@ function enterChatroom(chatNo,memberId,url){
   return 0;
 }
 
+// 페이징 처리위한 변수
+let listCount =1;
 
 function moveChatList(){
   $('.feed>*').remove();
@@ -247,6 +262,7 @@ function moveChatList(){
     success:function(data){
       $('.feed').html(data);
       $('.feed').attr('style','height:905px');
+      $('.chatroom-list-container>*').remove();
     },
     error:(e,m,i)=>{
       console.log(e);
@@ -255,12 +271,20 @@ function moveChatList(){
     }
   });
 
+  getChatroomListData(listCount);
+}
+
+// 채팅방 리스트 가져오는 함수
+function getChatroomListData(listCount){
+  console.log(listCount);
   $.ajax({
     url:'/chat/list/data',
+    data:{
+      "cPage":listCount
+    },
     success:data=>{
       const memberId = data.loginMember.MEMBER_ID;
 
-      $('.chatroom-list-container>*').remove();
       let val = '';
       for(let i=0; i<data.chatList.length; i++){
 
@@ -282,11 +306,11 @@ function moveChatList(){
         }
 
         val += '<div>';
-          val += '<span>...</span>';
-          val += '<div class="chatroom-submenu">';
-              val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
-              val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">신고하기</span></div>';
-          val += '</div>';
+        val += '<span>...</span>';
+        val += '<div class="chatroom-submenu">';
+        val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+        val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">신고하기</span></div>';
+        val += '</div>';
         val += '</div></div>';
 
 
@@ -301,12 +325,34 @@ function moveChatList(){
         val += '<div>'+data.chatRoomMemCount[i]+'명</div>';
         val += '<div>/</div>';
         val += '<div>'+data.chatList[i].CHAT_PERSON+'명</div></div></div></div>';
-      }
 
+
+      }
       $('.chatroom-list-container').append(val);
     }
   });
+
+  listCount++;
 }
+
+// 스크롤시 채팅방 리스트 불러옴
+$(function(){
+  let win = $('.feed');
+  console.log("리스트 카운터 : "+listCount);
+  win.scroll(function() {
+    let height = $('#room-container').height()-win.height();
+
+    console.log("??");
+    if ( win.scrollTop() === height) {
+      listCount++;
+
+      getChatroomListData(listCount);
+    }
+  });
+});
+
+
+
 
 // 세부 채팅방 세부화면으로
 // 화면 가져오기용.

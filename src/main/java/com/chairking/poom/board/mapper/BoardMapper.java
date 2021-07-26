@@ -32,7 +32,7 @@ public interface BoardMapper {
 	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.*, (SELECT COUNT(*) FROM COMMENTS A WHERE A.BOARD_NO = B.BOARD_NO) AS CNT FROM (SELECT * FROM BOARD WHERE DEL_STATUS=0 ORDER BY BOARD_NO DESC)B) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
 	public List<Map<String, Object>> selectAllBoard(int cPage, int numPerpage);
 	
-	//게시글 조회
+	//게시글 상세 조회
 	@Select("SELECT B.*, (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_ID=B.MEMBER_ID) AS B_WRITER FROM BOARD B WHERE BOARD_NO=#{boardNo}")
 	public Map selectBoard(String boardNo);
 	

@@ -8,7 +8,7 @@ import java.util.Map;
 @Repository
 public class TagDaoImpl implements TagDao{
     @Override
-    public int insertTag(TagMapper mapper, Map tag) {
+    public int insertTag(TagMapper mapper, String tag) {
         return mapper.insertTag(tag);
     }
 }

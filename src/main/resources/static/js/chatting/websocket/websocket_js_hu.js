@@ -68,20 +68,15 @@ function onMessageReceived(payload){
     message.messageContent = message.memberId+'채팅방을 나갔습니다.';
 
   }else{
-    console.log("페이로드"+payload)
+    // console.log("페이로드"+payload)
     // messageElement.append(message.messageContent);
 
-    let avatarElement = document.createElement('i');
-    let avatarText = document.createTextNode(message.memberId);
-    avatarElement.appendChild(avatarText);
-    avatarElement.style['background-color'] = getAvatarColor(message.memberId);
-
-    getChatList(chatNo,'/chat/mychat/member',message.memberId,avatarElement);
+    getChatList(chatNo,'/chat/mychat/member',message.memberId);
   }
 }
 
 function getAvatarColor(messageSender){
-  console.log(messageSender);
+  // console.log(messageSender);
 
   let hash = 0;
   for (let i = 0; i < messageSender.length; i++) {
