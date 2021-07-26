@@ -48,15 +48,15 @@ public class BlameController {
 	@Transactional
 	public ModelAndView insertBlame(@RequestParam Map<String,String> map, ModelAndView mv) {
 		
-			if(map.get("textarea").length()>1) {
-				map.put("blame_reason", "기타 - "+map.get("textarea"));
-			}
-			System.out.println("insertblame:"+map);
-			//type에따라 각 해당하는 신고테이블에 넣기
-			int result=service.insertBlame(map);
-			System.out.println("result"+result);
-			mv.addObject("map",map);
-			mv.setViewName("common/blame_popup_suc");
+		if(map.get("textarea").length()>1) {
+			map.put("blame_reason", "기타 - "+map.get("textarea"));
+		}
+		System.out.println("insertblame:"+map);
+		//type에따라 각 해당하는 신고테이블에 넣기
+		int result=service.insertBlame(map);	//서비스에 트랜젝션처리함 근데 에러뜨면 에러페이지 이동하게 해놓거나 msg로 이동하게 해서 처리하기
+		System.out.println("db에 잘 들ㅇ갔니 result"+result);
+		mv.addObject("map",map);
+		mv.setViewName("common/blame_popup_suc");
 		return mv;
 		
 	}

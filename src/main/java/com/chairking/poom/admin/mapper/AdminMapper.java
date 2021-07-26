@@ -13,12 +13,9 @@ import com.chairking.poom.admin.model.vo.Notice;
 
 @Mapper
 public interface AdminMapper {
-
+	//공지
 	@Select("SELECT COUNT(*) FROM NOTICE ")
 	public int countAllNotice();
-	
-//	@Select("select category_name as cate, notice_title as noticeTitle, notice_content as noticeContent, notice_date as noticeDate, notice_status as noticeStatus from notice join category using(category_no) order by 4 desc")
-//	public List<Notice> allNotice();
 	
 	@Select("select * from (select rownum as rnum, a.* from (select * from notice join category using(category_no) order by notice_date desc) a ) where rnum between #{cPage} and #{numPerpage}")
 	public List<Map<String,Object>> allNotice(int cPage, int numPerpage);
@@ -38,10 +35,22 @@ public interface AdminMapper {
 	@Update("UPDATE NOTICE SET NOTICE_STATUS=0 WHERE NOTICE_NO=#{no}")
 	public int changeStatus(String no);
 	
-	
+	//신고
 	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM BOARD_BLAME LEFT JOIN BOARD ON B_TARGET_BOARD_NO = BOARD_NO ORDER BY B_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{cPage} and #{numPerpage}")
 	public List<Map<String,Object>> allBoardBlame(int cPage, int numPerpage);
 	
+	@Insert("INSERT INTO BOARD_BLAME VALUES(SEQ_BRD_BLAME_NO.NEXTVAL,#{no},#{target_mem},sysdate,#{blame_reason})")
+	public int insertBoardBlame(Map<String,String> map);
+	@Update("UPDATE BOARD SET BLAME_COOUNT=BLAME_COUNT+1 WHERE BOARD_NO=#{no}")
+	public int updateBrdBlameCount(String no);
+	
 	@Insert("INSERT INTO COMMENTS_BLAME VALUES(SEQ_BC_BLAME_NO.NEXTVAL,#{target_mem},sysdate,'테스트',#{no},#{blame_reason})")
-	public int insertBlame(Map<String,String> map);
+	public int insertCommentsBlame(Map<String,String> map);
+	@Update("UPDATE COMMENTS SET BC_BLAME_COUNT=BC_BLAME_COUNT+1 WHERE COMMENT_NO=#{no}")
+	public int updateCommentsBlameCount(String no);
+	
+	@Insert("INSERT INTO CHAT_BLAME VALUES(SEQ_CHAT_BLAMENO.NEXTVAL,sysdate,#{target_mem},#{no},#{blame_reason})")
+	public int insertChatBlame(Map<String,String> map);
+	@Update("UPDATE CHAT SET CH_BLAME_COUNT=CH_BLAME_COUNT+1 WHERE CHAT_NO=#{no}")
+	public int updateChatBlameCount(String no);
 }

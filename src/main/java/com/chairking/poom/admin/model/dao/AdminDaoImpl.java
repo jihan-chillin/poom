@@ -51,9 +51,37 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public int insertBlame(AdminMapper mapper, Map<String, String> map) {
-		return mapper.insertBlame(map);
+	public int insertBoardBlame(AdminMapper mapper, Map<String, String> map) {
+		return mapper.insertBoardBlame(map);
 	}
+	
+	@Override
+	public int updateBrdBlameCount(AdminMapper mapper, String no) {
+		return mapper.updateBrdBlameCount(no);
+	}
+
+	@Override
+	public int insertCommentsBlame(AdminMapper mapper, Map<String, String> map) {
+		return mapper.insertCommentsBlame(map);
+	}
+	
+	@Override
+	public int updateCommentsBlameCount(AdminMapper mapper, String no) {
+		return mapper.updateCommentsBlameCount(no);
+	}
+
+	@Override
+	public int insertChatBlame(AdminMapper mapper, Map<String, String> map) {
+		return mapper.insertChatBlame(map);
+	}
+
+	@Override
+	public int updateChatBlameCount(AdminMapper mapper, String no) {
+		return mapper.updateChatBlameCount(no);
+	}
+	
+	
+	
 
 	
 
