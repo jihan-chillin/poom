@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.chairking.poom.member.model.vo.Member;
 @Mapper
@@ -25,5 +26,11 @@ public interface LoginMapper {
 	
 	@Select("SELECT * FROM MEMBER WHERE MEMBER_NAME=#{memberName} AND MEMBER_EMAIL=#{memberEmail}")
 	public Map<String,Object> idFind(Map param);
+	
+	@Select("SELECT * FROM MEMBER WHERE MEMBER_ID=#{id} AND MEMBER_NAME=#{name}")
+	public Map<String,Object> pwFind(Map param);
+	
+	@Update("UPDATE MEMBER SET MEMBER_PW=#{memberPw} WHERE MEMBER_ID=#{memberId} AND MEMBER_NAME=#{memberName}")
+	public int updatePw(Map param);
 	
 }

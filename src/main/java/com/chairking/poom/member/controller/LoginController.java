@@ -163,16 +163,16 @@ public class LoginController {
 		Map<String,Object> m = service.selectMember(param);
 		String msg="로그인 실패! 다시 시도해주세요.";
 		String loc="/";
-		if(m!=null && pwEncoder.matches((String)param.get("pw"), (String)m.get("MEMBER_PW"))) {
-			mv.addObject("loginMember",m);
-			msg="로그인 성공! "+m.get("MEMBER_NAME")+"님, poom에 오신걸 환영합니다!";
-			loc="main";
-		}else if(m!=null && param.get("id").equals("admin") && pwEncoder.matches((String)param.get("pw"), (String)m.get("MEMBER_PW"))) {
+		if(m!=null && param.get("id").equals("admin") && pwEncoder.matches((String)param.get("pw"), (String)m.get("MEMBER_PW"))) {
 			mv.addObject("loginMember",m);
 			msg="poom 관리자님! 관리자페이지에 오신걸 환영합니다!";
 			loc="admin";
+		}else if(m!=null && pwEncoder.matches((String)param.get("pw"), (String)m.get("MEMBER_PW"))) {
+			mv.addObject("loginMember",m);
+			msg="로그인 성공! "+m.get("MEMBER_NAME")+"님, poom에 오신걸 환영합니다!";
+			loc="main";
 		}
-
+		
 		mv.addObject("msg",msg);
 		mv.addObject("loc",loc);
 		mv.setViewName("common/msg");
@@ -182,13 +182,11 @@ public class LoginController {
 	//로그아웃
 	@GetMapping("/logOut")
 	public String logout(HttpSession session, SessionStatus ss) {
-		System.out.println("처음 : "+session);
 		if(session!=null) session.invalidate();
 		if(!ss.isComplete()) {
 			ss.setComplete();
 		}
 		
-		System.out.println("삭제 : "+session);
 		return "redirect:/"; 
 	}
 	
@@ -207,11 +205,28 @@ public class LoginController {
 	//PW 찾기
 	@PostMapping("/pwFind")
 	public ModelAndView pwFind(@RequestParam Map param, ModelAndView mv) {
-		Map<String, Object> m = service.selectMember(param);
+		Map<String, Object> m = service.pwFind(param);
 		
 		mv.addObject("type","pw");
 		mv.addObject("m",m);
 		mv.setViewName("login/findresult");
+		
+		return mv;
+	}
+	
+	//PW찾기 -> 새 비밀번호로 변경
+	@PostMapping("/updatePw")
+	public ModelAndView updatePw(@RequestParam Map param, ModelAndView mv) {
+		//비밀번호 암호화
+		param.put("memberPw", pwEncoder.encode((String)param.get("memberPw")));
+		
+		int result = service.updatePw(param);
+		
+		if(result>0) {
+			mv.addObject("goIndex","goIndex");
+			mv.addObject("msg","비밀번호 변경을 완료하였습니다.");
+			mv.setViewName("common/msg");
+		}
 		
 		return mv;
 	}

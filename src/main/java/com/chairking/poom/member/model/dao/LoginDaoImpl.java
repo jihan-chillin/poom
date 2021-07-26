@@ -34,10 +34,15 @@ public class LoginDaoImpl implements LoginDao {
 	public Map<String, Object> idFind(LoginMapper mapper, Map param) {
 		return mapper.idFind(param);
 	}
-
+	
 	@Override
 	public Map<String, Object> pwFind(LoginMapper mapper, Map param) {
-		return null;
+		return mapper.pwFind(param);
+	}
+
+	@Override
+	public int updatePw(LoginMapper mapper, Map param) {
+		return mapper.updatePw(param);
 	}
 	
 	
