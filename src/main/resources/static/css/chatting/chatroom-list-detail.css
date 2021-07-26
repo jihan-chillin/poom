@@ -78,8 +78,7 @@
   margin-left: 10px;
   font-size:15px;
   text-align: center;
-  /*색상변경해야함*/
-  background-color: red;
+  background-color: #3a5a48;
   color:#ffffff;
   border:2px #000000 solid;
   cursor: pointer;
@@ -94,8 +93,7 @@
   margin-left: 10px;
   font-size:15px;
   text-align: center;
-  /*색상변경해야함*/
-  background-color: #287094;
+  background-color: #e87f4d;
   color:#ffffff;
   border:2px #000000 solid;
   cursor: pointer;
