@@ -7,6 +7,6 @@ import java.util.Map;
 
 @Mapper
 public interface TagMapper {
-    @Insert("insert into tag values(#{keyword})")
-    public int insertTag(Map tag);
+    @Insert("insert into tag values(#{tag})")
+    public int insertTag(String tag);
 }

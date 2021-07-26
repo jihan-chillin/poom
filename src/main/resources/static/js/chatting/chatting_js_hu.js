@@ -148,7 +148,6 @@ function getMyChatroom(chatNo,url){
 
       for(let i =0; i < data.list.length; i++){
         val += '<div class="entered-mem"><span>';
-        val += '<img width="30" height="30"></span>';
         val += '<span>'+data.list[i].MEMBER_ID+'</span></div>';
       }
       $('.entered-mem-list>div').html(val);
@@ -200,19 +199,38 @@ function getChatList(chatNo,url,memberId){
       for(let i=0; i<data.messageContent.length; i++){
       // 내가 쓴 메세지 일때
         if(loginId === data.messageContent[i].MEMBER_ID){
-          val += '<div  class="my-profile">';
-          val += '<img width="30px" height="30px">'+data.messageContent[i].MEMBER_ID+'</div>';
-          val += '<div class="message-orange"><div class="message-content">';
-          val += data.messageContent[i].MESSAGE_CONTENT+'</div></div>';
-        }else{
-          val += '<div class="others-profile">';
-          val += '<img width="30px" height="30px">'+data.messageContent[i].MEMBER_ID+'</div>';
+          val += '<div class="my-chat">';
+          // val += data.messageContent[i].MEMBER_ID+'</div>';
+          val += '<div></div>';
+          val += '<div></div>';
+          val += '<div></div>';
           val += '<div class="message-blue"><div class="message-content">';
-          val += data.messageContent[i].MESSAGE_CONTENT+'</div></div>';
+          val += data.messageContent[i].MESSAGE_CONTENT+'</div>';
+          // val += '<div class="my-profile">';
+          // 아바타 만들기
+          // val +='<i class="chat-avatar">'+(data.messageContent[i].MEMBER_ID).substring(0,1)+'</i></div>';
+          val += '</div></div>';
+        }else{
+          val += '<div class="other-chat">';
+          val += '<div class="others-profile">';
+          // 아바타 만들기
+          val +='<i class="chat-avatar">'+(data.messageContent[i].MEMBER_ID).substring(0,1)+'</i></div>';
+          // val += data.messageContent[i].MEMBER_ID+'</div>';
+          val += '<div>'+data.messageContent[i].MEMBER_ID+'</div>';
+          val += '<div></div>';
+          val += '<div class="message-blue"><div class="message-content">';
+          val += data.messageContent[i].MESSAGE_CONTENT+'</div>';
+          val += '</div></div>';
         }
-      }
 
+
+      }
       $('.msg-container').append(val);
+
+      // 색상 속성 추가.
+      for(let i =0; i<data.messageContent.length; i++){
+        $('.chat-avatar').attr("style",'background-color:'+getAvatarColor(data.messageContent[i].MEMBER_ID));
+      }
     }
   });
 }
@@ -238,6 +256,11 @@ function enterChatroom(chatNo,memberId,url){
 }
 
 
+let listCount = 0;
+let targetContainer = $('#room-container');
+let winTop;
+let onTop;
+
 function moveChatList(){
   $('.feed>*').remove();
 
@@ -256,6 +279,9 @@ function moveChatList(){
 
   $.ajax({
     url:'/chat/list/data',
+    data:{
+      "cPage":listCount
+    },
     success:data=>{
       const memberId = data.loginMember.MEMBER_ID;
 
@@ -305,7 +331,50 @@ function moveChatList(){
       $('.chatroom-list-container').append(val);
     }
   });
+  listCount++;
 }
+//
+// function listCall(){
+//   // winTop = $('#room-container').prop('scrollHeight');
+//
+//   winTop = $('.feed').height();
+//
+//   onTop = $('.feed').height()-$('.chatroom-list-container').height()
+//     -$('.room-menu').height()-$('.board-title').height();
+//   console.log("winTop" + winTop);
+//   console.log("onTop" + onTop);
+// }
+//
+// $('#room-container').scroll(e=>{
+//   listCall();
+// });
+
+$(function(){
+  let win = $('.feed');
+
+// Each time the user scrolls
+  win.scroll(function() {
+    // console.log("gd");
+    // console.log(win.height());
+    // console.log(win.scrollTop());
+
+    // console.log($('#room-container').height());
+
+    // End of the document reached?
+    // console.log(win.prop('scrollHeight')- doc.prop('scrollHeight'));
+    // console.log( win.scrollTop()
+    // );
+
+    // console.log($('#room-container').height()-win.height());
+    let height = $('#room-container').height()-win.height();
+    if ( win.scrollTop() === height) {
+
+      console.log("스크롤 탑 : " + win.scrollTop());
+      console.log("높이  : " + height);
+    }
+  });
+
+});
 
 // 세부 채팅방 세부화면으로
 // 화면 가져오기용.
