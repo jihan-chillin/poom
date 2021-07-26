@@ -1,15 +1,16 @@
 'use strict';
-// 로그인한 세션 아이디를 가져와서 넣어야함
-// 우선 없어서 임시로 넣음
-// let memberId=sessionStorage.getItem("memberId");
-let memberId='test';
 let stompClient=null;
+let memberId =$('#chatmem_id').val();
+
+let colors = [
+  '#2196F3', '#32c787', '#00BCD4', '#ff5652',
+  '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
+];
 
 let messageForm = $('#messageForm');
 let sendMsgContent=$('.send-msg-content');
 
 function connect(event){
-  memberId = 'test';
 
   if(memberId){
     let socket = new SockJS('/ws');
@@ -39,9 +40,7 @@ function onError(error){
 function sendMessage(event) {
   let messageContent = sendMsgContent.val();
   let chatNo = $('.chatNo').val();
-  let memberId=$('#chatmem_id').val();
 
-  // console.log(messageContent);
 
   if(messageContent && stompClient) {
     let chatMessage = {
@@ -71,8 +70,25 @@ function onMessageReceived(payload){
   }else{
     console.log("페이로드"+payload)
     // messageElement.append(message.messageContent);
-    getChatList(chatNo,'/chat/mychat/member',message.memberId);
+
+    let avatarElement = document.createElement('i');
+    let avatarText = document.createTextNode(message.memberId);
+    avatarElement.appendChild(avatarText);
+    avatarElement.style['background-color'] = getAvatarColor(message.memberId);
+
+    getChatList(chatNo,'/chat/mychat/member',message.memberId,avatarElement);
   }
+}
+
+function getAvatarColor(messageSender){
+  console.log(messageSender);
+
+  let hash = 0;
+  for (let i = 0; i < messageSender.length; i++) {
+    hash = 31 * hash + messageSender.charCodeAt(i);
+  }
+  let index = Math.abs(hash % colors.length);
+  return colors[index];
 }
 
 function disconnection(){

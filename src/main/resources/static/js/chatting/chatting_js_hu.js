@@ -179,7 +179,7 @@ function getMyChatroom(chatNo,url){
 }
 
 // 채팅방 내용 불러오기
-function getChatList(chatNo,url,memberId){
+function getChatList(chatNo,url,memberId,avatar){
   $.ajax({
     url:url,
     data:{
@@ -196,6 +196,7 @@ function getChatList(chatNo,url,memberId){
       // 나눠야함.
       // 로그인이 안만들어져서 test 아이디로 함. -> 수정필요함.
       let loginId =  memberId;
+      console.log(avatar);
 
       for(let i=0; i<data.messageContent.length; i++){
       // 내가 쓴 메세지 일때
@@ -211,7 +212,7 @@ function getChatList(chatNo,url,memberId){
           val += data.messageContent[i].MESSAGE_CONTENT+'</div></div>';
         }
       }
-
+      $('.my-profile').html(avatar);
       $('.msg-container').append(val);
     }
   });

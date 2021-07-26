@@ -70,7 +70,7 @@ function blameChatroom(chatNo,memberId){
       return;
     }else{
       $.ajax({
-        url:'/blame/chatBlame',
+        url:'/blame/report',
         data:{
           "chatNo":chatNo,
           "memberId":memberId
