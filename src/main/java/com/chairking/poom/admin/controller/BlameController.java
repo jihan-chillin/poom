@@ -36,7 +36,7 @@ public class BlameController {
 	public ModelAndView report(@RequestParam Map<String,String> map,ModelAndView mv) {
 		//신고대상 값 보내야함
 		
-		System.out.println(map);
+		System.out.println("blame/report"+map);
 		mv.addObject("map", map);
 		
 		mv.setViewName("common/blame_popup");
