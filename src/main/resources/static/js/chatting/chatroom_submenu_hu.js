@@ -69,13 +69,7 @@ function blameChatroom(chatNo,memberId){
     if(!confirm("이 채팅방을 신고하시겠습니까?")){
       return;
     }else{
-      $.ajax({
-        url:'/blame/chatBlame',
-        data:{
-          "chatNo":chatNo,
-          "memberId":memberId
-        }
-      });
+    	window.open("/blame/report?type=ch"+"&no="+chatNo+"&id="+memberId,"","width=495px,height=530px,top=260px,left=800px,status=no,toolbar=no,scrollbars=no");
   }
 
 }

@@ -1,6 +1,7 @@
 'use strict';
-const modal= $('#modal');
-const doc = $('body');
+$(function (){
+  const notiModal= $('#modal');
+  const doc = $('body');
 
 // li.click(e=>{
 //   if(modal.css("display")==='none'){
@@ -8,28 +9,29 @@ const doc = $('body');
 //   }
 // });
 
-doc.click(e=>{
-  let ref =$(e.target)[0].classList;
+  doc.click(e=>{
+    let ref =$(e.target)[0].classList;
 
-  if(ref.contains('noti_icon')){
-    modal.css("display","");
+    if(ref.contains('noti_icon')){
+      notiModal.css("display","");
 
-  }else if(ref.contains("noti-info-alarm")){
-    return;
-  }else if(ref.contains("noti-info-message")){
-    return;
-  }else if(ref.contains("noti-img")){
-    return;
-  }else if(ref.contains("noti-detail")){
-    return;
-  }else if(ref.contains("noti-info-alarm")){
-    return;
-  }else if(ref.contains("modal-title")){
-    return;
-  } else if(ref.contains("modal-content-list")){
-    return;
-  }else{
-    modal.css("display","none");
+    }else if(ref.contains("noti-info-alarm")){
+      return;
+    }else if(ref.contains("noti-info-message")){
+      return;
+    }else if(ref.contains("noti-img")){
+      return;
+    }else if(ref.contains("noti-detail")){
+      return;
+    }else if(ref.contains("noti-info-alarm")){
+      return;
+    }else if(ref.contains("modal-title")){
+      return;
+    } else if(ref.contains("modal-content-list")){
+      return;
+    }else{
+      notiModal.css("display","none");
 
-  }
+    }
+  });
 });
