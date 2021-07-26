@@ -36,8 +36,17 @@ public interface AdminMapper {
 	public int changeStatus(String no);
 	
 	//신고
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM BOARD_BLAME LEFT JOIN BOARD ON B_TARGET_BOARD_NO = BOARD_NO ORDER BY B_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{cPage} and #{numPerpage}")
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM BOARD_BLAME JOIN BOARD ON B_TARGET_BOARD_NO = BOARD_NO ORDER BY B_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{cPage} and #{numPerpage}")
 	public List<Map<String,Object>> allBoardBlame(int cPage, int numPerpage);
+	
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM COMMENTS_BLAME JOIN COMMENTS ON BC_TARGET_COMMENT = COMMENT_NO ORDER BY BC_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{cPage} and #{numPerpage}")
+	public List<Map<String,Object>> allCommentsBlame(int cPage, int numPerpage);
+	
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM CHAT_BLAME JOIN CHAT ON CH_TARGET_CHAT = CHAT_NO ORDER BY CH_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{cPage} and #{numPerpage}")
+	public List<Map<String,Object>> allChatBlame(int cPage, int numPerpage);
+	
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM MEMBER WHERE DEN_STATUS IN('1','2','3') ORDER BY B_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{cPage} and #{numPerpage}")
+	public List<Map<String,Object>> allMemberBlame(int cPage, int numPerpage);
 	
 	@Insert("INSERT INTO BOARD_BLAME VALUES(SEQ_BRD_BLAME_NO.NEXTVAL,#{no},#{target_mem},sysdate,#{blame_reason})")
 	public int insertBoardBlame(Map<String,String> map);

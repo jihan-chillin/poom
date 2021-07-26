@@ -83,7 +83,7 @@
 	   		});
 	   	}else if(type=='pay'){
 	   		$.ajax({
-	   			url:"/admin/pay",
+	   			url:"/payAdmin",
 	   			data:{"type":type},
 	   		}).done(function (fragment) {
 	   			$("#target").html(fragment);

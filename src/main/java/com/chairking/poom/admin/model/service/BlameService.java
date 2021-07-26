@@ -5,6 +5,6 @@ import java.util.Map;
 
 public interface BlameService {
 	//신고
-	List<Map<String,Object>> allBlameList(int cPage, int numPerpage);
+	List<Map<String,Object>> allBlameList(String type,int cPage, int numPerpage);
 	int insertBlame(Map<String,String> map);
 }

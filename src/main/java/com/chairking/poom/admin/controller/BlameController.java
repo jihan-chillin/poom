@@ -32,11 +32,10 @@ public class BlameController {
 			case "3" : title="신고된 채팅 관리";break;
 			case "4" : title="정지된 회원 관리";break;
 		}
-		List<Map<String,Object>> list = service.allBlameList(cPage,10);;
+		List<Map<String,Object>> list = service.allBlameList(type,cPage,10);
 		
 		mv.addObject("list", list);
 		mv.addObject("type", type);
-		System.out.println("type : "+type);
 		mv.addObject("blame_title", title);
 		mv.setViewName("admin/admin_blame");
 		return mv;

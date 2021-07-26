@@ -7,6 +7,9 @@ import com.chairking.poom.admin.mapper.AdminMapper;
 
 public interface BlameDao {
 	List<Map<String,Object>> allBoardBlame(AdminMapper mapper, int cPage, int numPerpage);
+	List<Map<String,Object>> allCommentsBlame(AdminMapper mapper, int cPage, int numPerpage);
+	List<Map<String,Object>> allChatBlame(AdminMapper mapper, int cPage, int numPerpage);
+	List<Map<String,Object>> allMemberBlame(AdminMapper mapper, int cPage, int numPerpage);
 	int insertBoardBlame(AdminMapper mapper, Map<String,String> map);
 	int updateBrdBlameCount(AdminMapper mapper, String no);
 	int insertCommentsBlame(AdminMapper mapper, Map<String,String> map);

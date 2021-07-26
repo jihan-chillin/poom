@@ -179,10 +179,16 @@ table#blame_table tr td:nth-child(2), table#blame_table tr th:nth-child(2){
 }
 table#blame_table tr td:nth-child(3), table#blame_table tr th:nth-child(3),
 table#blame_table tr td:nth-child(6), table#blame_table tr th:nth-child(6),
-table#blame_table tr td:nth-child(5), table#blame_table tr th:nth-child(5){
-    width: 150px;
+table#blame_table tr td:nth-child(7), table#blame_table tr th:nth-child(7){
+    width: 120px;
 }
-
+table#blame_table tr td:nth-child(5), table#blame_table tr th:nth-child(5){
+	width:300px;
+	/* text-align:left; */
+}
+table#blame_table tr td:nth-child(4){
+	font-weight:bold;
+}
 div#admin_content button{
     float: right;
     width: 80px;
