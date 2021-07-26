@@ -43,9 +43,11 @@ public class BlameController {
 		return mv;
 	}
 
+	//신고하기=> insert 각 신고테이블 & 게시글/댓글/채팅 테이블 컬럼 count+1하기
 	@PostMapping("/insertblame")
 	@Transactional
 	public ModelAndView insertBlame(@RequestParam Map<String,String> map, ModelAndView mv) {
+		
 			if(map.get("textarea").length()>1) {
 				map.put("blame_reason", "기타 - "+map.get("textarea"));
 			}
@@ -54,11 +56,6 @@ public class BlameController {
 			int result=service.insertBlame(map);
 			System.out.println("result"+result);
 			mv.addObject("map",map);
-//			if(map.get("textarea").length()<1) {
-//				System.out.println("textarea없음");
-//			}else {
-//				System.out.println("textarea있음");
-//			}
 			mv.setViewName("common/blame_popup_suc");
 		return mv;
 		
