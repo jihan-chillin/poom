@@ -179,7 +179,7 @@ function getMyChatroom(chatNo,url){
 }
 
 // 채팅방 내용 불러오기
-function getChatList(chatNo,url,memberId,avatar){
+function getChatList(chatNo,url,memberId){
   $.ajax({
     url:url,
     data:{
@@ -196,24 +196,34 @@ function getChatList(chatNo,url,memberId,avatar){
       // 나눠야함.
       // 로그인이 안만들어져서 test 아이디로 함. -> 수정필요함.
       let loginId =  memberId;
-      console.log(avatar);
 
       for(let i=0; i<data.messageContent.length; i++){
       // 내가 쓴 메세지 일때
         if(loginId === data.messageContent[i].MEMBER_ID){
-          val += '<div  class="my-profile">';
-          val += '<img width="30px" height="30px">'+data.messageContent[i].MEMBER_ID+'</div>';
+          val += '<div class="my-profile">';
+          // 아바타 만들기
+          val +='<i class="chat-avatar">'+(data.messageContent[i].MEMBER_ID).substring(0,1)+'</i>';
+          val += data.messageContent[i].MEMBER_ID+'</div>';
+
           val += '<div class="message-orange"><div class="message-content">';
           val += data.messageContent[i].MESSAGE_CONTENT+'</div></div>';
         }else{
           val += '<div class="others-profile">';
-          val += '<img width="30px" height="30px">'+data.messageContent[i].MEMBER_ID+'</div>';
+          // 아바타 만들기
+          val +='<i class="chat-avatar">'+(data.messageContent[i].MEMBER_ID).substring(0,1)+'</i>';
+          val += data.messageContent[i].MEMBER_ID+'</div>';
           val += '<div class="message-blue"><div class="message-content">';
           val += data.messageContent[i].MESSAGE_CONTENT+'</div></div>';
         }
+
+
       }
-      $('.my-profile').html(avatar);
       $('.msg-container').append(val);
+
+      // 색상 속성 추가.
+      for(let i =0; i<data.messageContent.length; i++){
+        $('.chat-avatar').attr("style",'background-color:'+getAvatarColor(data.messageContent[i].MEMBER_ID));
+      }
     }
   });
 }

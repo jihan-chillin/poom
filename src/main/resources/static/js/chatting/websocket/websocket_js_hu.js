@@ -71,12 +71,7 @@ function onMessageReceived(payload){
     console.log("페이로드"+payload)
     // messageElement.append(message.messageContent);
 
-    let avatarElement = document.createElement('i');
-    let avatarText = document.createTextNode(message.memberId);
-    avatarElement.appendChild(avatarText);
-    avatarElement.style['background-color'] = getAvatarColor(message.memberId);
-
-    getChatList(chatNo,'/chat/mychat/member',message.memberId,avatarElement);
+    getChatList(chatNo,'/chat/mychat/member',message.memberId);
   }
 }
 
