@@ -107,20 +107,25 @@ table#notice_table tr{
     border-bottom:1px lightgray solid;
 }
 
-table#notice_table>tbody tr td:nth-child(3):hover{
+table#notice_table>tbody tr td:nth-child(2):hover{
 	text-decoration:underline;
 	cursor:pointer;
 }
 /*테이블 너비 설정*/
-table#notice_table tr td:nth-child(2), table#notice_table tr th:nth-child(2){
-	width:150px;
+table#notice_table tr td:nth-child(1), table#notice_table tr th:nth-child(1){
+	/* width:150px; */
+	width:20%;
+	padding-left:30px;
 }
 table#notice_table tr td:nth-child(4), table#notice_table tr th:nth-child(4),
-table#notice_table tr td:nth-child(5), table#notice_table tr th:nth-child(5){
-    width: 120px;
+table#notice_table tr td:nth-child(3), table#notice_table tr th:nth-child(3){
+   /*  width: 120px; */
+    width:10%;
+    padding-right:30px;
 }
-table#notice_table tr td:nth-child(1), table#notice_table tr th:nth-child(1){
-    width:80px;
+table#notice_table tr td:nth-child(2), table#notice_table tr th:nth-child(2){
+	font-size:15px;
+	font-weight:bold;
 }
 div#admin_content button{
     float: right;
@@ -149,14 +154,20 @@ button.admin_buttons{
 }
 /*페이지바*/
 div#admin_pagebar{
-    height:50px;
+    height:80px;
     display:flex;
-    justify-content:center;
-    padding-top:15px;
-    flex-direction:row;
+    position:relative;
+    /* justify-content:center; */
+    padding-top:30px;
+    /* flex-direction:row; */
 }
-div#admin_pagebar div{
-    /* border:1px black solid; */
+div#admin_pagebar>div{
+	position:absolute;
+	left:495px;
+	width:210px;
+	display:flex;
+}
+div#admin_pagebar>div div{
     height:30px;
     width:30px;
     text-align: center;
@@ -164,13 +175,9 @@ div#admin_pagebar div{
     font-weight: bold;
     color:darkgray;
     border-radius: 5px;
-    /* font-size: 30px; */
     margin:0 3px;
 }
-/* div#admin_pagebar div:hover{
-    background-color: #F77B1E;
-    color:white;
-} */
+
 /*공지사항 끝*/
 
 /*신고관리*/
@@ -208,7 +215,8 @@ table#blame_table tr td:nth-child(1), table#blame_table tr th:nth-child(1){
     width:30px;
 }
 table#blame_table tr td:nth-child(2), table#blame_table tr th:nth-child(2){
-    width: 50px;
+    width: 80px;
+    padding-left:10px;
 }
 table#blame_table tr td:nth-child(3), table#blame_table tr th:nth-child(3),
 table#blame_table tr td:nth-child(6), table#blame_table tr th:nth-child(6),
