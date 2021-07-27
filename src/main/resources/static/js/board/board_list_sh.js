@@ -33,15 +33,33 @@ function allBoardList(){
 const movetoForm=()=>{
 	location.assign("/board/form");
 }
-//
+
+$("[name=boardDetail]").click((e)=>{
+
+	$('#board-whole-content').remove();
+
+	const boardNo = e.target.title;
+	$.ajax({
+		url:"/board/view",
+		data:{
+			"boardNo" : boardNo
+		}
+	}).done(function(result){
+		$(".feed").html(result);
+	});
+});
+
 // const viewBoard=()=>{
+//
+// 	$('#board-whole-content').remove();
+//
 // 	$.ajax({
-// 		url:"/board/view?boardNo=2",
-// 		success:data=>{
-// 			$("div#content").html(data);
+// 		url:"/board/view?boardNo=",
+// 		data:{
+// 			"boardNo" : boardNo
 // 		},
-// 		error:function(r,s,e){
-// 			console.log(r,s,e);
+// 		success:function(data){
+// 			$(".feed").html(data)
 // 		}
 // 	});
 // }

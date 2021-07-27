@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -102,14 +103,25 @@ public class BoardController {
 		return mv;
 	}
 	
-	//게시글 조회
-	@GetMapping("/board/view?boadNo={no}")
-	public ModelAndView boardView(@PathVariable("no") String boardNo, ModelAndView mv) {
-		;
+	//게시글 상세 조회
+	@GetMapping("/board/view")
+	public ModelAndView boardView(@RequestParam String boardNo, ModelAndView mv) {
+		System.out.println(boardNo);
 		mv.setViewName("board/board_view");
 		mv.addObject("board", service.selectBoard(boardNo));
 		mv.addObject("commentList", service.selectCommentList(boardNo));
 		return mv;
 	}
+
+//	@GetMapping("/noticeView")
+//	@Transactional
+//	public ModelAndView noticeView(@RequestParam String no, ModelAndView mv) {
+//		System.out.println(no);
+//		Map<String,Object> notice = service.selectNotice(no);
+//		mv.addObject("notice", notice);
+//		mv.addObject("type", "수정");
+//		mv.setViewName("admin/noticeView");
+//		return mv;
+//	}
 	
 }

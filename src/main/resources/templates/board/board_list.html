@@ -21,9 +21,9 @@
 
 						<td colspan="3">
 
-							<a th:href="@{'/board/view?boardNo='+${b.BOARD_NO}}">
-								<span th:text="${b.BOARD_TITLE} + '('+${b.CNT}+')'"></span>
-							</a>
+<!--							<a href="javascript:viewBoard('${b.BOARD_NO}')">-->
+								<span th:text="${b.BOARD_TITLE} + '('+${b.CNT}+')'" name="boardDetail" th:title="${b.BOARD_NO}"></span>
+<!--							</a>-->
 
 							<span th:text="${#dates.format(b.BOARD_DATE, 'yyyy-MM-dd')}"></span><br>
 
