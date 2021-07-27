@@ -24,4 +24,14 @@ public class TagServiceImpl implements TagService{
     public List getMyTagData(String loginId) {
         return dao.getMyTagData(mapper,loginId);
     }
+
+    @Override
+    public int deleteMyTag(String tagName) {
+        return dao.deleteMyTag(mapper,tagName);
+    }
+
+    @Override
+    public List<Map<String, String>> searchTag(String keyword) {
+        return dao.searchTag(mapper,keyword);
+    }
 }

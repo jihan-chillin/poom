@@ -17,4 +17,14 @@ public class TagDaoImpl implements TagDao{
     public List getMyTagData(TagMapper mapper, String loginId) {
         return mapper.getMyTagData(loginId);
     }
+
+    @Override
+    public int deleteMyTag(TagMapper mapper, String tagName) {
+        return mapper.deleteMyTag(tagName);
+    }
+
+    @Override
+    public List<Map<String, String>> searchTag(TagMapper mapper, String keyword) {
+        return mapper.searchTag(keyword);
+    }
 }

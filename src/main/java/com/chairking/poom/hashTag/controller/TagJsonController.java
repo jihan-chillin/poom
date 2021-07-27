@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +21,22 @@ public class TagJsonController {
     @GetMapping("/tag/my/data")
     public List getMyTagData(HttpServletRequest req){
         String loginId = (String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
-        log.info("아이디 : {}" , loginId);
+//        log.info("아이디 : {}" , loginId);
         List tagData = tagService.getMyTagData(loginId);
 
         return tagData;
     }
+
+    @GetMapping("/tag/my/delete")
+    public void deleteMyTag(@RequestParam(value = "tagName")String tagName){
+        tagService.deleteMyTag(tagName);
+    }
+
+    @GetMapping("/tag/search")
+    public List<Map<String,String>> searchTag(@RequestParam(value = "keyword")String keyword){
+        List<Map<String,String>> tagData = tagService.searchTag(keyword);
+
+        return tagData;
+    }
+
 }

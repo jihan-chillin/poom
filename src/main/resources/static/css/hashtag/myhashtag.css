@@ -231,9 +231,33 @@ DEMO
   max-width: 480px;
   margin: auto;
   padding: 1rem;
-
   display: grid;
   grid-gap: 30px;
+}
+/*검색 결과*/
+.tag-search-result-container{
+  display: none;
+  width: 400px;
+  border-top: 1px solid #000000;
+  border-right: 1px solid #000000;
+  border-left: 1px solid #000000;
+  background-color: white;
+  margin-top: 10px;
+  position: absolute;
+}
+
+.tag-search-result{
+  margin-top: 12px;
+  font-size: 23px;
+  font-family: 'NanumSquareRound';
+  font-weight: 600;
+  border-bottom: 1px solid gray;
+
+}
+.tag-search-result>span{
+  font-family: 'NanumSquareRound';
+  font-weight: 600;
+  cursor: pointer;
 }
 
 /*  내 키워드 */
