@@ -5,8 +5,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.chairking.poom.admin.model.vo.Notice1;
 import com.chairking.poom.admin.mapper.AdminMapper;
-import com.chairking.poom.admin.model.vo.Notice;
+
 @Repository
 public class AdminDaoImpl implements AdminDao {
 
@@ -21,7 +22,7 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public int insertNotice(Notice n,AdminMapper mapper) {
+	public int insertNotice(Notice1 n,AdminMapper mapper) {
 		return mapper.insertNotice(n);
 	}
 
@@ -44,18 +45,4 @@ public class AdminDaoImpl implements AdminDao {
 	public int changeStatus(AdminMapper mapper, String no) {
 		return mapper.changeStatus(no);
 	}
-
-	@Override
-	public List<Map<String, Object>> allBoardBlame(AdminMapper mapper, int cPage, int numPerpage) {
-		return mapper.allBoardBlame(cPage,numPerpage);
-	}
-
-	@Override
-	public int insertBlame(AdminMapper mapper, Map<String, String> map) {
-		return mapper.insertBlame(map);
-	}
-
-	
-
-	
 }

@@ -12,4 +12,5 @@ public interface LoginDao {
 	Map<String,Object> selectMember(LoginMapper mapper, Map param);
 	Map<String,Object> idFind(LoginMapper mapper, Map param);
 	Map<String,Object> pwFind(LoginMapper mapper, Map param);
+	int updatePw(LoginMapper mapper, Map param);
 }

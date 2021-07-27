@@ -43,8 +43,8 @@ public class ChattingServiceImpl implements ChattingService{
     }
 
     @Override
-    public List<Map<String,Object>> getChatList() {
-        return dao.getChatList(cm);
+    public List<Map<String,Object>> getChatList(int cPage, int numPerPage) {
+        return dao.getChatList(cm,cPage,numPerPage);
     }
 
     @Override

@@ -68,8 +68,26 @@ $(".email_number input").keyup(function(){
 //유효성검사
 $("button.btn_submit").on("click",function(){
     var email = $("[name=memberEmail2]").val();
+	var name = $("[name=name]").val();
+   	var id = $("[name=id]").val();
     
-    if($(this).hasClass('pwBtn')===true) {
+    if($(this).is('#pwBtn')===true) {
+        if(id=="") {
+            alert("아이디를 입력해주세요");
+            $("[name=id]").focus();
+            return false;
+        } 
+        if(name == ""){
+            alert("이름을 입력해주세요.");
+            $("[name=name]").focus();
+            return false;
+        }
+        if(email == ""){
+            alert("이메일 입력 후 인증해주세요.");
+            $("[name=memberEmail]").focus();
+            return false;
+        }
+        
 	    if($("[name=checked_email]").val() =="") {
 	    	alert("이메일을 인증해주세요.");
 	        return false;
@@ -89,4 +107,8 @@ $("button.btn_submit").on("click",function(){
 //취소버튼 클릭시 메인페이지로 이동
 function goIndex() {
 	location.href="/";
+}
+//회원가입페이지로 이동
+function goSignUp() {
+	location.replace("/termsofservice");
 }
