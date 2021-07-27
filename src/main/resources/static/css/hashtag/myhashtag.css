@@ -1,0 +1,336 @@
+@font-face {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NEXON Lv2 Gothic Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#hashContainer{
+  width: 100%;
+  height: 950px;
+  background-color: #f6f6f6;
+  border-radius: 20px;
+  display: grid;
+  grid-template-rows: 120px 100px 100px 50px 580px;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  align-content: center;
+}
+#hashContainer>div{
+  justify-self: center;
+  align-self: center;
+}
+/* 제목 */
+#hashContainer>div:first-child{
+  font-family: 'NEXON Lv2 Gothic Bold';
+  font-size: 50px;
+  letter-spacing: 5px;
+  justify-self: center;
+  margin-top: 40px;
+}
+
+/* 검색창 */
+
+.field__input{ 
+  --uiFieldPlaceholderColor: var(--fieldPlaceholderColor, #767676);
+  
+  background-color: transparent;
+  border-radius: 0;
+  border: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.field__input:focus::-webkit-input-placeholder{
+  color: var(--uiFieldPlaceholderColor);
+}
+
+.field__input:focus::-moz-placeholder{
+  color: var(--uiFieldPlaceholderColor);
+}
+
+/*
+=====
+CORE STYLES
+=====
+*/
+
+.field{
+  width: 400px;
+  --uiFieldBorderWidth: var(--fieldBorderWidth, 2px);
+  --uiFieldPaddingRight: var(--fieldPaddingRight, 1rem);
+  --uiFieldPaddingLeft: var(--fieldPaddingLeft, 1rem);   
+  --uiFieldBorderColorActive: var(--fieldBorderColorActive, rgba(22, 22, 22, 1));
+
+  display: var(--fieldDisplay, inline-flex);
+  position: relative;
+  font-size: var(--fieldFontSize, 1.5rem);
+}
+
+.field__input{
+  box-sizing: border-box;
+  width: var(--fieldWidth, 100%);
+  height: var(--fieldHeight, 3rem);
+  padding: var(--fieldPaddingTop, 1.25rem) var(--uiFieldPaddingRight) var(--fieldPaddingBottom, .5rem) var(--uiFieldPaddingLeft);
+  border-bottom: var(--uiFieldBorderWidth) solid var(--fieldBorderColor, rgba(0, 0, 0, .25));  
+}
+
+.field__input:focus{
+  outline: none;
+}
+
+.field__input::-webkit-input-placeholder{
+  opacity: 0;
+  transition: opacity .2s ease-out;
+}
+
+.field__input::-moz-placeholder{
+  opacity: 0;
+  transition: opacity .2s ease-out;
+}
+
+.field__input:focus::-webkit-input-placeholder{
+  opacity: 1;
+  transition-delay: .2s;
+}
+
+.field__input:focus::-moz-placeholder{
+  opacity: 1;
+  transition-delay: .2s;
+}
+
+.field__label-wrap{
+  box-sizing: border-box;
+  pointer-events: none;
+  cursor: text;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.field__label-wrap::after{
+  content: "";
+  box-sizing: border-box;
+  width: 100%;
+  height: 0;
+  opacity: 0;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.field__input:focus ~ .field__label-wrap::after{
+  opacity: 1;
+}
+
+.field__label{
+  position: absolute;
+  left: var(--uiFieldPaddingLeft);
+  top: calc(50% - .5em);
+
+  line-height: 1;
+  font-size: var(--fieldHintFontSize, inherit);
+
+  transition: top .2s cubic-bezier(0.9, -0.15, 0.1, 1.15), opacity .2s ease-out, font-size .2s ease-out;
+  will-change: bottom, opacity, font-size;
+}
+
+.field__input:focus ~ .field__label-wrap .field__label,
+.field__input:not(:placeholder-shown) ~ .field__label-wrap .field__label{
+  --fieldHintFontSize: var(--fieldHintFontSizeFocused, .75rem);
+
+  top: var(--fieldHintTopHover, .25rem);
+}
+
+/* 
+effect 1
+*/
+
+.field_v1 .field__label-wrap::after{
+  border-bottom: var(--uiFieldBorderWidth) solid var(--uiFieldBorderColorActive);
+  transition: opacity .2s ease-out;
+  will-change: opacity;
+}
+
+/* 
+effect 2
+*/
+
+.field_v2 .field__label-wrap{
+  overflow: hidden;
+}
+
+.field_v2 .field__label-wrap::after{
+  border-bottom: var(--uiFieldBorderWidth) solid var(--uiFieldBorderColorActive);
+  transform: translate3d(-105%, 0, 0);
+  will-change: transform, opacity;
+  transition: transform .285s ease-out .2s, opacity .2s ease-out .2s;
+}
+
+.field_v2 .field__input:focus ~ .field__label-wrap::after{
+  transform: translate3d(0, 0, 0);
+  transition-delay: 0;
+}
+
+/*
+effect 3
+*/
+
+.field_v3 .field__label-wrap::after{
+  border: var(--uiFieldBorderWidth) solid var(--uiFieldBorderColorActive);
+  will-change: opacity, height;
+  transition: height .2s ease-out, opacity .2s ease-out;
+}
+
+.field_v3 .field__input:focus ~ .field__label-wrap::after{
+  height: 100%;
+}
+
+/*
+=====
+LEVEL 4. SETTINGS
+=====
+*/
+
+.field{
+  --fieldBorderColor: #D1C4E9;
+  --fieldBorderColorActive: #673AB7;
+}
+
+/*
+=====
+DEMO
+=====
+*/
+
+.page{
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 480px;
+  margin: auto;
+  padding: 1rem;
+
+  display: grid;
+  grid-gap: 30px;
+}
+
+/*  내 키워드 */
+#hashContainer>div:nth-child(3){
+  font-size: 40px;
+  justify-self: start;
+  align-self:end;
+  margin-left: 30px;
+  font-family:'NEXON Lv1 Gothic OTF';
+  font-weight: 600;
+  letter-spacing: 4px;
+}
+#hashContainer>div:nth-child(4){
+  width: 95%;
+  margin-top:20px;
+  align-self: baseline;
+  border-bottom: 3px solid #000000;
+}
+/* 태그 컨테이너 */
+#hashContainer>div:nth-child(5){
+  font-size: 30px;
+  width: 95%;
+  height: 100%;
+  overflow: scroll;
+}
+/* 내 태그  */
+#hashContainer>div:nth-child(5)>div{
+  font-family:'NEXON Lv1 Gothic OTF';
+  letter-spacing: 3px;
+  height: 50px;
+  display: inline-block;
+  margin-left: 20px;
+  align-self: baseline;
+  padding: 10px 6px 6px 6px;
+  border-radius: 10px 10px 10px 10px;
+
+}
+
+#hashContainer>div:nth-child(5)>div>span{
+  /* margin:10px 10px 10px 10px; */
+  padding: 6px 6px 6px 6px;
+  margin-left: 5px;
+}
+
+#hashContainer>div:nth-child(5)>div>span:nth-child(2){
+  cursor: pointer;
+}
+
+.my-tag {
+  margin-bottom: 20px;
+  transition: 150ms ease all;
+  border-radius: 10px 10px 10px 10px;
+  padding: 13px 30px 13px 30px;
+  font-size: 25px;
+  font-weight: normal;
+  background: linear-gradient(
+    0deg,
+    rgba(79, 120, 141, 1) 0%,
+    rgba(79, 120, 141, 1) 100%
+  );
+  color: rgba(255, 255, 255, 1);
+  border-top: 0px solid rgba(9, 87, 161, 1);
+  border-right: 0px solid rgba(9, 87, 161, 1);
+  border-bottom: 0px solid rgba(9, 87, 161, 1);
+  border-left: 0px solid rgba(9, 87, 161, 1);
+}
+.my-tag:hover {
+  transition: 150ms ease all;
+  border-radius: 10px 10px 10px 10px;
+  padding: 13px 30px 13px 30px;
+  font-size: 25px;
+  font-weight: normal;
+  background: linear-gradient(
+    0deg,
+    rgba(123, 166, 180, 1) 0%,
+    rgba(123, 166, 180, 1) 100%
+  );
+  color: rgba(255, 255, 255, 1);
+  border-top: 0px solid rgba(9, 87, 161, 1);
+  border-right: 0px solid rgba(9, 87, 161, 1);
+  border-bottom: 0px solid rgba(9, 87, 161, 1);
+  border-left: 0px solid rgba(9, 87, 161, 1);
+}
+.my-tag:active {
+  transition: 150ms ease all;
+  border-radius: 10px 10px 10px 10px;
+  padding: 13px 30px 13px 30px;
+  font-size: 25px;
+  font-weight: normal;
+  background: linear-gradient(
+    0deg,
+    rgba(165, 191, 197, 1) 0%,
+    rgba(165, 191, 197, 1) 100%
+  );
+  color: rgba(255, 255, 255, 1);
+  border-top: 0px solid rgba(9, 87, 161, 1);
+  border-right: 0px solid rgba(9, 87, 161, 1);
+  border-bottom: 0px solid rgba(9, 87, 161, 1);
+  border-left: 0px solid rgba(9, 87, 161, 1);
+}

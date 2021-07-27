@@ -1,71 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<head>
-		<div th:replace="/fragments/header.html :: fragment-header"></div>
-		<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_list.css}">
-		<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_view.css}">
-		<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_form.css}">
-	</head>
-<body>
-<div id="wrapper">
 
-	<!-- 헤더바 -->
-	<div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
-	<!-- 좌측메뉴바 -->
-	<div th:replace="/fragments/nav.html :: fragment-nav"></div>
+	<!-- 게시글 작성 파트 -->
 
-	<div id="content">
+		<form id="board_form" action="/board/insert" method="post" enctype="multipart/form-data">
+			<ul>
+				<li><span>제목</span><input type="text" name="boardTitle"></li>
+				<li>
+					<span>카테고리</span>
+					<select name="boardCate">
+						<option value="1">출산/육아/교육</option>
+						<option value="2">분실물</option>
+						<option value="3">일손(품앗이)</option>
+						<option value="4">스터디/소모임</option>
+						<option value="5">공동구매</option>
+					</select>
+				</li>
+				<li><span>첨부파일</span><input type="file" multiple="multiple" name="boardImg"></li>
+				<li>
+					<span>내용</span><br>
+					<textarea name="boardContent"></textarea>
+				</li>
+				<li>
+					<input type="text" placeholder="태그를 입력하세요(최대 10자)">
+				</li>
+			</ul>
+			<div>
+				<input type="submit" class="btn" value="등록" onsubmit="board_validate();"/>
+				<button type="button">수정</button>
+				<button type="button" class="btn" onclick="location.assign('/board/all');">취소</button>
+			</div>
+		</form>
 
-		<!-- 프로필 -->
-		<div th:replace="/fragments/profile.html :: fragment-profile"></div>
-
-		<!-- 게시글 작성 파트 -->
-		<div id="board-form-content">
-
-			<form id="board_form" action="/board/insert" method="post" enctype="multipart/form-data">
-				<ul>
-					<li><span>제목</span><input type="text" name="boardTitle"></li>
-					<li>
-						<span>카테고리</span>
-						<select name="boardCate">
-							<option value="1">출산/육아/교육</option>
-							<option value="2">분실물</option>
-							<option value="3">일손(품앗이)</option>
-							<option value="4">스터디/소모임</option>
-							<option value="5">공동구매</option>
-						</select>
-					</li>
-					<li><span>첨부파일</span><input type="file" multiple="multiple" name="boardImg"></li>
-					<li>
-						<span>내용</span><br>
-						<textarea name="boardContent"></textarea>
-					</li>
-					<li>
-						<input type="text" placeholder="태그를 입력하세요(최대 10자)">
-					</li>
-				</ul>
-				<div>
-					<input type="submit" class="btn" value="등록" onsubmit="board_validate();"/>
-					<button type="button">수정</button>
-					<button type="button" class="btn" onclick="location.assign('/board/all');">취소</button>
-				</div>
-			</form>
-
-
-		</div>
-
-		<!-- HOT키워드순위창 -->
-		<div th:replace="/fragments/rank.html :: fragment-rank"></div>
-
-	</div>
-</div>
-</body>
-
-<script th:src="@{/js/board/board_list_sh.js}"></script>
-<script th:src="@{/js/board/board_form_sh.js}"></script>
-
+		
 </html>
