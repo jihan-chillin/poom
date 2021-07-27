@@ -18,23 +18,19 @@
         <div id="comment-list">
             <table>
                 <thead>
-                <th>닉네임</th>
-                <th>제목</th>
-                <th>내 댓글</th>
-                <th>날짜</th>
+                    <th>닉네임</th>
+                    <th>제목</th>
+                    <th>내 댓글</th>
+                    <th>날짜</th>
                 </thead>
 
                 <tbody>
-                <tr>
-                    <!--            <tr th:each="c : ${cList}" >-->
-                    <!--                <td th:text="${c.MEMBER_NICKNAME}"></td>-->
-                    <!--                <td th:text="${c.BOARD_TITLE}"></td>-->
-                    <!--                <td th:test="${c.COMMENT_CONTENT}"></td>-->
-                    <!--                <td th:text="${#dates.format(c.COMMENT_DATE, 'yyyy-MM-dd')}"></td>-->
-                    <td>코줍</td>
-                    <td>이거제목</td>
-                    <td>이거 댓글</td>
-                    <td>댓글 날짜 </td>
+
+                <tr th:each="c : ${cList}" >
+                    <td th:text="${c.MEMBER_NICKNAME}"></td>
+                    <td th:text="${c.BOARD_TITLE}"></td>
+                    <td th:test="${c.COMMENT_CONTENT}"></td>
+                    <td th:text="${#dates.format(c.COMMENT_DATE, 'yyyy-MM-dd')}"></td>
                 </tr>
 
                 </tbody>
