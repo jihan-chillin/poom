@@ -19,6 +19,9 @@ import com.chairking.poom.board.model.service.BoardService;
 import com.chairking.poom.board.model.vo.Board;
 import com.chairking.poom.board.model.vo.BoardImage;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/")
 public class BoardController {
@@ -28,7 +31,9 @@ public class BoardController {
 	
 	//게시글 등록 페이지로 이동
 	@RequestMapping(path="/board/form", method=RequestMethod.GET)
-	public String boardForm() {
+	public String boardForm(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		session.getAttribute("loginMember");
 		return "board/board_form";
 	}
 	
@@ -113,15 +118,5 @@ public class BoardController {
 		return mv;
 	}
 
-//	@GetMapping("/noticeView")
-//	@Transactional
-//	public ModelAndView noticeView(@RequestParam String no, ModelAndView mv) {
-//		System.out.println(no);
-//		Map<String,Object> notice = service.selectNotice(no);
-//		mv.addObject("notice", notice);
-//		mv.addObject("type", "수정");
-//		mv.setViewName("admin/noticeView");
-//		return mv;
-//	}
 	
 }

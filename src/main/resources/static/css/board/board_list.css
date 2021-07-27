@@ -130,6 +130,15 @@ table#all-boardlist-table tr:last-of-type td{
 	cursor: pointer;
 }
 
+.blacksolid-btn{
+	width: 80px;
+	height: 40px;
+	background-color: white;
+	border: 1px black solid;
+	border-radius: 20px;
+	color: black;
+	cursor: pointer;
+}
 /*페이지 바 */
 .page-tr td{
 	text-align: center !important;

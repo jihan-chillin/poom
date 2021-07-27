@@ -6,30 +6,51 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.chairking.poom.admin.mapper.AdminMapper;
+import com.chairking.poom.common.Pagination;
 
 @Repository
 public class BlameDaoImpl implements BlameDao {
 	
 	@Override
-	public List<Map<String, Object>> allBoardBlame(AdminMapper mapper,int cPage, int numPerpage) {
-		return mapper.allBoardBlame(cPage,numPerpage);
+	public List<Map<String, Object>> allBoardBlame(AdminMapper mapper,Pagination pagination) {
+		return mapper.allBoardBlame(pagination);
 	}
 	
 	@Override
-	public List<Map<String, Object>> allCommentsBlame(AdminMapper mapper,int cPage, int numPerpage) {
-		return mapper.allCommentsBlame(cPage,numPerpage);
+	public List<Map<String, Object>> allCommentsBlame(AdminMapper mapper,Pagination pagination) {
+		return mapper.allCommentsBlame(pagination);
 	}
 
 	@Override
-	public List<Map<String, Object>> allChatBlame(AdminMapper mapper, int cPage, int numPerpage) {
-		return mapper.allChatBlame(cPage,numPerpage);
+	public List<Map<String, Object>> allChatBlame(AdminMapper mapper, Pagination pagination) {
+		return mapper.allChatBlame(pagination);
 	}
 
 	@Override
-	public List<Map<String, Object>> allMemberBlame(AdminMapper mapper, int cPage, int numPerpage) {
-		return mapper.allMemberBlame(cPage,numPerpage);
+	public List<Map<String, Object>> allMemberBlame(AdminMapper mapper, Pagination pagination) {
+		return mapper.allMemberBlame(pagination);
 	}
 	
+	@Override
+	public int allBoardBlameCount(AdminMapper mapper) {
+		return mapper.allBoardBlameCount();
+	}
+
+	@Override
+	public int allCommentsBlameCount(AdminMapper mapper) {
+		return mapper.allCommentsBlameCount();
+	}
+
+	@Override
+	public int allChatBlameCount(AdminMapper mapper) {
+		return mapper.allChatBlameCount();
+	}
+
+	@Override
+	public int allMemberBlameCount(AdminMapper mapper) {
+		return mapper.allMemberBlameCount();
+	}
+
 	@Override
 	public int insertBoardBlame(AdminMapper mapper, Map<String, String> map) {
 		return mapper.insertBoardBlame(map);
