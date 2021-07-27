@@ -107,21 +107,26 @@ table#notice_table tr{
     border-bottom:1px lightgray solid;
 }
 
-table#notice_table>tbody tr td:nth-child(3):hover{
+table#notice_table>tbody tr td:nth-child(2):hover{
 	text-decoration:underline;
 	cursor:pointer;
 }
 /*테이블 너비 설정*/
-table#notice_table tr td:nth-child(2), table#notice_table tr th:nth-child(2){
-	width:150px;
+table#notice_table tr td:nth-child(1), table#notice_table tr th:nth-child(1){
+	/* width:150px; */
+	width:20%;
+	padding-left:30px;
 }
 table#notice_table tr td:nth-child(4), table#notice_table tr th:nth-child(4),
-table#notice_table tr td:nth-child(5), table#notice_table tr th:nth-child(5){
-    width: 120px;
+table#notice_table tr td:nth-child(3), table#notice_table tr th:nth-child(3){
+   /*  width: 120px; */
+    width:10%;
+    padding-right:30px;
 }
-table#notice_table tr td:nth-child(1), table#notice_table tr th:nth-child(1){
-    width:80px;
-}
+/* table#notice_table tr td:nth-child(2), table#notice_table tr th:nth-child(2){
+
+    padding-left:50px;
+} */
 div#admin_content button{
     float: right;
     width: 80px;
