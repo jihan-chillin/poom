@@ -140,8 +140,6 @@ public class MessageController {
         System.out.println("delete: " + msgNo);
         int result = service.deleteMessage(msgNo);
         m.addAttribute("result", result);
-
-
         return "message/message_main";
     }
 

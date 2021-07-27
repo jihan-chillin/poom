@@ -24,6 +24,7 @@
                 <th th:case="'3'">채팅방 이름</th>
                 <th th:case="'4'">게시글 제목</th>
               </th:block>
+              <th style="text-align:center;">신고 사유</th>
                 <th>누적 신고 수</th>
                 <th>삭제여부<br>
                     <input type="radio" name="del_status" value="n" checked>N
@@ -31,14 +32,56 @@
                 </th>
             </tr>
             </thead>
-            <tbody>
+            <tbody th:if="${type} eq '1' or ${type} eq 'blame'">
             	<tr th:each="b : ${list}">
-            		<td><input type="checkbox" name="brd_blame_chk" th:title="${b.BOARD_NO}"></td>
+            		<td>
+            			<input type="checkbox" name="brd_blame_chk" th:title="${b.BOARD_NO}">
+           			</td>
             		<td>1</td>
             		<td th:text="${b.MEMBER_ID}"></td>
             		<td th:text="${b.BOARD_TITLE}"></td>
-            		<td>누적신고수(추후 COUNT)</td>
+            		<td th:text="${b.BLAME_REASON}"></td>
+            		<td th:text="${b.BLAME_COUNT}"></td>
             		<td th:text="${b.DEL_STATUS} eq 0?'N':'Y'"></td>
+            	</tr>
+            </tbody>
+            <tbody th:if="${type} eq '2'">
+            	<tr th:each="bc : ${list}">
+            		<td>
+            			<input type="checkbox" name="brd_blame_chk" th:title="${bc.COMMENT_NO}">
+           			</td>
+            		<td>1</td>
+            		<td th:text="${bc.COMMENT_WRITER}"></td>
+            		<td th:text="${bc.COMMENT_CONTENT}"></td>
+            		<td th:text="${bc.BLAME_REASON}"></td>
+            		<td th:text="${bc.BC_BLAME_COUNT}"></td>
+            		<td th:text="${bc.DEL_STATUS} eq 0?'N':'Y'"></td>
+            	</tr>
+            </tbody>
+            <tbody th:if="${type} eq '3'">
+            	<tr th:each="ch : ${list}">
+            		<td>
+            			<input type="checkbox" name="brd_blame_chk" th:title="${ch.CHAT_NO}">
+           			</td>
+            		<td>1</td>
+            		<td th:text="${ch.MEMBER_ID}"></td>
+            		<td th:text="${ch.CHAT_TITLE}"></td>
+            		<td th:text="${ch.BLAME_REASON}"></td>
+            		<td th:text="${ch.CH_BLAME_COUNT}"></td>
+            		<td th:text="${ch.DEL_STATUS} eq 0?'N':'Y'"></td>
+            	</tr>
+            </tbody>
+            <tbody th:if="${type} eq '4'">
+            	<tr th:each="m : ${list}">
+            		<td>
+            			<input type="checkbox" name="brd_blame_chk" th:title="${b.BOARD_NO}">
+           			</td>
+            		<td>1</td>
+            		<td th:text="${m.MEMBER_ID}"></td>
+            		<td th:text="${m.BOARD_TITLE}"></td>
+            		<td th:text="${m.BLAME_REASON}"></td>
+            		<td>누적신고수(추후 COUNT)</td>
+            		<td th:text="${m.DEL_STATUS} eq 0?'N':'Y'"></td>
             	</tr>
             </tbody>
         </table>
@@ -56,29 +99,8 @@
 		var no=2;
 		var nick="닉네임";
 		console.log(type,no,nick);
-		window.open("/blame/report?t="+type+"&no="+no+"&id="+nick,"","width=495px,height=530px,top=260px,left=800px,status=no,toolbar=no,scrollbars=no");
-		
-		
-		/* $.ajax({
-			url:"/blame/report",
-			data:{
-				"type":type,
-				"boardNo":brdNo,
-				"nickname":"memberNick"
-			},
-			dataType:"json",
-			type:"POST", 
-			success:data=>{
-				console.log(data);
-				window.open("/blame/report/page?i="+brdNo,"","width=490px,height=470px,top=260px,left=800px,status=no,toolbar=no,scrollbars=no');
-			}
-		}); */
+		window.open("/blame/report?type="+type+"&no="+no+"&id="+nick,"","width=495px,height=530px,top=260px,left=800px,status=no,toolbar=no,scrollbars=no");
 	}
-	
-	 
-
-
-
 
 $(function(){
 	$("#blame_menu").show();

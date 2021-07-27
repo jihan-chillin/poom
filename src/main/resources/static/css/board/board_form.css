@@ -60,7 +60,7 @@ div#board-form-content{
 	height:30px;width:165px;
 }
 #board_form li:last-child input{
-	width:1000px;
+	width:800px;
 	padding:10px;
 }
 /* 버튼 포함된 div */

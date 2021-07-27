@@ -20,6 +20,7 @@ public interface MessageMapper {
 
     @Select("SELECT * FROM MESSAGE WHERE MSG_NO = #{msgNo}")
     List<Map<String, Object>> messageContent(String msgNo);
+
     @Delete("DELETE FROM MESSAGE WHERE MSG_NO = #{msgNo}")
     int deleteMessage(String msgNo);
 }

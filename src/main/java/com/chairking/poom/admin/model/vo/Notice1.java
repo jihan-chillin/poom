@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Notice {
+public class Notice1 {
 
 	private String cate;
 	private String noticeTitle;
