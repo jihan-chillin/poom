@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chairking.poom.admin.model.service.BlameService;
+import com.chairking.poom.common.Pagination;
 
 @Controller
 @RequestMapping("/blame")
@@ -24,7 +25,10 @@ public class BlameController {
 	//신고관리 메뉴 페이지
 	@GetMapping()
 	public ModelAndView blame(String type,ModelAndView mv,
-			@RequestParam(value="cPage", defaultValue="1") int cPage) {
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, //현재페이지
+            @RequestParam(value = "cntPerPage", required = false, defaultValue = "5") int cntPerPage, //numPerpage
+            @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {	//pageBar사이즈
+		//각 테이블 위 제목
 		String title=null;
 		switch(type) {
 			case "blame": case "1" : title="신고된 게시글 관리";break;
@@ -32,11 +36,25 @@ public class BlameController {
 			case "3" : title="신고된 채팅 관리";break;
 			case "4" : title="정지된 회원 관리";break;
 		}
-		List<Map<String,Object>> list = service.allBlameList(type,cPage,10);
 		
+		//페이징처리
+		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
+		pagination.setTotalRecordCount(service.blameCount(type));
+		List<Map<String,Object>> list = service.allBlameList(type, pagination);
+		
+		//페이징처리 시작 
+//		int numPerpage=5;
+//		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
+//		int pageBarSize=5;
+//		int pageNo=((currentPage-1)/pageBarSize)*pageBarSize+1;
+//		int pageEnd=pageNo+pageBarSize-1;
+		mv.addObject("pagination",pagination);
 		mv.addObject("list", list);
 		mv.addObject("type", type);
 		mv.addObject("blame_title", title);
+		System.out.println("pagination:"+pagination.toString());
+		System.out.println("list:"+list.size());
+		System.out.println("cPage:"+currentPage+" / cntPerpage:"+cntPerPage+" /pageSize:"+pageSize+" /totaldata:"+pagination.getTotalRecordCount());
 		mv.setViewName("admin/admin_blame");
 		return mv;
 	}

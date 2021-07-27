@@ -215,7 +215,8 @@ table#blame_table tr td:nth-child(1), table#blame_table tr th:nth-child(1){
     width:30px;
 }
 table#blame_table tr td:nth-child(2), table#blame_table tr th:nth-child(2){
-    width: 50px;
+    width: 80px;
+    padding-left:10px;
 }
 table#blame_table tr td:nth-child(3), table#blame_table tr th:nth-child(3),
 table#blame_table tr td:nth-child(6), table#blame_table tr th:nth-child(6),

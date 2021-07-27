@@ -1,203 +1,192 @@
 package com.chairking.poom.common;
 
 public class Pagination {
-	/** 1. 페이지 당 보여지는 게시글의 최대 개수 **/
-	private int numPerpage = 5;
+	// 현재페이지
+	private int currentPage;
+	// 페이지당 출력할 페이지 갯수
+	private int cntPerPage;
+	// 화면 하단 페이지 사이즈 1~10, 10~20 20~30 ...
+	private int pageSize;
+	// 전체 데이터 개수
+	private int totalRecordCount;
+	// 전체 페이지 개수
+	private int totalPageCount;
+	// 페이지 리스트의 첫 페이지 번호
+	private int firstPage;
+	// 페이지 리스트의 마지막 페이지 번호
+	private int lastPage;
+	// SQL의 조건절에 사용되는 첫 RNUM
+	private int firstRecordIndex;
+	// SQL의 조건절에 사용되는 마지막 RNUM
+	private int lastRecordIndex;
+	// 이전 페이지 존재 여부
+	private boolean hasPreviousPage;
+	// 다음 페이지 존재 여부
+	private boolean hasNextPage;
 
-	/** 2. 페이징된 버튼의 블럭당 최대 개수 **/
-	private int pageBarSize = 5;
+	public Pagination(int currentPage, int cntPerPage, int pageSize) {
+		// 강제입력방지
+		if (currentPage < 1) {
+			currentPage = 1;
+		}
+		// 10,20,30개 단위 이외 처리 방지
+		if (cntPerPage != 5 && cntPerPage != 10 && cntPerPage != 15) {
+			cntPerPage = 5;
+		}
+		// 하단 페이지 갯수 5개로 제한
+		if (pageSize != 5) {
+			pageSize = 5;
+		}
+		this.currentPage = currentPage;
+		this.cntPerPage = cntPerPage;
+		this.pageSize = pageSize;
 
-	/** 3. 현재 페이지 **/
-	private int cPage = 1;
-
-	/** 4. 현재 블럭 **/
-	private int block = 1;
-
-	/** 5. 총 게시글 수 **/
-	private int totalData;
-
-	/** 6. 총 페이지 수 **/
-	private int totalPage;
-
-	/** 7. 총 블럭 수 **/
-	private int totalBlockCnt;
-
-	/** 8. 블럭 시작 페이지 **/
-	private int startPage = 1;
-
-	/** 9. 블럭 마지막 페이지 **/
-	private int endPage = 1;
-
-	/** 10. DB 접근 시작 index **/
-	private int startIndex = 0;
-
-	/** 11. 이전 블럭의 마지막 페이지 **/
-	private int prevBlock;
-
-	/** 12. 다음 블럭의 시작 페이지 **/
-	private int nextBlock;
-
-	public int getnumPerpage() {
-		return numPerpage;
 	}
 
-	public void setnumPerpage(int numPerpage) {
-		this.numPerpage = numPerpage;
+	public void setTotalRecordCount(int totalRecordCount) {
+		this.totalRecordCount = totalRecordCount;
+
+		if (totalRecordCount > 0) {
+			calculation();
+		}
 	}
 
-	public int getpageBarSize() {
-		return pageBarSize;
+	private void calculation() {
+
+		// 전체 페이지 수 (현재 페이지 번호가 전체 페이지 수보다 크면 현재 페이지 번호에 전체 페이지 수를 저장)
+		totalPageCount = ((totalRecordCount - 1) / this.getCntPerPage()) + 1;
+		if (this.getCurrentPage() > totalPageCount) {
+			this.setCurrentPage(totalPageCount);
+		}
+
+		// 페이지 리스트의 첫 페이지 번호
+		firstPage = ((this.getCurrentPage() - 1) / this.getPageSize()) * this.getPageSize() + 1;
+
+		// 페이지 리스트의 마지막 페이지 번호 (마지막 페이지가 전체 페이지 수보다 크면 마지막 페이지에 전체 페이지 수를 저장)
+		lastPage = firstPage + this.getPageSize() - 1;
+		if (lastPage > totalPageCount) {
+			lastPage = totalPageCount;
+		}
+
+		// SQL의 조건절에 사용되는 첫 RNUM
+		firstRecordIndex = (this.getCurrentPage() - 1) * this.getCntPerPage()+1;
+
+		// SQL의 조건절에 사용되는 마지막 RNUM
+		lastRecordIndex = this.getCurrentPage() * this.getCntPerPage();
+
+		// 이전 페이지 존재 여부
+		hasPreviousPage = firstPage == 1 ? false : true;
+		if (hasPreviousPage == false) {
+			if (currentPage != firstPage) {
+				hasPreviousPage = true;
+			} else {
+				hasPreviousPage = false;
+			}
+		}
+
+		// 다음 페이지 존재 여부
+		hasNextPage = (lastPage * this.getCntPerPage()) >= totalRecordCount ? false : true;
+		if (hasNextPage == false) {
+			// 마지막 페이지에서 현재페이지가 마지막 페이지가 아닌경우 next처리
+			if (currentPage != lastPage) {
+				hasNextPage = true;
+			} else {
+				hasNextPage = false;
+			}
+		}
 	}
 
-	public void setpageBarSize(int pageBarSize) {
-		this.pageBarSize = pageBarSize;
+	public int getCurrentPage() {
+		return currentPage;
 	}
 
-	public int getPage() {
-		return cPage;
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
 	}
 
-	public void setPage(int cPage) {
-		this.cPage = cPage;
+	public int getCntPerPage() {
+		return cntPerPage;
 	}
 
-	public int getBlock() {
-		return block;
+	public void setCntPerPage(int cntPerPage) {
+		this.cntPerPage = cntPerPage;
 	}
 
-	public void setBlock(int block) {
-		this.block = block;
+	public int getPageSize() {
+		return pageSize;
 	}
 
-	public int gettotalData() {
-		return totalData;
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 
-	public void settotalData(int totalData) {
-		this.totalData = totalData;
+	public int getTotalPageCount() {
+		return totalPageCount;
 	}
 
-	public int gettotalPage() {
-		return totalPage;
+	public void setTotalPageCount(int totalPageCount) {
+		this.totalPageCount = totalPageCount;
 	}
 
-	public void settotalPage(int totalPage) {
-		this.totalPage = totalPage;
+	public int getFirstPage() {
+		return firstPage;
 	}
 
-	public int getTotalBlockCnt() {
-		return totalBlockCnt;
+	public void setFirstPage(int firstPage) {
+		this.firstPage = firstPage;
 	}
 
-	public void setTotalBlockCnt(int totalBlockCnt) {
-		this.totalBlockCnt = totalBlockCnt;
+	public int getLastPage() {
+		return lastPage;
 	}
 
-	public int getStartPage() {
-		return startPage;
+	public void setLastPage(int lastPage) {
+		this.lastPage = lastPage;
 	}
 
-	public void setStartPage(int startPage) {
-		this.startPage = startPage;
+	public int getFirstRecordIndex() {
+		return firstRecordIndex;
 	}
 
-	public int getEndPage() {
-		return endPage;
+	public void setFirstRecordIndex(int firstRecordIndex) {
+		this.firstRecordIndex = firstRecordIndex;
 	}
 
-	public void setEndPage(int endPage) {
-		this.endPage = endPage;
+	public int getLastRecordIndex() {
+		return lastRecordIndex;
 	}
 
-	public int getStartIndex() {
-		return startIndex;
+	public void setLastRecordIndex(int lastRecordIndex) {
+		this.lastRecordIndex = lastRecordIndex;
 	}
 
-	public void setStartIndex(int startIndex) {
-		this.startIndex = startIndex;
+	public boolean isHasPreviousPage() {
+		return hasPreviousPage;
 	}
 
-	public int getPrevBlock() {
-		return prevBlock;
+	public void setHasPreviousPage(boolean hasPreviousPage) {
+		this.hasPreviousPage = hasPreviousPage;
 	}
 
-	public void setPrevBlock(int prevBlock) {
-		this.prevBlock = prevBlock;
+	public boolean isHasNextPage() {
+		return hasNextPage;
 	}
 
-	public int getNextBlock() {
-		return nextBlock;
+	public void setHasNextPage(boolean hasNextPage) {
+		this.hasNextPage = hasNextPage;
 	}
 
-	public void setNextBlock(int nextBlock) {
-		this.nextBlock = nextBlock;
+	public int getTotalRecordCount() {
+		return totalRecordCount;
 	}
 
-	public Pagination(int totalData, int cPage) {
-
-		// 총 게시물 수와 현재 페이지를 Controller로 부터 받아온다.
-
-		// 총 게시물 수	- totalData
-		// 현재 페이지	- cPage
-		
-		
-		/** 3. 현재 페이지 **/
-		setPage(cPage);
-		
-        
-		/** 5. 총 게시글 수 **/
-		settotalData(totalData);
-
-
-		/** 6. 총 페이지 수 **/
-		// 한 페이지의 최대 개수를 총 게시물 수 * 1.0로 나누어주고 올림 해준다.
-		// 총 페이지 수 를 구할 수 있다.
-		settotalPage((int) Math.ceil(totalData * 1.0 / numPerpage));
-
-
-		/** 7. 총 블럭 수 **/
-		// 한 블럭의 최대 개수를 총  페이지의 수 * 1.0로 나누어주고 올림 해준다.
-		// 총 블럭 수를 구할 수 있다.
-		setTotalBlockCnt((int) Math.ceil(totalPage * 1.0 / pageBarSize));
-		
-        
-		/** 4. 현재 블럭 **/
-		// 현재 페이지 * 1.0을 블록의 최대 개수로 나누어주고 올림한다.
-		// 현재 블록을 구할 수 있다.
-		setBlock((int) Math.ceil((cPage * 1.0)/pageBarSize)); 
-
-
-		/** 8. 블럭 시작 페이지 **/
-		setStartPage((block - 1) * pageBarSize + 1);
-		
-        
-		/** 9. 블럭 마지막 페이지 **/
-		setEndPage(startPage + pageBarSize - 1);
-		
-        
-		/* === 블럭 마지막 페이지에 대한 validation ===*/
-		if(endPage > totalPage){this.endPage = totalPage;}
-		
-        
-		/** 11. 이전 블럭(클릭 시, 이전 블럭 마지막 페이지) **/
-		setPrevBlock((block * pageBarSize) - pageBarSize);
-
-
-		/* === 이전 블럭에 대한 validation === */
-		if(prevBlock < 1) {this.prevBlock = 1;}
-
-
-		/** 12. 다음 블럭(클릭 시, 다음 블럭 첫번째 페이지) **/
-		setNextBlock((block * pageBarSize) + 1);
-		
-        
-		/* === 다음 블럭에 대한 validation ===*/
-		if(nextBlock > totalPage) {nextBlock = totalPage;}
-		
-        
-		/** 10. DB 접근 시작 index **/
-		setStartIndex((cPage-1) * numPerpage);
+	@Override
+	public String toString() {
+		return "Pagination [currentPage=" + currentPage + ", cntPerPage=" + cntPerPage + ", pageSize=" + pageSize
+				+ ", totalRecordCount=" + totalRecordCount + ", totalPageCount=" + totalPageCount + ", firstPage="
+				+ firstPage + ", lastPage=" + lastPage + ", firstRecordIndex=" + firstRecordIndex + ", lastRecordIndex="
+				+ lastRecordIndex + ", hasPreviousPage=" + hasPreviousPage + ", hasNextPage=" + hasNextPage + "]";
+	}
 	
-	}
 	
 }

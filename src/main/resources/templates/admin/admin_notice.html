@@ -23,7 +23,7 @@
             		<td th:text="${n.NOTICE_STATUS} eq 0?'게시중':'삭제'"></td>
                 </tr>
             </tbody> -->
-	        <tbody th:with="no=${totalData-(10*(cPage-1))}">
+	        <tbody >
 	        	<tr th:each="n,  iterState : ${list}">
 	        		<!-- <td th:text="${n.noticeNo}"></td> -->
 	        		<!-- <td th:text=${iterState.count}></td> -->

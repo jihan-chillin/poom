@@ -66,19 +66,12 @@ public class AdminController {
 		//현재페이지 (pageable은 0부터 시작함 그래서 +1해야 cPage)
 		//int cPage=Math.max(list.getPageable().getPageNumber()+1,endPage);
 		int cPage=list.getPageable().getPageNumber()+1;
-		//전체 데이터 갯수
-		int totalData=(int) list.getTotalElements();
 		
 		mv.addObject("cPage",cPage);
 		mv.addObject("startpage", startPage);
 		mv.addObject("endpage", endPage);
 		mv.addObject("list", list);
 		mv.addObject("totalPage", totalPage);
-		mv.addObject("totalData",totalData);
-		System.out.println("cpage:"+cPage);
-		System.out.println("startpage:"+startPage);
-		System.out.println("endpage:"+endPage);
-		System.out.println("totalPage:"+totalPage);
 		mv.setViewName("admin/admin_notice");
 		return mv;
 	}
