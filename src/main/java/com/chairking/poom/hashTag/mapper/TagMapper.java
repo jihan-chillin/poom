@@ -10,12 +10,18 @@ import java.util.Map;
 
 @Mapper
 public interface TagMapper {
+    // 파라미터가 map 일때
     @Insert("insert into tag values(#{tag})")
     public int insertTag(String tag);
     @Select("select * from MEMBERTAG where MEMBER_ID=#{loginId}")
     public List<Map> getMyTagData(String loginId);
+    // 파라미터가 문자열 일때
+    @Insert("insert into tag values(#{keyword})")
+    public int addTag(String keyword);
+    @Insert("INSERT INTO MEMBERTAG VALUES (SEQ_MTAGNO.NEXTVAL,#{loginId},#{keyword})")
+    public int insertMemberTag(String loginId,String keyword);
     @Delete("delete from membertag where tag_name=#{tagName}")
-    public int deleteMyTag(String tagName);
+    public int deleteTag(String tagName);
     @Select("select tag_name from tag where tag_name like '%${keyword}%'")
     public List<Map<String,String>> searchTag(String keyword);
 }

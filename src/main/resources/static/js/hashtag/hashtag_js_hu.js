@@ -58,21 +58,60 @@ function getMyTagData(){
       $('.field__input').keyup(e=>{
         let keyword =$(e.target).val().trim();
 
-        if(keyword.length !== 0){
+        if(keyword.length>=8){
+          alert("태그는 최대 7자까지 가능합니다.");
+          return;
+
+        }else if(keyword.length !== 0){
           searchTag(keyword);
+
         }else{
           $('.tag-search-result-container>*').remove();
           $('.tag-search-result-container').attr('style','display:none');
+        }
+
+        if(e.keyCode === 13){
+          if($('.tag-search-result>span').text() !== '검색결과가 없습니다.' ){
+            if(!confirm(keyword+" 태그를 나의 해시태그에 추가하시겠습니까?")){
+              return;
+            }else{
+              addTag(keyword);
+            }
+          }else{
+            return;
+          }
         }
 
       });
     }
   });
 }
+// 태그 등록
+function addTag(keyword){
+  $.ajax({
+    url:'/tag/add',
+    data:{
+      "keyword":keyword
+    },
+    success:data=>{
+      if(data === 0){
+        alert("이미 등록된 태그입니다.");
+        return;
+
+      }else {
+        alert("태그가 등록되었습니다.");
+        getMyTagData();
+        return;
+
+      }
+    }
+  });
+}
+
 // 태그 삭제
 function deleteTag(tagName){
   $.ajax({
-    url:'/tag/my/delete',
+    url:'/tag/delete',
     data:{
       "tagName":tagName
     },

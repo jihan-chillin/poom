@@ -8,6 +8,8 @@ import java.util.Map;
 public interface TagDao {
     int insertTag(TagMapper mapper, String tag);
     List getMyTagData(TagMapper mapper, String loginId);
-    int deleteMyTag(TagMapper mapper,String tagName);
+    int addTag(TagMapper mapper,String keyword);
+    int insertMemberTag(TagMapper mapper,String loginId, String keyword);
+    int deleteTag(TagMapper mapper,String tagName);
     List<Map<String,String>> searchTag(TagMapper mapper,String keyword);
 }

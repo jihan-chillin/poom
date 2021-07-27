@@ -26,10 +26,19 @@ public class TagJsonController {
 
         return tagData;
     }
+    @GetMapping("/tag/add")
+    public int addTag(
+            @RequestParam(value = "keyword")String keyword,
+            HttpServletRequest req
+                      ){
+        String loginId = (String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
 
-    @GetMapping("/tag/my/delete")
-    public void deleteMyTag(@RequestParam(value = "tagName")String tagName){
-        tagService.deleteMyTag(tagName);
+        tagService.insertMemberTag(loginId,keyword);
+        return tagService.addTag(keyword);
+    }
+    @GetMapping("/tag/delete")
+    public void deleteTag(@RequestParam(value = "tagName")String tagName){
+        tagService.deleteTag(tagName);
     }
 
     @GetMapping("/tag/search")

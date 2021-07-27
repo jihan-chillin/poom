@@ -26,8 +26,18 @@ public class TagServiceImpl implements TagService{
     }
 
     @Override
-    public int deleteMyTag(String tagName) {
-        return dao.deleteMyTag(mapper,tagName);
+    public int addTag(String keyword) {
+        return dao.addTag(mapper,keyword);
+    }
+
+    @Override
+    public int insertMemberTag(String loginId, String keyword) {
+        return dao.insertMemberTag(mapper,loginId,keyword);
+    }
+
+    @Override
+    public int deleteTag(String tagName) {
+        return dao.deleteTag(mapper,tagName);
     }
 
     @Override
