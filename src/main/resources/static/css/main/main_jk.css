@@ -300,7 +300,7 @@ div.profile>p>span:nth-of-type(2n-1):hover {
 }
 div.feed {
     background: white;
-    height:500px;
+    height:800px;
     flex-basis: 64%;
     overflow-y: auto;
     /* 오버플로우 스크롤 관련 - 일단 keep */
