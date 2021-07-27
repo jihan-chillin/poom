@@ -24,12 +24,6 @@ function allBoardList(){
 }
 
 
-const movetoForm=()=>{
-	location.assign("/board/form");
-}
-
-
-
 //글쓰기 버튼 클릭시 글작성 페이지로 이동
 function goWriteForm() {
 	$('.feed_write').remove();
@@ -47,4 +41,23 @@ function goWriteForm() {
       console.log(i);
     }
   });
+}
+
+// 게시판리스트에서 글작성 페이지로 이동 ajax
+function moveTooWriteForm(){
+	$('#board-list-catebar').remove();
+	$('#board_list-table').remove();
+	$('.feed').css({"background": "#f7f7f7","border-radius":"20px"});
+
+	$.ajax({
+		url:'/board/form',
+		success:function(data){
+			$('.feed').html(data)
+		},
+		error:(e,m,i)=>{
+			console.log(e);
+			console.log(m);
+			console.log(i);
+		}
+	});
 }

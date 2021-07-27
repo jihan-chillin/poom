@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-	<!-- 게시글 작성 파트 -->
+<!-- 게시글 작성 파트 -->
 
-		<form id="board_form" action="/board/insert" method="post" enctype="multipart/form-data">
-			<ul>
-				<li><span>제목</span><input type="text" name="boardTitle"></li>
-				<li>
-					<span>카테고리</span>
+
+	<!-- ckeditor api 가져오는 화면 -->
+	<form id = "ckeditor-form" method="post" action="#">
+<!--		<input type="hidden" id="id" th:if="*{id != null and id > 0}" th:field="*{id}" />-->
+		<input type="hidden" id="userId" th:field>
+		<table id="ckeditor-table">
+			<tr>
+				<th>제목</th>
+				<td><input type="text" name="board-title" placeholder="제목을 입력하시오" class="input-style"></td>
+			</tr>
+			<tr>
+				<th>카테고리</th>
+				<td>
 					<select name="boardCate">
 						<option value="1">출산/육아/교육</option>
 						<option value="2">분실물</option>
@@ -15,22 +23,37 @@
 						<option value="4">스터디/소모임</option>
 						<option value="5">공동구매</option>
 					</select>
-				</li>
-				<li><span>첨부파일</span><input type="file" multiple="multiple" name="boardImg"></li>
-				<li>
-					<span>내용</span><br>
-					<textarea name="boardContent"></textarea>
-				</li>
-				<li>
-					<input type="text" placeholder="태그를 입력하세요(최대 10자)">
-				</li>
-			</ul>
-			<div>
-				<input type="submit" class="btn" value="등록" onsubmit="board_validate();"/>
-				<button type="button">수정</button>
-				<button type="button" class="btn" onclick="location.assign('/board/all');">취소</button>
-			</div>
-		</form>
+				</td>
+			</tr>
+			<tr>
+				<th colspan="2">내용</th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<textarea name="boardContent" id="ckeditor-area" rows = "6" cols = "115" ></textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>해시태그</th>
+				<td><input type="text" name="boardTag" placeholder="태그를 입력하세요(최대 10자)" class="input-style"></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" class="blue-btn" value="등록" onsubmit="board_validate();"/>
+					<button type="button" class="blacksolid-btn" onclick="history.back();">취소</button>
+				</td>
 
-		
+			</tr>
+
+
+		</table>
+
+	</form>
+
+	<script src="/js/jquery-3.6.0.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" th:inline="javascript"></script>
+
+
 </html>

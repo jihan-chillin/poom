@@ -5,7 +5,7 @@
 <!--	<div id="board_list">-->
 		<div id = board-list-catebar>
 			<span>종합게시판</span>
-			<button type="button" class="write-btn goto-write-btn" onclick="goWriteForm();">글쓰기</button>
+			<button type="button" class="write-btn goto-write-btn" onclick="moveTooWriteForm();">글쓰기</button>
 		</div>
 
 		<div id ="board_list-table">
@@ -17,8 +17,8 @@
 
 						<td colspan="3">
 
-
-							<a href="javascript:viewBoard()" th:name="boardNo">
+							<!-- 이거 ajax로 바꿔야 함.-->
+							<a th:href="@{/board/view(boardNo=${b.BOARD_NO})}">
 								<span th:text="${b.BOARD_TITLE} + '('+${b.CNT}+')'"></span>
 							</a>
 
