@@ -17,4 +17,27 @@ function moveMyTagPage(){
       console.log(i);
     }
   });
+
+  getMyTagData();
+}
+
+// 내 태그 가져오기
+function getMyTagData(){
+  $.ajax({
+    url:'/tag/my/data',
+    success:data=>{
+      console.log(data);
+      $('.my-tag-container>*').remove();
+      let val ='';
+
+      for(let i =0; i<data.length; i++){
+        val += '<div class="my-tag">';
+        val += '<span>'+data[i].TAG_NAME+'</span>';
+        val += '<span class="delete-tag">x</span>';
+        val += '</div>';
+      }
+
+      $('.my-tag-container').append(val);
+    }
+  });
 }
