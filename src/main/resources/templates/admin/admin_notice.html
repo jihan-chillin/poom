@@ -48,14 +48,15 @@
 	        	<!-- <a th:href="@{/admin/notice(page=${n-1})}" th:text="${n}">1</a> -->
 	        	<a th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}" >1</a>
         	</div>
+        	
         	<div th:unless="${cPage eq n}">
         		<a  href="#" th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}">1</a>
         	</div>
         	</th:block>
         	<!-- 다음 -->
 	        <div>
-	        	<a th:if="${endpage==cPage}">&gt;</a>
-	        	<a href="#" th:unless="${endpage==cPage}" th:onclick="|fn_ajax_paging('${cPage+1}')|">&gt;</a>
+	        	<a th:if="${totalPage==cPage}">&gt;</a>
+	        	<a href="#" th:unless="${totalPage==cPage}" th:onclick="|fn_ajax_paging('${cPage+1}')|">&gt;</a>
         	</div>
         
         

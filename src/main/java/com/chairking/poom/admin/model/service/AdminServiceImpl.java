@@ -5,14 +5,18 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.chairking.poom.admin.model.vo.Notice1;
+import com.chairking.poom.admin.domain.Notice;
+import com.chairking.poom.admin.domain.NoticeRepository;
 import com.chairking.poom.admin.mapper.AdminMapper;
 import com.chairking.poom.admin.model.dao.AdminDao;
+import com.chairking.poom.admin.model.vo.Notice1;
 @Service
 public class AdminServiceImpl implements AdminService {
 
+	@Autowired
+	private NoticeRepository notirep;
+	
 	@Autowired
 	private AdminMapper mapper;
 	
@@ -36,7 +40,13 @@ public class AdminServiceImpl implements AdminService {
 	public int insertNotice(Notice1 n) {
 		return dao.insertNotice(n,mapper);
 	}
-
+//	public int insertNotice(Notice n) {
+//		Notice notice=notirep.save(n);
+//		return notice!=null?1:0;
+//	}
+	
+	
+	
 	//공지사항 view
 	@Override
 	public Map<String, Object> selectNotice(String no) {

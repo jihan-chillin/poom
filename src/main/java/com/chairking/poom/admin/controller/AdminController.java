@@ -71,6 +71,7 @@ public class AdminController {
 		mv.addObject("startpage", startPage);
 		mv.addObject("endpage", endPage);
 		mv.addObject("list", list);
+		mv.addObject("totalPage", totalPage);
 		System.out.println("cpage:"+cPage);
 		System.out.println("startpage:"+startPage);
 		System.out.println("endpage:"+endPage);
