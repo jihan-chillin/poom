@@ -15,12 +15,16 @@
 function allBoardList(){
 	$('.feed_write').remove();
 	$('.feed_new').remove();
+	$('.feed').css({
+		"background": "#f7f7f7","border-radius":"20px",
+		"height" : "800px"
+	})
 
 	$.ajax({
 		url:"/board/all",
 		success:function (result){
 			$('.feed').html(result)
-			$('.feed').attr('style', 'height:1000px')
+
 		},
 		error:(e,m,i)=>{
 			console.log(e);
@@ -34,35 +38,35 @@ const movetoForm=()=>{
 	location.assign("/board/form");
 }
 
-$("[name=boardDetail]").click((e)=>{
+// $("[name=boardDetail]").click((e)=>{
+//
+// 	$('#board-whole-content').remove();
+//
+// 	const boardNo = e.target.title;
+// 	$.ajax({
+// 		url:"/board/view",
+// 		data:{
+// 			"boardNo" : boardNo
+// 		}
+// 	}).done(function(result){
+// 		$(".feed").html(result);
+// 	});
+// });
+
+const viewBoard=()=>{
 
 	$('#board-whole-content').remove();
 
-	const boardNo = e.target.title;
 	$.ajax({
 		url:"/board/view",
 		data:{
 			"boardNo" : boardNo
+		},
+		success:function(result){
+			$(".feed").html(result);
 		}
-	}).done(function(result){
-		$(".feed").html(result);
 	});
-});
-
-// const viewBoard=()=>{
-//
-// 	$('#board-whole-content').remove();
-//
-// 	$.ajax({
-// 		url:"/board/view?boardNo=",
-// 		data:{
-// 			"boardNo" : boardNo
-// 		},
-// 		success:function(data){
-// 			$(".feed").html(data)
-// 		}
-// 	});
-// }
+}
 
 //글쓰기 버튼 클릭시 글작성 페이지로 이동
 function goWriteForm() {

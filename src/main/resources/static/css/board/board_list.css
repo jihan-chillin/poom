@@ -1,38 +1,16 @@
-#board-whole-content{
-	width: 1600px;
-	position: fixed;
-	top: 130px;
-	left: 300px;
-	display: flex;
-	justify-content: space-evenly;
-	align-items: flex-start;
-	z-index: 1;
-}
-
-div#board_list{
-	width: 1036px;
-	background-color: #f7f7f7;
-	border-radius: 20px;
-	text-align: center;
-	padding: 30px 0;
-	margin-bottom: 20px;
-	height: 800px;
-	overflow-y: scroll;
-	margin-left: 65px;
-}
 
 /* 카테고리 부분 */
-div#board-list-catebar{
+div#board-list-catebar {
 	width: 90%;
 	margin: 20px auto;
 	border-bottom: black 1px solid;
-	padding-bottom: 60px;
-
+	text-align: center;
+	padding: 60px 0 100px 0;
 }
 
 .write-btn{
-	margin-top: 20px;
 	float: right;
+	margin: 60px 0 15px 850px;
 	width: 80px;
 	height: 25px;
 }
