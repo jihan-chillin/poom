@@ -123,10 +123,10 @@ table#notice_table tr td:nth-child(3), table#notice_table tr th:nth-child(3){
     width:10%;
     padding-right:30px;
 }
-/* table#notice_table tr td:nth-child(2), table#notice_table tr th:nth-child(2){
-
-    padding-left:50px;
-} */
+table#notice_table tr td:nth-child(2), table#notice_table tr th:nth-child(2){
+	font-size:15px;
+	font-weight:bold;
+}
 div#admin_content button{
     float: right;
     width: 80px;
@@ -154,14 +154,20 @@ button.admin_buttons{
 }
 /*페이지바*/
 div#admin_pagebar{
-    height:50px;
+    height:80px;
     display:flex;
-    justify-content:center;
-    padding-top:15px;
-    flex-direction:row;
+    position:relative;
+    /* justify-content:center; */
+    padding-top:30px;
+    /* flex-direction:row; */
 }
-div#admin_pagebar div{
-    /* border:1px black solid; */
+div#admin_pagebar>div{
+	position:absolute;
+	left:495px;
+	width:210px;
+	display:flex;
+}
+div#admin_pagebar>div div{
     height:30px;
     width:30px;
     text-align: center;
@@ -169,13 +175,9 @@ div#admin_pagebar div{
     font-weight: bold;
     color:darkgray;
     border-radius: 5px;
-    /* font-size: 30px; */
     margin:0 3px;
 }
-/* div#admin_pagebar div:hover{
-    background-color: #F77B1E;
-    color:white;
-} */
+
 /*공지사항 끝*/
 
 /*신고관리*/
