@@ -13,6 +13,7 @@ public interface ChattingDao {
     List<Map> messageContent(ChattingMapper cm,String chatNo,int ref);
     int saveMessage(ChattingMapper cm,ChatMessage chatMessage);
     List<Map<String,Object>> getChatList(ChattingMapper cm,int cPage, int numPerPage);
+    List<Map<String,Object>> getChatListSort(ChattingMapper cm,int cPage, int numPerPage,String chatType);
     Map getChatroomData(ChattingMapper cm,String chatNo);
     int insertChatroomData(ChattingMapper m, Map<String,Object> data);
     String getChatNo(ChattingMapper cm);
@@ -22,4 +23,5 @@ public interface ChattingDao {
     int checkAlreadyBlame(ChattingMapper cm,String chatNo,String id);
     int likeChatroom(ChattingMapper cm,String chatNo,String memberId);
     int blameChatroom(ChattingMapper cm,String chatNo,String memberId);
+    int chatTypeChange(ChattingMapper cm,String chatNo);
 }

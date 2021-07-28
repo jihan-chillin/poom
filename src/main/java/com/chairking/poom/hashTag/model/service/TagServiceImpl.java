@@ -5,6 +5,7 @@ import com.chairking.poom.hashTag.model.dao.TagDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -17,5 +18,30 @@ public class TagServiceImpl implements TagService{
     @Override
     public int insertTag(String tag) {
         return dao.insertTag(mapper,tag);
+    }
+
+    @Override
+    public List getMyTagData(String loginId) {
+        return dao.getMyTagData(mapper,loginId);
+    }
+
+    @Override
+    public int addTag(String keyword) {
+        return dao.addTag(mapper,keyword);
+    }
+
+    @Override
+    public int insertMemberTag(String loginId, String keyword) {
+        return dao.insertMemberTag(mapper,loginId,keyword);
+    }
+
+    @Override
+    public int deleteTag(String tagName) {
+        return dao.deleteTag(mapper,tagName);
+    }
+
+    @Override
+    public List<Map<String, String>> searchTag(String keyword) {
+        return dao.searchTag(mapper,keyword);
     }
 }

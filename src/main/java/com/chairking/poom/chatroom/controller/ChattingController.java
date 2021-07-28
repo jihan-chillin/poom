@@ -78,4 +78,9 @@ public class ChattingController {
         model.setViewName("chatting/create-chatroom");
         return model;
     }
+
+    // 채팅방에 사람이 찼으면 상태 자리 없음으로 자리 있으면 자리 있음으로 바꾸는 메소드
+    public void chatTypeChange(String chatNo){
+        service.chatTypeChange(chatNo);
+    }
 }

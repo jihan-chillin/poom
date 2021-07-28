@@ -48,6 +48,11 @@ public class ChattingServiceImpl implements ChattingService{
     }
 
     @Override
+    public List<Map<String, Object>> getChatListSort(int cPage, int numPerPage, String chatType) {
+        return dao.getChatListSort(cm,cPage,numPerPage,chatType);
+    }
+
+    @Override
     public Map getChatroomData(String chatNo) {
         return dao.getChatroomData(cm,chatNo);
     }
@@ -91,5 +96,10 @@ public class ChattingServiceImpl implements ChattingService{
     @Override
     public int blameChatroom(String chatNo, String memberId) {
         return dao.blameChatroom(cm,chatNo,memberId);
+    }
+
+    @Override
+    public int chatTypeChange(String chatNo) {
+        return dao.chatTypeChange(cm,chatNo);
     }
 }

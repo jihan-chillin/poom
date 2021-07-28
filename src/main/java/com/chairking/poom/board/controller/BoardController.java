@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +18,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.chairking.poom.board.model.service.BoardService;
 import com.chairking.poom.board.model.vo.Board;
 import com.chairking.poom.board.model.vo.BoardImage;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/")
@@ -27,7 +31,9 @@ public class BoardController {
 	
 	//게시글 등록 페이지로 이동
 	@RequestMapping(path="/board/form", method=RequestMethod.GET)
-	public String boardForm() {
+	public String boardForm(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		session.getAttribute("loginMember");
 		return "board/board_form";
 	}
 	
@@ -102,14 +108,15 @@ public class BoardController {
 		return mv;
 	}
 	
-	//게시글 조회
-	@GetMapping("/board/view?boadNo={no}")
-	public ModelAndView boardView(@PathVariable("no") String boardNo, ModelAndView mv) {
-		;
+	//게시글 상세 조회
+	@GetMapping("/board/view")
+	public ModelAndView boardView(@RequestParam String boardNo, ModelAndView mv) {
+		System.out.println(boardNo);
 		mv.setViewName("board/board_view");
 		mv.addObject("board", service.selectBoard(boardNo));
 		mv.addObject("commentList", service.selectCommentList(boardNo));
 		return mv;
 	}
+
 	
 }
