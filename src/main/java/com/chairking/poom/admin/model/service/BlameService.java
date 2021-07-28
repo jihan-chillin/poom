@@ -10,4 +10,5 @@ public interface BlameService {
 	List<Map<String,Object>> allBlameList(String type,Pagination pagination);
 	int blameCount(String type);
 	int insertBlame(Map<String,String> map);
+	List<Map<String,Object>> selectBlame(Map<String,Object> map);
 }

@@ -81,5 +81,25 @@ public class BlameDaoImpl implements BlameDao {
 		return mapper.updateChatBlameCount(no);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectBoardBlame(AdminMapper mapper, String no) {
+		return mapper.selectBoardBlame(no);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectCommentsBlame(AdminMapper mapper, String no) {
+		return mapper.selectCommentsBlame(no);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectChatBlame(AdminMapper mapper, String no) {
+		return mapper.selectChatBlame(no);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectMemberBlame(AdminMapper mapper, String no) {
+		return mapper.selectMemberBlame(no);
+	}
+
 	
 }
