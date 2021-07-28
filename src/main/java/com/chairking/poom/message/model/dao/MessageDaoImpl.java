@@ -28,6 +28,7 @@ public class MessageDaoImpl implements MessageDao{
 
     @Override
     public int deleteMessage(MessageMapper mapper, String msgNo) {
+
         return mapper.deleteMessage(msgNo);
     }
 

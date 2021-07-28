@@ -11,7 +11,8 @@ public interface ChattingService {
     List<Map> enteredMem(String chatNo);
     List<Map> messageContent(String chatNo,int ref);
     int saveMessage(ChatMessage chatMessage);
-    List<Map<String,Object>> getChatList();
+    List<Map<String,Object>> getChatList(int cPage, int numPerPage);
+    List<Map<String,Object>> getChatListSort(int cPage, int numPerPage,String chatType);
     Map getChatroomData(String chatNo);
     int insertChatroomData(Map<String,Object> data);
     String getChatNo();
@@ -21,5 +22,6 @@ public interface ChattingService {
     int checkAlreadyBlame(String chatNo, String memberId);
     int likeChatroom(String chatNo,String memberId);
     int blameChatroom(String chatNo,String memberId);
+    int chatTypeChange(String chatNo);
 
 }

@@ -5,8 +5,15 @@
 </head>
 <body>
 	<script th:inline="javascript">
-		alert([[${msg}]]);
-		location.replace([[${loc}]]);
+		if([[${goIndex}]]!=null) {
+			alert([[${msg}]]);
+			opener.goIndex();
+			window.close();
+		}else {
+			alert([[${msg}]]);
+			location.replace([[${loc}]]);
+		}
+		
 	</script>
 </body>
 </html>

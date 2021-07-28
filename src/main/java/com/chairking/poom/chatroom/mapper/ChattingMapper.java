@@ -21,12 +21,14 @@ public interface ChattingMapper {
     @Select("select * from chatmessage where chat_no= #{chatNo} and message_date between sysdate-#{ref} and sysdate")
     public List<Map> messageContent(String chatNo,int ref);
 
-//  채팅방 번호 수정해야함.
     @Insert("insert into chatmessage values (seq_chatmessage.nextval,#{messageContent},sysdate,#{memberId},#{chatNo})")
     public int saveMessage(ChatMessage chatMessage);
 
-    @Select("select * from chat")
-    public List<Map<String,Object>> getChatList();
+    @Select("select * from( select ROWNUM as rnum, a.* from( select * from CHAT where DEL_STATUS ='0') a) where rnum between #{cPage} and #{numPerPage}")
+    public List<Map<String,Object>> getChatList(int cPage, int numPerPage);
+
+    @Select("select * from( select ROWNUM as rnum, a.* from( select * from CHAT where DEL_STATUS ='0' and CHAT_TYPE=#{chatType}) a) where rnum between #{cPage} and #{numPerPage}")
+    public List<Map<String,Object>> getChatListSort(int cPage, int numPerPage,String chatType);
 
     @Select("select * from chat where chat_no = #{chatNo} and del_status = '0'")
     public Map getChatroomData(String chatNo);
@@ -53,4 +55,8 @@ public interface ChattingMapper {
 
     @Insert("insert into chat_blame values(seq_chat_blameno.nextval,sysdate,#{memberId},#{chatNo})")
     public int blameChatroom(String chatNo,String memberId);
+
+    @Select("select chatTypeChange(#{chatNo}) from dual")
+    public int chatTypeChange(String chatNo);
+
 }

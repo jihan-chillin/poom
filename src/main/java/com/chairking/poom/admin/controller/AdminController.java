@@ -1,9 +1,12 @@
 package com.chairking.poom.admin.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.chairking.poom.admin.domain.NoticeRepository;
+import com.chairking.poom.admin.domain.Notice;
 import com.chairking.poom.admin.model.service.AdminService;
-import com.chairking.poom.admin.model.vo.Notice;
-import com.chairking.poom.common.Pagination;
+import com.chairking.poom.admin.model.vo.Notice1;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdminController {
 
+	@Autowired
+	NoticeRepository pageNotice;
+	
 	@Autowired
 	private AdminService service;
 	
@@ -41,61 +48,31 @@ public class AdminController {
 	
 	//ajax
 	@GetMapping("/notice")
-	public ModelAndView notice(String type,ModelAndView mv, 
-						@RequestParam(value="cPage", defaultValue="1") int cPage) {
-		int totalData =service.countAllNotice();
-		int numPerpage=5;
-		//구글페이징처리해보기
-		Pagination paging= new Pagination(totalData,cPage);
-		int startIndex=paging.getStartIndex();
-		int pageSize=paging.getpageBarSize();
+	public ModelAndView notice(ModelAndView mv, 
+						@PageableDefault(size=10,sort= {"noticeDate"},direction=Direction.DESC) Pageable pageable) {
+		//Pageable을 사용하여 페이징처리하기
+//		List<Map<String,Object>> list = service.allNotice(startIndex,10);
+		Page<Notice> list = pageNotice.findAll(pageable);
+		//총페이지 수
+		int totalPage=list.getTotalPages();
+		//페이지블럭 갯수
+		int pageBar=5;
+		//페이지블럭 첫 숫자
+		int startPage= ((list.getPageable().getPageNumber())/pageBar)*pageBar+1;
+		//페이지블럭 마지막숫자
+		int endPage=startPage+pageBar-1;
+		//전체 페이지 수 보다 endPage가 크면 totalPage로 초기화
+		endPage=totalPage<endPage?totalPage:endPage;
+		//현재페이지 (pageable은 0부터 시작함 그래서 +1해야 cPage)
+		//int cPage=Math.max(list.getPageable().getPageNumber()+1,endPage);
+		int cPage=list.getPageable().getPageNumber()+1;
 		
-		List<Map<String,Object>> list = service.allNotice(startIndex,10);
-		
-		//mv.addObject("pagebar", PageFactory.getPageBar(totalData, cPage, numPerpage, "notice"));
-		
-//		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
-//		int pageBarSize=5;
-//		int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
-//		int pageEnd=pageNo+pageBarSize-1;
-//		mv.addObject("cPage",cPage);
-//		mv.addObject("pageNo",pageNo);
-//		mv.addObject("totalPage",totalPage);
-//		mv.addObject("pageEnd",pageEnd);
-		
+		mv.addObject("cPage",cPage);
+		mv.addObject("startpage", startPage);
+		mv.addObject("endpage", endPage);
 		mv.addObject("list", list);
-//		mv.addObject("pagebar",paging);
-//		mv.addObject("totalData", totalData);
+		mv.addObject("totalPage", totalPage);
 		mv.setViewName("admin/admin_notice");
-		return mv;
-	}
-	
-	//신고관리 메뉴 페이지
-	@GetMapping("/blame")
-	public ModelAndView blame(String type,ModelAndView mv,
-			@RequestParam(value="cPage", defaultValue="1") int cPage) {
-		List<Map<String,Object>> list = null;
-		String title=null;
-		switch(type) {
-			case "blame": case "1" : list = service.allBoardBlame(cPage,10); title="신고된 게시글 관리";break;
-			case "2" : list = service.allBoardBlame(cPage,10); title="신고된 댓글 관리";break;
-			case "3" : list = service.allBoardBlame(cPage,10); title="신고된 채팅 관리";break;
-			case "4" : list = service.allBoardBlame(cPage,10); title="정지된 회원 관리";break;
-		}
-		
-		mv.addObject("list", list);
-		mv.addObject("type", type);
-		System.out.println("type : "+type);
-		mv.addObject("blame_title", title);
-		mv.setViewName("admin/admin_blame");
-		return mv;
-	}
-	
-	//ajax
-	@GetMapping("/pay")
-	public ModelAndView pay(String type,ModelAndView mv) {
-		mv.addObject("type",type);
-		mv.setViewName("admin/admin_pay");
 		return mv;
 	}
 	
@@ -112,13 +89,13 @@ public class AdminController {
 	@Transactional
 	public ModelAndView noticeWrite(@RequestParam Map<String,String> param, String[] cateChk,ModelAndView mv) {
 		int result;
-		Notice n;
+		Notice1 n;
 		if(cateChk.length==1) {
-			n=Notice.builder().cate(cateChk[0]).noticeTitle(param.get("noticeTitle")).noticeContent(param.get("noticeContent")).build();
+			n=Notice1.builder().cate(cateChk[0]).noticeTitle(param.get("noticeTitle")).noticeContent(param.get("noticeContent")).build();
 			result=service.insertNotice(n);
 		}else {
 			for(int i=0;i<cateChk.length;i++) {
-				n=Notice.builder().cate(cateChk[i]).noticeTitle(param.get("noticeTitle")).noticeContent(param.get("noticeContent")).build();
+				n=Notice1.builder().cate(cateChk[i]).noticeTitle(param.get("noticeTitle")).noticeContent(param.get("noticeContent")).build();
 				result=service.insertNotice(n);
 			}
 		}
@@ -172,13 +149,13 @@ public class AdminController {
 		
 		//정상 삭제 됐으면 다시 재등록처리
 		if(result>0) {
-			Notice n;
+			Notice1 n;
 			if(cateChk.length==1) {
-				n=Notice.builder().cate(cateChk[0]).noticeTitle(param.get("noticeTitle")).noticeContent(param.get("noticeContent")).build();
+				n=Notice1.builder().cate(cateChk[0]).noticeTitle(param.get("noticeTitle")).noticeContent(param.get("noticeContent")).build();
 				result=service.insertNotice(n);
 			}else {
 				for(int i=0;i<cateChk.length;i++) {
-					n=Notice.builder().cate(cateChk[i]).noticeTitle(param.get("noticeTitle")).noticeContent(param.get("noticeContent")).build();
+					n=Notice1.builder().cate(cateChk[i]).noticeTitle(param.get("noticeTitle")).noticeContent(param.get("noticeContent")).build();
 					result=service.insertNotice(n);
 				}
 			}

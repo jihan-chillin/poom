@@ -1,71 +1,76 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<head>
-		<div th:replace="/fragments/header.html :: fragment-header"></div>
-		<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_list.css}">
-		<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_view.css}">
-		<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_form.css}">
-	</head>
-<body>
-<div id="wrapper">
 
-	<!-- 헤더바 -->
-	<div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
-	<!-- 좌측메뉴바 -->
-	<div th:replace="/fragments/nav.html :: fragment-nav"></div>
-
-	<div id="content">
-
-		<!-- 프로필 -->
-		<div th:replace="/fragments/profile.html :: fragment-profile"></div>
-
-		<!-- 게시글 작성 파트 -->
-		<div id="board-form-content">
-
-			<form id="board_form" action="/board/insert" method="post" enctype="multipart/form-data">
-				<ul>
-					<li><span>제목</span><input type="text" name="boardTitle"></li>
-					<li>
-						<span>카테고리</span>
-						<select name="boardCate">
-							<option value="1">출산/육아/교육</option>
-							<option value="2">분실물</option>
-							<option value="3">일손(품앗이)</option>
-							<option value="4">스터디/소모임</option>
-							<option value="5">공동구매</option>
-						</select>
-					</li>
-					<li><span>첨부파일</span><input type="file" multiple="multiple" name="boardImg"></li>
-					<li>
-						<span>내용</span><br>
-						<textarea name="boardContent"></textarea>
-					</li>
-					<li>
-						<input type="text" placeholder="태그를 입력하세요(최대 10자)">
-					</li>
-				</ul>
-				<div>
-					<input type="submit" class="btn" value="등록" onsubmit="board_validate();"/>
-					<button type="button">수정</button>
-					<button type="button" class="btn" onclick="location.assign('/board/all');">취소</button>
-				</div>
-			</form>
+<!-- 게시글 작성 파트 -->
 
 
-		</div>
+	<!-- ckeditor api 가져오는 화면 -->
+	<form id = "ckeditor-form" enctype="multipart/form-data" method="post" onsubmit="return false">
+<!--		<input type="hidden" id="id" th:if="*{id != null and id > 0}" th:field="*{id}" />-->
+		<table id="ckeditor-table">
+			<tr>
+				<th>제목</th>
+				<td><input type="text" name="board-title" placeholder="제목을 입력하시오" class="input-style"></td>
+			</tr>
+			<tr>
+				<th>카테고리</th>
+				<td>
+					<select name="boardCate">
+						<option value="1">출산/육아/교육</option>
+						<option value="2">분실물</option>
+						<option value="3">일손(품앗이)</option>
+						<option value="4">스터디/소모임</option>
+						<option value="5">공동구매</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th colspan="2">내용</th>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<textarea name="boardContent" id="ckeditorarea" rows = "6" cols = "115" ></textarea>
+				</td>
 
-		<!-- HOT키워드순위창 -->
-		<div th:replace="/fragments/rank.html :: fragment-rank"></div>
+			</tr>
+			<tr>
+				<th>해시태그</th>
+				<td><input type="text" name="boardTag" placeholder="태그를 입력하세요(최대 10자)" class="input-style"></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input type="submit" id ="ckeditor-btn" class="blue-btn" value="등록">
+					<button type="button" id="btn-cancel" class="blacksolid-btn" >취소</button>
+				</td>
 
-	</div>
-</div>
-</body>
+			</tr>
 
-<script th:src="@{/js/board/board_list_sh.js}"></script>
-<script th:src="@{/js/board/board_form_sh.js}"></script>
+
+		</table>
+
+		<!--textarea를 스마트 에디터로 변경할 것-->
+		<script>
+			$(document).ready(function(){
+				// CKEditor API 불러오기
+				CKEDITOR.replace('ckeditorarea', {
+					filebrowserUploadUrl : 'images/ckeditor',
+					height : '400px'
+				});
+
+
+				// CKEditor로 작성한 글  & 파일 게시 잘 되는지 확인
+				$('#ckeditor-btn').click(function(){
+					alert(CKEDITOR.instances.ckeditorarea.getData());
+				})
+
+				$('#btn-cancel').click(function(){
+					history.back();
+				});
+
+			})
+
+		</script>
+
+	</form>
 
 </html>

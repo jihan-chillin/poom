@@ -31,9 +31,29 @@
                 </tbody>
             </table>
             <input type="button" class="send-message" value="쪽지보내기" onclick="showPopup(1);">
+            <form id="deleteBlockMsg" method="post" action="message/delete">
+                <input id="delBlockMsgNo" name="msgNo" type="hidden" value="-1"/>
+                <input id="delBlockType" name="delType" type="hidden" value="block"/>
+
+                <input type="button" class="delete-message" value="삭제" onclick="deleteBlockMsg()";>
+            </form>
 
         </div>
     </div>
 </div>
     <script th:src="@{/js/message/message_js_sh.js}"></script>
-<!--    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+ <script>
+     function deleteBlockMsg() {
+         if (confirm("blcok 삭제하시겠습니까?")) {
+             $('.targetChk').each(function () {
+                 if ($(this).is(':checked')) {
+                     var msgNo = $(this).closest('tr').children('.msgNo').html();
+                     var loc = "/message/delete";
+                     $('#deleteBlockMsg').attr("action", loc);
+                     $('#delBlockMsgNo').val(msgNo);
+                     $('#deleteBlockMsg').submit();
+                 }
+             });
+         } else alert("삭제안한다");
+     }
+ </script>

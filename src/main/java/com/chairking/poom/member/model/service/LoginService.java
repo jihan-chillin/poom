@@ -12,4 +12,5 @@ public interface LoginService {
 	Map<String,Object> selectMember(Map param);
 	Map<String,Object> idFind(Map param);
 	Map<String,Object> pwFind(Map param);
+	int updatePw(Map param);
 }

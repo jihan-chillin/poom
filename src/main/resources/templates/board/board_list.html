@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<link th:href="@{/css/board/board_list.css}" rel="stylesheet" type="text/css">
 
-<!--  boardList 스타일 적용-->
-
-<div id="board-whole-content">
-
-	<div id="board_list">
+<!--	<div id="board_list">-->
 		<div id = board-list-catebar>
-			<span>전체 글</span><br>
-			<button type="button" class="write-btn goto-write-btn" onclick="movetoForm();">글쓰기</button>
+			<span>종합게시판</span>
+			<button type="button" class="write-btn goto-write-btn" onclick="moveTooWriteForm();">글쓰기</button>
 		</div>
 
 		<div id ="board_list-table">
-			<form>
+
 				<table id = "all-boardlist-table">
 					<tbody>
 					<!--글 리스트 -->
@@ -20,13 +17,14 @@
 
 						<td colspan="3">
 
-							<a th:href="@{'/board/view?boardNo='+${b.BOARD_NO}}">
+							<!-- 이거 ajax로 바꿔야 함.-->
+							<a th:href="@{/board/view(boardNo=${b.BOARD_NO})}">
 								<span th:text="${b.BOARD_TITLE} + '('+${b.CNT}+')'"></span>
 							</a>
 
 							<span th:text="${#dates.format(b.BOARD_DATE, 'yyyy-MM-dd')}"></span><br>
 
-							<div class="textlimit"><span><a href="#" th:text="${b.BOARD_CONTENT}"></a></span></div>
+							<div class="textlimit"><span><a href="javascript:viewBoard()" th:text="${b.BOARD_CONTENT}" th:title="${b.BOARD_NO}"></a></span></div>
 
 						</td>
 
@@ -51,9 +49,7 @@
 					</tr>
 					</tbody>
 				</table>
-			</form>
+
 		</div>
 
-	</div>
-
-</div>
+<!--	</div>-->

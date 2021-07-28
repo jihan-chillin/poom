@@ -214,7 +214,8 @@ function getChatList(chatNo,url,memberId){
           val += '<div class="other-chat">';
           val += '<div class="others-profile">';
           // 아바타 만들기
-          val +='<i class="chat-avatar">'+(data.messageContent[i].MEMBER_ID).substring(0,1)+'</i></div>';
+          val +='<i class="chat-avatar" style="background-color:'+getAvatarColor(data.messageContent[i].MEMBER_ID)+'">';
+          val += (data.messageContent[i].MEMBER_ID).substring(0,1)+'</i></div>';
           // val += data.messageContent[i].MEMBER_ID+'</div>';
           val += '<div>'+data.messageContent[i].MEMBER_ID+'</div>';
           val += '<div></div>';
@@ -226,11 +227,6 @@ function getChatList(chatNo,url,memberId){
 
       }
       $('.msg-container').append(val);
-
-      // 색상 속성 추가.
-      for(let i =0; i<data.messageContent.length; i++){
-        $('.chat-avatar').attr("style",'background-color:'+getAvatarColor(data.messageContent[i].MEMBER_ID));
-      }
     }
   });
 }
@@ -255,11 +251,8 @@ function enterChatroom(chatNo,memberId,url){
   return 0;
 }
 
-
-let listCount = 0;
-let targetContainer = $('#room-container');
-let winTop;
-let onTop;
+// 페이징 처리위한 변수
+let listCount =1;
 
 function moveChatList(){
   $('.feed>*').remove();
@@ -269,6 +262,7 @@ function moveChatList(){
     success:function(data){
       $('.feed').html(data);
       $('.feed').attr('style','height:905px');
+      $('.chatroom-list-container>*').remove();
     },
     error:(e,m,i)=>{
       console.log(e);
@@ -277,6 +271,11 @@ function moveChatList(){
     }
   });
 
+  getChatroomListData(listCount);
+}
+
+// 채팅방 리스트 가져오는 함수
+function getChatroomListData(listCount){
   $.ajax({
     url:'/chat/list/data',
     data:{
@@ -285,7 +284,6 @@ function moveChatList(){
     success:data=>{
       const memberId = data.loginMember.MEMBER_ID;
 
-      $('.chatroom-list-container>*').remove();
       let val = '';
       for(let i=0; i<data.chatList.length; i++){
 
@@ -307,11 +305,11 @@ function moveChatList(){
         }
 
         val += '<div>';
-          val += '<span>...</span>';
-          val += '<div class="chatroom-submenu">';
-              val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
-              val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">신고하기</span></div>';
-          val += '</div>';
+        val += '<span>...</span>';
+        val += '<div class="chatroom-submenu">';
+        val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+        val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">신고하기</span></div>';
+        val += '</div>';
         val += '</div></div>';
 
 
@@ -326,55 +324,97 @@ function moveChatList(){
         val += '<div>'+data.chatRoomMemCount[i]+'명</div>';
         val += '<div>/</div>';
         val += '<div>'+data.chatList[i].CHAT_PERSON+'명</div></div></div></div>';
-      }
 
+
+      }
       $('.chatroom-list-container').append(val);
     }
   });
+
   listCount++;
 }
-//
-// function listCall(){
-//   // winTop = $('#room-container').prop('scrollHeight');
-//
-//   winTop = $('.feed').height();
-//
-//   onTop = $('.feed').height()-$('.chatroom-list-container').height()
-//     -$('.room-menu').height()-$('.board-title').height();
-//   console.log("winTop" + winTop);
-//   console.log("onTop" + onTop);
-// }
-//
-// $('#room-container').scroll(e=>{
-//   listCall();
-// });
 
 $(function(){
+// 스크롤시 채팅방 리스트 불러옴
   let win = $('.feed');
-
-// Each time the user scrolls
   win.scroll(function() {
-    // console.log("gd");
-    // console.log(win.height());
-    // console.log(win.scrollTop());
-
-    // console.log($('#room-container').height());
-
-    // End of the document reached?
-    // console.log(win.prop('scrollHeight')- doc.prop('scrollHeight'));
-    // console.log( win.scrollTop()
-    // );
-
-    // console.log($('#room-container').height()-win.height());
     let height = $('#room-container').height()-win.height();
     if ( win.scrollTop() === height) {
-
-      console.log("스크롤 탑 : " + win.scrollTop());
-      console.log("높이  : " + height);
+      listCount++;
+      getChatroomListData(listCount);
     }
   });
-
 });
+
+// 채팅방 분류 타입이 변경되었을때.
+function chatTypeChange(){
+  let option = $('.select-chatroom-status option:selected').val();
+  $('.chatroom-list-container>*').remove();
+
+  if(option === 'allChatroom'){
+    getChatroomListData(listCount);
+  }else{
+
+    $.ajax({
+      url:'/chat/list/data/sort',
+      data:{
+        "cPage":listCount,
+        "ref":option
+      },
+      success:data=>{
+        const memberId = data.loginMember.MEMBER_ID;
+
+        let val = '';
+        for(let i=0; i<data.chatList.length; i++){
+
+          val +='<div class="chatroom-info">';
+          val +='<div class="chatroom-info-header"><div>';
+
+          if(data.chatList[i].CATEGORY_NO ==='1'){
+            val +='<span class="chatroom-icon-study">스터디</span></div>';
+          }else{
+            val +='<span class="chatroom-icon-gather">소모임</span></div>';
+          }
+
+          // 모집중
+          // 모집마감 설정
+          if(data.chatList[i].CHAT_PERSON > data.chatRoomMemCount[i] ){
+            val += '<div><span>모집중</span></div>';
+          }else{
+            val += '<div><span>모집마감</span></div>';
+          }
+
+          val += '<div>';
+          val += '<span>...</span>';
+          val += '<div class="chatroom-submenu">';
+          val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+          val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">신고하기</span></div>';
+          val += '</div>';
+          val += '</div></div>';
+
+
+          val += '<div class="chatroom-content-container"><div class="chatroom-content-title" onclick="moveChatListDetail('+data.chatList[i].CHAT_NO+');">';
+          // 제목
+          val += data.chatList[i].CHAT_TITLE +'</div><div class="chatroom-content-info">';
+          // 내용
+          val += data.chatList[i].CHAT_CONTENT +'</div></div>';
+
+          val += '<div class="chatroom-mem"><div> </div>';
+          val += '<div><i class="gg-user"></i></div>';
+          val += '<div>'+data.chatRoomMemCount[i]+'명</div>';
+          val += '<div>/</div>';
+          val += '<div>'+data.chatList[i].CHAT_PERSON+'명</div></div></div></div>';
+
+
+        }
+        $('.chatroom-list-container').append(val);
+
+      }
+    });
+
+  }
+}
+
 
 // 세부 채팅방 세부화면으로
 // 화면 가져오기용.

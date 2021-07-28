@@ -2,6 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/board/board_list.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_view.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_form.css}">
+
+	<!--ckeditor script-->
+	<script src="//cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 </head>
 
 <body>
@@ -20,21 +27,23 @@
 
         <!-- main 피드 -->
         <div class="feed">
-            <div class="feed_write">
-                <select name="category" id="category">
-                    <option value="1">출산,육아,교육</option>
-                    <option value="2">분실물</option>
-                    <option value="3">일손(품앗이)</option>
-                    <option value="4">공동구매</option>
-                </select>
-                <input type="text" value="" placeholder="제목을 입력하세요">
-                <hr>
-                <textarea name="" id="" cols="30" rows="3" placeholder="내용을 입력하세요"></textarea>
-                <hr>
-                <button>파일</button>
-                <button>태그</button>
-                <button>등록</button>
-            </div>
+        	<form id="mainBoard_form" action="/board/insert" method="post" enctype="multipart/form-data">
+	            <div class="feed_write">
+	                <select name="boardCate" id="category">
+	                    <option value="1">출산,육아,교육</option>
+	                    <option value="2">분실물</option>
+	                    <option value="3">일손(품앗이)</option>
+	                    <option value="4">공동구매</option>
+	                </select>
+	                <input type="text" name="boardTitle" value="" placeholder="제목을 입력하세요">
+	                <hr>
+	                <textarea name="boardContent" cols="30" rows="3" placeholder="간단한 글을 작성해보세요. 더 자세한 글작성은 하단 글쓰기 버튼을 이용해주세요!"></textarea>
+	                <hr>
+	                <button type="button">태그</button>
+	                <button type="button" onclick="goWriteForm();">글쓰기</button>
+	                <button type="button">등록</button>
+	            </div>
+            </form>
             <div class="feed_new"></div>
         </div>
 
@@ -46,9 +55,11 @@
 </body>
 
 <script th:src="@{/js/main/main_js_jk.js}"></script>
-<script th:src="@{/js/board/board_list_sh.js}"></script>
 <script th:src="@{/js/main/noti_js_hu.js}"></script>
 <script th:src="@{/js/member/membermodi_jh.js}"></script>
 <script th:src="@{/js/member/mywrite_jh.js}"></script>
+<script th:src="@{/js/board/board_list_sh.js}"></script>
+<script th:src="@{/js/board/board_form_sh.js}"></script>
+
 
 </html>

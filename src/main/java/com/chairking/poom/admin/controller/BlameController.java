@@ -1,8 +1,7 @@
 package com.chairking.poom.admin.controller;
 
+import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,20 +13,49 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.chairking.poom.admin.model.service.AdminService;
+import com.chairking.poom.admin.model.service.BlameService;
+import com.chairking.poom.common.Pagination;
 
 @Controller
 @RequestMapping("/blame")
 public class BlameController {
 	@Autowired
-	private AdminService service;
+	private BlameService service;
 	
-	//채팅방 신고
-	@GetMapping("/chatBlame")
-	public ModelAndView chatBlame(HttpServletRequest req, ModelAndView mv) {
-		//System.out.println("chatNo:"+req.getParameter("chatNo"));
-		//System.out.println("memberId:"+req.getParameter("memberId"));
-		mv.setViewName("admin/admin");
+	//신고관리 메뉴 페이지
+	@GetMapping()
+	public ModelAndView blame(String type,ModelAndView mv,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, //현재페이지
+            @RequestParam(value = "cntPerPage", required = false, defaultValue = "5") int cntPerPage, //numPerpage
+            @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {	//pageBar사이즈
+		//각 테이블 위 제목
+		String title=null;
+		switch(type) {
+			case "blame": case "1" : title="신고된 게시글 관리";break;
+			case "2" : title="신고된 댓글 관리";break;
+			case "3" : title="신고된 채팅 관리";break;
+			case "4" : title="정지된 회원 관리";break;
+		}
+		
+		//페이징처리
+		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
+		pagination.setTotalRecordCount(service.blameCount(type));
+		List<Map<String,Object>> list = service.allBlameList(type, pagination);
+		
+		//페이징처리 시작 
+//		int numPerpage=5;
+//		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
+//		int pageBarSize=5;
+//		int pageNo=((currentPage-1)/pageBarSize)*pageBarSize+1;
+//		int pageEnd=pageNo+pageBarSize-1;
+		mv.addObject("pagination",pagination);
+		mv.addObject("list", list);
+		mv.addObject("type", type);
+		mv.addObject("blame_title", title);
+		System.out.println("pagination:"+pagination.toString());
+		System.out.println("list:"+list.size());
+		System.out.println("cPage:"+currentPage+" / cntPerpage:"+cntPerPage+" /pageSize:"+pageSize+" /totaldata:"+pagination.getTotalRecordCount());
+		mv.setViewName("admin/admin_blame");
 		return mv;
 	}
 	
@@ -35,7 +63,6 @@ public class BlameController {
 	@RequestMapping(value="/report",method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView report(@RequestParam Map<String,String> map,ModelAndView mv) {
 		//신고대상 값 보내야함
-		
 		System.out.println("blame/report"+map);
 		mv.addObject("map", map);
 		
@@ -48,15 +75,15 @@ public class BlameController {
 	@Transactional
 	public ModelAndView insertBlame(@RequestParam Map<String,String> map, ModelAndView mv) {
 		
-			if(map.get("textarea").length()>1) {
-				map.put("blame_reason", "기타 - "+map.get("textarea"));
-			}
-			System.out.println("insertblame:"+map);
-			//type에따라 각 해당하는 신고테이블에 넣기
-			int result=service.insertBlame(map);
-			System.out.println("result"+result);
-			mv.addObject("map",map);
-			mv.setViewName("common/blame_popup_suc");
+		if(map.get("textarea").length()>1) {
+			map.put("blame_reason", "기타 - "+map.get("textarea"));
+		}
+		System.out.println("insertblame:"+map);
+		//type에따라 각 해당하는 신고테이블에 넣기
+		int result=service.insertBlame(map);	//서비스에 트랜젝션처리함 근데 에러뜨면 에러페이지 이동하게 해놓거나 msg로 이동하게 해서 처리하기
+		System.out.println("db에 잘 들ㅇ갔니 result"+result);
+		mv.addObject("map",map);
+		mv.setViewName("common/blame_popup_suc");
 		return mv;
 		
 	}

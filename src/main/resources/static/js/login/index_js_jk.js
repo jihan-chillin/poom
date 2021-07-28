@@ -1,4 +1,4 @@
-$("button[type=submit]").on("click",function(){
+function loginCheck() {
     if($("#id").val()=="") {
         alert('아이디를 입력하세요!');
         $("#id").focus();
@@ -12,4 +12,10 @@ $("button[type=submit]").on("click",function(){
 
     //빈칸 없을 때 제출.
     $("[name=login_form]").submit();
-})
+};
+
+function enterLogin() {
+	if(window.event.keyCode==13) {
+		loginCheck();
+	}
+}

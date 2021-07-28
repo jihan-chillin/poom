@@ -11,10 +11,11 @@
                 <thead>
                 <tr>
                     <th></th>
+                    <th>no</th>
                     <th>받은사람</th>
                     <th>내용</th>
                     <th>읽음여부</th>
-                    <th>발송취소</th>
+<!--                <th>발송취소</th>-->
                 </tr>
                 </thead>
                 <tbody th:each="mv:${list}">
@@ -26,14 +27,43 @@
                             </label>
                         </div>
                     </td>
+                    <td class="msgNo" th:text="${mv.MSG_NO}" ></td>
                     <td th:text="${mv.RECV_MEMBER}"></td>
                     <td th:text="${mv.MSG_CONTENT}"></td>
                     <td th:text="${mv.READ_CHECK} eq 0?'안읽음':'읽음'"></td>
-                    <td th:text="${mv.READ_CHECK} eq 0?'발송취소':''"><button class="msg-cancel"></button></td>
+<!--                    <td th:text="${mv.READ_CHECK} eq 0?'발송취소':''">-->
+                    </td>
                 </tr>
                 </tbody>
             </table>
-<!--            <button class="msg-cancel">발송취소</button>-->
+<!--            <button class="msg-cancel"></button>-->
+            <div>
+            <input type="button" class="send-message" value="쪽지보내기" onclick="showPopup(1);">
+            <input type="button" class="send-cancel" value="발송취소" >
+            <form id="deleteSendMsg" method="post" action="message/delete">
+                <input id="delSendMsgNo" name="msgNo" type="hidden" value="-1"/>
+                <input id="delSendType" name="delType" type="hidden" value="send"/>
+                <input type="button" class="delete-message" value="삭제" onclick="deleteSendMsg();" >
+            </form>
+            </div>
+
         </div>
     </div>
 </div>
+<script>
+    function deleteSendMsg() {
+        if (confirm("send 삭제하시겠습니까?")) {
+            $('.targetChk').each(function () {
+                if ($(this).is(':checked')) {
+                    var msgNo = $(this).closest('tr').children('.msgNo').html();
+                    var loc = "/message/delete";
+                    $('#deleteSendMsg').attr("action", loc);
+                    $('#delSendMsgNo').val(msgNo);
+                    $('#deleteSendMsg').submit();
+                }
+            });
+        } else alert("삭제안한다");
+    }
+</script>
+<script th:src="@{/js/message/message_js_sh.js}"></script>
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
