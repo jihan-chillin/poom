@@ -38,11 +38,11 @@ public class BlameServiceImpl implements BlameService {
 	public int blameCount(String type) {
 		int result=0;
 		switch(type) {
-		case "blame": case "1" : result= dao.allBoardBlameCount(mapper);
-		case "2" : result= dao.allCommentsBlameCount(mapper);
-		case "3" : result= dao.allChatBlameCount(mapper);
-		case "4" : result= dao.allMemberBlameCount(mapper);
-	}
+			case "blame": case "1" : result= dao.allBoardBlameCount(mapper);break;
+			case "2" : result= dao.allCommentsBlameCount(mapper);break;
+			case "3" : result= dao.allChatBlameCount(mapper);break;
+			case "4" : result= dao.allMemberBlameCount(mapper);break;
+		}
 		return result;
 	}
 

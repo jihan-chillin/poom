@@ -41,20 +41,10 @@ public class BlameController {
 		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
 		pagination.setTotalRecordCount(service.blameCount(type));
 		List<Map<String,Object>> list = service.allBlameList(type, pagination);
-		
-		//페이징처리 시작 
-//		int numPerpage=5;
-//		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
-//		int pageBarSize=5;
-//		int pageNo=((currentPage-1)/pageBarSize)*pageBarSize+1;
-//		int pageEnd=pageNo+pageBarSize-1;
 		mv.addObject("pagination",pagination);
 		mv.addObject("list", list);
 		mv.addObject("type", type);
 		mv.addObject("blame_title", title);
-		System.out.println("pagination:"+pagination.toString());
-		System.out.println("list:"+list.size());
-		System.out.println("cPage:"+currentPage+" / cntPerpage:"+cntPerPage+" /pageSize:"+pageSize+" /totaldata:"+pagination.getTotalRecordCount());
 		mv.setViewName("admin/admin_blame");
 		return mv;
 	}

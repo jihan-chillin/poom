@@ -166,6 +166,7 @@ div#admin_pagebar>div{
 	left:495px;
 	width:210px;
 	display:flex;
+	justify-content: center;
 }
 div#admin_pagebar>div div{
     height:30px;
