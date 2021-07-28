@@ -19,7 +19,7 @@ $(function (){
       return;
     }else if(ref.contains("noti-info-message")){
       return;
-    }else if(ref.contains("noti-img")){
+    }else if(ref.contains("noti-content-icon")){
       return;
     }else if(ref.contains("noti-detail")){
       return;
@@ -29,7 +29,11 @@ $(function (){
       return;
     } else if(ref.contains("modal-content-list")){
       return;
-    }else{
+    }else if(ref.contains("noti-content-title")){
+      return;
+    }else if(ref.contains("noti-content-box")) {
+      return;
+    } else{
       notiModal.css("display","none");
 
     }
