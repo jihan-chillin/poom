@@ -51,9 +51,10 @@
 
 
 <script th:inline="javascript">
-    const type = [[${type}]];
+    let mType = [[${mType}]];
+    const delType = [[${delType}]];
     const result = [[${result}]];
-    console.log("result: " + result);
+    console.log("result: " + delType);
     if (result != null) {
         if (result > 0) {
             alert("삭제되었습니다.");
@@ -61,33 +62,39 @@
             alert("삭제에 실패하였습니다.");
         }
     }
-
-    console.log(type);
+    if (delType != null)
+        mType = delType;
+    console.log(mType);
 
     $(function () {
-        fn_message_move(type);
+        fn_message_move(mType);
     });
 
-    function fn_message_move(type) {
-        console.log(type);
-        if (type == 'receive') {
+    function fn_message_move(mType) {
+        console.log(mType);
+        if (mType == 'receive') {
             $.ajax({
                 url: "/message/receive",
-                data: {"type": type},
+                data: {"mType": mType},
+                type: 'POST',
             }).done(function (fragment) {
                 $("#target").html(fragment);
             });
-        }else if(type=='send'){
+        }else if(mType=='send'){
             $.ajax({
                 url:"/message/send",
-                data:{"type":type},
+                data:{"mType":mType},
+                type: 'POST',
+
             }).done(function (fragment){
                 $("#target").html(fragment);
             });
-        }else if(type=='block'){
+        }else if(mType=='block'){
             $.ajax({
                 url:"/message/block",
-                data:{"type":type},
+                data:{"mType":mType},
+                type: 'POST',
+
             }).done(function (fragment){
                 $("#target").html(fragment);
             });
@@ -106,19 +113,6 @@
 
     }
 
-    function deleteMsg(){
-        if (confirm("삭제하시겠습니까?")){
-            $('.targetChk').each(function (){
-                if($(this).is(':checked')){
-                    var msgNo = $(this).closest('tr').children('.msgNo').html();
-                    var loc = "/message/delete";
-                    $('#deleteMsg').attr("action", loc);
-                    $('#delMsgNo').val(msgNo);
-                    $('#deleteMsg').submit();
-                }
-            });
-        }
-        else alert("삭제안한다");
-    }
+
 </script>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
