@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -46,8 +47,10 @@ public class LoginController {
 
 	//로그인시 메인화면으로 이동
 	@GetMapping("/main")
-	public String logIn() {
-		return "main/main";
+	public ModelAndView logIn(ModelAndView model, HttpServletRequest req) {
+		model.setViewName("main/main");
+		model.addObject("loginId",(String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+		return model;
 	}
 
 	//회원가입 클릭시 이용약관화면으로 이동
