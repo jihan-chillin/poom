@@ -17,8 +17,6 @@ public class WebSocketEventListener {
     @Autowired
     private SimpMessageSendingOperations messageTemplate;
 
-    // 채팅방 연결시
-    // 채팅방 참여자 리스트 가져와서 프론트로 주면?
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectEvent event){
         log.info("채팅방 연결됨");

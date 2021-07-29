@@ -2,7 +2,11 @@ package com.chairking.poom.noti.controller;
 
 import com.chairking.poom.board.model.service.BoardService;
 import com.chairking.poom.noti.model.service.NotiService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@Slf4j
 public class NotiController {
     @Autowired
     private NotiService notiService;
