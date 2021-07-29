@@ -1,85 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-
-    <div id="privacy-info-bar">
-
-        <!--정보수정 카테고리-->
-        <ul class="privacy-left">
-            <li><button class="profile-btn" onclick="modiprofile();">프로필 정보</button></li>
-            <li><button class="privacy-btn">개인 정보</button></li>
-        </ul>
-
-
-        <!-- 우측 아이콘 : 채팅 , 쪽지, 해시태그, 내가 쓴 글-->
-        <ul class="privacy-right">
-            <li><div><img src="/../../images/ui/write.png" alt=""  onclick="mywrite();"></div></li>
-            <li><div><img src="/../../images/ui/tag.png" alt="" ></div></li>
-            <li><div><img src="/../../images/ui/msg.png" alt="" onclick="messageBox();"></div></li>
-            <li><div><img src="/../../images/ui/chat.png" alt="" onclick="moveChatList();"></div></li>
-        </ul>
-    </div>
-
+<link th:href="@{/css/member/modiprivacy_jh.css}" rel="stylesheet" type="text/css">
 
     <!-- 정보 수정란 -->
-    <div id = "privacy-info-modi">
-        <form>
-            <table>
-
-                <tbody>
-                <tr>
-                    <td class="modi-bold">아이디</td>
-                    <td><input type="text" class="normal-size" name="id" value="아이디 불러오기" readonly></td>
-                </tr>
-
-                <tr>
-                    <td class="modi-bold pw" id="pw-modi">비밀번호</td>
-                    <td><input type="password" name="pw" class="normal-size" value=""></td>
-                </tr>
-                <tr>
-                    <td class="modi-bold" id="pwcheck-modi">비밀번호 확인</td>
-                    <td>
-                        <input type="password" class="normal-size" value="">
-                        <span id="alert-success" style="display: none;">비밀번호가 일치합니다.</span>
-                        <span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다.</span>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td lass="modi-bold">생년월일</td>
-                    <td><input type="number" class="small-size" value="1996" readonly>
-                        <input type="number" class="small-size" value="07" readonly>
-                        <input type="number" class="small-size" value="07" readonly></td>
-                </tr>
-                <tr>
-                    <td class="modi-bold">이메일</td>
-                    <td><input type="email" name = "email" class="normal-size"  value="kimjihan">
-                        <input type="button" class="blue-btn" value="인증"></td>
-                </tr>
-                <tr>
-                    <td class="modi-bold">위치인증</td>
-                    <td><input type="text" name="loc" class="normal-size"  value="위치인증" >
-                        <input type="button" class="blue-btn" value="인증"></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input class="blue-btn" type="submit" value="수정">
-                        <input class="blacksolid-btn" type="button" onclick="back();" value="취소">
-                    </td>
-                </tr>
-
-
-                </tbody>
-
-            </table>
-        </form>
-
-
-    </div>
+    <form>
+        <table id=privacy-info-modi>
+        	<tbody>
+	            <tr>
+	                <th>아이디</th>
+	                <td>아이디불러오기</td>
+	            </tr>
+	
+	            <tr>
+	                <th id="pw-modi">비밀번호</th>
+	                <td><input type="password" name="pw" class="normal-size" value=""></td>
+	            </tr>
+	            <tr>
+	                <th id="pwcheck-modi">비밀번호 확인</th>
+	                <td>
+	                    <input type="password" class="normal-size" value="">
+	                    <span id="alert-success" style="display: none;">비밀번호가 일치합니다.</span>
+	                    <span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다.</span>
+	
+	                </td>
+	            </tr>
+	            <tr>
+	                <th>생년월일</th>
+	                <td>생년월일불러오기</td>
+	            </tr>
+	            <tr>
+	                <th>이메일</th>
+	                <td><input type="email" name = "email" class="normal-size"  value="kimjihan">
+	                    <input type="button" class="blue-btn" value="인증"></td>
+	            </tr>
+	            <tr>
+	                <th>위치인증</th>
+	                <td><input type="text" name="loc" class="normal-size"  value="위치인증" >
+	                    <input type="button" class="blue-btn" value="인증"></td>
+	            </tr>
+	            <tr>
+	                <td colspan="2">
+	                    	<button type="submit" class="btn_submit" id="pwBtn">수정</button>
+	               			<button type="button" onclick="back();">취소</button>
+                    	</td>
+	            </tr>
+        	</tbody>
+        </table>
+    </form>
 
 </body>
 
-<script th:src="@{/js/main/main_js_jk.js}"></script>
-<script th:src="@{/js/main/membermodi_jh.js}"></script>
-
+<script th:src="@{/js/member/membermodi_jh.js}"></script>
 </html>

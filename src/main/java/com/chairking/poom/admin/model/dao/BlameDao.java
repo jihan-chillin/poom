@@ -17,11 +17,17 @@ public interface BlameDao {
 	int allCommentsBlameCount(AdminMapper mapper);
 	int allChatBlameCount(AdminMapper mapper);
 	int allMemberBlameCount(AdminMapper mapper);
-
+	//신고하기팝업 & 각 테이블 blame_count +1
 	int insertBoardBlame(AdminMapper mapper, Map<String,String> map);
 	int updateBrdBlameCount(AdminMapper mapper, String no);
 	int insertCommentsBlame(AdminMapper mapper, Map<String,String> map);
 	int updateCommentsBlameCount(AdminMapper mapper, String no);
 	int insertChatBlame(AdminMapper mapper, Map<String,String> map);
 	int updateChatBlameCount(AdminMapper mapper, String no);
+	
+	//누적신고수 팝업=>select
+	List<Map<String,Object>> selectBoardBlame(AdminMapper mapper,String no);
+	List<Map<String,Object>> selectCommentsBlame(AdminMapper mapper,String no);
+	List<Map<String,Object>> selectChatBlame(AdminMapper mapper,String no);
+	List<Map<String,Object>> selectMemberBlame(AdminMapper mapper,String no);
 }

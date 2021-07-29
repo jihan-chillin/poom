@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import java.util.Map;
 
 @Controller
@@ -22,8 +24,14 @@ public class MemberController {
     // 1. 프로필정보 수정창으로 이동
     // 화면 전환용
     @GetMapping("/modiprofile")
-    public String membermodi() {
-        return "/member/modiprofile";
+    public ModelAndView membermodi(HttpServletRequest req, ModelAndView mv) {
+    	//세션에서 로그인객체 가져오기
+    	HttpSession session = req.getSession();
+    	Map<String,String> m = (Map<String,String>)session.getAttribute("loginMember");
+    	
+    	mv.addObject("m",m);
+    	mv.setViewName("member/modiprofile");
+        return mv;
     }
 
     // 2. 프로필 수정완료되면 프로필 수정페이지로 이동

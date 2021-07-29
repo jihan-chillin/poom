@@ -2,16 +2,19 @@ package com.chairking.poom.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import ch.qos.logback.core.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,6 +23,7 @@ import com.chairking.poom.board.model.vo.Board;
 import com.chairking.poom.board.model.vo.BoardImage;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -31,11 +35,32 @@ public class BoardController {
 	
 	//게시글 등록 페이지로 이동
 	@RequestMapping(path="/board/form", method=RequestMethod.GET)
-	public String boardForm(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		session.getAttribute("loginMember");
+
+	public String boardForm(){
+
 		return "board/board_form";
 	}
+
+	// ckeditor API로 이미지 업로드하는 controller
+	@PostMapping("/board/ckeditor/fileUpload")
+	public ModelAndView inserBoardCKEditor(ModelAndView mv, HttpServletRequest req,
+			HttpServletResponse res, MultipartHttpServletRequest msr ) throws  Exception{
+
+		PrintWriter printwriter = null;
+
+		// 한글깨짐 방지를 위한 인코딩 설정
+		res.setCharacterEncoding("utf-8");
+		// 파라미터로 전달되는 response 객체의 한글깨짐 방지
+		res.setContentType("text/html; charset=utf-8");
+
+
+		return mv;
+	}
+
+
+
+
+
 	
 	//게시글 등록 서비스
 	@PostMapping("/board/insert")
