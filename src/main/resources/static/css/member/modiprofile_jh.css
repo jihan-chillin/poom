@@ -64,7 +64,6 @@ ul.right li div{
 ul.right li div img{
     width: 50%;
     height: auto;
-    padding-top: 10px;
 }
 
 ul.right li:nth-of-type(even) div:hover{
@@ -84,11 +83,6 @@ ul.right li:nth-of-type(odd) div:hover{
     text-align: center;
     filter: invert(100%);
 }
-
-ul.right li img{
-    padding-top: 7px;
-}
-
 
 /* 정보 수정하는 부분 */
 div#info-modi {
@@ -150,6 +144,9 @@ div.profile-img{
     line-height:150px;
     overflow:hidden;
 }
+div.profile-img>img {
+	width: 100%;
+}
 
 div.profile-txt{
     /* border: 1px black solid; */
@@ -182,21 +179,6 @@ div.profile-txt input{
     color: black;
     cursor: pointer;
 }
-
-/* profilemodify.html */
-
-input.normal-size{
-    width: 370px;
-    padding: 5px 0;
-    outline: none;
-    padding-left: 10px;
-}
-
-/* input.small-size{
-    width: 100px;
-    height: 40px;
-}
- */
 
 div#info-modi button {
     width: 80px;

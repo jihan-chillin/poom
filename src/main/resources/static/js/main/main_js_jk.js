@@ -14,7 +14,7 @@ $(document).ready(function(){
     
     //로고 클릭시 메인화면으로 이동
     $('div.logo').click(function(){
-    	location.href="/main";
+    	location.href="/login/main";
     });
 });
 
@@ -57,11 +57,7 @@ function mywrite(){
 
 //로그아웃ui 클릭시 로그아웃+index로 이동
 function logOut(){
-    location.replace("/logOut");
-}
-
-function insertBoard() {
-	
+    location.replace("/login/logOut");
 }
 
 //글쓰기 버튼 클릭시 글작성 페이지로 이동

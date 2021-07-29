@@ -28,9 +28,7 @@
                     <tbody>
                     <tr>
                         <th>닉네임</th>
-                        <td>
-                            <input type="text" class="normal-size" name="nick" th:value="${session.loginMember.MEMBER_NICKNAME}">
-                        </td>
+                        <td th:text="${session.loginMember.MEMBER_NICKNAME}"></td>
                     </tr>
                     <tr>
                         <th>자기소개</th>
@@ -52,10 +50,9 @@
                                 </p>
 
                                 <label id="label-btn" class="input-file" for="input-file">
-                                    등록
-                                    <input type="file" id="input-file" name="inputfile" accept=".jpg,.jpeg,.png,.gif,.bmp" style="display: none;">
+                                    등록<input type="file" id="input-file" name="input_file" accept=".jpg,.jpeg,.png,.bmp" style="display: none;">
                                 </label>
-                                <input type="button" id="delete-file" name="delete-file" class="blacksolid-btn" value="삭제">
+                                <input type="button" id="delete-file" name="delete_file" class="blacksolid-btn" value="삭제">
                             </div>
                         </td>
                     </tr>

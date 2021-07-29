@@ -4,6 +4,7 @@
     <div th:replace="/fragments/header.html :: fragment-header"></div>
     <!-- css -->
 	<link th:href="@{/css/login/index_jk.css}" rel="stylesheet" type="text/css">
+	 
 </head>
 
 <body>
@@ -12,13 +13,13 @@
             <p>지역기반커뮤니티 '품'</p>
             <div>
                 <img th:src="@{/images/ui/logo.png}" alt="poom로고">
-                <form action="/memberLogin" method="post" name="login_form"  class="login">
+                <form th:action="@{/login/memberLogin}" method="post" name="login_form"  class="login">
                     <label>#ID<input type="text" name="id" id="id"></label>
                     <label for="pw">#PW<input type="password" name="pw" id="pw" onkeyup="enterLogin();"></label>
                     <div class="signup">
-                        <span><a href="/userfind?type=id">ID찾기</a></span>
-                        <span><a href="/userfind?type=pw">PW찾기</a></span>
-                        <span><a href="/termsofservice">회원가입</a></span>
+                        <span><a th:href="@{/login/userfind?type=id}">ID찾기</a></span>
+                        <span><a th:href="@{/login/userfind?type=pw}">PW찾기</a></span>
+                        <span><a th:href="@{/login/termsofservice}">회원가입</a></span>
                     </div>
                 </form>
                 <button type="submit" onclick="loginCheck();">로그인</button>

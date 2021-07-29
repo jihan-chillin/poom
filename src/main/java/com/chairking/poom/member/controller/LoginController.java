@@ -31,6 +31,7 @@ import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@RequestMapping("/login")
 @SessionAttributes("loginMember")
 @Slf4j
 public class LoginController {
@@ -45,12 +46,11 @@ public class LoginController {
 	@Autowired
 	PasswordEncoder pwEncoder;
 
-	//로그인시 메인화면으로 이동
 	@GetMapping("/main")
-	public ModelAndView logIn(ModelAndView model, HttpServletRequest req) {
-		model.setViewName("main/main");
-		model.addObject("loginId",(String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
-		return model;
+	public ModelAndView logIn(ModelAndView mv, HttpServletRequest req) {
+		mv.setViewName("main/main");
+		mv.addObject("loginId",(String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+		return mv;
 	}
 
 	//회원가입 클릭시 이용약관화면으로 이동
