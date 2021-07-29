@@ -2,18 +2,20 @@
 let notiStompClient=null;
 
 function notiConnent(){
-  let socket = new SockJS('/scno');
+  let contextPath = getContextPath()+'/scno';
+
+  let socket = new SockJS(contextPath);
   notiStompClient = Stomp.over(socket);
 
   notiStompClient.connect({},onNotiConnected);
 }
 
 function onNotiConnected(){
-  notiStompClient.subscribe('/receive/noti',onNotiReceived);
+  notiStompClient.subscribe(getContextPath()+'/receive/noti',onNotiReceived);
 }
 
 function sendNoti(loginId){
-  notiStompClient.send("/send/notification/alarm",{},JSON.stringify(loginId));
+  notiStompClient.send(getContextPath()+"/send/notification/alarm",{},JSON.stringify(loginId));
 }
 
 function onNotiReceived(payload){

@@ -5,7 +5,7 @@ function moveMyTagPage(){
   $('.feed_new').remove();
 
   $.ajax({
-    url:'/tag/my/page',
+    url:getContextPath()+'/tag/my/page',
     success:function(data){
       $('.feed').html(data)
       $('.feed').attr('style','height:1000px');
@@ -24,7 +24,7 @@ function moveMyTagPage(){
 // 내 태그 가져오기
 function getMyTagData(){
   $.ajax({
-    url:'/tag/my/data',
+    url:getContextPath()+'/tag/my/data',
     success:data=>{
       // console.log(data);
       $('.my-tag-container>*').remove();
@@ -89,7 +89,7 @@ function getMyTagData(){
 // 태그 등록
 function addTag(keyword){
   $.ajax({
-    url:'/tag/add',
+    url:getContextPath()+'/tag/add',
     data:{
       "keyword":keyword
     },
@@ -111,7 +111,7 @@ function addTag(keyword){
 // 태그 삭제
 function deleteTag(tagName){
   $.ajax({
-    url:'/tag/delete',
+    url:getContextPath()+'/tag/delete',
     data:{
       "tagName":tagName
     },
@@ -125,7 +125,7 @@ function deleteTag(tagName){
 // 태그 검색 + 자동완성 영역
 function searchTag(keyword){
   $.ajax({
-    url:'/tag/search',
+    url:getContextPath()+'/tag/search',
     data:{
       "keyword":
       keyword

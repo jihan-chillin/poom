@@ -50,7 +50,7 @@ $('.noti_icon').click(e=>{
 // 알림창 데이터 가져옴
 function getNotificationData(){
   $.ajax({
-    url:'/noti/my/data',
+    url:getContextPath()+'/noti/my/data',
     data:{
       "loginid":$('#loginMember_id').text()
     },

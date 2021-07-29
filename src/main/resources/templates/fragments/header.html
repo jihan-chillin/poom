@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>poom</title>
+    <!--    contextPath-->
+    <script th:src="@{/js/main/contextPath_js_hu.js}"></script>
     <!-- 절대경로 -->
     <link id="contextPathHolder" th:data-contextPath="${#httpServletRequest.getContextPath()}"/>
     <!-- css -->
@@ -37,7 +39,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
-<!--    contextPath-->
-    <script th:src="@{/js/main/contextPath_js_hu.js}"></script>
+
 </head>
 </html>
