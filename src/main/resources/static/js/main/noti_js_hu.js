@@ -51,6 +51,9 @@ $('.noti_icon').click(e=>{
 function getNotificationData(){
   $.ajax({
     url:'/noti/my/data',
+    data:{
+      "loginid":$('#loginMember_id').val()
+    },
     success:data=>{
       /*
         notiData = 알림 데이터

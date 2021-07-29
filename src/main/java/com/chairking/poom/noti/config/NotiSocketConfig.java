@@ -6,20 +6,20 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
-//@Configuration
-//@EnableWebSocketMessageBroker
+@Configuration
+@EnableWebSocketMessageBroker
 public class NotiSocketConfig implements WebSocketMessageBrokerConfigurer {
-//    @Override
-//    public void registerStompEndpoints(StompEndpointRegistry registry) {
-//        registry.addEndpoint("/scno").withSockJS();
-//    }
-//
-//    @Override
-//    public void configureMessageBroker(MessageBrokerRegistry registry) {
-//        // 메세지를 응답할 prefix
-//        registry.setApplicationDestinationPrefixes("/send/alarm");
-//
-//        // 메세지를 송신할 prefix
-//        registry.enableSimpleBroker("/receive/alarm");
-//    }
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/scno").withSockJS();
+    }
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        // 메세지를 응답할 prefix
+        registry.setApplicationDestinationPrefixes("/send");
+
+        // 메세지를 송신할 prefix
+        registry.enableSimpleBroker("/receive");
+    }
 }

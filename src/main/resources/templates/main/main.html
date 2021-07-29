@@ -21,6 +21,7 @@
 
     <!-- 우측콘텐츠 / 고정+변동 -->
     <div id="content">
+		<input type="hidden" th:value="${loginId}" id="loginMember_id">
 
         <!-- 프로필 -->
         <div th:replace="/fragments/profile.html :: fragment-profile"></div>

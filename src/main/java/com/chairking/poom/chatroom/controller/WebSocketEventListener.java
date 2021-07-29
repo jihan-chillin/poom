@@ -19,7 +19,7 @@ public class WebSocketEventListener {
 
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectEvent event){
-        log.info("채팅방 연결됨");
+        log.info(" 웹소켓 연결됨");
 //        log.info("simpSessionId :{}",event.getMessage().getHeaders().get("simpSessionId"));
 
     }
