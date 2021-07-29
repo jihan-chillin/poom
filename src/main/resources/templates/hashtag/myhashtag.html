@@ -1,0 +1,32 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <link rel="stylesheet" th:href="@{/css/hashtag/myhashtag.css}"/>
+  <div id="hashContainer">
+      <div>해시태그</div>
+      <div>
+        <label class="field field_v1">
+          <input class="field__input" placeholder="검색어를 입력해주세요">
+          <span class="field__label-wrap">
+            <span class="field__label">태그를 검색하고 추가해보세요</span>
+          </span>
+        </label>
+        <div class="tag-search-result-container">
+        </div>
+      </div>
+      <div>나의 해시태그</div>
+      <div></div>
+      <div class="my-tag-container">
+        <div class="my-tag">
+          <span>코딩</span>
+          <span class="delete-tag">x</span>
+        </div>
+        <div class="my-tag">
+          <span>코로나</span>
+          <span class="delete-tag">x</span>
+        </div>
+        <div class="my-tag">
+          <span>취업</span>
+          <span class="delete-tag">x</span>
+        </div>
+        </div>
+      </div>
+</html>

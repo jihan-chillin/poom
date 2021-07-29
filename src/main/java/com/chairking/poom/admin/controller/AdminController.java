@@ -49,7 +49,7 @@ public class AdminController {
 	//ajax
 	@GetMapping("/notice")
 	public ModelAndView notice(ModelAndView mv, 
-						@PageableDefault(size=5,sort= {"noticeDate"},direction=Direction.DESC) Pageable pageable) {
+						@PageableDefault(size=10,sort= {"noticeDate"},direction=Direction.DESC) Pageable pageable) {
 		//Pageable을 사용하여 페이징처리하기
 //		List<Map<String,Object>> list = service.allNotice(startIndex,10);
 		Page<Notice> list = pageNotice.findAll(pageable);
@@ -71,10 +71,7 @@ public class AdminController {
 		mv.addObject("startpage", startPage);
 		mv.addObject("endpage", endPage);
 		mv.addObject("list", list);
-		System.out.println("cpage:"+cPage);
-		System.out.println("startpage:"+startPage);
-		System.out.println("endpage:"+endPage);
-		System.out.println("totalPage:"+totalPage);
+		mv.addObject("totalPage", totalPage);
 		mv.setViewName("admin/admin_notice");
 		return mv;
 	}

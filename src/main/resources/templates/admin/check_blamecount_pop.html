@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+    <title>누적 신고수</title>
+</head>
+<style>
+    *{
+       /*  padding: 0; */
+        /* margin: 0; */
+        box-sizing: border-box;
+        font-family: 'Nanum Gothic', sans-serif;
+    }
+    div#popupWrapper{
+        width:400px;
+        height: 550px;
+        /* padding:10px; */
+        border:1px #F77B1E solid;
+    }
+    div#check_title{
+        height:60px;
+        line-height: 60px;
+        background-color: #F77B1E;
+        color:white;
+        font-weight: bold;
+        font-size: 30px;
+        text-align: center;
+    }
+    div#check_content>p{
+        /* border: 1px black solid; */
+        height:30px;
+        line-height: 30px;
+        text-align: center;
+        font-size: 18px;
+        margin-top:20px;
+    }
+    div#check_content>p:nth-child(2){
+        margin-top:10px;
+        font-size:15px;
+        text-align: right;
+        padding-right:10px;
+    }
+    div#check_detail{
+        height:375px;
+        margin-top:5px;
+        padding:0 10px;
+    }
+    div#detail_title{
+        border: 1px solid lightgray;
+        border-bottom:2px solid lightgray;
+        height:50px;
+        line-height: 50px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .detail_div{
+        height:50px;
+        border-bottom: 1px solid lightgray;
+        border-right: 1px solid lightgray;
+        border-left: 1px solid lightgray;
+        line-height: 50px;
+        text-align: center;
+    }
+    div#close_button{
+        height:50px;
+        display: flex;
+        justify-content: center;
+        position: fixed;
+        top:500px;
+        width:380px;
+        border:none;
+    }
+    div#close_button>button{
+        width: 80px;
+        height: 40px;
+        border-radius: 30px;
+        outline: none;
+        border: none;
+        font-size: 15px;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <div id="popupWrapper">
+        <div id ="check_title">신고 이력</div>
+        <div id="check_content">
+            <p>게시글 제목 : <span th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
+            <p>게시글 누적 신고수 : <span th:text="|${#lists.size(list)}회|">15회</span></p>
+        </div>
+        <div id="check_detail">
+            <div id="detail_title">신고사유</div>
+            <div class="detail_div" th:each="b:${list}" th:text="${b.BLAME_REASON}">
+                스팸/광고/도배
+            </div>
+
+            <div id="close_button">
+                <button type="button" style="background-color: #f7f7f7;color:black;" onclick="window.close();">닫기</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+//무한스크롤 적용하기
+/* $(function(){
+	//스크롤시 채팅방 리스트 불러오기
+	let win=$(".detail_div");
+	win.scroll(function(){
+		let height=$()
+	})
+}) */
+
+</script>
+</html>

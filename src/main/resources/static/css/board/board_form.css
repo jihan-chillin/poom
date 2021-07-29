@@ -1,3 +1,80 @@
+#ckeditor-form{
+    text-align: center;
+    padding: 60px;
+}
+
+#ckeditor-table{
+    width: 95%;
+    text-align: left;
+
+}
+
+#ckeditor-table th {
+    font-size: 20px;
+    padding: 25px;
+}
+
+#ckeditor-table tr:nth-of-type(5) th{
+    padding: 50px 25px;
+}
+
+#ckeditor-table select{
+    width: 150px;
+    height: 30px;
+    font-size: 16px;
+}
+
+.input-style{
+    width: 710px;
+    font-size: 15px;
+    font-style: italic;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    padding: 10px;
+    background-color: #f7f7f7;
+}
+
+#ckeditor-table tr:last-of-type td{
+    width: 95%;
+    text-align: center;
+
+}
+
+#ckeditor-table textarea{
+    margin-left: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*----------------- 이전 css ----------------- */
+
 #header{
 	background-color:white;
 	z-index: 1000;
@@ -60,7 +137,7 @@ div#board-form-content{
 	height:30px;width:165px;
 }
 #board_form li:last-child input{
-	width:1000px;
+	width:800px;
 	padding:10px;
 }
 /* 버튼 포함된 div */

@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.chairking.poom.admin.model.vo.Notice1;
+import com.chairking.poom.common.Pagination;
 
 @Mapper
 public interface AdminMapper {
@@ -36,17 +37,29 @@ public interface AdminMapper {
 	public int changeStatus(String no);
 	
 	//신고
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM BOARD_BLAME JOIN BOARD ON B_TARGET_BOARD_NO = BOARD_NO ORDER BY B_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{cPage} and #{numPerpage}")
-	public List<Map<String,Object>> allBoardBlame(int cPage, int numPerpage);
+	//리스트불러오기
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(select * from board where blame_count != 0 order by blame_count desc ,del_status)A)WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
+	public List<Map<String,Object>> allBoardBlame(Pagination pagination);
 	
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM COMMENTS_BLAME JOIN COMMENTS ON BC_TARGET_COMMENT = COMMENT_NO ORDER BY BC_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{cPage} and #{numPerpage}")
-	public List<Map<String,Object>> allCommentsBlame(int cPage, int numPerpage);
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM COMMENTS_BLAME JOIN COMMENTS ON BC_TARGET_COMMENT = COMMENT_NO ORDER BY BC_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
+	public List<Map<String,Object>> allCommentsBlame(Pagination pagination);
 	
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM CHAT_BLAME JOIN CHAT ON CH_TARGET_CHAT = CHAT_NO ORDER BY CH_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{cPage} and #{numPerpage}")
-	public List<Map<String,Object>> allChatBlame(int cPage, int numPerpage);
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM CHAT_BLAME JOIN CHAT ON CH_TARGET_CHAT = CHAT_NO ORDER BY CH_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
+	public List<Map<String,Object>> allChatBlame(Pagination pagination);
 	
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM MEMBER WHERE DEN_STATUS IN('1','2','3') ORDER BY B_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{cPage} and #{numPerpage}")
-	public List<Map<String,Object>> allMemberBlame(int cPage, int numPerpage);
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM MEMBER WHERE DEN_STATUS IN('1','2','3') ORDER BY B_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
+	public List<Map<String,Object>> allMemberBlame(Pagination pagination);
+	
+	//카운트세기
+	@Select("SELECT COUNT(*) FROM BOARD WHERE BLAME_COUNT !=0")
+	public int allBoardBlameCount();
+	@Select("SELECT COUNT(*) FROM COMMENTS_BLAME")
+	public int allCommentsBlameCount();
+	@Select("SELECT COUNT(*) FROM CHAT_BLAME")
+	public int allChatBlameCount();
+	@Select("SELECT COUNT(*) FROM BOARD_BLAME")
+	public int allMemberBlameCount();
+	
 	
 	@Insert("INSERT INTO BOARD_BLAME VALUES(SEQ_BRD_BLAME_NO.NEXTVAL,#{no},#{target_mem},sysdate,#{blame_reason})")
 	public int insertBoardBlame(Map<String,String> map);
@@ -62,4 +75,13 @@ public interface AdminMapper {
 	public int insertChatBlame(Map<String,String> map);
 	@Update("UPDATE CHAT SET CH_BLAME_COUNT=CH_BLAME_COUNT+1 WHERE CHAT_NO=#{no}")
 	public int updateChatBlameCount(String no);
+	
+	@Select("select * from board_blame join board on b_target_board_no=board_no where board_no=#{no}")
+	public List<Map<String,Object>> selectBoardBlame(String no);
+	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}")
+	public List<Map<String,Object>> selectCommentsBlame(String no);
+	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}")
+	public List<Map<String,Object>> selectChatBlame(String no);
+	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}")
+	public List<Map<String,Object>> selectMemberBlame(String no);
 }

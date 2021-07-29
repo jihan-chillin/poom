@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.chairking.poom.admin.mapper.AdminMapper;
 import com.chairking.poom.admin.model.dao.BlameDao;
+import com.chairking.poom.common.Pagination;
 
 @Service
 public class BlameServiceImpl implements BlameService {
@@ -21,16 +22,28 @@ public class BlameServiceImpl implements BlameService {
 	
 	//게시글 신고 전체 리스트
 	@Override
-	public List<Map<String, Object>> allBlameList(String type,int cPage, int numPerpage) {
+	public List<Map<String, Object>> allBlameList(String type,Pagination pagination) {
 		List<Map<String,Object>> list = null;
 		//type에 따라 dao다르게 실행하기
 		switch(type) {
-			case "blame": case "1" : list=dao.allBoardBlame(mapper,cPage,numPerpage);break;
-			case "2" : list=dao.allCommentsBlame(mapper,cPage,numPerpage);break;
-			case "3" : list=dao.allChatBlame(mapper,cPage,numPerpage);break;
-			case "4" : list=dao.allMemberBlame(mapper,cPage,numPerpage);break;
+			case "blame": case "1" : list=dao.allBoardBlame(mapper,pagination);break;
+			case "2" : list=dao.allCommentsBlame(mapper,pagination);break;
+			case "3" : list=dao.allChatBlame(mapper,pagination);break;
+			case "4" : list=dao.allMemberBlame(mapper,pagination);break;
 		}
 		return list;
+	}
+	//게시글 갯수 가져오기
+	@Override
+	public int blameCount(String type) {
+		int result=0;
+		switch(type) {
+			case "blame": case "1" : result= dao.allBoardBlameCount(mapper);break;
+			case "2" : result= dao.allCommentsBlameCount(mapper);break;
+			case "3" : result= dao.allChatBlameCount(mapper);break;
+			case "4" : result= dao.allMemberBlameCount(mapper);break;
+		}
+		return result;
 	}
 
 	//신고하기 팝업 / 신고하기=> insert 각 신고테이블 & 게시글/댓글/채팅 테이블 컬럼 count+1하기
@@ -61,4 +74,18 @@ public class BlameServiceImpl implements BlameService {
 		}
 		return result;
 	}
+	
+	//type,no로 신고글 가져오기
+	@Override
+	public List<Map<String, Object>> selectBlame(Map<String, Object> map) {
+		List<Map<String,Object>> param=null;
+		switch((String)map.get("type")) {
+			case "blame": case "1" : param= dao.selectBoardBlame(mapper,(String)map.get("no"));break;
+			case "2" : param= dao.selectCommentsBlame(mapper,(String)map.get("no"));break;
+			case "3" : param= dao.selectChatBlame(mapper,(String)map.get("no"));break;
+			case "4" : param= dao.selectMemberBlame(mapper,(String)map.get("no"));break;
+		}
+		return param;
+	}
+	
 }

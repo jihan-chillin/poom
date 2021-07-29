@@ -9,7 +9,13 @@
             <thead>
             <tr>
                 <th><input type="checkbox" name="brd_blame_allChk"></th>
-                <th>번호</th>
+               <th:block th:switch="${type}">
+                <th th:case="'1'">게시글 번호</th>
+                <th th:case="'blame'">게시글 번호</th>
+                <th th:case="'2'">번호</th>
+                <th th:case="'3'">채팅방 번호</th>
+                <th th:case="'4'">작성자</th>
+              </th:block>
               <th:block th:switch="${type}">
                 <th th:case="'1'">작성자</th>
                 <th th:case="'blame'">작성자</th>
@@ -24,7 +30,7 @@
                 <th th:case="'3'">채팅방 이름</th>
                 <th th:case="'4'">게시글 제목</th>
               </th:block>
-              <th style="text-align:center;">신고 사유</th>
+              <!-- <th style="text-align:center;">신고 사유</th> -->
                 <th>누적 신고 수</th>
                 <th>삭제여부<br>
                     <input type="radio" name="del_status" value="n" checked>N
@@ -37,11 +43,15 @@
             		<td>
             			<input type="checkbox" name="brd_blame_chk" th:title="${b.BOARD_NO}">
            			</td>
-            		<td>1</td>
+            		<td th:text="${b.BOARD_NO}">1</td>
             		<td th:text="${b.MEMBER_ID}"></td>
             		<td th:text="${b.BOARD_TITLE}"></td>
-            		<td th:text="${b.BLAME_REASON}"></td>
-            		<td th:text="${b.BLAME_COUNT}"></td>
+            		<!-- <td th:text="${b.BLAME_REASON}"></td> -->
+            		<td  >
+            			<!-- <a th:onclick="|fn_check_pop('${type,b.BOARD_NO}')|" th:text="${b.BLAME_COUNT}"></a> -->
+            			<a style="cursor:pointer;"th:data-p1="${type}" th:data-p2="${b.BOARD_NO}" 
+            				th:onclick="|fn_check_pop(this.getAttribute('data-p1'),this.getAttribute('data-p2'))|" th:text="${b.BLAME_COUNT}"></a>
+           			</td>
             		<td th:text="${b.DEL_STATUS} eq 0?'N':'Y'"></td>
             	</tr>
             </tbody>
@@ -53,7 +63,7 @@
             		<td>1</td>
             		<td th:text="${bc.COMMENT_WRITER}"></td>
             		<td th:text="${bc.COMMENT_CONTENT}"></td>
-            		<td th:text="${bc.BLAME_REASON}"></td>
+            		<!-- <td th:text="${bc.BLAME_REASON}"></td> -->
             		<td th:text="${bc.BC_BLAME_COUNT}"></td>
             		<td th:text="${bc.DEL_STATUS} eq 0?'N':'Y'"></td>
             	</tr>
@@ -63,10 +73,10 @@
             		<td>
             			<input type="checkbox" name="brd_blame_chk" th:title="${ch.CHAT_NO}">
            			</td>
-            		<td>1</td>
+            		<td th:text="${ch.CHAT_NO}">1</td>
             		<td th:text="${ch.MEMBER_ID}"></td>
             		<td th:text="${ch.CHAT_TITLE}"></td>
-            		<td th:text="${ch.BLAME_REASON}"></td>
+            		<!-- <td th:text="${ch.BLAME_REASON}"></td> -->
             		<td th:text="${ch.CH_BLAME_COUNT}"></td>
             		<td th:text="${ch.DEL_STATUS} eq 0?'N':'Y'"></td>
             	</tr>
@@ -79,20 +89,60 @@
             		<td>1</td>
             		<td th:text="${m.MEMBER_ID}"></td>
             		<td th:text="${m.BOARD_TITLE}"></td>
-            		<td th:text="${m.BLAME_REASON}"></td>
+            		<!-- <td th:text="${m.BLAME_REASON}"></td> -->
             		<td>누적신고수(추후 COUNT)</td>
             		<td th:text="${m.DEL_STATUS} eq 0?'N':'Y'"></td>
             	</tr>
             </tbody>
         </table>
-        <div id="pagebar">
-            페이지바
-        </div>
-        <button onclick="fn_goBlame();">신고팝업테스트</button>
-        <button>삭제</button><!-- 각 del_status의 상태를 바꾸는 것 -->
+       	<div id="admin_pagebar">
+			<div>
+				<!-- 이전 -->
+				<div>
+					<a th:if="${pagination.currentPage} eq 1" >&lt;</a>
+					<a href="#" th:unless="${pagination.currentPage} eq 1" th:onclick="|fn_ajax_paging('${pagination.currentPage-1}')|">&lt;</a>
+				</div>
+				<!-- 페이지블록 -->
+				<th:block th:each="n:${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">
+				<div th:if="${pagination.currentPage eq n}" style="background-color: #F77B1E;color:white;font-size:20px;">
+					<a th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}" >1</a>
+				</div>
+				
+				<div th:unless="${pagination.currentPage eq n}">
+					<a  href="#" th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}">1</a>
+				</div>
+				</th:block>
+				<!-- 다음 -->
+				<div>
+					<a th:if="${pagination.totalPageCount==pagination.currentPage}">&gt;</a>
+					<a href="#" th:unless="${pagination.totalPageCount==pagination.currentPage}" th:onclick="|fn_ajax_paging('${pagination.currentPage+1}')|">&gt;</a>
+				</div>
+			</div>
+      		<button class="admin_buttons" onclick="" style="position:absolute;left:1070px;">삭제</button><!-- 각 del_status의 상태를 바꾸는 것 -->
+      	</div>
+        <!-- <button onclick="fn_goBlame();">신고팝업테스트</button> -->
     </div>
 </div>
 <script th:inline="javascript">
+function fn_check_pop(t,no){
+	window.open("/blame/checkPop?type="+t+"&no="+no,"","width=420px,height=570px,top=260px,left=800px");
+}
+
+function fn_ajax_paging(i){
+	var type=[[${type}]];	
+	$.ajax({
+		url:"/blame",
+		data:{
+			"currentPage":i,
+			"type":type
+		}
+	}).done(function(fragment){
+		$("#target").html(fragment);
+	});
+};
+
+
+
 //신고하기 팝업 테스트
  	function fn_goBlame(){
 		var type="bc";

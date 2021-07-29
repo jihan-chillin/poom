@@ -28,13 +28,13 @@ public class MessageController {
     PasswordEncoder pwEncoder;
     //쪽지함 탭 보이는 메인페이지
     @GetMapping()
-    public String message(String type,Model m){
+    public String message(String mType,Model m){
         //System.out.println("pw: " + pwEncoder.encode("1234"));
-        m.addAttribute("type",type);
+        m.addAttribute("mType",mType);
         return "message/message_main";
     }
 
-    @GetMapping("/main")
+    @RequestMapping("/main")
     public ModelAndView main(String type, ModelAndView mv){
 
         mv.addObject("type", type);
@@ -44,7 +44,7 @@ public class MessageController {
 
 
     //ajax 받은 쪽지 페이지
-    @GetMapping("/receive")
+    @RequestMapping("/receive")
     public ModelAndView receiveMessage(HttpServletRequest req, ModelAndView mv){
         HttpSession session = req.getSession();
         // 세션에서 내 아이디 가져옴
@@ -63,7 +63,7 @@ public class MessageController {
 
 
     //ajax 보낸 쪽지 페이지
-    @GetMapping("/send")
+    @RequestMapping("/send")
     public ModelAndView sendMessage(HttpServletRequest req, ModelAndView mv){
         HttpSession session = req.getSession();
         // 세션에서 내 아이디 가져옴
@@ -79,7 +79,7 @@ public class MessageController {
     }
 
     //ajax 차단함
-    @GetMapping("/block")
+    @RequestMapping("/block")
     public ModelAndView blockMessage(HttpServletRequest req, ModelAndView mv){
         HttpSession session = req.getSession();
         // 세션에서 내 아이디 가져옴
@@ -135,12 +135,32 @@ public class MessageController {
         return "message/message_content";
     }
 
-    @GetMapping("/delete")
-    public String deleteMessage(@RequestParam String msgNo, Model m){
-        System.out.println("delete: " + msgNo);
+    @RequestMapping("/delete")
+    public ModelAndView deleteMessage(@RequestParam String msgNo, @RequestParam String delType, ModelAndView mv){
+        System.out.println("delete: " + delType);
+        String returnUrl = "";
+        if (delType.equals("delRcv"))
+            System.out.println("delSend case");
+        switch(delType) {
+            case "delSend":
+                System.out.println("delSend case");
+                returnUrl = "message/message_sendMessage";
+                break;
+            case "delRcv":
+                System.out.println("delRcv case");
+                returnUrl = "message/message_receiveMessage";
+                break;
+            case "delBlock":
+                returnUrl = "message/message_blockMessage";
+                break;
+            default:
+                returnUrl = "message/message";
+        }
         int result = service.deleteMessage(msgNo);
-        m.addAttribute("result", result);
-        return "message/message_main";
+        mv.addObject("result",result);
+        mv.addObject("delType", delType);
+        mv.setViewName("message/message_main");
+        return mv;
     }
 
     //받는사람 검색

@@ -18,7 +18,8 @@ public class ChattingJsonController {
     // JSON 전송용 Controller
     @Autowired
     private ChattingService service;
-
+    @Autowired
+    private ChattingController chattingController;
     // 채팅방 몇명 참여했는지
     public List<Map> getEnteredMem(String chatNo){
         return service.enteredMem(chatNo);
@@ -26,6 +27,14 @@ public class ChattingJsonController {
 
     //채팅 내용
     public List getPastChattingList(String chatNo,int ref){
+
+        try {
+            chattingController.chatTypeChange(chatNo);
+        }catch (Exception e){
+            log.warn("타입변경하다가 오류 발생");
+            e.printStackTrace();
+        }
+
         return service.messageContent(chatNo,ref);
     }
     @GetMapping("/chat/mychat/list")
@@ -102,6 +111,12 @@ public class ChattingJsonController {
 //            log.info("채팅리스트 : {}", chatList.get(i).get("CHAT_NO"));
             chatNo = (String)chatList.get(i).get("CHAT_NO");
             memCount.add(i,getEnteredMem(chatNo).size());
+            try {
+                chattingController.chatTypeChange(chatNo);
+            }catch (Exception e){
+                log.warn("타입변경하다가 오류 발생");
+                e.printStackTrace();
+            }
         }
 
         result.put("chatRoomMemCount",memCount);
@@ -109,6 +124,41 @@ public class ChattingJsonController {
         result.put("loginMember",req.getSession().getAttribute("loginMember"));
 
         return result;
+    }
+    // 모집중, 모집마감 분류
+    @GetMapping("/chat/list/data/sort")
+    public Map getChatListSort(HttpServletRequest req){
+        int numPerPage = 4;
+        int cPage = Integer.parseInt(req.getParameter("cPage"));
+        String ref = req.getParameter("ref");
+
+        String chatType = "";
+        // 모집중일때
+        if(ref.equals("ing")){
+            chatType = "0";
+        }else{ // 모집 마감일 때.
+            chatType = "1";
+        }
+        Map<String,Object> result = new HashMap<>();
+
+        List<Map<String,Object>> chatList = service.getChatListSort(cPage,numPerPage,chatType);
+
+        String chatNo = "";
+        List memCount = new ArrayList();
+
+
+        for(int i=0; i<chatList.size(); i++ ) {
+//            log.info("채팅리스트 : {}", chatList.get(i).get("CHAT_NO"));
+            chatNo = (String)chatList.get(i).get("CHAT_NO");
+            memCount.add(i,getEnteredMem(chatNo).size());
+        }
+
+        result.put("chatRoomMemCount",memCount);
+        result.put("chatList",chatList);
+        result.put("loginMember",req.getSession().getAttribute("loginMember"));
+
+        return result;
+
     }
 
     // 채팅방 세부화면

@@ -3,6 +3,8 @@
 <head>
     <div th:replace="/fragments/header.html :: fragment-header"></div>
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- iamport.payment.js -->
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 
 <body>
@@ -19,29 +21,29 @@
 	        <!-- 구매화면 -->
 	        <div id="pay_container">
 	            <p>열람권 구매하기</p>
-	            <form action="" method="post">
+	            <form action="">
 	                <ul>
 	                    <li>
-	                        <label><input type="radio" name="itemNo" value="">7일 이용권</label>
+	                        <label><input type="radio" name="itemNo" value="1">7일 이용권</label>
 	                        <span>\ 4,900</span>
 	                        <span>➔</span>
 	                        <span>\ 2,900</span>
 	                    </li>
 	                    <li>
-	                        <label><input type="radio" name="itemNo" value="">14일 이용권</label>
+	                        <label><input type="radio" name="itemNo" value="2">14일 이용권</label>
 	                        <span>\ 9,900</span>
 	                        <span>➔</span>
 	                        <span>\ 4,900</span>
 	                    </li>
 	                    <li>
-	                        <label><input type="radio" name="itemNo" value="">30일 이용권</label>
+	                        <label><input type="radio" name="itemNo" value="3">30일 이용권</label>
 	                        <span>\ 19,800</span>
 	                        <span>➔</span>
 	                        <span>\ 5,900</span>
 	                    </li>
 	                </ul>
 	                <div>
-	                    <input type="submit" class="btn" value="결제"/>&nbsp;&nbsp;
+	                    <button type="button" class="btn" onclick="pay()">결제</button>
 	                    <button type="button" class="btn" onclick="location.assign('/');">취소</button>
 	                </div>
 	            </form>
@@ -49,11 +51,7 @@
         </div>
     </div>
     
-	<script>
-		$("div#pay_container li").click((e)=>{
-			console.log($(e).target.find("input"));
-		});
-	</script>
+	<script th:src="@{/js/pay/pay_sh.js}"></script>
     
 </body>
 </html>

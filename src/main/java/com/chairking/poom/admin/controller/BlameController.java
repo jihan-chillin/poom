@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chairking.poom.admin.model.service.BlameService;
+import com.chairking.poom.common.Pagination;
 
 @Controller
 @RequestMapping("/blame")
@@ -24,7 +25,10 @@ public class BlameController {
 	//신고관리 메뉴 페이지
 	@GetMapping()
 	public ModelAndView blame(String type,ModelAndView mv,
-			@RequestParam(value="cPage", defaultValue="1") int cPage) {
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, //현재페이지
+            @RequestParam(value = "cntPerPage", required = false, defaultValue = "5") int cntPerPage, //numPerpage
+            @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {	//pageBar사이즈
+		//각 테이블 위 제목
 		String title=null;
 		switch(type) {
 			case "blame": case "1" : title="신고된 게시글 관리";break;
@@ -32,8 +36,14 @@ public class BlameController {
 			case "3" : title="신고된 채팅 관리";break;
 			case "4" : title="정지된 회원 관리";break;
 		}
-		List<Map<String,Object>> list = service.allBlameList(type,cPage,10);
 		
+		//페이징처리
+		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
+		pagination.setTotalRecordCount(service.blameCount(type));
+		List<Map<String,Object>> list = service.allBlameList(type, pagination);
+		System.out.println("count:"+service.blameCount(type));
+		System.out.println("페이지:"+pagination);
+		mv.addObject("pagination",pagination);
 		mv.addObject("list", list);
 		mv.addObject("type", type);
 		mv.addObject("blame_title", title);
@@ -48,7 +58,7 @@ public class BlameController {
 		System.out.println("blame/report"+map);
 		mv.addObject("map", map);
 		
-		mv.setViewName("common/blame_popup");
+		mv.setViewName("admin/blame_popup");
 		return mv;
 	}
 
@@ -65,8 +75,18 @@ public class BlameController {
 		int result=service.insertBlame(map);	//서비스에 트랜젝션처리함 근데 에러뜨면 에러페이지 이동하게 해놓거나 msg로 이동하게 해서 처리하기
 		System.out.println("db에 잘 들ㅇ갔니 result"+result);
 		mv.addObject("map",map);
-		mv.setViewName("common/blame_popup_suc");
+		mv.setViewName("admin/blame_popup_suc");
 		return mv;
-		
+	}
+	
+	//누적신고수 팝업
+	@RequestMapping(value="/checkPop",method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView checkPop(@RequestParam Map map,ModelAndView mv) {
+		//type & no받기=> db연결해서 사유 가져와야함
+		List<Map<String,Object>> list=service.selectBlame(map);
+		mv.addObject("list",list);
+		System.out.println(list);
+		mv.setViewName("admin/check_blamecount_pop");
+		return mv;
 	}
 }

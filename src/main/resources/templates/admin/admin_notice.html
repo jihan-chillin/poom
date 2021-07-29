@@ -4,7 +4,7 @@
         <table id="notice_table" th:if="${list!=null}">
             <thead>
             <tr >
-                <th>번호</th>
+                <!-- <th>번호</th> -->
                 <th>게시판종류</th>
                 <th>제목</th>
                 <th>등록날짜</th>
@@ -23,10 +23,17 @@
             		<td th:text="${n.NOTICE_STATUS} eq 0?'게시중':'삭제'"></td>
                 </tr>
             </tbody> -->
-	        <tbody>
-	        	<tr th:each="n : ${list}">
-	        		<td th:text="${n.noticeNo}"></td>
-	        		<td th:text="${n.categoryNo}"></td>
+	        <tbody >
+	        	<tr th:each="n,  iterState : ${list}">
+	        		<!-- <td th:text="${n.noticeNo}"></td> -->
+	        		<!-- <td th:text=${iterState.count}></td> -->
+	        		<th:block th:switch="${n.categoryNo}">
+	        			<td th:case="1">출산/육아/교육</td>
+	        			<td th:case="2">분실물</td>
+	        			<td th:case="3">일손(품앗이)</td>
+	        			<td th:case="4">스터디/소모임</td>
+	        			<td th:case="5">공동구매</td>
+	        		</th:block>
 	        		<td th:text="${n.noticeTitle}" name="moveToView" th:title="${n.noticeNo}">
 			<!-- <a th:href="@{/admin/noticeView(no=${n.NOTICE_NO})}" ></a> -->
 					</td>
@@ -36,27 +43,30 @@
 	        </tbody>    
         </table>
         <div id="admin_pagebar">
-			<!-- 이전 -->
-        	<div>
-        		<a th:if="${cPage} eq 1" >&lt;</a>
-        		<a href="#" th:unless="${cPage} eq 1" th:onclick="|fn_ajax_paging('${cPage-1}')|">&lt;</a>
-       		</div>
-       		<!-- th:onclick="${1==cPage}?'|javascript:fn_ajax_paging();|':'|javascript:fn_ajax_paging();|'" -->
-       		<!-- 페이지블록 -->
-       		<th:block th:each="n:${#numbers.sequence(startpage,endpage)}">
-	        <div th:if="${cPage eq n}" style="background-color: #F77B1E;color:white;text-decoration:underline;">
-	        	<!-- <a th:href="@{/admin/notice(page=${n-1})}" th:text="${n}">1</a> -->
-	        	<a th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}" >1</a>
-        	</div>
-        	<div th:unless="${cPage eq n}">
-        		<a  href="#" th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}">1</a>
-        	</div>
-        	</th:block>
-        	<!-- 다음 -->
-	        <div>
-	        	<a th:if="${endpage==cPage}">&gt;</a>
-	        	<a href="#" th:unless="${endpage==cPage}" th:onclick="|fn_ajax_paging('${cPage+1}')|">&gt;</a>
-        	</div>
+			<div >
+				<!-- 이전 -->
+				<div>
+					<a th:if="${cPage} eq 1" >&lt;</a>
+					<a href="#" th:unless="${cPage} eq 1" th:onclick="|fn_ajax_paging('${cPage-1}')|">&lt;</a>
+				</div>
+				<!-- th:onclick="${1==cPage}?'|javascript:fn_ajax_paging();|':'|javascript:fn_ajax_paging();|'" -->
+				<!-- 페이지블록 -->
+				<th:block th:each="n:${#numbers.sequence(startpage,endpage)}">
+				<div th:if="${cPage eq n}" style="background-color: #F77B1E;color:white;font-size:20px;">
+					<!-- <a th:href="@{/admin/notice(page=${n-1})}" th:text="${n}">1</a> -->
+					<a th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}" >1</a>
+				</div>
+				
+				<div th:unless="${cPage eq n}">
+					<a  href="#" th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}">1</a>
+				</div>
+				</th:block>
+				<!-- 다음 -->
+				<div>
+					<a th:if="${totalPage==cPage}">&gt;</a>
+					<a href="#" th:unless="${totalPage==cPage}" th:onclick="|fn_ajax_paging('${cPage+1}')|">&gt;</a>
+				</div>
+			</div>
         
         
 <!--         	<ul class="pagination justify-content-center">
@@ -75,8 +85,9 @@
 		      <a class="page-link" href="#" th:href="@{/admin/notice(page=${list.pageable.pageNumber+1})}">Next</a>
 		    </li>
 		  </ul> -->
+
+        	<button class="admin_buttons" onclick="fn_notice_write();" style="position:absolute;left:1070px;">작성하기</button>
         </div>
-        	<button class="admin_buttons" onclick="fn_notice_write();">작성하기</button>
     </div>
 </div>
 <script th:inline="javascript">
