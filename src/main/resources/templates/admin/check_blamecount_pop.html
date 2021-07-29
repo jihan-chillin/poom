@@ -10,15 +10,16 @@
 </head>
 <style>
     *{
-        padding: 0;
-        margin: 0;
+       /*  padding: 0; */
+        /* margin: 0; */
         box-sizing: border-box;
         font-family: 'Nanum Gothic', sans-serif;
     }
     div#popupWrapper{
         width:400px;
         height: 550px;
-        padding:10px;
+        /* padding:10px; */
+        border:1px #F77B1E solid;
     }
     div#check_title{
         height:60px;
@@ -44,40 +45,37 @@
         padding-right:10px;
     }
     div#check_detail{
-        height:400px;
+        height:375px;
         margin-top:5px;
+        padding:0 10px;
     }
-    div#check_detail>table{
-        border-collapse: collapse;
-        text-align: center;
+    div#detail_title{
         border: 1px solid lightgray;
-        /* height:250px; */
-        width: 378px;
-        font-size: 14px;
-        
-    }
-    div#check_detail>table th{
-        border-bottom : 2px solid gray;
-        height: 50px;
-        font-size:15px;
-    }
-    table#detail_table td{
+        border-bottom:2px solid lightgray;
         height:50px;
+        line-height: 50px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
     }
-    table#detail_table tr{
-    	border-bottom:1px solid lightgray;
-    }
-    table#detail_table tr td:nth-child(1), table#detail_table tr th:nth-child(1){
-        width: 80%;
+    .detail_div{
+        height:50px;
+        border-bottom: 1px solid lightgray;
+        border-right: 1px solid lightgray;
+        border-left: 1px solid lightgray;
+        line-height: 50px;
+        text-align: center;
     }
     div#close_button{
-    height:50px;
+        height:50px;
         display: flex;
         justify-content: center;
-    }
-    div#close_button>button{
         position: fixed;
         top:500px;
+        width:380px;
+        border:none;
+    }
+    div#close_button>button{
         width: 80px;
         height: 40px;
         border-radius: 30px;
@@ -95,20 +93,10 @@
             <p>게시글 누적 신고수 : <span th:text="|${#lists.size(list)}회|">15회</span></p>
         </div>
         <div id="check_detail">
-            <table id="detail_table">
-                <thead>
-                    <tr>
-                        <th>신고 사유</th>
-                        <th>횟수</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="b:${list}">
-                        <td th:text="${b.BLAME_REASON}">스팸/광고</td>
-                        <td>5</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div id="detail_title">신고사유</div>
+            <div class="detail_div" th:each="b:${list}" th:text="${b.BLAME_REASON}">
+                스팸/광고/도배
+            </div>
 
             <div id="close_button">
                 <button type="button" style="background-color: #f7f7f7;color:black;" onclick="window.close();">닫기</button>
@@ -116,4 +104,15 @@
         </div>
     </div>
 </body>
+<script>
+//무한스크롤 적용하기
+/* $(function(){
+	//스크롤시 채팅방 리스트 불러오기
+	let win=$(".detail_div");
+	win.scroll(function(){
+		let height=$()
+	})
+}) */
+
+</script>
 </html>
