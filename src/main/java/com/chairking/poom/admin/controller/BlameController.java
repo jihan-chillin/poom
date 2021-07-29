@@ -41,8 +41,6 @@ public class BlameController {
 		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
 		pagination.setTotalRecordCount(service.blameCount(type));
 		List<Map<String,Object>> list = service.allBlameList(type, pagination);
-		System.out.println("count:"+service.blameCount(type));
-		System.out.println("페이지:"+pagination);
 		mv.addObject("pagination",pagination);
 		mv.addObject("list", list);
 		mv.addObject("type", type);
@@ -57,7 +55,6 @@ public class BlameController {
 		//신고대상 값 보내야함
 		System.out.println("blame/report"+map);
 		mv.addObject("map", map);
-		
 		mv.setViewName("admin/blame_popup");
 		return mv;
 	}
@@ -83,9 +80,22 @@ public class BlameController {
 	@RequestMapping(value="/checkPop",method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView checkPop(@RequestParam Map map,ModelAndView mv) {
 		//type & no받기=> db연결해서 사유 가져와야함
+		//총 select * 한 리스트
 		List<Map<String,Object>> list=service.selectBlame(map);
+		
+		//각 신고개수 돈 리스트
+		Map<String,Object> countMap=service.selectCountBlame(map);
+		
+		//기타 사유가 있다면
+		List<Map<String,String>> ectMap=null;
+		if(countMap.get("5")!=null) {
+			ectMap=service.selectEctAll(map);
+		}
+		mv.addObject("type", map.get("type"));
 		mv.addObject("list",list);
-		System.out.println(list);
+		mv.addObject("countMap", countMap);
+		mv.addObject("ectMap", ectMap);
+		System.out.println("ectMap"+ectMap.isEmpty());
 		mv.setViewName("admin/check_blamecount_pop");
 		return mv;
 	}

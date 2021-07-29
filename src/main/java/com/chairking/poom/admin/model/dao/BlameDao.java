@@ -3,6 +3,8 @@ package com.chairking.poom.admin.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.SqlSessionTemplate;
+
 import com.chairking.poom.admin.mapper.AdminMapper;
 import com.chairking.poom.common.Pagination;
 
@@ -30,4 +32,15 @@ public interface BlameDao {
 	List<Map<String,Object>> selectCommentsBlame(AdminMapper mapper,String no);
 	List<Map<String,Object>> selectChatBlame(AdminMapper mapper,String no);
 	List<Map<String,Object>> selectMemberBlame(AdminMapper mapper,String no);
+	
+	//동적쿼리테스트
+	List<Map<String,Object>> selectBlame(SqlSessionTemplate session,Map<String,Object> map);
+	int selectCountBlame1(SqlSessionTemplate session, Map<String,Object> map);
+	int selectCountBlame2(SqlSessionTemplate session, Map<String,Object> map);
+	int selectCountBlame3(SqlSessionTemplate session, Map<String,Object> map);
+	int selectCountBlame4(SqlSessionTemplate session, Map<String,Object> map);
+	int selectCountBlame5(SqlSessionTemplate session, Map<String,Object> map);
+	
+	List<Map<String,String>> selectEctAll(SqlSessionTemplate session, Map<String,Object> map);
+	//Stirng[] selectCountBlame5(SqlSessionTemplate session, Map<String,Object> map);
 }

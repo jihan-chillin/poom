@@ -21,11 +21,11 @@
                 관리자님, 환영합니다.<br>
                 <span>POOM 관리자 페이지 입니다.</span>
             </span >
-            <div id="notice" onclick="fn_admin_move('notice');">
+            <div id="notice" th:onclick="|location.assign('@{/admin/main?type=notice}');|">
                 <p class="admin_menu_title">공지사항관리</p>
                 <p class="admin_menu_content">게시판별 공지사항을 관리할 수 있습니다.</p>
             </div>
-            <div id="blame" onclick="fn_admin_move('blame');">
+            <div id="blame" th:onclick="fn_admin_move('blame');">
                 <p class="admin_menu_title">신고관리</p>
                 <p class="admin_menu_content">신고된 게시글 및 댓글, 유저를 관리할 수 있습니다.</p>
             </div>

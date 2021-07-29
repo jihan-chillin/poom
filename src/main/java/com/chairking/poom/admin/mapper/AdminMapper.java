@@ -84,4 +84,7 @@ public interface AdminMapper {
 	public List<Map<String,Object>> selectChatBlame(String no);
 	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}")
 	public List<Map<String,Object>> selectMemberBlame(String no);
+	
+	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=4 AND BLAME_REASON LIKE '기타%'")
+	public List<Map<String,String>> selectEctAll(Map<String,Object> map);
 }

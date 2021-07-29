@@ -1,8 +1,11 @@
 package com.chairking.poom.admin.model.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +19,9 @@ public class BlameServiceImpl implements BlameService {
 	
 	@Autowired
 	private AdminMapper mapper;
+	
+	@Autowired
+	private SqlSessionTemplate session;
 	
 	@Autowired
 	private BlameDao dao;
@@ -79,13 +85,34 @@ public class BlameServiceImpl implements BlameService {
 	@Override
 	public List<Map<String, Object>> selectBlame(Map<String, Object> map) {
 		List<Map<String,Object>> param=null;
-		switch((String)map.get("type")) {
-			case "blame": case "1" : param= dao.selectBoardBlame(mapper,(String)map.get("no"));break;
-			case "2" : param= dao.selectCommentsBlame(mapper,(String)map.get("no"));break;
-			case "3" : param= dao.selectChatBlame(mapper,(String)map.get("no"));break;
-			case "4" : param= dao.selectMemberBlame(mapper,(String)map.get("no"));break;
-		}
+//		switch((String)map.get("type")) {
+//			case "blame": case "1" : param= dao.selectBoardBlame(mapper,(String)map.get("no"));break;
+//			case "2" : param= dao.selectCommentsBlame(mapper,(String)map.get("no"));break;
+//			case "3" : param= dao.selectChatBlame(mapper,(String)map.get("no"));break;
+//			case "4" : param= dao.selectMemberBlame(mapper,(String)map.get("no"));break;
+//		}
+		param=dao.selectBlame(session, map);
 		return param;
 	}
+	
+	//각 신고 사유별 count세기
+	@Override
+	public Map<String, Object> selectCountBlame(Map<String, Object> map) {
+		Map<String, Object> countMap=new HashMap();
+		countMap.put("1", dao.selectCountBlame1(session, map));
+		countMap.put("2", dao.selectCountBlame2(session, map));
+		countMap.put("3", dao.selectCountBlame3(session, map));
+		countMap.put("4", dao.selectCountBlame4(session, map));
+		countMap.put("5", dao.selectCountBlame5(session,map));
+		return countMap;
+	}
+	
+	//기타사유 리스트 가져오기
+	@Override
+	public List<Map<String, String>> selectEctAll(Map<String, Object> map) {
+		return dao.selectEctAll(session,map);
+	}
+	
+	
 	
 }
