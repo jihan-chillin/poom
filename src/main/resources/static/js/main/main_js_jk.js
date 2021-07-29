@@ -15,7 +15,7 @@ $(document).ready(function(){
     
     //로고 클릭시 메인화면으로 이동
     $('div.logo').click(function(){
-    	location.href="/login/main";
+    	location.href=getContextPath()+"/login/main";
     });
 });
 

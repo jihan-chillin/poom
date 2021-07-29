@@ -63,19 +63,19 @@
 
 				// 첨부파일 커스터 마이징
 				// 이미지 주소로 업로드 하는 창, 이미지 사이즈 줄이기 창 없애고 걍 첨부파일만 할 수 있게
-				CKEDITOR.on('dialogDefinition', function(e){
-					var dialogName = e.data.name;
-					var dialogDefinition = e.data.definition;
-
-
-					switch (dialogName){
-						case 'image':
-							dialogDefinition.removeContents('info');
-							dialogDefinition.removeContents('Link');
-							dialogDefinition.removeContents('advanced');
-							break;
-					}
-				})
+				// CKEDITOR.on('dialogDefinition', function(e){
+				// 	var dialogName = e.data.name;
+				// 	var dialogDefinition = e.data.definition;
+				//
+				//
+				// 	switch (dialogName){
+				// 		case 'image':
+				// 			dialogDefinition.removeContents('info');
+				// 			dialogDefinition.removeContents('Link');
+				// 			dialogDefinition.removeContents('advanced');
+				// 			break;
+				// 	}
+				// })
 
 				// CKEditor로 작성한 글  & 파일 게시 잘 되는지 확인
 				$('#ckeditor-btn').click(function(){

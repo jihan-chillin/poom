@@ -10,7 +10,7 @@ function allBoardList(){
 	});
 
 	$.ajax({
-		url:"/board/all",
+		url:getContextPath()+"/board/all",
 		success:function (result){
 			$('.feed').html(result)
 
@@ -31,7 +31,7 @@ function goWriteForm() {
   	$('.feed').css({"background": "#f7f7f7","border-radius":"20px"});
 
   $.ajax({
-    url:'/board/form',
+    url:getContextPath()+'/board/form',
     success:function(data){
         $('.feed').html(data)
     },
@@ -50,7 +50,7 @@ function moveTooWriteForm(){
 	$('.feed').css({"background": "#f7f7f7","border-radius":"20px"});
 
 	$.ajax({
-		url:'/board/form',
+		url:getContextPath()+'/board/form',
 		success:function(data){
 			$('.feed').html(data)
 		},

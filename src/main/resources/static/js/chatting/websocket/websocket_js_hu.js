@@ -13,7 +13,7 @@ let sendMsgContent=$('.send-msg-content');
 function connect(event){
 
   if(memberId){
-    let socket = new SockJS('/ws');
+    let socket = new SockJS(getContextPath()+'/ws');
     stompClient = Stomp.over(socket);
 
     stompClient.connect({}, onConnected, onError);
@@ -25,9 +25,10 @@ function connect(event){
 function onConnected(){
   // Controller @SendTo 와 연결
   // 채팅방 번호를 넘겨야함
-  stompClient.subscribe('/topic/chatroom',onMessageReceived);
+  let contextPath = getContextPath()+'/topic/chatroom';
+  stompClient.subscribe(contextPath,onMessageReceived);
 
-  stompClient.send("/chat.addUser",{},
+  stompClient.send(getContextPath()+"/chat.addUser",{},
     JSON.stringify({sender:memberId, type:'JOIN'})
   );
 
@@ -49,7 +50,7 @@ function sendMessage(event) {
       chatNo:chatNo,
       type: 'CHAT'
     };
-    stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+    stompClient.send(getContextPath()+"/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
 
     sendMsgContent.val('');
   }
@@ -71,7 +72,7 @@ function onMessageReceived(payload){
     // console.log("페이로드"+payload)
     // messageElement.append(message.messageContent);
 
-    getChatList(chatNo,'/chat/mychat/member',message.memberId);
+    getChatList(chatNo,getContextPath()+'/chat/mychat/member',message.memberId);
   }
 }
 
