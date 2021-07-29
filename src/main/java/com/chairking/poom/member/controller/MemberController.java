@@ -24,14 +24,8 @@ public class MemberController {
     // 1. 프로필정보 수정창으로 이동
     // 화면 전환용
     @GetMapping("/modiprofile")
-    public ModelAndView membermodi(HttpServletRequest req, ModelAndView mv) {
-    	//세션에서 로그인객체 가져오기
-    	HttpSession session = req.getSession();
-    	Map<String,String> m = (Map<String,String>)session.getAttribute("loginMember");
-    	
-    	mv.addObject("m",m);
-    	mv.setViewName("member/modiprofile");
-        return mv;
+    public String membermodi() {
+        return "member/modiprofile";
     }
 
     // 2. 프로필 수정완료되면 프로필 수정페이지로 이동
@@ -60,7 +54,7 @@ public class MemberController {
     // 3. 개인정보 수정창으로 이동
     @GetMapping("/modiprivacy")
     public String modiprivacy() {
-        return "/member/modiprivacy";
+        return "member/modiprivacy";
     }
 
     // 4. 개인정보 update완료 시 개인정보 창으로 이동

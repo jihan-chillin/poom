@@ -161,6 +161,14 @@ public class LoginController {
 	public ModelAndView memberLogin(@RequestParam Map param, ModelAndView mv) {
 		
 		Map<String,Object> m = service.selectMember(param);
+		
+		if(!m.containsKey("INTRO")) {
+    		m.put("INTRO", null);
+    	}
+    	if(!m.containsKey("MEMBER_IMG")) {
+    		m.put("MEMBER_IMG", "poom_profile.jpg");
+    	}
+    	
 		String msg="로그인 실패! 다시 시도해주세요.";
 		String loc="/";
 		if(m!=null && param.get("id").equals("admin") && pwEncoder.matches((String)param.get("pw"), (String)m.get("MEMBER_PW"))) {
@@ -173,6 +181,7 @@ public class LoginController {
 			loc="main";
 		}
 		
+		mv.addObject("m",m);
 		mv.addObject("msg",msg);
 		mv.addObject("loc",loc);
 		mv.setViewName("common/msg");

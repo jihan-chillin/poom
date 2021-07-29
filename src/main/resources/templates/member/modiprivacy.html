@@ -8,7 +8,7 @@
         	<tbody>
 	            <tr>
 	                <th>아이디</th>
-	                <td>아이디불러오기</td>
+	                <td th:text="${session.loginMember.MEMBER_ID}"></td>
 	            </tr>
 	
 	            <tr>
@@ -26,7 +26,7 @@
 	            </tr>
 	            <tr>
 	                <th>생년월일</th>
-	                <td>생년월일불러오기</td>
+	                <td th:text="${#dates.format(session.loginMember.MEMBER_BIRTH,'yyyy-MM-dd')}"></td>
 	            </tr>
 	            <tr>
 	                <th>이메일</th>

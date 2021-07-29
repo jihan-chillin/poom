@@ -231,24 +231,13 @@ div.profile {
     display: flex;
     flex-direction: column;
 }
-
-.edit-btn{
-    border-radius: 10px;
-    width: 50px;
-    margin: 10px 0 0 170px;
-    height: 20px;
-    background-color: #287094;
-    border: none;
-    color: white;
-    font-size: 10px;
-    cursor:pointer;
-}
 div.profile>img {
     width: 200px;
     height: 200px;
     padding: 10px;
     margin: auto;
     border-radius: 50%;
+    transform: translateZ(0);
 }
 div.profile>p:first-of-type {
     width: 250px;
@@ -258,15 +247,30 @@ div.profile>p:first-of-type {
     font-size: 20px;
     font-weight: bold;
 }
-div.profile>p:nth-of-type(2) {
+div.introduce {
     width: 250px;
     margin: auto;
     height: auto;
     background: #fdfdfd;
     border-radius: 20px;
-    padding: 20px 20px 10px 20px;
-    font-size: 15px;
+    padding: 15px 20px;
     margin-bottom: 10px;
+}
+div.introduce>p {
+	font-size: 14px;
+    line-height: 20px;
+    display: inline-block;
+}
+button.edit-btn{
+    border-radius: 5px;
+    padding: 5px 10px;
+    height: 20px;
+    background-color: #287094;
+    border: none;
+    color: white;
+    font-size: 10px;
+    cursor:pointer;
+    float: right;
 }
 div.profile>p:last-of-type {
     width: 250px;

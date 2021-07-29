@@ -29,19 +29,21 @@
                     <tr>
                         <th>닉네임</th>
                         <td>
-                            <input type="hidden" name="memberId" value="text">
-                            <input type="text" class="normal-size" name="nick" value="">
+                            <input type="text" class="normal-size" name="nick" th:value="${session.loginMember.MEMBER_NICKNAME}">
                         </td>
                     </tr>
                     <tr>
                         <th>자기소개</th>
-                        <td><textarea name="intro" cols="50" rows="5" placeholder="30자 이내로 멋진 자기소개를 해보아요!"></textarea></td>
+                        <td>
+                        	<textarea th:if="${session.loginMember.INTRO}!=null" name="intro" cols="50" rows="5" placeholder="30자 이내로 멋진 자기소개를 해보아요!" th:text="${session.loginMember.INTRO}"></textarea>
+                        	<textarea th:unless="${session.loginMember.INTRO}!=null" name="intro" cols="50" rows="5" placeholder="30자 이내로 멋진 자기소개를 해보아요!"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <th>프로필사진</th>
                         <td class="profile-container">
                             <div class="profile-img">
-                                <img id = "img" alt="">
+                                <img th:src="@{/images/profile/}+${session.loginMember.MEMBER_IMG}" alt="프로필이미지">
                             </div>
                             <div class="profile-txt">
                                 <p>

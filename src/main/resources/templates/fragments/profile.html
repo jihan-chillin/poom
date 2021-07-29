@@ -3,14 +3,14 @@
 
 <!-- 프로필 -->
 <div class="profile" th:fragment="fragment-profile">
-    <img th:src="@{/images/profile/chairking.jpg}" alt="">
-    <p>체어킹킹킹</p>
-    <p>
-        안녕하세요.<br>
-        간단한 자기소개를 해주세용!<br>
-        <button class="edit-btn" onclick="membermodi();">edit</button>
-
-    </p>
+    <img th:src="@{/images/profile/}+${session.loginMember.MEMBER_IMG}" alt="프로필이미지">
+    
+    <p th:text="${session.loginMember.MEMBER_ID}"></p>
+    <div class="introduce">
+		<p th:if="${session.loginMember.INTRO}!=null" th:text="${session.loginMember.INTRO}"></p>
+	    <p th:unless="${session.loginMember.INTRO}!=null">edit 버튼을 클릭해 자기소개를 입력해주세요!!ㅇㅇㅇㅇㅇㅇ</p>
+	    <button class="edit-btn" onclick="membermodi();">edit</button>
+    </div>
 
     <p>
         <span><img src="/../../images/ui/write.png" alt="" onclick="mywrite();"></span>
