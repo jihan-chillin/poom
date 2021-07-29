@@ -1,6 +1,4 @@
 //var contextPath = $('#contextPathHolder').attr('data-contextPath') ? $('#contextPathHolder').attr('data-contextPath') : '';
-var contextPath=[[${#request.getContextPath()}]];
-console.log(contextPath);
 $(document).ready(function(){
  
     // 좌측메뉴바 show/hide 스크립트
@@ -42,7 +40,7 @@ function membermodi(){
   	$('.rank').remove();
 
   $.ajax({
-    url:'/member/modiprofile',
+    url:getContextPath()+'/member/modiprofile',
     success:function(data){
         $('#content').html(data)
     },
@@ -70,7 +68,7 @@ function goWriteForm() {
   	$('.feed').css({"background": "#f7f7f7","border-radius":"20px"});
 
   $.ajax({
-    url:'/board/form',
+    url:getContextPath()+'/board/form',
     success:function(data){
         $('.feed').html(data)
     },

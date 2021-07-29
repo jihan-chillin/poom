@@ -20,7 +20,7 @@ $("#blame_menu").parent().click((e)=>{
 //공지사항 글쓰기 이동
 function fn_notice_write(){
 	$.ajax({
-		url:"/admin/moveWrite",
+		url:getContextPath()+"/admin/moveWrite",
 	}).done(function (fragment){
 		$("#admin_section").html(fragment);
 	});
@@ -29,7 +29,7 @@ function fn_notice_write(){
 //공지사항 등록버튼
 function fn_notice_submit(){
 	$.ajax({
-		url:"/admin/noticeWrite",
+		url:getContextPath()+"/admin/noticeWrite",
 		data: $("#notice_form").serialize(),
 		type:"POST"
 	}).done(function (fragment){
@@ -44,7 +44,7 @@ function fn_notice_submit(){
 function fn_cancle(){
 	if(confirm('작성을 취소하시겠습니까?')){
 		$.ajax({
-			url:"/admin/notice",	
+			url:getContextPath()+"/admin/notice",	
 		}).done(function(fragment){
 			$("#target").html(fragment);
 		})
@@ -54,7 +54,7 @@ function fn_cancle(){
 //공지사항 목록으로 돌아가ㅣㄱ
 function moveToList(){
 	$.ajax({
-		url:"/admin/notice"
+		url:getContextPath()+"/admin/notice"
 	}).done(function (fragment){
 		$("#target").html(fragment);
 	})
