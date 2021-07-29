@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/")
+//@RequestMapping("/")
 @Slf4j
 public class BoardController {
 
