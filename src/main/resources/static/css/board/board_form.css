@@ -11,7 +11,11 @@
 
 #ckeditor-table th {
     font-size: 20px;
-    padding: 30px;
+    padding: 25px;
+}
+
+#ckeditor-table tr:nth-of-type(5) th{
+    padding: 50px 25px;
 }
 
 #ckeditor-table select{

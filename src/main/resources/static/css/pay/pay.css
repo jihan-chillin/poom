@@ -49,6 +49,13 @@
 	#pay_container li label{
 	    width:150px;
 	}
+	
+	/* 선택된 이용권에 적용할 클래스 */
+	.item_selected{
+		/* box-shadow:1px 1px 10px 3px gainsboro; */
+		border:3px solid gainsboro;
+	}
+	
 	/* 화살표 */
 	#pay_container li>span:nth-of-type(2){
 	    text-align:center;
@@ -72,9 +79,8 @@
 	    border:1px solid gray;
 	    border-radius: 3px;
 	    background-color: #fdfdfd;
-
-
 	}
-	#pay_container>form>div>input{
+	#pay_container>form>div>button:first-child{
 	    background-color:#F77B1E;
+	    margin-right:20px;
 	}

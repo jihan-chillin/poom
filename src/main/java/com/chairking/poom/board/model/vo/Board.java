@@ -25,5 +25,6 @@ public class Board {
 	private String boardCate;
 	private String memberId;
 	private List<BoardImage> images;
+	private String[] tags;
 	
 }
