@@ -2,8 +2,13 @@ package com.chairking.poom.noti.controller;
 
 import com.chairking.poom.board.model.service.BoardService;
 import com.chairking.poom.noti.model.service.NotiService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@Slf4j
 public class NotiController {
     @Autowired
     private NotiService notiService;
@@ -79,14 +85,14 @@ public class NotiController {
     }
 
     @GetMapping("/noti/my/data")
-    public Map<String,Object> myNotiData(HttpServletRequest req){
-        String loginId = (String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
+    public Map<String,Object> myNotiData(@RequestParam(value = "loginid")String loginId){
+//        String loginId = (String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
         //결과 데이터
         Map<String,Object> data = new HashMap<>();
         // 알림 정보
         List<Map<String,String>> myNotiData = notiService.getMyNotiData(loginId);
         // 게시물 제목 from boardNo
-        List<String>  boardTitleFromBoardNo= new ArrayList<>();
+        List<String>  getBoardTitleFromBoardNo= new ArrayList<>();
         // 게시물 제목 from commentNo
         List<String>  getBoardTitleFromCommentNo=new ArrayList<>();
         // 쪽지 내용 from MsgNo
@@ -95,7 +101,7 @@ public class NotiController {
 
         for(int i =0; i<myNotiData.size(); i++){
             if(myNotiData.get(i).get("BOARD_NO") != null){
-                boardTitleFromBoardNo.add(i,
+                getBoardTitleFromBoardNo.add(i,
                         notiService.getBoardTitleFromBoardNo(myNotiData.get(i).get("BOARD_NO"))
                 );
 
@@ -113,10 +119,17 @@ public class NotiController {
         }
 
         data.put("notiData",myNotiData);
-        data.put("boardTitleFromBoardNo",boardTitleFromBoardNo);
+        data.put("boardTitleFromBoardNo",getBoardTitleFromBoardNo);
         data.put("getBoardTitleFromCommentNo",getBoardTitleFromCommentNo);
         data.put("getMsgContentFromMsgNo",getMsgContentFromMsgNo);
 
         return data;
+    }
+
+    @MessageMapping("/notification/alarm")
+    @SendTo("/receive/noti")
+    public  Map<String,Object> sendData(@Payload String loginId){
+        log.info("loginId");
+        return myNotiData(loginId);
     }
 }

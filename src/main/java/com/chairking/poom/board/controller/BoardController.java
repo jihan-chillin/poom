@@ -1,14 +1,12 @@
 package com.chairking.poom.board.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import ch.qos.logback.core.util.FileUtil;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +19,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.chairking.poom.board.model.service.BoardService;
 import com.chairking.poom.board.model.vo.Board;
 import com.chairking.poom.board.model.vo.BoardImage;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.RandomStringUtils;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,11 +29,12 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/")
+@Slf4j
 public class BoardController {
 
 	@Autowired
 	private BoardService service;
-	
+
 	//게시글 등록 페이지로 이동
 	@RequestMapping(path="/board/form", method=RequestMethod.GET)
 
@@ -41,22 +43,48 @@ public class BoardController {
 		return "board/board_form";
 	}
 
-	// ckeditor API로 이미지 업로드하는 controller
-	@PostMapping("/board/ckeditor/fileUpload")
-	public ModelAndView inserBoardCKEditor(ModelAndView mv, HttpServletRequest req,
-			HttpServletResponse res, MultipartHttpServletRequest msr ) throws  Exception{
+	// ckeditor로 첨부한 이미지 서버로 전송 처리 : 첫 번째 방법
+	@PostMapping("/images/ckeditor")
+	@SneakyThrows
+	//@RequestPart를 사용하면 Json 파일로 넘어온 데이터를 바인딩 가능
+	public String upload(HttpServletRequest req, HttpServletResponse res,
+						 @RequestPart MultipartFile upload) throws Exception{
 
-		PrintWriter printwriter = null;
-
-		// 한글깨짐 방지를 위한 인코딩 설정
+		// 파일 전송시 한글깨짐 방지
 		res.setCharacterEncoding("utf-8");
-		// 파라미터로 전달되는 response 객체의 한글깨짐 방지
+		// 파일 받아올 때 한글깨짐 방지
 		res.setContentType("text/html; charset=utf-8");
 
+		// 파일의 originalname 변수에 저장
+		String sourceName = upload.getOriginalFilename();
+		// 파일 확장자 추출
+		String sourceExt = FilenameUtils.getExtension(sourceName).toLowerCase();
 
-		return mv;
+		File destFile;
+		// 랜덤 알파벳으로 rename시켜줄 파일명
+		String destFileName;
+
+		// 파일 업로드 경로
+		String uploadPath = req.getContextPath()+"/images/ckeditor/";
+
+		do{
+			// '랜덤알파벳 8글자 + 확장자'로 rename된 파일 저장경로 설정
+			destFileName = RandomStringUtils.randomAlphabetic(8).concat(".").concat(sourceExt);
+			destFile = new File(uploadPath + destFileName);
+
+		}while (destFile.exists());
+
+		// 파일 생성시 부모폴더 생성
+		destFile.getParentFile().mkdirs();
+		// 파일저장
+		upload.transferTo(destFile);
+
+		return destFileName;
 	}
 
+
+	// ckeditor로 첨부한 이미지 서버로 전송 처리  : 두 번째 방법
+//@PostMapping("/images/ckeditor")
 
 
 
