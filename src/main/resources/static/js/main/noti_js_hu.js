@@ -52,7 +52,7 @@ function getNotificationData(){
   $.ajax({
     url:'/noti/my/data',
     data:{
-      "loginid":$('#loginMember_id').val()
+      "loginid":$('#loginMember_id').text()
     },
     success:data=>{
       /*

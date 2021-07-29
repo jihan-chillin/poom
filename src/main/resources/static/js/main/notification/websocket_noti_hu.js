@@ -1,6 +1,5 @@
 'use strict';
 let notiStompClient=null;
-console.log(loginId);
 
 function notiConnent(){
   let socket = new SockJS('/scno');
@@ -13,7 +12,7 @@ function onNotiConnected(){
   notiStompClient.subscribe('/receive/noti',onNotiReceived);
 }
 
-function sendNoti(){
+function sendNoti(loginId){
   notiStompClient.send("/send/notification/alarm",{},JSON.stringify(loginId));
 }
 
@@ -25,7 +24,8 @@ function onNotiReceived(payload){
 
 $(function(){
   $('.noti_icon').click(e=>{
-    let loginId = $('#loginMember_id').val();
+    let loginId = $('#loginMember_id').text();
+    console.log(loginId);
 
     sendNoti(loginId);
   });

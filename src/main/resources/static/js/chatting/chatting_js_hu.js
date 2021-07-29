@@ -7,7 +7,7 @@ function moveMyChatList(){
   $('.feed_new').remove();
 
   $.ajax({
-    url:'/chat/mylist/page',
+    url:getContextPath()+'/chat/mylist/page',
     success:function(data){
         $('.feed').html(data)
     },
@@ -19,7 +19,7 @@ function moveMyChatList(){
   });
 
   $.ajax({
-    url:'/chat/mychat/list',
+    url:getContextPath()+'/chat/mychat/list',
     success:data=>{
       if(data.list[0].length === 0){
         return;
@@ -66,7 +66,7 @@ function moveMyChatList(){
 }
 function checkEnterChatroom(memberId,chatNo){
   $.ajax({
-    url:'/chat/chatroom/check',
+    url:getContextPath()+'/chat/chatroom/check',
     data:{
       "chatNo":chatNo,
       "memberId":memberId
@@ -103,7 +103,7 @@ function moveMyChatroom(chatNo,memberId){
   // 데이터 보내고
   // 페이지 가져오기
   $.ajax({
-    url:'/chat/chatroom/page',
+    url:getContextPath()+'/chat/chatroom/page',
     data:{
       "chatNo":
       chatNo
@@ -135,7 +135,7 @@ function moveMyChatroom(chatNo,memberId){
 // 참여인원 불러오기
 function getMyChatroom(chatNo,url){
   $.ajax({
-    url:url,
+    url:getContextPath()+url,
     data:{
       "chatNo":
       chatNo
@@ -180,7 +180,7 @@ function getMyChatroom(chatNo,url){
 // 채팅방 내용 불러오기
 function getChatList(chatNo,url,memberId){
   $.ajax({
-    url:url,
+    url:getContextPath()+url,
     data:{
       "chatNo":
       chatNo
@@ -234,7 +234,7 @@ function getChatList(chatNo,url,memberId){
 function enterChatroom(chatNo,memberId,url){
 
   $.ajax({
-    url:url,
+    url:getContextPath()+url,
     data:{
       "chatNo":chatNo,
       "memberId":memberId
@@ -258,7 +258,7 @@ function moveChatList(){
   $('.feed>*').remove();
 
   $.ajax({
-    url:'/chat/list/page',
+    url:getContextPath()+'/chat/list/page',
     success:function(data){
       $('.feed').html(data);
       $('.feed').attr('style','height:905px');
@@ -277,7 +277,7 @@ function moveChatList(){
 // 채팅방 리스트 가져오는 함수
 function getChatroomListData(listCount){
   $.ajax({
-    url:'/chat/list/data',
+    url:getContextPath()+'/chat/list/data',
     data:{
       "cPage":listCount
     },
@@ -356,7 +356,7 @@ function chatTypeChange(){
   }else{
 
     $.ajax({
-      url:'/chat/list/data/sort',
+      url:getContextPath()+'/chat/list/data/sort',
       data:{
         "cPage":listCount,
         "ref":option
@@ -422,7 +422,7 @@ function moveChatListDetail(chatNo){
   $('.feed>*').remove();
 
   $.ajax({
-    url:'/chat/list/detail',
+    url:getContextPath()+'/chat/list/detail',
     data:chatNo,
     success:data=>{
      $('.feed').html(data);
@@ -435,7 +435,7 @@ function moveChatListDetail(chatNo){
 function chatListDetailData(chatNo){
 
   $.ajax({
-    url:'/chat/detail/data',
+    url:getContextPath()+'/chat/detail/data',
     data:{
       "chatNo":
       chatNo
@@ -517,7 +517,7 @@ function chatListDetailData(chatNo){
 // button 모양등
 function createChatroom(){
   $.ajax({
-    url:'/chat/room/page',
+    url:getContextPath()+'/chat/room/page',
     success:data=>{
       $('.feed>*').remove();
       $('.feed').html(data);
@@ -575,7 +575,7 @@ function chatroomData(){
 // 채팅방 만드는 데이터 보내기
 function sendChatroomData(data){
   $.ajax({
-    url:'/chat/room/data',
+    url:getContextPath()+'/chat/room/data',
     data:{
       "category":data.category,
       "title":data.title,

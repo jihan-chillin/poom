@@ -129,7 +129,7 @@ public class NotiController {
     @MessageMapping("/notification/alarm")
     @SendTo("/receive/noti")
     public  Map<String,Object> sendData(@Payload String loginId){
-        log.info("loginId");
+        log.info(loginId);
         return myNotiData(loginId);
     }
 }
