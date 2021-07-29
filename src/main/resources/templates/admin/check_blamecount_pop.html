@@ -18,8 +18,6 @@
     div#popupWrapper{
         width:400px;
         height: 550px;
-        /* padding:10px; */
-        border:1px #F77B1E solid;
     }
     div#check_title{
         height:60px;
@@ -49,22 +47,31 @@
         margin-top:5px;
         padding:0 10px;
     }
-    div#detail_title{
-        border: 1px solid lightgray;
-        border-bottom:2px solid lightgray;
-        height:50px;
-        line-height: 50px;
-        text-align: center;
-        font-size: 18px;
-        font-weight: bold;
+    div#check_detail>div:first-child{
+    	height:303px;
+    	overflow-y:auto;
+    	border:1px solid lightgray;
     }
-    .detail_div{
-        height:50px;
-        border-bottom: 1px solid lightgray;
-        border-right: 1px solid lightgray;
-        border-left: 1px solid lightgray;
-        line-height: 50px;
+
+    div#check_detail>div>table{
+        border-collapse: collapse;
         text-align: center;
+        width: 100%;
+        font-size: 14px;
+    }
+    div#check_detail>div>table th{
+        border-bottom : 2px solid gray;
+        height: 50px;
+        font-size:15px;
+    }
+    table#detail_table td{
+        height:50px;
+    }
+    table#detail_table tr{
+    	border-bottom:1px solid lightgray;
+    }
+    table#detail_table tr td:nth-child(1), table#detail_table tr th:nth-child(1){
+        width: 80%;
     }
     div#close_button{
         height:50px;
@@ -89,30 +96,62 @@
     <div id="popupWrapper">
         <div id ="check_title">신고 이력</div>
         <div id="check_content">
-            <p>게시글 제목 : <span th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
+        <th:block  th:switch="${type}">
+            <p th:case="'blame'">게시글 제목 : <span th:if="${type} eq 'blame'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
+            <p th:case="'1'">게시글 제목 : <span th:if="${type} eq '1'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
+            <p th:case="'2'">해당 게시글 제목 : <span th:if="${type} eq '2'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
+            <p th:case="'3'">채팅방 이름 : <span th:if="${type} eq '3'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
+            <p th:case="'4'">게시글 제목 : <span th:if="${type} eq '4'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
             <p>게시글 누적 신고수 : <span th:text="|${#lists.size(list)}회|">15회</span></p>
+        </th:block>
         </div>
         <div id="check_detail">
-            <div id="detail_title">신고사유</div>
-            <div class="detail_div" th:each="b:${list}" th:text="${b.BLAME_REASON}">
-                스팸/광고/도배
+        	<div>
+	            <table id="detail_table">
+	                <thead>
+	                    <tr>
+	                        <th>신고 사유</th>
+	                        <th>횟수</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                    <tr>
+	                        <td>음란성 / 선정성</td>
+	                        <td th:text="${countMap.get('1')}">5</td>
+	                    </tr>
+	                    <tr>
+	                        <td>욕설 / 인신공격</td>
+	                        <td th:text="${countMap.get('2')}">5</td>
+	                    </tr>
+	                    <tr>
+	                        <td>스팸 / 광고 / 도배</td>
+	                        <td th:text="${countMap.get('3')}">5</td>
+	                    </tr>
+	                    <tr>
+	                        <td>권리침해</td>
+	                        <td th:text="${countMap.get('4')}">5</td>
+	                    </tr>
+	                    <th:block th:if="${ectMap !=null}">
+	                    <tr th:each="e : ${ectMap}">
+	                        <td th:text="${e.BLAME_REASON}">기타</td>
+	                        <td>1</td>
+	                    </tr>
+	                    </th:block>
+	                     <th:block th:if="${#lists.isEmpty(ectMap)}">
+                   		<tr>
+	                        <td>기타</td>
+	                        <td>0</td>
+                    	</tr>
+	                    </th:block>
+	                    
+	                </tbody>
+	            </table>
             </div>
-
             <div id="close_button">
                 <button type="button" style="background-color: #f7f7f7;color:black;" onclick="window.close();">닫기</button>
             </div>
         </div>
     </div>
 </body>
-<script>
-//무한스크롤 적용하기
-/* $(function(){
-	//스크롤시 채팅방 리스트 불러오기
-	let win=$(".detail_div");
-	win.scroll(function(){
-		let height=$()
-	})
-}) */
 
-</script>
 </html>

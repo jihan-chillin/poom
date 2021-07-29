@@ -12,7 +12,7 @@
             <p>지역기반커뮤니티 '품'</p>
             <div>
                 <img th:src="@{/images/ui/logo.png}" alt="poom로고">
-                <form action="/memberLogin" method="post" name="login_form"  class="login">
+                <form th:action="@{/memberLogin}" method="post" name="login_form"  class="login">
                     <label>#ID<input type="text" name="id" id="id"></label>
                     <label for="pw">#PW<input type="password" name="pw" id="pw" onkeyup="enterLogin();"></label>
                     <div class="signup">

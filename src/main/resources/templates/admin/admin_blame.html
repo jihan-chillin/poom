@@ -12,7 +12,7 @@
                <th:block th:switch="${type}">
                 <th th:case="'1'">게시글 번호</th>
                 <th th:case="'blame'">게시글 번호</th>
-                <th th:case="'2'">번호</th>
+                <th th:case="'2'">해당 게시글 번호</th>
                 <th th:case="'3'">채팅방 번호</th>
                 <th th:case="'4'">작성자</th>
               </th:block>
@@ -64,7 +64,10 @@
             		<td th:text="${bc.COMMENT_WRITER}"></td>
             		<td th:text="${bc.COMMENT_CONTENT}"></td>
             		<!-- <td th:text="${bc.BLAME_REASON}"></td> -->
-            		<td th:text="${bc.BC_BLAME_COUNT}"></td>
+            		<td>
+            			<a style="cursor:pointer;"th:data-p1="${type}" th:data-p2="${bc.BOARD_NO}" 
+            				th:onclick="|fn_check_pop(this.getAttribute('data-p1'),this.getAttribute('data-p2'))|" th:text="${bc.BC_BLAME_COUNT}"></a>
+            		</td>
             		<td th:text="${bc.DEL_STATUS} eq 0?'N':'Y'"></td>
             	</tr>
             </tbody>
@@ -125,7 +128,7 @@
 </div>
 <script th:inline="javascript">
 function fn_check_pop(t,no){
-	window.open("/blame/checkPop?type="+t+"&no="+no,"","width=420px,height=570px,top=260px,left=800px");
+	window.open("/blame/checkPop?type="+t+"&no="+no,"","width=420px,height=580px,top=260px,left=800px");
 }
 
 function fn_ajax_paging(i){
