@@ -1,19 +1,8 @@
 /* privacy.html*/
 
-div#wrapper{
-    width: 1920px;
-    height: 100px;
-    /* border: 1px solid lightgrey; */
-
-}
-
 #modi-wrapper{
-    width: 83.4%;
-    max-width: 1620px;
-    position: relative;
+    width: 100%;
     height: auto;
-    top: 120px;
-    left: 300px;
     display: flex;
     justify-content: space-evenly;
     align-items: flex-start;
@@ -21,68 +10,39 @@ div#wrapper{
 }
 
 div#info-bar{
-    width: 80%;
+    width: 50%;
+    height: 100px;
     position: fixed;
     background-color: white;
-    margin: 0 auto;
-    border-bottom: 2px solid black ;
-    overflow: hidden;
-    vertical-align:center;
+    margin: auto;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    z-index: 10;
 }
-
-ul.left{
+div#info-bar ul:last-of-type {
+	height: 55px;
+	display: flex;
+	align-items: center;
+}
+div#info-bar ul:first-of-type>li{
+	width: 250px;
+	padding: 15px 0;
+    color: black;
     float: left;
-    margin : 60px 100px 10px 100px;
-
-}
-
-ul.right{
-    float: right;
-    margin : 60px 100px 10px 100px;
-
-}
-
-ul.left li{
-    color: lightgrey;
-    float: left;
-    padding-left: 30px;
-    font-size: 30px;
-}
-
-div#info-modi{
-    width: 100%;
-    margin: 80px auto;
-
-    /* background-color:red; */
-
-}
-
-/* 프로필 정보 / 개인정보 버튼 색상변경*/
-ul.left li button{
-    width: 150px;
-    height: 40px;
-    border-radius: 30px;
-    outline: none;
-    border: none;
-    background-color: white;
-    font-size: 20px;
+    font-size: 22px;
+    border-radius: 7px 7px 0 0;
+    text-align: center;
+	background: white;
+	border: 1px solid lightgray;
+	border-bottom: none;
     cursor: pointer;
 }
-
-ul.left li:nth-of-type(1) button{
-    border: 1px solid #287094;
-    background-color: #287094;
-    color: white;
-    font-weight: bolder;
-    cursor: pointer;
-}
-
-.privacy-btn:hover{
-    border: 1px solid lightgray;
-    background-color: lightgray;
-    color: white;
-    font-weight: bolder;
-    cursor:pointer;
+.tab_on {
+	background: #247094 !important;
+	font-weight: bold;
+	color: white !important;
 }
 
 /* 우측 아이콘 hover 됐을 때, 배경 색 바꾸기  */
@@ -92,7 +52,6 @@ ul.right li{
     align-items: center;
     cursor: pointer;
 }
-
 
 ul.right li div{
     background-color:white;
@@ -109,7 +68,7 @@ ul.right li div img{
 }
 
 ul.right li:nth-of-type(even) div:hover{
-    background-color:rgb(6, 102, 146);
+    background-color:#d78e6b;
     border-radius: 50px;
     width: 40px;
     height: 40px;
@@ -118,7 +77,7 @@ ul.right li:nth-of-type(even) div:hover{
 }
 
 ul.right li:nth-of-type(odd) div:hover{
-    background-color:#F77B1E;
+    background-color:#078fce;
     border-radius: 50px;
     width: 40px;
     height: 40px;
@@ -132,39 +91,48 @@ ul.right li img{
 
 
 /* 정보 수정하는 부분 */
-
-div#info-modi table{
-    margin: 60px auto;
-    width:800px;
-    /* border: black 1px solid; */
-    border-collapse: collapse;
-    padding-right: 100px;
-    /* border: black 1px solid; */
+div#info-modi {
+	width: 50%;
+	height: 600px;
+	overflow-y: auto;
+	margin: auto;
+	position: fixed;
+	top: 230px;
 }
-
+div#info-modi::-webkit-scrollbar {
+    background: white;
+    width: 10px;
+}
+div#info-modi::-webkit-scrollbar-thumb {
+    background: #287094;
+    border-radius: 5px;
+}
+div#info-modi table{
+    width:100%;
+    border-collapse: collapse;
+}
 div#info-modi table tr{
-    height: 150px;
     border-bottom: 1px solid lightgrey;
 }
-
 div#info-modi table tr:last-of-type{
-    height: 150px !important;
-    border: none !important;
-    text-align: center;
+    border-bottom: none;
 }
-
-div#info-modi table tr:nth-of-type(3) td{
-    padding: 20px 0px;
+div#info-modi table tr:last-of-type>td{
+	padding: 20px 0 0 0;
+	text-align: center;
 }
-
-div#info-modi table tr>td:first-of-type{
+div#info-modi table tr>th {
+	width:33%;
     font-size: 20px;
     font-weight: bold;
-    width: 200px !important;
-    /* border: 1px black solid; */
+    padding-left: 50px;
+    text-align: left;
 }
-
-div#info-modi table tr:last-of-type>td.profile-container{
+div#info-modi table tr>td {
+	padding: 45px 0;
+}
+div#info-modi td.profile-container{
+	padding: 30px 0;
     overflow: hidden;
 }
 
@@ -192,31 +160,6 @@ div.profile-txt{
 div.profile-txt input{
     margin-top: 10px;
 }
-
-/* profilemodify.html */
-
-input.normal-size{
-    width: 370px;
-    height: 40px;
-
-}
-
-input.small-size{
-    width: 100px;
-    height: 40px;
-}
-
-.blue-btn{
-    width: 80px;
-    height: 40px;
-    background-color: #287094;
-    /* background-color: #F77B1E; */
-    border: 1px white solid;
-    border-radius: 20px;
-    color: white;
-    cursor: pointer;
-}
-
 #label-btn{
     width: 80px;
     height: 40px;
@@ -230,7 +173,6 @@ input.small-size{
     padding: 10px;
     cursor: pointer;
 }
-
 .blacksolid-btn{
     width: 80px;
     height: 40px;
@@ -239,4 +181,38 @@ input.small-size{
     border-radius: 20px;
     color: black;
     cursor: pointer;
+}
+
+/* profilemodify.html */
+
+input.normal-size{
+    width: 370px;
+    padding: 5px 0;
+    outline: none;
+    padding-left: 10px;
+}
+
+/* input.small-size{
+    width: 100px;
+    height: 40px;
+}
+ */
+
+div#info-modi button {
+    width: 80px;
+    margin: auto;
+    height: 40px;
+    border-radius: 30px;
+    margin: 0 5px 70px 5px;
+    outline: none;
+    border: none;
+    background: #287094;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+div#info-modi button:last-of-type {
+    background: #f7f7f7;
+    color: black;
+    border: 1px solid lightgray;
 }

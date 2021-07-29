@@ -37,21 +37,29 @@ $('.profile-txt').on('click', '#delete-file', function () {
     $("#input-file").val("");
 });
 
-
-// 3. 개인정보 수정 영역 ajax
-function modiprivacy(){
-    // 정보수정 카테고리 삭제
-    $('#info-bar').remove();
-    // 정보수정란 삭제
-    $('#info-modi').remove();
-
-    $.ajax({
-        url:'/member/modiprivacy',
-        success:function(result){
-            $('#modi-wrapper').html(result)
-        }
-    })
-}
+// 3. tab 클릭시 이동 ajax 
+$('ul.findtab li').click(function(){
+    var tab_id = $(this).attr('data-tab');
+    
+    $('ul.findtab li').removeClass('tab_on');
+    $(this).addClass('tab_on');
+    
+    if(tab_id=='tab2') {
+    	$.ajax({
+	        url:'/member/modiprivacy',
+	        success:function(result){
+	            $('#info-modi').html(result);
+	        }
+    	});
+    }else {
+    	$.ajax({
+	        url:'/member/modiprofile',
+	        success:function(result){
+	            $('#content').html(result);
+	        }
+    	});
+    }
+});
 
 // 4. 개인정보 영역에서 프로필 수정 영역으로 넘어갈때
 function modiprofile(){
