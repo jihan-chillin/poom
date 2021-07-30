@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import ch.qos.logback.core.util.FileUtil;
+import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,8 @@ public class BoardController {
 	public String upload(HttpServletRequest req, HttpServletResponse res,
 						 @RequestPart MultipartFile upload) throws Exception{
 
+		System.out.println(upload);
+
 		// 파일 전송시 한글깨짐 방지
 		res.setCharacterEncoding("utf-8");
 		// 파일 받아올 때 한글깨짐 방지
@@ -65,7 +68,7 @@ public class BoardController {
 		String destFileName;
 
 		// 파일 업로드 경로
-		String uploadPath = req.getContextPath()+"/images/ckeditor/";
+		String uploadPath = "/images/ckeditor/";
 
 		do{
 			// '랜덤알파벳 8글자 + 확장자'로 rename된 파일 저장경로 설정
@@ -85,7 +88,35 @@ public class BoardController {
 
 	// ckeditor로 첨부한 이미지 서버로 전송 처리  : 두 번째 방법
 //@PostMapping("/images/ckeditor")
-
+//public void uploadImg(HttpServletRequest req, HttpServletResponse res,
+//					  MultipartFile upload) throws Exception{
+//	// 파일 전송시 한글깨짐 방지
+//	res.setCharacterEncoding("utf-8");
+//	// 파일 받아올 때 한글깨짐 방지
+//	res.setContentType("text/html; charset=utf-8");
+//
+//	String fileName = upload.getOriginalFilename();
+//	byte[] bytes = upload.getBytes();
+//
+//	// 이미지 업로드할 디렉토리 정해주기
+//	String uploadPath = req.getContextPath()+"/images/ckeditor/";
+//	OutputStream out = new FileOutputStream(new File(uploadPath+fileName));
+//
+//	// 서버에 write
+//	out.write(bytes);
+//
+//	String callback = req.getParameter("CKEditorFuncNum");
+//
+//	PrintWriter writer = res.getWriter();
+//	if(!callback.equals("1")){
+//		writer.println("<script>alert('이미지 업로드에 실패했습니다.');"+"</script>");
+//	}else{
+//		writer.println("<script>window.parent.CKEDITOR.tools.callFunction("
+//							+callback+",'"+uploadPath+"',이미지가 업로드되었습니다.')"
+//							+"</script>");
+//	}
+//	writer.flush();
+//}
 
 
 

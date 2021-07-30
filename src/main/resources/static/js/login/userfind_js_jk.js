@@ -31,7 +31,7 @@ $("button#emailSend").click(function() {// 메일 입력 유효성 검사
 	} else {
 		$.ajax({
 			type : 'post',
-			url : '/CheckMail',
+			url : getContextPath()+'/login/CheckMail',
 			data : {
 				mail:mail
 				},
@@ -106,9 +106,9 @@ $("button.btn_submit").on("click",function(){
 
 //취소버튼 클릭시 메인페이지로 이동
 function goIndex() {
-	location.href="/";
+	location.href=getContextPath()+"/";
 }
 //회원가입페이지로 이동
 function goSignUp() {
-	location.replace("/termsofservice");
+	location.replace(getContextPath()+"/login/termsofservice");
 }

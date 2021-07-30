@@ -59,10 +59,10 @@ $(function(){
 
 //약관동의 후 확인 클릭시 회원가입창으로 이동
 $("button.agree").click(function() {
-	location.href="/signup";
+	location.href=getContextPath()+"/login/signup";
 });
 
 //취소버튼 클릭시 메인페이지로 이동
 function goIndex() {
-	location.replace("/");
+	location.replace(getContextPath()+"/");
 }
