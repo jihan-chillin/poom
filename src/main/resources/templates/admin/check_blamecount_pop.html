@@ -8,10 +8,70 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
     <title>누적 신고수</title>
 </head>
+
+<body>
+    <div id="popupWrapper">
+        <div id ="check_title">신고 이력</div>
+        <div id="check_content">
+        <th:block  th:switch="${type}">
+            <p th:case="'blame'">게시글 제목 : <span th:if="${type} eq 'blame'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
+            <p th:case="'1'">게시글 제목 : <span th:if="${type} eq '1'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
+            <p th:case="'2'">해당 게시글 제목 : <span th:if="${type} eq '2'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
+            <p th:case="'3'">채팅방 이름 : <span th:if="${type} eq '3'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
+            <p th:case="'4'">게시글 제목 : <span th:if="${type} eq '4'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
+            <p>게시글 누적 신고수 : <span th:text="|${#lists.size(list)}회|">15회</span></p>
+        </th:block>
+        </div>
+        <div id="check_detail">
+        	<div>
+	            <table id="detail_table">
+	                <thead>
+	                    <tr>
+	                        <th>신고 사유</th>
+	                        <th>횟수</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                    <tr>
+	                        <td>음란성 / 선정성</td>
+	                        <td th:text="${countMap.get('1')}">5</td>
+	                    </tr>
+	                    <tr>
+	                        <td>욕설 / 인신공격</td>
+	                        <td th:text="${countMap.get('2')}">5</td>
+	                    </tr>
+	                    <tr>
+	                        <td>스팸 / 광고 / 도배</td>
+	                        <td th:text="${countMap.get('3')}">5</td>
+	                    </tr>
+	                    <tr>
+	                        <td>권리침해</td>
+	                        <td th:text="${countMap.get('4')}">5</td>
+	                    </tr>
+	                    <th:block th:if="${ectMap !=null}">
+	                    <tr th:each="e : ${ectMap}">
+	                        <td th:text="${e.BLAME_REASON}">기타</td>
+	                        <td>1</td>
+	                    </tr>
+	                    </th:block>
+	                     <th:block th:if="${#lists.isEmpty(ectMap)}">
+                   		<tr>
+	                        <td>기타</td>
+	                        <td>0</td>
+                    	</tr>
+	                    </th:block>
+	                    
+	                </tbody>
+	            </table>
+            </div>
+            <div id="close_button">
+                <button type="button" style="background-color: #f7f7f7;color:black;" onclick="window.close();">닫기</button>
+            </div>
+        </div>
+    </div>
+</body>
 <style>
     *{
-       /*  padding: 0; */
-        /* margin: 0; */
         box-sizing: border-box;
         font-family: 'Nanum Gothic', sans-serif;
     }
@@ -92,66 +152,4 @@
         cursor: pointer;
     }
 </style>
-<body>
-    <div id="popupWrapper">
-        <div id ="check_title">신고 이력</div>
-        <div id="check_content">
-        <th:block  th:switch="${type}">
-            <p th:case="'blame'">게시글 제목 : <span th:if="${type} eq 'blame'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
-            <p th:case="'1'">게시글 제목 : <span th:if="${type} eq '1'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
-            <p th:case="'2'">해당 게시글 제목 : <span th:if="${type} eq '2'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
-            <p th:case="'3'">채팅방 이름 : <span th:if="${type} eq '3'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
-            <p th:case="'4'">게시글 제목 : <span th:if="${type} eq '4'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
-            <p>게시글 누적 신고수 : <span th:text="|${#lists.size(list)}회|">15회</span></p>
-        </th:block>
-        </div>
-        <div id="check_detail">
-        	<div>
-	            <table id="detail_table">
-	                <thead>
-	                    <tr>
-	                        <th>신고 사유</th>
-	                        <th>횟수</th>
-	                    </tr>
-	                </thead>
-	                <tbody>
-	                    <tr>
-	                        <td>음란성 / 선정성</td>
-	                        <td th:text="${countMap.get('1')}">5</td>
-	                    </tr>
-	                    <tr>
-	                        <td>욕설 / 인신공격</td>
-	                        <td th:text="${countMap.get('2')}">5</td>
-	                    </tr>
-	                    <tr>
-	                        <td>스팸 / 광고 / 도배</td>
-	                        <td th:text="${countMap.get('3')}">5</td>
-	                    </tr>
-	                    <tr>
-	                        <td>권리침해</td>
-	                        <td th:text="${countMap.get('4')}">5</td>
-	                    </tr>
-	                    <th:block th:if="${ectMap !=null}">
-	                    <tr th:each="e : ${ectMap}">
-	                        <td th:text="${e.BLAME_REASON}">기타</td>
-	                        <td>1</td>
-	                    </tr>
-	                    </th:block>
-	                     <th:block th:if="${#lists.isEmpty(ectMap)}">
-                   		<tr>
-	                        <td>기타</td>
-	                        <td>0</td>
-                    	</tr>
-	                    </th:block>
-	                    
-	                </tbody>
-	            </table>
-            </div>
-            <div id="close_button">
-                <button type="button" style="background-color: #f7f7f7;color:black;" onclick="window.close();">닫기</button>
-            </div>
-        </div>
-    </div>
-</body>
-
 </html>
