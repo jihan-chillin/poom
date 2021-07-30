@@ -15,7 +15,7 @@ div#board-list-catebar {
 	height: 25px;
 }
 
-div#board-list-catebar span:nth-of-type(1), span:nth-of-type(3){
+div#board-list-catebar span:nth-of-type(1), div#board-list-catebar span:nth-of-type(3){
 	font-size: 35px;
 	font-weight: bold;
 	color : #F77B1E;
