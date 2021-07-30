@@ -4,6 +4,7 @@ import com.chairking.poom.hashTag.mapper.TagMapper;
 import com.chairking.poom.hashTag.model.dao.TagDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ public class TagServiceImpl implements TagService{
     private TagMapper mapper;
 
     @Override
+    @Transactional
     public int insertTag(String tag) {
         return dao.insertTag(mapper,tag);
     }
