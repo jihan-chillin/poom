@@ -20,7 +20,7 @@
 			</div>
 	        
 	        <div th:unless="${type}==id" class="pwfind">
-	        	<form action="/updatePw" name="updatePw_form" method="post">
+	        	<form th:action="@{/login/updatePw}" name="updatePw_form" method="post">
 		        	<table>
 		        		<input type="hidden" name="memberId" th:value="${m.MEMBER_ID}">
 		        		<input type="hidden" name="memberName" th:value="${m.MEMBER_NAME}">

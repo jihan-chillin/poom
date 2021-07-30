@@ -14,7 +14,7 @@
             <li th:classappend="${type}==pw?tab_on" data-tab="findtab-2">비밀번호찾기</li>
         </ul>
         <div id="userfind_content">
-            <form action="/idFind" method="post" name="idFind_form" target="popup_window">
+            <form th:action="@{/login/idFind}" method="post" name="idFind_form" target="popup_window">
                 <div th:classappend="${type}==id?tab_on" id="findtab-1" class="findtab_con">
                     <p>아이디찾기</p>
                     <table class="userfind_table">
@@ -35,7 +35,7 @@
                     <button type="button" onclick="goIndex();">취소</button>
                 </div>
             </form>
-            <form action="/pwFind" method="post" name="pwFind_form" target="popup_window">
+            <form th:action="@{/login/pwFind}" method="post" name="pwFind_form" target="popup_window">
                 <div th:classappend="${type}==pw?tab_on" id="findtab-2" class="findtab_con">
                     <p>비밀번호찾기</p>
                     <table class="userfind_table">

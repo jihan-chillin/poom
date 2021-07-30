@@ -145,7 +145,7 @@ public class LoginController {
 				memberTag.put("keyword",keyword[i]);
 				result2 = service.inesrtMemberKeyword(memberTag);
 				// 테그 테이블에 회원가입시 입력한 태그들 추가. by 희웅
-				tagController.insertTag(memberTag);
+				//tagController.insertTag(memberTag);
 				mv.addObject("msg",result>0&&result2>0?"회원가입성공":"회원가입실패, 다시 시도해주세요.");
 			}
 		}else {
@@ -177,11 +177,11 @@ public class LoginController {
 		if(m!=null && param.get("id").equals("admin") && pwEncoder.matches((String)param.get("pw"), (String)m.get("MEMBER_PW"))) {
 			mv.addObject("loginMember",m);
 			msg="poom 관리자님! 관리자페이지에 오신걸 환영합니다!";
-			loc="/21AM_POOM_final/admin";
+			loc="/admin";
 		}else if(m!=null && pwEncoder.matches((String)param.get("pw"), (String)m.get("MEMBER_PW"))) {
 			mv.addObject("loginMember",m);
 			msg="로그인 성공! "+m.get("MEMBER_NAME")+"님, poom에 오신걸 환영합니다!";
-			loc="main";
+			loc="/login/main";
 		}
 		
 		mv.addObject("m",m);

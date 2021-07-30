@@ -30,7 +30,7 @@ function resize(obj) {
 
 //프로필 부분 쪽지아이콘 클릭스 쪽지 페이지로 이동
 function messageBox(){
-    location.replace("/message?type=receive");
+    location.replace(getContextPath()+"/message?type=receive");
 }
 
 // 프로필 부분 edit버튼 클릭시 정보수정 페이지로 이동 ajax
@@ -40,7 +40,7 @@ function membermodi(){
   	$('.rank').remove();
 
   $.ajax({
-    url:getContextPath()+'/member/modiprofile',
+    url: getContextPath()+'/member/modiprofile',
     success:function(data){
         $('#content').html(data)
     },
@@ -53,12 +53,12 @@ function membermodi(){
 }
 
 function mywrite(){
-    location.assign("/mywrite");
+    location.assign(getContextPath()+"/mywrite");
 }
 
 //로그아웃ui 클릭시 로그아웃+index로 이동
 function logOut(){
-    location.replace("/login/logOut");
+    location.replace(getContextPath()+"/login/logOut");
 }
 
 //글쓰기 버튼 클릭시 글작성 페이지로 이동
@@ -68,7 +68,7 @@ function goWriteForm() {
   	$('.feed').css({"background": "#f7f7f7","border-radius":"20px"});
 
   $.ajax({
-    url:getContextPath()+'/board/form',
+    url: getContextPath()+'/board/form',
     success:function(data){
         $('.feed').html(data)
     },

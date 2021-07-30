@@ -1,8 +1,6 @@
-var contextPath = $('#contextPathHolder').attr('data-contextPath') ? $('#contextPathHolder').attr('data-contextPath') : '';
-
-// 뒤로가기
-function back(){
-    history.back();
+// 취소버튼 클릭시 메인화면으로
+function goMain(){
+    location.href=getContextPath()+'/login/main';
 }
 
 // 미리보기 이미지 생성
@@ -24,7 +22,7 @@ $('input[name=input_file]').change(e=>{
 
 // 2. 미리보기 이미지 삭제하기
 $('input[name=delete_file]').click(e=>{ 
-    $(".profile-img>img").attr('src','/images/profile/poom_profile.jpg');
+    $(".profile-img>img").attr('src', getContextPath()+'/images/profile/poom_profile.jpg');
 });
 
 // 3. tab 클릭시 이동 ajax 
@@ -36,14 +34,14 @@ $('ul.findtab li').click(function(){
     
     if(tab_id=='tab2') {
     	$.ajax({
-	        url:'/member/modiprivacy',
+	        url: getContextPath()+'/member/modiprivacy',
 	        success:function(result){
 	            $('#info-modi').html(result);
 	        }
     	});
     }else {
     	$.ajax({
-	        url:'/member/modiprofile',
+	        url: getContextPath()+'/member/modiprofile',
 	        success:function(result){
 	            $('#content').html(result);
 	        }
@@ -51,6 +49,14 @@ $('ul.findtab li').click(function(){
     }
 });
 
-
+// 자기소개 글자수 체크
+$('[name=intro]').on('keyup', function() {
+	$('#intro_cnt').html("("+$(this).val().length+" / 30)");
+ 
+	if($(this).val().length > 30) {
+		$(this).val($(this).val().substring(0, 30));
+		$('#intro_cnt').html("(30 / 30)");
+	}
+});    
 
 

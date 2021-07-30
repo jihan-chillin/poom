@@ -52,6 +52,7 @@ public class MemberController {
 
 
     // 3. 개인정보 수정창으로 이동
+    // 3. 개인정보 수정창으로 이동
     @GetMapping("/modiprivacy")
     public String modiprivacy() {
         return "member/modiprivacy";

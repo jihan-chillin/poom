@@ -10,7 +10,7 @@
     <div id="signup_wrapper">
         <img th:src="@{/images/ui/logo.png}" alt="poom로고">
         <div id="signup_content">
-            <form action="/memberEnroll" method="post" id="signUp" name=signUp_form>
+            <form th:action="@{/login/memberEnroll}" method="post" id="signUp" name=signUp_form>
                 <table class="signup_table">
                     <tr>
                         <th>아이디<span class="red_star">*</span></th>
