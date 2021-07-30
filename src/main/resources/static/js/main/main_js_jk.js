@@ -1,6 +1,7 @@
 //var contextPath = $('#contextPathHolder').attr('data-contextPath') ? $('#contextPathHolder').attr('data-contextPath') : '';
 var contextPath=[[${#request.getContextPath()}]];
 console.log(contextPath);
+
 $(document).ready(function(){
  
     // 좌측메뉴바 show/hide 스크립트
@@ -52,10 +53,6 @@ function membermodi(){
       console.log(i);
     }
   });
-}
-
-function mywrite(){
-    location.assign("/mywrite");
 }
 
 //로그아웃ui 클릭시 로그아웃+index로 이동
