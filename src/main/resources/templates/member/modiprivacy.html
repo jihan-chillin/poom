@@ -34,19 +34,22 @@
 	            </tr>
 	            <tr>
 	                <th>이메일</th>
-	                <td><input type="email" name = "email" class="normal-size"  value="kimjihan">
-	                    <input type="button" class="blue-btn" value="인증"></td>
+	                <td><input type="email" name = "email" class="normal-size" th:value="${session.loginMember.MEMBER_EMAIL}">
+	                    <input type="button" class="blue-btn" value="인증">
+	                </td>
 	            </tr>
 	            <tr>
 	                <th>위치인증</th>
-	                <td><input type="text" name="loc" class="normal-size"  value="위치인증" >
-	                    <input type="button" class="blue-btn" value="인증"></td>
+	                <td>
+	                	<input type="text" name="loc" class="normal-size"  th:value="${session.loginMember.MEMBER_LOC}" readonly>
+	                    <input type="button" class="blue-btn" value="인증">
+	                </td>
 	            </tr>
 	            <tr>
 	                <td colspan="2">
-	                    	<button type="submit" class="btn_submit" id="pwBtn">수정</button>
-	               			<button type="button" onclick="back();">취소</button>
-                    	</td>
+                    	<button type="submit" class="btn_submit" id="pwBtn">수정</button>
+               			<button type="button" onclick="goMain();">취소</button>
+                    </td>
 	            </tr>
         	</tbody>
         </table>

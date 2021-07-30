@@ -1,5 +1,3 @@
-/* privacy.html*/
-
 #modi-wrapper{
     width: 100%;
     height: auto;
@@ -46,41 +44,29 @@ div#info-bar ul:first-of-type>li{
 }
 
 /* 우측 아이콘 hover 됐을 때, 배경 색 바꾸기  */
+ul.right {
+	margin-right: 15px;
+}
 ul.right li{
     float: right;
-    padding-right: 30px;
-    align-items: center;
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
     cursor: pointer;
+    margin-right: 10px;
 }
-
-ul.right li div{
-    background-color:white;
-    border-radius: 50px;
-    width: 40px;
-    height: 40px;
-    text-align: center;
+ul.right li>img{
+    width: 100%;
+    padding: 10px;
+    transform: translateZ(0);
 }
-
-ul.right li div img{
-    width: 50%;
-    height: auto;
-}
-
-ul.right li:nth-of-type(even) div:hover{
+ul.right li:nth-of-type(even):hover{
     background-color:#d78e6b;
-    border-radius: 50px;
-    width: 40px;
-    height: 40px;
-    text-align: center;
     filter: invert(100%);
 }
 
-ul.right li:nth-of-type(odd) div:hover{
+ul.right li:nth-of-type(odd):hover{
     background-color:#078fce;
-    border-radius: 50px;
-    width: 40px;
-    height: 40px;
-    text-align: center;
     filter: invert(100%);
 }
 
@@ -125,6 +111,21 @@ div#info-modi table tr>th {
 div#info-modi table tr>td {
 	padding: 45px 0;
 }
+div#info-modi table textarea {
+	width: 330px;
+	padding: 10px;
+	font-size: 15px;
+	outline: none;
+}
+div#info-modi table textarea::placeholder {
+	font-style: italic;
+}
+#intro_cnt {
+	width: 330px;
+	text-align: right;
+	padding-right: 3px;
+	font-size: 13px;
+}
 div#info-modi td.profile-container{
 	padding: 30px 0;
     overflow: hidden;
@@ -147,39 +148,31 @@ div.profile-img{
 div.profile-img>img {
 	width: 100%;
 }
-
 div.profile-txt{
-    /* border: 1px black solid; */
     float: left;
     margin: 40px 20px;
 }
-
-div.profile-txt input{
-    margin-top: 10px;
+div.profile-txt>p {
+	font-size: 15px;
+	line-height: 20px;
 }
-#label-btn{
-    width: 80px;
-    height: 40px;
-    /* background-color: #287094; */
-    background-color: lightgrey;
-    border: 1px white solid;
-    border-radius: 20px;
+div.profile-txt>label {
+    width: 50px;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    color: black;
+    border: 1px solid lightgray;
+    padding: 5px 0;
+    font-weight: bold;
+    font-size: 12px;
     display: inline-block;
     text-align: center;
-    vertical-align: middle;
-    padding: 10px;
     cursor: pointer;
+    margin-top: 10px;
 }
-.blacksolid-btn{
-    width: 80px;
-    height: 40px;
-    background-color: white;
-    border: 1px black solid;
-    border-radius: 20px;
-    color: black;
-    cursor: pointer;
+div.profile-txt>label>input {
+	display: none;
 }
-
 div#info-modi button {
     width: 80px;
     margin: auto;
