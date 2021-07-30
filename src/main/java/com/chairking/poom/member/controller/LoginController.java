@@ -177,7 +177,7 @@ public class LoginController {
 		if(m!=null && param.get("id").equals("admin") && pwEncoder.matches((String)param.get("pw"), (String)m.get("MEMBER_PW"))) {
 			mv.addObject("loginMember",m);
 			msg="poom 관리자님! 관리자페이지에 오신걸 환영합니다!";
-			loc="admin";
+			loc="/21AM_POOM_final/admin";
 		}else if(m!=null && pwEncoder.matches((String)param.get("pw"), (String)m.get("MEMBER_PW"))) {
 			mv.addObject("loginMember",m);
 			msg="로그인 성공! "+m.get("MEMBER_NAME")+"님, poom에 오신걸 환영합니다!";

@@ -128,13 +128,13 @@
 </div>
 <script th:inline="javascript">
 function fn_check_pop(t,no){
-	window.open("/blame/checkPop?type="+t+"&no="+no,"","width=420px,height=580px,top=260px,left=800px");
+	window.open(getContextPath()+"/blame/checkPop?type="+t+"&no="+no,"","width=420px,height=580px,top=260px,left=800px");
 }
 
 function fn_ajax_paging(i){
 	var type=[[${type}]];	
 	$.ajax({
-		url:"/blame",
+		url:getContextPath()+"/blame",
 		data:{
 			"currentPage":i,
 			"type":type
@@ -152,7 +152,7 @@ function fn_ajax_paging(i){
 		var no=2;
 		var nick="닉네임";
 		console.log(type,no,nick);
-		window.open("/blame/report?type="+type+"&no="+no+"&id="+nick,"","width=495px,height=530px,top=260px,left=800px,status=no,toolbar=no,scrollbars=no");
+		window.open(getContextPath()+"/blame/report?type="+type+"&no="+no+"&id="+nick,"","width=495px,height=530px,top=260px,left=800px,status=no,toolbar=no,scrollbars=no");
 	}
 
 $(function(){
@@ -194,7 +194,8 @@ $("[name='brd_blame_allChk']").click(e=>{
 //하나라도 체크 빠지면 전체체크 해제
 //length나중에 페이징처리하고 수정하기
 $("[name='brd_blame_chk']").click(e=>{
-	if($("[name='brd_blame_chk']:checked").length==5){    
+	var size=[[${#lists.size(list)}]];
+	if($("[name='brd_blame_chk']:checked").length==size){    
 		$("[name='brd_blame_allChk']").prop("checked",true);
 	}else{
 		$("[name='brd_blame_allChk']").prop("checked",false);
