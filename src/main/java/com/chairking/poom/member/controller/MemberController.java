@@ -10,6 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import java.util.Map;
 
 @Controller
@@ -23,7 +25,7 @@ public class MemberController {
     // 화면 전환용
     @GetMapping("/modiprofile")
     public String membermodi() {
-        return "/member/modiprofile";
+        return "member/modiprofile";
     }
 
     // 2. 프로필 수정완료되면 프로필 수정페이지로 이동
@@ -50,9 +52,10 @@ public class MemberController {
 
 
     // 3. 개인정보 수정창으로 이동
+    // 3. 개인정보 수정창으로 이동
     @GetMapping("/modiprivacy")
     public String modiprivacy() {
-        return "/member/modiprivacy";
+        return "member/modiprivacy";
     }
 
     // 4. 개인정보 update완료 시 개인정보 창으로 이동

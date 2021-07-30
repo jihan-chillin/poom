@@ -7,6 +7,7 @@ const move_list=()=>{
 	});
 }
 const comment_write=()=>{
+	
 	$.ajax({
 		url:"/board/comment",
 		success:data=>{
@@ -14,3 +15,10 @@ const comment_write=()=>{
 		}
 	});
 }
+$(".comment_menu>p").click(e=>{
+	if($(e.target).siblings("ul").first().css("display")=="block"){
+		$(e.target).siblings("ul").first().css("display", "none");
+	}else{
+		$(e.target).siblings("ul").first().css("display", "block");
+	}
+});

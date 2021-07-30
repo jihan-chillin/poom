@@ -9,7 +9,9 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectEvent;
+import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
+import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 
 @Component
 @Slf4j
@@ -17,13 +19,10 @@ public class WebSocketEventListener {
     @Autowired
     private SimpMessageSendingOperations messageTemplate;
 
-    // 채팅방 연결시
-    // 채팅방 참여자 리스트 가져와서 프론트로 주면?
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectEvent event){
-        log.info("채팅방 연결됨");
+        log.info(" 웹소켓 연결됨");
 //        log.info("simpSessionId :{}",event.getMessage().getHeaders().get("simpSessionId"));
-
     }
 
     // 채팅방 퇴장시
@@ -35,16 +34,7 @@ public class WebSocketEventListener {
     // -> 제일 큰 단점임.
     @EventListener
     public void handlerWebSocketDisconnectListener(SessionDisconnectEvent event){
-        StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
+        log.info(" 웹소켓 끝");
 
-        String username= (String) headerAccessor.getSessionAttributes().get("username");
-        if(username != null){
-            ChatMessage chatMessage = new ChatMessage();
-            // 떠난거 저장
-            chatMessage.setType(ChatType.LEAVE);
-            chatMessage.setMemberId(username);
-
-            messageTemplate.convertAndSend("/topic/chatroom");
-        }
     }
 }

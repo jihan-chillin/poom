@@ -1,41 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <!-- CSS -->
-    <link th:href="@{/css/main/main_style_jk.css}" rel="stylesheet" type="text/css">
-    <!--내 css -->
-    <link th:href="@{/css/member/modiprofile_jh.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/member/modiprivacy_jh.css}" rel="stylesheet" type="text/css">
-
-    <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
-</head>
-
-<body>
-<div id = "wrapper">
-    <!--헤더-->
-    <div th:replace="/fragments/header.html :: fragment-header"></div>
-    <!--메뉴바-->
-    <div th:replace="/fragments/nav.html :: fragment-nav"></div>
-
+<link th:href="@{/css/member/modiprofile_jh.css}" rel="stylesheet" type="text/css">
 
     <!-- 우측콘텐츠 / 고정+변동 -->
     <div id = "modi-wrapper">
         <div id="info-bar">
 
             <!--정보수정 카테고리-->
-            <ul class="left">
-                <li><button>프로필 정보</button></li>
-                <li><button class="privacy-btn" onclick="modiprivacy();">개인 정보</button></li>
+            <ul class="findtab">
+                <li class="tab_on" data-tab="tab1">프로필 정보</li>
+                <li data-tab="tab2">개인 정보</button></li>
             </ul>
-
 
             <!-- 우측 아이콘 : 채팅 , 쪽지, 해시태그, 내가 쓴 글-->
             <ul class="right">
-                <li><div><img src="/../../images/ui/write.png" alt="" ></div></li>
-                <li><div><img src="/../../images/ui/tag.png" alt="" ></div></li>
-                <li><div><img src="/../../images/ui/msg.png" alt="" onclick="messageBox();"></div></li>
-                <li><div><img src="/../../images/ui/chat.png" alt="" onclick="moveChatList();"></div></li>
+                <li><img th:src="@{/images/ui/write.png}" alt="mywrite_ui"></li>
+                <li><img th:src="@{/images/ui/tag.png}" alt="mytag_ui"></li>
+                <li><img th:src="@{/images/ui/msg.png}" alt="mymsg_ui" onclick="messageBox();"></li>
+                <li><img th:src="@{/images/ui/chat.png}" alt="mychat_ui" onclick="moveChatList();"></li>
             </ul>
         </div>
 
@@ -45,55 +27,52 @@
                 <table>
                     <tbody>
                     <tr>
-                        <td class="modi-bold">닉네임</td>
+                        <th>닉네임</th>
+                        <td th:text="${session.loginMember.MEMBER_NICKNAME}"></td>
+                    </tr>
+                    <tr>
+                        <th>자기소개</th>
                         <td>
-                            <input type="hidden" name="memberId" value="text">
-                            <input type="text" class="normal-size" name="nick" value="닉네임 불러오기">
+                        	<textarea th:if="${session.loginMember.INTRO}!=null" name="intro" cols="40" rows="3" th:text="${session.loginMember.INTRO}"></textarea>
+                        	<div th:if="${session.loginMember.INTRO}!=null" id="intro_cnt">(0 / 100)</div>
+                        	<textarea th:unless="${session.loginMember.INTRO}!=null" name="intro" cols="40" rows="3" placeholder="30자 이내로 멋진 자기소개를 해보아요!"></textarea>
+                       		<div th:unless="${session.loginMember.INTRO}!=null" id="intro_cnt">(0 / 100)</div>
                         </td>
                     </tr>
                     <tr>
-                        <td class="modi-bold">자기소개</td>
-                        <td><textarea name="intro" cols="50" rows="5" placeholder="30자 이내로 멋진 자기소개를 해보아요!"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td class="modi-bold">프로필사진</td>
+                        <th>프로필사진</th>
                         <td class="profile-container">
                             <div class="profile-img">
-                                <img id = "img" alt="">
+                                <img th:src="@{/images/profile/}+${session.loginMember.MEMBER_IMG}" alt="프로필이미지">
                             </div>
                             <div class="profile-txt">
                                 <p>
                                     프로필 이미지는<br>
-                                    가로 161px 섬네일로 생성됩니다.
+                                    200*200px 섬네일로 생성됩니다.
                                 </p>
-
-                                <label id="label-btn" class="input-file" for="input-file">
-                                    등록
-                                    <input type="file" id="input-file" name="inputfile" accept=".jpg,.jpeg,.png,.gif,.bmp" style="display: none;">
+                                <label class="input-file" for="input-file">
+                                    등록<input type="file" id="input-file" name="input_file" accept=".jpg,.jpeg,.png,.bmp">
                                 </label>
-                                <input type="button" id="delete-file" name="delete-file" class="blacksolid-btn" value="삭제">
+                                <label for="delete-file">
+                                	삭제<input type="button" id="delete-file" name="delete_file">
+                                </label>
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
-                            <input class="blue-btn" type="submit" value="수정">
-                            <input class="blacksolid-btn" type="button" onclick="back();" value="취소">
-                        </td>
+                    	<td colspan="2">
+	                    	<button type="submit" class="btn_submit">수정</button>
+	               			<button type="button" onclick="goMain();">취소</button>
+                    	</td>
                     </tr>
-
                     </tbody>
-
                 </table>
             </form>
         </div>
     </div>
 
-</div>
-
 </body>
 
-<script th:src="@{/js/main/main_jk.js}"></script>
 <script th:src="@{/js/member/membermodi_jh.js}"></script>
 
 </html>

@@ -41,20 +41,10 @@ public class BlameController {
 		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
 		pagination.setTotalRecordCount(service.blameCount(type));
 		List<Map<String,Object>> list = service.allBlameList(type, pagination);
-		
-		//페이징처리 시작 
-//		int numPerpage=5;
-//		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
-//		int pageBarSize=5;
-//		int pageNo=((currentPage-1)/pageBarSize)*pageBarSize+1;
-//		int pageEnd=pageNo+pageBarSize-1;
 		mv.addObject("pagination",pagination);
 		mv.addObject("list", list);
 		mv.addObject("type", type);
 		mv.addObject("blame_title", title);
-		System.out.println("pagination:"+pagination.toString());
-		System.out.println("list:"+list.size());
-		System.out.println("cPage:"+currentPage+" / cntPerpage:"+cntPerPage+" /pageSize:"+pageSize+" /totaldata:"+pagination.getTotalRecordCount());
 		mv.setViewName("admin/admin_blame");
 		return mv;
 	}
@@ -65,8 +55,7 @@ public class BlameController {
 		//신고대상 값 보내야함
 		System.out.println("blame/report"+map);
 		mv.addObject("map", map);
-		
-		mv.setViewName("common/blame_popup");
+		mv.setViewName("admin/blame_popup");
 		return mv;
 	}
 
@@ -83,8 +72,31 @@ public class BlameController {
 		int result=service.insertBlame(map);	//서비스에 트랜젝션처리함 근데 에러뜨면 에러페이지 이동하게 해놓거나 msg로 이동하게 해서 처리하기
 		System.out.println("db에 잘 들ㅇ갔니 result"+result);
 		mv.addObject("map",map);
-		mv.setViewName("common/blame_popup_suc");
+		mv.setViewName("admin/blame_popup_suc");
 		return mv;
+	}
+	
+	//누적신고수 팝업
+	@RequestMapping(value="/checkPop",method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView checkPop(@RequestParam Map map,ModelAndView mv) {
+		//type & no받기=> db연결해서 사유 가져와야함
+		//총 select * 한 리스트
+		List<Map<String,Object>> list=service.selectBlame(map);
 		
+		//각 신고개수 돈 리스트
+		Map<String,Object> countMap=service.selectCountBlame(map);
+		
+		//기타 사유가 있다면
+		List<Map<String,String>> ectMap=null;
+		if(countMap.get("5")!=null) {
+			ectMap=service.selectEctAll(map);
+		}
+		mv.addObject("type", map.get("type"));
+		mv.addObject("list",list);
+		mv.addObject("countMap", countMap);
+		mv.addObject("ectMap", ectMap);
+		System.out.println("ectMap"+ectMap.isEmpty());
+		mv.setViewName("admin/check_blamecount_pop");
+		return mv;
 	}
 }

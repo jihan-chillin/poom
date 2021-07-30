@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -30,6 +31,7 @@ import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@RequestMapping("/login")
 @SessionAttributes("loginMember")
 @Slf4j
 public class LoginController {
@@ -44,10 +46,11 @@ public class LoginController {
 	@Autowired
 	PasswordEncoder pwEncoder;
 
-	//로그인시 메인화면으로 이동
 	@GetMapping("/main")
-	public String logIn() {
-		return "main/main";
+	public ModelAndView logIn(ModelAndView mv, HttpServletRequest req) {
+		mv.setViewName("main/main");
+		mv.addObject("loginId",(String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+		return mv;
 	}
 
 	//회원가입 클릭시 이용약관화면으로 이동
@@ -142,7 +145,7 @@ public class LoginController {
 				memberTag.put("keyword",keyword[i]);
 				result2 = service.inesrtMemberKeyword(memberTag);
 				// 테그 테이블에 회원가입시 입력한 태그들 추가. by 희웅
-				tagController.insertTag(memberTag);
+				//tagController.insertTag(memberTag);
 				mv.addObject("msg",result>0&&result2>0?"회원가입성공":"회원가입실패, 다시 시도해주세요.");
 			}
 		}else {
@@ -161,18 +164,27 @@ public class LoginController {
 	public ModelAndView memberLogin(@RequestParam Map param, ModelAndView mv) {
 		
 		Map<String,Object> m = service.selectMember(param);
+		
+		if(!m.containsKey("INTRO")) {
+    		m.put("INTRO", null);
+    	}
+    	if(!m.containsKey("MEMBER_IMG")) {
+    		m.put("MEMBER_IMG", "poom_profile.jpg");
+    	}
+    	
 		String msg="로그인 실패! 다시 시도해주세요.";
 		String loc="/";
 		if(m!=null && param.get("id").equals("admin") && pwEncoder.matches((String)param.get("pw"), (String)m.get("MEMBER_PW"))) {
 			mv.addObject("loginMember",m);
 			msg="poom 관리자님! 관리자페이지에 오신걸 환영합니다!";
-			loc="admin";
+			loc="/admin";
 		}else if(m!=null && pwEncoder.matches((String)param.get("pw"), (String)m.get("MEMBER_PW"))) {
 			mv.addObject("loginMember",m);
 			msg="로그인 성공! "+m.get("MEMBER_NAME")+"님, poom에 오신걸 환영합니다!";
-			loc="main";
+			loc="/login/main";
 		}
 		
+		mv.addObject("m",m);
 		mv.addObject("msg",msg);
 		mv.addObject("loc",loc);
 		mv.setViewName("common/msg");

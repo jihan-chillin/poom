@@ -15,7 +15,7 @@ div#board-list-catebar {
 	height: 25px;
 }
 
-div#board-list-catebar span:nth-of-type(1), span:nth-of-type(3){
+div#board-list-catebar span:nth-of-type(1), div#board-list-catebar span:nth-of-type(3){
 	font-size: 35px;
 	font-weight: bold;
 	color : #F77B1E;
@@ -96,15 +96,20 @@ text-overflow: ellipsis;
 /* 제목 / 제목+내용 검색 창 & 글쓰기 버튼 */
 input#title-searchbar{
 	width: 400px;
-	height: 35px;
-	border: 1px solid #lightgrey;
+	height: 30px;
+	border-radius: 7px;
 	text-align: center;
 	margin: 0 15px;
+	border: 1px solid lightgray;
 }
 
 .search-btn{
 	width: 70px;
-	height: 35px;
+	height: 30px;
+	background: #fdfdfd;
+	border: 1px solid lightgray;
+	border-radius : 7px;
+	cursor: pointer;
 }
 
 .blue-btn{
@@ -124,9 +129,13 @@ table#all-boardlist-table tr:last-of-type td{
 	text-align: center;
 }
 
-.goto-write-btn:hover{
-	color: black;
-	font-weight: bolder;
+
+.write-btn{
+	width: 70px;
+	height: 30px;
+	background: #fdfdfd;
+	border: 1px solid lightgray;
+	border-radius : 7px;
 	cursor: pointer;
 }
 

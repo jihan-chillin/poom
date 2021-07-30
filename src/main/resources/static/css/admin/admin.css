@@ -166,6 +166,7 @@ div#admin_pagebar>div{
 	left:495px;
 	width:210px;
 	display:flex;
+	justify-content: center;
 }
 div#admin_pagebar>div div{
     height:30px;
@@ -212,25 +213,28 @@ table#blame_table tr{
 /*테이블 넓이 설정*/
 /*table#blame_table>thead>tr>th>input[type="checkbox"]*/
 table#blame_table tr td:nth-child(1), table#blame_table tr th:nth-child(1){
-    width:30px;
+    width:5%;
 }
 table#blame_table tr td:nth-child(2), table#blame_table tr th:nth-child(2){
     width: 80px;
-    padding-left:10px;
+    /* padding-left:10px; */
 }
 table#blame_table tr td:nth-child(3), table#blame_table tr th:nth-child(3),
 table#blame_table tr td:nth-child(6), table#blame_table tr th:nth-child(6),
-table#blame_table tr td:nth-child(7), table#blame_table tr th:nth-child(7){
-    width: 120px;
-}
 table#blame_table tr td:nth-child(5), table#blame_table tr th:nth-child(5){
-	width:300px;
-	/* text-align:left; */
+    width:10%;
+    padding-right:30px;
 }
+/* table#blame_table tr td:nth-child(5), table#blame_table tr th:nth-child(5){
+	width:300px;
+	text-align:left;
+} */
 table#blame_table tr td:nth-child(4){
 	font-weight:bold;
 }
-
+table#blame_table tr td:nth-child(3), table#blame_table tr th:nth-child(3){
+	padding-right:0px;
+}
 /*신고관리 끝*/
 
 /*결제관리 시작*/

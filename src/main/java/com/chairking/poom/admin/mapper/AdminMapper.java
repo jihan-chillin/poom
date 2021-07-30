@@ -38,7 +38,7 @@ public interface AdminMapper {
 	
 	//신고
 	//리스트불러오기
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM BOARD_BLAME JOIN BOARD ON B_TARGET_BOARD_NO = BOARD_NO ORDER BY B_BLAME_DATE DESC)A)WHERE RNUM BETWEEN ${firstRecordIndex} and ${lastRecordIndex}")
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(select * from board where blame_count != 0 order by blame_count desc ,del_status)A)WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
 	public List<Map<String,Object>> allBoardBlame(Pagination pagination);
 	
 	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM COMMENTS_BLAME JOIN COMMENTS ON BC_TARGET_COMMENT = COMMENT_NO ORDER BY BC_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
@@ -51,7 +51,7 @@ public interface AdminMapper {
 	public List<Map<String,Object>> allMemberBlame(Pagination pagination);
 	
 	//카운트세기
-	@Select("SELECT COUNT(*) FROM BOARD_BLAME")
+	@Select("SELECT COUNT(*) FROM BOARD WHERE BLAME_COUNT !=0")
 	public int allBoardBlameCount();
 	@Select("SELECT COUNT(*) FROM COMMENTS_BLAME")
 	public int allCommentsBlameCount();
@@ -75,4 +75,16 @@ public interface AdminMapper {
 	public int insertChatBlame(Map<String,String> map);
 	@Update("UPDATE CHAT SET CH_BLAME_COUNT=CH_BLAME_COUNT+1 WHERE CHAT_NO=#{no}")
 	public int updateChatBlameCount(String no);
+	
+	@Select("select * from board_blame join board on b_target_board_no=board_no where board_no=#{no}")
+	public List<Map<String,Object>> selectBoardBlame(String no);
+	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}")
+	public List<Map<String,Object>> selectCommentsBlame(String no);
+	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}")
+	public List<Map<String,Object>> selectChatBlame(String no);
+	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}")
+	public List<Map<String,Object>> selectMemberBlame(String no);
+	
+	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=4 AND BLAME_REASON LIKE '기타%'")
+	public List<Map<String,String>> selectEctAll(Map<String,Object> map);
 }

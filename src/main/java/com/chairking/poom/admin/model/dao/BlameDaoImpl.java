@@ -3,6 +3,7 @@ package com.chairking.poom.admin.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.chairking.poom.admin.mapper.AdminMapper;
@@ -81,5 +82,63 @@ public class BlameDaoImpl implements BlameDao {
 		return mapper.updateChatBlameCount(no);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectBoardBlame(AdminMapper mapper, String no) {
+		return mapper.selectBoardBlame(no);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectCommentsBlame(AdminMapper mapper, String no) {
+		return mapper.selectCommentsBlame(no);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectChatBlame(AdminMapper mapper, String no) {
+		return mapper.selectChatBlame(no);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectMemberBlame(AdminMapper mapper, String no) {
+		return mapper.selectMemberBlame(no);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectBlame(SqlSessionTemplate session, Map<String,Object> map) {
+		return session.selectList("adminMapper.selectBlame",map);
+	}
+
+	@Override
+	public int selectCountBlame1(SqlSessionTemplate session, Map<String, Object> map) {
+		return session.selectOne("adminMapper.selectCountBlame1",map);
+	}
+
+	@Override
+	public int selectCountBlame2(SqlSessionTemplate session, Map<String, Object> map) {
+		return session.selectOne("adminMapper.selectCountBlame2",map);
+	}
+
+	@Override
+	public int selectCountBlame3(SqlSessionTemplate session, Map<String, Object> map) {
+		return session.selectOne("adminMapper.selectCountBlame3",map);
+	}
+
+	@Override
+	public int selectCountBlame4(SqlSessionTemplate session, Map<String, Object> map) {
+		return session.selectOne("adminMapper.selectCountBlame4",map);
+	}
+
+	@Override
+	public int selectCountBlame5(SqlSessionTemplate session, Map<String, Object> map) {
+		return session.selectOne("adminMapper.selectCountBlame5",map);
+	}
+
+	@Override
+	public List<Map<String, String>> selectEctAll(SqlSessionTemplate session, Map<String, Object> map) {
+		return session.selectList("adminMapper.selectEctAll",map);
+	}
+
+	
+
+	
 	
 }

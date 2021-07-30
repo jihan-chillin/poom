@@ -7,7 +7,7 @@ function moveMyChatList(){
   $('.feed_new').remove();
 
   $.ajax({
-    url:'/chat/mylist/page',
+    url:getContextPath()+'/chat/mylist/page',
     success:function(data){
         $('.feed').html(data)
     },
@@ -19,42 +19,45 @@ function moveMyChatList(){
   });
 
   $.ajax({
-    url:'/chat/mychat/list',
+    url:getContextPath()+'/chat/mychat/list',
     success:data=>{
       if(data.list[0].length === 0){
         return;
       }else{
         $('.chatroom').remove();
 
+        let val = '';
+
         for(let i = 0; i<data.list.length; i++){
-          let val = '';
+          let chatNo = data.list[i][0].CHAT_NO;
 
-          const chatNo = data.list[0][i].CHAT_NO;
           // 로그인 아이디.
-          const memberId = data.loginId;
+          let memberId = data.loginId;
 
-          if(chatNo !== null){
-            // 채팅방 리스트가 있다면
-            val +='<li class="chatroom">';
-            if(data.list[0][i].CATEGORY_NO ==='1'){
-              val+= '<span class="chatroom-icon-study">스터디</span>'
-            }else{
-              val+= '<span class="chatroom-icon-gather">소모임</span>'
-            }
-            val+= '<span class="chatroom-title">';
-            val+= '<span onclick="moveMyChatroom(\''+chatNo+'\',\''+memberId+'\')">'+data.list[0][i].CHAT_TITLE+'</span></span>';
-            val+= '<span></span>';
-            // 채팅방 참여인원수
-            val+= '<span>'+data.countMember[i]+'</span>';
-            val+= '<span>/</span>';
-            // 채팅방 제한 인원
-            val+= '<span>'+data.list[0][i].CHAT_PERSON+'명</span>';
-            val+='</li>';
 
-            $('#chatroom-list>ul').append(val);
-            return;
+          // 채팅방 리스트가 있다면
+          val +='<li class="chatroom">';
+
+          if(data.list[i][0].CATEGORY_NO ==='1'){
+            val+= '<span class="chatroom-icon-study">스터디</span>'
+          }else{
+            val+= '<span class="chatroom-icon-gather">소모임</span>'
           }
+
+          val+= '<span class="chatroom-title">';
+          val+= '<span onclick="moveMyChatroom(\''+chatNo+'\',\''+memberId+'\')">'+data.list[i][0].CHAT_TITLE+'</span></span>';
+          val+= '<span></span>';
+          // 채팅방 참여인원수
+          val+= '<span>'+data.countMember[i]+'</span>';
+          val+= '<span>/</span>';
+          // 채팅방 제한 인원
+          val+= '<span>'+data.list[i][0].CHAT_PERSON+'명</span>';
+          val+='</li>';
+
         }
+
+        $('#chatroom-list>ul').append(val);
+
       }
     },
     error:(e,m,i)=>{
@@ -66,7 +69,7 @@ function moveMyChatList(){
 }
 function checkEnterChatroom(memberId,chatNo){
   $.ajax({
-    url:'/chat/chatroom/check',
+    url:getContextPath()+'/chat/chatroom/check',
     data:{
       "chatNo":chatNo,
       "memberId":memberId
@@ -78,15 +81,14 @@ function checkEnterChatroom(memberId,chatNo){
       }else{
         if(confirm("채팅방에 입장하시겠습니까?")){
 
-          if(enterChatroom(chatNo,memberId,'/chat/chatroom/enter') === 1){
-            moveMyChatroom(chatNo,memberId);
-          }else{
+          if(enterChatroom(chatNo,memberId,'/chat/chatroom/enter') !== 1){
             alert("채팅방에 입장하지 못했습니다. 다시 시도해주세요");
+            return;
+          }else{
+            moveMyChatroom(chatNo,memberId);
             return;
           }
 
-        }else{
-          return;
         }
       }
     }
@@ -103,7 +105,7 @@ function moveMyChatroom(chatNo,memberId){
   // 데이터 보내고
   // 페이지 가져오기
   $.ajax({
-    url:'/chat/chatroom/page',
+    url:getContextPath()+'/chat/chatroom/page',
     data:{
       "chatNo":
       chatNo
@@ -135,7 +137,7 @@ function moveMyChatroom(chatNo,memberId){
 // 참여인원 불러오기
 function getMyChatroom(chatNo,url){
   $.ajax({
-    url:url,
+    url:getContextPath()+url,
     data:{
       "chatNo":
       chatNo
@@ -180,7 +182,7 @@ function getMyChatroom(chatNo,url){
 // 채팅방 내용 불러오기
 function getChatList(chatNo,url,memberId){
   $.ajax({
-    url:url,
+    url:getContextPath()+url,
     data:{
       "chatNo":
       chatNo
@@ -234,7 +236,7 @@ function getChatList(chatNo,url,memberId){
 function enterChatroom(chatNo,memberId,url){
 
   $.ajax({
-    url:url,
+    url:getContextPath()+url,
     data:{
       "chatNo":chatNo,
       "memberId":memberId
@@ -258,7 +260,7 @@ function moveChatList(){
   $('.feed>*').remove();
 
   $.ajax({
-    url:'/chat/list/page',
+    url:getContextPath()+'/chat/list/page',
     success:function(data){
       $('.feed').html(data);
       $('.feed').attr('style','height:905px');
@@ -277,7 +279,7 @@ function moveChatList(){
 // 채팅방 리스트 가져오는 함수
 function getChatroomListData(listCount){
   $.ajax({
-    url:'/chat/list/data',
+    url:getContextPath()+'/chat/list/data',
     data:{
       "cPage":listCount
     },
@@ -356,7 +358,7 @@ function chatTypeChange(){
   }else{
 
     $.ajax({
-      url:'/chat/list/data/sort',
+      url:getContextPath()+'/chat/list/data/sort',
       data:{
         "cPage":listCount,
         "ref":option
@@ -422,7 +424,7 @@ function moveChatListDetail(chatNo){
   $('.feed>*').remove();
 
   $.ajax({
-    url:'/chat/list/detail',
+    url:getContextPath()+'/chat/list/detail',
     data:chatNo,
     success:data=>{
      $('.feed').html(data);
@@ -435,7 +437,7 @@ function moveChatListDetail(chatNo){
 function chatListDetailData(chatNo){
 
   $.ajax({
-    url:'/chat/detail/data',
+    url:getContextPath()+'/chat/detail/data',
     data:{
       "chatNo":
       chatNo
@@ -444,7 +446,7 @@ function chatListDetailData(chatNo){
       const memberId = data.loginMember.MEMBER_ID;
 
       let val = '';
-      val +='<link rel="stylesheet" type="text/css" href="/css/chatting/chatroom-list-detail.css">';
+      val +='<link rel="stylesheet" type="text/css" href="'+getContextPath()+'/css/chatting/chatroom-list-detail.css">';
       // header
       val += '<div class="chatroom-header"><div>';
 
@@ -517,7 +519,7 @@ function chatListDetailData(chatNo){
 // button 모양등
 function createChatroom(){
   $.ajax({
-    url:'/chat/room/page',
+    url:getContextPath()+'/chat/room/page',
     success:data=>{
       $('.feed>*').remove();
       $('.feed').html(data);
@@ -575,7 +577,7 @@ function chatroomData(){
 // 채팅방 만드는 데이터 보내기
 function sendChatroomData(data){
   $.ajax({
-    url:'/chat/room/data',
+    url:getContextPath()+'/chat/room/data',
     data:{
       "category":data.category,
       "title":data.title,

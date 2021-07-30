@@ -50,7 +50,7 @@ $("button#emailSend").click(function() {// 메일 입력 유효성 검사
 	} else {
 		$.ajax({
 			type : 'post',
-			url : '/CheckMail',
+			url : getContextPath()+'/login/CheckMail',
 			data : {
 				mail:mail
 				},
@@ -86,7 +86,7 @@ $(".email_number input").keyup(function(){
 
 //취소버튼 클릭시 메인페이지로 이동
 function goIndex() {
-	location.replace("/");
+	location.replace(getContextPath()+"/");
 }
 
 //회원가입 유효성 검사
@@ -105,7 +105,7 @@ $(function(){
         var result = idCheck.exec(id);
 
         if(result !=null) {
-            window.open("/duplCheck?type=id&check="+id,"","width=500px,height=300px,top=300px,left=200px");
+            window.open(getContextPath()+"/login/duplCheck?type=id&check="+id,"","width=500px,height=300px,top=300px,left=200px");
         }else {
             alert("아이디는 4~15자의 영어소문자+숫자 조합으로 사용해야 합니다.");
             $("[name=memberId]").focus();
@@ -156,7 +156,7 @@ $(function(){
         var result = nicknameCheck.exec(nickname);
 
         if(result !=null) {
-            window.open("/duplCheck?type=nick&check="+nickname,"","width=500px,height=300px,top=300px,left=200px");
+            window.open(getContextPath()+"/login/duplCheck?type=nick&check="+nickname,"","width=500px,height=300px,top=300px,left=200px");
         }else {
             alert("닉네임은 2~8자의 영어소문자 또는 한글로 사용해야 합니다.");
             $("[name=memberNickname]").focus();

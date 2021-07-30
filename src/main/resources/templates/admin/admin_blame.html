@@ -12,7 +12,7 @@
                <th:block th:switch="${type}">
                 <th th:case="'1'">게시글 번호</th>
                 <th th:case="'blame'">게시글 번호</th>
-                <th th:case="'2'">번호</th>
+                <th th:case="'2'">해당 게시글 번호</th>
                 <th th:case="'3'">채팅방 번호</th>
                 <th th:case="'4'">작성자</th>
               </th:block>
@@ -30,7 +30,7 @@
                 <th th:case="'3'">채팅방 이름</th>
                 <th th:case="'4'">게시글 제목</th>
               </th:block>
-              <th style="text-align:center;">신고 사유</th>
+              <!-- <th style="text-align:center;">신고 사유</th> -->
                 <th>누적 신고 수</th>
                 <th>삭제여부<br>
                     <input type="radio" name="del_status" value="n" checked>N
@@ -46,8 +46,12 @@
             		<td th:text="${b.BOARD_NO}">1</td>
             		<td th:text="${b.MEMBER_ID}"></td>
             		<td th:text="${b.BOARD_TITLE}"></td>
-            		<td th:text="${b.BLAME_REASON}"></td>
-            		<td th:text="${b.BLAME_COUNT}"></td>
+            		<!-- <td th:text="${b.BLAME_REASON}"></td> -->
+            		<td  >
+            			<!-- <a th:onclick="|fn_check_pop('${type,b.BOARD_NO}')|" th:text="${b.BLAME_COUNT}"></a> -->
+            			<a style="cursor:pointer;"th:data-p1="${type}" th:data-p2="${b.BOARD_NO}" 
+            				th:onclick="|fn_check_pop(this.getAttribute('data-p1'),this.getAttribute('data-p2'))|" th:text="${b.BLAME_COUNT}"></a>
+           			</td>
             		<td th:text="${b.DEL_STATUS} eq 0?'N':'Y'"></td>
             	</tr>
             </tbody>
@@ -59,8 +63,11 @@
             		<td>1</td>
             		<td th:text="${bc.COMMENT_WRITER}"></td>
             		<td th:text="${bc.COMMENT_CONTENT}"></td>
-            		<td th:text="${bc.BLAME_REASON}"></td>
-            		<td th:text="${bc.BC_BLAME_COUNT}"></td>
+            		<!-- <td th:text="${bc.BLAME_REASON}"></td> -->
+            		<td>
+            			<a style="cursor:pointer;"th:data-p1="${type}" th:data-p2="${bc.BOARD_NO}" 
+            				th:onclick="|fn_check_pop(this.getAttribute('data-p1'),this.getAttribute('data-p2'))|" th:text="${bc.BC_BLAME_COUNT}"></a>
+            		</td>
             		<td th:text="${bc.DEL_STATUS} eq 0?'N':'Y'"></td>
             	</tr>
             </tbody>
@@ -72,7 +79,7 @@
             		<td th:text="${ch.CHAT_NO}">1</td>
             		<td th:text="${ch.MEMBER_ID}"></td>
             		<td th:text="${ch.CHAT_TITLE}"></td>
-            		<td th:text="${ch.BLAME_REASON}"></td>
+            		<!-- <td th:text="${ch.BLAME_REASON}"></td> -->
             		<td th:text="${ch.CH_BLAME_COUNT}"></td>
             		<td th:text="${ch.DEL_STATUS} eq 0?'N':'Y'"></td>
             	</tr>
@@ -85,7 +92,7 @@
             		<td>1</td>
             		<td th:text="${m.MEMBER_ID}"></td>
             		<td th:text="${m.BOARD_TITLE}"></td>
-            		<td th:text="${m.BLAME_REASON}"></td>
+            		<!-- <td th:text="${m.BLAME_REASON}"></td> -->
             		<td>누적신고수(추후 COUNT)</td>
             		<td th:text="${m.DEL_STATUS} eq 0?'N':'Y'"></td>
             	</tr>
@@ -120,6 +127,10 @@
     </div>
 </div>
 <script th:inline="javascript">
+function fn_check_pop(t,no){
+	window.open("/blame/checkPop?type="+t+"&no="+no,"","width=420px,height=580px,top=260px,left=800px");
+}
+
 function fn_ajax_paging(i){
 	var type=[[${type}]];	
 	$.ajax({
