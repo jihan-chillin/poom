@@ -7,7 +7,7 @@ import com.chairking.poom.common.Pagination;
 
 public interface BlameService {
 	//신고
-	List<Map<String,Object>> allBlameList(String type,Pagination pagination);
+	List<Map<String,Object>> allBlameList(String type,Pagination pagination, String delStatus);
 	int blameCount(String type);
 	int insertBlame(Map<String,String> map);
 	List<Map<String,Object>> selectBlame(Map<String,Object> map);

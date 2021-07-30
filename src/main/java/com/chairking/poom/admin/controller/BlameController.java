@@ -25,6 +25,7 @@ public class BlameController {
 	//신고관리 메뉴 페이지
 	@GetMapping()
 	public ModelAndView blame(String type,ModelAndView mv,
+			@RequestParam(value = "delStatus", required = false, defaultValue = "n") String delStatus,
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, //현재페이지
             @RequestParam(value = "cntPerPage", required = false, defaultValue = "5") int cntPerPage, //numPerpage
             @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {	//pageBar사이즈
@@ -36,15 +37,24 @@ public class BlameController {
 			case "3" : title="신고된 채팅 관리";break;
 			case "4" : title="정지된 회원 관리";break;
 		}
-		
+		//삭제여부 radio버튼
+		String sql="";
+		if(delStatus.equals("n")) {
+			System.out.println("n이다");
+			sql="del_status  ,blame_count desc";
+		}else {			//삭제여부 y면
+			System.out.println("y다");
+			sql="del_status desc ,blame_count desc";
+		}
 		//페이징처리
 		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
 		pagination.setTotalRecordCount(service.blameCount(type));
-		List<Map<String,Object>> list = service.allBlameList(type, pagination);
+		List<Map<String,Object>> list = service.allBlameList(type, pagination,sql);
 		mv.addObject("pagination",pagination);
 		mv.addObject("list", list);
 		mv.addObject("type", type);
 		mv.addObject("blame_title", title);
+		mv.addObject("delStatus", delStatus);
 		mv.setViewName("admin/admin_blame");
 		return mv;
 	}
@@ -79,6 +89,7 @@ public class BlameController {
 	//누적신고수 팝업
 	@RequestMapping(value="/checkPop",method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView checkPop(@RequestParam Map map,ModelAndView mv) {
+		System.out.println("type:"+map.get("type")+" / no:"+map.get("no"));
 		//type & no받기=> db연결해서 사유 가져와야함
 		//총 select * 한 리스트
 		List<Map<String,Object>> list=service.selectBlame(map);
@@ -95,6 +106,7 @@ public class BlameController {
 		mv.addObject("list",list);
 		mv.addObject("countMap", countMap);
 		mv.addObject("ectMap", ectMap);
+		System.out.println("list:"+list);
 		System.out.println("ectMap"+ectMap.isEmpty());
 		mv.setViewName("admin/check_blamecount_pop");
 		return mv;

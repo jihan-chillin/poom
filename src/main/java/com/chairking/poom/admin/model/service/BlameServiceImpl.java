@@ -28,14 +28,14 @@ public class BlameServiceImpl implements BlameService {
 	
 	//게시글 신고 전체 리스트
 	@Override
-	public List<Map<String, Object>> allBlameList(String type,Pagination pagination) {
+	public List<Map<String, Object>> allBlameList(String type,Pagination pagination, String delStatus) {
 		List<Map<String,Object>> list = null;
 		//type에 따라 dao다르게 실행하기
 		switch(type) {
-			case "blame": case "1" : list=dao.allBoardBlame(mapper,pagination);break;
-			case "2" : list=dao.allCommentsBlame(mapper,pagination);break;
-			case "3" : list=dao.allChatBlame(mapper,pagination);break;
-			case "4" : list=dao.allMemberBlame(mapper,pagination);break;
+			case "blame": case "1" : list=dao.allBoardBlame(mapper,pagination,delStatus);break;
+			case "2" : list=dao.allCommentsBlame(mapper,pagination,delStatus);break;
+			case "3" : list=dao.allChatBlame(mapper,pagination,delStatus);break;
+			case "4" : list=dao.allMemberBlame(mapper,pagination,delStatus);break;
 		}
 		return list;
 	}

@@ -16,10 +16,10 @@
         <th:block  th:switch="${type}">
             <p th:case="'blame'">게시글 제목 : <span th:if="${type} eq 'blame'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
             <p th:case="'1'">게시글 제목 : <span th:if="${type} eq '1'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
-            <p th:case="'2'">해당 게시글 제목 : <span th:if="${type} eq '2'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
-            <p th:case="'3'">채팅방 이름 : <span th:if="${type} eq '3'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
+            <p th:case="'2'">댓글 내용 : <span th:if="${type} eq '2'"th:text="${list[0].COMMENT_CONTENT}"></span></p>
+            <p th:case="'3'">채팅방 이름 : <span th:if="${type} eq '3'"th:text="${list[0].CHAT_TITLE}">게시글 제목</span></p>
             <p th:case="'4'">게시글 제목 : <span th:if="${type} eq '4'"th:text="${list[0].BOARD_TITLE}">게시글 제목</span></p>
-            <p>게시글 누적 신고수 : <span th:text="|${#lists.size(list)}회|">15회</span></p>
+            <p>누적 신고수 : <span th:text="|${#lists.size(list)}회|">15회</span></p>
         </th:block>
         </div>
         <div id="check_detail">
