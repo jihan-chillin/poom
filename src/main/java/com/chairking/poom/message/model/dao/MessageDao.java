@@ -14,4 +14,8 @@ public interface MessageDao {
     List<Map<String, Object>> messageContent(MessageMapper mapper, String msgNo);
 
     int deleteMessage(MessageMapper mapper, String msgNo);
+
+    int moveBlock(MessageMapper mapper, String msgNo);
+
+
 }

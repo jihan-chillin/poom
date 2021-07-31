@@ -163,6 +163,17 @@ public class MessageController {
         return mv;
     }
 
+
+    //메세지 차단함으로 이동
+//    @GetMapping("/moveBlock")
+//    public ModelAndView moveBlock(@RequestParam String msgNo, ModelAndView mv){
+//       int result= service.moveBlock(msgNo);
+//       if(result>0){
+//           mv.setViewName("redirect:/message/message_main");
+//       }
+//       return mv;
+//    }
+
     //받는사람 검색
 //    @GetMapping("/message/rSearch")
 //    public ModelAndView searchReceiver(ModelAndView mv){

@@ -19,18 +19,19 @@ function connect(event){
     stompClient.connect({}, onConnected, onError);
   }
 
-  event.preventDefault();
+  // event.preventDefault();
 }
 
 function onConnected(){
   // Controller @SendTo 와 연결
   // 채팅방 번호를 넘겨야함
-  let contextPath = getContextPath()+'/topic/chatroom';
-  stompClient.subscribe(contextPath,onMessageReceived);
+  let chatNo = $('.chatNo').val();
 
-  stompClient.send(getContextPath()+"/chat.addUser",{},
-    JSON.stringify({sender:memberId, type:'JOIN'})
-  );
+  stompClient.subscribe('/topic/chatroom/'+chatNo,onMessageReceived);
+
+  // stompClient.send(getContextPath()+"/chat.addUser",{},
+  //   JSON.stringify({sender:memberId, type:'JOIN'})
+  // );
 
 }
 function onError(error){
@@ -50,8 +51,8 @@ function sendMessage(event) {
       chatNo:chatNo,
       type: 'CHAT'
     };
-    stompClient.send(getContextPath()+"/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-
+    stompClient.send("/app/chat/"+chatNo, {}, JSON.stringify(chatMessage));
+    console.log('응답을 보내면')
     sendMsgContent.val('');
   }
 
@@ -62,18 +63,18 @@ function onMessageReceived(payload){
   let message = JSON.parse(payload.body);
   let chatNo = $('.chatNo').val();
 
-  if(message.type ==='JOIN'){
-    message.messageContent = message.memberId+'채팅방에 참여했습니다.';
-
-  }else if(message.type ==='LEAVE'){
-    message.messageContent = message.memberId+'채팅방을 나갔습니다.';
-
-  }else{
-    // console.log("페이로드"+payload)
+  // if(message.type ==='JOIN'){
+  //   message.messageContent = message.memberId+'채팅방에 참여했습니다.';
+  //
+  // }else if(message.type ==='LEAVE'){
+  //   message.messageContent = message.memberId+'채팅방을 나갔습니다.';
+  //
+  // }else{
     // messageElement.append(message.messageContent);
+  // }
 
-    getChatList(chatNo,getContextPath()+'/chat/mychat/member',message.memberId);
-  }
+  console.log("응답을 받으면 ");
+  getChatList(chatNo,'/chat/mychat/member',message.memberId);
 }
 
 function getAvatarColor(messageSender){
@@ -91,7 +92,7 @@ function disconnection(){
   if(stompClient !== null){
     stompClient.disconnect();
     // $('.chat-icon').click();
-    location.replace('/');
+    location.replace('/21AM_POOM_final/login/main');
   }
 }
 
@@ -100,7 +101,7 @@ connect();
 
 let submitAction = e=>{
   e.preventDefault();
-  e.stopPropagation();
+  // e.stopPropagation();
 }
 
 $('form').bind('submit',submitAction);

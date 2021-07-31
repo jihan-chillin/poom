@@ -20,7 +20,11 @@ public class TagController {
     }
 
     public void insertTag(Map tag){
-        service.insertTag((String)tag.get("keyword"));
+        try {
+            service.insertTag((String) tag.get("keyword"));
+        }catch (Exception e){
+            log.info("태그 테이블에서 겹침 ");
+        }
         log.info("태그 넣기 성공");
     }
 }

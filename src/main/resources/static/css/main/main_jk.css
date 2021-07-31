@@ -424,7 +424,7 @@ div.feed_write button:first-of-type {
 }
 div.feed_write button:nth-of-type(2) {
 	float:right;
-	margin-right: 35px;
+	margin-right: 15px;
 	margin-left: 7px;
 	background: #247094;
 	color: white;

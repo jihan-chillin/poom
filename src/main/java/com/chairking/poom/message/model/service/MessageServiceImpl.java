@@ -46,4 +46,11 @@ public class MessageServiceImpl implements MessageService {
     public int deleteMessage(String msgNo) {
         return dao.deleteMessage(mapper, msgNo);
     }
+
+    @Override
+    public int moveBlock(String msgNo) {
+        return dao.moveBlock(mapper,msgNo);
+    }
+
+
 }
