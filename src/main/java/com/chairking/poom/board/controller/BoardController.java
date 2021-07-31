@@ -126,64 +126,64 @@ public class BoardController {
 
 
 	// Ckeditor : 세 번째 방법
-//	@RequestMapping(value="/images/ckeditor", method = RequestMethod.POST)
-//	@ResponseBody
-//	public  String fileUpload(HttpServletRequest req, HttpServletResponse res,
-//							  MultipartHttpServletRequest multireq) throws Exception {
-//
-//		JsonObject json = new JsonObject();
-//
-//		PrintWriter writer = null;
-//		OutputStream out = null;
-//
-//		MultipartFile file = multireq.getFile("upload");
-//
-//		if (file != null) {
-//			if (file.getSize() > 0 && StringUtils.isNotBlank(file.getName())) {
-//				if (file.getContentType().toLowerCase().startsWith("image/")) {
-//					try {
-//						String fileName = file.getName();
-//						byte[] bytes = file.getBytes();
-//						String uploadPath = req.getServletContext().getRealPath("/img");
-//
-//						File uploadFile = new File(uploadPath);
-//						if (!uploadFile.exists()) {
-//							uploadFile.mkdirs();
-//						}
-//						fileName = UUID.randomUUID().toString();
-//						uploadPath = uploadPath + "/" + fileName;
-//						out = new FileOutputStream(new File(uploadPath));
-//
-//						out.write(bytes);
-//
-//						writer = res.getWriter();
-//						res.setContentType("text/html; charset=utf-8");
-//						String fileUrl = req.getContextPath() + "/img/" + fileName;
-//
-//						// json 데이터로 등록
-//						json.addProperty("uploaded", 1);
-//						json.addProperty("fileName", fileName);
-//						json.addProperty("url", fileUrl);
-//
-//						System.out.println(json);
-//
-//
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					} finally {
-//						if (out != null) {
-//							out.close();
-//						}
-//						if (writer != null) {
-//							writer.close();
-//						}
-//					}
-//				}
-//			}
-//
-//		}
-//		return null;
-//	}
+	@RequestMapping(value="/images/ckeditor", method = RequestMethod.POST)
+	@ResponseBody
+	public  String fileUpload(HttpServletRequest req, HttpServletResponse res,
+							  MultipartHttpServletRequest multireq) throws Exception {
+
+		JsonObject json = new JsonObject();
+
+		PrintWriter writer = null;
+		OutputStream out = null;
+
+		MultipartFile file = multireq.getFile("upload");
+
+		if (file != null) {
+			if (file.getSize() > 0 && StringUtils.isNotBlank(file.getName())) {
+				if (file.getContentType().toLowerCase().startsWith("image/")) {
+					try {
+						String fileName = file.getName();
+						byte[] bytes = file.getBytes();
+						String uploadPath = req.getServletContext().getRealPath("/img");
+
+						File uploadFile = new File(uploadPath);
+						if (!uploadFile.exists()) {
+							uploadFile.mkdirs();
+						}
+						fileName = UUID.randomUUID().toString();
+						uploadPath = uploadPath + "/" + fileName;
+						out = new FileOutputStream(new File(uploadPath));
+
+						out.write(bytes);
+
+						writer = res.getWriter();
+						res.setContentType("text/html; charset=utf-8");
+						String fileUrl = req.getContextPath() + "/img/" + fileName;
+
+						// json 데이터로 등록
+						json.addProperty("uploaded", 1);
+						json.addProperty("fileName", fileName);
+						json.addProperty("url", fileUrl);
+
+						System.out.println(json);
+
+
+					} catch (IOException e) {
+						e.printStackTrace();
+					} finally {
+						if (out != null) {
+							out.close();
+						}
+						if (writer != null) {
+							writer.close();
+						}
+					}
+				}
+			}
+
+		}
+		return null;
+	}
 
 	// 다섯 번째 방법
 //	@RequestMapping(value="/images/ckeditor", method = RequestMethod.POST)
