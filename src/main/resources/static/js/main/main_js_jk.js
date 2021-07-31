@@ -30,7 +30,7 @@ function resize(obj) {
 
 //프로필 부분 쪽지아이콘 클릭스 쪽지 페이지로 이동
 function messageBox(){
-    location.assign(getContextPath()+"/message?type=receive");
+    location.assign(getContextPath()+"/message");
 }
 
 // 프로필 부분 edit버튼 클릭시 정보수정 페이지로 이동 ajax
@@ -52,13 +52,10 @@ function membermodi(){
   });
 }
 
-<<<<<<< HEAD
 function mywrite(){
     location.assign(getContextPath()+"/mywrite");
 }
 
-=======
->>>>>>> branch 'master' of https://github.com/jihan-chillin/poom.git
 //로그아웃ui 클릭시 로그아웃+index로 이동
 function logOut(){
     location.replace(getContextPath()+"/login/logOut");

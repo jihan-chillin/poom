@@ -30,7 +30,6 @@
                 </tr>
                 </tbody>
             </table>
-            <input type="button" class="send-message" value="쪽지보내기" onclick="showPopup(1);">
             <form id="deleteBlockMsg" method="post" action="message/delete">
                 <input id="delBlockMsgNo" name="msgNo" type="hidden" value="-1"/>
                 <input id="delBlockType" name="delType" type="hidden" value="block"/>
@@ -48,7 +47,7 @@
              $('.targetChk').each(function () {
                  if ($(this).is(':checked')) {
                      var msgNo = $(this).closest('tr').children('.msgNo').html();
-                     var loc = "/message/delete";
+                     var loc = getContextPath()+"/message/delete";
                      $('#deleteBlockMsg').attr("action", loc);
                      $('#delBlockMsgNo').val(msgNo);
                      $('#deleteBlockMsg').submit();

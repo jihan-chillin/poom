@@ -5,42 +5,35 @@
     <link th:href="@{/css/message/message_popup.css}" rel="stylesheet" type="text/css">
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-        $(window).load(function() {
-            window.resizeTo(500, 400 );
-        });
-    </script>
+
+<!--    <script>-->
+<!--        $(window).load(function() {-->
+<!--            window.resizeTo(500, 400 );-->
+<!--        });-->
+<!--    </script>-->
 </head>
 <body>
     <div id="popup_wrapper">
         <div id="popup+content">
 <!--            <h1>쪽지 보내기</h1>-->
+            <form>
             <div class="search-receiver">
-                <input type="text" class="search-name" placeholder="받는사람"><input type="button" class="find-name" value="주소록" onclick="showPopup(2);" >
+                받는사람: <span th:text="${rcvNm}"></span>
+                <input type="hidden" class="search-name" name="recvMember" th:value="${rcvId}">
             </div>
             <div class="msg-content">
-                <textarea>쪽지내용</textarea>
+                <textarea name="msgContent">쪽지내용</textarea>
             </div>
             <div id="message_buttons">
-                <button class="message_buttons" type="button">보내기</button>
+                <button class="message_buttons" type="submit">보내기</button>
                 <button class="message_buttons2" type="button" onclick="javascript:self.close();">취소</button>
             </div>
+            </form>
         </div>
     </div>
 
 </body>
 <script th:src="@{/js/message/message_js_sh.js}"></script>
-<script>function showPopup(type) {
-if (type == 1)
-window.open("/message/popup", "message", "width=400,height=300");
-else if (type == 2)
-window.open("/message/receiver", "receiver", "width=400,height=300");
-}
+<script th:src="@{/js/message/messagePopup_js_sh.js}"> </script>
 
-function showMsgDtl(msgNo) {
-    window.open("/message/content?msgNo=" + msgNo,"content","width=400,height=300");
-
-}
-
-</script>
 </html>
