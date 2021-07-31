@@ -105,7 +105,7 @@ function addTagEach(getConfirmTag){
       },
       success:data=>{
         // 메인피드의 게시물에서 요청
-        if(data !== null) {
+        if(data === null) {
           addTagFromMainPage(getConfirmTag[i]);
         }
       }
