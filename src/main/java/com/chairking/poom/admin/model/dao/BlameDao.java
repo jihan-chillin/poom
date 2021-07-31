@@ -42,5 +42,8 @@ public interface BlameDao {
 	int selectCountBlame5(SqlSessionTemplate session, Map<String,Object> map);
 	
 	List<Map<String,String>> selectEctAll(SqlSessionTemplate session, Map<String,Object> map);
-	//Stirng[] selectCountBlame5(SqlSessionTemplate session, Map<String,Object> map);
+	
+	int deleteBoardBlame(AdminMapper mapper, String no);
+	int deleteCommentsBlame(AdminMapper mapper, String no);
+	int deleteChatBlame(AdminMapper mapper, String no);
 }

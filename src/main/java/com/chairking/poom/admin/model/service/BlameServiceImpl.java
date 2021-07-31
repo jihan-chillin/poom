@@ -113,6 +113,26 @@ public class BlameServiceImpl implements BlameService {
 		return dao.selectEctAll(session,map);
 	}
 	
+	//체크박스=>삭제 시 del_status 업데이트 하기
+	@Override
+	@Transactional
+	public int deleteBlame(Map<String,Object> map) throws RuntimeException{
+		int result=0;
+		List<String> list = (List)map.get("arr");
+		for(String s :list) {
+			switch((String)map.get("type")) {
+				case "게시글": result= dao.deleteBoardBlame(mapper,s);break;
+				case "댓글" : result= dao.deleteCommentsBlame(mapper,s);break;
+				case "채팅" : result= dao.deleteChatBlame(mapper,s);break;
+				//case "회원" : result= dao.deleteMemberBlame(mapper,(String)map.get("no"));break;
+			}
+		}
+		if(result!=1) {
+			throw new RuntimeException("실패");
+		}
+		return result;
+	}
+	
 	
 	
 }

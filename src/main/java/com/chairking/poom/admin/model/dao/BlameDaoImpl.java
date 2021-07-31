@@ -137,6 +137,23 @@ public class BlameDaoImpl implements BlameDao {
 		return session.selectList("adminMapper.selectEctAll",map);
 	}
 
+	@Override
+	public int deleteBoardBlame(AdminMapper mapper, String no) {
+		return mapper.deleteBoardBlame(no);
+	}
+
+	@Override
+	public int deleteCommentsBlame(AdminMapper mapper, String no) {
+		return mapper.deleteCommentsBlame(no);
+	}
+
+	@Override
+	public int deleteChatBlame(AdminMapper mapper, String no) {
+		return mapper.deleteChatBlame(no);
+	}
+
+	
+
 	
 
 	

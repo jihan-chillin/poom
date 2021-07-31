@@ -1,5 +1,6 @@
 package com.chairking.poom.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,10 +41,8 @@ public class BlameController {
 		//삭제여부 radio버튼
 		String sql="";
 		if(delStatus.equals("n")) {
-			System.out.println("n이다");
 			sql="del_status  ,blame_count desc";
 		}else {			//삭제여부 y면
-			System.out.println("y다");
 			sql="del_status desc ,blame_count desc";
 		}
 		//페이징처리
@@ -80,7 +79,6 @@ public class BlameController {
 		System.out.println("insertblame:"+map);
 		//type에따라 각 해당하는 신고테이블에 넣기
 		int result=service.insertBlame(map);	//서비스에 트랜젝션처리함 근데 에러뜨면 에러페이지 이동하게 해놓거나 msg로 이동하게 해서 처리하기
-		System.out.println("db에 잘 들ㅇ갔니 result"+result);
 		mv.addObject("map",map);
 		mv.setViewName("admin/blame_popup_suc");
 		return mv;
@@ -109,6 +107,25 @@ public class BlameController {
 		System.out.println("list:"+list);
 		System.out.println("ectMap"+ectMap.isEmpty());
 		mv.setViewName("admin/check_blamecount_pop");
+		return mv;
+	}
+	
+	//삭제버튼 => 실삭제 아니고 각 테이블에 del_status수정하기
+	@RequestMapping(value="/delete",method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView delete(String type, 
+			@RequestParam (value="checkArr[]") List<String> checkArr,ModelAndView mv) {
+		Map<String,Object> map= new HashMap();
+		map.put("type", type);
+		map.put("arr", checkArr);
+		System.out.println(map);
+		int result=service.deleteBlame(map);
+		switch(type) {
+			case "게시글": type="1";break;
+			case "댓글" : type="2";break;
+			case "채팅" : type="3";break;
+			case "회원" : type="4";break;
+		}
+		mv.setViewName("redirect:/blame?type="+type);
 		return mv;
 	}
 }

@@ -13,4 +13,5 @@ public interface BlameService {
 	List<Map<String,Object>> selectBlame(Map<String,Object> map);
 	Map<String,Object> selectCountBlame(Map<String,Object> map);
 	List<Map<String,String>> selectEctAll(Map<String,Object> map);
+	int deleteBlame(Map<String,Object> map);
 }

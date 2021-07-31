@@ -87,4 +87,12 @@ public interface AdminMapper {
 	
 	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=4 AND BLAME_REASON LIKE '기타%'")
 	public List<Map<String,String>> selectEctAll(Map<String,Object> map);
+	
+	//삭제 시 del_status 1로 업데이트
+	@Update("UPDATE BOARD SET DEL_STATUS=1 WHERE BOARD_NO=#{no}")
+	public int deleteBoardBlame(String no);
+	@Update("UPDATE COMMENTS SET DEL_STATUS=1 WHERE COMMENT_NO=#{no}")
+	public int deleteCommentsBlame(String no);
+	@Update("UPDATE CHAT SET DEL_STATUS=1 WHERE CHAT_NO=#{no}")
+	public int deleteChatBlame(String no);
 }
