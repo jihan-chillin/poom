@@ -34,6 +34,9 @@ function goWriteForm() {
     url:getContextPath()+'/board/form',
     success:function(data){
         $('.feed').html(data)
+
+			// 사용자가 입력한 태그 등록하는 메소드
+			addTagEach(getConfirmTag());
     },
     error:(e,m,i)=>{
       console.log(e);

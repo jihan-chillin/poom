@@ -16,7 +16,7 @@ public interface MessageMapper {
     public List<Map<String,Object>> searchReceiver();
 
 
-    @Select("SELECT MSG_NO, MEMBER_ID, RECV_MEMBER, MSG_DATE, MSG_TYPE, SUBSTR(MSG_CONTENT, 0, 15) || '...' AS MSG_CONTENT, READ_CHECK  FROM MESSAGE WHERE 1=1  ${condition}")
+    @Select("SELECT MSG_NO, MEMBER_ID, RECV_MEMBER, MSG_DATE, MSG_TYPE, SUBSTR(MSG_CONTENT, 0, 15) || '...' AS MSG_CONTENT, nvl(READ_CHECK, TO_DATE('0001/01/01', 'yyyy/mm/dd')) AS READ_CHECK FROM MESSAGE WHERE 1=1  ${condition}")
     public List<Map<String,Object>> getMessage(String condition);
 
     @Select("SELECT * FROM MESSAGE WHERE MSG_NO = #{msgNo}")
@@ -25,6 +25,15 @@ public interface MessageMapper {
     @Delete("DELETE FROM MESSAGE WHERE MSG_NO = #{msgNo}")
     int deleteMessage(String msgNo);
 
-    @Update("UPDATE FROM MESSAGE SET READ_CHECK=3 WHERE MSG_NO = #{msgNo)")
+    @Update("UPDATE MESSAGE SET MSG_TYPE=3 WHERE MSG_NO = #{msgNo}")
     int moveBlock(String msgNo);
+
+    @Update("UPDATE MESSAGE SET READ_CHECK=sysdate WHERE MSG_NO = #{msgNo}")
+    int setMsgRead(String msgNo);
+
+    @Delete("DELETE FROM MESSAGE WHERE MSG_NO = #{msgNo}")
+    int cancelMsg(String msgNo);
+
+    @Select("SELECT * FROM MEMBER ${condition}")
+    List<Map<String, Object>> searchReceiverCondition(String condition);
 }

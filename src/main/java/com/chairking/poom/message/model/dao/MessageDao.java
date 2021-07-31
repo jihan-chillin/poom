@@ -18,4 +18,9 @@ public interface MessageDao {
     int moveBlock(MessageMapper mapper, String msgNo);
 
 
+    int setMsgRead(MessageMapper mapper, String msgNo);
+
+    int cancelMsg(MessageMapper mapper, String msgNo);
+
+    List<Map<String, Object>> searchReceiverCondition(MessageMapper mapper, String condition);
 }
