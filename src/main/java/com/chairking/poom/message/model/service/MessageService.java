@@ -14,4 +14,6 @@ public interface MessageService {
     List<Map<String,Object>> messageContent(String msgNo);
 
     int deleteMessage(String msgNo);
+
+    int moveBlock(String msgNo);
 }

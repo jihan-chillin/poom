@@ -31,7 +31,7 @@
                 <td th:text="${mv.MEMBER_ID}"></td>
                 <td th:text="${mv.MSG_CONTENT}" ></td>
                 <td th:text="${mv.MSG_DATE}"></td>
-                <td><button class="msg-cancel1">차단함으로 이동</button></td>
+                <td th:text="${mv.READ_CHECK}"><button class="msg-cancel1" >차단함으로 이동</button></td>
             </tr>
             </tbody>
         </table>
@@ -42,12 +42,26 @@
             <input type="button" class="delete-message" value="삭제" onclick="deleteRcvMsg();">
         </form>
 
-        <input type="button" class="move-message" value="차단" onclick="";>
+        <input type="button" class="move-message" value="차단" onclick="fn_move_Block();">
 
     </div>
 </div>
-<script>
-    function deleteRcvMsg() {
+
+<script>function fn_move_Block() {
+    if(confirm('차단함으로 이동시키겠습니까?')){
+        $.ajax({
+            url:"/message/moveBlock",
+            data:{"msgNo":msgNo}
+        }).done(function (fragment){
+            alert('차단함으로 이동되었습니다.');
+            $("#target").html(fragment);
+        }).fail(function (){
+            alert('다시 시도해주세요');
+})
+    };
+}
+
+function deleteRcvMsg() {
         if (confirm("rcv 삭제하시겠습니까?")) {
             $('.targetChk').each(function () {
                 if ($(this).is(':checked')) {

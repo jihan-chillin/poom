@@ -54,38 +54,48 @@ function getMyTagData(){
         }
       });
 
-      //검색어 입력시 태그 검색
-      $('.field__input').keyup(e=>{
+      $('.field__input').keyup(e=> {
         let keyword =$(e.target).val().trim();
 
-        if(keyword.length>=8){
-          alert("태그는 최대 7자까지 가능합니다.");
-          return;
-
-        }else if(keyword.length !== 0){
-          searchTag(keyword);
-
-        }else{
-          $('.tag-search-result-container>*').remove();
-          $('.tag-search-result-container').attr('style','display:none');
-        }
-
+        checkKeyword(keyword);
+        // 엔터 누르면 실행
         if(e.keyCode === 13){
-          if($('.tag-search-result>span').text() !== '검색결과가 없습니다.' ){
-            if(!confirm(keyword+" 태그를 나의 해시태그에 추가하시겠습니까?")){
-              return;
-            }else{
-              addTag(keyword);
-            }
-          }else{
-            return;
-          }
+          insertMyTag(keyword);
         }
-
       });
+
     }
   });
 }
+
+//검색어 입력시 태그 검색
+function checkKeyword(keyword){
+    if(keyword.length>=8){
+      alert("태그는 최대 7자까지 가능합니다.");
+      return;
+
+    }else if(keyword.length !== 0){
+      searchTag(keyword);
+
+    }else{
+      $('.tag-search-result-container>*').remove();
+      $('.tag-search-result-container').attr('style','display:none');
+    }
+}
+
+// 키워드를 나의 태그에 추가
+function insertMyTag(keyword){
+  if($('.tag-search-result>span').text() !== '검색결과가 없습니다.' ){
+    if(!confirm(keyword+" 태그를 나의 해시태그에 추가하시겠습니까?")){
+      return;
+    }else{
+      addTag(keyword);
+    }
+  }else{
+    return;
+  }
+}
+
 // 태그 등록
 function addTag(keyword){
   $.ajax({
@@ -131,29 +141,37 @@ function searchTag(keyword){
       keyword
     },
     success:data=>{
-      let val = '';
-      $('.tag-search-result-container>*').remove();
-
-      if(data.length !== 0){
-        for(let i =0; i<data.length; i++){
-          val += '<div class="tag-search-result">';
-          val += '<span class="tag-result">'+data[i].TAG_NAME+'</span>';
-          val += '</div>';
-        }
-      }else{
-        val += '<div class="tag-search-result"><span>검색결과가 없습니다.</span></div>';
-      }
-      $('.tag-search-result-container').append(val);
-      $('.tag-search-result-container').attr('style','display:block');
-
-      // 검색어 클릭하면 인풋창에 입력
-      $('.tag-result').click(e=>{
-        selectTagAndInsertInput(e);
-      });
+      // 메인피드의 게시물에서 요청
+      tagSearchResult(data);
     }
   });
 }
 
+// 마이 태그 자동완성 화면 화면 구성
+function tagSearchResult(data){
+  let val = '';
+  $('.tag-search-result-container>*').remove();
+
+  if(data.length !== 0){
+    for(let i =0; i<data.length; i++){
+
+      val += '<div class="tag-search-result">';
+      val += '<span class="tag-result">'+data[i].TAG_NAME+'</span>';
+      val += '</div>';
+    }
+  }else{
+    val += '<div class="tag-search-result"><span>검색결과가 없습니다.</span></div>';
+  }
+  $('.tag-search-result-container').append(val);
+  $('.tag-search-result-container').attr('style','display:block');
+
+  // 검색어 클릭하면 인풋창에 입력
+  $('.tag-result').click(e=>{
+    selectTagAndInsertInput(e);
+  });
+}
+
+// 마이 태그 검색 결과 태그 눌렀을 때
 function selectTagAndInsertInput(e){
   let keyword= $(e.target).text();
   $('.field__input').val(keyword);

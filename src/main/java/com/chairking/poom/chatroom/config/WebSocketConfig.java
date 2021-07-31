@@ -13,7 +13,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         // js 통해 endpoint 연결될 url
-        registry.addEndpoint("/ws").withSockJS();
+        registry.addEndpoint( "/ws").setAllowedOriginPatterns("*").withSockJS();
     }
 
 
@@ -21,7 +21,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         // 메세지를 응답할 prefix
         registry.setApplicationDestinationPrefixes("/app");
-
         // 메시지를 송신할 prefix
         registry.enableSimpleBroker("/topic");
     }
