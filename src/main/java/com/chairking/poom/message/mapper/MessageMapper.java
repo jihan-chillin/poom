@@ -4,6 +4,7 @@ import com.chairking.poom.member.model.vo.Member;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Map;
@@ -23,4 +24,7 @@ public interface MessageMapper {
 
     @Delete("DELETE FROM MESSAGE WHERE MSG_NO = #{msgNo}")
     int deleteMessage(String msgNo);
+
+    @Update("UPDATE FROM MESSAGE SET READ_CHECK=3 WHERE MSG_NO = #{msgNo)")
+    int moveBlock(String msgNo);
 }

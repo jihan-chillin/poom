@@ -32,4 +32,9 @@ public class MessageDaoImpl implements MessageDao{
         return mapper.deleteMessage(msgNo);
     }
 
+    @Override
+    public int moveBlock(MessageMapper mapper, String msgNo) {
+        return mapper.moveBlock(msgNo);
+    }
+
 }

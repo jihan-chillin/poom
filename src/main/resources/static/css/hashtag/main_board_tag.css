@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NEXON Lv2 Gothic Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.tag-input-container{
+    display: inline-block;
+}
+.tag-search-result-container{
+    display: none;
+    width: 140px;
+    box-shadow: rgb(100 100 111 / 20%) 0px 7px 29px 0px;
+    background-color: #f7f7f7;
+    color: #000000;
+    margin-top: 5px;
+    margin-left: 20px;
+    position: absolute;
+}
+
+.tag-search-result{
+    margin-top: 12px;
+    font-size: 23px;
+    font-family: 'NanumSquareRound';
+    font-weight: 600;
+
+}
+.tag-search-result>span{
+    font-family: 'NanumSquareRound';
+    box-shadow: rgb(0 0 0 / 8%) 0px 4px 12px;
+    display: block;
+    padding-top: 5px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.tag-confirm{
+    color: #000000;
+    display: inline-block;
+    margin-left: 5px;
+    font-family: 'NEXON Lv2 Gothic Bold';
+    font-weight: 300;
+    font-size: 18px;
+    font-style: oblique;
+}

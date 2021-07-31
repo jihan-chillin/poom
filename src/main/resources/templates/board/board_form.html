@@ -61,7 +61,7 @@
 					fontSize_defaultLabel : "12"
 				});
 
-				console.log(getContextPath()+'/images/ckeditor');
+				console.log('http://localhost:9090'+getContextPath()+'/images/ckeditor');
 
 
 				// 첨부파일 커스터 마이징
@@ -74,7 +74,6 @@
 					switch (dialogName){
 						case 'image':
 							dialogDefinition.removeContents('Link');
-							dialogDefinition.removeContents('advanced');
 							break;
 					}
 				})

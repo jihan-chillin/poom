@@ -27,7 +27,7 @@ function onNotiReceived(payload){
 $(function(){
   $('.noti_icon').click(e=>{
     let loginId = $('#loginMember_id').text();
-    console.log(loginId);
+    // console.log(loginId);
 
     sendNoti(loginId);
   });

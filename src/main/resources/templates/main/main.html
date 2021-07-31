@@ -24,6 +24,7 @@
 
         <!-- main 피드 -->
         <div class="feed">
+			<link rel="stylesheet" type="text/css" th:href="@{/css/hashtag/main_board_tag.css}">
         	<form id="mainBoard_form" action="/board/insert" method="post" enctype="multipart/form-data">
 	            <div class="feed_write">
 	                <select name="boardCate" id="category">
@@ -36,7 +37,8 @@
 	                <hr>
 	                <textarea name="boardContent" onkeyup="resize(this)" placeholder="간단한 글을 작성해보세요. 더 자세한 글작성은 하단 글쓰기 버튼을 이용해주세요!"></textarea>
 	                <hr>
-	                <button type="button"><i class="gg-add"></i></i> 태그추가</button>
+
+	                <button type="button" class="create_tag_input"><i class="gg-add"></i></i> 태그추가</button>
 	                <button type="button" onclick="">등록</button>
 	                <button type="button" onclick="goWriteForm();">글쓰기</button>
 	            </div>
@@ -50,7 +52,7 @@
     </div>
 </div>
 </body>
-
+<script th:src="@{/js/hashtag/hash_create_main_js_hu.js}"></script>
 <script th:src="@{/js/main/main_js_jk.js}"></script>
 <script th:src="@{/js/board/board_list_sh.js}"></script>
 <script th:src="@{/js/main/noti_js_hu.js}"></script>
