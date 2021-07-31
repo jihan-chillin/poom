@@ -50,7 +50,8 @@
 
                                 <tbody>
                                 <tr th:each="m : ${list}">
-                                    <td th:text="${m.MEMBER_NICKNAME}"></td>
+<!--                                    <td th:text="${m.MEMBER_NICKNAME}"></td>-->
+                                    <td th:text="${session.loginMember.MEMBER_NICKNAME}"></td>
                                     <td th:text="${m.CATEGORY_NAME}"></td>
                                     <td th:text="${m.BOARD_TITLE}+'('+${m.CNT}+')'"></td>
                                     <td th:text="${#dates.format(m.BOARD_DATE, 'yyyy-MM-dd')}"></td>
