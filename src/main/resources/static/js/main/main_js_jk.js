@@ -52,13 +52,10 @@ function membermodi(){
   });
 }
 
-<<<<<<< HEAD
 function mywrite(){
     location.assign(getContextPath()+"/mywrite");
 }
 
-=======
->>>>>>> branch 'master' of https://github.com/jihan-chillin/poom.git
 //로그아웃ui 클릭시 로그아웃+index로 이동
 function logOut(){
     location.replace(getContextPath()+"/login/logOut");
