@@ -10,4 +10,6 @@ public interface TagService {
     int insertMemberTag(String loginId, String keyword);
     int deleteTag(String tagName);
     List<Map<String,String>> searchTag(String keyword);
+    String getBoardNo();
+    int insertBoardTag(String boardNo, String keyword);
 }

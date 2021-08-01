@@ -39,7 +39,22 @@ public class ChattingController {
         model.setViewName("chatting/chattingroom");
         return model;
     }
+    // 메세지 보냄
+    @MessageMapping("/chat/{chatNo}")
+    @SendTo("/topic/chatroom/{chatNo}")
+    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+        log.info("제발제발제발");
+//        log.info("컨트롤러에서 보내는 페이로드 : {}",chatMessage);
+        log.info("메세지 내용 : {}", chatMessage.getMessageContent());
+        log.info("메세지 보낸 아이디 : {}", chatMessage.getMemberId());
+        log.info("채팅방 번호 : {}", chatMessage.getChatNo());
 
+
+
+        // 메세지 저장 서비스.
+        service.saveMessage(chatMessage);
+        return chatMessage;
+    }
 
 
     // 채팅방에 들어온 유저표시

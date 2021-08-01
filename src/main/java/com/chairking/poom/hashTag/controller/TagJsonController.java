@@ -29,11 +29,19 @@ public class TagJsonController {
     @GetMapping("/tag/add")
     public int addTag(
             @RequestParam(value = "keyword")String keyword,
+            @RequestParam(value = "ref")String ref,
             HttpServletRequest req
                       ){
         String loginId = (String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
 
-        tagService.insertMemberTag(loginId,keyword);
+        if(ref.equals("member")) {
+            // 멤버태그에 추가
+            tagService.insertMemberTag(loginId, keyword);
+        }else{
+            // 게시물태그에 추가
+            tagService.insertBoardTag(getBoardNo(),keyword);
+        }
+
         return tagService.addTag(keyword);
     }
     @GetMapping("/tag/delete")
@@ -46,6 +54,11 @@ public class TagJsonController {
         List<Map<String,String>> tagData = tagService.searchTag(keyword);
 
         return tagData;
+    }
+
+    // 방금 등록된 게시글 제목 가져옴
+    public String getBoardNo(){
+        return tagService.getBoardNo();
     }
 
 }

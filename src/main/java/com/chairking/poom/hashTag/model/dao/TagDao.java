@@ -12,4 +12,6 @@ public interface TagDao {
     int insertMemberTag(TagMapper mapper,String loginId, String keyword);
     int deleteTag(TagMapper mapper,String tagName);
     List<Map<String,String>> searchTag(TagMapper mapper,String keyword);
+    String getBoardNo(TagMapper mapper);
+    int insertBoardTag(TagMapper mapper,String boardNo,String keyword);
 }
