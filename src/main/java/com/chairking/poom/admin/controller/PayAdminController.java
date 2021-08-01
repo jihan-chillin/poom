@@ -55,7 +55,7 @@ public class PayAdminController {
 		}
 		//-1~-7일 날짜 구하기
 		Calendar c1 = new GregorianCalendar();
-		SimpleDateFormat sdf = new SimpleDateFormat("MM월 dd일"); // 날짜 포맷 
+		SimpleDateFormat sdf = new SimpleDateFormat("M월 dd일"); // 날짜 포맷 
 		String[] dayArr=new String[7];
 		for(int i=0; i<7; i++) {
 			c1.add(Calendar.DATE, -1); //
