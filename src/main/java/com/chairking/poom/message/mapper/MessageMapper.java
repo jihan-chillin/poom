@@ -1,10 +1,8 @@
 package com.chairking.poom.message.mapper;
 
 import com.chairking.poom.member.model.vo.Member;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import com.chairking.poom.message.model.vo.Message;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -36,4 +34,17 @@ public interface MessageMapper {
 
     @Select("SELECT * FROM MEMBER ${condition}")
     List<Map<String, Object>> searchReceiverCondition(String condition);
+
+    //message 보내기
+    @Insert("INSERT INTO MESSAGE VALUES (MSG_NO.NEXTVAL, '${memberId}', '${recvMember}', sysdate, '1', '${msgContent}',null)")
+    int sendMsg(Message msgNo);
+
+    @Select("SELECT * FROM MESSAGE WHERE MSG_TYPE = 2")
+    List<Map<String, Object>> getsendMessage(String msgNo);
+
+    @Delete("DELETE FROM MESSAGE WHERE MSG_TYPE = 3")
+    int emptyBlock();
+
+    @Delete("DELETE FROM MESSAGE WHERE MSG_NO = #{msgNo}")
+    int selectBlock(String msgNo);
 }

@@ -28,9 +28,16 @@ button {
     float: left;
 }
 
+.delete-message {
+    width: 100px;
+    background-color: lightgrey;
+    font-size: 16px;
+    color : black;
+    border: 2px solid;
+}
 
 button:hover {
-    background-color: #f7f7f7;
+  color: #287094;
 }
 
 input msgsearch{
