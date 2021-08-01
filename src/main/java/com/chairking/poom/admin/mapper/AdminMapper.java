@@ -95,4 +95,12 @@ public interface AdminMapper {
 	public int deleteCommentsBlame(String no);
 	@Update("UPDATE CHAT SET DEL_STATUS=1 WHERE CHAT_NO=#{no}")
 	public int deleteChatBlame(String no);
+	
+	
+	//결제관리
+	@Select("SELECT * FROM PAYMENT JOIN ITEMS USING(ITEM_NO) WHERE PAY_DATE BETWEEN SYSDATE-7 AND SYSDATE ORDER BY PAY_DATE DESC")
+	public List<Map<String,Object>> allPayment();
+	
+	@Select("SELECT PAY_DATE,ITEM_TYPE, SUM(ITEM_PRICE) AS S FROM PAYMENT JOIN ITEMS USING(ITEM_NO) WHERE PAY_DATE BETWEEN SYSDATE-7 AND SYSDATE GROUP BY ROLLUP(PAY_DATE,ITEM_TYPE)")
+	public List<Map<String,Object>> sumAllPayment();
 }
