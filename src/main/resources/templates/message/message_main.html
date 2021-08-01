@@ -34,9 +34,14 @@
                     <button type="button" id="btn_2" onclick="fn_message_move('send');">보낸쪽지</button>
                     <button type="button" id="btn_3" onclick="fn_message_move('block');">휴지통</button>
                 </div>
-                <div>
-                    <input class="search-message" type="msgsearch" value="쪽지 검색해보세요~">
+                <div class="md-input form_search col-12 col-md-6 col-lg-4">
+                    <input type="text" name="keyword" class="search-message" placeholder="쪽지 검색" onkeyup="tableFilter(this)">
+<!--                    <span class="bar"></span>-->
+<!--                    <button class="btn __nude search_ico"><i class="fal fa-search"></i> <span class="hidden">검색</span></button>-->
                 </div>
+<!--                <div>-->
+<!--                    <input class="search-message" type="msgsearch" value="쪽지 검색해보세요~">-->
+<!--                </div>-->
             </div>
 
 

@@ -1,6 +1,6 @@
 package com.chairking.poom.message.model.service;
 
-import com.chairking.poom.member.model.vo.Member;
+import com.chairking.poom.message.model.vo.Message;
 
 import java.util.List;
 import java.util.Map;
@@ -22,4 +22,10 @@ public interface MessageService {
     int cancelMsg(String msgNo);
 
     List<Map<String, Object>> searchReceiverCondition(String condition);
+
+    int sendMsg(Message msgNo);
+
+    int emptyBlock();
+
+    int selectBlock(String msgNo);
 }
