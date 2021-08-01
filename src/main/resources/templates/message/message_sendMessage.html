@@ -30,39 +30,54 @@
                     <td class="msgNo" th:text="${mv.MSG_NO}" ></td>
                     <td th:text="${mv.RECV_MEMBER}"></td>
                     <td th:text="${mv.MSG_CONTENT}"></td>
-                    <td th:text="${mv.READ_CHECK} eq 0?'안읽음':'읽음'"></td>
-<!--                    <td th:text="${mv.READ_CHECK} eq 0?'발송취소':''">-->
-                    </td>
+                    <td th:utext="${mv.READ_CHECK.toString()} eq '0001-01-01 00:00:00.0'? '<input type=\'button\' id=\'cancel\' value=\'발송취소\' onclick=\'cancelMsg(' + ${mv.MSG_NO} + ')\'/>':${mv.READ_CHECK}" ></td>
+<!--                    <td th:text="${ch.DEL_STATUS} eq 0?'N':'Y'"></td>-->
+
                 </tr>
                 </tbody>
             </table>
 <!--            <button class="msg-cancel"></button>-->
             <div>
-            <input type="button" class="send-message" value="쪽지보내기" onclick="showPopup(1);">
-            <input type="button" class="send-cancel" value="발송취소" >
-            <form id="deleteSendMsg" method="post" action="message/delete">
-                <input id="delSendMsgNo" name="msgNo" type="hidden" value="-1"/>
-                <input id="delSendType" name="delType" type="hidden" value="send"/>
-                <input type="button" class="delete-message" value="삭제" onclick="deleteSendMsg();" >
-            </form>
+                <form id="deleteMsg" type="post" action="message/moveBlock">
+                    <input id="delMsgNo" name="msgNo" type="hidden" value="-1"/>
+                    <input type="button" class="delete-message" value="삭제" onclick="fn_move_Block();">
+                </form>
             </div>
 
         </div>
     </div>
 </div>
 <script>
-    function deleteSendMsg() {
-        if (confirm("send 삭제하시겠습니까?")) {
+    function fn_move_Block() {
+        if (confirm("휴지통으로 이동시키겠습니까?")) {
             $('.targetChk').each(function () {
                 if ($(this).is(':checked')) {
                     var msgNo = $(this).closest('tr').children('.msgNo').html();
-                    var loc = "/message/delete";
-                    $('#deleteSendMsg').attr("action", loc);
-                    $('#delSendMsgNo').val(msgNo);
-                    $('#deleteSendMsg').submit();
+                    var loc = getContextPath()+"/message/moveBlock";
+                    $('#deleteMsg').attr("action", loc);
+                    $('#delMsgNo').val(msgNo);
+                    $('#deleteMsg').submit();
                 }
             });
         } else alert("삭제안한다");
+    }
+    function deleteMsg() {
+        if (confirm("휴지통으로 이동시키겠습니까?")) {
+            $('.targetChk').each(function () {
+                if ($(this).is(':checked')) {
+                    var msgNo = $(this).closest('tr').children('.msgNo').html();
+                    $.ajax({
+                        url: getContextPath() + "/message/moveBlock",
+                        data: {"msgNo": msgNo},
+                        type: 'POST',
+                    }).done(function () {
+                        alert("휴지통으로 이동합니다.");
+                        fn_message_move('block');
+                        //$("#target").html(fragment);
+                    });
+                }
+            });
+        }
     }
 </script>
 <script th:src="@{/js/message/message_js_sh.js}"></script>

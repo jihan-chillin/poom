@@ -52,5 +52,20 @@ public class MessageServiceImpl implements MessageService {
         return dao.moveBlock(mapper,msgNo);
     }
 
+    @Override
+    public int setMsgRead(String msgNo) {
+        return dao.setMsgRead(mapper, msgNo);
+    }
+
+    @Override
+    public int cancelMsg(String msgNo) {
+        return dao.cancelMsg(mapper, msgNo);
+    }
+
+    @Override
+    public List<Map<String, Object>> searchReceiverCondition(String condition) {
+        return dao.searchReceiverCondition(mapper, condition);
+    }
+
 
 }

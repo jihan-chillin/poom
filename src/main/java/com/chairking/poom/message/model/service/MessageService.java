@@ -16,4 +16,10 @@ public interface MessageService {
     int deleteMessage(String msgNo);
 
     int moveBlock(String msgNo);
+
+    int setMsgRead(String msgNo);
+
+    int cancelMsg(String msgNo);
+
+    List<Map<String, Object>> searchReceiverCondition(String condition);
 }

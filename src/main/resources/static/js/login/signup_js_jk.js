@@ -39,6 +39,7 @@ $("button#findLocation").click(function() {
 
 })
 
+
 //이메일인증 -> 인증키 메일로 보내고 키값 데이터 받아오기
 var code = "";
 

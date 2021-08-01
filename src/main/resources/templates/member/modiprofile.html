@@ -23,12 +23,13 @@
 
         <!-- 정보 수정란 -->
         <div id = "info-modi">
-            <form action="/member/modiprofile" method="post" enctype="multipart/form-data">
+            <form th:action="@{/member/updateProfile}" name="updatePro_form" method="post" enctype="multipart/form-data">
                 <table>
                     <tbody>
                     <tr>
                         <th>닉네임</th>
                         <td th:text="${session.loginMember.MEMBER_NICKNAME}"></td>
+                       	<input type="hidden" th:value="${session.loginMember.MEMBER_ID}" name="id">
                     </tr>
                     <tr>
                         <th>자기소개</th>
@@ -61,7 +62,7 @@
                     </tr>
                     <tr>
                     	<td colspan="2">
-	                    	<button type="submit" class="btn_submit">수정</button>
+	                    	<button type="button" class="btn_submit">수정</button>
 	               			<button type="button" onclick="goMain();">취소</button>
                     	</td>
                     </tr>

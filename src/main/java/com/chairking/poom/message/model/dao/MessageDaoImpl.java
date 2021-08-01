@@ -37,4 +37,19 @@ public class MessageDaoImpl implements MessageDao{
         return mapper.moveBlock(msgNo);
     }
 
+    @Override
+    public int setMsgRead(MessageMapper mapper, String msgNo) {
+        return mapper.setMsgRead(msgNo);
+    }
+
+    @Override
+    public int cancelMsg(MessageMapper mapper, String msgNo) {
+        return mapper.cancelMsg(msgNo);
+    }
+
+    @Override
+    public List<Map<String, Object>> searchReceiverCondition(MessageMapper mapper, String condition) {
+        return mapper.searchReceiverCondition(condition);
+    }
+
 }
