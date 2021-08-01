@@ -1,4 +1,4 @@
-package com.chairking.poom.chatroom.config;
+package com.chairking.poom.websocket.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

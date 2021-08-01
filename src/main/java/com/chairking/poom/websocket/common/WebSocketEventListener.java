@@ -1,4 +1,4 @@
-package com.chairking.poom.chatroom.controller;
+package com.chairking.poom.websocket.common;
 
 import com.chairking.poom.chatroom.model.vo.ChatMessage;
 import com.chairking.poom.chatroom.model.vo.ChatType;
