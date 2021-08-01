@@ -44,7 +44,7 @@ $(function(){
 //등록버튼
 function fn_edit_notice_end(){
 	$.ajax({
-		url:"/admin/noticeUpdate",
+		url:getContextPath()+"/admin/noticeUpdate",
 		data:$("#notice_form").serialize(),
 		type:"POST"
 	}).done(function (fragment){

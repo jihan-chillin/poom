@@ -1,13 +1,12 @@
-<div id="admin_page_title" th:text="${type}" style="display:none;">admin 페이지 제목</div>
-
 <div id="pay_section">
     <div>
         <div id="chart">
             <canvas id="line-chart" style="height:350px;width:750px;"></canvas>
         </div>
-        <div id="sales">
+        <div id="sales" th:with="size=${#lists.size(sumList)}">
             <p class="p_font2">어제 총 매출액</p>
-            <p>1,000,000원</p>
+            <!-- <p th:text="${days[0] eq #dates.format(real[].PAY_DATE,'MM월 dd일')}?sumList[size].S+'원':sumList[size].S+'원'">1,000,000원</p> -->
+            <p th:text="${days[0] eq #dates.format(sumList[size-1].PAY_DATE,'MM월 dd일')?#numbers.formatInteger(sumList[size-1].S,3,'COMMA')+'원':#numbers.formatInteger(sumList[size-1].S,3,'COMMA')+'원'}">1,000,000원</p>
             <span class="span_font">금주 예상 매출액 : 1,000,000원</span><br>
             <span class="span_font">당월 예상 매출액 : 1,000,000원</span><br>
             <span class="span_font">전월  매출액 : 1,000,000원</span>
@@ -16,12 +15,6 @@
     <div id="pay_table_content">
         <p>최근 구매 내역</p>
         <table id="pay_table">
-            <!-- <select name="pay_days" id="pay_days">
-                <option value="all" selected>전체</option>
-                <option value="7">7일권</option>
-                <option value="14">14일권</option>
-                <option value="30">30일권</option>
-            </select> -->
             <thead>
             <tr>
                 <th>구매일시</th>
@@ -54,51 +47,83 @@
     </div>
        
 </div>
-   <!--  </div> -->
 
-<!--     <script>
-        $("#blame_menu").parent().click((e)=>{
-            $("#blame_menu").toggle(500);
-        });
-    </script> -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> -->
-    <script>
-        //chart.js
-		 $(document).ready(function(){
-			function cash_chart(){
-				new Chart(document.getElementById("line-chart"), {
-				type: 'line',
-				data: {
-				    labels: [1,2,3,4,5,6,7],
-				    datasets: [{ 
-				        label: "7일권",
-				        data: [2900,5800,8700,0,2900,2900,8700],
-				        borderColor: "#4285F4",
-				        fill: false
-				    }, { 
-				        data: [0,0,4900,14700,9800,9800,4900],
-				        label: "14일권",
-				        borderColor: "#DB4437",
-				        fill: false
-				    }, { 
-				        data: [11800,5900,0,0,59000,29500,11800],
-				        label: "30일권",
-				        borderColor: "#F4B400",
-				        fill: false
-				    }
-				    ]
-				},
-				options: {
-				    title: {
-				    display: true,
-				    text: '이번주 결제 현황'
-				    }
-				}
-				});
-			}
-			cash_chart();
-		});
-    </script>
-<!-- 
-</body>
-</html> -->
+<script th:inline="javascript">
+
+
+//데이터셋 수 만큼 반복
+/* var dataset = config.data.datasets;
+for(var i=0; i<dataset.length; i++){
+	console.log(dataset);
+	//데이터 갯수 만큼 반복
+	var data = dataset[i].data;
+	for(var j=0 ; j < data.length ; j++){
+		data[j] = Math.floor(Math.random() * 50);
+	}
+} */
+
+//날짜셋팅
+var day1=[[${days[0]}]];
+var day2=[[${days[1]}]];
+var day3=[[${days[2]}]];
+var day4=[[${days[3]}]];
+var day5=[[${days[4]}]];
+var day6=[[${days[5]}]];
+var day7=[[${days[6]}]];
+
+//chart.js
+//차트 세팅하기
+var ctx=document.getElementById("line-chart");
+var config = {
+  type: 'line',
+  data:{
+	    labels: [day7,day6,day5,day4,day3,day2,day1],
+	    datasets: [{ 
+		        label: "7일권",
+		        data: [2900,5800,8700,0,2900,2900,8700],
+		        borderColor: "#4285F4",
+		        fill: false
+		    }, { 
+		        data: [0,0,4900,14700,9800,9800,4900],
+		        label: "14일권",
+		        borderColor: "#DB4437",
+		        fill: false
+		    }, { 
+		        data: [11800,5900,0,0,59000,29500,11800],
+		        label: "30일권",
+		        borderColor: "#F4B400",
+		        fill: false
+		    }
+	    ]
+	},
+	options: {
+	    title: {
+		    display: true,
+		    text: '이번주 결제 현황'
+	    }
+	}
+};
+		
+//차트 그리기
+var myChart=new Chart(ctx,config);
+
+//데이터 변경
+var dataset = config.data.datasets;
+
+/* for(var i=0; i<dataset.length; i++){
+	console.log(dataset);
+	//데이터 갯수 만큼 반복
+	var data = dataset[i].data;
+	for(var j=0 ; j < data.length ; j++){
+		data[j] = Math.floor(Math.random() * 50);
+		console.log(`data해보기 ${data[j]}`);
+	}
+} */
+//dataset의 인덱스 번호로 지정해서 값 넣어주기
+var data=dataset[1].data;
+for(var j=0 ; j < data.length ; j++){
+	data[j] = Math.floor(Math.random() * 50);
+	console.log(`data해보기 ${data[j]}`);
+}
+myChart.update();
+</script>

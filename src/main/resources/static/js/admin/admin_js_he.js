@@ -20,7 +20,7 @@ $("#blame_menu").parent().click((e)=>{
 //공지사항 글쓰기 이동
 function fn_notice_write(){
 	$.ajax({
-		url:"/admin/moveWrite",
+		url:getContextPath()+"/admin/moveWrite",
 	}).done(function (fragment){
 		$("#admin_section").html(fragment);
 	});
@@ -29,7 +29,7 @@ function fn_notice_write(){
 //공지사항 등록버튼
 function fn_notice_submit(){
 	$.ajax({
-		url:"/admin/noticeWrite",
+		url:getContextPath()+"/admin/noticeWrite",
 		data: $("#notice_form").serialize(),
 		type:"POST"
 	}).done(function (fragment){
@@ -44,7 +44,7 @@ function fn_notice_submit(){
 function fn_cancle(){
 	if(confirm('작성을 취소하시겠습니까?')){
 		$.ajax({
-			url:"/admin/notice",	
+			url:getContextPath()+"/admin/notice",	
 		}).done(function(fragment){
 			$("#target").html(fragment);
 		})
@@ -54,51 +54,10 @@ function fn_cancle(){
 //공지사항 목록으로 돌아가ㅣㄱ
 function moveToList(){
 	$.ajax({
-		url:"/admin/notice"
+		url:getContextPath()+"/admin/notice"
 	}).done(function (fragment){
 		$("#target").html(fragment);
 	})
 }
-
-
-
-
-//ajax시도해보기
-//Chart.js
-
-/*$(document).ready(function(){
-	function cash_chart(){
-		new Chart(document.getElementById("line-chart"), {
-		type: 'line',
-		data: {
-		    labels: [1,2,3,4,5,6,7],
-		    datasets: [{ 
-		        label: "7일권",
-		        data: [2900,5800,8700,0,2900,2900,8700],
-		        borderColor: "#4285F4",
-		        fill: false
-		    }, { 
-		        data: [0,0,4900,14700,9800,9800,4900],
-		        label: "14일권",
-		        borderColor: "#DB4437",
-		        fill: false
-		    }, { 
-		        data: [11800,5900,0,0,59000,29500,11800],
-		        label: "30일권",
-		        borderColor: "#F4B400",
-		        fill: false
-		    }
-		    ]
-		},
-		options: {
-		    title: {
-		    display: true,
-		    text: '이번주 결제 현황'
-		    }
-		}
-		});
-	}
-	cash_chart();
-}); */
 
 

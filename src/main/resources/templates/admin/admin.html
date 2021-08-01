@@ -62,7 +62,7 @@
   	function fn_load(type){
 	   	if(type=='notice'){
 	   		$.ajax({
-	   			url:"/admin/notice",
+	   			url:getContextPath()+"/admin/notice",
 	   			data:{"type":type},
 	   		}).done(function (fragment) {
 	   			$("#target").html(fragment);
@@ -72,7 +72,7 @@
 	   		});
 	   	}else if(type=='blame'){
 	   		$.ajax({
-	   			url:"/blame",
+	   			url:getContextPath()+"/blame",
 	   			data:{"type":type},
 	   		}).done(function (fragment) {
 	   			$("#target").html(fragment);
@@ -83,7 +83,7 @@
 	   		});
 	   	}else if(type=='pay'){
 	   		$.ajax({
-	   			url:"/payAdmin",
+	   			url:getContextPath()+"/payAdmin",
 	   			data:{"type":type},
 	   		}).done(function (fragment) {
 	   			$("#target").html(fragment);
@@ -97,7 +97,7 @@
   	//신고 소 메뉴들 클릭시 이동시키기
   	function fn_moveToBlame(i){
   		$.ajax({
-  			url:"/blame",
+  			url:getContextPath()+"/blame",
   			data:{"type":i},
   		}).done(function(fragment){
   			$("#target").html(fragment);
