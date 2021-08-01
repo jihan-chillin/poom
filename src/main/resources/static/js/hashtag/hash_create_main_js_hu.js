@@ -65,9 +65,14 @@ function countTag(keyword){
 function confirmTag(keyword){
   // 이미 추가한 태그면 추가못하게 함
   if($('.tag-confirm').text().split('#').indexOf(keyword) === -1){
-    $('.create_tag_input').after('<div class="tag-confirm">#' + keyword + '</div>');
+    $('.create_tag_input').after('<div class="tag-confirm">#' + keyword + '<span class="delete-confirm-Tag">x</span></div>');
     $('.tag-input-container').remove();
 
+
+    $('.delete-confirm-Tag').on("click",function(e) {
+      console.log("ㅎㅇ");
+      $(e.target).parent().remove();
+    });
     return;
   }
 }
@@ -88,7 +93,7 @@ function getConfirmTag(){
   if( tagText === null){
     return;
   }else{
-    return tagText.split("#");
+    return tagText.replace("x","").split("#");
   }
 
   return;
