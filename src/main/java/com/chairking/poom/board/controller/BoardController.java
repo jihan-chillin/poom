@@ -1,6 +1,7 @@
 package com.chairking.poom.board.controller;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -192,16 +193,28 @@ public class BoardController {
 
 	// 다섯 번째 방법
 
-	@RequestMapping(value="/images/ckeditor", method = RequestMethod.POST)
+	@RequestMapping(value="/images/ckeditor.html", method = RequestMethod.POST)
 	public void imageUpload(HttpServletResponse res, HttpServletRequest req,
 							MultipartHttpServletRequest multireq, @RequestParam MultipartFile upload) throws Exception{
 
 		JsonObject json = new JsonObject();
+
+		// 입력된 파일 받을 때 한글깨짐 방지
+		res.setCharacterEncoding("utf-8");
+		// textarea상으로 이미지 받을 대 한글깨짐 방지
+		res.setContentType("text/html;charset=utf-8");
+
+		OutputStream out = null;
+		PrintWriter writer = null;
+
 		// 나중에 rename할 때 필요한 것들
 		int rndNum=(int)(Math.random()*100000);
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 
+		// 파일 원래 이름
+		// 얘를 서버에 전송해줘야 함.
 		String filename = upload.getOriginalFilename();
+//		byte[] bytes = filename.getBytes(StandardCharsets.UTF_8);
 
 		// 파일명이랑 확장자 분리
 		String subname  = filename.substring(0, filename.lastIndexOf("."));
@@ -210,49 +223,51 @@ public class BoardController {
 
 
 
-		OutputStream out = null;
-		PrintWriter writer = null;
-
-		// 입력된 파일 받을 때 한글깨짐 방지
-		res.setCharacterEncoding("utf-8");
-		// textarea상으로 이미지 받을 대 한글깨짐 방지
-		res.setContentType("text/html;charset=utf-8");
-
 		try{
-			byte[] bytes = upload.getBytes();
 
 			// 랜덤문자로 rename
 			String renamedFile =sdf.format(System.currentTimeMillis())+"_"+rndNum+"_"+subname+ext;
+			System.out.println("renamedFile은 얘 : "+renamedFile +"/ renamed 형"+ renamedFile.getClass().getName());
+			byte[] bytes = renamedFile.getBytes();
 
+			String absolute = req.getContextPath().concat("resources");
 
-			// 이미지 경로
-			// req.getContextPath() : 한 웹 어플리케이션 프로젝트 명
-			// req.getRealPath(); : 현 어플리케이션의 절대경로
-			// 1. ckeditor로 업로드 되는 이미지 저장 폴더
-			String filepath = req.getServletContext()+"/src/main/resources/static/images/ckeditor/";
-			String saveFile = filepath + renamedFile;
+			// 로컬 폴더주소
+			String filepath = absolute+File.separator+ "/images/ckeditor";
 
-					File uploadFile = new File(filepath);
+			System.out.println("폴더주소" + filepath);
+
+			// 로컬폴더 만들기
+			File uploadDir = new File(filepath);
+			System.out.println("새로운 폴더 만들어봄");
+			if(!uploadDir.exists()){
+				uploadDir.mkdirs();
+				System.out.println ("기존에 폴더가 없어서 새로운 폴더 생성");
+			}
+
+			File uploadFile = new File(uploadDir+"/"+renamedFile);
+			// 해당 파일이 없을 경우 filepath
 			if(!uploadFile.exists()){
 				uploadFile.mkdirs();
 			}
-			out = new FileOutputStream(new File(saveFile));
+
+			// 이미지 보내야지
+			String fileUrl = req.getContextPath()+"/images/ckeditor";
+
+			out = new FileOutputStream(new File(fileUrl+renamedFile));
 			out.write(bytes);
 			// outputStream에 저장된 데이터를 전송 + 초기화
 			out.flush();
 
-			String callback = req.getParameter("CKEditorFuncNum");
-			writer = res.getWriter();
-			String fileUrl = "/images/ckeditor?File=" + renamedFile;
-
-//			writer.println("renamedfile"+renamedFile + "uploaded"+fileUrl);
-			writer.flush();
-
 			// json 데이터로 등록
 			json.addProperty("uploaded", 1);
-			json.addProperty("renamedFile", renamedFile);
+			json.addProperty("fileName", renamedFile);
 			json.addProperty("url", fileUrl);
-			json.addProperty("error", "파일업로드에 실패했습니다.");
+
+
+			String callback = req.getParameter("CKEditorFuncNum");
+			writer = res.getWriter();
+			writer.flush();
 
 			System.out.println(json);
 
