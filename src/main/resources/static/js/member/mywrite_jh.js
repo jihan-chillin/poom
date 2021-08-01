@@ -24,9 +24,11 @@ function mylike(){
         url:getContextPath()+'/mylike',
         success:function(result){
             $('.feed').html(result)
+
         }
     })
 }
+
 
 // 3. 다른 카테고리에서 내가 쓴 글 영역 넘어갈 때
 function barmywrite(){

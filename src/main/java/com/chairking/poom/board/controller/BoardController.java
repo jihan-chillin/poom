@@ -1,6 +1,7 @@
 package com.chairking.poom.board.controller;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -8,6 +9,7 @@ import ch.qos.logback.core.util.FileUtil;
 import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -126,199 +128,169 @@ public class BoardController {
 
 
 	// Ckeditor : 세 번째 방법
-	@RequestMapping(value="/images/ckeditor", method = RequestMethod.POST)
-	@ResponseBody
-	public  String fileUpload(HttpServletRequest req, HttpServletResponse res,
-							  MultipartHttpServletRequest multireq) throws Exception {
-
-		JsonObject json = new JsonObject();
-
-		PrintWriter writer = null;
-		OutputStream out = null;
-
-		MultipartFile file = multireq.getFile("upload");
-
-		if (file != null) {
-			if (file.getSize() > 0 && StringUtils.isNotBlank(file.getName())) {
-				if (file.getContentType().toLowerCase().startsWith("image/")) {
-					try {
-						String fileName = file.getName();
-						byte[] bytes = file.getBytes();
-						String uploadPath = req.getServletContext().getRealPath("/img");
-
-						File uploadFile = new File(uploadPath);
-						if (!uploadFile.exists()) {
-							uploadFile.mkdirs();
-						}
-						fileName = UUID.randomUUID().toString();
-						uploadPath = uploadPath + "/" + fileName;
-						out = new FileOutputStream(new File(uploadPath));
-
-						out.write(bytes);
-
-						writer = res.getWriter();
-						res.setContentType("text/html; charset=utf-8");
-						String fileUrl = req.getContextPath() + "/img/" + fileName;
-
-						// json 데이터로 등록
-						json.addProperty("uploaded", 1);
-						json.addProperty("fileName", fileName);
-						json.addProperty("url", fileUrl);
-
-						System.out.println(json);
-
-
-					} catch (IOException e) {
-						e.printStackTrace();
-					} finally {
-						if (out != null) {
-							out.close();
-						}
-						if (writer != null) {
-							writer.close();
-						}
-					}
-				}
-			}
-
-		}
-		return null;
-	}
-
-	// 다섯 번째 방법
 //	@RequestMapping(value="/images/ckeditor", method = RequestMethod.POST)
-//	public void imageUpload(HttpServletRequest request,HttpServletResponse response, @RequestParam MultipartFile upload) {
+//	@ResponseBody
+//	public  String fileUpload(HttpServletRequest req, HttpServletResponse res,
+//							  MultipartHttpServletRequest multireq) throws Exception {
 //
+//		JsonObject json = new JsonObject();
 //
+//		PrintWriter writer = null;
 //		OutputStream out = null;
 //
-//		PrintWriter printWriter = null;
-//
-//
-//
-//		response.setCharacterEncoding("utf-8");
-//
-//		response.setContentType("text/html;charset=utf-8");
-//
-//
-//
-//
-//
-//		try {
-//
-//
-//
-//			//CKEDITOR에서 업로드된 파일의 이름을 참조
-//
-//			String fileName = upload.getOriginalFilename();
-//
-//
-//
-//			//CKEDITOR에서 업로드된 파일을 byte 배열로 참조
-//
-//			byte[] bytes = upload.getBytes(); /*이미지 포함 모든 데이터는 바이트*/
-//
-//
-//
-//			//실제 업로드 될 톰캣서버의 물리적 경로
-//
-//			HttpSession session = request.getSession();
-//
-//			String root_path = session.getServletContext().getRealPath("/");
-//
-//
-//
-//			//실서버 톰캣 스왑시 주석변경
-//
-//
-//
-//			String uploadPath =root_path+"resources\\upload\\ckeditor\\" + fileName; //윈도우
-//
-//			//String uploadPath =root_path+"resources/upload/ckeditor/" + fileName; //리눅스
-//
-//
-//
-//
-//
-//			System.out.println(uploadPath);
-//
-//			//C:\\swk\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp1\\wtpwebapps\\chaumi\\resources\\upload\\
-//
-//			//출력스트객체 생성(파일생성)
-//
-//			out = new FileOutputStream(new File(uploadPath)); /* 빈폴더 생성*/
-//
-//			//업로드된 파일의 바이트배열을 출력스트림에 사용.
-//
-//			out.write(bytes); /*실제 파일에대한 정보를 담고있음*/
-//
-//			out.flush();
-//
-//
-//
-//			String callback = request.getParameter("CKEditorFuncNum");
-//
-//
-//
-//			printWriter = response.getWriter(); ///responese 서버측에서 클라이언트로 정보를 보내고자 할때 그역활을 담당하는 객체...
-//
-//			//CKEDITOR 에 업로드 된 서버측의 파일경로를 반환하는 목적
-//
-//
-//
-//			String fileUrl = "/upload/ckeditor/" + fileName;   ///resources/upload/ + fileName
-//
-//			System.out.println(fileUrl+"fileUrl");
-//
-//			printWriter.println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction("
-//
-//					+ callback
-//
-//					+ ",'"
-//
-//					+ fileUrl
-//
-//					+"','이미지를 업로드 하였습니다.'"
-//
-//					+ ")</script>");
-//
-//
-//
-//			printWriter.flush();
-//
-//		} catch (IOException e) {
-//
-//			e.printStackTrace();
-//
-//		} finally {
-//
-//			try {
-//
-//				if ( out != null) {
-//
-//					out.close();
+//		MultipartFile file = multireq.getFile("upload");
+//
+//		if (file != null) {
+//			if (file.getSize() > 0 && StringUtils.isNotBlank(file.getName())) {
+//					try {
+//						String fileName = file.getName();
+////						String subname  = fileName.substring(0, fileName.lastIndexOf("."));
+////						String ext  = fileName.substring(fileName.lastIndexOf(".")).toLowerCase();
+//
+//						byte[] bytes = file.getBytes();
+//						String uploadPath =  req.getServletContext()+"/src/main/resources/static/images/ckeditor/";
+//						String renamedFile = UUID.randomUUID().toString() +"_"+fileName;
+//
+//						System.out.println(renamedFile);
+//
+//						File uploadFile = new File(uploadPath + renamedFile);
+//						if (!uploadFile.exists()) {
+//							uploadFile.mkdirs();
+//						}
+//
+//						out = new FileOutputStream(new File(uploadPath+renamedFile));
+//
+//						out.write(bytes);
+//
+//						writer = res.getWriter();
+//						res.setContentType("text/html; charset=utf-8");
+//						String fileUrl = req.getContextPath() + "/img/" + renamedFile;
+//
+//						// json 데이터로 등록
+//						json.addProperty("uploaded", 1);
+//						json.addProperty("renamedFile", renamedFile);
+//						json.addProperty("url", fileUrl);
+//
+//						System.out.println(json);
+//
+//
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					} finally {
+//						if (out != null) {
+//							out.close();
+//						}
+//						if (writer != null) {
+//							writer.close();
+//						}
 //
 //				}
-//
-//				if (printWriter != null) {
-//
-//					printWriter.close();
-//
-//				}
-//
-//			}catch(IOException e) {
-//
-//				e.printStackTrace();
-//
 //			}
 //
 //		}
-//
-//		return;
-//
-//
-//
+//		return null;
 //	}
+
+	// 다섯 번째 방법
+
+	@RequestMapping(value="/images/ckeditor.html", method = RequestMethod.POST)
+	public void imageUpload(HttpServletResponse res, HttpServletRequest req,
+							MultipartHttpServletRequest multireq, @RequestParam MultipartFile upload) throws Exception{
+
+		JsonObject json = new JsonObject();
+
+		// 입력된 파일 받을 때 한글깨짐 방지
+		res.setCharacterEncoding("utf-8");
+		// textarea상으로 이미지 받을 대 한글깨짐 방지
+		res.setContentType("text/html;charset=utf-8");
+
+		OutputStream out = null;
+		PrintWriter writer = null;
+
+		// 나중에 rename할 때 필요한 것들
+		int rndNum=(int)(Math.random()*100000);
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+
+		// 파일 원래 이름
+		// 얘를 서버에 전송해줘야 함.
+		String filename = upload.getOriginalFilename();
+//		byte[] bytes = filename.getBytes(StandardCharsets.UTF_8);
+
+		// 파일명이랑 확장자 분리
+		String subname  = filename.substring(0, filename.lastIndexOf("."));
+		String ext  = filename.substring(filename.lastIndexOf(".")).toLowerCase();
+		System.out.println(subname+ " : subname, 얘는 확장자 :" + ext);
+
+
+
+		try{
+
+			// 랜덤문자로 rename
+			String renamedFile =sdf.format(System.currentTimeMillis())+"_"+rndNum+"_"+subname+ext;
+			System.out.println("renamedFile은 얘 : "+renamedFile +"/ renamed 형"+ renamedFile.getClass().getName());
+			byte[] bytes = renamedFile.getBytes();
+
+			String absolute = req.getContextPath().concat("resources");
+
+			// 로컬 폴더주소
+			String filepath = absolute+File.separator+ "/images/ckeditor";
+
+			System.out.println("폴더주소" + filepath);
+
+			// 로컬폴더 만들기
+			File uploadDir = new File(filepath);
+			System.out.println("새로운 폴더 만들어봄");
+			if(!uploadDir.exists()){
+				uploadDir.mkdirs();
+				System.out.println ("기존에 폴더가 없어서 새로운 폴더 생성");
+			}
+
+			File uploadFile = new File(uploadDir+"/"+renamedFile);
+			// 해당 파일이 없을 경우 filepath
+			if(!uploadFile.exists()){
+				uploadFile.mkdirs();
+			}
+
+			// 이미지 보내야지
+			String fileUrl = req.getContextPath()+"/images/ckeditor";
+
+			out = new FileOutputStream(new File(fileUrl+renamedFile));
+			out.write(bytes);
+			// outputStream에 저장된 데이터를 전송 + 초기화
+			out.flush();
+
+			// json 데이터로 등록
+			json.addProperty("uploaded", 1);
+			json.addProperty("fileName", renamedFile);
+			json.addProperty("url", fileUrl);
+
+
+			String callback = req.getParameter("CKEditorFuncNum");
+			writer = res.getWriter();
+			writer.flush();
+
+			System.out.println(json);
+
+
+		}catch (IOException e){
+			e.printStackTrace();
+		}finally {
+			if(out!=null){
+				out.close();
+			}
+			if(writer !=null){
+				writer.close();
+			}
+		}
+
+		return;
+	}
+
+
+
+	// 이미지 정보 Editor화면에 이미지 출력
+
+
 	
 	//게시글 등록 서비스
 	@PostMapping("/board/insert")

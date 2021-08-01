@@ -8,8 +8,11 @@ CKEDITOR.editorConfig = function( config ) {
 	config.enterMode =CKEDITOR.ENTER_BR;
 	config.toolbarCanCollapse = true;
 	config.docType = "<!DOCTYPE html>";
-	config.filebrowserUploadUrl = '/board/ckeditor/fileUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
-	config.removePlugins = 'save'
+	config.filebrowserUploadUrl = '/images/ckeditor?type=Files'; //여기 경로로 파일을 전달하여 업로드 시킨다.
+	config.filebrowserImageBrowseUrl = '/images/ckeditor?type=Image';
+	config.filebrowserFlashBrowseUrl = '/images/ckeditor?type=Flash';
+	config.removePlugins = 'save';
+	config.filebrowserUploadMethod = 'form';
 
 
 	// 기존 config.js ▼

@@ -52,8 +52,9 @@
 		<script>
 			$(document).ready(function(){
 				// CKEditor API 불러오기
+				// cKKEDITOR : CKEDITOR 인스턴스임.
 				CKEDITOR.replace('ckeditorarea', {
-					filebrowserUploadUrl : getContextPath()+'/images/ckeditor',
+					filebrowserUploadUrl : getContextPath()+'/images/ckeditor.html',
 					height : '400px',
 					font_names: "맑은 고딕/Malgun Gothic;굴림/Gulim;돋움/Dotum;바탕/Batang;궁서/Gungsuh;Arial/Arial;Comic Sans MS/Comic Sans MS;Courier New/Courier New;Georgia/Georgia;Lucida Sans Unicode/Lucida Sans Unicode;Tahoma/Tahoma;Times New Roman/Times New Roman;MS Mincho/MS Mincho;Trebuchet MS/Trebuchet MS;Verdana/Verdana",
 					language : "ko",
@@ -61,7 +62,7 @@
 					fontSize_defaultLabel : "12"
 				});
 
-				console.log('http://localhost:9090'+getContextPath()+'/images/ckeditor');
+				console.log();
 
 
 				// 첨부파일 커스터 마이징
@@ -83,9 +84,19 @@
 					alert(CKEDITOR.instances.ckeditorarea.getData());
 				})
 
-				$('#btn-cancel').click(function(){
-					history.back();
-				});
+			// 	$.ajax({
+			// 		type :"POST",
+			// 		entryType : "multipart/form-data",
+			// 		url : "/board/board_List",
+			// 		dataType : "json",
+			// 		processData : false,
+			// 		contentType : false,
+			// 		success : function(result){
+			// 			if(result.response == "OK"){
+			// 				location.href="/board/boarD_lsit";
+			// 			}
+			// 		}
+			// });
 
 			})
 
