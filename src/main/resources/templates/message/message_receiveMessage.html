@@ -14,12 +14,11 @@
                 <th>보낸사람</th>
                 <th>내용</th>
                 <th>보낸일자</th>
-                <th>차단</th>
             </tr>
             </thead>
-            <tbody>
-            <tr th:each="mv:${list}" onclick="showMsgDtl($(this).children('.msgNo').html())">
-                <td>
+            <tbody  id="seacrhBody">
+            <tr class="messages" th:each="mv:${list}">
+                <td class="chkBox">
                     <div class="checkbox2 m-0">
                         <input class="targetChk" id="check" type="checkbox">
                         <label for="check">
@@ -31,49 +30,19 @@
                 <td th:text="${mv.MEMBER_ID}"></td>
                 <td th:text="${mv.MSG_CONTENT}" ></td>
                 <td th:text="${mv.MSG_DATE}"></td>
-                <td th:text="${mv.READ_CHECK}"><button class="msg-cancel1" >차단함으로 이동</button></td>
+
             </tr>
             </tbody>
         </table>
-        <input type="button" class="send-message" value="쪽지보내기" onclick="showPopup(1);">
-        <form id="deleteMsg" type="post" action="message/delete">
+        <form id="deleteMsg" type="post" action="message/moveBlock">
             <input id="delMsgNo" name="msgNo" type="hidden" value="-1"/>
-            <input name="delType" type="hidden" value="receive"/>
-            <input type="button" class="delete-message" value="삭제" onclick="deleteRcvMsg();">
+            <input type="button" class="delete-message" value="삭제" onclick="fn_move_Block();">
         </form>
-
-        <input type="button" class="move-message" value="차단" onclick="fn_move_Block();">
-
     </div>
 </div>
 
-<script>function fn_move_Block() {
-    if(confirm('차단함으로 이동시키겠습니까?')){
-        $.ajax({
-            url:"/message/moveBlock",
-            data:{"msgNo":msgNo}
-        }).done(function (fragment){
-            alert('차단함으로 이동되었습니다.');
-            $("#target").html(fragment);
-        }).fail(function (){
-            alert('다시 시도해주세요');
-})
-    };
-}
+<script>
 
-function deleteRcvMsg() {
-        if (confirm("rcv 삭제하시겠습니까?")) {
-            $('.targetChk').each(function () {
-                if ($(this).is(':checked')) {
-                    var msgNo = $(this).closest('tr').children('.msgNo').html();
-                    var loc = "/message/delete";
-                    $('#deleteMsg').attr("action", loc);
-                    $('#delMsgNo').val(msgNo);
-                    $('#deleteMsg').submit();
-                }
-            });
-        } else alert("삭제안한다");
-    }
 </script>
     <script th:src="@{/js/message/message_js_sh.js}"></script>
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>

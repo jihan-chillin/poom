@@ -10,32 +10,34 @@
                 <thead>
                 <tr>
                     <th></th>
+                    <th>no</th>
                     <th>보낸사람</th>
                     <th>내용</th>
                     <th>보낸일자</th>
                 </tr>
                 </thead>
-                <tbody th:each="mv:${list}">
-                <tr>
-                    <td>
+                <tbody id="seacrhBody">
+                <tr class="messages" th:each="mv:${list}">
+                    <td class="chkBox">
                         <div class="checkbox2 m-0">
-                            <input id="checkbox1" type="checkbox">
+                            <input class="targetChk" id="checkbox1" type="checkbox">
                             <label for="checkbox1">
                             </label>
                         </div>
                     </td>
+                    <td class="msgNo" th:text="${mv.MSG_NO}" ></td>
                     <td th:text="${mv.MEMBER_ID}"></td>
                     <td th:text="${mv.MSG_CONTENT}"></td>
                     <td th:text="${mv.MSG_DATE}"></td>
                 </tr>
                 </tbody>
             </table>
-            <input type="button" class="send-message" value="쪽지보내기" onclick="showPopup(1);">
             <form id="deleteBlockMsg" method="post" action="message/delete">
                 <input id="delBlockMsgNo" name="msgNo" type="hidden" value="-1"/>
                 <input id="delBlockType" name="delType" type="hidden" value="block"/>
 
                 <input type="button" class="delete-message" value="삭제" onclick="deleteBlockMsg()";>
+                <input type="button" class="empty-message" value="휴지통 비우기" onclick="emptyBlock()";>
             </form>
 
         </div>
@@ -43,17 +45,34 @@
 </div>
     <script th:src="@{/js/message/message_js_sh.js}"></script>
  <script>
-     function deleteBlockMsg() {
-         if (confirm("blcok 삭제하시겠습니까?")) {
+     function deleteBlockMsg(msgNo) {
+         if (confirm("메세지를 완전히 삭제하시겠습니까?")) {
              $('.targetChk').each(function () {
+                 var msgNo = $(this).parents('td').next().html();
                  if ($(this).is(':checked')) {
-                     var msgNo = $(this).closest('tr').children('.msgNo').html();
-                     var loc = "/message/delete";
-                     $('#deleteBlockMsg').attr("action", loc);
-                     $('#delBlockMsgNo').val(msgNo);
-                     $('#deleteBlockMsg').submit();
+                     $.ajax({
+                         url: getContextPath() + "/message/selectBlock",
+                         data: {"msgNo": msgNo},
+                         type: 'POST',
+                     }).done(function () {
+                         fn_message_move('block');
+                     });
                  }
              });
-         } else alert("삭제안한다");
+         }else alert("삭제안함");
      }
+
+     function emptyBlock(){
+         if(confirm("휴지통을 비우시겠습니까?")){
+             $.ajax({
+                 url:getContextPath()+"/message/emptyBlock",
+                 type:'POST',
+             }).done(function (){
+                 alert("완료되었습니다.");
+                 fn_message_move('block');
+             });
+         }
+     }
+
+
  </script>

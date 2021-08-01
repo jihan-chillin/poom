@@ -1,9 +1,8 @@
 package com.chairking.poom.message.model.service;
 
-import com.chairking.poom.admin.mapper.AdminMapper;
-import com.chairking.poom.member.model.vo.Member;
 import com.chairking.poom.message.mapper.MessageMapper;
 import com.chairking.poom.message.model.dao.MessageDao;
+import com.chairking.poom.message.model.vo.Message;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +34,6 @@ public class MessageServiceImpl implements MessageService {
         return dao.getMessage(mapper, condition);
     }
 
-
-
     @Override
     public List<Map<String,Object>> messageContent(String msgNo){
         return dao.messageContent(mapper, msgNo);
@@ -50,6 +47,37 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public int moveBlock(String msgNo) {
         return dao.moveBlock(mapper,msgNo);
+    }
+
+    @Override
+    public int setMsgRead(String msgNo) {
+        return dao.setMsgRead(mapper, msgNo);
+    }
+
+    @Override
+    public int cancelMsg(String msgNo) {
+        return dao.cancelMsg(mapper, msgNo);
+    }
+
+    @Override
+    public List<Map<String, Object>> searchReceiverCondition(String condition) {
+        return dao.searchReceiverCondition(mapper, condition);
+    }
+
+    @Override
+    public int sendMsg(Message msv) {
+        return dao.sendMsg(mapper,msv);
+    }
+
+
+    @Override
+    public int emptyBlock() {
+        return dao.emptyBlock(mapper);
+    }
+
+    @Override
+    public int selectBlock(String msgNo) {
+        return dao.selectBlock(mapper,msgNo);
     }
 
 

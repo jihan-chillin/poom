@@ -38,26 +38,26 @@ public interface AdminMapper {
 	
 	//신고
 	//리스트불러오기
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(select * from board where blame_count != 0 order by blame_count desc ,del_status)A)WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
-	public List<Map<String,Object>> allBoardBlame(Pagination pagination);
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(select * from board where blame_count != 0 order by ${delStatus})A)WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
+	public List<Map<String,Object>> allBoardBlame(Pagination pagination,String delStatus);
 	
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM COMMENTS_BLAME JOIN COMMENTS ON BC_TARGET_COMMENT = COMMENT_NO ORDER BY BC_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
-	public List<Map<String,Object>> allCommentsBlame(Pagination pagination);
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM COMMENTS WHERE BLAME_COUNT!=0 ORDER BY ${delStatus})A)WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
+	public List<Map<String,Object>> allCommentsBlame(Pagination pagination,String delStatus);
 	
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM CHAT_BLAME JOIN CHAT ON CH_TARGET_CHAT = CHAT_NO ORDER BY CH_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
-	public List<Map<String,Object>> allChatBlame(Pagination pagination);
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM CHAT WHERE BLAME_COUNT!=0 ORDER BY ${delStatus})A)WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
+	public List<Map<String,Object>> allChatBlame(Pagination pagination,String delStatus);
 	
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM MEMBER WHERE DEN_STATUS IN('1','2','3') ORDER BY B_BLAME_DATE DESC)A)WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
-	public List<Map<String,Object>> allMemberBlame(Pagination pagination);
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT * FROM MEMBER WHERE BLAME_COUNT!=0 ORDER BY ${delStatus})A)WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
+	public List<Map<String,Object>> allMemberBlame(Pagination pagination,String delStatus);
 	
 	//카운트세기
 	@Select("SELECT COUNT(*) FROM BOARD WHERE BLAME_COUNT !=0")
 	public int allBoardBlameCount();
-	@Select("SELECT COUNT(*) FROM COMMENTS_BLAME")
+	@Select("SELECT COUNT(*) FROM COMMENTS WHERE BLAME_COUNT !=0")
 	public int allCommentsBlameCount();
-	@Select("SELECT COUNT(*) FROM CHAT_BLAME")
+	@Select("SELECT COUNT(*) FROM CHAT WHERE BLAME_COUNT !=0")
 	public int allChatBlameCount();
-	@Select("SELECT COUNT(*) FROM BOARD_BLAME")
+	@Select("SELECT COUNT(*) FROM MEMBER WHERE BLAME_COUNT !=0")
 	public int allMemberBlameCount();
 	
 	
@@ -68,12 +68,12 @@ public interface AdminMapper {
 	
 	@Insert("INSERT INTO COMMENTS_BLAME VALUES(SEQ_BC_BLAME_NO.NEXTVAL,#{target_mem},sysdate,'테스트',#{no},#{blame_reason})")
 	public int insertCommentsBlame(Map<String,String> map);
-	@Update("UPDATE COMMENTS SET BC_BLAME_COUNT=BC_BLAME_COUNT+1 WHERE COMMENT_NO=#{no}")
+	@Update("UPDATE COMMENTS SET BLAME_COUNT=BLAME_COUNT+1 WHERE COMMENT_NO=#{no}")
 	public int updateCommentsBlameCount(String no);
 	
 	@Insert("INSERT INTO CHAT_BLAME VALUES(SEQ_CHAT_BLAMENO.NEXTVAL,sysdate,#{target_mem},#{no},#{blame_reason})")
 	public int insertChatBlame(Map<String,String> map);
-	@Update("UPDATE CHAT SET CH_BLAME_COUNT=CH_BLAME_COUNT+1 WHERE CHAT_NO=#{no}")
+	@Update("UPDATE CHAT SET BLAME_COUNT=BLAME_COUNT+1 WHERE CHAT_NO=#{no}")
 	public int updateChatBlameCount(String no);
 	
 	@Select("select * from board_blame join board on b_target_board_no=board_no where board_no=#{no}")
@@ -87,4 +87,20 @@ public interface AdminMapper {
 	
 	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=4 AND BLAME_REASON LIKE '기타%'")
 	public List<Map<String,String>> selectEctAll(Map<String,Object> map);
+	
+	//삭제 시 del_status 1로 업데이트
+	@Update("UPDATE BOARD SET DEL_STATUS=1 WHERE BOARD_NO=#{no}")
+	public int deleteBoardBlame(String no);
+	@Update("UPDATE COMMENTS SET DEL_STATUS=1 WHERE COMMENT_NO=#{no}")
+	public int deleteCommentsBlame(String no);
+	@Update("UPDATE CHAT SET DEL_STATUS=1 WHERE CHAT_NO=#{no}")
+	public int deleteChatBlame(String no);
+	
+	
+	//결제관리
+	@Select("SELECT * FROM PAYMENT JOIN ITEMS USING(ITEM_NO) WHERE PAY_DATE BETWEEN SYSDATE-7 AND SYSDATE ORDER BY PAY_DATE DESC")
+	public List<Map<String,Object>> allPayment();
+	
+	@Select("SELECT PAY_DATE,ITEM_TYPE, SUM(ITEM_PRICE) AS S FROM PAYMENT JOIN ITEMS USING(ITEM_NO) WHERE PAY_DATE BETWEEN SYSDATE-7 AND SYSDATE GROUP BY ROLLUP(PAY_DATE,ITEM_TYPE)")
+	public List<Map<String,Object>> sumAllPayment();
 }

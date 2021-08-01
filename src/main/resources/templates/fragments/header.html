@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>poom</title>
-    <!--    contextPath-->
+    <!-- Jquery 3.6.0 CND -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <!-- contextPath-->
     <script th:src="@{/js/main/contextPath_js_hu.js}"></script>
-    <!-- 절대경로 -->
-    <link id="contextPathHolder" th:data-contextPath="${#httpServletRequest.getContextPath()}"/>
+    
     <!-- css -->
 	<link th:href="@{/css/main/main_jk.css}" rel="stylesheet" type="text/css">
 	<link th:href="@{/css/admin/admin_header.css}" rel="stylesheet" type="text/css">
@@ -17,37 +18,38 @@
     <!--헤더 script : 진경-->
     <script th:src="@{/js/main/main_js_jk.js}"></script>
 
+    <!-- Jquery 3.6.0 CND -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
     <!-- chart.js =하은 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
     <!--ckeditor 가져오기 = 지한-->
     <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 
-    <!-- Jquery 3.6.0 CND -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-
 	<!-- SockJs-->
-	<!-- stomp-->
+	<!-- stomp -->
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
-    <!--mywrite js-->
+    <!-- mywrite js -->
     <script th:src="@{/js/member/mywrite_jh.js}"></script>
 
 	<!-- chatting js-->
     <script th:src="@{/js/chatting/chatting_js_hu.js}"></script>
     <script th:src="@{/js/chatting/chatroom_submenu_hu.js}"></script>
 
-<!--    hashtag-->
+	<!--    hashtag-->
     <script th:src="@{/js/hashtag/hashtag_js_hu.js}"></script>
     <!--    notification-->
-<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">-->
+	<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">-->
     <script th:src="@{/js/main/noti_js_hu.js}"></script>
     <script th:src="@{/js/main/notification/websocket_noti_hu.js}"></script>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
-
+	<!-- 카카오맵 api 가져오기 -->
+	<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=1172cfb757d529781bcdcd466392d241&libraries=services"></script>
 </head>
 </html>

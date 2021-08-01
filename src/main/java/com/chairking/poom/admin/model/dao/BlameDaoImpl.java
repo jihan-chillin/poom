@@ -13,23 +13,23 @@ import com.chairking.poom.common.Pagination;
 public class BlameDaoImpl implements BlameDao {
 	
 	@Override
-	public List<Map<String, Object>> allBoardBlame(AdminMapper mapper,Pagination pagination) {
-		return mapper.allBoardBlame(pagination);
+	public List<Map<String, Object>> allBoardBlame(AdminMapper mapper,Pagination pagination,String delStatus) {
+		return mapper.allBoardBlame(pagination,delStatus);
 	}
 	
 	@Override
-	public List<Map<String, Object>> allCommentsBlame(AdminMapper mapper,Pagination pagination) {
-		return mapper.allCommentsBlame(pagination);
+	public List<Map<String, Object>> allCommentsBlame(AdminMapper mapper,Pagination pagination,String delStatus) {
+		return mapper.allCommentsBlame(pagination,delStatus);
 	}
 
 	@Override
-	public List<Map<String, Object>> allChatBlame(AdminMapper mapper, Pagination pagination) {
-		return mapper.allChatBlame(pagination);
+	public List<Map<String, Object>> allChatBlame(AdminMapper mapper, Pagination pagination,String delStatus) {
+		return mapper.allChatBlame(pagination,delStatus);
 	}
 
 	@Override
-	public List<Map<String, Object>> allMemberBlame(AdminMapper mapper, Pagination pagination) {
-		return mapper.allMemberBlame(pagination);
+	public List<Map<String, Object>> allMemberBlame(AdminMapper mapper, Pagination pagination,String delStatus) {
+		return mapper.allMemberBlame(pagination,delStatus);
 	}
 	
 	@Override
@@ -136,6 +136,23 @@ public class BlameDaoImpl implements BlameDao {
 	public List<Map<String, String>> selectEctAll(SqlSessionTemplate session, Map<String, Object> map) {
 		return session.selectList("adminMapper.selectEctAll",map);
 	}
+
+	@Override
+	public int deleteBoardBlame(AdminMapper mapper, String no) {
+		return mapper.deleteBoardBlame(no);
+	}
+
+	@Override
+	public int deleteCommentsBlame(AdminMapper mapper, String no) {
+		return mapper.deleteCommentsBlame(no);
+	}
+
+	@Override
+	public int deleteChatBlame(AdminMapper mapper, String no) {
+		return mapper.deleteChatBlame(no);
+	}
+
+	
 
 	
 

@@ -1,10 +1,6 @@
 <div id="admin_section">
     <div id="admin_page_title" th:text="${blame_title}"></div>
     <div id="admin_content">
-        <!-- <select name="del_status" id="del_status">
-            <option value="n">N</option>
-            <option value="y">Y</option>
-        </select> -->
         <table id="blame_table">
             <thead>
             <tr>
@@ -12,7 +8,7 @@
                <th:block th:switch="${type}">
                 <th th:case="'1'">게시글 번호</th>
                 <th th:case="'blame'">게시글 번호</th>
-                <th th:case="'2'">해당 게시글 번호</th>
+                <th th:case="'2'">게시글 번호</th>
                 <th th:case="'3'">채팅방 번호</th>
                 <th th:case="'4'">작성자</th>
               </th:block>
@@ -30,11 +26,10 @@
                 <th th:case="'3'">채팅방 이름</th>
                 <th th:case="'4'">게시글 제목</th>
               </th:block>
-              <!-- <th style="text-align:center;">신고 사유</th> -->
                 <th>누적 신고 수</th>
                 <th>삭제여부<br>
-                    <input type="radio" name="del_status" value="n" checked>N
-                    <input type="radio" name="del_status" value="y">Y
+                    <input type="radio" name="del_status" value="n" th:checked="${delStatus} eq 'n'">N
+                    <input type="radio" name="del_status" value="y" th:checked="${delStatus} eq 'y'">Y
                 </th>
             </tr>
             </thead>
@@ -45,10 +40,10 @@
            			</td>
             		<td th:text="${b.BOARD_NO}">1</td>
             		<td th:text="${b.MEMBER_ID}"></td>
-            		<td th:text="${b.BOARD_TITLE}"></td>
-            		<!-- <td th:text="${b.BLAME_REASON}"></td> -->
-            		<td  >
-            			<!-- <a th:onclick="|fn_check_pop('${type,b.BOARD_NO}')|" th:text="${b.BLAME_COUNT}"></a> -->
+            		<td th:text="${b.BOARD_TITLE}">
+            			<!-- 게시글 제목클릭 => view이동하기 ㅊ추후 구현 -->
+            		</td>
+            		<td >
             			<a style="cursor:pointer;"th:data-p1="${type}" th:data-p2="${b.BOARD_NO}" 
             				th:onclick="|fn_check_pop(this.getAttribute('data-p1'),this.getAttribute('data-p2'))|" th:text="${b.BLAME_COUNT}"></a>
            			</td>
@@ -58,15 +53,14 @@
             <tbody th:if="${type} eq '2'">
             	<tr th:each="bc : ${list}">
             		<td>
-            			<input type="checkbox" name="brd_blame_chk" th:title="${bc.COMMENT_NO}">
+            			<input type="checkbox" name="brd_blame_chk" th:title="${bc.BOARD_NO}">
            			</td>
-            		<td>1</td>
+            		<td th:text="${bc.BOARD_NO}">1</td>
             		<td th:text="${bc.COMMENT_WRITER}"></td>
             		<td th:text="${bc.COMMENT_CONTENT}"></td>
-            		<!-- <td th:text="${bc.BLAME_REASON}"></td> -->
             		<td>
             			<a style="cursor:pointer;"th:data-p1="${type}" th:data-p2="${bc.BOARD_NO}" 
-            				th:onclick="|fn_check_pop(this.getAttribute('data-p1'),this.getAttribute('data-p2'))|" th:text="${bc.BC_BLAME_COUNT}"></a>
+            				th:onclick="|fn_check_pop(this.getAttribute('data-p1'),this.getAttribute('data-p2'))|" th:text="${bc.BLAME_COUNT}"></a>
             		</td>
             		<td th:text="${bc.DEL_STATUS} eq 0?'N':'Y'"></td>
             	</tr>
@@ -79,8 +73,10 @@
             		<td th:text="${ch.CHAT_NO}">1</td>
             		<td th:text="${ch.MEMBER_ID}"></td>
             		<td th:text="${ch.CHAT_TITLE}"></td>
-            		<!-- <td th:text="${ch.BLAME_REASON}"></td> -->
-            		<td th:text="${ch.CH_BLAME_COUNT}"></td>
+            		<td>
+            			<a style="cursor:pointer;"th:data-p1="${type}" th:data-p2="${ch.CHAT_NO}" 
+            				th:onclick="|fn_check_pop(this.getAttribute('data-p1'),this.getAttribute('data-p2'))|"  th:text="${ch.BLAME_COUNT}"></a>
+            		</td>
             		<td th:text="${ch.DEL_STATUS} eq 0?'N':'Y'"></td>
             	</tr>
             </tbody>
@@ -92,7 +88,6 @@
             		<td>1</td>
             		<td th:text="${m.MEMBER_ID}"></td>
             		<td th:text="${m.BOARD_TITLE}"></td>
-            		<!-- <td th:text="${m.BLAME_REASON}"></td> -->
             		<td>누적신고수(추후 COUNT)</td>
             		<td th:text="${m.DEL_STATUS} eq 0?'N':'Y'"></td>
             	</tr>
@@ -121,40 +116,102 @@
 					<a href="#" th:unless="${pagination.totalPageCount==pagination.currentPage}" th:onclick="|fn_ajax_paging('${pagination.currentPage+1}')|">&gt;</a>
 				</div>
 			</div>
-      		<button class="admin_buttons" onclick="" style="position:absolute;left:1070px;">삭제</button><!-- 각 del_status의 상태를 바꾸는 것 -->
+      		<button class="admin_buttons" th:onclick="|fn_del_status();|" style="position:absolute;left:1070px;">삭제</button><!-- 각 del_status의 상태를 바꾸는 것 -->
       	</div>
         <!-- <button onclick="fn_goBlame();">신고팝업테스트</button> -->
     </div>
 </div>
 <script th:inline="javascript">
+//체크박스 체크 후 삭제버튼 누르면 del_status를 0=>1로 바꾸기
+function fn_del_status(){
+	var type=[[${type}]];
+	switch(type){
+		case 'blame': case '1': type="게시글";break;
+		case '2':type="댓글";break;
+		case '3':type="채팅";break;
+		case '4':type="회원";break;
+	}
+	if(confirm(`선택한 ${type}을 삭제 처리 하시겠습니까?`)){
+		let textArray=new Array();
+		if($("[name='brd_blame_chk']:checked")){
+			$("[name='brd_blame_chk']:checked").each(function(){
+				textArray.push($(this).parent().siblings().eq(4).text());
+			})
+			if(textArray.includes('Y')){
+				alert(`이미 삭제 처리된 ${type}이 포함되어 있습니다. 다시 체크해주세요.`);
+			}else{
+				let checkArr=new Array();
+				$("[name='brd_blame_chk']:checked").each(function(){
+					checkArr.push($(this).attr("title"));
+				});
+				if(checkArr!=0){
+					$.ajax({
+						url:getContextPath()+"/blame/delete",
+						data:{
+							"checkArr":checkArr,
+							"type":type,
+						},
+						type:"POST"
+					}).done(function (fragment){
+						alert('삭제 처리가 완료되었습니다.');
+						$("#target").html(fragment);
+					});
+				}else{
+					alert(`삭제 처리할 ${type}을 선택하여주세요.`);
+				}
+			}
+		}
+	};
+};
+
+//삭제여부에 따라 ajax로 목록 리스트 바꾸기
+$('input[type=radio][name=del_status]').change(e=>{
+	var text=$(e.target).val();
+	var type=[[${type}]];
+	console.log(text);
+	$.ajax({
+		url:getContextPath()+"/blame",
+		data:{
+			"currentPage":[[${pagination.currentPage}]],
+			"type":type,
+			"delStatus":text
+		}
+	}).done(function (fragment){
+		$("#target").html(fragment);
+	});
+});
+
+//누적신고수 팝업
 function fn_check_pop(t,no){
-	window.open("/blame/checkPop?type="+t+"&no="+no,"","width=420px,height=580px,top=260px,left=800px");
+	window.open(getContextPath()+"/blame/checkPop?type="+t+"&no="+no,"","width=420px,height=580px,top=260px,left=800px");
 }
 
+//ajax페이징처리
 function fn_ajax_paging(i){
+	var text=$('input[type=radio][name=del_status]:checked').val();
+	console.log(`2페이지 delStatus ${text}`);
 	var type=[[${type}]];	
 	$.ajax({
-		url:"/blame",
+		url:getContextPath()+"/blame",
 		data:{
 			"currentPage":i,
-			"type":type
+			"type":type,
+			"delStatus":text
 		}
 	}).done(function(fragment){
 		$("#target").html(fragment);
 	});
 };
 
-
-
 //신고하기 팝업 테스트
- 	function fn_goBlame(){
-		var type="bc";
-		var no=2;
-		var nick="닉네임";
-		console.log(type,no,nick);
-		window.open("/blame/report?type="+type+"&no="+no+"&id="+nick,"","width=495px,height=530px,top=260px,left=800px,status=no,toolbar=no,scrollbars=no");
-	}
-
+function fn_goBlame(){
+	var type="bc";
+	var no=2;
+	var nick="닉네임";
+	console.log(type,no,nick);
+	window.open(getContextPath()+"/blame/report?type="+type+"&no="+no+"&id="+nick,"","width=495px,height=530px,top=260px,left=800px,status=no,toolbar=no,scrollbars=no");
+}
+//옆 신고메뉴 css수정
 $(function(){
 	$("#blame_menu").show();
 	$("#blame_menu").click(e=>{
@@ -194,7 +251,8 @@ $("[name='brd_blame_allChk']").click(e=>{
 //하나라도 체크 빠지면 전체체크 해제
 //length나중에 페이징처리하고 수정하기
 $("[name='brd_blame_chk']").click(e=>{
-	if($("[name='brd_blame_chk']:checked").length==5){    
+	var size=[[${#lists.size(list)}]];
+	if($("[name='brd_blame_chk']:checked").length==size){    
 		$("[name='brd_blame_allChk']").prop("checked",true);
 	}else{
 		$("[name='brd_blame_allChk']").prop("checked",false);

@@ -19,7 +19,7 @@ public class Message {
     private String recvMember;
     private Date msgDate;
     private String msgContent;
-    private Number readCheck;
+    private Date readCheck;
 
 
 

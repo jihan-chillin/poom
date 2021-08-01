@@ -20,7 +20,7 @@ $('input[name=input_file]').change(e=>{
      }
 });
 
-// 2. 미리보기 이미지 삭제하기
+// 삭제하기 클릭시 기본이미지로 변경
 $('input[name=delete_file]').click(e=>{ 
     $(".profile-img>img").attr('src', getContextPath()+'/images/profile/poom_profile.jpg');
 });
@@ -58,5 +58,10 @@ $('[name=intro]').on('keyup', function() {
 		$('#intro_cnt').html("(30 / 30)");
 	}
 });    
+
+$('button.btn_submit').click(function(){
+	$("[name=updatePro_form]").submit();
+});
+
 
 

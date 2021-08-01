@@ -10,10 +10,10 @@ import com.chairking.poom.common.Pagination;
 
 public interface BlameDao {
 	//List가져오기
-	List<Map<String,Object>> allBoardBlame(AdminMapper mapper, Pagination pagination);
-	List<Map<String,Object>> allCommentsBlame(AdminMapper mapper, Pagination pagination);
-	List<Map<String,Object>> allChatBlame(AdminMapper mapper, Pagination pagination);
-	List<Map<String,Object>> allMemberBlame(AdminMapper mapper, Pagination pagination);
+	List<Map<String,Object>> allBoardBlame(AdminMapper mapper, Pagination pagination,String delStatus);
+	List<Map<String,Object>> allCommentsBlame(AdminMapper mapper, Pagination pagination,String delStatus);
+	List<Map<String,Object>> allChatBlame(AdminMapper mapper, Pagination pagination,String delStatus);
+	List<Map<String,Object>> allMemberBlame(AdminMapper mapper, Pagination pagination,String delStatus);
 	//총 데이터세기
 	int allBoardBlameCount(AdminMapper mapper);
 	int allCommentsBlameCount(AdminMapper mapper);
@@ -42,5 +42,8 @@ public interface BlameDao {
 	int selectCountBlame5(SqlSessionTemplate session, Map<String,Object> map);
 	
 	List<Map<String,String>> selectEctAll(SqlSessionTemplate session, Map<String,Object> map);
-	//Stirng[] selectCountBlame5(SqlSessionTemplate session, Map<String,Object> map);
+	
+	int deleteBoardBlame(AdminMapper mapper, String no);
+	int deleteCommentsBlame(AdminMapper mapper, String no);
+	int deleteChatBlame(AdminMapper mapper, String no);
 }

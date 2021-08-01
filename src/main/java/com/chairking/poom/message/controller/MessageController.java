@@ -1,7 +1,9 @@
 package com.chairking.poom.message.controller;
 
 
+import com.chairking.poom.member.model.vo.Member;
 import com.chairking.poom.message.model.service.MessageService;
+import com.chairking.poom.message.model.vo.Message;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -52,7 +54,7 @@ public class MessageController {
         String myId = val.get("MEMBER_ID");
 
         System.out.println("myId:" + myId);
-        String condition = "AND RECV_MEMBER = '" + myId + "' AND MSG_TYPE!=3";
+        String condition = "AND RECV_MEMBER = '" + myId + "' AND MSG_TYPE !=3";
         List<Map<String,Object>> list = service.getMessage(condition);
         mv.addObject("list",list);
         System.out.println(list);
@@ -71,14 +73,18 @@ public class MessageController {
         String myId = val.get("MEMBER_ID");
 
         System.out.println("myId:" + myId);
-        String condition = "AND MEMBER_ID = '" + myId + "'";
+        String condition = "AND MEMBER_ID = '" + myId + "' AND MSG_TYPE !=3";
         List<Map<String,Object>>list = service.getMessage(condition);
+        if (list.size() != 0) {
+            if (list.get(0).get("READ_CHECK") == null)
+                System.out.println("null이다");
+        }
         mv.addObject("list",list);
         mv.setViewName("message/message_sendMessage");
         return mv;
     }
 
-    //ajax 차단함
+    //ajax 휴지통
     @RequestMapping("/block")
     public ModelAndView blockMessage(HttpServletRequest req, ModelAndView mv){
         HttpSession session = req.getSession();
@@ -86,7 +92,7 @@ public class MessageController {
         Map<String,String> val = (Map<String,String>)session.getAttribute("loginMember");
         String myId = val.get("MEMBER_ID");
 
-        String condition = "AND RECV_MEMBER = '" + myId + "' AND MSG_TYPE=3";
+        String condition = "AND (RECV_MEMBER = '" + myId + "' OR MEMBER_ID = '" + myId + "') AND MSG_TYPE=3";
         List<Map<String,Object>>list = service.getMessage(condition);
         mv.addObject("list",list);
         mv.setViewName("message/message_blockMessage");
@@ -96,93 +102,117 @@ public class MessageController {
 
 
     //팝업창
-    @GetMapping("/popup")
-    public String messagePopup(){
-        return"/message/message_popup";
+    @RequestMapping("/popup")
+    public String messagePopup(HttpServletRequest req, Model m){
+        String rcvNm = req.getParameter("rcvNm");
+        String rcvId = req.getParameter("rcvId");
+        m.addAttribute("rcvNm", rcvNm);
+        m.addAttribute("rcvId", rcvId);
+        return"message/message_popup";
     }
 
-    //받은 쪽지 리스트 출력
-//    @GetMapping("/message/messagelist")
-//    public String messageBox(Model m){
-//        List<Map<String,Object>> list = service.messageBox();
-//        m.addAttribute("list",list);
-//        return "/message/message_box";
-//    }
-    
-//    //보낸 쪽지 리스트 출력 
-//    @GetMapping("/message/send")
-//    public String sendMessage(Model m){
-//        List<Map<String,Object>> list = service.sendMessage();
-//        m.addAttribute("list", list);
-//        return "/message/message_box";
-//        
-//    }
 
 
     //받는사람 팝업
-    @GetMapping("/receiver")
+    @GetMapping ("/receiver")
     public String receiverPopup(Model m){
         List<Map<String,Object>> list = service.searchReceiver();
         m.addAttribute("list", list);
-        return"message/message_receiver";
+        return "/message/message_receiver";
     }
 
     //쪽지내용 팝업
     @GetMapping("/content")
     public String contentPopup(@RequestParam String msgNo, Model m){
+        int result = 0;
         List<Map<String,Object>> list = service.messageContent(msgNo);
         m.addAttribute("list",list);
+
+        if (list != null) {
+            result = service.setMsgRead(msgNo);
+        }
+
+        if (result > 0)
+            System.out.println("읽음처리 성공");
         return "message/message_content";
     }
 
-    @RequestMapping("/delete")
-    public ModelAndView deleteMessage(@RequestParam String msgNo, @RequestParam String delType, ModelAndView mv){
-        System.out.println("delete: " + delType);
-        String returnUrl = "";
-        if (delType.equals("delRcv"))
-            System.out.println("delSend case");
-        switch(delType) {
-            case "delSend":
-                System.out.println("delSend case");
-                returnUrl = "message/message_sendMessage";
-                break;
-            case "delRcv":
-                System.out.println("delRcv case");
-                returnUrl = "message/message_receiveMessage";
-                break;
-            case "delBlock":
-                returnUrl = "message/message_blockMessage";
-                break;
-            default:
-                returnUrl = "message/message";
+
+
+    //메세지 차단함으로 이동
+    @RequestMapping("/moveBlock")
+    public String moveBlock(@RequestParam String msgNo, ModelAndView mv){
+        System.out.println("move블럭 되나요? " + msgNo);
+        int result= service.moveBlock(msgNo);
+        System.out.println("나와라 " + result);
+       return "/message/message_blockMessage";
+    }
+
+    //메세지 발송취소
+    @RequestMapping ("/cancelMsg")
+    public ModelAndView cancelMsg(@RequestParam String msgNo, ModelAndView mv){
+        System.out.println("moveBlockCtrl " + msgNo);
+        int result= service.cancelMsg(msgNo);
+        if(result>0){
+            mv.setViewName("message/message_sendMessage");
         }
-        int result = service.deleteMessage(msgNo);
-        mv.addObject("result",result);
-        mv.addObject("delType", delType);
-        mv.setViewName("message/message_main");
+        return mv;
+    }
+
+    //휴지통 비우기
+    @RequestMapping("/emptyBlock")
+    public String emptyBlock(){
+        int result = service.emptyBlock();
+        return "message/message_blockMessage";
+    }
+
+    //휴지통 선택 삭제
+    @RequestMapping("/selectBlock")
+    public String selectBlock(@RequestParam String msgNo){
+        System.out.println("삭제할 메세지 번호" + msgNo);
+        int result = service.selectBlock(msgNo);
+        return "message/message_blockMessage";
+    }
+
+
+    //메세지 보내기
+    @RequestMapping("/sendMsg")
+    public ModelAndView sendMsg(HttpServletRequest request, HttpSession session, ModelAndView mv){
+        //세션에서 내 아이디를 가져온다.
+        Message msg = new Message();
+        msg.setMemberId(request.getParameter("memberId"));
+        msg.setRecvMember(request.getParameter("recvMember"));
+        msg.setMsgContent(request.getParameter("msgContent"));
+        int result= service.sendMsg(msg);
+        mv.addObject("mType", "send");
+        if(result>0){
+            mv.setViewName("message/message_sendMessage");
+        }
         return mv;
     }
 
 
-    //메세지 차단함으로 이동
-//    @GetMapping("/moveBlock")
-//    public ModelAndView moveBlock(@RequestParam String msgNo, ModelAndView mv){
-//       int result= service.moveBlock(msgNo);
-//       if(result>0){
-//           mv.setViewName("redirect:/message/message_main");
-//       }
-//       return mv;
-//    }
-
     //받는사람 검색
-//    @GetMapping("/message/rSearch")
-//    public ModelAndView searchReceiver(ModelAndView mv){
-//
-//        List<Member> list = service.searchReceiver();
-//        mv.addObject("list", list);
-//        mv.setViewName("message_receiver");
-//        return mv;
-//    }
+    @RequestMapping("/rSearch")
+    public ModelAndView searchReceiver(@RequestParam String sCondition, ModelAndView mv){
+        String condition = "WHERE 1=1";
+
+        if (sCondition != null || sCondition.equals("")) {
+            condition += (" AND (member_id like '%" + sCondition + "%'");
+            condition += (" OR member_name like '%" + sCondition + "%'");
+            condition += (" OR member_email like '%" + sCondition + "%'");
+            condition += (" OR member_nickname like '%" + sCondition + "%')");
+
+        }
+
+        System.out.println("검색조건" + condition);
+
+        List<Map<String,Object>> list = service.searchReceiverCondition(condition);
+
+        mv.addObject("list", list);
+        mv.setViewName("message/message_receiver");
+        return mv;
+    }
 
 
 

@@ -1,25 +1,42 @@
 package com.chairking.poom.member.controller;
 
-import com.chairking.poom.member.model.service.MemberService;
-import com.chairking.poom.member.model.vo.Member;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import java.util.Map;
+import com.chairking.poom.member.model.service.LoginService;
+import com.chairking.poom.member.model.service.MemberService;
+import com.chairking.poom.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/member")
+@SessionAttributes("loginMember")
 public class MemberController {
 
     @Autowired
     private MemberService service;
+    
+    @Autowired	
+	LoginService loginservice;
+    
+    @Autowired
+	ResourceLoader resourceLoader;
 
     // 1. 프로필정보 수정창으로 이동
     // 화면 전환용
@@ -29,29 +46,51 @@ public class MemberController {
     }
 
     // 2. 프로필 수정완료되면 프로필 수정페이지로 이동
-    // 파라미터가 String인 것들만 받을 거기 때문에 RequestBody로 가져옴.
     @PostMapping("/updateProfile")
-    public ModelAndView updateProfile(ModelAndView mv, Member m, MultipartFile[] inputfile, @RequestBody Map<String, String> param) {
+    public ModelAndView updateProfile(ModelAndView mv,
+			@RequestParam(value="input_file",required=false) MultipartFile[] inputfile,
+			@RequestParam Map param, HttpServletRequest req) {
+    	
+    	String absolutePath = System.getProperty("user.dir")+"/src/main/resources/static/images/profile/";
+    	String oriName=inputfile[0].getOriginalFilename();
+    	
+    	if(oriName.equals("")) {
+    		oriName="poom_profile.jpg";
+    		param.put("memberImg", oriName);
+    	}else {
+			String ext=oriName.substring(oriName.lastIndexOf("."));
+			//리네임규칙설정
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+			int rndNum=(int)(Math.random()*10000);
+			String reName=sdf.format(System.currentTimeMillis())+"_"+rndNum+ext;
+			param.put("memberImg", reName);
+			//리네임으로 파일업로드하기
+			try {
+				inputfile[0].transferTo(new File(absolutePath+reName));
+			}catch(IOException e) {
+				e.printStackTrace();
+			}
+    	}
 
-        // 파라미터 값 변수에 저장
-        String memberId = param.get("memberId");
-        String nick = param.get("nick");
-        String intro = param.get("intro");
-//        String profile = param.get("inputfile");
+    	String msg="";
+    	String loc="/login/main";
+		int result = service.updateProfile(param);
+		Map<String,Object> m = loginservice.selectMember(param);
+		mv.addObject("loginMember",m);
+		
+		if(result>0) {
+			msg="수정완료!";
+		}else {
+			msg="수정실패! 다시 시도해주세요.";
+		}
 
-        System.out.println(memberId + nick + intro);
-
-        //
-
-        int result = service.updatePrivacy(m);
-
-        mv.setViewName("member/modiprofile");
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
 
         return mv;
     }
 
-
-    // 3. 개인정보 수정창으로 이동
     // 3. 개인정보 수정창으로 이동
     @GetMapping("/modiprivacy")
     public String modiprivacy() {

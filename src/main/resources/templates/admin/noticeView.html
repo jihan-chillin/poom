@@ -44,7 +44,7 @@ function fn_del_notice(){
 	if(n_status==1){  //게시글이 삭제된 상태라면 재게시 처리
 		if(confirm('공지사항을 다시 게시하시겠습니까?')){
 			$.ajax({
-				url:"/admin/changeStatus",
+				url:getContextPath()+"/admin/changeStatus",
 				data:{"no":noticeNo}
 			}).done(function (fragment){
 				alert('해당 공지사항을 정상 등록 처리하였습니다.');
@@ -57,7 +57,7 @@ function fn_del_notice(){
 	}else{	//게시글 삭제하기
 		if(confirm('공지사항을 삭제하시겠습니까?')){
 			$.ajax({
-				url:"/admin/noticeDelete",
+				url:getContextPath()+"/admin/noticeDelete",
 				data:{"no":noticeNo}
 			}).done(function (fragment){
 				alert('공지사항이 삭제 처리되었습니다.');
@@ -73,7 +73,7 @@ function fn_del_notice(){
 function fn_edit_notice(){
 	console.log(noticeNo);
 	$.ajax({
-		url:"/admin/noticeEdit",
+		url:getContextPath()+"/admin/noticeEdit",
 		data:{"no":noticeNo}
 	}).done(function(fragment){
 		$("#target").html(fragment);

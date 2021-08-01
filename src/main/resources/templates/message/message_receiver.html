@@ -4,19 +4,21 @@
     <meta charset="UTF-8">
     <link th:href="@{/css/message/message_receiver.css}" rel="stylesheet" type="text/css">
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
 <div id="popup_wrapper">
     <div id="popup_content">
         <div class="popup_header">
-            <input type="text" class="search-name2" placeholder="받는사람"><input type="button" class="find-name2"
-                                                                              value="검색">
+            <form id="rSearchFrm" type="post" action="./rSearch">
+                <input type="text" name="sCondition" class="search-name2" placeholder="받는사람">
+                <input type="submit" class="find-name2" value="검색" >
+            </form>
         </div>
         <div class="popup_tablebox">
             <table class="popup_table" border="1" th:if="${list!=null}">
                 <thead>
                 <tr>
-                    <th></th>
                     <th>아이디</th>
                     <th>닉네임</th>
                     <th>이름</th>
@@ -24,17 +26,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="m : ${list}">
-                    <td>
-                        <div class="checkbox2 m-0">
-                            <input id="checkbox1" type="checkbox">
-                            <label for="checkbox1">
-                            </label>
-                        </div>
-                    </td>
-                    <td th:text="${m.MEMBER_ID}"></td>
+                <tr th:each="m : ${list}"  onclick="showMsgPop(this)">
+                    <td th:text="${m.MEMBER_ID}" class="find-id"></td>
                     <td th:text="${m.MEMBER_NICKNAME}"></td>
-                    <td th:text="${m.MEMBER_NAME}"></td>
+                    <td th:text="${m.MEMBER_NAME}" class="find-name"></td>
                     <td th:text="${m.MEMBER_EMAIL}"></td>
                 </tr>
                 </tbody>
@@ -43,3 +38,7 @@
     </div>
 </div>
 </body>
+</html>
+<script th:src="@{/js/message/message_js_sh.js}"></script>
+<!--<script th:src="@{/js/message/messagePopup_js_sh.js}"> </script>-->
+

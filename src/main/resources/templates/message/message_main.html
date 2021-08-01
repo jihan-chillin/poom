@@ -5,6 +5,11 @@
     <!--message css-->
     <link th:href="@{/css/message/message_tap.css}" rel="stylesheet" type="text/css">
 </head>
+<script th:inline="javascript">
+    $(document).ready(function() {
+        fn_message_move('receive');
+    });
+</script>
 
 <body>
 <div id="wrapper">
@@ -27,15 +32,22 @@
                 <div class="buttonbox">
                     <button type="button" id="btn_1" onclick="fn_message_move('receive');">받은쪽지</button>
                     <button type="button" id="btn_2" onclick="fn_message_move('send');">보낸쪽지</button>
-                    <button type="button" id="btn_3" onclick="fn_message_move('block');">차단함</button>
+                    <button type="button" id="btn_3" onclick="fn_message_move('block');">휴지통</button>
                 </div>
-                <div>
-                    <input class="search-message" type="msgsearch" value="쪽지 검색해보세요~">
+                <div class="md-input form_search col-12 col-md-6 col-lg-4">
+                    <input type="text" name="keyword" class="search-message" placeholder="쪽지 검색" onkeyup="tableFilter(this)">
+<!--                    <span class="bar"></span>-->
+<!--                    <button class="btn __nude search_ico"><i class="fal fa-search"></i> <span class="hidden">검색</span></button>-->
                 </div>
+<!--                <div>-->
+<!--                    <input class="search-message" type="msgsearch" value="쪽지 검색해보세요~">-->
+<!--                </div>-->
             </div>
 
 
             <div id="target"></div>
+            <input type="button" class="send-message" value="쪽지보내기" onclick="showPopup();">
+
         </div>
 
         <!-- HOT키워드순위창 -->
@@ -48,73 +60,8 @@
 
 <script th:src="@{/js/main/main_js_jk.js}"></script>
 <script th:src="@{/js/board/board_list_sh.js}"></script>
-
-
-<script th:inline="javascript">
-    let mType = [[${mType}]];
-    const delType = [[${delType}]];
-    const result = [[${result}]];
-    console.log("result: " + delType);
-    if (result != null) {
-        if (result > 0) {
-            alert("삭제되었습니다.");
-        } else {
-            alert("삭제에 실패하였습니다.");
-        }
-    }
-    if (delType != null)
-        mType = delType;
-    console.log(mType);
-
-    $(function () {
-        fn_message_move(mType);
-    });
-
-    function fn_message_move(mType) {
-        console.log(mType);
-        if (mType == 'receive') {
-            $.ajax({
-                url: "/message/receive",
-                data: {"mType": mType},
-                type: 'POST',
-            }).done(function (fragment) {
-                $("#target").html(fragment);
-            });
-        }else if(mType=='send'){
-            $.ajax({
-                url:"/message/send",
-                data:{"mType":mType},
-                type: 'POST',
-
-            }).done(function (fragment){
-                $("#target").html(fragment);
-            });
-        }else if(mType=='block'){
-            $.ajax({
-                url:"/message/block",
-                data:{"mType":mType},
-                type: 'POST',
-
-            }).done(function (fragment){
-                $("#target").html(fragment);
-            });
-        }
-    }
-
-    function showPopup(type) {
-        if (type == 1)
-            window.open("/message/popup", "message", "width=400,height=300");
-        else if (type == 2)
-            window.open("/message/receiver", "receiver", "width=400,height=300");
-    }
-
-    function showMsgDtl(msgNo) {
-        window.open("/message/content?msgNo=" + msgNo, "content", "width=400,height=300");
-
-    }
-    var msgNo=[[${mv.MSG_NO}]];
+<script th:src="@{/js/message/message_js_sh.js}"></script>
 
 
 
-</script>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
