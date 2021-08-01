@@ -16,16 +16,17 @@
     <div id="popup_wrapper">
         <div id="popup+content">
 <!--            <h1>쪽지 보내기</h1>-->
-            <form>
+            <form id="sendMsg">
             <div class="search-receiver">
                 받는사람: <span th:text="${rcvNm}"></span>
+                <input type="hidden" class="search-name" name="memberId" th:value="${session.loginMember.MEMBER_ID}">
                 <input type="hidden" class="search-name" name="recvMember" th:value="${rcvId}">
             </div>
             <div class="msg-content">
                 <textarea name="msgContent">쪽지내용</textarea>
             </div>
             <div id="message_buttons">
-                <button class="message_buttons" type="submit">보내기</button>
+                <button class="message_buttons" type="button" onclick="sendMsg($('#sendMsg'));">보내기</button>
                 <button class="message_buttons2" type="button" onclick="javascript:self.close();">취소</button>
             </div>
             </form>

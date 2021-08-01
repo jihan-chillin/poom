@@ -58,3 +58,8 @@
     font-size: 18px;
     font-style: oblique;
 }
+
+.delete-confirm-Tag{
+    cursor: pointer;
+    padding-left: 5px;
+}

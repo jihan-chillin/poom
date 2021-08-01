@@ -1,3 +1,4 @@
+//var contextPath = $('#contextPathHolder').attr('data-contextPath') ? $('#contextPathHolder').attr('data-contextPath') : '';
 $(document).ready(function(){
  
     // 좌측메뉴바 show/hide 스크립트
