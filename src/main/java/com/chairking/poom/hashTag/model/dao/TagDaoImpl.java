@@ -47,4 +47,9 @@ public class TagDaoImpl implements TagDao{
     public int insertBoardTag(TagMapper mapper, String boardNo, String keyword) {
         return mapper.insertBoardTag(boardNo,keyword);
     }
+
+    @Override
+    public List<String> getBoardNoFromTag(TagMapper mapper, String tagName) {
+        return mapper.getBoardNoFromTag(tagName);
+    }
 }

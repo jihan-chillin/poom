@@ -1,5 +1,6 @@
 package com.chairking.poom.hashTag.controller;
 
+import com.chairking.poom.board.controller.BoardController;
 import com.chairking.poom.hashTag.model.service.TagService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.Map;
 public class TagJsonController {
     @Autowired
     private TagService tagService;
+    @Autowired
+    private BoardController boardController;
 
     @GetMapping("/tag/my/data")
     public List getMyTagData(HttpServletRequest req){
@@ -59,6 +63,13 @@ public class TagJsonController {
     // 방금 등록된 게시글 제목 가져옴
     public String getBoardNo(){
         return tagService.getBoardNo();
+    }
+
+    // 태그 클릭시 게시물로 이동.
+    @GetMapping("/tag/board")
+    public void moveToBoardFromTag(@RequestParam String tagName){
+        List<String> boardNo = tagService.getBoardNoFromTag(tagName);
+//        boardController.selectBoardFromTag(boardNo);
     }
 
 }

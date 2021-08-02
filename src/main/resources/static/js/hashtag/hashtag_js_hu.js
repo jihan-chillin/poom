@@ -177,3 +177,5 @@ function selectTagAndInsertInput(e){
   let keyword= $(e.target).text();
   $('.field__input').val(keyword);
 }
+
+// 태그를 누르면 게시글로 이동

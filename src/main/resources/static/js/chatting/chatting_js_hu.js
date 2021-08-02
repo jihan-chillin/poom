@@ -190,12 +190,7 @@ function getChatList(chatNo,url,memberId){
     success:data=>{
       $('.msg-container>*').remove();
       let val = '';
-      // 로그인 한 아이디와 일치하면
-      // .my-profile .message-orange
-      // 다르면
-      // .others-profile .message-blue
-      // 나눠야함.
-      // 로그인이 안만들어져서 test 아이디로 함. -> 수정필요함.
+
       let loginId =  memberId;
 
       for(let i=0; i<data.messageContent.length; i++){
@@ -208,9 +203,7 @@ function getChatList(chatNo,url,memberId){
           val += '<div></div>';
           val += '<div class="message-blue"><div class="message-content">';
           val += data.messageContent[i].MESSAGE_CONTENT+'</div>';
-          // val += '<div class="my-profile">';
           // 아바타 만들기
-          // val +='<i class="chat-avatar">'+(data.messageContent[i].MEMBER_ID).substring(0,1)+'</i></div>';
           val += '</div></div>';
         }else{
           val += '<div class="other-chat">';
