@@ -26,6 +26,9 @@ public interface BlameDao {
 	int updateCommentsBlameCount(AdminMapper mapper, String no);
 	int insertChatBlame(AdminMapper mapper, Map<String,String> map);
 	int updateChatBlameCount(AdminMapper mapper, String no);
+	//hidden체크
+	String hiddenCheck(SqlSessionTemplate session,Map<String, String> map);
+	String hiddenChat(AdminMapper mapper, String no);
 	
 	//누적신고수 팝업=>select
 	List<Map<String,Object>> selectBoardBlame(AdminMapper mapper,String no);

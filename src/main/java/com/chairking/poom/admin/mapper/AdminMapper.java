@@ -76,6 +76,12 @@ public interface AdminMapper {
 	@Update("UPDATE CHAT SET BLAME_COUNT=BLAME_COUNT+1 WHERE CHAT_NO=#{no}")
 	public int updateChatBlameCount(String no);
 	
+	//히든처리
+	@Select("SELECT HIDDENCHAT(#{no}) FROM DUAL")
+	public String hiddenChat(String no);
+	
+	
+	
 	@Select("select * from board_blame join board on b_target_board_no=board_no where board_no=#{no}")
 	public List<Map<String,Object>> selectBoardBlame(String no);
 	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}")

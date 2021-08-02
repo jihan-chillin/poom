@@ -81,6 +81,23 @@ public class BlameServiceImpl implements BlameService {
 		return result;
 	}
 	
+	@Override
+	public String hiddenCheck(Map<String, String> map) {
+		String result="";
+		//insert+update 후에 function으로 체크하기
+		switch(map.get("type")) {
+//		case "b" : 
+//			result=dao.hiddenBoard(mapper,map);
+//			break;
+//		case "bc" : 
+//			result=dao.hiddenComments(mapper,map);
+//			break;
+		case "ch" : 
+			result=dao.hiddenChat(mapper,map.get("no"));
+			break;
+	}
+		return result;
+	}
 	//type,no로 신고글 가져오기
 	@Override
 	public List<Map<String, Object>> selectBlame(Map<String, Object> map) {

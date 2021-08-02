@@ -10,6 +10,7 @@ public interface BlameService {
 	List<Map<String,Object>> allBlameList(String type,Pagination pagination, String delStatus);
 	int blameCount(String type);
 	int insertBlame(Map<String,String> map);
+	String hiddenCheck(Map<String,String> map);
 	List<Map<String,Object>> selectBlame(Map<String,Object> map);
 	Map<String,Object> selectCountBlame(Map<String,Object> map);
 	List<Map<String,String>> selectEctAll(Map<String,Object> map);
