@@ -4,15 +4,7 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	config.language = 'ko';
-	config.enterMode =CKEDITOR.ENTER_BR;
-	config.toolbarCanCollapse = true;
-	config.docType = "<!DOCTYPE html>";
-	config.filebrowserUploadUrl = '/images/ckeditor?type=Files'; //여기 경로로 파일을 전달하여 업로드 시킨다.
-	config.filebrowserImageBrowseUrl = '/images/ckeditor?type=Image';
-	config.filebrowserFlashBrowseUrl = '/images/ckeditor?type=Flash';
-	config.removePlugins = 'save';
-	config.filebrowserUploadMethod = 'form';
+	config.filebrowserUploadMethod='form'; //파일 오류났을때 alert띄워줌
 
 
 	// 기존 config.js ▼
