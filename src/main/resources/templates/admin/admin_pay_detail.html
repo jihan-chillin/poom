@@ -47,3 +47,16 @@
       	</div>
     </div>
 </div>
+<script th:inline="javascript">
+//ajax페이징처리
+function fn_ajax_paging(i){
+	$.ajax({
+		url:getContextPath()+"/payAdmin/detail",
+		data:{
+			"currentPage":i,
+		}
+	}).done(function(fragment){
+		$("#target").html(fragment);
+	});
+};
+</script>
