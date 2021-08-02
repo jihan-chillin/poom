@@ -100,6 +100,10 @@ public class NotiController {
 
 
         for(int i =0; i<myNotiData.size(); i++){
+
+            // 삭제처리된 게시물은 알림테이블에서 삭제
+            notiService.deleteNotiBoardDelStatus(myNotiData.get(i).get("BOARD_NO"));
+
             if(myNotiData.get(i).get("BOARD_NO") != null){
                 getBoardTitleFromBoardNo.add(i,
                         notiService.getBoardTitleFromBoardNo(myNotiData.get(i).get("BOARD_NO"))

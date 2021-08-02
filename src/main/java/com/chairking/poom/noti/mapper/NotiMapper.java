@@ -30,6 +30,6 @@ public interface NotiMapper {
     public String getBoardTitleFromCommentNo(String commentNo);
     @Select("select msg_content from message where msg_no=#{msgNo}")
     public String getMsgContentFromMsgNo(String msgNo);
-
-
+    @Select("select deleteNotifyToDelStatus(#{boardNo}) from dual")
+    public int deleteNotiBoardDelStatus(String boardNo);
 }

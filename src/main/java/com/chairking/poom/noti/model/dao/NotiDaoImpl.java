@@ -52,4 +52,9 @@ public class NotiDaoImpl implements NotiDao{
     public String getMsgContentFromMsgNo(NotiMapper mapper, String msgNo) {
         return mapper.getMsgContentFromMsgNo(msgNo);
     }
+
+    @Override
+    public int deleteNotiBoardDelStatus(NotiMapper mapper, String boardNo) {
+        return mapper.deleteNotiBoardDelStatus(boardNo);
+    }
 }
