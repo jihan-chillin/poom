@@ -101,7 +101,8 @@ function addTag(keyword){
   $.ajax({
     url:getContextPath()+'/tag/add',
     data:{
-      "keyword":keyword
+      "keyword":keyword,
+      "ref":"member"
     },
     success:data=>{
       if(data === 0){

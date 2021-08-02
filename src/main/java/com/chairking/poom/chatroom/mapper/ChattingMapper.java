@@ -8,7 +8,6 @@ import java.util.Map;
 
 @Mapper
 public interface ChattingMapper {
-//    수정해야댐. member
     @Select("select chat_no from CHATMEMBER where member_id=#{memberId}")
     public List<String> getMyChatroomNum(String memberId);
 

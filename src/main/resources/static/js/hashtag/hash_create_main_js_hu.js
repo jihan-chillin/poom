@@ -123,7 +123,8 @@ function addTagFromMainPage(keyword){
   $.ajax({
     url:getContextPath()+'/tag/add',
     data:{
-      "keyword":keyword
+      "keyword":keyword,
+      "ref":"feed"
     }
   });
 }

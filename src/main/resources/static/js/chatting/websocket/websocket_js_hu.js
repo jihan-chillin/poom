@@ -52,7 +52,6 @@ function sendMessage(event) {
       type: 'CHAT'
     };
     stompClient.send("/app/chat/"+chatNo, {}, JSON.stringify(chatMessage));
-    console.log('응답을 보내면')
     sendMsgContent.val('');
   }
 
@@ -73,7 +72,6 @@ function onMessageReceived(payload){
     // messageElement.append(message.messageContent);
   // }
 
-  console.log("응답을 받으면 ");
   getChatList(chatNo,'/chat/mychat/member',message.memberId);
 }
 

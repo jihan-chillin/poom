@@ -102,6 +102,12 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 
+		</dependency>y>
+
+		<!--파일 업로드 의존성 등록-->
+		+<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
 		</dependency>
 
 		<!--파일 업로드 의존성 등록-->
@@ -116,8 +122,8 @@
 
 		<!-- 암호화 의존성등록 -->
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-security</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		<dependency>
 		    <groupId>org.thymeleaf.extras</groupId>

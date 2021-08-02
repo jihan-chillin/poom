@@ -37,4 +37,14 @@ public class TagDaoImpl implements TagDao{
     public List<Map<String, String>> searchTag(TagMapper mapper, String keyword) {
         return mapper.searchTag(keyword);
     }
+
+    @Override
+    public String getBoardNo(TagMapper mapper) {
+        return mapper.getBoardNo();
+    }
+
+    @Override
+    public int insertBoardTag(TagMapper mapper, String boardNo, String keyword) {
+        return mapper.insertBoardTag(boardNo,keyword);
+    }
 }

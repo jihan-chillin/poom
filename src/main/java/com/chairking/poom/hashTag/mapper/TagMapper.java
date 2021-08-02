@@ -1,8 +1,8 @@
 package com.chairking.poom.hashTag.mapper;
 
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -24,4 +24,8 @@ public interface TagMapper {
     public int deleteTag(String tagName);
     @Select("select tag_name from tag where tag_name like '%${keyword}%'")
     public List<Map<String,String>> searchTag(String keyword);
+    @Select("select board_no from board order by board_no desc")
+    public String getBoardNo();
+    @Insert("insert into BOARDTAG values (seq_boardtagno.nextval,#{boardNo},#{keyword})")
+    public int insertBoardTag(String boardNo,String keyword);
 }
