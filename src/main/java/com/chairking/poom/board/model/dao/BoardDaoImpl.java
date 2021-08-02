@@ -42,7 +42,10 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.selectCommentList(boardNo);
 	}
 
-
+	@Override
+	public int insertFeed(BoardMapper mapper, Map param) {
+		return mapper.insertFeed(param);
+	}
 
 
 }

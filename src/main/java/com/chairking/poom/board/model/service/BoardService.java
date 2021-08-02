@@ -11,6 +11,8 @@ public interface BoardService {
 
 	int insertBoard(Board b);
 
+	int insertFeed(Map param);
+	
 	// 게시글 전체 가져오기
 	List<Map<String, Object>> selectAllBoard(int cPage, int numPerpage);
 

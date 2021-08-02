@@ -40,4 +40,8 @@ public interface BoardMapper {
 	@Select("SELECT C.*, (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_ID=C.COMMENT_WRITER) AS C_NICKNAME FROM COMMENTS C WHERE BOARD_NO=${boardNo}")
 	public List<Map> selectCommentList(String boardNo);
 	
+	//메인피드 등록
+	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.NEXTVAL, #{title}, #{content}, DEFAULT, DEFAULT, DEFAULT, "
+			+ "#{loc}, DEFAULT, #{category}, #{id}, DEFAULT)")
+	public int insertFeed(Map param);
 }
