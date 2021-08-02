@@ -27,14 +27,39 @@
     text-shadow: 1px 1px 2px gray;
     color: #000000;
     border-bottom: 2px solid #000000;
+}
 
+.noti-info-alarm {
+    border-bottom: 3px solid #000000;
+    justify-self: center;
+    width: 50%;
+}
+
+.noti-info-message{
+    color:#d3d3d3;
+    justify-self: center;
+    width: 50%;
+}
+
+.alarm-count{
+    display: inline-block;
+    background-color: red;
+    border-radius: 50%;
+    color: white;
+    font-size: 18px;
+    width: 25px;
+    position: absolute;
+    height: 25px;
+}
+.alarm-count>span{
+    padding-left: 5px;
 }
 .modal-title span {
     justify-self: center;
 }
-.modal-title span:hover {
-    border-bottom: 3px solid #000000;
-}
+/*.modal-title span:hover {*/
+/*    border-bottom: 3px solid #000000;*/
+/*}*/
 
 .modal-content-list {
     text-shadow: 1px 1px 2px gray;

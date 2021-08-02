@@ -14,7 +14,7 @@ public interface MessageMapper {
     public List<Map<String,Object>> searchReceiver();
 
 
-    @Select("SELECT MSG_NO, MEMBER_ID, RECV_MEMBER, MSG_DATE, MSG_TYPE, SUBSTR(MSG_CONTENT, 0, 15) || '...' AS MSG_CONTENT, nvl(READ_CHECK, TO_DATE('0001/01/01', 'yyyy/mm/dd')) AS READ_CHECK FROM MESSAGE WHERE 1=1  ${condition}")
+    @Select("SELECT MSG_NO, MEMBER_ID, RECV_MEMBER, MSG_DATE, MSG_TYPE, SUBSTR(MSG_CONTENT, 0, 15) || '...' AS MSG_CONTENT, nvl(READ_CHECK, TO_DATE('0001/01/01', 'yyyy/mm/dd')) AS READ_CHECK FROM MESSAGE WHERE 1=1  ${condition} ORDER BY MSG_DATE DESC")
     public List<Map<String,Object>> getMessage(String condition);
 
     @Select("SELECT * FROM MESSAGE WHERE MSG_NO = #{msgNo}")

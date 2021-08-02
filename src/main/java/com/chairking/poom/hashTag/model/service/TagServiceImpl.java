@@ -56,4 +56,9 @@ public class TagServiceImpl implements TagService{
     public int insertBoardTag(String boardNo, String keyword) {
         return dao.insertBoardTag(mapper,boardNo,keyword);
     }
+
+    @Override
+    public List<Map<String, Object>> getBoardNoFromTag(String tagName,int cPage, int numPerPage) {
+        return dao.getBoardNoFromTag(mapper,tagName,cPage,numPerPage);
+    }
 }

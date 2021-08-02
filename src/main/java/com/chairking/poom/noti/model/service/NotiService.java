@@ -13,4 +13,5 @@ public interface NotiService {
     String getBoardTitleFromBoardNo(String boardNo);
     String getBoardTitleFromCommentNo(String commentNo);
     String getMsgContentFromMsgNo(String msgNo);
+    int deleteNotiBoardDelStatus(String boardNo);
 }
