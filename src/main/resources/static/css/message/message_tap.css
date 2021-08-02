@@ -29,13 +29,50 @@ button {
 }
 
 .delete-message {
-    width: 100px;
+    width: 65px;
+    height: 31px;
     background-color: lightgrey;
     font-size: 16px;
-    color : black;
-    border: 2px solid;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    transition-duration: 0.4s;
 }
 
+.delete-message:hover{
+    color: white;
+}
+
+.send-message{
+    width: 92px;
+    height: 31px;
+    background-color: lightgrey;
+    font-size: 16px;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    transition-duration: 0.4s;
+    margin-top: -20px;
+}
+
+.send-message:hover{
+    color : white;
+}
+
+.empty-message{
+    width: 111px;
+    height: 31px;
+    background-color: lightgrey;
+    font-size: 16px;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    transition-duration: 0.4s;
+}
+
+.empty-message:hover{
+    color: white;
+}
 button:hover {
   color: #287094;
 }
