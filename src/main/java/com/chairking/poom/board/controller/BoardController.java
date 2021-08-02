@@ -374,24 +374,39 @@ public class BoardController {
 	}
 
 	//메인피드등록하기(파일X, 텍스트만 가능)
-		@PostMapping("/board/feedWrite")
-		public ModelAndView feedWrite(@RequestParam Map param, ModelAndView mv) {
+	@PostMapping("/board/feedWrite")
+	public ModelAndView feedWrite(@RequestParam Map param, ModelAndView mv) {
 
-			//게시글 등록
-			int result=service.insertFeed(param);
+		//게시글 등록
+		int result=service.insertFeed(param);
 
-			String msg="";
-			String loc="/login/main";
-			if(result>0) {
-				msg = "게시글 등록 완료!";
-			}else {
-				msg = "등록실패! 다시 시도해주세요.";
-			}
-			mv.addObject("msg",msg);
-			mv.addObject("loc",loc);
-			mv.setViewName("common/msg");
-
-			return mv;
+		String msg="";
+		String loc="/login/main";
+		if(result>0) {
+			msg = "게시글 등록 완료!";
+		}else {
+			msg = "등록실패! 다시 시도해주세요.";
 		}
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+
+		return mv;
+	}
 	
+	//메인피드글 불러오기
+	@RequestMapping("/board/feedNew")
+	public ModelAndView feedNew(@RequestParam Map param, ModelAndView mv) {
+		
+		if(param.get("loc").equals("전국")) {
+			param.put("loc","");
+		}
+		
+		List<Map<String, Object>> feedList = service.feedList(param);
+		System.out.println(feedList.get(0));
+		mv.addObject("feedList",feedList);
+		mv.setViewName("main/feedList");
+		
+		return mv;
+	}
 }
