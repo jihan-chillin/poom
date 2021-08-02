@@ -105,11 +105,11 @@
 		</dependency>
 
 		<!--파일 업로드 의존성 등록-->
-		<dependency>
+<!-- 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 		</dependency>
-
+ -->
 
 
 		<!-- 암호화 의존성등록 -->

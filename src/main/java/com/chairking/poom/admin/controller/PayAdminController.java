@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chairking.poom.admin.model.service.PayAdminService;
+import com.chairking.poom.common.Pagination;
 
 @Controller
 @RequestMapping("/payAdmin")
@@ -25,10 +27,15 @@ public class PayAdminController {
 	
 	//결제관리 첫화면
 	@GetMapping()
-	public ModelAndView pay(ModelAndView mv) {
+	public ModelAndView pay(ModelAndView mv,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, //현재페이지
+            @RequestParam(value = "cntPerPage", required = false, defaultValue = "5") int cntPerPage, //numPerpage
+            @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
 		//어제~-7일꺼까지의 리스트 불러오는 쿼리
-		List<Map<String,Object>> list = service.allPayment();
-		
+		//페이징처리
+		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
+		pagination.setTotalRecordCount(service.allPaymentCount());
+		List<Map<String,Object>> list = service.allPayment(pagination);
 		//rollup으로 총 합계금액 가져오는 쿼리
 		List<Map<String,Object>> sumList=service.sumAllPayment();
 		List<Map<String,Object>> real=new ArrayList();
