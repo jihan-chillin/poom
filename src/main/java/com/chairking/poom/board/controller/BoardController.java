@@ -53,6 +53,14 @@ public class BoardController {
 		return "board/board_form";
 	}
 
+	// 해시태그 메소드
+	public ModelAndView selectBoardFromTag(List boardNo,ModelAndView mv){
+
+		mv.addObject("oList",boardNo);
+		mv.setViewName("board/board_list");
+		return mv;
+	}
+
 	// ckeditor 파일 업로드
 
 	@RequestMapping(value="/images/ckeditor", method = RequestMethod.POST)
@@ -149,6 +157,24 @@ public class BoardController {
 
 		return;
 	}
+
+	// 이미지 다운로드 받기
+//	@RequestMapping("/ckeditor/fileDownload")
+//	public void ckSubmit(@RequestParam(value="fileName") String fileName, HttpServletRequest request, HttpServletResponse response) {
+//		File file = FileUtilities.getDownloadFile(fileName, "files/ckeditor");
+//		try {
+//			byte[] data = FileUtils.readFileToByteArray(file);
+
+//			response.setContentType(FileUtilities.getMediaType(fileName).toString());
+//			response.setContentLength(data.length);
+//			response.setHeader("Content-Transfer-Encoding", "binary");
+//			response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName, "UTF-8") + "\";"); response.getOutputStream().write(data);
+//			response.getOutputStream().flush(); response.getOutputStream().close();
+//			} catch (IOException e) {
+//				throw new RuntimeException("파일 다운로드에 실패하였습니다.");
+//			} catch (Exception e) {
+//				throw new RuntimeException("시스템에 문제가 발생하였습니다.");
+//		} }
 
 
 
