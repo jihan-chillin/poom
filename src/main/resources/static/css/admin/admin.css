@@ -50,9 +50,6 @@ div#admin_menu>ul>li img{
     margin-right:10px;
     vertical-align:middle;
 }
-/* div#admin_menu>ul>li:hover{
-    color:#F77B1E;
-} */
 ul#blame_menu li{
     margin-left:50px;
     font-size: 16px;
@@ -211,7 +208,6 @@ table#blame_table tr{
     border-bottom:1px lightgray solid;
 }
 /*테이블 넓이 설정*/
-/*table#blame_table>thead>tr>th>input[type="checkbox"]*/
 table#blame_table tr td:nth-child(1), table#blame_table tr th:nth-child(1){
     width:5%;
 }
@@ -225,10 +221,6 @@ table#blame_table tr td:nth-child(5), table#blame_table tr th:nth-child(5){
     width:10%;
     padding-right:30px;
 }
-/* table#blame_table tr td:nth-child(5), table#blame_table tr th:nth-child(5){
-	width:300px;
-	text-align:left;
-} */
 table#blame_table tr td:nth-child(4){
 	font-weight:bold;
 }
@@ -315,14 +307,24 @@ div#pay_table_content>table{
     margin-top: 50px;
     margin-bottom:20px;
 }
-table#pay_table>thead>tr{
+table#payAdmin_table{
+	border-collapse: collapse;
+    text-align: center;
+    width:1200px;
+    border-top : 2px solid gray;
+    border-bottom : 2px solid gray;
+    font-size:14px;
+}
+table#pay_table>thead>tr,table#payAdmin_table>thead>tr{
     border-bottom : 2px solid gray;
 }
-table#pay_table td, #pay_table th{
+table#pay_table td, #pay_table th, #payAdmin_table td, #payAdmin_table th{
     height:50px;
 }
-table#pay_table tr{
+table#pay_table tr, table#payAdmin_table tr{
     border-bottom:1px lightgray solid;
 }
-
+table#payAdmin_table tr td, table#payAdmin_bale tr th{
+	width:25%;
+}
 /*결제관리 끝*/

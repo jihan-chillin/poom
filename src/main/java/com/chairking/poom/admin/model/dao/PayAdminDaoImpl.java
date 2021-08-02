@@ -13,7 +13,7 @@ public class PayAdminDaoImpl implements PayAdminDao {
 
 	@Override
 	public List<Map<String, Object>> allPayment(AdminMapper mapper, Pagination pagination) {
-		return mapper.allPayment();
+		return mapper.allPayment(pagination);
 	}
 
 	

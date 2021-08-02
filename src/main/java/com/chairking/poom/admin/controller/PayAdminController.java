@@ -35,6 +35,7 @@ public class PayAdminController {
 		//페이징처리
 		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
 		pagination.setTotalRecordCount(service.allPaymentCount());
+		System.out.println(pagination);
 		List<Map<String,Object>> list = service.allPayment(pagination);
 		System.out.println(pagination);
 		//rollup으로 총 합계금액 가져오는 쿼리
@@ -62,7 +63,7 @@ public class PayAdminController {
 		}
 		//-1~-7일 날짜 구하기
 		Calendar c1 = new GregorianCalendar();
-		SimpleDateFormat sdf = new SimpleDateFormat("M월 dd일"); // 날짜 포맷 
+		SimpleDateFormat sdf = new SimpleDateFormat("M월 d일"); // 날짜 포맷 
 		String[] dayArr=new String[7];
 		for(int i=0; i<7; i++) {
 			c1.add(Calendar.DATE, -1); //
@@ -77,6 +78,20 @@ public class PayAdminController {
 		return mv;
 	}
 	
-	
+	@GetMapping("/detail")
+	public ModelAndView detail(ModelAndView mv,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, //현재페이지
+            @RequestParam(value = "cntPerPage", required = false, defaultValue = "5") int cntPerPage, //numPerpage
+            @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
+		//최근구매내역 상세페이지 (리스트 불러오기), 페이지바 해야함
+		//페이징처리
+		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
+		pagination.setTotalRecordCount(service.allPaymentCount());
+		List<Map<String,Object>> list = service.allPayment(pagination);
+		mv.addObject("list", list);
+		mv.addObject("pagination",pagination);
+		mv.setViewName("admin/admin_pay_detail");
+		return mv;
+	}
 		
 }

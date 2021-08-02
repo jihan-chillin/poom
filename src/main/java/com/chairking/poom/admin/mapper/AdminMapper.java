@@ -99,8 +99,8 @@ public interface AdminMapper {
 	
 	//결제관리
 	//리스트
-	@Select("SELECT PAY_DATE,MEMBER_ID, MEMBER_NICKNAME, ITEM_TYPE FROM PAYMENT JOIN ITEMS USING(ITEM_NO) join MEMBER USING(MEMBER_ID) ORDER BY PAY_DATE DESC")
-	public List<Map<String,Object>> allPayment();
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM (SELECT PAY_DATE,MEMBER_ID, MEMBER_NICKNAME, ITEM_TYPE FROM PAYMENT JOIN ITEMS USING(ITEM_NO) join MEMBER USING(MEMBER_ID) ORDER BY PAY_DATE DESC)A)WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex} ")
+	public List<Map<String,Object>> allPayment(Pagination pagination);
 	//카운트
 	@Select("SELECT COUNT(*) FROM PAYMENT ORDER BY PAY_DATE DESC")
 	public int allPaymentCount();
