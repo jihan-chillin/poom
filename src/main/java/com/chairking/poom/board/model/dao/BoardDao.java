@@ -10,6 +10,8 @@ import com.chairking.poom.board.model.vo.BoardImage;
 public interface BoardDao {
 	
 	int insertBoard(BoardMapper mapper, Board b);
+	
+	int insertFeed(BoardMapper mapper, Map param);
 
 	List<Map<String, Object>> selectAllBoard(BoardMapper mapper, int cPage, int numPerpage);
 

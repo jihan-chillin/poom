@@ -1,4 +1,3 @@
-//var contextPath = $('#contextPathHolder').attr('data-contextPath') ? $('#contextPathHolder').attr('data-contextPath') : '';
 $(document).ready(function(){
  
     // 좌측메뉴바 show/hide 스크립트
@@ -61,3 +60,20 @@ function logOut(){
     location.replace(getContextPath()+"/login/logOut");
 }
 
+function feedWrite() {
+	var title = $("[name=boardTitle]").val();
+	var content = $("[name=boardContent]").val();
+
+	if(title == ""){
+        alert("제목을 입력해주세요.");
+        $("[name=boardTitle]").focus();
+        return false;
+    }
+    if(content == ""){
+        alert("제목을 입력해주세요.");
+        $("[name=boardContent]").focus();
+        return false;
+    }
+
+    $("[name=feedWrite_form]").submit();
+} 

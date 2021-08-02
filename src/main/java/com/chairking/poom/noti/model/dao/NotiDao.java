@@ -15,5 +15,6 @@ public interface NotiDao {
     String getBoardTitleFromBoardNo(NotiMapper mapper,String boardNo);
     String getBoardTitleFromCommentNo(NotiMapper mapper,String commentNo);
     String getMsgContentFromMsgNo(NotiMapper mapper,String msgNo);
+    int deleteNotiBoardDelStatus(NotiMapper mapper,String boardNo);
 
 }

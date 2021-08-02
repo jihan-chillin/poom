@@ -69,5 +69,9 @@ public class BoardServiceImpl implements BoardService {
 		return dao.selectCommentList(mapper, boardNo);
 	}
 
+	@Override
+	public int insertFeed(Map param) {
+		return dao.insertFeed(mapper, param);
+	}
 
 }
