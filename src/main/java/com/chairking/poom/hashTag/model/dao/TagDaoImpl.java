@@ -49,7 +49,7 @@ public class TagDaoImpl implements TagDao{
     }
 
     @Override
-    public List<String> getBoardNoFromTag(TagMapper mapper, String tagName) {
-        return mapper.getBoardNoFromTag(tagName);
+    public List<Map<String, Object>>getBoardNoFromTag(TagMapper mapper, String tagName,int cPage,int numPerPage) {
+        return mapper.getBoardNoFromTag(tagName,(cPage-1)*numPerPage+1,(numPerPage*cPage));
     }
 }

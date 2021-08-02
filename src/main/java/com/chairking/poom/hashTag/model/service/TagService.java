@@ -12,5 +12,5 @@ public interface TagService {
     List<Map<String,String>> searchTag(String keyword);
     String getBoardNo();
     int insertBoardTag(String boardNo, String keyword);
-    List<String> getBoardNoFromTag(String tagName);
+    List<Map<String, Object>> getBoardNoFromTag(String tagName,int cPage, int numPerPage);
 }

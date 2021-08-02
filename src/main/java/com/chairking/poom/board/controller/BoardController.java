@@ -53,14 +53,6 @@ public class BoardController {
 		return "board/board_form";
 	}
 
-	// 해시태그 메소드
-	public ModelAndView selectBoardFromTag(List boardNo,ModelAndView mv){
-
-		mv.addObject("oList",boardNo);
-		mv.setViewName("board/board_list");
-		return mv;
-	}
-
 	// ckeditor 파일 업로드
 
 	@RequestMapping(value="/images/ckeditor", method = RequestMethod.POST)

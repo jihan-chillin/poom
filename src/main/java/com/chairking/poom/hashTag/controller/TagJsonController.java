@@ -19,8 +19,7 @@ import java.util.Map;
 public class TagJsonController {
     @Autowired
     private TagService tagService;
-    @Autowired
-    private BoardController boardController;
+
 
     @GetMapping("/tag/my/data")
     public List getMyTagData(HttpServletRequest req){
@@ -65,11 +64,5 @@ public class TagJsonController {
         return tagService.getBoardNo();
     }
 
-    // 태그 클릭시 게시물로 이동.
-    @GetMapping("/tag/board")
-    public void moveToBoardFromTag(@RequestParam String tagName){
-        List<String> boardNo = tagService.getBoardNoFromTag(tagName);
-//        boardController.selectBoardFromTag(boardNo);
-    }
 
 }
