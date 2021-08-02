@@ -23,10 +23,12 @@
             </tr>
             </thead>
             <tr>
-                <td>2021.07.18</td>
-                <td>qwerqwer</td>
-                <td>체어킹</td>
-                <td>30일권</td>
+                <td th:text="${#dates.format(list[0].PAY_DATE,'yyyy.MM.dd')}">2021.07.18</td>
+                <td th:text="${list[0].MEMBER_ID}">qwerqwer</td>
+                <td th:text="${list[0].MEMBER_NICKNAME}">체어킹</td>
+                <td th:text="${list[0].ITEM_TYPE} eq '7'?'7일권'">30일권</td>
+                <td th:text="${list[0].ITEM_TYPE} eq '14'?'14일권'">30일권</td>
+                <td th:text="${list[0].ITEM_TYPE} eq '30'?'30일권'">30일권</td>
             </tr>
             <tr>
                 <td>2021.07.17</td>

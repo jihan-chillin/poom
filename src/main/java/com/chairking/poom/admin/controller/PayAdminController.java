@@ -36,12 +36,12 @@ public class PayAdminController {
 		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
 		pagination.setTotalRecordCount(service.allPaymentCount());
 		List<Map<String,Object>> list = service.allPayment(pagination);
+		System.out.println(pagination);
 		//rollup으로 총 합계금액 가져오는 쿼리
 		List<Map<String,Object>> sumList=service.sumAllPayment();
 		List<Map<String,Object>> real=new ArrayList();
 		
 		for(int i=0;i<sumList.size();i++) {
-			
 			if(sumList.get(i).size()==3) {
 				Map<String,Object> map=new HashMap();
 				map.put("S", sumList.get(i).get("S"));

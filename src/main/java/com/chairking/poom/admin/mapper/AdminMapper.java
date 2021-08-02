@@ -101,8 +101,10 @@ public interface AdminMapper {
 	//리스트
 	@Select("SELECT PAY_DATE,MEMBER_ID, MEMBER_NICKNAME, ITEM_TYPE FROM PAYMENT JOIN ITEMS USING(ITEM_NO) join MEMBER USING(MEMBER_ID) ORDER BY PAY_DATE DESC")
 	public List<Map<String,Object>> allPayment();
-	
-	//
+	//카운트
+	@Select("SELECT COUNT(*) FROM PAYMENT ORDER BY PAY_DATE DESC")
+	public int allPaymentCount();
+	//각 날짜별, 아이템별 합계금액
 	@Select("SELECT PAY_DATE,ITEM_TYPE, SUM(ITEM_PRICE) AS S FROM PAYMENT JOIN ITEMS USING(ITEM_NO) WHERE PAY_DATE BETWEEN SYSDATE-8 AND SYSDATE-1 GROUP BY ROLLUP(PAY_DATE,ITEM_TYPE)")
 	public List<Map<String,Object>> sumAllPayment();
 }

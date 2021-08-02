@@ -20,14 +20,13 @@ public class PayAdminServiceImpl implements PayAdminService {
 
 	@Override
 	public List<Map<String, Object>> allPayment(Pagination pagination) {
-		return dao.allPayment(mapper);
+		return dao.allPayment(mapper,pagination);
 	}
 	
 	@Override
 	public int allPaymentCount() {
-		return dao.allPaymentcount(mapper);
+		return dao.allPaymentCount(mapper);
 	}
-
 
 	@Override
 	public List<Map<String, Object>> sumAllPayment() {
