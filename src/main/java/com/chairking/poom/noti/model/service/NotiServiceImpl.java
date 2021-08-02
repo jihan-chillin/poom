@@ -60,4 +60,10 @@ public class NotiServiceImpl implements NotiService {
     public String getMsgContentFromMsgNo(String msgNo) {
         return dao.getMsgContentFromMsgNo(mapper,msgNo);
     }
+
+    @Override
+    public int deleteNotiBoardDelStatus(String boardNo) {
+        return dao.deleteNotiBoardDelStatus(mapper,boardNo);
+    }
+
 }

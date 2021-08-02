@@ -14,4 +14,5 @@ public interface TagDao {
     List<Map<String,String>> searchTag(TagMapper mapper,String keyword);
     String getBoardNo(TagMapper mapper);
     int insertBoardTag(TagMapper mapper,String boardNo,String keyword);
+    List<Map<String, Object>> getBoardNoFromTag(TagMapper mapper,String tagName,int cPage,int numPerPage);
 }
