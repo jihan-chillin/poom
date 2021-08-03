@@ -5,7 +5,7 @@
 
 
 	<!-- ckeditor api 가져오는 화면 -->
-	<form id = "ckeditor-form" enctype="multipart/form-data" method="post" onsubmit="return false">
+	<form id = "ckeditor-form"  action="/board/insert" enctype="multipart/form-data" method="post" onsubmit="return false">
 <!--		<input type="hidden" id="id" th:if="*{id != null and id > 0}" th:field="*{id}" />-->
 		<table id="ckeditor-table">
 			<tr>
@@ -45,8 +45,8 @@
 
 			</tr>
 
-
 		</table>
+	</form>
 
 		<!--textarea를 스마트 에디터로 변경할 것-->
 		<script>
@@ -78,9 +78,9 @@
 				})
 
 				// CKEditor로 작성한 글  & 파일 게시 잘 되는지 확인
-				$('#ckeditor-btn').click(function(){
-					alert(CKEDITOR.instances.ckeditorarea.getData());
-				})
+				// $('#ckeditor-btn').click(function(){
+				// 	alert(CKEDITOR.instances.ckeditorarea.getData());
+				// })
 
 			})
 
