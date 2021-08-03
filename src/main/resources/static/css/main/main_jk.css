@@ -93,8 +93,7 @@ ul.header_ui>li {
     cursor: pointer;
 }
 ul.header_ui>li:first-child {
-    background: url(../../images/ui/alarm.png) no-repeat center;
-    background-size: contain;
+    /*background-size: contain;*/
 }
 ul.header_ui>li:nth-child(2) {
     background: url(../../images/ui/mypage.png) no-repeat center;
@@ -443,6 +442,7 @@ div.feed_new {
     margin-top: 7px;
     padding: 30px;
     position: relative;
+    z-index: 100;
 }
 div.loc_onoff {
 	position: absolute;
