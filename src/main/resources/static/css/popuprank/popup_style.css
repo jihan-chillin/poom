@@ -1,0 +1,65 @@
+/* 팝업창 */
+.popup_container{
+    position:absolute;
+    top:10px;
+    left:30px;
+    z-index: 9999;
+}
+
+/* 순위 표시부분 */
+.popup{
+    border:1px solid black;
+    width:300px;
+    height:450px;
+    text-align:center;
+}
+/* 팝업창 제목 */
+.popup>div:first-child{
+    font-weight:bold;
+    font-size:40px;
+    margin:20px;
+}
+/* 1등한 유저 */
+.popup>div:nth-child(2){
+    margin-bottom:20px;
+    height:194px;
+}
+.popup div:nth-child(2) div{
+    width:141px; height:141px;
+    
+    border:5px solid black;
+    border-radius:74px;
+
+    background-size: cover;
+
+    position:absolute;
+    left:74.5px;
+}
+
+/* 나머지 유저 */
+.popup>div:nth-child(2)~div{
+    display:flex;
+    padding:10px;
+    padding-left:50px; padding-right:50px;
+    justify-content: space-between;
+    cursor:pointer;
+}
+
+/* 일주일간 보지않기/닫기 */
+.popup_visible{
+    display:block;
+    text-align: right;
+    /* width:300px; */
+    width:292px; height:20px;
+    padding-right:10px;
+    background-color: black; color:white;
+    font-size:10px;
+    padding-top:3px;
+}
+.popup_visible>*{
+    cursor:pointer;
+}
+input{
+    margin:0; padding:0;
+    vertical-align: -3px;
+}

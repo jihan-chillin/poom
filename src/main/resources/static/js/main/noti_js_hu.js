@@ -78,6 +78,7 @@ function getNotificationData(){
       $('.modal-content-list>*').remove();
 
       let val = '';
+      let val2 ='';
 
       if(data.boardTitleFromBoardNo.length === 0){
         val += '<div class="noti-content-box">';
@@ -131,9 +132,14 @@ function getNotificationData(){
               val += '</span>';
             val += '</div>';
           val += '</div>';
+
+          // 알림 왔을때
+          val2 += '<div class="alarm-count"><span>N</span></div></div>';
       }
 
       $('.modal-content-list').append(val);
+      $('.modal-content-list').append(val2);
+
     }
   });
 }
@@ -152,6 +158,8 @@ function getMessageDataToNotify(){
       $('.modal-content-list>*').remove();
 
       let val = '';
+      let val2 = '';
+
 
       if(data.notiData.length === 0){
         val += '<div class="noti-content-box">';
@@ -184,9 +192,13 @@ function getMessageDataToNotify(){
         val += '</span>';
         val += '</div>';
         val += '</div>';
+        val2 += '<div class="alarm-count"><span>N</span></div></div>';
+
       }
 
       $('.modal-content-list').append(val);
+      $('.modal-content-list').append(val2);
+
     }
   })
 }

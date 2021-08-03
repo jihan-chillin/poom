@@ -28,4 +28,7 @@ public interface TagMapper {
     public String getBoardNo();
     @Insert("insert into BOARDTAG values (seq_boardtagno.nextval,#{boardNo},#{keyword})")
     public int insertBoardTag(String boardNo,String keyword);
+    @Select("select a.* from (select b2.BOARD_NO, b2.BOARD_TITLE, b2.BOARD_CONTENT, b2.BOARD_DATE, b2.BLAME_COUNT from BOARDTAG b join TAG t on b.TAG_NAME = t.TAG_NAME join BOARD B2 on b.BOARD_NO = B2.BOARD_NO where t.TAG_NAME = #{tagName} )a where ROWNUM between #{cPage} and #{numPerPage}")
+    public List<Map<String, Object>> getBoardNoFromTag(String tagName,int cPage,int numPerPage);
+
 }

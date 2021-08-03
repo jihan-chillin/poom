@@ -44,4 +44,20 @@ public interface BoardMapper {
 	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.NEXTVAL, #{title}, #{content}, DEFAULT, DEFAULT, DEFAULT, "
 			+ "#{loc}, DEFAULT, #{category}, #{id}, DEFAULT)")
 	public int insertFeed(Map param);
+	
+	//메인피드 게시글(전국,전체)
+	@Select("SELECT * FROM BOARD JOIN CATEGORY ON (BOARD_CATE=CATEGORY_NO) ORDER BY BOARD_DATE DESC")
+	public List<Map<String, Object>> feedListAllAll(Map param);
+	
+	//메인피드 게시글(전국,키워드)
+	@Select("SELECT * FROM BOARD ORDER BY BOARD_DATE DESC")
+	public List<Map<String, Object>> feedListAllKey(Map param);
+	
+	//메인피드 게시글(지역,전체)
+	@Select("SELECT * FROM BOARD JOIN CATEGORY ON (BOARD_CATE=CATEGORY_NO) WHERE BOARD_LOC=#{loc} ORDER BY BOARD_DATE DESC")
+	public List<Map<String, Object>> feedListLocAll(Map param);
+		
+	//메인피드 게시글(지역,키워드)
+	@Select("SELECT * FROM BOARD ORDER BY BOARD_DATE DESC")
+	public List<Map<String, Object>> feedListLocKey(Map param);
 }

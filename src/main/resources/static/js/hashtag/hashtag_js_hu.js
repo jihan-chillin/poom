@@ -64,8 +64,40 @@ function getMyTagData(){
         }
       });
 
+      // 태그를 누르면 게시글로 이동
+      $('.my-tag').click(e=>{
+
+        const tagName = $(e.target).text().replace("x","");
+        tagContainsBoardList(tagName);
+      });
     }
   });
+}
+
+function tagContainsBoardList(tagName){
+  $('.feed_write').remove();
+  $('.feed_new').remove();
+
+  $('.feed').css({
+    "background": "#f7f7f7","border-radius":"20px",
+    "height" : "800px"
+  });
+
+  $.ajax({
+    url:getContextPath()+"/tag/board",
+    data:{
+      "tagName":tagName
+    },
+    success:function (result){
+      $('.feed').html(result)
+
+    },
+    error:(e,m,i)=>{
+      console.log(e);
+      console.log(m);
+      console.log(i);
+    }
+  })
 }
 
 //검색어 입력시 태그 검색
