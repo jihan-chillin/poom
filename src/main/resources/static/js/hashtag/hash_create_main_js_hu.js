@@ -79,13 +79,13 @@ function confirmTag(keyword){
 
 /*
 
- 메인 page에서 글쓰기 누르면 실행되는 메소드
+ 메인 page에서 글쓰기 누르면 실행되는 함수
  필요값 => 입력된 태그
  결과 => tag 테이블에 사용자가 입력한 태그가 등록됨
 
  */
 
-// 입력한 태그 가져오는 메소드
+// 입력한 태그 가져오는 함수
 function getConfirmTag(){
   let tagText = $('.tag-confirm').text();
 
@@ -99,7 +99,7 @@ function getConfirmTag(){
   return;
 }
 
-// 등록된 태그 각각 db에 등록하는 메소드
+// 등록된 태그 각각 db에 등록하는 함수
 function addTagEach(getConfirmTag){
   // 0번 인덱스는 항상 빈값
   for(let i=1; i<getConfirmTag.length; i++){
@@ -120,7 +120,7 @@ function addTagEach(getConfirmTag){
   }
 }
 
-// 메인 페이지에서 태그 등록하는 메소드
+// 메인 페이지에서 태그 등록하는 함수
 function addTagFromMainPage(keyword){
   $.ajax({
     url:getContextPath()+'/tag/add',
