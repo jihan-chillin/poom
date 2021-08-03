@@ -90,11 +90,13 @@ function getNotificationData(){
 
         $('.modal-content-list').append(val);
 
+        $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_normal.png) no-repeat center; background-size: contain;");
         return;
       }
 
 
       for(let i =0; i<data.notiData.length; i++){
+        $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_receive.png) no-repeat center; background-size: contain;");
         val += '<div class="noti-content-box">';
           val += '<div class="noti-img">';
 

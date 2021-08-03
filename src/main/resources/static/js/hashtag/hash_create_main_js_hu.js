@@ -109,8 +109,10 @@ function addTagEach(getConfirmTag){
         "keyword": getConfirmTag[i]
       },
       success:data=>{
+        // console.log(getConfirmTag[i]);
         // 메인피드의 게시물에서 요청
-        if(data === null) {
+        if(data.length === 0) {
+          console.log("추가?");
           addTagFromMainPage(getConfirmTag[i]);
         }
       }
@@ -125,6 +127,9 @@ function addTagFromMainPage(keyword){
     data:{
       "keyword":keyword,
       "ref":"feed"
+    },
+    success:data=>{
+      console.log("테이블에 추가");
     }
   });
 }
