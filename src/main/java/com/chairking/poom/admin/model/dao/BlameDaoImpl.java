@@ -82,16 +82,14 @@ public class BlameDaoImpl implements BlameDao {
 		return mapper.updateChatBlameCount(no);
 	}
 
-	
 	@Override
-	public String hiddenCheck(SqlSessionTemplate session, Map<String, String> map) {
-		return session.selectOne("adminMapper.hiddenCheck",map);
+	public int selectBlameCount(SqlSessionTemplate session, Map<String, String> map) {
+		return session.selectOne("adminMapper.selectBlameCount",map);
 	}
-
 	
 	@Override
-	public String hiddenChat(AdminMapper mapper, String no) {
-		return mapper.hiddenChat(no);
+	public int changeDelStatus(SqlSessionTemplate session, Map<String, String> map) {
+		return session.update("adminMapper.changeDelStatus",map);
 	}
 
 	@Override

@@ -5,7 +5,7 @@
         </div>
         <div id="sales" th:with="size=${#lists.size(sumList)-1}">
             <p class="p_font2">어제 총 매출액</p>
-            <p th:text="${days[0] eq #dates.format(sumList[size].PAY_DATE,'MM월 dd일')?#numbers.formatInteger(sumList[size].S,3,'COMMA')+'원':#numbers.formatInteger(sumList[size].S,3,'COMMA')+'원'}">1,000,000원</p>
+            <p th:text="${days[0] eq #dates.format(sumList[size].PAY_DATE,'MM월 dd일')?#numbers.formatInteger(sumList[size].S,3,'COMMA')+'원':'0원'}">1,000,000원</p>
             <span class="span_font">금주 예상 매출액 : 1,000,000원</span><br>
             <span class="span_font">당월 예상 매출액 : 1,000,000원</span><br>
             <span class="span_font">전월  매출액 : 1,000,000원</span>

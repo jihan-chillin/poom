@@ -77,10 +77,11 @@ public class BlameController {
 		}
 		System.out.println("insertblame:"+map);
 		//type에따라 각 해당하는 신고테이블에 넣기
-		int result=service.insertBlame(map);	//서비스에 트랜젝션처리함 근데 에러뜨면 에러페이지 이동하게 해놓거나 msg로 이동하게 해서 처리하기
+		int result=service.insertBlame(map);	
 		
-		//insert+update 후 함수 실행하기
-		String reply=service.hiddenCheck(map);
+		//insert+update 후 
+		//해당 no의 blame_count가져오고 그걸 토대로 del_status=1로 update하기
+		int reply=service.hiddenCheck(map);
 		System.out.println("reply"+reply);
 		mv.addObject("map",map);
 		mv.setViewName("admin/blame_popup_suc");
