@@ -47,5 +47,23 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.insertFeed(param);
 	}
 
+	@Override
+	public List<Map<String, Object>> feedList(BoardMapper mapper, Map param) {
+		if(param.get("loc").equals("")) {
+			if(param.get("list").equals("feedall")) {
+				return mapper.feedListAllAll(param);
+			}else {
+				return mapper.feedListAllKey(param);
+			}
+		}else {
+			if(param.get("list").equals("feedall")) {
+				return mapper.feedListLocAll(param);
+			}else {
+				return mapper.feedListLocKey(param);
+			}
+		}
+	}
+
+	
 
 }

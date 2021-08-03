@@ -13,6 +13,8 @@ public interface BoardService {
 
 	int insertFeed(Map param);
 	
+	List<Map<String, Object>> feedList(Map param);
+	
 	// 게시글 전체 가져오기
 	List<Map<String, Object>> selectAllBoard(int cPage, int numPerpage);
 

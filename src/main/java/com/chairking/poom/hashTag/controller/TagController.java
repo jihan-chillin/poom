@@ -1,6 +1,5 @@
 package com.chairking.poom.hashTag.controller;
 
-import com.chairking.poom.board.controller.BoardController;
 import com.chairking.poom.hashTag.model.service.TagService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,6 @@ import java.util.Map;
 public class TagController {
     @Autowired
     private TagService tagService;
-    @Autowired
-    private BoardController boardController;
 
     @GetMapping("/tag/my/page")
     public String moveMyTagPage(){

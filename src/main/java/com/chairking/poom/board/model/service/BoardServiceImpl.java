@@ -74,4 +74,10 @@ public class BoardServiceImpl implements BoardService {
 		return dao.insertFeed(mapper, param);
 	}
 
+	@Override
+	public List<Map<String, Object>> feedList(Map param) {
+		return dao.feedList(mapper, param);
+	}
+	
+	
 }

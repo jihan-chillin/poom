@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <div th:replace="/fragments/header.html :: fragment-header"></div>
+  <!--message css-->
+  <link th:href="@{/css/message/message_tap.css}" rel="stylesheet" type="text/css">
+</head>
+<script th:inline="javascript">
+  $(document).ready(function() {
+    fn_message_move('receive');
+  });
+</script>
+
+<body>
+<div id="wrapper">
+
+  <!-- 헤더바 -->
+  <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+  <!-- 좌측메뉴바 -->
+  <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+
+  <!-- 우측콘텐츠 / 고정+변동 -->
+  <div id="content">
+
+    <!-- 프로필 -->
+    <div th:replace="/fragments/profile.html :: fragment-profile"></div>
+
+
+    <!-- message 구역  -->
+    <div class="feed">
+      <div id="target"></div>
+      <div id="search_section">
+        <div id="table1" th:if="${list!=null}" >
+          <table class="col-100 col" >
+            <colgroup>
+              <col width="10%">
+              <col width="20%">
+              <col width="*%">
+              <col width="*%">
+            </colgroup>
+            <thead>
+            <tr>
+              <th style="display:none">no</th>
+              <th style="display:none">카테고리 번호</th>
+              <th>카테고리 이름</th>
+              <th>게시물 종류</th>
+              <th>제목</th>
+              <th>내용</th>
+              <th>작성일자</th>
+              <th>작성자</th>
+            </tr>
+            </thead>
+            <tbody  id="searchBody">
+            <tr th:each="mv:${list}">
+              <td style="display:none" th:text="${mv.SEARCH_NO}" ></td>
+              <td style="display:none" th:text="${mv.CATEGORY_NO}"></td>
+              <td th:text="${mv.CATEGORY_NAME}" ></td>
+              <td th:text="${mv.CON_TYPE}"></td>
+              <td th:text="${mv.TITLE}"></td>
+              <td th:text="${mv.CONTENT}"></td>
+              <td th:text="${mv.WRITE_DATE}"></td>
+              <td th:text="${mv.MEMBER_ID}"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+
+<!--      <input type="button" class="send-message" value="쪽지보내기" onclick="showPopup();">-->
+
+    </div>
+
+    <!-- HOT키워드순위창 -->
+    <div th:replace="/fragments/rank.html :: fragment-rank"></div>
+
+
+  </div>
+</div>
+</body>
+
+<script th:src="@{/js/main/main_js_jk.js}"></script>
+<script th:src="@{/js/board/board_list_sh.js}"></script>
+<script th:src="@{/js/search/search_js_sh.js}"></script>
+
+
+
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
