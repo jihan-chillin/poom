@@ -4,10 +4,12 @@
 <!-- 헤더영역 / 고정 -->
 <div id="header" th:fragment="fragment-headerbar">
     <div class="logo"></div>
+    <form id="search">
     <div class="search_bar">
-        <input type="text" placeholder="#품 #지역기반커뮤니티 #무엇이든 검색하세요!">
-        <button>go</button>
+        <input type="text" name="uInput" id="uInput" placeholder="#품 #지역기반커뮤니티 #무엇이든 검색하세요!">
+        <button id="searchgo" onclick="searchList();">go</button>
     </div>
+    </form>
     <ul class="header_ui">
         <li class="noti_icon">
             <div id="modal" class="modal-overlay" style="display: none">
