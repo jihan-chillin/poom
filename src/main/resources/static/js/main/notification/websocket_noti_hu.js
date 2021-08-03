@@ -11,27 +11,17 @@ function notiConnent(){
 }
 
 function onNotiConnected(){
-  notiStompClient.subscribe(getContextPath()+'/receive/noti',onNotiReceived);
+  notiStompClient.subscribe('/receive/noti',onNotiReceived);
 }
 
-function sendNoti(loginId){
-  notiStompClient.send(getContextPath()+"/send/notification/alarm",{},JSON.stringify(loginId));
+function sendNoti(){
+  notiStompClient.send("/send/notification/alarm",{},{});
 }
 
 function onNotiReceived(payload){
-  console.log('페이로드 JSON :'+JSON.parse(payload.body));
-  // console.log("됨");
-  // getNotificationData();
+  getNotificationData();
 }
 
-$(function(){
-  $('.noti_icon').click(e=>{
-    let loginId = $('#loginMember_id').text();
-    // console.log(loginId);
-
-    sendNoti(loginId);
-  });
-});
 
 notiConnent();
 

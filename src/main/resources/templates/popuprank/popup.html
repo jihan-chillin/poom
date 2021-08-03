@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="popup_style.css" rel="stylesheet" type="text/css"/>
+
+<body>
+    <!-- 조회수왕/인기욍 팝업창 -->
+    <div class="popup_container">
+        <div class="popup">
+            <div>000왕</div>
+            <div>
+                <img src="images/crown.png" width="50px"/>
+                <div style="background-image:url('images/profile.png');" width="180px"></div>
+            </div>
+            <div>
+                <span>1위</span>
+                <span>아이디</span>
+                <span>제목</span>
+                <span>00개</span>
+            </div>
+            <div>
+                <span>2위</span>
+                <span>아이디</span>
+                <span>제목</span>
+                <span>00개</span>
+            </div>     
+            <div>
+                <span>3위</span>
+                <span>아이디</span>
+                <span>제목</span>
+                <span>00개</span>
+            </div>
+        </div>
+        <div class="popup_visible">
+            <label><input type="checkbox" value="false" name="visible">일주일동안 보지않기</label>&nbsp;&nbsp;
+            <a>닫기 x</a>
+        </div>
+    </div>
+
+    <script>
+        //닫기 버튼 클릭시
+        $(".popup_visible").children("a").click(e=>{
+            $(".popup_container").css("display", "none");
+        });
+        // 일주일간 보지않기 클릭시
+        $(".popup_visible").children("label").click(e=>{
+            $.ajax({
+
+                success:data=>{
+                    $(".popup_container").css("display", "none");
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

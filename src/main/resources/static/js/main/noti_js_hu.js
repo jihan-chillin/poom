@@ -78,6 +78,7 @@ function getNotificationData(){
       $('.modal-content-list>*').remove();
 
       let val = '';
+      let val2 ='';
 
       if(data.boardTitleFromBoardNo.length === 0){
         val += '<div class="noti-content-box">';
@@ -89,11 +90,13 @@ function getNotificationData(){
 
         $('.modal-content-list').append(val);
 
+        $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_normal.png) no-repeat center; background-size: contain;");
         return;
       }
 
 
       for(let i =0; i<data.notiData.length; i++){
+        $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_receive.png) no-repeat center; background-size: contain;");
         val += '<div class="noti-content-box">';
           val += '<div class="noti-img">';
 
@@ -131,9 +134,14 @@ function getNotificationData(){
               val += '</span>';
             val += '</div>';
           val += '</div>';
+
+          // 알림 왔을때
+          val2 += '<div class="alarm-count"><span>N</span></div></div>';
       }
 
       $('.modal-content-list').append(val);
+      $('.modal-content-list').append(val2);
+
     }
   });
 }
@@ -152,6 +160,8 @@ function getMessageDataToNotify(){
       $('.modal-content-list>*').remove();
 
       let val = '';
+      let val2 = '';
+
 
       if(data.notiData.length === 0){
         val += '<div class="noti-content-box">';
@@ -184,9 +194,13 @@ function getMessageDataToNotify(){
         val += '</span>';
         val += '</div>';
         val += '</div>';
+        val2 += '<div class="alarm-count"><span>N</span></div></div>';
+
       }
 
       $('.modal-content-list').append(val);
+      $('.modal-content-list').append(val2);
+
     }
   })
 }
