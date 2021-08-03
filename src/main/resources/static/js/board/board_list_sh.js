@@ -73,7 +73,7 @@ function moveToView(no){
 			"boardNo":no
 		},
 		success:data=>{
-			$(".feed").html(data);
+			$("#content").html(data);
 		}
 	})
 }

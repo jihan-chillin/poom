@@ -54,8 +54,6 @@ function fn_moveBoardNotice(){
 			"no":1
 		}
 	}).done(function (fragment){
-		//$(".profile").html(fragment);
-		//$(".feed").hide();
 		$("#content").html(fragment);
 	})
 }
