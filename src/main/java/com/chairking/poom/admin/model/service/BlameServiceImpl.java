@@ -81,6 +81,34 @@ public class BlameServiceImpl implements BlameService {
 		return result;
 	}
 	
+	@Override
+	@Transactional
+	public int hiddenCheck(Map<String, String> map) {
+		int result=0;
+		//insert+update 후에 function으로 체크하기
+		//해당 no의 blame_count가져오고 그걸 토대로 del_status=1로 update하기
+		switch(map.get("type")) {
+		case "b" : 
+			result=dao.selectBlameCount(session,map);
+			if(result>9) {
+				result=dao.changeDelStatus(session,map);
+			}
+			break;
+		case "bc" : 
+			result=dao.selectBlameCount(session,map);
+			if(result>9) {
+				result=dao.changeDelStatus(session,map);
+			}
+			break;
+		case "ch" : 
+			result=dao.selectBlameCount(session,map);
+			if(result>9) {
+				result=dao.changeDelStatus(session,map);
+			}
+			break;
+	}
+		return result;
+	}
 	//type,no로 신고글 가져오기
 	@Override
 	public List<Map<String, Object>> selectBlame(Map<String, Object> map) {
