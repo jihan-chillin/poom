@@ -1,5 +1,6 @@
 $(document).ready(function(){
- 
+ 	feedNew();
+ 	
     // 좌측메뉴바 show/hide 스크립트
     $('.menu_open').on('click', function(){
         $('.city_bar').show().animate({
@@ -16,7 +17,7 @@ $(document).ready(function(){
     $('div.logo').click(function(){
     	location.href=getContextPath()+"/login/main";
     });
-});
+});    
 
 // main피드 작성시 textarea 영역 변동 스크립트
 function resize(obj) {
@@ -38,19 +39,20 @@ function membermodi(){
   	$('.profile').remove();
   	$('.rank').remove();
 
-  $.ajax({
-    url: getContextPath()+'/member/modiprofile',
-    success:function(data){
-        $('#content').html(data)
-    },
-    error:(e,m,i)=>{
-      console.log(e);
-      console.log(m);
-      console.log(i);
-    }
-  });
+    $.ajax({
+    	url: getContextPath()+'/member/modiprofile',
+    	success:function(data){
+        	$('#content').html(data)
+    	},
+    	error:(e,m,i)=>{
+	      console.log(e);
+	      console.log(m);
+	      console.log(i);
+    	}
+	});
 }
 
+//내가쓴글 페이지로 이동
 function mywrite(){
     location.assign(getContextPath()+"/mywrite");
 }
@@ -77,3 +79,50 @@ function feedWrite() {
 
     $("[name=feedWrite_form]").submit();
 } 
+
+//지역 on,off
+var check = $("input[name=loc_check]");
+check.click(function(){
+	$("p.onoffBtn").toggle();
+	feedNew();
+});
+
+//feed_new tab 클릭시 전환
+$('ul.feedtab li').click(function(){
+
+    $('ul.feedtab li').removeClass('feedtab_on');
+    $(this).addClass('feedtab_on');
+    feedNew();
+    
+});
+    
+function feedNew() {
+	var check = $("input[name=loc_check]");
+	var loc="";
+	if($(check).prop("checked")) {
+		loc = $("p.onoffBtn:eq(0)").html();
+	}else {
+		loc = $("p.onoffBtn:eq(1)").html();
+	}
+	
+	var list="";
+	if($("ul.feedtab>li").hasClass('feedtab_on')) {
+		list = $("li.feedtab_on").attr('id');
+	}
+	
+	console.log(loc);
+	console.log(list);
+	$.ajax({
+		url: getContextPath()+"/board/feedNew",
+		data:{
+			"loc" : loc,
+			"list" : list
+		},
+		success:data=>{
+			$("#feed_content").html(data);
+		}
+	})
+}
+
+
+

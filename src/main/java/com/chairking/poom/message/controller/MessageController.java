@@ -36,14 +36,6 @@ public class MessageController {
         return "message/message_main";
     }
 
-    @RequestMapping("/main")
-    public ModelAndView main(String type, ModelAndView mv){
-
-        mv.addObject("type", type);
-        mv.setViewName("message/message");
-        return mv;
-    }
-
 
     //ajax 받은 쪽지 페이지
     @RequestMapping("/receive")

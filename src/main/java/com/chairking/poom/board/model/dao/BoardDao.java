@@ -12,6 +12,8 @@ public interface BoardDao {
 	int insertBoard(BoardMapper mapper, Board b);
 	
 	int insertFeed(BoardMapper mapper, Map param);
+	
+	List<Map<String, Object>> feedList(BoardMapper mapper, Map param);
 
 	List<Map<String, Object>> selectAllBoard(BoardMapper mapper, int cPage, int numPerpage);
 
