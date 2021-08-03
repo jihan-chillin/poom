@@ -4,7 +4,6 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
-import com.chairking.poom.common.Pagination;
 
 @Mapper
 public interface SearchMapper {

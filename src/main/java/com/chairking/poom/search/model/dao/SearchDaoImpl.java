@@ -1,6 +1,6 @@
 package com.chairking.poom.search.model.dao;
 
-import com.chairking.poom.common.Pagination;
+//import com.chairking.poom.common.Pagination;
 import com.chairking.poom.search.mapper.SearchMapper;
 import org.springframework.stereotype.Repository;
 
