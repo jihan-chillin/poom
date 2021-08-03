@@ -59,7 +59,7 @@ public class TagJsonController {
         return tagData;
     }
 
-    // 방금 등록된 게시글 제목 가져옴
+    // 방금 등록된 게시글 번호 가져옴
     public String getBoardNo(){
         return tagService.getBoardNo();
     }

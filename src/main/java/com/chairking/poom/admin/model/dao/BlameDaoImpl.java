@@ -83,6 +83,16 @@ public class BlameDaoImpl implements BlameDao {
 	}
 
 	@Override
+	public int selectBlameCount(SqlSessionTemplate session, Map<String, String> map) {
+		return session.selectOne("adminMapper.selectBlameCount",map);
+	}
+	
+	@Override
+	public int changeDelStatus(SqlSessionTemplate session, Map<String, String> map) {
+		return session.update("adminMapper.changeDelStatus",map);
+	}
+
+	@Override
 	public List<Map<String, Object>> selectBoardBlame(AdminMapper mapper, String no) {
 		return mapper.selectBoardBlame(no);
 	}
