@@ -53,14 +53,6 @@ public class BoardController {
 		return "board/board_form";
 	}
 
-	// 게시글 등록
-//	@PostMapping("/board/insert")
-//	public ModelAndView insertBoard(HttpServletRequest req, ModelAndView mv,
-//									@RequestParam Map param){
-//
-//
-//	}
-
 	//모든 게시글 리스트 가져오는 서비스
 	@GetMapping("/board/all")
 	public ModelAndView selectAllBoard(ModelAndView mv,
