@@ -1,64 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
     <title>Document</title>
 </head>
-
-<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-<link href="popup_style.css" rel="stylesheet" type="text/css"/>
-
+<link th:href="@{/css/popuprank/popup_style.css}" rel="stylesheet" type="text/css"/>
 <body>
     <!-- 조회수왕/인기욍 팝업창 -->
     <div class="popup_container">
         <div class="popup">
-            <div>000왕</div>
-            <div>
-                <img src="images/crown.png" width="50px"/>
-                <div style="background-image:url('images/profile.png');" width="180px"></div>
-            </div>
-            <div>
-                <span>1위</span>
-                <span>아이디</span>
-                <span>제목</span>
-                <span>00개</span>
-            </div>
-            <div>
-                <span>2위</span>
-                <span>아이디</span>
-                <span>제목</span>
-                <span>00개</span>
-            </div>     
-            <div>
-                <span>3위</span>
-                <span>아이디</span>
-                <span>제목</span>
-                <span>00개</span>
-            </div>
         </div>
         <div class="popup_visible">
-            <label><input type="checkbox" value="false" name="visible">일주일동안 보지않기</label>&nbsp;&nbsp;
+            <label><input type="checkbox" value="false" class="check_dont_show" name="visible">일주일동안 보지않기</label>&nbsp;&nbsp;
             <a>닫기 x</a>
         </div>
     </div>
 
-    <script>
-        //닫기 버튼 클릭시
-        $(".popup_visible").children("a").click(e=>{
-            $(".popup_container").css("display", "none");
-        });
-        // 일주일간 보지않기 클릭시
-        $(".popup_visible").children("label").click(e=>{
-            $.ajax({
-
-                success:data=>{
-                    $(".popup_container").css("display", "none");
-                }
-            });
-        });
-    </script>
-
+    <script th:src="@{/js/popuprank/popuprank_detail_js_hu.js}"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 'use strict';
-
+// 랭킹 가져오는 함수
 function searchRank(){
   $.ajax({
     url:getContextPath()+'/rank/searching',
@@ -9,8 +9,6 @@ function searchRank(){
       let val ='';
       for(let i=0; i<data.length; i++){
         val +='<li>'+(i+1)+'.'+data[i].BOARD_TITLE+'</li>'
-
-
       }
 
       $('.rank>ul').append(val);
@@ -27,6 +25,7 @@ searchRank();
 // 1분 30초마다 랭킹 새로고침
 setInterval(searchRank,90000);
 
+// 클릭시 게시글 상세화면으로 이동
 function moveBoard(boardNo){
   $.ajax({
     url:getContextPath()+'/board/view',
@@ -45,6 +44,5 @@ function moveBoard(boardNo){
       console.log(i);
     }
   });
-  // location.replace(getContextPath()+"/board/view?boardNo="+boardNo);
 }
 
