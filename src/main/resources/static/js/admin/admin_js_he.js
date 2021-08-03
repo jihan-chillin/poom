@@ -51,9 +51,11 @@ function fn_moveBoardNotice(){
 	$.ajax({
 		url:getContextPath()+"/board/boardNotice",
 		data:{
-			"no":40
+			"no":1
 		}
 	}).done(function (fragment){
+		//$(".profile").html(fragment);
+		//$(".feed").hide();
 		$("#content").html(fragment);
 	})
 }

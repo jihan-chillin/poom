@@ -330,12 +330,13 @@ table#payAdmin_table tr td, table#payAdmin_bale tr th{
 /*결제관리 끝*/
 /*게시글에서 공지사항 눌렀을때의 view*/
 div#board_notice_section{
-	margin:15px;
+	margin:10px;
     position: fixed;
     top:120px;
     left:300px;
     height:785px;
-    width:1590px;
+    /* width:1590px; */
+    width:1330px;
     justify-content: center;
     background-color:#f7f7f7;
     border-radius:20px;
@@ -412,7 +413,7 @@ div#board_notice_buttons{
     width: 1200px;
     /* align-items: center; */
     border-bottom:none !important;
-    left:495px;
+    /* left:495px; */
     text-align:center;
 }
 button.board_notice_btn{

@@ -29,7 +29,7 @@ public class PayAdminController {
 	@GetMapping()
 	public ModelAndView pay(ModelAndView mv,
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, //현재페이지
-            @RequestParam(value = "cntPerPage", required = false, defaultValue = "5") int cntPerPage, //numPerpage
+            @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage, //numPerpage
             @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
 		//어제~-7일꺼까지의 리스트 불러오는 쿼리
 		//페이징처리
@@ -81,7 +81,7 @@ public class PayAdminController {
 	@GetMapping("/detail")
 	public ModelAndView detail(ModelAndView mv,
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, //현재페이지
-            @RequestParam(value = "cntPerPage", required = false, defaultValue = "5") int cntPerPage, //numPerpage
+            @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage, //numPerpage
             @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
 		//최근구매내역 상세페이지 (리스트 불러오기), 페이지바 해야함
 		//페이징처리

@@ -32,6 +32,14 @@
     	</div> 
     </div> 
 </div>
+<!-- HOT키워드순위창 -->
+<div th:replace="/fragments/rank.html :: fragment-rank"></div>
 <script th:inline="javascript">
-
+$(function(){
+	$(".rank").css({
+		"position":"fixed",
+		"top":"130px",
+		"left":"1660px"
+	});
+})
 </script>
