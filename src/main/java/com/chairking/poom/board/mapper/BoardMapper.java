@@ -60,4 +60,8 @@ public interface BoardMapper {
 	//메인피드 게시글(지역,키워드)
 	@Select("SELECT * FROM BOARD ORDER BY BOARD_DATE DESC")
 	public List<Map<String, Object>> feedListLocKey(Map param);
+	
+	//게시판에서 공지사항클릭
+	@Select("SELECT * FROM NOTICE WHERE NOTICE_NO=#{no}")
+	public Map<String,Object> selectNotice(String no);
 }

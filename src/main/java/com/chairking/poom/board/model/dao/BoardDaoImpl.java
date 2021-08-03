@@ -64,6 +64,11 @@ public class BoardDaoImpl implements BoardDao {
 		}
 	}
 
+	@Override
+	public Map<String, Object> selectNotice(BoardMapper mapper, String noticeNo) {
+		return mapper.selectNotice(noticeNo);
+	}
+
 	
 
 }

@@ -124,4 +124,14 @@ public class BoardController {
 		
 		return mv;
 	}
+	
+	//게시판에서 공지사항 클릭
+	@RequestMapping("/board/boardNotice")
+	public ModelAndView boardNotice(String no, ModelAndView mv) {
+		Map<String,Object> notice = service.selectNotice(no);
+		System.out.println(notice);
+		mv.addObject("notice", notice);
+		mv.setViewName("board/board_notice_view");
+		return mv;
+	}
 }

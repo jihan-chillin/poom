@@ -46,6 +46,20 @@ function moveToList(){
 	})
 }
 
+//게시판에서 공지사항 들어가기
+function fn_moveBoardNotice(){
+	$.ajax({
+		url:getContextPath()+"/board/boardNotice",
+		data:{
+			"no":1
+		}
+	}).done(function (fragment){
+		//$(".profile").html(fragment);
+		//$(".feed").hide();
+		$("#content").html(fragment);
+	})
+}
+
 
 
 
