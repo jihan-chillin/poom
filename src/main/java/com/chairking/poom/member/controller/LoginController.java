@@ -205,10 +205,14 @@ public class LoginController {
 	//ID 찾기
 	@PostMapping("/idFind")
 	public ModelAndView idFind(@RequestParam Map param, ModelAndView mv) {
-		Map<String, Object> m = service.idFind(param);
-
+		String id = service.idFind(param);
+		
+		//id 마지막 3자리 ***표시하기
+		id = (id.replaceAll(id.substring(id.length()-3,id.length()),"***"));
+		System.out.println(id);
+		
 		mv.addObject("type","id");
-		mv.addObject("m",m);
+		mv.addObject("m",id);
 		mv.setViewName("login/findresult");
 		
 		return mv;

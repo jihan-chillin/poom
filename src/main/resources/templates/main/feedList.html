@@ -1,6 +1,6 @@
 <div class="fList" th:if="${feedList}!=null" th:each="f : ${feedList}">
 	<div>
-		<span th:text="'# '+${f.CATEGORY_NAME}"></span>
+		<span th:text="'# '+${f.CATEGORY}"></span>
 		<span th:text="${f.BOARD_TITLE}"></span>
 	</div>
 	<div th:text="${f.BOARD_CONTENT}">내용</div>
