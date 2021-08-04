@@ -431,7 +431,7 @@ function chatListDetailData(chatNo){
       chatNo
     },
     success:data=>{
-      const memberId = data.loginMember.MEMBER_ID;
+      const memberId = data.loginId;
 
       let val = '';
       val +='<link rel="stylesheet" type="text/css" href="'+getContextPath()+'/css/chatting/chatroom-list-detail.css">';
@@ -448,7 +448,14 @@ function chatListDetailData(chatNo){
       val += '<div>';
       val += '<span>...</span>';
       val += '<div class="chatroom-submenu">';
-      val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatData.CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+
+      // 관심채팅방에 추가된 채팅방이면
+      if(data.checkInterested == 1){
+        val += '<div><span class="interested-chatroom" onclick="deleteInterestChatroom('+data.chatData.CHAT_NO+',\''+memberId+'\')">관심 채팅방에서 삭제</span></div>';
+      }else{ // 관심채팅방에 없으면
+        val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatData.CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+      }
+
       val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatData.CHAT_NO+',\''+memberId+'\')">신고하기</span></div>';
       val += '</div></div></div></div>';
 

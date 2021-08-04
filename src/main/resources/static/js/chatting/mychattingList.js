@@ -18,19 +18,15 @@ function getInterestedChatList(){
   $.ajax({
     url:getContextPath()+'/chat/mychat/list/interest',
     success:data=>{
-      if(data.list[0].length === 0){
-        return;
-      }else{
-        $('.chatroom').remove();
+      $('.chatroom').remove();
+      let val = '';
 
-        let val = '';
+      if(data.list.length === 0){
+        val += '<li class="chatroom"><div></div><div id="nochatroom">관심 채팅방이 없습니다.</div></li>';
+      }else{
 
         for(let i = 0; i<data.list.length; i++){
           let chatNo = data.list[i][0].CHAT_NO;
-
-          // 로그인 아이디.
-          let memberId = data.loginId;
-
 
           // 채팅방 리스트가 있다면
           val +='<li class="chatroom">';
@@ -52,12 +48,10 @@ function getInterestedChatList(){
           val+='</li>';
 
         }
-
-        $('#chatroom-list>ul').append(val);
-
-        disconnection("notMove");
-
       }
+
+      $('#chatroom-list>ul').append(val);
+      disconnection("notMove");
     },
     error:(e,m,i)=>{
       console.log(e);

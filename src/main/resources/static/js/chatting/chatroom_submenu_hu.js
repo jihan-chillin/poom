@@ -66,6 +66,8 @@ function deleteInterestChatroom(chatNo,memberId){
     success:data=>{
       if(data === 1){
         alert("관심채팅방에서 삭제되었습니다.");
+        location.replace("/21AM_POOM_final/login/main");
+
       }else{
         alert("다시 시도해주세요");
       }

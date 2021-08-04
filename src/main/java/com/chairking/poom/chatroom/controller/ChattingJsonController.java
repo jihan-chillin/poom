@@ -208,11 +208,13 @@ public class ChattingJsonController {
     @GetMapping("/chat/detail/data")
     public Map getChatListDetailData(HttpServletRequest req,
                                      @RequestParam(value = "chatNo")String chatNo){
-//        log.info(chatNo);
+        String memberId =memberId(req);
+
         Map result = new HashMap();
         result.put("chatData",service.getChatroomData(chatNo));
         result.put("memCount",getEnteredMem(chatNo).size());
-        result.put("loginMember",req.getSession().getAttribute("loginMember"));
+        result.put("loginId",memberId);
+        result.put("checkInterested",service.checkAlreadyInterested(chatNo,memberId));
 
         return result;
     }
