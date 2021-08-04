@@ -1,6 +1,5 @@
 
 function fn_message_move(mType) {
-    console.log("js파일 안: " + mType);
     if (mType == 'receive') {
         $.ajax({
             url: getContextPath()+"/message/receive",
@@ -22,7 +21,6 @@ function fn_message_move(mType) {
         $.ajax({
             url:getContextPath()+"/message/block",
             data:{"mType":mType},
-            type: 'POST',
 
         }).done(function (fragment){
             $("#target").html(fragment);
@@ -31,7 +29,6 @@ function fn_message_move(mType) {
 }
 
 function showMsgDtl(msgNo) {
-    //lert('showMsgDtl' + msgNo);
     window.open(getContextPath() + "/message/content?msgNo=" + msgNo, "content", "width=400,height=300");
 
 }
