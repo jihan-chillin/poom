@@ -11,6 +11,9 @@ public interface ChattingMapper {
     @Select("select cm.chat_no from CHATMEMBER cm join chat c on cm.CHAT_NO = c.CHAT_NO where cm.member_id=#{memberId} and c.DEL_STATUS ='0'")
     public List<String> getMyChatroomNum(String memberId);
 
+    @Select("select chat_no from LIKECHATROOM where MEMBER_ID=#{memberId}")
+    public List<String> getInterestedChatNo(String memberId);
+
     @Select("select * from chat where chat_no=#{chatNo} and DEL_STATUS ='0'")
     public List<Map> getMyChatList(String chatNo);
 
@@ -60,6 +63,9 @@ public interface ChattingMapper {
 
     @Insert("insert into LIKECHATROOM values(#{memberId},#{chatNo})")
     public int likeChatroom(String chatNo,String memberId);
+
+    @Delete("delete from LIKECHATROOM where member_Id=#{memberId} and chat_no=#{chatNo}")
+    public int unlikeChatroom(String chatNo,String memberId);
 
     @Insert("insert into chat_blame values(seq_chat_blameno.nextval,sysdate,#{memberId},#{chatNo})")
     public int blameChatroom(String chatNo,String memberId);

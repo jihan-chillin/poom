@@ -23,6 +23,11 @@ public class ChattingServiceImpl implements ChattingService{
     }
 
     @Override
+    public List<String> getInterestedChatNo(String memberId) {
+        return dao.getInterestedChatNo(cm,memberId);
+    }
+
+    @Override
     public List<Map> getMyChatList(String chatNo) {
         return dao.getMyChatList(cm,chatNo);
     }
@@ -106,6 +111,11 @@ public class ChattingServiceImpl implements ChattingService{
     @Override
     public int likeChatroom(String chatNo, String memberId) {
         return dao.likeChatroom(cm,chatNo,memberId);
+    }
+
+    @Override
+    public int unlikeChatroom(String chatNo, String memberId) {
+        return dao.unlikeChatroom(cm,chatNo,memberId);
     }
 
     @Override

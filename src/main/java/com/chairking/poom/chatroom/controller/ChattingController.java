@@ -21,7 +21,7 @@ public class ChattingController {
     @Autowired
     private ChattingService service;
 //    html 가져오기용 Controller
-    
+
     // 내 채팅방 리스트
     @GetMapping("/chat/mylist/page")
     public String myChattingList(){
