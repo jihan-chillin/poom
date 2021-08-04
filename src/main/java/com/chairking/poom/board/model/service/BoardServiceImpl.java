@@ -78,6 +78,13 @@ public class BoardServiceImpl implements BoardService {
 	public List<Map<String, Object>> feedList(Map param) {
 		return dao.feedList(mapper, param);
 	}
+
+	@Override
+	public Map<String, Object> selectNotice(String noticeNo) {
+		return dao.selectNotice(mapper, noticeNo);
+	}
+	
+	
 	
 	
 }

@@ -256,7 +256,7 @@ function moveChatList(){
     url:getContextPath()+'/chat/list/page',
     success:function(data){
       $('.feed').html(data);
-      $('.feed').attr('style','height:905px');
+      // $('.feed').attr('style','height:905px');
       $('.chatroom-list-container>*').remove();
     },
     error:(e,m,i)=>{

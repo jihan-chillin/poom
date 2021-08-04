@@ -25,4 +25,6 @@ public interface BoardService {
 	int selectBoardNo(Board b);
 
 	List<Map> selectCommentList(String boardNo);
+	
+	Map<String,Object> selectNotice(String noticeNo);
 }

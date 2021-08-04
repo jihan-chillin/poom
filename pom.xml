@@ -104,22 +104,6 @@
 
 		</dependency>
 
-		<!--파일 업로드 의존성 등록-->
-		<!-- <dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-		</dependency> -->
-
-		<!--파일 업로드 의존성 등록-->
-<!--		<dependency>-->
-<!--			<groupId>commons-fileupload</groupId>-->
-<!--			<artifactId>commons-fileupload</artifactId>-->
-<!--		</dependency>-->
-
-
-
-
-
 		<!-- 암호화 의존성등록 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

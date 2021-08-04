@@ -53,181 +53,6 @@ public class BoardController {
 		return "board/board_form";
 	}
 
-	// ckeditor 파일 업로드
-
-	@RequestMapping(value="/images/ckeditor", method = RequestMethod.POST)
-	public void imageUpload(HttpServletResponse res, HttpServletRequest req,
-							MultipartHttpServletRequest multireq, @RequestParam MultipartFile upload) throws Exception{
-
-
-		res.setCharacterEncoding("utf-8"); // 입력된 파일 받을 때 한글깨짐 방지
-		res.setContentType("text/html;charset=utf-8"); // textarea상으로 이미지 받을 대 한글깨짐 방지
-
-		OutputStream out = null;
-		PrintWriter writer = null;
-
-		// 나중에 rename할 때 필요한 것들
-		int rndNum=(int)(Math.random()*100000);
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
-
-		// 폴더 경로 구해보자
-		Path path = Paths.get("");
-		String directoryName = path.toAbsolutePath().normalize().toString(); // C:\Users\JIHAN\IdeaProjects\poom
-		String folderPath = directoryName + "\\src\\main\\resources\\static\\images\\ckImage\\";
-
-
-		// 파일 원래 이름
-		// 얘를 서버에 전송해줘야 함.
-		String filename = upload.getOriginalFilename();
-//		byte[] bytes = filename.getBytes(StandardCharsets.UTF_8);
-
-		// 파일명이랑 확장자 분리
-		String subname  = filename.substring(0, filename.lastIndexOf("."));
-		String ext  = filename.substring(filename.lastIndexOf(".")).toLowerCase();
-		System.out.println(subname+ " : subname, 얘는 확장자 :" + ext);
-
-		System.out.println("이거 OKKY " + req.getSession().getServletContext().getRealPath("/"));
-
-
-
-		try{
-
-			// 랜덤문자로 rename
-			String renamedFile =sdf.format(System.currentTimeMillis())+"_"+rndNum+"_"+subname+ext;
-			System.out.println("renamedFile은 얘 : "+renamedFile +"/ renamed 형"+ renamedFile.getClass().getName());
-			byte[] bytes = renamedFile.getBytes();
-
-			String absolute = req.getContextPath().concat("resources");
-
-			// 로컬 폴더주소
-			String filepath = absolute+File.separator+ "/images/ckeditor";
-
-			System.out.println("폴더주소" + filepath);
-
-			// 로컬폴더 만들기
-			File uploadDir = new File(filepath);
-			System.out.println("새로운 폴더 만들어봄");
-			if(!uploadDir.exists()){
-				uploadDir.mkdirs();
-				System.out.println ("기존에 폴더가 없어서 새로운 폴더 생성");
-			}
-
-			File uploadFile = new File(uploadDir,renamedFile);
-			// 해당 파일이 없을 경우 filepath
-			if(!uploadFile.exists()){
-				uploadFile.mkdirs();
-			}
-
-			// 이미지 보내야지
-			String fileUrl = req.getContextPath()+"/images/ckeditor";
-
-			out = new FileOutputStream(new File(fileUrl+renamedFile));
-			out.write(bytes);
-			// outputStream에 저장된 데이터를 전송 + 초기화
-			out.flush();
-
-
-			String callback = req.getParameter("CKEditorFuncNum");
-			writer = res.getWriter();
-			// json으로 보내기
-			writer.println("{\"filename\" : \"" + renamedFile + "\", \"uploaded\" : 1, \"url\":\"" + fileUrl + "\"}");
-			writer.flush();
-
-
-
-
-		}catch (IOException e){
-			e.printStackTrace();
-		}finally {
-			if(out!=null){
-				out.close();
-			}
-			if(writer !=null){
-				writer.close();
-			}
-		}
-
-		return;
-	}
-
-	// 이미지 다운로드 받기
-//	@RequestMapping("/ckeditor/fileDownload")
-//	public void ckSubmit(@RequestParam(value="fileName") String fileName, HttpServletRequest request, HttpServletResponse response) {
-//		File file = FileUtilities.getDownloadFile(fileName, "files/ckeditor");
-//		try {
-//			byte[] data = FileUtils.readFileToByteArray(file);
-
-//			response.setContentType(FileUtilities.getMediaType(fileName).toString());
-//			response.setContentLength(data.length);
-//			response.setHeader("Content-Transfer-Encoding", "binary");
-//			response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName, "UTF-8") + "\";"); response.getOutputStream().write(data);
-//			response.getOutputStream().flush(); response.getOutputStream().close();
-//			} catch (IOException e) {
-//				throw new RuntimeException("파일 다운로드에 실패하였습니다.");
-//			} catch (Exception e) {
-//				throw new RuntimeException("시스템에 문제가 발생하였습니다.");
-//		} }
-
-
-
-
-
-
-
-		//게시글 등록 서비스
-	@PostMapping("/board/insert")
-	public ModelAndView insertBoard(Board board, ModelAndView mv, MultipartFile[] boardImg) throws IOException {
-		board.setMemberId("test");
-		board.setBoardLoc("1");
-		
-		//받아온 게시글 첨부파일을 imgs객체로 저장하기
-		List<BoardImage> imgs=new ArrayList<>();
-		
-		if(boardImg !=null) {
-//			String path=req.getServletContext().getRealPath("/images/board/");
-			String path="";
-			File dir=new File(path);
-			if(!dir.exists()) dir.mkdirs();
-			
-			for(MultipartFile f:boardImg) {
-				if(!f.isEmpty()) {
-					String oriName=f.getOriginalFilename();
-					String ext=oriName.substring(oriName.lastIndexOf("."));
-					SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-					int rndNum=(int)(Math.random()*10000);
-					String reName=sdf.format(System.currentTimeMillis())+"_"+rndNum+ext+"_"+board.getBoardCate();
-					
-//					System.out.println(oriName+" -> "+reName);
-					
-					try {
-						f.transferTo(new File(path+reName));
-						BoardImage bi=new BoardImage();
-						bi.setOriginImg(oriName);
-						bi.setRenameImg(reName);
-						System.out.println(bi);
-						imgs.add(bi);
-					}catch(IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-		
-		board.setImages(imgs);
-
-		//게시글 등록
-		int result=service.insertBoard(board);
-		
-		if(result!=0) {
-			mv.addObject("board", service.selectBoard(String.valueOf(service.selectBoardNo(board))));
-			mv.setViewName("board/board_view");
-		}else {
-			//에러 처리
-			mv.setViewName("index");
-		}
-		return mv;
-	}
-
 	//모든 게시글 리스트 가져오는 서비스
 	@GetMapping("/board/all")
 	public ModelAndView selectAllBoard(ModelAndView mv,
@@ -289,6 +114,16 @@ public class BoardController {
 		mv.addObject("feedList",feedList);
 		mv.setViewName("main/feedList");
 		
+		return mv;
+	}
+	
+	//게시판에서 공지사항 클릭
+	@RequestMapping("/board/boardNotice")
+	public ModelAndView boardNotice(String no, ModelAndView mv) {
+		Map<String,Object> notice = service.selectNotice(no);
+		System.out.println(notice);
+		mv.addObject("notice", notice);
+		mv.setViewName("board/board_notice_view");
 		return mv;
 	}
 }

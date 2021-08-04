@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <link th:href="@{/css/board/board_list.css}" rel="stylesheet" type="text/css">
+			<button onclick="fn_moveBoardNotice();">공지사항</button>
 
 <!--	<div id="board_list">-->
 		<div id = board-list-catebar>
@@ -18,18 +19,21 @@
 						<td colspan="3">
 
 							<!-- 이거 ajax로 바꿔야 함.-->
-							<a th:href="@{/board/view(boardNo=${b.BOARD_NO})}">
+							
+							<a href="#" th:data-no="${b.BOARD_NO}" th:onclick="|moveToView(this.getAttribute('data-no'))|">
 								<span th:text="${b.BOARD_TITLE} + '('+${b.CNT}+')'"></span>
 							</a>
 
 							<span th:text="${#dates.format(b.BOARD_DATE, 'yyyy-MM-dd')}"></span><br>
 
-							<div class="textlimit"><span><a href="javascript:viewBoard()" th:text="${b.BOARD_CONTENT}" th:title="${b.BOARD_NO}"></a></span></div>
-
+							<div class="textlimit">
+								<span>
+									<a href="javascript:viewBoard()" th:text="${b.BOARD_CONTENT}" th:title="${b.BOARD_NO}"></a>
+								</span>
+							</div>
 						</td>
-
 						<td>
-							<div><img src="/../../images/ui/tag.png" alt=""></div>
+							<div><img th:src="@{/../../images/ui/tag.png}" alt=""></div>
 						</td>
 					</tr>
 
