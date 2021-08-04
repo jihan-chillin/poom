@@ -69,6 +69,11 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.selectNotice(noticeNo);
 	}
 
+	@Override
+	public List<Map<String, Object>> likeTable(BoardMapper mapper) {
+		return mapper.likeTable();
+	}
+
 	
 
 }

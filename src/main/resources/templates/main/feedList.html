@@ -1,12 +1,28 @@
 <div class="fList" th:if="${feedList}!=null" th:each="f : ${feedList}">
 	<div>
-		<span th:text="'# '+${f.CATEGORY_NAME}"></span>
+		<span th:text="'# '+${f.CATEGORY}"></span>
 		<span th:text="${f.BOARD_TITLE}"></span>
 	</div>
 	<div th:text="${f.BOARD_CONTENT}">내용</div>
 	<div></div>
 	<ul>
-		<li><i class="gg-menu-boxed"></i>130</li>
-		<li><i class="gg-heart"></i>7</li>
+		<li><i class="gg-menu-boxed"></i><span th:text="${f.COMMENTS_COUNT}"></span></li>
+		<li ><!-- <i class="gg-heart"></i> -->
+			<th:block th:if="${f.LIKE_COUNT } eq 0"> <!-- likecount 0 이면 빈하트 -->
+			<span style="font-size:23px;cursor:pointer;" th-data-add="${f.BOARD_NO}" th:onclick="|fn_addLike(this.getAttribute('data-add'));|">♡</span>
+			<span th:text="${f.LIKE_COUNT}"></span>
+			</th:block>
+			<th:block th:unless="${f.LIKE_COUNT } eq 0"><!-- likecount 1 이면 까만하트 -->
+			<span style="font-size:23px;cursor:pointer;"  th:onclick="|fn_addLike(this.getAttribute('data-add'))|">♥</span>
+			<span th:text="${f.LIKE_COUNT}"></span>
+			</th:block>
+		</li>
 	</ul>
 </div>
+<script>
+function fn_addLike(no){
+	alert(no);
+}
+
+</script>
+

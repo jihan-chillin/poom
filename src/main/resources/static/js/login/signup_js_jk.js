@@ -101,14 +101,14 @@ $(function(){
             return;
         } 
 
-        //아이디 영문소문자+숫자(8~20자리 입력) 정규식
-        var idCheck = /^(?=.*[a-z])(?=.*[0-9]).{4,15}$/;
+        //아이디 영문소문자+숫자(8~15자리 입력) 정규식
+        var idCheck = /^(?=.*[a-z])(?=.*[0-9]).{8,15}$/;
         var result = idCheck.exec(id);
 
         if(result !=null) {
             window.open(getContextPath()+"/login/duplCheck?type=id&check="+id,"","width=500px,height=300px,top=300px,left=200px");
         }else {
-            alert("아이디는 4~15자의 영어소문자+숫자 조합으로 사용해야 합니다.");
+            alert("아이디는 8~15자의 영어소문자+숫자 조합으로 사용해야 합니다.");
             $("[name=memberId]").focus();
         }
     });
@@ -153,7 +153,7 @@ $(function(){
         } 
 
         //닉네임 영문소문자 또는 한글(2~8자리 입력) 정규식
-        var nicknameCheck = /^[가-힣|a-z]+$/;
+        var nicknameCheck = /^[가-힣|a-z]{2,8}$/;
         var result = nicknameCheck.exec(nickname);
 
         if(result !=null) {
