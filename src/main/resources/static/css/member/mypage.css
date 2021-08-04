@@ -1,0 +1,223 @@
+#modi-wrapper{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+div#info-bar{
+    width: 50%;
+    height: 100px;
+    position: fixed;
+    background-color: white;
+    margin: auto;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    z-index: 10;
+}
+div#info-bar ul:last-of-type {
+	height: 55px;
+	display: flex;
+	align-items: center;
+}
+div#info-bar ul:first-of-type>li{
+	width: 250px;
+	padding: 15px 0;
+    color: black;
+    float: left;
+    font-size: 22px;
+    border-radius: 7px 7px 0 0;
+    text-align: center;
+	background: white;
+	border: 1px solid lightgray;
+	border-bottom: none;
+    cursor: pointer;
+}
+.tab_on {
+	background: #247094 !important;
+	font-weight: bold;
+	color: white !important;
+}
+
+/* 우측 아이콘 hover 됐을 때, 배경 색 바꾸기  */
+ul.right {
+	margin-right: 15px;
+}
+ul.right li{
+    float: right;
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 10px;
+}
+ul.right li>img{
+    width: 100%;
+    padding: 10px;
+    transform: translateZ(0);
+}
+ul.right li:nth-of-type(even):hover{
+    background-color:#d78e6b;
+    filter: invert(100%);
+}
+
+ul.right li:nth-of-type(odd):hover{
+    background-color:#078fce;
+    filter: invert(100%);
+}
+
+div#info-modi {
+	width: 50%;
+	height: 600px;
+	overflow-y: auto;
+	margin: auto;
+	position: fixed;
+	top: 230px;
+}
+div#info-modi::-webkit-scrollbar {
+    background: white;
+    width: 10px;
+}
+div#info-modi::-webkit-scrollbar-thumb {
+    background: #287094;
+    border-radius: 5px;
+}
+div#info-modi table{
+    width:100%;
+    border-collapse: collapse;
+}
+div#info-modi table tr{
+    border-bottom: 1px solid lightgrey;
+}
+div#info-modi table tr:last-of-type{
+    border-bottom: none;
+}
+div#info-modi table tr:last-of-type>td{
+	padding: 20px 0 0 0;
+	text-align: center;
+}
+div#info-modi table tr>th {
+	width:33%;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 50px;
+    text-align: left;
+}
+div#info-modi table tr>td {
+	padding: 45px 0;
+	position: relative;
+}
+div#info-modi table tr>td:first-of-type>span {
+	position: absolute;
+	height:50px;
+	line-height: 50px;
+	top: 0;
+	right: 17px;
+}
+div#info-modi table textarea {
+	width: 330px;
+	padding: 10px;
+	font-size: 15px;
+	outline: none;
+}
+div#info-modi table textarea::placeholder {
+	font-style: italic;
+}
+#intro_cnt {
+	width: 330px;
+	text-align: right;
+	padding-right: 3px;
+	font-size: 13px;
+}
+div#info-modi td.profile-container{
+	padding: 30px 0;
+    overflow: hidden;
+}
+
+div.profile-img{
+    border: 2px solid lightgrey;
+    float: left;
+    background-color:white;
+    width:150px;
+    height:150px;
+    border-radius:20px;
+    text-align:center;
+    margin: 10px auto;
+    font-size:12px;
+    vertical-align:middle;
+    line-height:150px;
+    overflow:hidden;
+}
+div.profile-img>img {
+	width: 100%;
+}
+div.profile-txt{
+    float: left;
+    margin: 40px 20px;
+}
+div.profile-txt>p {
+	font-size: 15px;
+	line-height: 20px;
+}
+div.profile-txt>label {
+    width: 50px;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    color: black;
+    border: 1px solid lightgray;
+    padding: 5px 0;
+    font-weight: bold;
+    font-size: 12px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 10px;
+}
+div.profile-txt>label>input {
+	display: none;
+}
+div#info-modi button {
+    width: 80px;
+    margin: auto;
+    height: 40px;
+    border-radius: 30px;
+    margin: 0 5px 70px 5px;
+    outline: none;
+    border: none;
+    background: #287094;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+div#info-modi button:last-of-type {
+    background: #f7f7f7;
+    color: black;
+    border: 1px solid lightgray;
+}
+input.normal-size{
+    width: 330px;
+    padding: 5px 0;
+    outline: none;
+    padding-left: 10px;
+    font-size: 15px;
+}
+
+tr.email_number {
+    display: none;
+}
+.correct {
+	color:green;
+	font-style: italic;
+	font-size: 12px;
+	font-weight: bold;
+}
+.incorrect {
+	color:red;
+	font-style: italic;
+	font-size: 12px;
+	font-weight: bold;
+}

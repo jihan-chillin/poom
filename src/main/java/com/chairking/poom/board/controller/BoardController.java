@@ -1,41 +1,21 @@
 package com.chairking.poom.board.controller;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import ch.qos.logback.core.util.FileUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.chairking.poom.board.model.service.BoardService;
-import com.chairking.poom.board.model.vo.Board;
-import com.chairking.poom.board.model.vo.BoardImage;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.RandomStringUtils;
 
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 //@RequestMapping("/")
@@ -44,7 +24,7 @@ public class BoardController {
 
 	@Autowired
 	private BoardService service;
-
+	
 	//게시글 등록 페이지로 이동
 	@RequestMapping(path="/board/form", method=RequestMethod.GET)
 
@@ -105,12 +85,25 @@ public class BoardController {
 	@RequestMapping("/board/feedNew")
 	public ModelAndView feedNew(@RequestParam Map param, ModelAndView mv) {
 		
+		//좋아요 테이블 불러오기
+		List<Map<String, Object>> likeTable = service.likeTable();
+		
+		List<Map<String, Object>> feedList;
 		if(param.get("loc").equals("전국")) {
 			param.put("loc","");
 		}
 		
-		List<Map<String, Object>> feedList = service.feedList(param);
-		List<Map<String, Object>> likeTable = service.likeTable();
+		if(param.get("list").equals("feedkey")) {
+			String[] myTag=service.myTag(param);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("myTag",myTag);
+			map.put("loc", param.get("loc"));
+			feedList = service.feedKeyList(map);
+			System.out.println(feedList.size());
+		}else {
+			feedList = service.feedList(param);
+		}
+		
 		if(feedList!=null) {
 			mv.addObject("likeTable",likeTable);
 			mv.addObject("feedList",feedList);
