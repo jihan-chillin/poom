@@ -70,4 +70,8 @@ public interface BoardMapper {
 	//게시판에서 공지사항클릭
 	@Select("SELECT * FROM NOTICE WHERE NOTICE_NO=#{no}")
 	public Map<String,Object> selectNotice(String no);
+	
+	//좋아요 테이블 가져오기
+	@Select("SELECT * FROM LIKES")
+	public List<Map<String, Object>> likeTable();
 }

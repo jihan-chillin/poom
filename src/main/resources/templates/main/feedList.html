@@ -6,7 +6,11 @@
 	<div th:text="${f.BOARD_CONTENT}">내용</div>
 	<div></div>
 	<ul>
-		<li><i class="gg-menu-boxed"></i>130</li>
-		<li><i class="gg-heart"></i>7</li>
+		<li><i class="gg-menu-boxed"></i><span th:text="${f.COMMENTS_COUNT}"></span></li>
+		<li><span style="font-size:23px;cursor:pointer;" th:onclick="@{/board/addLike(no=${f.BOARD_NO})}">♡</span><span th:text="${f.LIKE_COUNT}"></span></li>
 	</ul>
 </div>
+<div class="fList" th:unless="${feedList}!=null">
+	<p th:text="${feedList}"></p>
+</div>
+

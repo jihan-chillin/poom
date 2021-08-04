@@ -83,6 +83,11 @@ public class BoardServiceImpl implements BoardService {
 	public Map<String, Object> selectNotice(String noticeNo) {
 		return dao.selectNotice(mapper, noticeNo);
 	}
+
+	@Override
+	public List<Map<String, Object>> likeTable() {
+		return dao.likeTable(mapper);
+	}
 	
 	
 	
