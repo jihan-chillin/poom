@@ -46,7 +46,10 @@ public interface BoardMapper {
 	public int insertFeed(Map param);
 	
 	//메인피드 게시글(전국,전체)
-	@Select("SELECT * FROM BOARD JOIN CATEGORY ON (BOARD_CATE=CATEGORY_NO) ORDER BY BOARD_DATE DESC")
+	@Select("SELECT *"
+			+ "FROM (SELECT B.*, C.CATEGORY_NAME AS CATEGORY, I.RENAME_IMG AS IMG FROM BOARD B JOIN CATEGORY C ON (BOARD_CATE=CATEGORY_NO)"
+			+ "LEFT JOIN IMAGE I ON (B.BOARD_NO=I.BOARD_NO))"
+			+ "ORDER BY BOARD_DATE DESC")
 	public List<Map<String, Object>> feedListAllAll(Map param);
 	
 	//메인피드 게시글(전국,키워드)
@@ -54,7 +57,10 @@ public interface BoardMapper {
 	public List<Map<String, Object>> feedListAllKey(Map param);
 	
 	//메인피드 게시글(지역,전체)
-	@Select("SELECT * FROM BOARD JOIN CATEGORY ON (BOARD_CATE=CATEGORY_NO) WHERE BOARD_LOC=#{loc} ORDER BY BOARD_DATE DESC")
+	@Select("SELECT *"
+			+ "FROM (SELECT B.*, C.CATEGORY_NAME AS CATEGORY, I.RENAME_IMG AS IMG FROM BOARD B JOIN CATEGORY C ON (BOARD_CATE=CATEGORY_NO)"
+			+ "LEFT JOIN IMAGE I ON (B.BOARD_NO=I.BOARD_NO))"
+			+ "WHERE BOARD_LOC=#{loc} ORDER BY BOARD_DATE DESC")
 	public List<Map<String, Object>> feedListLocAll(Map param);
 		
 	//메인피드 게시글(지역,키워드)
@@ -64,4 +70,8 @@ public interface BoardMapper {
 	//게시판에서 공지사항클릭
 	@Select("SELECT * FROM NOTICE WHERE NOTICE_NO=#{no}")
 	public Map<String,Object> selectNotice(String no);
+	
+	//좋아요 테이블 가져오기
+	@Select("SELECT * FROM LIKES")
+	public List<Map<String, Object>> likeTable();
 }

@@ -31,12 +31,12 @@ public class LoginDaoImpl implements LoginDao {
 	}
 
 	@Override
-	public Map<String, Object> idFind(LoginMapper mapper, Map param) {
+	public String idFind(LoginMapper mapper, Map param) {
 		return mapper.idFind(param);
 	}
 	
 	@Override
-	public Map<String, Object> pwFind(LoginMapper mapper, Map param) {
+	public Map<String,Object> pwFind(LoginMapper mapper, Map param) {
 		return mapper.pwFind(param);
 	}
 

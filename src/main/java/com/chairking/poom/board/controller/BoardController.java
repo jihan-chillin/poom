@@ -110,8 +110,14 @@ public class BoardController {
 		}
 		
 		List<Map<String, Object>> feedList = service.feedList(param);
-		System.out.println(feedList.get(0));
-		mv.addObject("feedList",feedList);
+		List<Map<String, Object>> likeTable = service.likeTable();
+		if(feedList!=null) {
+			mv.addObject("likeTable",likeTable);
+			mv.addObject("feedList",feedList);
+		}else {
+			mv.addObject("feedList","등록된 글이 없습니다.");
+		}
+		
 		mv.setViewName("main/feedList");
 		
 		return mv;

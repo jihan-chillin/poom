@@ -126,6 +126,7 @@ function feedNew() {
 	
 	console.log(loc);
 	console.log(list);
+	
 	$.ajax({
 		url: getContextPath()+"/board/feedNew",
 		data:{

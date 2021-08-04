@@ -24,8 +24,8 @@ public interface LoginMapper {
 	@Select("SELECT * FROM MEMBER WHERE MEMBER_ID=#{id}")
 	public Map<String,Object> selectMember(Map param);
 	
-	@Select("SELECT * FROM MEMBER WHERE MEMBER_NAME=#{memberName} AND MEMBER_EMAIL=#{memberEmail}")
-	public Map<String,Object> idFind(Map param);
+	@Select("SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_NAME=#{memberName} AND MEMBER_EMAIL=#{memberEmail}")
+	public String idFind(Map param);
 	
 	@Select("SELECT * FROM MEMBER WHERE MEMBER_ID=#{id} AND MEMBER_NAME=#{name}")
 	public Map<String,Object> pwFind(Map param);

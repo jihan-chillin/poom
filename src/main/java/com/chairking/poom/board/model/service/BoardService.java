@@ -11,9 +11,12 @@ public interface BoardService {
 
 	int insertBoard(Board b);
 
+	//메인피드 글 등록하기
 	int insertFeed(Map param);
-	
+	//메인 피드 리스트 가져오기
 	List<Map<String, Object>> feedList(Map param);
+	//좋아요 테이블 가져오기
+	List<Map<String, Object>> likeTable();
 	
 	// 게시글 전체 가져오기
 	List<Map<String, Object>> selectAllBoard(int cPage, int numPerpage);
@@ -27,4 +30,7 @@ public interface BoardService {
 	List<Map> selectCommentList(String boardNo);
 	
 	Map<String,Object> selectNotice(String noticeNo);
+	
+	
+	
 }
