@@ -8,10 +8,13 @@ import java.util.Map;
 
 @Mapper
 public interface ChattingMapper {
-    @Select("select chat_no from CHATMEMBER where member_id=#{memberId}")
+    @Select("select cm.chat_no from CHATMEMBER cm join chat c on cm.CHAT_NO = c.CHAT_NO where cm.member_id=#{memberId} and c.DEL_STATUS ='0'")
     public List<String> getMyChatroomNum(String memberId);
 
-    @Select("select * from chat where chat_no=#{chatNo}")
+    @Select("select chat_no from LIKECHATROOM where MEMBER_ID=#{memberId}")
+    public List<String> getInterestedChatNo(String memberId);
+
+    @Select("select * from chat where chat_no=#{chatNo} and DEL_STATUS ='0'")
     public List<Map> getMyChatList(String chatNo);
 
     @Select("select * from CHATMEMBER where CHAT_NO=#{chatNo}")
@@ -21,7 +24,7 @@ public interface ChattingMapper {
     public List<Map> messageContent(String chatNo,int ref);
 
     @Insert("insert into chatmessage values (seq_chatmessage.nextval,#{messageContent},sysdate,#{memberId},#{chatNo})")
-    public int saveMessage(ChatMessage chatMessage);
+    public void saveMessage(ChatMessage chatMessage);
 
     @Select("select * from( select ROWNUM as rnum, a.* from( select * from CHAT where DEL_STATUS ='0') a) where rnum between #{cPage} and #{numPerPage}")
     public List<Map<String,Object>> getChatList(int cPage, int numPerPage);
@@ -33,13 +36,22 @@ public interface ChattingMapper {
     public Map getChatroomData(String chatNo);
 
     @Insert("insert into chat values(seq_chatno.nextval,#{memberId},#{title},#{content},#{memCount},#{condition},'0',to_date(#{date},'YYYY-MM-DD'),#{category},default,default)")
-    public int insertChatroomData(Map<String,Object> data);
+    public void insertChatroomData(Map<String,Object> data);
 
     @Select("select a.CHAT_NO from( select CHAT_NO from chat where DEL_STATUS = '0' order by ROWNUM desc) a where ROWNUM = 1")
     public String getChatNo();
 
     @Insert("insert into CHATMEMBER values(#{id},#{chatNo})")
     public int enterChatRoom(String id, String chatNo);
+
+    @Delete("delete from chatmember where member_id=#{memberId} and chat_no=#{chatNo}")
+    public void quitChatroom(String chatNo,String memberId);
+
+    @Delete("delete from chat where chat_no=#{chatNo}")
+    public void deleteChatroom(String chatNo);
+
+    @Delete("delete from chatmessage where chat_no=#{chatNo}")
+    public void deleteChatContent(String chatNo);
 
     @Select("select count(*) from CHATMEMBER where CHAT_NO=#{chatNo} and MEMBER_ID=#{memberId}")
     public int checkEnterChatroom(String memberId,String chatNo);
@@ -51,6 +63,9 @@ public interface ChattingMapper {
 
     @Insert("insert into LIKECHATROOM values(#{memberId},#{chatNo})")
     public int likeChatroom(String chatNo,String memberId);
+
+    @Delete("delete from LIKECHATROOM where member_Id=#{memberId} and chat_no=#{chatNo}")
+    public int unlikeChatroom(String chatNo,String memberId);
 
     @Insert("insert into chat_blame values(seq_chat_blameno.nextval,sysdate,#{memberId},#{chatNo})")
     public int blameChatroom(String chatNo,String memberId);

@@ -11,7 +11,7 @@ import com.chairking.poom.board.model.vo.BoardImage;
 
 public interface BoardDao {
 	
-	int insertBoard(BoardMapper mapper, Board b);
+	int insertBoard(BoardMapper mapper, Map param);
 	
 	//메인피드 글 등록하기
 	int insertFeed(BoardMapper mapper, Map param);

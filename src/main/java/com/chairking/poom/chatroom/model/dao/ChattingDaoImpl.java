@@ -3,18 +3,21 @@ package com.chairking.poom.chatroom.model.dao;
 import com.chairking.poom.chatroom.mapper.ChattingMapper;
 import com.chairking.poom.chatroom.model.vo.ChatMessage;
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;
 
 @Repository
-@Slf4j
 public class ChattingDaoImpl implements ChattingDao{
 
     @Override
     public List<String> getMyChatroomNum(ChattingMapper cm, String memberId) {
         return cm.getMyChatroomNum(memberId);
+    }
+
+    @Override
+    public List<String> getInterestedChatNo(ChattingMapper cm, String memberId) {
+        return cm.getInterestedChatNo(memberId);
     }
 
     @Override
@@ -33,8 +36,8 @@ public class ChattingDaoImpl implements ChattingDao{
     }
 
     @Override
-    public int saveMessage(ChattingMapper cm,ChatMessage chatMessage) {
-        return cm.saveMessage(chatMessage);
+    public void saveMessage(ChattingMapper cm,ChatMessage chatMessage) {
+        cm.saveMessage(chatMessage);
     }
 
     // 페이징 처리
@@ -54,8 +57,8 @@ public class ChattingDaoImpl implements ChattingDao{
     }
 
     @Override
-    public int insertChatroomData(ChattingMapper cm, Map<String, Object> data) {
-        return cm.insertChatroomData(data);
+    public void insertChatroomData(ChattingMapper cm, Map<String, Object> data) {
+        cm.insertChatroomData(data);
     }
 
     @Override
@@ -66,6 +69,21 @@ public class ChattingDaoImpl implements ChattingDao{
     @Override
     public int enterChatRoom(ChattingMapper cm, String id, String chatNo) {
         return cm.enterChatRoom(id,chatNo);
+    }
+
+    @Override
+    public void quitChatroom(ChattingMapper cm, String chatNo, String memberId) {
+        cm.quitChatroom(chatNo,memberId);
+    }
+
+    @Override
+    public void deleteChatroom(ChattingMapper cm, String chatNo) {
+        cm.deleteChatroom(chatNo);
+    }
+
+    @Override
+    public void deleteChatContent(ChattingMapper cm, String chatNo) {
+        cm.deleteChatContent(chatNo);
     }
 
     @Override
@@ -87,6 +105,11 @@ public class ChattingDaoImpl implements ChattingDao{
     @Override
     public int likeChatroom(ChattingMapper cm, String chatNo, String memberId) {
         return cm.likeChatroom(chatNo,memberId);
+    }
+
+    @Override
+    public int unlikeChatroom(ChattingMapper cm, String chatNo, String memberId) {
+        return cm.unlikeChatroom(chatNo,memberId);
     }
 
     @Override
