@@ -1,0 +1,45 @@
+<div id="board_notice_section">
+	<div id="board_notice_box">
+	    <div id="board_notice_title" th:text="'[공지]&nbsp;&nbsp;'+${notice.NOTICE_TITLE}">
+	        공지사항 
+	    </div>
+	    <div id="board_notice_content" >
+	        <div id="notice_content_title">
+	       		<div>
+		            <span class="title_bold" >카테고리</span><br>
+		            <th:block th:switch="${notice.CATEGORY_NO}">
+		            	<span th:case="1">출산, 육아, 교육</span>
+		            	<span th:case="2">분실물</span>
+		            	<span th:case="3">일손(품앗이)</span>
+		            	<span th:case="4">스터디, 소모임</span>
+		            	<span th:case="5">공동구매</span>
+		            	<span th:case="6">자유게시판</span>
+		            </th:block>
+	        	</div>
+		        <div>
+		        	<span class="title_bold" >POOM 관리자</span><br>
+		        	<span th:text="${#dates.format(notice.NOTICE_DATE,'yyyy-MM-dd')}" ></span>
+		        </div>
+	        </div>
+	        <div id="board_notice_content">
+	            <textarea name="noticeContent" id="notice_content_write" placeholder="내용을 입력해주세요." th:text="${notice.NOTICE_CONTENT}" readonly ></textarea>
+	        </div>
+		    <div id="board_notice_buttons">
+		        <!-- <button type="button" onclick="fn_edit_notice();" class="admin_buttons" th:text="${type}"></button>
+		        <button class="admin_buttons1" type="button" onclick="fn_del_notice();" th:text="${notice.NOTICE_STATUS} eq 1?'재게시':'삭제'">삭제</button> -->
+				<button type="button" onclick="alert('목록')" class="board_notice_btn">목록으로</button>
+		    </div>
+    	</div> 
+    </div> 
+</div>
+<!-- HOT키워드순위창 -->
+<div th:replace="/fragments/rank.html :: fragment-rank"></div>
+<script th:inline="javascript">
+$(function(){
+	$(".rank").css({
+		"position":"fixed",
+		"top":"130px",
+		"left":"1660px"
+	});
+})
+</script>
