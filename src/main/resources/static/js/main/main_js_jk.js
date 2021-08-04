@@ -33,6 +33,19 @@ function messageBox(){
     location.assign(getContextPath()+"/message");
 }
 
+function searchList() {
+	location.assign(getContextPath()+"/search");
+	// alert("searchList!!!!");
+	// var uInput = $('#uInput').val();
+	// $.ajax({
+	// 	url:getContextPath()+"/search",
+	// 	data:{"uInput":uInput},
+	// 	type: 'POST',
+	// }).done(function (fragment){
+	// 	// $("#target").html(fragment);
+	// });
+}
+
 // 프로필 부분 edit버튼 클릭시 정보수정 페이지로 이동 ajax
 function membermodi(){
 	$('.feed').remove();
@@ -95,7 +108,6 @@ $('ul.feedtab li').click(function(){
     $('ul.feedtab li').removeClass('feedtab_on');
     $(this).addClass('feedtab_on');
     feedNew();
-    
 });
     
 function feedNew() {

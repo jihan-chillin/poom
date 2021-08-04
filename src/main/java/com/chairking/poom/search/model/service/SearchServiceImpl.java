@@ -24,9 +24,9 @@ public class SearchServiceImpl implements SearchService {
     private SqlSessionTemplate session;
 
     @Override
-    public List<Map<String,Object>> searchList(String where){
+    public List<Map<String,Object>> searchList(String where, Pagination pagination){
 
-        return dao.searchList(mapper,where);
+        return dao.searchList(mapper,where, pagination);
     }
 
     @Override
