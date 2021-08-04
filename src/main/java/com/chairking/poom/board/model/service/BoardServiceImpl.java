@@ -21,29 +21,12 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
 	private BoardMapper mapper;
-	
+
 	@Override
-	public int insertBoard(Board b) {
-		//게시물 등록
-		int result=dao.insertBoard(mapper, b);
-		
-		//게시물 첨부파일 등록
-		if(b.getImages()!=null && result!=0) {
-			//게시글 번호
-			int boardNo=selectBoardNo(b);
-//			System.out.println(boardNo);
-			
-			for(BoardImage bi:b.getImages()) {
-				if(result!=0 && bi!=null) {
-					bi.setBoardNo(boardNo);
-					result=insertBoardImg(bi);
-				}
-//				System.out.println(bi);
-			}
-		}
-		return result;
+	public int insertBoard(Map param) {
+		return dao.insertBoard(mapper, param);
 	}
-	
+
 	@Override
 	public int insertBoardImg(BoardImage bi) {
 		return dao.insertBoardImg(mapper, bi);

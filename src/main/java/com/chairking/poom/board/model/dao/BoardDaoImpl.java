@@ -13,8 +13,8 @@ import com.chairking.poom.board.model.vo.BoardImage;
 public class BoardDaoImpl implements BoardDao {
 
 	@Override
-	public int insertBoard(BoardMapper mapper, Board b) {
-		return mapper.insertBoard(b);
+	public int insertBoard(BoardMapper mapper, Map param) {
+		return mapper.insertBoard(param);
 	}
 
 	@Override
