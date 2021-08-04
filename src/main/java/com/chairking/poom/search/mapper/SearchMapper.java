@@ -7,7 +7,8 @@ import java.util.Map;
 
 @Mapper
 public interface SearchMapper {
-    String query = "SELECT rownum as rnum, A.*, C.category_name FROM "
+    String query = "SELECT * FROM ("
+            + "SELECT rownum as rnum, A.*, C.category_name FROM "
             + "(SELECT notice_no as search_no, "
             + "'notice' as con_type, "
             + "category_no, "
@@ -23,10 +24,12 @@ public interface SearchMapper {
             + "SUBSTR(board_content, 0, 15) || '...' as content, "
             + "board_date as write_date, "
             + "member_id from board) A join CATEGORY C on A.category_no = C.category_no "
-            + "${where}";
+            + "${where}"
+            + ") WHERE rnum between #{pagingFirstIndex} AND #{pagingLastIndex}";
+
 
     @Select(query)
-    public List<Map<String,Object>> searchList(String where);
+    public List<Map<String,Object>> searchList(String where, int pagingFirstIndex, int pagingLastIndex);
 
 
     //페이징 처리 카운트 세기

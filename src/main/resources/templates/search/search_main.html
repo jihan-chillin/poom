@@ -55,7 +55,6 @@
                 <a href="#" th:unless="${pagination.totalPageCount==pagination.currentPage}" th:onclick="|fn_ajax_paging('${pagination.currentPage+1}')|">&gt;</a>
               </div>
             </div>
-            <button class="admin_buttons" th:onclick="|fn_del_status();|" style="position:absolute;left:1070px;">삭제</button><!-- 각 del_status의 상태를 바꾸는 것 -->
           </div>
 
         </div>

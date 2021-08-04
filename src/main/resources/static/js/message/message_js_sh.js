@@ -91,6 +91,8 @@ function showPopup() {
     window.open(getContextPath() + "/message/receiver", "", "width=400,height=300");
 }
 
+
+//답장하기도 동일하게 넘기기
 function showMsgPop(member) {
     let rcvNm = $(member).children('.find-name').html();
     let rcvId = $(member).children('.find-id').html();

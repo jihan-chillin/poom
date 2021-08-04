@@ -131,6 +131,7 @@ public class MessageController {
 
 
 
+
     //메세지 차단함으로 이동
     @RequestMapping("/moveBlock")
     public String moveBlock(@RequestParam String msgNo, ModelAndView mv){
@@ -182,6 +183,10 @@ public class MessageController {
         }
         return mv;
     }
+
+//
+//    @GetMapping("/reply")
+//    public ModelAndView replyPopup()
 
 
     //받는사람 검색

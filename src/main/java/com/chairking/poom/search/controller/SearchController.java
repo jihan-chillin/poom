@@ -32,16 +32,13 @@ public class SearchController {
 
         Pagination pagination = new Pagination(currentPage,cntPerPage,pageSize);
         pagination.setTotalRecordCount(service.searchCount());
-        String where = "WHERE rownum BETWEEN "
-                + pagination.getFirstRecordIndex()
-                + " AND "
-                + pagination.getLastRecordIndex()
-                + " AND (title like '%" + uInput + "%' OR "
+        String where = "WHERE "
+                + "(title like '%" + uInput + "%' OR "
                 + "content like '%" + uInput + "%' OR "
                 + "write_date like '%" + uInput + "%' OR "
                 + "member_id like '%" + uInput + "%') "
                 + "ORDER BY write_date desc";
-        List<Map<String,Object>> list = service.searchList(where);
+        List<Map<String,Object>> list = service.searchList(where, pagination);
         System.out.println(list);
         mv.addObject("pagination",pagination);
         mv.addObject("list", list);
