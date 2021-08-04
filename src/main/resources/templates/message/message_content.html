@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <link th:href="@{/css/message/message_popup.css}" rel="stylesheet" type="text/css">
 
-    <script>
-        $(window).load(function () {
-            window.resizeTo(500, 400);
-        });
-    </script>
+
 </head>
 <body>
 <div id="popup_wrapper">
@@ -26,11 +22,23 @@
 </div>
 
 </body>
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script th:src="@{/js/message/message_js_sh.js}"></script>
+<script th:src="@{/js/main/contextPath_js_hu.js}"></script>
 <script>
 
     function showMsgDtl(msgNo) {
         window.open(getContextPath()+"/message/content?msgNo=" + msgNo,"content","width=400,height=300");
     }
+
+    // $(window).load(function () {
+    //     window.resizeTo(500, 400);
+    // });
+
+    function showPopup() {
+        window.open(getContextPath() + "/message/popup", "", "width=400,height=300");
+    }
+
 </script>
+
 </html>

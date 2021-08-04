@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <div id="board_view">
 <!-- 게시글 상세화면 -->
     <div id="board_container">
     	<ul>
-    		<li><span th:text="${board['BOARD_TITLE']}"></span></li>
-    		<li><span th:text="${board['BOARD_CONTENT']}"></span></li>
-    		<li><span th:text="${board['B_WRITER']}"></span></li>
     		<li>
-    			<span>태그</span><span></span>
+    			<span th:text="${board['BOARD_TITLE']}">제목</span>
+   			</li>
+   			<li>
+   				<span th:text="'작성자 : '+${board['B_WRITER']}">닉네임</span>
+   				<span th:text="${#dates.format(board['BOARD_DATE'],'yyyy-MM-dd')}" style="display:inline-block;float:right;">작성일</span>
+   			</li>
+    		<li><span th:text="${board['BOARD_CONTENT']}">내용</span></li>
+    		<li>
+    			<span>해시태그들</span><span></span>
     		</li>
     	</ul>
-        <div>
+        <div >
         	<span>
         		<button type="button" class="btn" onsubmit="move_list();">목록으로</button>
         	</span>
-            <span>
-            	<button type="button" class="btn" onsubmit="">신고</button>&nbsp;&nbsp;
-            	<button type="button" class="btn" onsubmit="board_modify();">수정</button>&nbsp;&nbsp;
-            	<button type="button" class="btn" onclick="location.assign('/');">취소</button>
+            <span >
+            	<!-- loingMember 일치여부 확인 후 버튼 보여주기 -->
+            	<th:block th:unless="${session.loginMember.MEMBER_ID eq board['MEMBER_ID']}" >
+            		<button type="button" class="btn" th:data-n="${board['BOARD_NO']}" th:onclick="|fn_boardBlame(this.getAttribute('data-n'))|" style="background:#F77B1E;color:white;border:none;">신고</button>&nbsp;&nbsp;
+            	</th:block>
+            	<th:block th:if="${session.loginMember.MEMBER_ID eq board['MEMBER_ID']} ">
+            		<button type="button" class="btn" onsubmit="board_modify();" style="background:#247094;color:white;border:none;">수정</button>&nbsp;&nbsp;
+            		<button type="button" class="btn" onclick="location.assign('/');">취소</button>
+            	</th:block>
             </span>
         </div>
     </div>
@@ -37,5 +48,21 @@
     	</div>
     </div>
 </div>
-<!-- HOT키워드순위창 -->
-<div th:replace="/fragments/rank.html :: fragment-rank"></div>
+ <!-- HOT키워드순위창 -->
+ <div th:replace="/fragments/rank.html :: fragment-rank"></div>
+<script th:inline="javascript">
+//신고하기 버튼 => 팝업 이동 
+function fn_boardBlame(no){
+	var id=[[${session.loginMember.MEMBER_ID}]];
+	window.open(getContextPath()+"/blame/report?type=b"+"&no="+no+"&id="+id,"","width=495px,height=530px,top=260px,left=800px");
+}
+$(function(){
+	$(".rank").css({
+		"position":"fixed",
+		"top":"130px",
+		"left":"1660px"
+	});
+	$(".profile").remove();
+	$("#content").css("justify-content","normal");
+})
+</script>

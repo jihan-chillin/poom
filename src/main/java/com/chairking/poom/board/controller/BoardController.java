@@ -110,8 +110,14 @@ public class BoardController {
 		}
 		
 		List<Map<String, Object>> feedList = service.feedList(param);
-		System.out.println(feedList.get(0));
-		mv.addObject("feedList",feedList);
+		List<Map<String, Object>> likeTable = service.likeTable();
+		if(feedList!=null) {
+			mv.addObject("likeTable",likeTable);
+			mv.addObject("feedList",feedList);
+		}else {
+			mv.addObject("feedList","등록된 글이 없습니다.");
+		}
+		
 		mv.setViewName("main/feedList");
 		
 		return mv;
@@ -126,4 +132,15 @@ public class BoardController {
 		mv.setViewName("board/board_notice_view");
 		return mv;
 	}
+	
+	//좋아요=> +1하기
+	@RequestMapping("/board/addLike")
+	public ModelAndView addLike(@RequestParam String no,ModelAndView mv) {
+		System.out.println("보ㅗ드넘버"+no);
+		
+		
+		return mv;
+	}
+	
+	//좋아요 count-1하기
 }

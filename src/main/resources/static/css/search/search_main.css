@@ -1,0 +1,26 @@
+/*페이지바*/
+div#searchPageBar{
+    height:80px;
+    display:flex;
+    position:relative;
+    /* justify-content:center; */
+    padding-top:30px;
+    /* flex-direction:row; */
+}
+div#searchPageBar>div{
+    position:absolute;
+    left:495px;
+    width:210px;
+    display:flex;
+    justify-content: center;
+}
+div#searchPageBar>div div{
+    height:30px;
+    width:30px;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    color:darkgray;
+    border-radius: 5px;
+    margin:0 3px;
+}

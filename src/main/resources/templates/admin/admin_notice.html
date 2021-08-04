@@ -73,8 +73,29 @@
 		}).done(function(fragment){
 			$("#target").html(fragment);
 		});
+		//뒤로가기 해보기
+		//history.pushState(data, title, url)
+		history.pushState({ 
+			url: getContextPath()+"/admin/notice", 
+			page: i-1 
+			}, "page"+page, getContextPath()+"/admin/notice?page="+i-1);
+
 	};
-	
+	//이벤트 감지해서 뒤로가기 불러오는 ajax 
+	$(window).on('popstate', function (event) { 
+		const data = event.originalEvent.state; 
+		console.log(data);
+		$.ajax({ 
+			url: getContextPath()+"/admin/notice", 
+			data: {
+				page:data.page, 
+			}, type: "get", 
+			success: (result) => { 
+				$("#target").html(result); 
+			}
+		})
+	})
+
 	//공지사항 view 이동
 	$("[name=moveToView]").click((e)=>{
 		const no=e.target.title;

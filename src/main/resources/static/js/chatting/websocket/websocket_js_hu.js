@@ -1,5 +1,5 @@
 'use strict';
-let stompClient=null;
+var stompClient=null;
 let memberId =$('#chatmem_id').val();
 
 let colors = [
@@ -86,11 +86,14 @@ function getAvatarColor(messageSender){
   return colors[index];
 }
 
-function disconnection(){
+function disconnection(ref){
   if(stompClient !== null){
     stompClient.disconnect();
+    stompClient = null;
     // $('.chat-icon').click();
-    location.replace('/21AM_POOM_final/login/main');
+    if(!ref){
+      location.replace('/21AM_POOM_final/login/main');
+    }
   }
 }
 

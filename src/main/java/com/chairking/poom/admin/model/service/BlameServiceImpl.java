@@ -113,12 +113,6 @@ public class BlameServiceImpl implements BlameService {
 	@Override
 	public List<Map<String, Object>> selectBlame(Map<String, Object> map) {
 		List<Map<String,Object>> param=null;
-//		switch((String)map.get("type")) {
-//			case "blame": case "1" : param= dao.selectBoardBlame(mapper,(String)map.get("no"));break;
-//			case "2" : param= dao.selectCommentsBlame(mapper,(String)map.get("no"));break;
-//			case "3" : param= dao.selectChatBlame(mapper,(String)map.get("no"));break;
-//			case "4" : param= dao.selectMemberBlame(mapper,(String)map.get("no"));break;
-//		}
 		param=dao.selectBlame(session, map);
 		return param;
 	}

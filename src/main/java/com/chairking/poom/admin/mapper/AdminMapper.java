@@ -63,7 +63,7 @@ public interface AdminMapper {
 	
 	@Insert("INSERT INTO BOARD_BLAME VALUES(SEQ_BRD_BLAME_NO.NEXTVAL,#{no},#{target_mem},sysdate,#{blame_reason})")
 	public int insertBoardBlame(Map<String,String> map);
-	@Update("UPDATE BOARD SET BLAME_COOUNT=BLAME_COUNT+1 WHERE BOARD_NO=#{no}")
+	@Update("UPDATE BOARD SET BLAME_COUNT=BLAME_COUNT+1 WHERE BOARD_NO=#{no}")
 	public int updateBrdBlameCount(String no);
 	
 	@Insert("INSERT INTO COMMENTS_BLAME VALUES(SEQ_BC_BLAME_NO.NEXTVAL,#{target_mem},sysdate,'테스트',#{no},#{blame_reason})")
@@ -75,11 +75,6 @@ public interface AdminMapper {
 	public int insertChatBlame(Map<String,String> map);
 	@Update("UPDATE CHAT SET BLAME_COUNT=BLAME_COUNT+1 WHERE CHAT_NO=#{no}")
 	public int updateChatBlameCount(String no);
-	
-	//히든처리
-	@Select("SELECT HIDDENCHAT(#{no}) FROM DUAL")
-	public String hiddenChat(String no);
-	
 	
 	
 	@Select("select * from board_blame join board on b_target_board_no=board_no where board_no=#{no}")

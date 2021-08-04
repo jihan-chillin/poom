@@ -112,13 +112,17 @@ function feedNew() {
 		list = $("li.feedtab_on").attr('id');
 	}
 	
+	var id=$("input[name=id]").val();
+	
 	console.log(loc);
 	console.log(list);
+	console.log(id);
 	$.ajax({
 		url: getContextPath()+"/board/feedNew",
 		data:{
 			"loc" : loc,
-			"list" : list
+			"list" : list,
+			"id" : id
 		},
 		success:data=>{
 			$("#feed_content").html(data);
