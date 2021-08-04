@@ -58,6 +58,8 @@ function moveMyChatList(){
 
         $('#chatroom-list>ul').append(val);
 
+        disconnection('notMove');
+
       }
     },
     error:(e,m,i)=>{
