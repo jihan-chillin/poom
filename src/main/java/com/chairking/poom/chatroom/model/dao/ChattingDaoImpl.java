@@ -33,8 +33,8 @@ public class ChattingDaoImpl implements ChattingDao{
     }
 
     @Override
-    public int saveMessage(ChattingMapper cm,ChatMessage chatMessage) {
-        return cm.saveMessage(chatMessage);
+    public void saveMessage(ChattingMapper cm,ChatMessage chatMessage) {
+        cm.saveMessage(chatMessage);
     }
 
     // 페이징 처리
@@ -54,8 +54,8 @@ public class ChattingDaoImpl implements ChattingDao{
     }
 
     @Override
-    public int insertChatroomData(ChattingMapper cm, Map<String, Object> data) {
-        return cm.insertChatroomData(data);
+    public void insertChatroomData(ChattingMapper cm, Map<String, Object> data) {
+        cm.insertChatroomData(data);
     }
 
     @Override
@@ -66,6 +66,21 @@ public class ChattingDaoImpl implements ChattingDao{
     @Override
     public int enterChatRoom(ChattingMapper cm, String id, String chatNo) {
         return cm.enterChatRoom(id,chatNo);
+    }
+
+    @Override
+    public void quitChatroom(ChattingMapper cm, String chatNo, String memberId) {
+        cm.quitChatroom(chatNo,memberId);
+    }
+
+    @Override
+    public void deleteChatroom(ChattingMapper cm, String chatNo) {
+        cm.deleteChatroom(chatNo);
+    }
+
+    @Override
+    public void deleteChatContent(ChattingMapper cm, String chatNo) {
+        cm.deleteChatContent(chatNo);
     }
 
     @Override

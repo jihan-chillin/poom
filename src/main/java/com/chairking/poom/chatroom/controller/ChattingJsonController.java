@@ -68,38 +68,56 @@ public class ChattingJsonController {
     }
 
     @GetMapping("/chat/mychat/member")
-    public Map getMyChatroomData(HttpServletRequest req){
-        String chatNo =req.getParameter("chatNo");
+    public Map getMyChatroomData(HttpServletRequest req,@RequestParam(value = "chatNo")String chatNo){
 
         Map<String,Object> list = new HashMap<>();
         list.put("list",getEnteredMem(chatNo));
 //       1주일 전까지 메세지만 가져옴 기준 -> int ref = 7
-        list.put("messageContent",getPastChattingList(chatNo,7));
+//        list.put("messageContent",getPastChattingList(chatNo,7));
         list.put("chatData",service.getChatroomData(chatNo));
         list.put("loginMember",req.getSession().getAttribute("loginMember"));
 
         return list;
     }
-    @GetMapping("/chat/chatroom/enter")
-    public int enterChatroom(HttpServletRequest req){
-        String chatNo = req.getParameter("chatNo");
-        String memberId =req.getParameter("memberId");
 
+    @GetMapping("/chat/mychat/chatlist")
+    public Map getMyChatList(@RequestParam(value = "chatNo")String chatNo){
+        Map<String,Object> list = new HashMap<>();
+
+        list.put("messageContent",getPastChattingList(chatNo,7));
+        return list;
+    }
+
+    @GetMapping("/chat/chatroom/enter")
+    public int enterChatroom(
+            @RequestParam(value = "chatNo")String chatNo,
+            @RequestParam(value="memberId")String memberId){
         return service.enterChatRoom(memberId,chatNo);
     }
-    @GetMapping("/chat/chatroom/check")
-    public int checkEnterChatroom(HttpServletRequest req){
-        String chatNo = req.getParameter("chatNo");
-        String memberId =req.getParameter("memberId");
 
+    @GetMapping("/chat/chatroom/quit")
+    public void quitChatroom(  @RequestParam(value = "chatNo")String chatNo,
+                              @RequestParam(value="memberId")String memberId){
+
+        service.quitChatroom(chatNo,memberId);
+
+        // 채팅방 인원수가 0명이면 채팅방, 채팅내용 삭제
+        if(getEnteredMem(chatNo).size() == 0){
+            service.deleteChatContent(chatNo);
+            service.deleteChatroom(chatNo);
+        }
+    }
+
+    @GetMapping("/chat/chatroom/check")
+    public int checkEnterChatroom(@RequestParam(value = "chatNo")String chatNo,
+                                  @RequestParam(value="memberId")String memberId){
         return service.checkEnterChatroom(memberId,chatNo);
     }
 
 
     @GetMapping("/chat/list/data")
-    public Map getChatList(HttpServletRequest req){
+    public Map getChatList(HttpServletRequest req,@RequestParam(value = "cPage")int cPage){
         int numPerPage = 4;
-        int cPage = Integer.parseInt(req.getParameter("cPage"));
         Map<String,Object> result = new HashMap<>();
 
         List<Map<String,Object>> chatList = service.getChatList(cPage,numPerPage);
@@ -127,10 +145,10 @@ public class ChattingJsonController {
     }
     // 모집중, 모집마감 분류
     @GetMapping("/chat/list/data/sort")
-    public Map getChatListSort(HttpServletRequest req){
+    public Map getChatListSort(HttpServletRequest req,
+                               @RequestParam(value = "cPage")int cPage,
+                               @RequestParam(value = "ref")String ref){
         int numPerPage = 4;
-        int cPage = Integer.parseInt(req.getParameter("cPage"));
-        String ref = req.getParameter("ref");
 
         String chatType = "";
         // 모집중일때
@@ -163,8 +181,8 @@ public class ChattingJsonController {
 
     // 채팅방 세부화면
     @GetMapping("/chat/detail/data")
-    public Map getChatListDetailData(HttpServletRequest req){
-        String chatNo =req.getParameter("chatNo");
+    public Map getChatListDetailData(HttpServletRequest req,
+                                     @RequestParam(value = "chatNo")String chatNo){
 //        log.info(chatNo);
         Map result = new HashMap();
         result.put("chatData",service.getChatroomData(chatNo));
@@ -175,18 +193,7 @@ public class ChattingJsonController {
     }
 
     @GetMapping("/chat/room/data")
-    public void createChatroom(HttpServletRequest req){
-        Map<String,Object> data = new HashMap<>();
-
-        data.put("category",req.getParameter("category"));
-        data.put("title",req.getParameter("title"));
-        data.put("content",req.getParameter("content"));
-        data.put("condition",req.getParameter("condition"));
-        data.put("memCount",Integer.parseInt(req.getParameter("memCount")));
-        data.put("date",req.getParameter("date"));
-        data.put("memberId",req.getParameter("memberId"));
-        data.put("loginMember",req.getSession().getAttribute("loginMember"));
-
+    public void createChatroom(@RequestParam Map data){
         // 채팅방 생성
         service.insertChatroomData(data);
         // 생성된 채팅방 번호 가져옴
@@ -197,33 +204,29 @@ public class ChattingJsonController {
 
     // 채팅방 신고, 관심채팅방에 등록됐는지 조회
     @GetMapping("/chat/room/check/inter")
-    public int checkAlreadyInterested(HttpServletRequest req){
-        String chatNo = req.getParameter("chatNo");
-        String memberId = req.getParameter("memberId");
+    public int checkAlreadyInterested(@RequestParam(value = "chatNo")String chatNo,
+                                      @RequestParam(value = "chatNo")String memberId){
 
         return service.checkAlreadyInterested(chatNo,memberId);
     }
     @GetMapping("/chat/room/check/blame")
-    public int checkAlreadyBlame(HttpServletRequest req){
-        String chatNo = req.getParameter("chatNo");
-        String memberId = req.getParameter("memberId");
+    public int checkAlreadyBlame(@RequestParam(value = "chatNo")String chatNo,
+                                 @RequestParam(value = "chatNo")String memberId){
 
         return service.checkAlreadyBlame(chatNo,memberId);
     }
 
     @GetMapping("/chat/room/like")
-    public int likeChatroom(HttpServletRequest req){
-        String chatNo = req.getParameter("chatNo");
-        String memberId = req.getParameter("memberId");
+    public int likeChatroom(@RequestParam(value = "chatNo")String chatNo,
+                            @RequestParam(value = "chatNo")String memberId){
 
-        log.info("like : {},{}", chatNo, memberId);
+//        log.info("like : {},{}", chatNo, memberId);
         return service.likeChatroom(chatNo,memberId);
     }
 
     @GetMapping("/chat/room/blame")
-    public int blameChatroom(HttpServletRequest req){
-        String chatNo = req.getParameter("chatNo");
-        String memberId = req.getParameter("memberId");
+    public int blameChatroom(@RequestParam(value = "chatNo")String chatNo,
+                             @RequestParam(value = "chatNo")String memberId){
 
         return service.blameChatroom(chatNo,memberId);
     }

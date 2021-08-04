@@ -1,14 +1,14 @@
 'use strict';
 var stompClient=null;
-let memberId =$('#chatmem_id').val();
+var memberId =$('#chatmem_id').val();
 
-let colors = [
+var colors = [
   '#2196F3', '#32c787', '#00BCD4', '#ff5652',
   '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
-let messageForm = $('#messageForm');
-let sendMsgContent=$('.send-msg-content');
+var messageForm = $('#messageForm');
+var sendMsgContent=$('.send-msg-content');
 
 function connect(event){
 
@@ -18,8 +18,6 @@ function connect(event){
 
     stompClient.connect({}, onConnected, onError);
   }
-
-  // event.preventDefault();
 }
 
 function onConnected(){
@@ -28,10 +26,6 @@ function onConnected(){
   let chatNo = $('.chatNo').val();
 
   stompClient.subscribe('/topic/chatroom/'+chatNo,onMessageReceived);
-
-  // stompClient.send(getContextPath()+"/chat.addUser",{},
-  //   JSON.stringify({sender:memberId, type:'JOIN'})
-  // );
 
 }
 function onError(error){
@@ -62,17 +56,7 @@ function onMessageReceived(payload){
   let message = JSON.parse(payload.body);
   let chatNo = $('.chatNo').val();
 
-  // if(message.type ==='JOIN'){
-  //   message.messageContent = message.memberId+'채팅방에 참여했습니다.';
-  //
-  // }else if(message.type ==='LEAVE'){
-  //   message.messageContent = message.memberId+'채팅방을 나갔습니다.';
-  //
-  // }else{
-    // messageElement.append(message.messageContent);
-  // }
-
-  getChatList(chatNo,'/chat/mychat/member',message.memberId);
+  getChatList(chatNo,'/chat/mychat/chatlist',message.memberId);
 }
 
 function getAvatarColor(messageSender){
@@ -90,22 +74,25 @@ function disconnection(ref){
   if(stompClient !== null){
     stompClient.disconnect();
     stompClient = null;
-    // $('.chat-icon').click();
-    if(!ref){
+
+    let chatNo = $('#chatroom_no').val();
+    let memberId = $('#chatmem_id').val();
+
+    if(chatNo !== undefined && memberId !== undefined){
+      if(confirm("채팅방을 나가시겠습니까?")) {
+        quitChatroom(chatNo, memberId);
+      }
+    }
+
+    // 채팅방 나가기
+    if(!ref) {
       location.replace('/21AM_POOM_final/login/main');
     }
   }
 }
 
 connect();
-// messageForm.addEventListener('submit', sendMessage, true)
 
-let submitAction = e=>{
-  e.preventDefault();
-  // e.stopPropagation();
-}
-
-$('form').bind('submit',submitAction);
 messageForm.submit(e=>{
   sendMessage(e);
 });

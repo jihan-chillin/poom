@@ -11,13 +11,16 @@ public interface ChattingDao {
     List<Map> getMyChatList(ChattingMapper cm,String chatNo);
     List<Map> enteredMem(ChattingMapper cm,String chatNo);
     List<Map> messageContent(ChattingMapper cm,String chatNo,int ref);
-    int saveMessage(ChattingMapper cm,ChatMessage chatMessage);
+    void saveMessage(ChattingMapper cm,ChatMessage chatMessage);
     List<Map<String,Object>> getChatList(ChattingMapper cm,int cPage, int numPerPage);
     List<Map<String,Object>> getChatListSort(ChattingMapper cm,int cPage, int numPerPage,String chatType);
     Map getChatroomData(ChattingMapper cm,String chatNo);
-    int insertChatroomData(ChattingMapper m, Map<String,Object> data);
+    void insertChatroomData(ChattingMapper m, Map<String,Object> data);
     String getChatNo(ChattingMapper cm);
     int enterChatRoom(ChattingMapper cm,String id,String chatNo);
+    void quitChatroom(ChattingMapper cm,String chatNo,String memberId);
+    void deleteChatroom(ChattingMapper cm,String chatNo);
+    void deleteChatContent(ChattingMapper cm,String chatNo);
     int checkEnterChatroom(ChattingMapper cm,String id,String chatNo);
     int checkAlreadyInterested(ChattingMapper cm,String chatNo,String id);
     int checkAlreadyBlame(ChattingMapper cm,String chatNo,String id);

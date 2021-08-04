@@ -10,13 +10,16 @@ public interface ChattingService {
     List<Map> getMyChatList(String chatNo);
     List<Map> enteredMem(String chatNo);
     List<Map> messageContent(String chatNo,int ref);
-    int saveMessage(ChatMessage chatMessage);
+    void saveMessage(ChatMessage chatMessage);
     List<Map<String,Object>> getChatList(int cPage, int numPerPage);
     List<Map<String,Object>> getChatListSort(int cPage, int numPerPage,String chatType);
     Map getChatroomData(String chatNo);
-    int insertChatroomData(Map<String,Object> data);
+    void insertChatroomData(Map<String,Object> data);
     String getChatNo();
     int enterChatRoom(String id,String chatNo);
+    void quitChatroom(String chatNo,String memberId);
+    void deleteChatroom(String chatNo);
+    void deleteChatContent(String chatNo);
     int checkEnterChatroom(String id,String chatNo);
     int checkAlreadyInterested(String chatNo, String memberId);
     int checkAlreadyBlame(String chatNo, String memberId);
