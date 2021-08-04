@@ -88,6 +88,16 @@ public class BoardServiceImpl implements BoardService {
 	public List<Map<String, Object>> likeTable() {
 		return dao.likeTable(mapper);
 	}
+
+	@Override
+	@Transactional
+	public int addLike(Map<String, String> map) {
+		int result=dao.addLike(mapper, map);
+		if(result>0) {
+			result=dao.addLikeTable(mapper,map);
+		}
+		return result;
+	}
 	
 	
 	

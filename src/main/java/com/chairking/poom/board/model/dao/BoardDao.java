@@ -25,4 +25,7 @@ public interface BoardDao {
 	int selectBoardNo(BoardMapper mapper, Board b);
 	List<Map> selectCommentList(BoardMapper mapper, String boardNo);
 	Map<String,Object> selectNotice(BoardMapper mapper, String noticeNo);
+	
+	int addLike(BoardMapper mapper, Map<String,String> map);
+	int addLikeTable(BoardMapper mapper, Map<String,String> map);
 }

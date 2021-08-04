@@ -31,6 +31,6 @@ public interface BoardService {
 	
 	Map<String,Object> selectNotice(String noticeNo);
 	
-	
+	int addLike(Map<String,String> map);
 	
 }

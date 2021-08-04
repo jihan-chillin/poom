@@ -74,6 +74,16 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.likeTable();
 	}
 
+	@Override
+	public int addLike(BoardMapper mapper, Map<String, String> map) {
+		return mapper.addLike(map);
+	}
+
+	@Override
+	public int addLikeTable(BoardMapper mapper, Map<String, String> map) {
+		return mapper.addLikeTable(map);
+	}
+
 	
 
 }
