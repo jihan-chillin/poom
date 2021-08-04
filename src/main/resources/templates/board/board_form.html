@@ -5,8 +5,9 @@
 
 
 	<!-- ckeditor api 가져오는 화면 -->
-	<form id = "ckeditor-form"  action="/board/insert" enctype="multipart/form-data" method="post" onsubmit="return false">
-<!--		<input type="hidden" id="id" th:if="*{id != null and id > 0}" th:field="*{id}" />-->
+	<form id = "ckeditor-form" name="ckeditor-form" th:action="@{/board/insert}" method="post">
+		<input type="hidden" name="memberId" th:value="${session.loginMember.MEMBER_ID}">
+		<input type="hidden" name="memberLoc" th:value="${session.loginMember.MEMBER_LOC}">
 		<table id="ckeditor-table">
 			<tr>
 				<th>제목</th>
@@ -21,6 +22,7 @@
 						<option value="3">일손(품앗이)</option>
 						<option value="4">스터디/소모임</option>
 						<option value="5">공동구매</option>
+						<option value="6">자유게시판</option>
 					</select>
 				</td>
 			</tr>
@@ -34,13 +36,18 @@
 
 			</tr>
 			<tr>
-				<th>해시태그</th>
-				<td><input type="text" name="boardTag" placeholder="태그를 입력하세요(최대 10자)" class="input-style"></td>
+				<th colspan="2">해시태그</th>
 			</tr>
+
+			<tr>
+				<input type="hidden" name="boardTag" placeholder="태그를 입력하세요(최대 10자)" class="input-style">
+				<td colspan="2"><input th:class="boardTag" type="text" name="boardTag" placeholder="태그를 입력하세요(최대 10자)" class="input-style"></td>
+			</tr>
+
 			<tr>
 				<td colspan="2">
 					<input type="submit" id ="ckeditor-btn" class="blue-btn" value="등록">
-					<button type="button" id="btn-cancel" class="blacksolid-btn" >취소</button>
+					<button type="button" id="btn-cancel" class="blacksolid-btn" onclick="history.back();" >취소</button>
 				</td>
 
 			</tr>
@@ -76,11 +83,6 @@
 							break;
 					}
 				})
-
-				// CKEditor로 작성한 글  & 파일 게시 잘 되는지 확인
-				// $('#ckeditor-btn').click(function(){
-				// 	alert(CKEDITOR.instances.ckeditorarea.getData());
-				// })
 
 			})
 

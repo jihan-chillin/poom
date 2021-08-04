@@ -9,7 +9,7 @@ import com.chairking.poom.board.model.vo.BoardImage;
 
 public interface BoardService {
 
-	int insertBoard(Board b);
+	int insertBoard(Map param);
 
 	int insertFeed(Map param);
 	
