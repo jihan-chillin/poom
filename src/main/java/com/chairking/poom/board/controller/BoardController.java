@@ -126,4 +126,15 @@ public class BoardController {
 		mv.setViewName("board/board_notice_view");
 		return mv;
 	}
+	
+	//좋아요=> +1하기
+	@RequestMapping("/board/addLike")
+	public ModelAndView addLike(@RequestParam String no,ModelAndView mv) {
+		System.out.println("보ㅗ드넘버"+no);
+		
+		
+		return mv;
+	}
+	
+	//좋아요 count-1하기
 }
