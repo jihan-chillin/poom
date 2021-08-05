@@ -59,7 +59,7 @@
             		<td th:text="${bc.COMMENT_WRITER}"></td>
             		<td th:text="${bc.COMMENT_CONTENT}"></td>
             		<td>
-            			<a style="cursor:pointer;"th:data-p1="${type}" th:data-p2="${bc.BOARD_NO}" 
+            			<a style="cursor:pointer;"th:data-p1="${type}" th:data-p2="${bc.COMMENT_NO}" 
             				th:onclick="|fn_check_pop(this.getAttribute('data-p1'),this.getAttribute('data-p2'))|" th:text="${bc.BLAME_COUNT}"></a>
             		</td>
             		<td th:text="${bc.DEL_STATUS} eq 0?'N':'Y'"></td>
