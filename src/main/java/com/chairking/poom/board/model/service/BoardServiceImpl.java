@@ -78,10 +78,20 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	@Transactional
-	public int addLike(Map<String, String> map) {
-		int result=dao.addLike(mapper, map);
-		if(result>0) {
-			result=dao.addLikeTable(mapper,map);
+	public int changeLike(Map<String, String> map) {
+		//map.get("like")가 누름 => 현재 이미 누른 상태 에서 한번더 click이니 좋아요-1로 바꾸기
+		//안누름 => 현재 안누른상태에서 누른것 => 좋아요+1
+		int result=0;
+		if(map.get("like").equals("안누름")) {
+			result=dao.addLike(mapper, map);
+			if(result>0) {
+				result=dao.addLikeTable(mapper,map);
+			}
+		}else {
+			result=dao.cancelLike(mapper,map);
+			if(result>0) {
+				result=dao.cancelLikeTable(mapper,map);
+			}
 		}
 		return result;
 	}

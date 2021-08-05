@@ -31,7 +31,8 @@ public interface BoardDao {
 	int addLike(BoardMapper mapper, Map<String,String> map);
 	int addLikeTable(BoardMapper mapper, Map<String,String> map);
 	//좋아요-1
-	
+	int cancelLike(BoardMapper mapper, Map<String,String> map);
+	int cancelLikeTable(BoardMapper mapper, Map<String,String> map);
 	
 	//마이태그 받아오기
 	String[] myTag(BoardMapper mapper, Map param);

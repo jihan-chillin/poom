@@ -87,6 +87,16 @@ public class BoardDaoImpl implements BoardDao {
 		return session.selectList("boardMapper.feedKeyList", map);
 	}
 
+	@Override
+	public int cancelLike(BoardMapper mapper, Map<String, String> map) {
+		return mapper.cancelLike(map);
+	}
+
+	@Override
+	public int cancelLikeTable(BoardMapper mapper, Map<String, String> map) {
+		return mapper.cancelLikeTable(map);
+	}
+
 	
 
 }
