@@ -24,7 +24,7 @@ $(function(){
         val +='<div>';
         val +='<span>'+(i+1)+'위</span>';
         val +='<span>'+data[i].MEMBER_NICKNAME+'</span>';
-        val +='<span>'+data[i].BOARD_TITLE+'</span>';
+        val +='<span onclick="moveBoardDetail('+data[i].BOARD_NO+')">'+data[i].BOARD_TITLE+'</span>';
         val +='<span>'+data[i].LIKECOUNT+'</span>';
         val +='</div>';
       }
@@ -34,6 +34,20 @@ $(function(){
     }
   });
 });
+
+function moveBoardDetail(boardNo){
+  // opener.parent.location='/21AM_POOM_final/board/view?boardNo='+boardNo;
+  $.ajax({
+    url:"/21AM_POOM_final/board/view",
+    data : {
+      "boardNo":boardNo
+    },
+    success:data=>{
+      $(opener.document).find("#content>*").remove();
+      $(opener.document).find("#content").append(data);
+    }
+  })
+}
 
 function setCookie(cookie_name, value, days) {
   let exdate = new Date();

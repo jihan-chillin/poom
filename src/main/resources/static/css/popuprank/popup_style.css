@@ -60,9 +60,12 @@
 .popup>div:nth-child(2)~div{
     display: grid;
     grid-template-columns: 30px 90px 120px 60px;
-    cursor: pointer;
     font-family: 'NEXON Lv1 Gothic OTF';
     font-size: 15px;
+}
+.popup>div:nth-child(2)~div>span:nth-child(3){
+    cursor: pointer;
+    font-weight: 800;
 }
 
 /* 일주일간 보지않기/닫기 */
