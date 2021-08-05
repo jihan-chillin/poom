@@ -1,158 +1,139 @@
-/*
-  태그 추가하기 누르면 태그 입력하게 하는 js 파일
-  최대 개수 5개 제한.
-  키 입력 시 지금 등록된 태그가 있는지 없는지 알려 줌
- */
+// 마우스 오버시 툴팁 말풍선 띄우기
 
+function toolTip(){
+    if($('.arrow-box').css("display") === "none"){
+            $('.arrow-box').show();
+        }
+
+}
+
+function leaveToolTip(){
+    $('.arrow-box').css("display","none");
+}
+
+// hover했을 때 툴팁 뜨고, 커서 사라지면 툴팁 사라지기
+$(document).ready(function (){
+    $('.arrow-box').hover(function(){
+        $(this).show();
+    }, function (){
+        $(this.css("display","none"));
+    });
+});
+
+
+// 1. 해시태그 버튼 누르면 입력창 뜨게 하기
 function InputTag(){
-    let val2 ='<span>'
+
+    if(preventTag()){
+        return;
+    }
+
+    // 1.1 해시태그 입력창 만들기
+    let val2 ='<span id="tag-input-spn" name="tag-input-spn">'
 
     val2  += '<input type="text" class="tag_input" placeholder="태그를 입력하세요"></span>';
-    val2  += '<div class="tag-search-result-container">';
-    val2  += '</div>';
+    // val2  += '<div class="tag-search-result-container">';
+    // val2  += '</div>';
 
     $('.create-tag').parent().append(val2);
 
 
     $('.tag_input').attr(
-        "style","margin-left: 10px;" +
+        "style","margin-left: 5px;" +
         "    border: none;" +
         "    background-color: #f9f9f9;" +
         "    font-size: 15px;" +
-        "    width: 150px;" +
+        "    width: 135px;" +
         "    padding: 4px;" +
         "    border : 1px solid lightgray;" +
         "    border-radius : 10px;"
     )
 
-    // 태그 입력할 때
-    $('.tag_input').keyup(e=>{
-        let tagWord = $(e.target).val().trim();
-        // 태그 입력시 중복방지
-        duplicateCheck(tagWord);
-    });
+    // 엔터 두번 방지 !
+    // 해시태그 단독으로 만들어지게 하는 함수 불러오기
+    $('.tag_input').keypress(e=>{
+        let tagText = $(e.target).val().trim();
+        console.log(tagText);
 
-    // 엔터 두 번 방지
-    $('tag_input').keypress(e=>{
-        let tagWord = $(e.target).val().trim();
-
-        // keyCode ===13 이 엔터임.
-        if(e.keyCode===13){
-            tagCount(tagWord);
+        if(e.keyCode === 13){
+            createTagSpan(tagText);
         }
     });
 
 }
 
-// 태그 개수 제한 함수
-// 5개까지만 등록하능 하게 하기
-function tagCount(tagWord){
+// 태그입력하는 거 최대 5개로 제한 하는 함수.
+function preventTag(){
+   if($("span[name=tag-input-spn]").length>4)
+    {
+        alert("태그는 최대 5개까지 입력가능합니다.")
+        return true;
+    }
+}
 
+// tag를 span태그로 가져오게 하는 방법
+function createTagSpan(tagWord){
+    // 이미 추가한 태그일 경우 중복방지
+    if($('.tag_input').text().split('#').indexOf(tagWord) === -1 ){
+        $('.tag_input').remove();
+
+        let val3 = "<span class = 'confirm-tag' style='color: #287094; margin-left: 10px;'>#"+ tagWord +"<span class='delete-tag' style='cursor:pointer'>x</span>";
+        val3 += "</span>";
+        $('.create-tag').parent().append(val3);
+
+
+        // x 표시 구현
+        $('.delete-tag').on("click", function(e){
+            $(e.target).parent().remove();
+        });
+
+        return;
+    }
+}
+
+// 입력한 태그 가져오기
+function getTagSpan(){
+    let tagContent = $('.confirm-tag').text();
+
+    // 등록된 태그가 없다면
+    if(  tagContent=== null){
+        return;
+    }else{
+        return  tagContent.replace("x","").split("#");
+    }
+
+    return;
+}
+
+// 동록된 태그 각각 db에 등록하는 함수
+function addTagToDb(getTagSpan){
+    // 0번 인덱스는 항상 빈 값 (왜냐면 0번 인덱스는 # 이기 때문 )
+    for(let i =1; i<getTagSpan.length ; i++){
+        $.ajax({
+            url:getContextPath()+'/tag/search',
+            data  :{
+                "tagWord" : getTagSpan[i]
+            },
+            success:data=>{
+                if(data.length === 0 ){
+                    addTagFromvboardForm(getTagSpan[i]);
+                }
+            }
+        });
+    }
+}
+
+function addTagFromvboardForm(tagWord){
+    $.ajax({
+        url: getContextPath()+'/board/addTag',
+        data: {
+            "tagWord" : tagWord,
+        },
+        success:data=>{
+            console.log("테이블에 추가");
+    }
+
+    })
 }
 
 
-
-//
-//         // 태그 입력 할 때
-//         $('.field__input').keyup(e=>{
-//             let keyword =$(e.target).val().trim();
-//             //검색어 입력시 태그 검색
-//             checkKeyword(keyword);
-//         });
-//     }
-//
-//     // 엔터 두번 방지
-//     $('.field__input').keypress(e=>{
-//         let keyword =$(e.target).val().trim();
-//
-//         if(e.keyCode === 13 ){
-//             countTag(keyword);
-//         }
-//     });
-//
-// }
-//
-// // 태그 개수 제한하는 함수
-// // keyup 버그 때문에 4 초과로 해야
-// // 5개까지 등록이 됨.
-// function countTag(keyword){
-//     if($('.tag-confirm').length > 4){
-//         alert("태그는 최대 5개까지 등록 가능합니다.");
-//         $('.tag-input-container').remove();
-//         return;
-//     }else{
-//         confirmTag(keyword);
-//     }
-// }
-//
-// function confirmTag(keyword){
-//     // 이미 추가한 태그면 추가못하게 함
-//     if($('.tag-confirm').text().split('#').indexOf(keyword) === -1){
-//         $('.create_tag_input').after('<div class="tag-confirm">#' + keyword + '<span class="delete-confirm-Tag">x</span></div>');
-//         $('.tag-input-container').remove();
-//
-//
-//         $('.delete-confirm-Tag').on("click",function(e) {
-//             console.log("ㅎㅇ");
-//             $(e.target).parent().remove();
-//         });
-//         return;
-//     }
-// }
-//
-// /*
-//
-//  메인 page에서 글쓰기 누르면 실행되는 함수
-//  필요값 => 입력된 태그
-//  결과 => tag 테이블에 사용자가 입력한 태그가 등록됨
-//
-//  */
-//
-// // 입력한 태그 가져오는 함수
-// function getConfirmTag(){
-//     let tagText = $('.tag-confirm').text();
-//
-//     // 등록된 태그가 없다면
-//     if( tagText === null){
-//         return;
-//     }else{
-//         return tagText.replace("x","").split("#");
-//     }
-//
-//     return;
-// }
-//
-// // 등록된 태그 각각 db에 등록하는 함수
-// function addTagEach(getConfirmTag){
-//     // 0번 인덱스는 항상 빈값
-//     for(let i=1; i<getConfirmTag.length; i++){
-//         $.ajax({
-//             url:getContextPath()+'/tag/search',
-//             data:{
-//                 "keyword": getConfirmTag[i]
-//             },
-//             success:data=>{
-//                 // console.log(getConfirmTag[i]);
-//                 // 메인피드의 게시물에서 요청
-//                 if(data.length === 0) {
-//                     console.log("추가?");
-//                     addTagFromMainPage(getConfirmTag[i]);
-//                 }
-//             }
-//         });
-//     }
-// }
-//
-// // 메인 페이지에서 태그 등록하는 함수
-// function addTagFromMainPage(keyword){
-//     $.ajax({
-//         url:getContextPath()+'/tag/add',
-//         data:{
-//             "keyword":keyword,
-//             "ref":"feed"
-//         },
-//         success:data=>{
-//             console.log("테이블에 추가");
-//         }
-//     });
-// }

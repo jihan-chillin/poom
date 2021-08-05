@@ -16,7 +16,7 @@
 }
 
 #ckeditor-table tr:nth-of-type(5) th{
-    padding: 30px 25px;
+    padding: 30px 25px 15px 25px;
 }
 
 #ckeditor-table select{
@@ -127,14 +127,6 @@ div#board-form-content{
     cursor: pointer;
 }
 
-.create-tag:hover {
-    font-size: 20px;
-    font-weight: bolder;
-    color: #287094;
-    border: none;
-    background-color: #f7f7f7;
-    cursor: pointer;
-}
 
 #board_form li>textarea{
 	border:1px solid lightgray;
@@ -173,15 +165,16 @@ div#board-form-content{
 /* 해시태그 이거 눌러서 입력하라는 메시지 출력해줄 예정 */
 .arrow-box{
     width: 180px;
-    margin-top: 15px;
     background-color: black;
     opacity: 30%;
     color: white;
     font-size: 12px;
     padding: 10px;
     border-radius: 10px;
-    position :relative;
+    position: relative;
     display: none;
+    margin-left: 15px;
+    float: left;
 }
 
 .arrow-box:after{
@@ -192,6 +185,16 @@ div#board-form-content{
     left: 10px;
     position: absolute;
 }
+
+.submitposition{
+    position: absolute;
+    left: 200px;
+}
+
+.cancelposition{
+    margin-right: 50px;
+}
+
 
 
 
