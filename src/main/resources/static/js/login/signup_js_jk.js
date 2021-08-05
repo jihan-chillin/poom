@@ -98,7 +98,6 @@ $(function(){
         if(id=="") {
             alert("아이디를 입력해주세요");
             $("[name=memberId]").focus();
-            return;
         } 
 
         //아이디 영문소문자+숫자(8~15자리 입력) 정규식

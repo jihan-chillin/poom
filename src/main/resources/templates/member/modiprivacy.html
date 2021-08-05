@@ -15,7 +15,7 @@
 	                <th>비밀번호</th>
 	                <td><input type="password" name="pw" class="normal-size" placeholder="8~20자의 영어소문자+숫자" /></td>
 	            </tr>
-	            <tr>
+	            <tr class="pwcheck">
 	                <th>비밀번호 확인</th>
 	                <td><input type="password" name="pwk" class="normal-size"><span id="pwCheck"></span></td>
 	            </tr>
@@ -37,7 +37,7 @@
 	            <tr class="email_number">
                     <th style="color:red;">인증번호</th>
                     <td>
-                    	<input type="text" class="normal-size"><span id="emailCheck"></span>
+                    	<input type="text" class="normal-size" name="emk"><span id="emailCheck"></span>
                     	<input type="hidden" name="checked_emailNumber" value="">
                     </td>
                 </tr>
