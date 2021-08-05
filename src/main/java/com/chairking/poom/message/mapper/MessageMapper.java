@@ -14,9 +14,11 @@ public interface MessageMapper {
     @Select("SELECT * FROM MEMBER")
     public List<Map<String,Object>> searchReceiver();
 
-
-    @Select("SELECT MSG_NO, MEMBER_ID, RECV_MEMBER, MSG_DATE, MSG_TYPE, SUBSTR(MSG_CONTENT, 0, 15) || '...' AS MSG_CONTENT, nvl(READ_CHECK, TO_DATE('0001/01/01', 'yyyy/mm/dd')) AS READ_CHECK FROM MESSAGE WHERE 1=1  ${condition} ORDER BY MSG_DATE DESC")
-    public List<Map<String,Object>> getMessage(String condition, Pagination pagination);
+    String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT MSG_NO, MEMBER_ID, RECV_MEMBER, MSG_DATE, MSG_TYPE, SUBSTR(MSG_CONTENT, 0, 15) || '...' AS MSG_CONTENT, "
+            + "nvl(READ_CHECK, TO_DATE('0001/01/01', 'yyyy/mm/dd')) AS READ_CHECK FROM MESSAGE "
+            + "WHERE 1=1  ${condition} ";
+    @Select(query)
+    public List<Map<String,Object>> getMessage(String condition);
 
     @Select("SELECT * FROM MESSAGE WHERE MSG_NO = #{msgNo}")
     List<Map<String, Object>> messageContent(String msgNo);
@@ -37,10 +39,10 @@ public interface MessageMapper {
     List<Map<String, Object>> searchReceiverCondition(String condition);
 
     //message 보내기
-    @Insert("INSERT INTO MESSAGE VALUES (MSG_NO.NEXTVAL, '${memberId}', '${recvMember}', sysdate, '1', '${msgContent}',null)")
+    @Insert("INSERT INTO MESSAGE VALUES (MSG_NO.NEXTVAL, '${memberId}', '${recvMember}', sysdate, '${type}', '${msgContent}',null)")
     int sendMsg(Message msgNo);
 
-    @Select("SELECT * FROM MESSAGE WHERE MSG_TYPE = 2")
+    @Select("SELECT * FROM MESSAGE WHERE MSG_TYPE = 1")
     List<Map<String, Object>> getsendMessage(String msgNo);
 
     @Delete("DELETE FROM MESSAGE WHERE MSG_TYPE = 3")

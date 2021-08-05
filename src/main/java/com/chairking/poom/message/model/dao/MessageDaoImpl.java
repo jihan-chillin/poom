@@ -20,7 +20,7 @@ public class MessageDaoImpl implements MessageDao{
     @Override
     public List<Map<String, Object>> getMessage(MessageMapper mapper, String condition, Pagination pagination){
 
-        return mapper.getMessage(condition, pagination);
+        return mapper.getMessage(condition);
     }
 
     @Override

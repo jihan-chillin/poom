@@ -69,6 +69,16 @@
 
 <script>
 
+    function fn_ajax_paging(i){
+        $.ajax({
+            url:getContextPath()+"/message/receive",
+            data:{
+                "currentPage":i,
+            }
+        }).done(function(fragment){
+            $("#target").html(fragment);
+        });
+    };
 
 </script>
     <script th:src="@{/js/message/message_js_sh.js}"></script>

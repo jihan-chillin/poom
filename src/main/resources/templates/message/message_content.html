@@ -10,11 +10,14 @@
 <div id="popup_wrapper">
     <div id="popup+content">
 <!--        <div th:text="${list.get(0)}"></div>-->
-        <div>보낸 사람</div><div class="search-receiver" th:text="${list.get(0).MEMBER_ID}"></div>
-        <div class="msg-content" th:text="${list.get(0).MSG_CONTENT}"></div>
+        <div class="search-receiver">
+        보낸사람: <span id='recvId' th:text="${list.get(0).MEMBER_ID}"></span></div>
+        <div class="msg-content">
+            <textarea readonly th:text="${list.get(0).MSG_CONTENT}"></textarea>
+        </div>
         <div id="message_buttons">
 
-            <button class="message_buttons" type="button" onclick="showPopup();">답장하기
+            <button class="message_buttons" type="button" onclick="showReplyPop($('#recvId'));">답장하기
             </button>
             <button class="message_buttons2" type="button" onclick="javascript:self.close();">취소</button>
         </div>
@@ -35,9 +38,9 @@
     //     window.resizeTo(500, 400);
     // });
 
-    function showPopup() {
-        window.open(getContextPath() + "/message/popup", "", "width=400,height=300");
-    }
+    // function showPopup() {
+    //     window.open(getContextPath() + "/message/popup", "", "width=400,height=300");
+    // }
 
 </script>
 
