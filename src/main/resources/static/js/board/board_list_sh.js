@@ -75,3 +75,27 @@ function moveToView(no){
 		}
 	})
 }
+
+//왼쪽 카테고리 누르면 해당 카테고리 페이지 이동 ajax
+function moveBoard(cate){
+	$('.feed_write').remove();
+	$('.feed_new').remove();
+
+	$('.feed').css({
+		"background": "#f7f7f7","border-radius":"20px",
+		"height" : "800px"
+	});
+	$.ajax({
+		url:getContextPath()+"/board/boardList",
+		data:{"cate":cate},
+		success:function (result){
+			$('.feed').html(result)
+
+		},
+		error:(e,m,i)=>{
+			console.log(e);
+			console.log(m);
+			console.log(i);
+		}
+	})
+}

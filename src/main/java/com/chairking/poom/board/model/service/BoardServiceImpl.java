@@ -105,6 +105,16 @@ public class BoardServiceImpl implements BoardService {
 	public List<Map<String, Object>> feedKeyList(Map map) {
 		return dao.feedKeyList(session,map);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectBoardList(String cate,int cPage, int numPerpage) {
+		return dao.selectBoardList(mapper, cate, cPage, numPerpage);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectBoardNotice(String cate) {
+		return dao.selectBoardNotice(mapper,cate);
+	}
 	
 	
 	

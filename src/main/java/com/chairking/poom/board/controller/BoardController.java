@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -145,4 +148,22 @@ public class BoardController {
 		return mv;
 	}
 	
+	//왼쪽 게시판 이름 누르면 카테고리로 이동하기
+	@RequestMapping("/board/boardList")
+	public ModelAndView boardList(@RequestParam String cate, ModelAndView mv,HttpServletRequest req ) {
+		int numPerpage = 5;
+		//카테고리별 게시글 리스트
+		List<Map<String, Object>> list = service.selectBoardList(cate,1, numPerpage);
+		//좋아요 가져오기
+		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+		//공지사항 가져오기
+		List<Map<String,Object>> notices=service.selectBoardNotice(cate);
+		System.out.println(notices);
+		mv.addObject("list", list);
+		mv.addObject("likeTable",likeTable);
+		mv.addObject("notice", notices);
+		mv.addObject("name",list.get(0).get("CATEGORY_NAME"));
+		mv.setViewName("board/board_list_list");
+		return mv;
+	}
 }
