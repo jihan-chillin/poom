@@ -23,9 +23,10 @@ public class MywriteServiceImpl implements MywriteService{
         return dao.countMyWrite(mapper);
     }
 
+
     @Override
-    public List<Map<String, Object>> MywriteList(int cPage, int numPerpage) {
-        return dao.MywriteList(mapper, cPage, numPerpage);
+    public List<Map<String, Object>> MywriteList(int cPage, int numPerpage, Object memberId) {
+        return dao.MywriteList(mapper, cPage, numPerpage, memberId);
     }
 
     @Override

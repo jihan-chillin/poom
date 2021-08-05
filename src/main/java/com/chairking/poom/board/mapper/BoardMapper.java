@@ -22,7 +22,7 @@ public interface BoardMapper {
 
 	// INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, '되는지 TEST', '그냥 오라클로 작성하는 거임', DEFAULT, 0, SYSDATE, '서울', 0, '1', 'kimjihan77',0)
 	//게시글 등록
-	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, #{board-title}, #{boardContent}, DEFAULT, 0, SYSDATE, #{memberLoc}, 0, #{boardCate}, #{memberId}, 0)")
+	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, #{board-title}, #{boardContent}, DEFAULT, 0, SYSDATE, #{memberLoc}, 0, #{boardCate}, #{memberId}, 0,0, '20210804_10881_urbanbrush-20190629084930578298.png')")
 	public int insertBoard(Map param);
 	
 	//게시글 번호 가져오는 쿼리문
