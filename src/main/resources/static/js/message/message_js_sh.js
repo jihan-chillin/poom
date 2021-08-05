@@ -101,6 +101,7 @@ function showMsgPop(member) {
     self.parent.close();
 }
 
+
 function showReplyPop(){
     window.open("")
 }
@@ -132,7 +133,16 @@ $('.messages').click(function(e) {
 
 
 
-
+function fn_ajax_paging(i){
+    $.ajax({
+        url:getContextPath()+"/message/receive",
+        data:{
+            "currentPage":i,
+        }
+    }).done(function(fragment){
+        $("#target").html(fragment);
+    });
+};
 
 
 

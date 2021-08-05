@@ -1,5 +1,6 @@
 package com.chairking.poom.message.model.service;
 
+import com.chairking.poom.common.Pagination;
 import com.chairking.poom.message.mapper.MessageMapper;
 import com.chairking.poom.message.model.dao.MessageDao;
 import com.chairking.poom.message.model.vo.Message;
@@ -30,8 +31,8 @@ public class MessageServiceImpl implements MessageService {
 
     //메세지 리스트 불러오기용
     @Override
-    public List<Map<String,Object>> getMessage(String condition){
-        return dao.getMessage(mapper, condition);
+    public List<Map<String,Object>> getMessage(String condition, Pagination pagination){
+        return dao.getMessage(mapper, condition, pagination);
     }
 
     @Override
@@ -78,6 +79,11 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public int selectBlock(String msgNo) {
         return dao.selectBlock(mapper,msgNo);
+    }
+
+    @Override
+    public int messageCount(String condition) {
+        return dao.messageCount(mapper,condition);
     }
 
 

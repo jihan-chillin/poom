@@ -1,5 +1,6 @@
 package com.chairking.poom.message.mapper;
 
+import com.chairking.poom.common.Pagination;
 import com.chairking.poom.member.model.vo.Member;
 import com.chairking.poom.message.model.vo.Message;
 import org.apache.ibatis.annotations.*;
@@ -15,7 +16,7 @@ public interface MessageMapper {
 
 
     @Select("SELECT MSG_NO, MEMBER_ID, RECV_MEMBER, MSG_DATE, MSG_TYPE, SUBSTR(MSG_CONTENT, 0, 15) || '...' AS MSG_CONTENT, nvl(READ_CHECK, TO_DATE('0001/01/01', 'yyyy/mm/dd')) AS READ_CHECK FROM MESSAGE WHERE 1=1  ${condition} ORDER BY MSG_DATE DESC")
-    public List<Map<String,Object>> getMessage(String condition);
+    public List<Map<String,Object>> getMessage(String condition, Pagination pagination);
 
     @Select("SELECT * FROM MESSAGE WHERE MSG_NO = #{msgNo}")
     List<Map<String, Object>> messageContent(String msgNo);
@@ -47,4 +48,7 @@ public interface MessageMapper {
 
     @Delete("DELETE FROM MESSAGE WHERE MSG_NO = #{msgNo}")
     int selectBlock(String msgNo);
+
+    @Select("SELECT COUNT (*) FROM MESSAGE WHERE 1=1 ${condition}")
+    int messageCount(String condition);
 }

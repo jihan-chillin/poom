@@ -1,6 +1,7 @@
 package com.chairking.poom.message.controller;
 
 
+import com.chairking.poom.common.Pagination;
 import com.chairking.poom.member.model.vo.Member;
 import com.chairking.poom.message.model.service.MessageService;
 import com.chairking.poom.message.model.vo.Message;
@@ -39,15 +40,22 @@ public class MessageController {
 
     //ajax 받은 쪽지 페이지
     @RequestMapping("/receive")
-    public ModelAndView receiveMessage(HttpServletRequest req, ModelAndView mv){
+    public ModelAndView receiveMessage(HttpServletRequest req, ModelAndView mv,
+                                       @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+                                       @RequestParam(value = "cntPerPage", required = false, defaultValue = "5") int cntPerPage,
+                                       @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
         HttpSession session = req.getSession();
         // 세션에서 내 아이디 가져옴
         Map<String,String> val = (Map<String,String>)session.getAttribute("loginMember");
         String myId = val.get("MEMBER_ID");
+        String condition = "AND RECV_MEMBER = '" + myId + "' AND MSG_TYPE =2";
 
-        System.out.println("myId:" + myId);
-        String condition = "AND RECV_MEMBER = '" + myId + "' AND MSG_TYPE !=3";
-        List<Map<String,Object>> list = service.getMessage(condition);
+        Pagination pagination = new Pagination(currentPage,cntPerPage,pageSize);
+        pagination.setTotalRecordCount(service.messageCount(condition));
+
+
+        System.out.println("paginationㄱ댁ㅈ체 "+pagination);
+        List<Map<String,Object>> list = service.getMessage(condition,pagination);
         mv.addObject("list",list);
         System.out.println(list);
         mv.setViewName("message/message_receiveMessage");
@@ -58,15 +66,20 @@ public class MessageController {
 
     //ajax 보낸 쪽지 페이지
     @RequestMapping("/send")
-    public ModelAndView sendMessage(HttpServletRequest req, ModelAndView mv){
+    public ModelAndView sendMessage(HttpServletRequest req, ModelAndView mv,
+                                    @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+                                    @RequestParam(value = "cntPerPage", required = false, defaultValue = "5") int cntPerPage,
+                                    @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
         HttpSession session = req.getSession();
         // 세션에서 내 아이디 가져옴
         Map<String,String> val = (Map<String,String>)session.getAttribute("loginMember");
         String myId = val.get("MEMBER_ID");
+        String condition = "AND MEMBER_ID = '" + myId + "' AND MSG_TYPE =1";
 
-        System.out.println("myId:" + myId);
-        String condition = "AND MEMBER_ID = '" + myId + "' AND MSG_TYPE !=3";
-        List<Map<String,Object>>list = service.getMessage(condition);
+        Pagination pagination = new Pagination(currentPage,cntPerPage,pageSize);
+        pagination.setTotalRecordCount(service.messageCount(condition));
+
+        List<Map<String,Object>>list = service.getMessage(condition,pagination);
         if (list.size() != 0) {
             if (list.get(0).get("READ_CHECK") == null)
                 System.out.println("null이다");
@@ -78,14 +91,21 @@ public class MessageController {
 
     //ajax 휴지통
     @RequestMapping("/block")
-    public ModelAndView blockMessage(HttpServletRequest req, ModelAndView mv){
+    public ModelAndView blockMessage(HttpServletRequest req, ModelAndView mv,
+                                     @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+                                     @RequestParam(value = "cntPerPage", required = false, defaultValue = "5") int cntPerPage,
+                                     @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
         HttpSession session = req.getSession();
         // 세션에서 내 아이디 가져옴
         Map<String,String> val = (Map<String,String>)session.getAttribute("loginMember");
         String myId = val.get("MEMBER_ID");
 
         String condition = "AND (RECV_MEMBER = '" + myId + "' OR MEMBER_ID = '" + myId + "') AND MSG_TYPE=3";
-        List<Map<String,Object>>list = service.getMessage(condition);
+
+        Pagination pagination = new Pagination(currentPage,cntPerPage,pageSize);
+        pagination.setTotalRecordCount(service.messageCount(condition));
+
+        List<Map<String,Object>>list = service.getMessage(condition,pagination);
         mv.addObject("list",list);
         mv.setViewName("message/message_blockMessage");
         return mv;
