@@ -7,30 +7,20 @@
 	<img alt="품 미리보기" th:src="@{/images/profile/}+${f.PREVIEW_IMG}">
 	<ul>
 		<li><i class="gg-menu-boxed"></i><span th:text="${f.COMMENTS_COUNT}"></span></li>
-		<li><!-- <i class="gg-heart"></i> -->
-			<!-- <th:block th:each="l:${likeTable}" > -->
-			<span th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" style="font-size:23px;cursor:pointer;" th:data-add="${f.BOARD_NO}" th:data-id="${session.loginMember.MEMBER_ID}"
-					th:onclick="|fn_addLike(this.getAttribute('data-add'),this.getAttribute('data-id'));|"></span>
-				<!-- <span th:unless="${f.BOARD_NO eq l.BOARD_NO}" style="font-size:23px;cursor:pointer;" th:data-add="${f.BOARD_NO}" th:data-id="${session.loginMember.MEMBER_ID}"
-					th:onclick="|fn_addLike(this.getAttribute('data-add'),this.getAttribute('data-id'));|">♡</span>
-				<span th:if="${f.BOARD_NO eq l.BOARD_NO}"style="font-size:23px;cursor:pointer;"  th:data-add="${f.BOARD_NO}" th:data-id="${session.loginMember.MEMBER_ID}" 
-					th:onclick="|fn_addLike(this.getAttribute('data-add'),this.getAttribute('data-id'))|">♥</span> -->
-			<!-- </th:block> -->
-			<!-- <th:block th:each="l:${likeTable}">
-			<span th:text="not ${#lists.contains(likeTable,f.BOARD_NO)}?'♡':''" style="font-size:23px;cursor:pointer;" th:data-add="${f.BOARD_NO}" th:data-id="${session.loginMember.MEMBER_ID}"
-					th:onclick="|fn_addLike(this.getAttribute('data-add'),this.getAttribute('data-id'));|"></span>
-			</th:block>
-			 --><span th:text="${f.LIKE_COUNT}"></span>
-			 <span th:text="${f.BOARD_NO}"></span>
-			 <span th:text="${#strings.contains(likeTable,f.BOARD_NO)}?'있다':'없다'"></span>
+		<li>
+			<span th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" style="font-size:23px;cursor:pointer;" 
+					th:data-add="${f.BOARD_NO}" th:data-id="${session.loginMember.MEMBER_ID}" 
+					th:data-like="${#arrays.contains(likeTable,f.BOARD_NO)}?'누름':'안누름'"
+					th:onclick="|fn_addLike(this.getAttribute('data-add'),this.getAttribute('data-id'),this.getAttribute('data-like'));|" ></span>
+			 <span th:text="${f.LIKE_COUNT}"></span>
 		</li>
 	</ul>
-	
-	<!-- th:unless="${f.BOARD_NO eq l.BOARD_NO and session.loginMember.MEMBER_ID eq l.PUSH_LIKES}" -->
 </div>
 <script>
-function fn_addLike(no,id){
-	var loc="";
+//좋아요 +1
+function fn_addLike(no,id,like){
+	alert(no,id,like);
+	/* var loc="";
 	if($(check).prop("checked")) {
 		loc = $("p.onoffBtn:eq(0)").html();
 	}else {
@@ -47,11 +37,12 @@ function fn_addLike(no,id){
 			"no":no,
 			"id":id,
 			"loc":loc,
-			"list":list
+			"list":list,
+			"like":like
 		}
 	}).done(function (fragment){
 		$("#feed_content").html(fragment);
-	})
+	}) */
 }
 </script>
 

@@ -112,9 +112,6 @@ public class BoardController {
 		}
 		
 		mv.setViewName("main/feedList");
-		for(String s:likeTable) {
-			System.out.println(s);
-		}
 		return mv;
 	}
 	
