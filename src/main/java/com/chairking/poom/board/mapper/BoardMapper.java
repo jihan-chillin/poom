@@ -79,4 +79,8 @@ public interface BoardMapper {
 	//좋아요 테이블 가져오기
 	@Select("SELECT * FROM LIKES")
 	public List<Map<String, Object>> likeTable();
+	
+	//나의 태그 가져오기
+	@Select("SELECT TAG_NAME FROM MEMBERTAG WHERE MEMBER_ID=#{id}")
+	public String[] myTag(Map param);
 }

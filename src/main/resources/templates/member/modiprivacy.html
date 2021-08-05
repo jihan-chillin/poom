@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link th:href="@{/css/member/modiprivacy_jh.css}" rel="stylesheet" type="text/css">
+<link th:href="@{/css/member/mypage.css}" rel="stylesheet" type="text/css">
 
     <!-- 정보 수정란 -->
-    <form>
+    <form th:action="@{/member/updatePrivacy}" name="updatePri_form" method="post">
         <table id=privacy-info-modi>
         	<tbody>
 	            <tr>
@@ -12,17 +12,12 @@
 	            </tr>
 	
 	            <tr>
-	                <th id="pw-modi">비밀번호</th>
-	                <td><input type="password" name="pw" class="normal-size" value=""></td>
+	                <th>비밀번호</th>
+	                <td><input type="password" name="pw" class="normal-size" placeholder="8~20자의 영어소문자+숫자" /></td>
 	            </tr>
 	            <tr>
-	                <th id="pwcheck-modi">비밀번호 확인</th>
-	                <td>
-	                    <input type="password" class="normal-size" value="">
-	                    <span id="alert-success" style="display: none;">비밀번호가 일치합니다.</span>
-	                    <span id="alert-danger" style="display: none; color: #d92742; font-weight: bold; ">비밀번호가 일치하지 않습니다.</span>
-	
-	                </td>
+	                <th>비밀번호 확인</th>
+	                <td><input type="password" name="pwk" class="normal-size"><span id="pwCheck"></span></td>
 	            </tr>
 	            <tr>
 	                <th>이름</th>
@@ -34,15 +29,23 @@
 	            </tr>
 	            <tr>
 	                <th>이메일</th>
-	                <td><input type="email" name = "email" class="normal-size" th:value="${session.loginMember.MEMBER_EMAIL}">
-	                    <input type="button" class="blue-btn" value="인증">
+	                <td>
+	                	<input type="email" name ="memberEmail" class="normal-size" th:value="${session.loginMember.MEMBER_EMAIL}">
+	                    <button type="button" id="emailSend" style="margin-bottom:0;">인증</button>
 	                </td>
 	            </tr>
+	            <tr class="email_number">
+                    <th style="color:red;">인증번호</th>
+                    <td>
+                    	<input type="text" class="normal-size"><span id="emailCheck"></span>
+                    	<input type="hidden" name="checked_emailNumber" value="">
+                    </td>
+                </tr>
 	            <tr>
 	                <th>위치인증</th>
 	                <td>
-	                	<input type="text" name="loc" class="normal-size"  th:value="${session.loginMember.MEMBER_LOC}" readonly>
-	                    <input type="button" class="blue-btn" value="인증">
+	                	<input type="text" name="memberLoc" class="normal-size"  th:value="${session.loginMember.MEMBER_LOC}" readonly>
+	                    <button type="button" id="findLocation" style="margin-bottom:0;">인증</button>
 	                </td>
 	            </tr>
 	            <tr>

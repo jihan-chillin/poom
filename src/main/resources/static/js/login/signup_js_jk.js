@@ -20,7 +20,7 @@ function success(pos) {
             if (status === kakao.maps.services.Status.OK) {
                 //지역명 받아오기
                 var locate = result[0].address.region_1depth_name;
-                console.log(locate);
+                //console.log(locate);
                 $('input[name=memberLoc]').val(locate);
             }
         };
@@ -114,7 +114,7 @@ $(function(){
     });
 
     //비밀번호 유효성검사
-    $("[name=pw]").on("blur",function() {
+    $("[name=memberPw]").on("blur",function() {
     	var pw = $("[name=memberPw]").val();
         if(pw=="") {
             alert("비밀번호를 입력해주세요");
@@ -133,7 +133,6 @@ $(function(){
     //비밀번호 확인
     $("[name=pwc]").on("keyup",function() {
         var checkResult = $("#pwCheck");
-
         if($("[name=memberPw]").val() == $("[name=pwc]").val()) {
             checkResult.html("O 일치");
             checkResult.attr("class", "correct");

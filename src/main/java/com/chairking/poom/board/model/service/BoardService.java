@@ -31,6 +31,10 @@ public interface BoardService {
 	
 	Map<String,Object> selectNotice(String noticeNo);
 	
+	//마이태그 받아오기
+	String[] myTag(Map param);
 	
+	//메인 마이태그글 받아오기
+	List<Map<String, Object>> feedKeyList(Map map);
 	
 }

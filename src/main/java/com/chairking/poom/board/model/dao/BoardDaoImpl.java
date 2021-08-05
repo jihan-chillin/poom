@@ -3,6 +3,7 @@ package com.chairking.poom.board.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.chairking.poom.board.mapper.BoardMapper;
@@ -50,17 +51,9 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public List<Map<String, Object>> feedList(BoardMapper mapper, Map param) {
 		if(param.get("loc").equals("")) {
-			if(param.get("list").equals("feedall")) {
 				return mapper.feedListAllAll(param);
-			}else {
-				return mapper.feedListAllKey(param);
-			}
 		}else {
-			if(param.get("list").equals("feedall")) {
 				return mapper.feedListLocAll(param);
-			}else {
-				return mapper.feedListLocKey(param);
-			}
 		}
 	}
 
@@ -72,6 +65,16 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public List<Map<String, Object>> likeTable(BoardMapper mapper) {
 		return mapper.likeTable();
+	}
+
+	@Override
+	public String[] myTag(BoardMapper mapper, Map param) {
+		return mapper.myTag(param);
+	}
+
+	@Override
+	public List<Map<String, Object>> feedKeyList(SqlSessionTemplate session, Map map) {
+		return session.selectList("boardMapper.feedKeyList", map);
 	}
 
 	
