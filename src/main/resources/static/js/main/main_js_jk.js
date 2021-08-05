@@ -63,17 +63,17 @@ function logOut(){
 }
 
 function feedWrite() {
-	var title = $("[name=boardTitle]").val();
-	var content = $("[name=boardContent]").val();
+	var title = $("[name=title]").val();
+	var content = $("[name=content]").val();
 
 	if(title == ""){
         alert("제목을 입력해주세요.");
-        $("[name=boardTitle]").focus();
+        $("[name=title]").focus();
         return false;
     }
     if(content == ""){
-        alert("제목을 입력해주세요.");
-        $("[name=boardContent]").focus();
+        alert("내용을 입력해주세요.");
+        $("[name=content]").focus();
         return false;
     }
 		// 사용자가 입력한 태그 등록하는 메소드
@@ -111,36 +111,21 @@ function feedNew() {
 	if($("ul.feedtab>li").hasClass('feedtab_on')) {
 		list = $("li.feedtab_on").attr('id');
 	}
-<<<<<<< HEAD
-	var id=$("input[name=id]").val();
-=======
-	
 	var id=$("input[name=id]").val();
 	
->>>>>>> branch 'master' of https://github.com/jihan-chillin/poom.git
 	console.log(loc);
 	console.log(list);
 	console.log(id);
-<<<<<<< HEAD
 	
-=======
->>>>>>> branch 'master' of https://github.com/jihan-chillin/poom.git
 	$.ajax({
 		url: getContextPath()+"/board/feedNew",
 		data:{
 			"loc" : loc,
 			"list" : list,
-<<<<<<< HEAD
-			"id":id
-=======
 			"id" : id
->>>>>>> branch 'master' of https://github.com/jihan-chillin/poom.git
 		},
 		success:data=>{
 			$("#feed_content").html(data);
 		}
 	})
 }
-
-
-

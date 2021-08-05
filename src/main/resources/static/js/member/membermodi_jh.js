@@ -142,19 +142,20 @@ $('button.btn_submit').click(function(){
     }
 	
 	//불일치 유효성검사
-	if($("span#pwCheck").hasClass("incorrect"===true)) {
+	if($("#pwCheck").hasClass("incorrect")==true) {
 		alert('비밀번호가 일치하지 않습니다.');
 		$("[name=pwk]").focus();
 		return false;
 	}
-	if($("span#emailCheck").hasClass("incorrect"===true)) {
+	if($("#emailCheck").hasClass("incorrect")==true) {
 		alert('인증번호가 일치하지 않습니다.');
 		$("[name=emk]").focus();
 		return false;
 	}
 	
 	//메일변경시 유효성검사
-	var mail = $("[name=checked_emailNumber]").val();
+	var newmail = $("[name=checked_emailNumber]").val();
+	var oldmail = $("[name=checked_emailNumber]").val();
 	if(mail=="" || mail!=y) {
 		alert('이메일 변경은 인증을 해야합니다!');
 		return false;

@@ -31,6 +31,7 @@
 	                <th>이메일</th>
 	                <td>
 	                	<input type="email" name ="memberEmail" class="normal-size" th:value="${session.loginMember.MEMBER_EMAIL}">
+	                	<input type="hidden" name="oldemail" th:value="${session.loginMember.MEMBER_EMAIL}">
 	                    <button type="button" id="emailSend" style="margin-bottom:0;">인증</button>
 	                </td>
 	            </tr>
