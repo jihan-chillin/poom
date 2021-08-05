@@ -7,22 +7,41 @@
 	<img alt="품 미리보기" th:src="@{/images/profile/}+${f.PREVIEW_IMG}">
 	<ul>
 		<li><i class="gg-menu-boxed"></i><span th:text="${f.COMMENTS_COUNT}"></span></li>
-		<li ><!-- <i class="gg-heart"></i> -->
-			<th:block th:if="${f.LIKE_COUNT } eq 0"> <!-- likecount 0 이면 빈하트 -->
-			<span style="font-size:23px;cursor:pointer;" th-data-add="${f.BOARD_NO}" th:onclick="|fn_addLike(this.getAttribute('data-add'));|">♡</span>
-			<span th:text="${f.LIKE_COUNT}"></span>
-			</th:block>
-			<th:block th:unless="${f.LIKE_COUNT } eq 0"><!-- likecount 1 이면 까만하트 -->
-			<span style="font-size:23px;cursor:pointer;"  th:onclick="|fn_addLike(this.getAttribute('data-add'))|">♥</span>
-			<span th:text="${f.LIKE_COUNT}"></span>
-			</th:block>
+		<li>
+			<span th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" style="font-size:23px;cursor:pointer;" 
+					th:data-add="${f.BOARD_NO}" th:data-id="${session.loginMember.MEMBER_ID}" 
+					th:data-like="${#arrays.contains(likeTable,f.BOARD_NO)}?'누름':'안누름'"
+					th:onclick="|fn_changeLike(this.getAttribute('data-add'),this.getAttribute('data-id'),this.getAttribute('data-like'));|" ></span>
+			 <span th:text="${f.LIKE_COUNT}"></span>
 		</li>
 	</ul>
 </div>
 <script>
-function fn_addLike(no){
-	alert(no);
+//좋아요 +1
+function fn_changeLike(no,id,like){
+	var loc="";
+	if($(check).prop("checked")) {
+		loc = $("p.onoffBtn:eq(0)").html();
+	}else {
+		loc = $("p.onoffBtn:eq(1)").html();
+	}
+	
+	var list="";
+	if($("ul.feedtab>li").hasClass('feedtab_on')) {
+		list = $("li.feedtab_on").attr('id');
+	}
+	$.ajax({
+		url:getContextPath()+"/board/changeLike",
+		data:{
+			"no":no,
+			"id":id,
+			"loc":loc,
+			"list":list,
+			"like":like
+		}
+	}).done(function (fragment){
+		$("#feed_content").html(fragment);
+	})
 }
-
 </script>
 

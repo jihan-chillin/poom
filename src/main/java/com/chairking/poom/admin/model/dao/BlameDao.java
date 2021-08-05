@@ -31,12 +31,6 @@ public interface BlameDao {
 	int changeDelStatus(SqlSessionTemplate session,Map<String, String> map);
 	
 	//누적신고수 팝업=>select
-	List<Map<String,Object>> selectBoardBlame(AdminMapper mapper,String no);
-	List<Map<String,Object>> selectCommentsBlame(AdminMapper mapper,String no);
-	List<Map<String,Object>> selectChatBlame(AdminMapper mapper,String no);
-	List<Map<String,Object>> selectMemberBlame(AdminMapper mapper,String no);
-	
-	//동적쿼리테스트
 	List<Map<String,Object>> selectBlame(SqlSessionTemplate session,Map<String,Object> map);
 	int selectCountBlame1(SqlSessionTemplate session, Map<String,Object> map);
 	int selectCountBlame2(SqlSessionTemplate session, Map<String,Object> map);

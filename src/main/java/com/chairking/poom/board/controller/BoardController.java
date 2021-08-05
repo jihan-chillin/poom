@@ -85,9 +85,9 @@ public class BoardController {
 	@RequestMapping("/board/feedNew")
 	public ModelAndView feedNew(@RequestParam Map param, ModelAndView mv) {
 		
-		//좋아요 테이블 불러오기
-		List<Map<String, Object>> likeTable = service.likeTable();
 		
+		//좋아요 테이블 불러오기
+		String[] likeTable = service.likeTable((String)param.get("id"));
 		List<Map<String, Object>> feedList;
 		if(param.get("loc").equals("전국")) {
 			param.put("loc","");
@@ -112,7 +112,6 @@ public class BoardController {
 		}
 		
 		mv.setViewName("main/feedList");
-		
 		return mv;
 	}
 	
@@ -127,13 +126,23 @@ public class BoardController {
 	}
 	
 	//좋아요=> +1하기
-	@RequestMapping("/board/addLike")
-	public ModelAndView addLike(@RequestParam String no,ModelAndView mv) {
-		System.out.println("보ㅗ드넘버"+no);
+	@RequestMapping("/board/changeLike")
+	public ModelAndView changeLike(@RequestParam Map<String,String> map,ModelAndView mv) {
+		//해당 no로 board테이블에 like count 추가하고 
+		//좋아요 테이블에 컬럼 추가하기
+		int result=service.changeLike(map);
 		
-		
+		//추가 후 list다시 불러오기
+		List<Map<String, Object>> feedList = service.feedList(map);
+		String[] likeTable = service.likeTable(map.get("id"));
+		if(feedList!=null) {
+			mv.addObject("likeTable",likeTable);
+			mv.addObject("feedList",feedList);
+		}else {
+			mv.addObject("feedList","등록된 글이 없습니다.");
+		}
+		mv.setViewName("main/feedList");
 		return mv;
 	}
 	
-	//좋아요 count-1하기
 }

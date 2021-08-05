@@ -18,7 +18,7 @@ public interface BoardDao {
 	//메인 피드 리스트 가져오기
 	List<Map<String, Object>> feedList(BoardMapper mapper, Map param);
 	//좋아요 테이블 가져오기
-	List<Map<String, Object>> likeTable(BoardMapper mapper);
+	String[] likeTable(BoardMapper mapper, String id);
 	
 	List<Map<String, Object>> selectAllBoard(BoardMapper mapper, int cPage, int numPerpage);
 
@@ -27,6 +27,12 @@ public interface BoardDao {
 	int selectBoardNo(BoardMapper mapper, Board b);
 	List<Map> selectCommentList(BoardMapper mapper, String boardNo);
 	Map<String,Object> selectNotice(BoardMapper mapper, String noticeNo);
+	//좋아요+1
+	int addLike(BoardMapper mapper, Map<String,String> map);
+	int addLikeTable(BoardMapper mapper, Map<String,String> map);
+	//좋아요-1
+	int cancelLike(BoardMapper mapper, Map<String,String> map);
+	int cancelLikeTable(BoardMapper mapper, Map<String,String> map);
 	
 	//마이태그 받아오기
 	String[] myTag(BoardMapper mapper, Map param);

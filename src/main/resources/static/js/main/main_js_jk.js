@@ -63,19 +63,21 @@ function logOut(){
 }
 
 function feedWrite() {
-	var title = $("[name=boardTitle]").val();
-	var content = $("[name=boardContent]").val();
+	var title = $("[name=title]").val();
+	var content = $("[name=content]").val();
 
-	if(title == ""){
+		if(title == ""){
         alert("제목을 입력해주세요.");
-        $("[name=boardTitle]").focus();
+        $("[name=title]").focus();
         return false;
     }
     if(content == ""){
-        alert("제목을 입력해주세요.");
-        $("[name=boardContent]").focus();
+        alert("내용을 입력해주세요.");
+        $("[name=content]").focus();
         return false;
     }
+		// 태그 입력창이 비어있는지 확인하는 메소드
+    checkTagInputEmpty();
 		// 사용자가 입력한 태그 등록하는 메소드
 		addTagEach(getConfirmTag());
 
@@ -111,12 +113,12 @@ function feedNew() {
 	if($("ul.feedtab>li").hasClass('feedtab_on')) {
 		list = $("li.feedtab_on").attr('id');
 	}
-	
 	var id=$("input[name=id]").val();
 	
 	console.log(loc);
 	console.log(list);
 	console.log(id);
+	
 	$.ajax({
 		url: getContextPath()+"/board/feedNew",
 		data:{
@@ -129,6 +131,3 @@ function feedNew() {
 		}
 	})
 }
-
-
-

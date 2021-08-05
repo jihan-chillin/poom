@@ -93,26 +93,6 @@ public class BlameDaoImpl implements BlameDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectBoardBlame(AdminMapper mapper, String no) {
-		return mapper.selectBoardBlame(no);
-	}
-
-	@Override
-	public List<Map<String, Object>> selectCommentsBlame(AdminMapper mapper, String no) {
-		return mapper.selectCommentsBlame(no);
-	}
-
-	@Override
-	public List<Map<String, Object>> selectChatBlame(AdminMapper mapper, String no) {
-		return mapper.selectChatBlame(no);
-	}
-
-	@Override
-	public List<Map<String, Object>> selectMemberBlame(AdminMapper mapper, String no) {
-		return mapper.selectMemberBlame(no);
-	}
-
-	@Override
 	public List<Map<String, Object>> selectBlame(SqlSessionTemplate session, Map<String,Object> map) {
 		return session.selectList("adminMapper.selectBlame",map);
 	}
