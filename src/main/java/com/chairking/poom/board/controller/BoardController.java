@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,8 +55,11 @@ public class BoardController {
 	
 	//게시글 상세 조회
 	@GetMapping("/board/view")
-	public ModelAndView boardView(@RequestParam String boardNo, ModelAndView mv) {
+	public ModelAndView boardView(@RequestParam String boardNo, ModelAndView mv,HttpServletRequest req) {
 		System.out.println(boardNo);
+		//좋아요 가져오기
+		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+		mv.addObject("likeTable",likeTable);
 		mv.setViewName("board/board_view");
 		mv.addObject("board", service.selectBoard(boardNo));
 		mv.addObject("commentList", service.selectCommentList(boardNo));
@@ -131,18 +137,45 @@ public class BoardController {
 		//해당 no로 board테이블에 like count 추가하고 
 		//좋아요 테이블에 컬럼 추가하기
 		int result=service.changeLike(map);
-		
-		//추가 후 list다시 불러오기
-		List<Map<String, Object>> feedList = service.feedList(map);
+		//좋아요 리스트 다시 가져오기
 		String[] likeTable = service.likeTable(map.get("id"));
-		if(feedList!=null) {
+		
+		//메인에서 좋아요 눌렀을때
+		if(map.get("type")==null) {
+			//추가 후 list다시 불러오기
+			List<Map<String, Object>> feedList = service.feedList(map);
+			if(feedList!=null) {
+				mv.addObject("likeTable",likeTable);
+				mv.addObject("feedList",feedList);
+			}else {
+				mv.addObject("feedList","등록된 글이 없습니다.");
+			}
+			mv.setViewName("main/feedList");
+		}else {			//게시글에서 좋아요 눌렀을때
 			mv.addObject("likeTable",likeTable);
-			mv.addObject("feedList",feedList);
-		}else {
-			mv.addObject("feedList","등록된 글이 없습니다.");
+			mv.setViewName("board/board_view");
+			mv.addObject("board", service.selectBoard(map.get("no")));
+			mv.addObject("commentList", service.selectCommentList(map.get("no")));
 		}
-		mv.setViewName("main/feedList");
 		return mv;
 	}
 	
+	//왼쪽 게시판 이름 누르면 카테고리로 이동하기
+	@RequestMapping("/board/boardList")
+	public ModelAndView boardList(@RequestParam String cate, ModelAndView mv,HttpServletRequest req ) {
+		int numPerpage = 5;
+		//카테고리별 게시글 리스트
+		List<Map<String, Object>> list = service.selectBoardList(cate,1, numPerpage);
+		//좋아요 가져오기
+		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+		//공지사항 가져오기
+		List<Map<String,Object>> notices=service.selectBoardNotice(cate);
+		System.out.println(notices);
+		mv.addObject("list", list);
+		mv.addObject("likeTable",likeTable);
+		mv.addObject("notice", notices);
+		mv.addObject("name",list.get(0).get("CATEGORY_NAME"));
+		mv.setViewName("board/board_list_list");
+		return mv;
+	}
 }

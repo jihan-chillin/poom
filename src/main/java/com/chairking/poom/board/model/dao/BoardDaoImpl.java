@@ -97,6 +97,17 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.cancelLikeTable(map);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectBoardList(BoardMapper mapper, String cate, int cPage, int numPerpage) {
+		return mapper.selectBoardList(cate,cPage,numPerpage);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectBoardNotice(BoardMapper mapper, String cate) {
+		return mapper.selectBoardNotice(cate);
+	}
+
+	
 	
 
 }
