@@ -104,8 +104,11 @@ public class MemberController {
 
     //개인정보 수정 -> 완료시 메인화면으로
     @PostMapping("/updatePrivacy")
-    public ModelAndView updatePrivacy(ModelAndView mv, @RequestBody Map<String, String> param) {
-
+    public ModelAndView updatePrivacy(ModelAndView mv, @RequestParam Map<String, String> param) {
+    	System.out.println(param);
+    	
+    	//int result = service.updatePrivacy(param);
+		//Map<String,Object> m = loginservice.selectMember(param);
 
         return mv;
     }

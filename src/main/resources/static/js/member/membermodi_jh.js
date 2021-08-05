@@ -3,6 +3,16 @@ function goMain(){
     location.href=getContextPath()+'/login/main';
 }
 
+// 자기소개 글자수 체크
+$('[name=intro]').on('keyup', function() {
+	$('#intro_cnt').html("("+$(this).val().length+" / 30)");
+ 
+	if($(this).val().length > 30) {
+		$(this).val($(this).val().substring(0, 30));
+		$('#intro_cnt').html("(30 / 30)");
+	}
+});  
+
 // 미리보기 이미지 생성
 $('input[name=input_file]').change(e=>{  
 	
@@ -24,6 +34,12 @@ $('input[name=input_file]').change(e=>{
 $('input[name=delete_file]').click(e=>{ 
     $(".profile-img>img").attr('src', getContextPath()+'/images/profile/poom_profile.jpg');
 });
+
+//버튼 클릭시 프로필정보 수정
+$('button.btn_submit').click(function(){
+	$("[name=updatePro_form]").submit();
+});
+
 
 // tab 클릭시 이동 ajax 
 $('ul.findtab li').click(function(){
@@ -48,16 +64,7 @@ $('ul.findtab li').click(function(){
     	});
     }
 });
-
-// 자기소개 글자수 체크
-$('[name=intro]').on('keyup', function() {
-	$('#intro_cnt').html("("+$(this).val().length+" / 30)");
- 
-	if($(this).val().length > 30) {
-		$(this).val($(this).val().substring(0, 30));
-		$('#intro_cnt').html("(30 / 30)");
-	}
-});    
+  
 
 
 //개인정보 js
@@ -106,7 +113,6 @@ $(".email_number input").keyup(function(){
     
 });
 
-
 //비밀번호 확인
 $(".pwcheck input").on("keyup",function() {
 
@@ -121,7 +127,7 @@ $(".pwcheck input").on("keyup",function() {
 });
 
 //버튼 클릭시 개인정보 수정
-$('button.btn_submit').click(function(){
+$('button.btn_submitpri').click(function(){
 
 	//비밀번호 유효성검사
 	var pw = $("[name=pw]").val();
@@ -154,12 +160,16 @@ $('button.btn_submit').click(function(){
 	}
 	
 	//메일변경시 유효성검사
-	var newmail = $("[name=checked_emailNumber]").val();
-	var oldmail = $("[name=checked_emailNumber]").val();
-	if(mail=="" || mail!=y) {
+	var newmail = $("[name=memberEmail]").val();
+	var oldmail = $("[name=oldmail]").val();
+	if(oldmail==newmail) {
+		$("[name=checked_emailNumber]").val("y");
+	}
+	if(newmail=="" || $("[name=checked_emailNumber]").val()=="") {
 		alert('이메일 변경은 인증을 해야합니다!');
+		$("[name=memberEmail]").focus();
 		return false;
 	}
 	
-	$("[name=updatePro_form]").submit();
+	$("[name=updatePri_form]").submit();
 });
