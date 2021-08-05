@@ -85,8 +85,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Map<String, Object>> likeTable() {
-		return dao.likeTable(mapper);
+	public String[] likeTable(String id) {
+		return dao.likeTable(mapper, id);
 	}
 
 	@Override

@@ -71,8 +71,8 @@ public interface BoardMapper {
 	public Map<String,Object> selectNotice(String no);
 	
 	//좋아요 테이블 가져오기
-	@Select("SELECT * FROM LIKES")
-	public List<Map<String, Object>> likeTable();
+	@Select("SELECT BOARD_NO FROM LIKES WHERE PUSH_LIKES=#{id}")
+	public String[] likeTable(String id);
 	
 	//보드테이블에 좋아요 카운트 +1하기
 	@Update("UPDATE BOARD SET LIKE_COUNT=LIKE_COUNT+1 WHERE BOARD_NO=#{no}")

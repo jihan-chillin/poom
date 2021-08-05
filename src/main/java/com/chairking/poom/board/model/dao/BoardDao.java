@@ -16,7 +16,7 @@ public interface BoardDao {
 	//메인 피드 리스트 가져오기
 	List<Map<String, Object>> feedList(BoardMapper mapper, Map param);
 	//좋아요 테이블 가져오기
-	List<Map<String, Object>> likeTable(BoardMapper mapper);
+	String[] likeTable(BoardMapper mapper, String id);
 	
 	List<Map<String, Object>> selectAllBoard(BoardMapper mapper, int cPage, int numPerpage);
 

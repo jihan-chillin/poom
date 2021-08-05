@@ -110,7 +110,7 @@ public class BoardController {
 		}
 		
 		List<Map<String, Object>> feedList = service.feedList(param);
-		List<Map<String, Object>> likeTable = service.likeTable();
+		String[] likeTable = service.likeTable((String)param.get("id"));
 		if(feedList!=null) {
 			mv.addObject("likeTable",likeTable);
 			mv.addObject("feedList",feedList);
@@ -119,7 +119,9 @@ public class BoardController {
 		}
 		
 		mv.setViewName("main/feedList");
-		
+		for(String s:likeTable) {
+			System.out.println(s);
+		}
 		return mv;
 	}
 	
@@ -142,7 +144,7 @@ public class BoardController {
 		
 		//추가 후 list다시 불러오기
 		List<Map<String, Object>> feedList = service.feedList(map);
-		List<Map<String, Object>> likeTable = service.likeTable();
+		String[] likeTable = service.likeTable(map.get("id"));
 		if(feedList!=null) {
 			mv.addObject("likeTable",likeTable);
 			mv.addObject("feedList",feedList);
