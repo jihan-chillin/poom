@@ -1,7 +1,7 @@
 <div class="fList" th:if="${feedList}!=null" th:each="f : ${feedList}">
 	<div>
 		<span th:text="'# '+${f.CATEGORY}"></span>
-		<span th:text="${f.BOARD_TITLE}"></span>
+		<span th:data-no="${f.BOARD_NO}" th:onclick="|moveToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_TITLE}"></span>
 	</div>
 	<div th:text="${f.BOARD_CONTENT}"></div>
 	<img alt="품 미리보기" th:src="@{/uploadCKImage/}+${f.PREVIEW_IMG}">

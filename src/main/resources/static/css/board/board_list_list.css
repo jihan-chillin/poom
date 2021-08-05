@@ -10,12 +10,13 @@ div#board_box{
     z-index: 100;
 }
 div#board_list_title{
-	height:300px;
+	/* height:300px; */
 	width:100%;
 	text-align:left;
 	padding:20px 0;
+	display:inline-block;
 }
-div#board_list_title>div:first-child{
+div#board_box>div:first-child{
 	font-size: 35px;
     font-weight: bold;
     color: #F77B1E;
@@ -23,17 +24,14 @@ div#board_list_title>div:first-child{
 }
 div#board_list_title>ul {
 	width: 100%;
-	height:auto;
+	/* height:auto; */
     /* height: 250px; */
     background: #fdfdfd;
     border-radius: 20px;
     padding:5px 20px;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     /* position: relative; */
     
-}
-.hide{
-	display:none;
 }
 div#board_list_title>ul>li{
 	/* border-bottom:1px solid lightgray; */

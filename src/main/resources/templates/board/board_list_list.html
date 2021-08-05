@@ -1,6 +1,6 @@
 <div id="board_box">
+	<div th:text="${name}" style="text-align:center;"> 카테고리이름</div>
 	<div id="board_list_title">
-		<div th:text="${name}" style="text-align:center;"> 카테고리이름</div>
 		<ul name="bList">
 			<li th:each="n,i:${notice}">
 				<span th:text="'[공지] '+${n.NOTICE_TITLE}"></span>
@@ -39,11 +39,11 @@
 <script>
 //3번째 공지부턴 숨기기
 $(function(){
-	$("[name=bList]>li:eq(1)").nextAll().addClass(".hide");
+	$("[name=bList]>li:eq(1)").nextAll().hide();
 	$("[name=bList]>li:last").show();
 	
 	$("[name=bList]>li:last").click(e=>{
-		$("[name=bList]>li:eq(1)").nextAll().toggle();
+		$("[name=bList]>li:eq(1)").nextAll().slideToggle();
 		$("[name=bList]>li:last").show();
 	})
 })

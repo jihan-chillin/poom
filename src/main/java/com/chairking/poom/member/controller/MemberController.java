@@ -2,19 +2,18 @@ package com.chairking.poom.member.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -23,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.chairking.poom.member.model.service.LoginService;
 import com.chairking.poom.member.model.service.MemberService;
-import com.chairking.poom.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/member")
@@ -34,10 +32,7 @@ public class MemberController {
     private MemberService service;
     
     @Autowired	
-	LoginService loginservice;
-    
-    @Autowired
-	ResourceLoader resourceLoader;
+	private LoginService loginservice;
     
     //암호화
   	@Autowired
@@ -59,9 +54,11 @@ public class MemberController {
     @PostMapping("/updateProfile")
     public ModelAndView updateProfile(ModelAndView mv,
 			@RequestParam(value="input_file",required=false) MultipartFile[] inputfile,
-			@RequestParam Map param, HttpServletRequest req) {
+			@RequestParam Map param, HttpServletResponse res, HttpServletRequest req) throws Exception {
     	
-    	String absolutePath = System.getProperty("user.dir")+"/src/main/resources/static/images/profile/";
+    	PrintWriter writer = null;
+    	String directoryName = System.getProperty("user.dir");
+        String folderPath = directoryName + "\\src\\main\\resources\\static\\images\\profile\\";
     	String oriName=inputfile[0].getOriginalFilename();
     	
     	if(oriName.equals("")) {
@@ -70,16 +67,18 @@ public class MemberController {
     	}else {
 			String ext=oriName.substring(oriName.lastIndexOf("."));
 			//리네임규칙설정
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 			int rndNum=(int)(Math.random()*10000);
-			String reName=sdf.format(System.currentTimeMillis())+"_"+rndNum+ext;
+			String reName=sdf.format(System.currentTimeMillis())+"_pro"+rndNum+ext;
 			param.put("memberImg", reName);
+			
 			//리네임으로 파일업로드하기
 			try {
-				inputfile[0].transferTo(new File(absolutePath+reName));
+				inputfile[0].transferTo(new File(folderPath+reName));
 			}catch(IOException e) {
 				e.printStackTrace();
 			}
+			
     	}
 
     	String msg="";

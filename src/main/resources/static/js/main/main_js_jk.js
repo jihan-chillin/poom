@@ -19,15 +19,6 @@ $(document).ready(function(){
     });
 });    
 
-// main피드 작성시 textarea 영역 변동 스크립트
-function resize(obj) {
-	obj.style.height = '1px';
-    obj.style.height = obj.scrollHeight + 'px';
-    obj.style.background = '#fdfdfd';
-    obj.style.borderRadius = '10px';
-}
-
-
 //프로필 부분 쪽지아이콘 클릭스 쪽지 페이지로 이동
 function messageBox(){
     location.assign(getContextPath()+"/message");
@@ -77,18 +68,33 @@ function feedWrite() {
         return false;
     }
 		// 태그 입력창이 비어있는지 확인하는 메소드
-    checkTagInputEmpty();
+		//return checkTagInputEmpty();
+
 		// 사용자가 입력한 태그 등록하는 메소드
-		addTagEach(getConfirmTag());
+		//addTagEach(getConfirmTag());
 
     $("[name=feedWrite_form]").submit();
 } 
 
-//지역 on,off
+//지역 on,off(결제권없으면 alert창 뜸)
 var check = $("input[name=loc_check]");
+var payLevel = $("input[name=payLevel]").val();
+var loc = $("p.onoffBtn").html();
 check.click(function(){
-	$("p.onoffBtn").toggle();
-	feedNew();
+	if(payLevel!=0){
+		if(check.is(':checked')==true) {
+			$("span.round").addClass("slider");
+			$("p.onoffBtn").html("전국");
+			check.removeAttr('checked');
+		}else {
+			$("span.round").removeClass("slider");
+			$("p.onoffBtn").html(loc);
+			check.attr('checked');
+		}
+		feedNew();
+	}else {
+		alert('결제권을 구매하시면 전국게시글을 보실 수 있습니다.');
+	}
 });
 
 //feed_new tab 클릭시 전환
@@ -101,14 +107,7 @@ $('ul.feedtab li').click(function(){
 });
     
 function feedNew() {
-	var check = $("input[name=loc_check]");
-	var loc="";
-	if($(check).prop("checked")) {
-		loc = $("p.onoffBtn:eq(0)").html();
-	}else {
-		loc = $("p.onoffBtn:eq(1)").html();
-	}
-	
+	var loc=$("p.onoffBtn").html();
 	var list="";
 	if($("ul.feedtab>li").hasClass('feedtab_on')) {
 		list = $("li.feedtab_on").attr('id');
@@ -132,3 +131,36 @@ function feedNew() {
 	})
 }
 
+//왼쪽 카테고리 누르면 해당 카테고리 페이지 이동 ajax
+function moveToBoard(cate){
+	$('.feed_write').remove();
+	$('.feed_new').remove();
+
+	$('.feed').css({
+		"background": "#f7f7f7","border-radius":"20px",
+		"height" : "800px"
+	});
+	$.ajax({
+		url:getContextPath()+"/board/boardList",
+		data:{"cate":cate},
+		success:function (result){
+			$('.feed').html(result)
+
+		},
+		error:(e,m,i)=>{
+			console.log(e);
+			console.log(m);
+			console.log(i);
+		}
+	})
+}
+
+//피드 글자수(200자) 체크 + 제한
+$('[name=content]').on('keyup', function() {
+	$('#intro_cnt').html("("+$(this).val().length+" / 200)");
+ 
+	if($(this).val().length > 200) {
+		$(this).val($(this).val().substring(0, 200));
+		$('#intro_cnt').html("(200 / 200)");
+	}
+}); 

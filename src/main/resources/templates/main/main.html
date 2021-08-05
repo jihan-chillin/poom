@@ -38,7 +38,8 @@
 	                </select>
 	                <input type="text" name="title" value="" placeholder="제목을 입력하세요">
 	                <hr>
-	                <textarea name="content" onkeyup="resize(this)" placeholder="간단한 글을 작성해보세요. 더 자세한 글작성은 하단 글쓰기 버튼을 이용해주세요!"></textarea>
+                	<textarea name="content" onkeyup="resize(this)" placeholder="200자 내로 피드를 등록해보세요. 더 자세한 글작성은 하단 글쓰기 버튼을 이용해주세요!"></textarea>
+                	<span id="intro_cnt">(0 / 200)</span>
 	                <hr>
 
 	                <button type="button" class="create_tag_input"><i class="gg-add"></i></i> 태그추가</button>
@@ -48,11 +49,12 @@
             </form>
             <div class="feed_new">
             	<div class="loc_onoff">
+            		<input type="hidden" name="payLevel" th:value="${session.loginMember.PAY_LEVEL}" />
 	           		<label class="loc_switch">
-					    <input type="checkbox" name="loc_check" checked>
-					    <span class="slider round"></span>
+					    <input type="checkbox" name="loc_check">
+					    <span class="round"></span>
 					</label>
-					<p class="onoffBtn" th:text="${session.loginMember.MEMBER_LOC}"></p><p class="onoffBtn" style="display:none;">전국</p>
+					<p class="onoffBtn" th:text="${session.loginMember.MEMBER_LOC}"></p>
 				</div>
            		<ul class="feedtab">
 		            <li class="feedtab_on" id="feedall">전체글</li><span>|</span>
