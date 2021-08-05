@@ -272,7 +272,7 @@ function getChatroomListData(listCount){
       "cPage":listCount
     },
     success:data=>{
-      const memberId = data.loginMember.MEMBER_ID;
+      const memberId = data.loginId;
 
       let val = '';
       for(let i=0; i<data.chatList.length; i++){
@@ -297,7 +297,12 @@ function getChatroomListData(listCount){
         val += '<div>';
         val += '<span>...</span>';
         val += '<div class="chatroom-submenu">';
-        val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+
+        if(data.checkInterested[i] == 1){
+          val += '<div><span class="interested-chatroom" onclick="deleteInterestChatroom('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">관심 채팅방에서 삭제</span></div>';
+        }else{ // 관심채팅방에 없으면
+          val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+        }
         val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">신고하기</span></div>';
         val += '</div>';
         val += '</div></div>';
@@ -352,7 +357,7 @@ function chatTypeChange(){
         "ref":option
       },
       success:data=>{
-        const memberId = data.loginMember.MEMBER_ID;
+        const memberId = data.loginId;
 
         let val = '';
         for(let i=0; i<data.chatList.length; i++){
@@ -377,7 +382,14 @@ function chatTypeChange(){
           val += '<div>';
           val += '<span>...</span>';
           val += '<div class="chatroom-submenu">';
-          val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+
+          // 관심채팅방에 추가된 채팅방이면
+          if(data.checkInterested[i] == 1){
+            val += '<div><span class="interested-chatroom" onclick="deleteInterestChatroom('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">관심 채팅방에서 삭제</span></div>';
+          }else{ // 관심채팅방에 없으면
+            val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+          }
+
           val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatList[i].CHAT_NO+',\''+memberId+'\')">신고하기</span></div>';
           val += '</div>';
           val += '</div></div>';

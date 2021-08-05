@@ -139,21 +139,20 @@ public class ChattingJsonController {
         return service.checkEnterChatroom(memberId,chatNo);
     }
 
-
-    @GetMapping("/chat/list/data")
-    public Map getChatList(HttpServletRequest req,@RequestParam(value = "cPage")int cPage){
-        int numPerPage = 4;
+    // 채팅목록 불러오는것 공통부분 뺌
+    public Map chatListData(HttpServletRequest req,List<Map<String,Object>> chatList){
         Map<String,Object> result = new HashMap<>();
-
-        List<Map<String,Object>> chatList = service.getChatList(cPage,numPerPage);
-
+        String memberId =memberId(req);
         String chatNo = "";
         List memCount = new ArrayList();
+        List checkInterested = new ArrayList();
+
 
         for(int i=0; i<chatList.size(); i++ ) {
 //            log.info("채팅리스트 : {}", chatList.get(i).get("CHAT_NO"));
             chatNo = (String)chatList.get(i).get("CHAT_NO");
             memCount.add(i,getEnteredMem(chatNo).size());
+            checkInterested.add(i,service.checkAlreadyInterested(chatNo,memberId));
             try {
                 chattingController.chatTypeChange(chatNo);
             }catch (Exception e){
@@ -164,16 +163,25 @@ public class ChattingJsonController {
 
         result.put("chatRoomMemCount",memCount);
         result.put("chatList",chatList);
-        result.put("loginMember",req.getSession().getAttribute("loginMember"));
+        result.put("loginId",memberId);
+        result.put("checkInterested",checkInterested);
 
         return result;
+    }
+
+    @GetMapping("/chat/list/data")
+    public Map getChatList(HttpServletRequest req,@RequestParam(value = "cPage")int cPage){
+
+        int numPerPage = 4;
+        List<Map<String,Object>> chatList = service.getChatList(cPage,numPerPage);
+
+       return chatListData(req,chatList);
     }
     // 모집중, 모집마감 분류
     @GetMapping("/chat/list/data/sort")
     public Map getChatListSort(HttpServletRequest req,
                                @RequestParam(value = "cPage")int cPage,
                                @RequestParam(value = "ref")String ref){
-        int numPerPage = 4;
 
         String chatType = "";
         // 모집중일때
@@ -182,26 +190,10 @@ public class ChattingJsonController {
         }else{ // 모집 마감일 때.
             chatType = "1";
         }
-        Map<String,Object> result = new HashMap<>();
-
+        int numPerPage = 4;
         List<Map<String,Object>> chatList = service.getChatListSort(cPage,numPerPage,chatType);
 
-        String chatNo = "";
-        List memCount = new ArrayList();
-
-
-        for(int i=0; i<chatList.size(); i++ ) {
-//            log.info("채팅리스트 : {}", chatList.get(i).get("CHAT_NO"));
-            chatNo = (String)chatList.get(i).get("CHAT_NO");
-            memCount.add(i,getEnteredMem(chatNo).size());
-        }
-
-        result.put("chatRoomMemCount",memCount);
-        result.put("chatList",chatList);
-        result.put("loginMember",req.getSession().getAttribute("loginMember"));
-
-        return result;
-
+        return chatListData(req,chatList);
     }
 
     // 채팅방 세부화면
