@@ -35,9 +35,7 @@ public class PayAdminController {
 		//페이징처리
 		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
 		pagination.setTotalRecordCount(service.allPaymentCount());
-		System.out.println(pagination);
 		List<Map<String,Object>> list = service.allPayment(pagination);
-		System.out.println(pagination);
 		//rollup으로 총 합계금액 가져오는 쿼리
 		List<Map<String,Object>> sumList=service.sumAllPayment();
 		List<Map<String,Object>> real=new ArrayList();
@@ -57,9 +55,6 @@ public class PayAdminController {
 				map.put("ITEM_TYPE", sumList.get(i).get("ITEM_TYPE"));
 				real.add(map);
 			}
-		}
-		for(Map p : real) {
-			System.out.println("합계리스트"+p);
 		}
 		//-1~-7일 날짜 구하기
 		Calendar c1 = new GregorianCalendar();
