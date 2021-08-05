@@ -30,10 +30,8 @@ public interface BoardService {
 	List<Map> selectCommentList(String boardNo);
 	
 	Map<String,Object> selectNotice(String noticeNo);
-	//좋아요+1
+	//좋아요+1 & 좋아요-1
 	int changeLike(Map<String,String> map);
-	//좋아요-1
-	
 	
 	//마이태그 받아오기
 	String[] myTag(Map param);
@@ -41,4 +39,9 @@ public interface BoardService {
 	//메인 마이태그글 받아오기
 	List<Map<String, Object>> feedKeyList(Map map);
 	
+	//카테고리별 게시글 가져오기
+	List<Map<String,Object>> selectBoardList(String cate, int cPage, int numPerpage);
+	
+	//카테고리별 공지사항 가져오기
+	List<Map<String,Object>> selectBoardNotice(String cate);
 }

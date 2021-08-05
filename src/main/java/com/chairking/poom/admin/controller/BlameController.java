@@ -72,7 +72,7 @@ public class BlameController {
 	@PostMapping("/insertblame")
 	@Transactional
 	public ModelAndView insertBlame(@RequestParam Map<String,String> map, ModelAndView mv) {
-		if(map.get("textarea").length()>1) {
+		if(map.get("textarea").length()>1 && map.get("blame_reason").equals("기타")) {
 			map.put("blame_reason", "기타 - "+map.get("textarea"));
 		}
 		System.out.println("insertblame:"+map);
@@ -82,7 +82,6 @@ public class BlameController {
 		//insert+update 후 
 		//해당 no의 blame_count가져오고 그걸 토대로 del_status=1로 update하기
 		int reply=service.hiddenCheck(map);
-		System.out.println("reply"+reply);
 		mv.addObject("map",map);
 		mv.setViewName("admin/blame_popup_suc");
 		return mv;
@@ -95,6 +94,7 @@ public class BlameController {
 		//type & no받기=> db연결해서 사유 가져와야함
 		//총 select * 한 리스트
 		List<Map<String,Object>> list=service.selectBlame(map);
+		System.out.println("댓글신고팝업"+list);
 		
 		//각 신고개수 돈 리스트
 		Map<String,Object> countMap=service.selectCountBlame(map);
@@ -119,7 +119,6 @@ public class BlameController {
 		Map<String,Object> map= new HashMap();
 		map.put("type", type);
 		map.put("arr", checkArr);
-		System.out.println(map);
 		int result=service.deleteBlame(map);
 		switch(type) {
 			case "게시글": type="1";break;

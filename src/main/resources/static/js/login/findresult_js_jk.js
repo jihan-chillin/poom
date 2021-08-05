@@ -28,7 +28,8 @@ function updatePw() {
 	var pw = $("[name=memberPw]").val();
     if(pw=="") {
         alert("비밀번호를 입력해주세요");
-        return;
+         $("[name=memberPw]").focus();
+        return false;
     }
 
     //비밀번호 영문소문자+숫자(8~20자리 입력) 정규식
@@ -37,15 +38,23 @@ function updatePw() {
 
     if(result == null) {
     	alert("비밀번호는 8~20자의 영어소문자+숫자 조합으로 사용해야 합니다.");
-    	return;
+    	$("[name=memberPw]").focus();
+    	return false;
     }
     
     if($("[name=memberPw]").val() != $("[name=pwc]").val()) {
     	alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
-    	return;
+    	$("[name=pwc]").focus();
+    	return false;
     }
 	
     //빈칸 없을 때 제출.
     $("[name=updatePw_form]").submit();
 }
 
+//enter키로 동작하기
+function enterPw() {
+	if(window.event.keyCode==13) {
+		updatePw();
+	}
+}

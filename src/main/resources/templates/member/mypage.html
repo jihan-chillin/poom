@@ -14,8 +14,8 @@
 
             <!-- 우측 아이콘 : 채팅 , 쪽지, 해시태그, 내가 쓴 글-->
             <ul class="right">
-                <li><img th:src="@{/images/ui/write.png}" alt="mywrite_ui"></li>
-                <li><img th:src="@{/images/ui/tag.png}" alt="mytag_ui"></li>
+                <li><img th:src="@{/images/ui/write.png}" alt="mywrite_ui" onclick="mywrite();"></li>
+                <li><img th:src="@{/images/ui/tag.png}" alt="mytag_ui" onclick="moveMyTagPage();"></li>
                 <li><img th:src="@{/images/ui/msg.png}" alt="mymsg_ui" onclick="messageBox();"></li>
                 <li><img th:src="@{/images/ui/chat.png}" alt="mychat_ui" onclick="moveChatList();"></li>
             </ul>

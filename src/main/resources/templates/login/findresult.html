@@ -26,12 +26,12 @@
 		        		<input type="hidden" name="memberName" th:value="${m.MEMBER_NAME}">
 				        <tr>
 			                <th>비밀번호<span class="red_star">*</span></th>
-			                <td><input type="password" name="memberPw" placeholder="8~20자의 영어소문자+숫자"></td>
+			                <td><input type="password" name="memberPw" placeholder="8~20자의 영어소문자+숫자" /></td>
 			                <td></td>
 			            </tr>
 			            <tr>
 			                <th>비밀번호확인<span class="red_star">*</span></th>
-			                <td><input type="password" name="pwc"><span id="pwCheck"></span></td>
+			                <td><input type="password" name="pwc" onkeyup="enterPw();" /><span id="pwCheck"></td>
 			                <td></td>
 			            </tr>
 			        </table>

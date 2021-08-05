@@ -31,9 +31,11 @@ function preventConfirmTag(){
 }
 
 function checkTagInputEmpty(){
-  if($('.field__input').val().trim().length === 0){
-    alert("태그를 입력해주세요");
-    return false;
+  if($('.field__input').val() !== undefined){
+    if($('.field__input').val().trim().length === 0){
+      alert("태그를 입력해주세요");
+      return false;
+    }
   }
   return true;
 }

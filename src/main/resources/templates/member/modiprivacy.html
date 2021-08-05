@@ -9,6 +9,7 @@
 	            <tr>
 	                <th>아이디</th>
 	                <td th:text="${session.loginMember.MEMBER_ID}"></td>
+                	<input type="hidden" name="id" th:value="${session.loginMember.MEMBER_ID}" />
 	            </tr>
 	
 	            <tr>
@@ -17,7 +18,7 @@
 	            </tr>
 	            <tr class="pwcheck">
 	                <th>비밀번호 확인</th>
-	                <td><input type="password" name="pwk" class="normal-size"><span id="pwCheck"></span></td>
+	                <td><input type="password" name="pwk" class="normal-size"><span id="pwCheck" /></td>
 	            </tr>
 	            <tr>
 	                <th>이름</th>
@@ -30,28 +31,28 @@
 	            <tr>
 	                <th>이메일</th>
 	                <td>
-	                	<input type="email" name ="memberEmail" class="normal-size" th:value="${session.loginMember.MEMBER_EMAIL}">
-	                	<input type="hidden" name="oldemail" th:value="${session.loginMember.MEMBER_EMAIL}">
+	                	<input type="email" name ="memberEmail" class="normal-size" th:value="${session.loginMember.MEMBER_EMAIL}" />
+	                	<input type="hidden" name="oldmail" th:value="${session.loginMember.MEMBER_EMAIL}" />
 	                    <button type="button" id="emailSend" style="margin-bottom:0;">인증</button>
 	                </td>
 	            </tr>
 	            <tr class="email_number">
                     <th style="color:red;">인증번호</th>
                     <td>
-                    	<input type="text" class="normal-size" name="emk"><span id="emailCheck"></span>
-                    	<input type="hidden" name="checked_emailNumber" value="">
+                    	<input type="text" class="normal-size" name="emk"><span id="emailCheck" />
+                    	<input type="hidden" name="checked_emailNumber" value="" />
                     </td>
                 </tr>
 	            <tr>
 	                <th>위치인증</th>
 	                <td>
-	                	<input type="text" name="memberLoc" class="normal-size"  th:value="${session.loginMember.MEMBER_LOC}" readonly>
+	                	<input type="text" name="memberLoc" class="normal-size"  th:value="${session.loginMember.MEMBER_LOC}" readonly />
 	                    <button type="button" id="findLocation" style="margin-bottom:0;">인증</button>
 	                </td>
 	            </tr>
 	            <tr>
 	                <td colspan="2">
-                    	<button type="submit" class="btn_submit" id="pwBtn">수정</button>
+                    	<button type="submit" class="btn_submitpri">수정</button>
                			<button type="button" onclick="goMain();">취소</button>
                     </td>
 	            </tr>

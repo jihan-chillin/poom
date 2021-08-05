@@ -243,9 +243,14 @@ function quitChatroom(chatNo,memberId){
 }
 
 // 페이징 처리위한 변수
-let listCount =1;
+var listCount =1;
 
 function moveChatList(){
+
+  if(listCount !== 1){
+    listCount =1;
+  }
+
   $('.feed>*').remove();
 
   $.ajax({
@@ -334,8 +339,8 @@ $(function(){
 // 스크롤시 채팅방 리스트 불러옴
   let win = $('.feed');
   win.scroll(function() {
-    let height = $('#room-container').height()-win.height();
-    if ( win.scrollTop() === height) {
+    let height = $('#room-container').height()-win.height()-$('.chatroom-list-container').height();
+    if ( win.scrollTop() >= height) {
       listCount++;
       getChatroomListData(listCount);
     }
