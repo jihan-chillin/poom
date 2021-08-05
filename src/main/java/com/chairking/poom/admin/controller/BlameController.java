@@ -94,6 +94,7 @@ public class BlameController {
 		//type & no받기=> db연결해서 사유 가져와야함
 		//총 select * 한 리스트
 		List<Map<String,Object>> list=service.selectBlame(map);
+		System.out.println("댓글신고팝업"+list);
 		
 		//각 신고개수 돈 리스트
 		Map<String,Object> countMap=service.selectCountBlame(map);
