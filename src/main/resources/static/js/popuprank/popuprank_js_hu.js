@@ -15,5 +15,5 @@ function getCookie(cookie_name) {
 }
 
 if(getCookie('donotshowrank') !== '1') {
-  window.open(getContextPath() + "/popup/rank", "popup_window", "width=250px,height=395px,top=300px,left=200px");
+  window.open(getContextPath() + "/popup/rank", "popup_window", "width=310px,height=460px,top=300px,left=200px");
 }
