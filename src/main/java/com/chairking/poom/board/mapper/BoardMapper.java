@@ -5,9 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Update;
 
 import com.chairking.poom.board.model.vo.Board;
 import com.chairking.poom.board.model.vo.BoardImage;
@@ -22,7 +21,7 @@ public interface BoardMapper {
 
 	// INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, '되는지 TEST', '그냥 오라클로 작성하는 거임', DEFAULT, 0, SYSDATE, '서울', 0, '1', 'kimjihan77',0)
 	//게시글 등록
-	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, #{board-title}, #{boardContent}, DEFAULT, 0, SYSDATE, #{memberLoc}, 0, #{boardCate}, #{memberId}, 0)")
+	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, #{board-title}, #{boardContent}, DEFAULT, 0, SYSDATE, #{memberLoc}, 0, #{boardCate}, #{memberId}, 0,0, '20210804_10881_urbanbrush-20190629084930578298.png')")
 	public int insertBoard(Map param);
 	
 	//게시글 번호 가져오는 쿼리문
@@ -77,8 +76,15 @@ public interface BoardMapper {
 	public Map<String,Object> selectNotice(String no);
 	
 	//좋아요 테이블 가져오기
-	@Select("SELECT * FROM LIKES")
-	public List<Map<String, Object>> likeTable();
+	@Select("SELECT BOARD_NO FROM LIKES WHERE PUSH_LIKES=#{id}")
+	public String[] likeTable(String id);
+	
+	//보드테이블에 좋아요 카운트 +1하기
+	@Update("UPDATE BOARD SET LIKE_COUNT=LIKE_COUNT+1 WHERE BOARD_NO=#{no}")
+	public int addLike(Map<String,String> map);
+	//좋아요테이블에 좋아요한 내용 insert하기
+	@Insert("INSERT INTO LIKES VALUES(SEQ_LIKESNO.NEXTVAL,SYSDATE,#{no},#{id})")
+	public int addLikeTable(Map<String,String> map);
 	
 	//나의 태그 가져오기
 	@Select("SELECT TAG_NAME FROM MEMBERTAG WHERE MEMBER_ID=#{id}")

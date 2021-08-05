@@ -30,18 +30,22 @@
 				<th colspan="2">내용</th>
 			</tr>
 			<tr>
-				<td colspan="2">
+				<td colspan="2" id="textarea-td">
 					<textarea name="boardContent" id="ckeditorarea" rows = "6" cols = "115" ></textarea>
 				</td>
 
 			</tr>
 			<tr>
-				<th colspan="2">해시태그</th>
+				<th colspan="2s">
+						<button class="create-tag">#해시태그</button>
+						<span class="arrow-box">해시태그를 입력해보세요!</span>
+				</th>
+
 			</tr>
 
 			<tr>
-				<input type="hidden" name="boardTag" placeholder="태그를 입력하세요(최대 10자)" class="input-style">
-				<td colspan="2"><input th:class="boardTag" type="text" name="boardTag" placeholder="태그를 입력하세요(최대 10자)" class="input-style"></td>
+				<input type="hidden" name="boardTag" id="boardTag" value="" class="input-style">
+<!--				<td colspan="2"><input id="inputBoardTag" type="text" name="boardTag" placeholder="태그를 입력하세요(최대 10자)" class="input-style"></td>-->
 			</tr>
 
 			<tr>

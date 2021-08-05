@@ -16,8 +16,8 @@ public class MywriteDaoImpl implements MywriteDao{
     }
 
     @Override
-    public List<Map<String, Object>> MywriteList(MywriteMapper mapper, int cPage, int numPerpage) {
-        return mapper.MywriteMapper(cPage, numPerpage);
+    public List<Map<String, Object>> MywriteList(MywriteMapper mapper, int cPage, int numPerpage, Object memberId) {
+        return mapper.MywriteMapper(cPage, numPerpage, memberId);
     }
 
     @Override

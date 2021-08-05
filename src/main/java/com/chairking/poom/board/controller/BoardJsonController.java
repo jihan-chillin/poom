@@ -68,8 +68,8 @@ public class BoardJsonController {
         System.out.println("실제 이름 : " + subname + " / 확장자명 : " + ext);
 
         // rename 하기
-        int rndNum = (int) (Math.random() * 100000);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        int rndNum = (int) (Math.random() * 10000);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
         String renamedFile = sdf.format(System.currentTimeMillis()) + "_" + rndNum + "_" + subname + ext;
 
         System.out.println(renamedFile);
