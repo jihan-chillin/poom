@@ -129,11 +129,8 @@ public class BoardController {
 	@RequestMapping("/board/changeLike")
 	public ModelAndView changeLike(@RequestParam Map<String,String> map,ModelAndView mv) {
 		//해당 no로 board테이블에 like count 추가하고 
-		//현재 상태가 안누름이면 좋아요 이제 누른거니가
 		//좋아요 테이블에 컬럼 추가하기
 		int result=service.changeLike(map);
-		
-		//상태가 누름 이면 => 좋아요 -1 하기
 		
 		//추가 후 list다시 불러오기
 		List<Map<String, Object>> feedList = service.feedList(map);
@@ -148,5 +145,4 @@ public class BoardController {
 		return mv;
 	}
 	
-	//좋아요 count-1하기
 }
