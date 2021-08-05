@@ -106,28 +106,12 @@ $(".email_number input").keyup(function(){
     
 });
 
-//비밀번호 유효성검사
-$("[name=pw]").on("blur",function() {
-	var pw = $("[name=pw]").val();
-    if(pw=="") {
-        alert("비밀번호를 입력해주세요");
-        return;
-    }
-	
-    //비밀번호 영문소문자+숫자(8~20자리 입력) 정규식
-    var pwCheck = /^(?=.*[a-z])(?=.*[0-9]).{8,20}$/;
-    var result = pwCheck.exec(pw);
-
-    if(result == null) {
-    	alert("비밀번호는 8~20자의 영어소문자+숫자 조합으로 사용해야 합니다.");
-    }
-});
 
 //비밀번호 확인
-$("input[name=pwc]").on("keyup",function() {
- 	console.log("djkfdlka;fdf");
+$(".pwcheck input").on("keyup",function() {
+
     var checkResult = $("#pwCheck");
-    if($("[name=pw]").val() == $("[name=pwc]").val()) {
+    if($("[name=pw]").val() == $(".pwcheck input").val()) {
         checkResult.html("O 일치");
         checkResult.attr("class", "correct");
     }else {
@@ -138,5 +122,44 @@ $("input[name=pwc]").on("keyup",function() {
 
 //버튼 클릭시 개인정보 수정
 $('button.btn_submit').click(function(){
+
+	//비밀번호 유효성검사
+	var pw = $("[name=pw]").val();
+    if(pw=="") {
+        alert("비밀번호를 입력해주세요");
+        $("[name=pw]").focus();
+        return false;
+    }
+	
+    //비밀번호 영문소문자+숫자(8~20자리 입력) 정규식
+    var pwCheck = /^(?=.*[a-z])(?=.*[0-9]).{8,20}$/;
+    var result = pwCheck.exec(pw);
+
+    if(pw != ""&&result == null) {
+    	alert("비밀번호는 8~20자의 영어소문자+숫자 조합으로 사용해야 합니다.");
+    	$("[name=pw]").focus();
+    	return false;
+    }
+	
+	//불일치 유효성검사
+	if($("#pwCheck").hasClass("incorrect")==true) {
+		alert('비밀번호가 일치하지 않습니다.');
+		$("[name=pwk]").focus();
+		return false;
+	}
+	if($("#emailCheck").hasClass("incorrect")==true) {
+		alert('인증번호가 일치하지 않습니다.');
+		$("[name=emk]").focus();
+		return false;
+	}
+	
+	//메일변경시 유효성검사
+	var newmail = $("[name=checked_emailNumber]").val();
+	var oldmail = $("[name=checked_emailNumber]").val();
+	if(mail=="" || mail!=y) {
+		alert('이메일 변경은 인증을 해야합니다!');
+		return false;
+	}
+	
 	$("[name=updatePro_form]").submit();
 });
