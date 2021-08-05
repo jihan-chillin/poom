@@ -115,8 +115,8 @@ div#info-modi table tr>td:first-of-type>span {
 	position: absolute;
 	height:50px;
 	line-height: 50px;
-	top: 0;
-	right: 17px;
+	top: 35px;
+	left: 275px;
 }
 div#info-modi table textarea {
 	width: 330px;

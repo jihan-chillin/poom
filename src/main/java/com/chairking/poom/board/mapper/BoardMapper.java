@@ -3,6 +3,7 @@ package com.chairking.poom.board.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -89,4 +90,12 @@ public interface BoardMapper {
 	//나의 태그 가져오기
 	@Select("SELECT TAG_NAME FROM MEMBERTAG WHERE MEMBER_ID=#{id}")
 	public String[] myTag(Map param);
+	
+	//보드테이블에 좋아요 카운트 -1하기
+	@Update("UPDATE BOARD SET LIKE_COUNT=LIKE_COUNT-1 WHERE BOARD_NO=#{no}")
+	public int cancelLike(Map<String,String> map);
+	//좋아요테이블에 좋아요한 내용 삭제하기
+	@Delete("DELETE FROM LIKES WHERE BOARD_NO=#{no} AND PUSH_LIKES=#{id}")
+	public int cancelLikeTable(Map<String,String> map);
+	
 }

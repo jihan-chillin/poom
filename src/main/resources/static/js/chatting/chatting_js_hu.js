@@ -214,6 +214,7 @@ function getChatList(chatNo,url,memberId){
 
       }
       $('.msg-container').append(val);
+      $('.msg-container').scrollTop($('.msg-container').height());
     }
   });
 }
