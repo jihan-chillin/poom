@@ -20,4 +20,5 @@ public class PaymentServiceImpl implements PaymentService{
 		return dao.buyItem(memberId, itemNo, mapper);
 	}
 	
+	
 }
