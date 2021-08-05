@@ -24,7 +24,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-    public int updatePrivacy(Member m){
-      return dao.updatePrivacy(m);
+    public int updatePrivacy(Map param){
+      return dao.updatePrivacy(mapper, param);
     };
 }

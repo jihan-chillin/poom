@@ -16,7 +16,7 @@ public class MemberDaoImpl implements MemberDao{
     }
 
     @Override
-    public int updatePrivacy(Member m) {
-        return 0;
+    public int updatePrivacy(MemberMapper mapper, Map param) {
+        return mapper.updatePrivacy(param);
     }
 }

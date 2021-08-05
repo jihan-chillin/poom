@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,6 +38,10 @@ public class MemberController {
     
     @Autowired
 	ResourceLoader resourceLoader;
+    
+    //암호화
+  	@Autowired
+  	PasswordEncoder pwEncoder;
 
     //edit 클릭시 마이페이지로 이동
     @RequestMapping("/mypage")
@@ -87,6 +92,7 @@ public class MemberController {
 			msg="수정완료!";
 		}else {
 			msg="수정실패! 다시 시도해주세요.";
+			loc="/member/mypage";
 		}
 
 		mv.addObject("msg",msg);
@@ -105,10 +111,26 @@ public class MemberController {
     //개인정보 수정 -> 완료시 메인화면으로
     @PostMapping("/updatePrivacy")
     public ModelAndView updatePrivacy(ModelAndView mv, @RequestParam Map<String, String> param) {
-    	System.out.println(param);
     	
-    	//int result = service.updatePrivacy(param);
-		//Map<String,Object> m = loginservice.selectMember(param);
+    	//비밀번호 암호화
+		param.put("pw", pwEncoder.encode((String)param.get("pw")));
+    	
+    	int result = service.updatePrivacy(param);
+    	Map<String,Object> m = loginservice.selectMember(param);
+		mv.addObject("loginMember",m);
+		
+		String msg="";
+    	String loc="/login/main";
+		if(result>0) {
+			msg="수정완료!";
+		}else {
+			msg="수정실패! 다시 시도해주세요.";
+			loc="/member/mypage";
+		}
+
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
 
         return mv;
     }

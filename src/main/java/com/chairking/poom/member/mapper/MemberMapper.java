@@ -12,8 +12,8 @@ public interface MemberMapper {
 	public int updateProfile(Map param);
 
     // 개인정보 수정
-//   @Update("update member set member_pw=#{memberPw}, member_email=#{memberEmail}, member_loc=#{memberLoc} where member_id='test'")
-//   public
+	@Update("UPDATE MEMBER SET MEMBER_PW=#{pw}, MEMBER_EMAIL=#{memberEmail}, MEMBER_LOC=#{memberLoc} WHERE MEMBER_ID=#{id}")
+	public int updatePrivacy(Map param);
 
 
 }
