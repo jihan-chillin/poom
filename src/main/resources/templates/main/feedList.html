@@ -11,16 +11,15 @@
 			<span th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" style="font-size:23px;cursor:pointer;" 
 					th:data-add="${f.BOARD_NO}" th:data-id="${session.loginMember.MEMBER_ID}" 
 					th:data-like="${#arrays.contains(likeTable,f.BOARD_NO)}?'누름':'안누름'"
-					th:onclick="|fn_addLike(this.getAttribute('data-add'),this.getAttribute('data-id'),this.getAttribute('data-like'));|" ></span>
+					th:onclick="|fn_changeLike(this.getAttribute('data-add'),this.getAttribute('data-id'),this.getAttribute('data-like'));|" ></span>
 			 <span th:text="${f.LIKE_COUNT}"></span>
 		</li>
 	</ul>
 </div>
 <script>
 //좋아요 +1
-function fn_addLike(no,id,like){
-	alert(no,id,like);
-	/* var loc="";
+function fn_changeLike(no,id,like){
+	var loc="";
 	if($(check).prop("checked")) {
 		loc = $("p.onoffBtn:eq(0)").html();
 	}else {
@@ -32,7 +31,7 @@ function fn_addLike(no,id,like){
 		list = $("li.feedtab_on").attr('id');
 	}
 	$.ajax({
-		url:getContextPath()+"/board/addLike",
+		url:getContextPath()+"/board/changeLike",
 		data:{
 			"no":no,
 			"id":id,
@@ -42,7 +41,7 @@ function fn_addLike(no,id,like){
 		}
 	}).done(function (fragment){
 		$("#feed_content").html(fragment);
-	}) */
+	})
 }
 </script>
 
