@@ -6,8 +6,37 @@
  */
 
 $('.create_tag_input').click(e=>{
+
+  if(preventInputCreate()){
+   return;
+  }
+
+  if (preventConfirmTag()){
+    return;
+  }
   createTagInput(e);
 });
+
+function preventInputCreate(){
+  if($('.tag-input-container').length >= 1){
+    return true;
+  }
+}
+
+function preventConfirmTag(){
+  if($('.tag-confirm').length>5){
+    alert("태그는 최대 5개까지 입력가능합니다.");
+    return true;
+  }
+}
+
+function checkTagInputEmpty(){
+  if($('.field__input').val().trim().length === 0){
+    alert("태그를 입력해주세요");
+    return false;
+  }
+  return true;
+}
 
 function createTagInput(e){
 
@@ -34,13 +63,19 @@ function createTagInput(e){
     $('.field__input').keyup(e=>{
       let keyword =$(e.target).val().trim();
       //검색어 입력시 태그 검색
-      checkKeyword(keyword);
+      if(checkKeyword(keyword)){
+        return;
+      }
     });
   }
 
   // 엔터 두번 방지
   $('.field__input').keypress(e=>{
     let keyword =$(e.target).val().trim();
+
+    if(checkKeyword(keyword)){
+      return;
+    }
 
     if(e.keyCode === 13 ){
       countTag(keyword);
@@ -70,7 +105,6 @@ function confirmTag(keyword){
 
 
     $('.delete-confirm-Tag').on("click",function(e) {
-      console.log("ㅎㅇ");
       $(e.target).parent().remove();
     });
     return;
