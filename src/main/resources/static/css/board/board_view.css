@@ -42,6 +42,13 @@ div#board_container{
 	width:730px;
 	height:750px;
 }
+div#board_container>ul>li:first-child>span:nth-child(2){
+	display:inline-block;
+	float:right;
+	font-size:25px;
+	line-height:25px;
+	cursor:pointer;
+}
 div#board_container li:nth-child(3){
 	height:400px;
 	overflow-y:scroll;
