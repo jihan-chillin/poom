@@ -33,27 +33,14 @@ function messageBox(){
     location.assign(getContextPath()+"/message");
 }
 
-function searchList() {
-	location.assign(getContextPath()+"/search");
-	// alert("searchList!!!!");
-	// var uInput = $('#uInput').val();
-	// $.ajax({
-	// 	url:getContextPath()+"/search",
-	// 	data:{"uInput":uInput},
-	// 	type: 'POST',
-	// }).done(function (fragment){
-	// 	// $("#target").html(fragment);
-	// });
-}
-
 // 프로필 부분 edit버튼 클릭시 정보수정 페이지로 이동 ajax
-function membermodi(){
+function mypage(){
 	$('.feed').remove();
   	$('.profile').remove();
   	$('.rank').remove();
 
     $.ajax({
-    	url: getContextPath()+'/member/modiprofile',
+    	url: getContextPath()+'/member/mypage',
     	success:function(data){
         	$('#content').html(data)
     	},
@@ -108,6 +95,7 @@ $('ul.feedtab li').click(function(){
     $('ul.feedtab li').removeClass('feedtab_on');
     $(this).addClass('feedtab_on');
     feedNew();
+    
 });
     
 function feedNew() {
@@ -123,17 +111,30 @@ function feedNew() {
 	if($("ul.feedtab>li").hasClass('feedtab_on')) {
 		list = $("li.feedtab_on").attr('id');
 	}
+<<<<<<< HEAD
 	var id=$("input[name=id]").val();
+=======
+	
+	var id=$("input[name=id]").val();
+	
+>>>>>>> branch 'master' of https://github.com/jihan-chillin/poom.git
 	console.log(loc);
 	console.log(list);
 	console.log(id);
+<<<<<<< HEAD
 	
+=======
+>>>>>>> branch 'master' of https://github.com/jihan-chillin/poom.git
 	$.ajax({
 		url: getContextPath()+"/board/feedNew",
 		data:{
 			"loc" : loc,
 			"list" : list,
+<<<<<<< HEAD
 			"id":id
+=======
+			"id" : id
+>>>>>>> branch 'master' of https://github.com/jihan-chillin/poom.git
 		},
 		success:data=>{
 			$("#feed_content").html(data);

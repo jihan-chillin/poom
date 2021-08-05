@@ -1,5 +1,6 @@
 package com.chairking.poom.board.controller;
 
+import com.chairking.poom.board.model.service.BoardService;
 import com.chairking.poom.board.model.vo.CkFileupload;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -7,15 +8,14 @@ import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.io.*;
 import java.net.URLEncoder;
@@ -31,7 +31,11 @@ public class BoardJsonController {
     @Autowired
     private ResourceLoader resourceLoader;
 
+    @Autowired
+    private BoardService service;
 
+    // 프로젝트 내에 첨부파일 저장하고
+    // 그 파일 서버로 전송
     @RequestMapping(value = "/images/ckeditor", method = RequestMethod.POST)
     public void imageUpload(HttpServletResponse res, HttpServletRequest req,
                             MultipartHttpServletRequest multireq, @RequestParam MultipartFile upload) throws Exception {
@@ -96,7 +100,7 @@ public class BoardJsonController {
         }
     }
 
-
+// 전송된 이미지 정보 & 편집기능 가져오기
 @RequestMapping("/ckeditor/fileDownload")
 public void ckSubmit(@RequestParam(value = "fileName") String fileName,
                      HttpServletRequest req, HttpServletResponse res) {
@@ -125,5 +129,28 @@ public void ckSubmit(@RequestParam(value = "fileName") String fileName,
 
     }
 
-}
+// ckeditor로 작성한 게시글 등록하기
+@PostMapping("/board/insert")
+public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
+
+        System.out.println(param); // DB에 태그로 들어가는데 어떡하지
+        int result =  service.insertBoard(param);
+
+
+        String msg="";
+        String loc="redirect:/";
+
+        if(result>0){
+            msg="게시글 등록 성공";
+        }else{
+            msg = "동륵실패! 다시 시도해주세요.";
+        }
+
+        mv.addObject("msg", msg);
+        mv.addObject("loc",loc);
+        mv.setViewName("redirect:/");
+
+        return mv;
+    }
+}

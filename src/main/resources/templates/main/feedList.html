@@ -3,8 +3,8 @@
 		<span th:text="'# '+${f.CATEGORY}"></span>
 		<span th:text="${f.BOARD_TITLE}"></span>
 	</div>
-	<div th:text="${f.BOARD_CONTENT}">내용</div>
-	<div></div>
+	<div th:text="${f.BOARD_CONTENT}"></div>
+	<img alt="품 미리보기" th:src="@{/images/profile/}+${f.PREVIEW_IMG}">
 	<ul>
 		<li><i class="gg-menu-boxed"></i><span th:text="${f.COMMENTS_COUNT}"></span></li>
 		<li><!-- <i class="gg-heart"></i> -->

@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +22,6 @@ public class ChattingController {
     private ChattingService service;
 //    html 가져오기용 Controller
 
-//    @Autowired
-//    private SimpMessagingTemplate simpMessagingTemplate;
     // 내 채팅방 리스트
     @GetMapping("/chat/mylist/page")
     public String myChattingList(){
@@ -33,9 +30,12 @@ public class ChattingController {
 
     // 채팅방 입장
     @GetMapping("/chat/chatroom/page")
-    public ModelAndView chatroom(ModelAndView model,HttpServletRequest req){
+    public ModelAndView chatroom(ModelAndView model, HttpServletRequest req,
+                                 @RequestParam(value = "chatNo")String chatNo){
         Map memberId = ((Map)req.getSession().getAttribute("loginMember"));
         model.addObject("memberId",memberId.get("MEMBER_ID"));
+        model.addObject("chatNo",chatNo);
+
         model.setViewName("chatting/chattingroom");
         return model;
     }
@@ -56,14 +56,6 @@ public class ChattingController {
         return chatMessage;
     }
 
-
-    // 채팅방에 들어온 유저표시
-//    @MessageMapping("/chat.addUser")
-//    @SendTo("/topic/chatroom")
-//    public ChatMessage addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor){
-//        headerAccessor.getSessionAttributes().put("username",chatMessage.getMemberId());
-//        return chatMessage;
-//    }
 
     // 채팅방 리스트 가져오기
     @GetMapping("/chat/list/page")

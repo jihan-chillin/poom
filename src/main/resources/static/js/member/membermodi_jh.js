@@ -25,7 +25,7 @@ $('input[name=delete_file]').click(e=>{
     $(".profile-img>img").attr('src', getContextPath()+'/images/profile/poom_profile.jpg');
 });
 
-// 3. tab 클릭시 이동 ajax 
+// tab 클릭시 이동 ajax 
 $('ul.findtab li').click(function(){
     var tab_id = $(this).attr('data-tab');
     
@@ -43,7 +43,7 @@ $('ul.findtab li').click(function(){
     	$.ajax({
 	        url: getContextPath()+'/member/modiprofile',
 	        success:function(result){
-	            $('#content').html(result);
+	            $('#info-modi').html(result);
 	        }
     	});
     }
@@ -59,9 +59,84 @@ $('[name=intro]').on('keyup', function() {
 	}
 });    
 
+
+//개인정보 js
+//이메일인증 -> 인증키 메일로 보내고 키값 데이터 받아오기
+var code = "";
+
+$("button#emailSend").click(function() {// 메일 입력 유효성 검사
+	var mail = $("input[name=memberEmail]").val(); //사용자의 이메일 입력값.
+	
+	if (mail == "") {
+		alert("메일 주소가 입력되지 않았습니다.");
+	} else {
+		$.ajax({
+			type : 'post',
+			url : getContextPath()+'/login/CheckMail',
+			data : {
+				mail:mail
+				},
+			dataType :'json',
+			success : function(data) {
+		        $('tr.email_number').show();
+		        code = data.key;
+				console.log(data.key);
+			}
+		});
+	
+		alert("인증번호가 전송되었습니다. 메일을 확인해주세요!");
+		$("[name=checked_email]").val("y");
+	}
+});
+
+//메일 인증번호 비교
+$(".email_number input").keyup(function(){
+    
+    var inputCode = $(".email_number input").val(); //입력코드    
+    var checkResult = $("#emailCheck");// 비교 결과     
+    
+    if(inputCode == code){ //일치할 경우
+        checkResult.html("O 일치");
+        checkResult.attr("class", "correct");
+        $("[name=checked_emailNumber]").val("y");
+    } else { //일치하지 않을 경우
+        checkResult.html("X 불일치");
+        checkResult.attr("class", "incorrect");
+    }    
+    
+});
+
+//비밀번호 유효성검사
+$("[name=pw]").on("blur",function() {
+	var pw = $("[name=pw]").val();
+    if(pw=="") {
+        alert("비밀번호를 입력해주세요");
+        return;
+    }
+	
+    //비밀번호 영문소문자+숫자(8~20자리 입력) 정규식
+    var pwCheck = /^(?=.*[a-z])(?=.*[0-9]).{8,20}$/;
+    var result = pwCheck.exec(pw);
+
+    if(result == null) {
+    	alert("비밀번호는 8~20자의 영어소문자+숫자 조합으로 사용해야 합니다.");
+    }
+});
+
+//비밀번호 확인
+$("input[name=pwc]").on("keyup",function() {
+ 	console.log("djkfdlka;fdf");
+    var checkResult = $("#pwCheck");
+    if($("[name=pw]").val() == $("[name=pwc]").val()) {
+        checkResult.html("O 일치");
+        checkResult.attr("class", "correct");
+    }else {
+        checkResult.html("X 불일치");
+        checkResult.attr("class", "incorrect");
+    }
+});
+
+//버튼 클릭시 개인정보 수정
 $('button.btn_submit').click(function(){
 	$("[name=updatePro_form]").submit();
 });
-
-
-

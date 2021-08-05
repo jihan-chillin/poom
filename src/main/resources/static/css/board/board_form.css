@@ -15,7 +15,7 @@
 }
 
 #ckeditor-table tr:nth-of-type(5) th{
-    padding: 50px 25px;
+    padding: 30px 25px;
 }
 
 #ckeditor-table select{
@@ -25,7 +25,7 @@
 }
 
 .input-style{
-    width: 710px;
+    width:710px;
     font-size: 15px;
     font-style: italic;
     border: none;
@@ -44,33 +44,21 @@
     margin-left: 30px;
 }
 
+#ckeditor-table tr:nth-of-type(6) td{
 
+    padding: 0 0 30px 10px;
 
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.boardTag{
+    width: 880px;
+    font-size: 15px;
+    font-style: italic;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    padding: 10px;
+    background-color: #f7f7f7;
+}
 
 
 /*----------------- 이전 css ----------------- */

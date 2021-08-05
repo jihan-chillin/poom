@@ -58,6 +58,8 @@ function moveMyChatList(){
 
         $('#chatroom-list>ul').append(val);
 
+        disconnection("notMove");
+
       }
     },
     error:(e,m,i)=>{
@@ -78,21 +80,14 @@ function checkEnterChatroom(memberId,chatNo){
       // 입장해 있다면
       if (data === 1){
         moveMyChatroom(chatNo,memberId);
+        return;
       }else{
         if(confirm("채팅방에 입장하시겠습니까?")){
-
-          if(enterChatroom(chatNo,memberId,'/chat/chatroom/enter') !== 1){
-            alert("채팅방에 입장하지 못했습니다. 다시 시도해주세요");
-            return;
-          }else{
-            moveMyChatroom(chatNo,memberId);
-            return;
-          }
-
+          enterChatroom(chatNo,memberId);
+          moveMyChatroom(chatNo,memberId);
         }
       }
     }
-
   });
 
   return false;
@@ -124,13 +119,12 @@ function moveMyChatroom(chatNo,memberId){
       console.log(i);
     }
   });
-  const url ='/chat/mychat/member';
 
   // 참여인원 불러오기
-  getMyChatroom(chatNo,url);
+  getMyChatroom(chatNo,'/chat/mychat/member');
 
   // 채팅내용 불러오기
-  getChatList(chatNo,url,memberId);
+  getChatList(chatNo,'/chat/mychat/chatlist',memberId);
 
   return;
 }
@@ -191,11 +185,9 @@ function getChatList(chatNo,url,memberId){
       $('.msg-container>*').remove();
       let val = '';
 
-      let loginId =  memberId;
-
       for(let i=0; i<data.messageContent.length; i++){
       // 내가 쓴 메세지 일때
-        if(loginId === data.messageContent[i].MEMBER_ID){
+        if(memberId === data.messageContent[i].MEMBER_ID){
           val += '<div class="my-chat">';
           // val += data.messageContent[i].MEMBER_ID+'</div>';
           val += '<div></div>';
@@ -226,24 +218,27 @@ function getChatList(chatNo,url,memberId){
   });
 }
 // 채팅방 참여하기
-function enterChatroom(chatNo,memberId,url){
+function enterChatroom(chatNo,memberId){
 
   $.ajax({
-    url:getContextPath()+url,
+    url:getContextPath()+'/chat/chatroom/enter',
     data:{
       "chatNo":chatNo,
       "memberId":memberId
     },
-    success:data=>{
-      if( data == 1){
-        return 1;
-      }else{
-        return 0;
-      }
-    }
   });
 
   return 0;
+}
+// 채팅방 나가기
+function quitChatroom(chatNo,memberId){
+  $.ajax({
+    url:getContextPath()+'/chat/chatroom/quit',
+    data:{
+      "chatNo":chatNo,
+      "memberId":memberId
+    }
+  });
 }
 
 // 페이징 처리위한 변수
@@ -436,7 +431,7 @@ function chatListDetailData(chatNo){
       chatNo
     },
     success:data=>{
-      const memberId = data.loginMember.MEMBER_ID;
+      const memberId = data.loginId;
 
       let val = '';
       val +='<link rel="stylesheet" type="text/css" href="'+getContextPath()+'/css/chatting/chatroom-list-detail.css">';
@@ -453,7 +448,14 @@ function chatListDetailData(chatNo){
       val += '<div>';
       val += '<span>...</span>';
       val += '<div class="chatroom-submenu">';
-      val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatData.CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+
+      // 관심채팅방에 추가된 채팅방이면
+      if(data.checkInterested == 1){
+        val += '<div><span class="interested-chatroom" onclick="deleteInterestChatroom('+data.chatData.CHAT_NO+',\''+memberId+'\')">관심 채팅방에서 삭제</span></div>';
+      }else{ // 관심채팅방에 없으면
+        val += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatData.CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+      }
+
       val += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatData.CHAT_NO+',\''+memberId+'\')">신고하기</span></div>';
       val += '</div></div></div></div>';
 
@@ -547,7 +549,6 @@ function countMem(){
 }
 
 // 채팅방 데이터 가져오기
-
 function chatroomData(){
   let category = '';
 

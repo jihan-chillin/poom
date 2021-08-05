@@ -9,14 +9,14 @@
     <div class="introduce">
 		<p th:if="${session.loginMember.INTRO}!=null" th:text="${session.loginMember.INTRO}"></p>
 	    <p th:unless="${session.loginMember.INTRO}!=null">edit 버튼을 클릭해 자기소개를 입력해주세요!!</p>
-	    <button class="edit-btn" onclick="membermodi();">edit</button>
+	    <button class="edit-btn" onclick="mypage();">edit</button>
     </div>
 
     <p>
-        <span><img th:src="@{/images/ui/write.png}" alt="" onclick="mywrite();"></span>
-        <span><img th:src="@{/images/ui/tag.png}" alt="" onclick="moveMyTagPage();"></span>
-        <span><img th:src="@{/images/ui/msg.png}" alt="" onclick="messageBox();"></span>
-        <span><img th:src="@{/images/ui/chat.png}" alt="" class="chat-icon" onclick="moveMyChatList();"></span>
+        <span><img th:src="@{/images/ui/write.png}" alt="내가쓴글ui" onclick="mywrite();"></span>
+        <span><img th:src="@{/images/ui/tag.png}" alt="마이태그ui" onclick="moveMyTagPage();"></span>
+        <span><img th:src="@{/images/ui/msg.png}" alt="쪽지함ui" onclick="messageBox();"></span>
+        <span><img th:src="@{/images/ui/chat.png}" alt="마이채팅ui" class="chat-icon" onclick="moveMyChatList();"></span>
     </p>
 </div>
 
