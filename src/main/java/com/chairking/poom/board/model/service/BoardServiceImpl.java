@@ -3,6 +3,7 @@ package com.chairking.poom.board.model.service;
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,9 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardMapper mapper;
 
+	@Autowired
+	private SqlSessionTemplate session;
+	
 	@Override
 	public int insertBoard(Map param) {
 		return dao.insertBoard(mapper, param);
@@ -68,8 +72,28 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Map<String, Object>> likeTable() {
-		return dao.likeTable(mapper);
+	public String[] likeTable(String id) {
+		return dao.likeTable(mapper, id);
+	}
+
+	@Override
+	@Transactional
+	public int addLike(Map<String, String> map) {
+		int result=dao.addLike(mapper, map);
+		if(result>0) {
+			result=dao.addLikeTable(mapper,map);
+		}
+		return result;
+	}
+
+	@Override
+	public String[] myTag(Map param) {
+		return dao.myTag(mapper,param);
+	}
+
+	@Override
+	public List<Map<String, Object>> feedKeyList(Map map) {
+		return dao.feedKeyList(session,map);
 	}
 	
 	
