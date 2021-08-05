@@ -60,7 +60,7 @@ public interface AdminMapper {
 	@Select("SELECT COUNT(*) FROM MEMBER WHERE BLAME_COUNT !=0")
 	public int allMemberBlameCount();
 	
-	
+	//신고하기 각 신고테이블+1, 각 개별테이블 +1
 	@Insert("INSERT INTO BOARD_BLAME VALUES(SEQ_BRD_BLAME_NO.NEXTVAL,#{no},#{target_mem},sysdate,#{blame_reason})")
 	public int insertBoardBlame(Map<String,String> map);
 	@Update("UPDATE BOARD SET BLAME_COUNT=BLAME_COUNT+1 WHERE BOARD_NO=#{no}")
@@ -77,15 +77,20 @@ public interface AdminMapper {
 	public int updateChatBlameCount(String no);
 	
 	
-	@Select("select * from board_blame join board on b_target_board_no=board_no where board_no=#{no}")
-	public List<Map<String,Object>> selectBoardBlame(String no);
-	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}")
-	public List<Map<String,Object>> selectCommentsBlame(String no);
-	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}")
-	public List<Map<String,Object>> selectChatBlame(String no);
-	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}")
-	public List<Map<String,Object>> selectMemberBlame(String no);
-	
+	/*
+	 * @Select("select * from board_blame join board on b_target_board_no=board_no where board_no=#{no}"
+	 * ) public List<Map<String,Object>> selectBoardBlame(String no);
+	 * 
+	 * @Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}") public
+	 * List<Map<String,Object>> selectCommentsBlame(String no);
+	 * 
+	 * @Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}") public
+	 * List<Map<String,Object>> selectChatBlame(String no);
+	 * 
+	 * @Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}") public
+	 * List<Map<String,Object>> selectMemberBlame(String no);
+	 */
+	//기타사유가져오기
 	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=4 AND BLAME_REASON LIKE '기타%'")
 	public List<Map<String,String>> selectEctAll(Map<String,Object> map);
 	

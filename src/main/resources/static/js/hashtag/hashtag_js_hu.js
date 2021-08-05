@@ -57,7 +57,9 @@ function getMyTagData(){
       $('.field__input').keyup(e=> {
         let keyword =$(e.target).val().trim();
 
-        checkKeyword(keyword);
+        if(checkKeyword(keyword)){
+         return;
+        }
         // 엔터 누르면 실행
         if(e.keyCode === 13){
           insertMyTag(keyword);
@@ -104,7 +106,7 @@ function tagContainsBoardList(tagName){
 function checkKeyword(keyword){
     if(keyword.length>=8){
       alert("태그는 최대 7자까지 가능합니다.");
-      return;
+      return true;
 
     }else if(keyword.length !== 0){
       searchTag(keyword);
