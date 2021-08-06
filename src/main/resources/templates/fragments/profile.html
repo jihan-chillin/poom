@@ -7,8 +7,8 @@
     
     <p th:text="${session.loginMember.MEMBER_ID}" id="loginMember_id"></p>
     <div class="introduce">
-		<p th:if="${session.loginMember.INTRO}!=null" th:text="${session.loginMember.INTRO}"></p>
-	    <p th:unless="${session.loginMember.INTRO}!=null">edit 버튼을 클릭해 자기소개를 입력해주세요!!</p>
+		<p th:if="${session.loginMember.INTRO!=null}" th:text="${session.loginMember.INTRO}"></p>
+	    <p th:unless="${session.loginMember.INTRO!=null}">edit 버튼을 클릭해 자기소개를 입력해주세요!!</p>
 	    <button class="edit-btn" onclick="mypage();">edit</button>
     </div>
 

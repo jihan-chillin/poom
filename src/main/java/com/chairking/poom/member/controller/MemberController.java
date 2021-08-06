@@ -56,7 +56,7 @@ public class MemberController {
 			@RequestParam(value="input_file",required=false) MultipartFile[] inputfile,
 			@RequestParam Map param, HttpServletResponse res, HttpServletRequest req) throws Exception {
     	
-    	PrintWriter writer = null;
+    	System.out.println("이거임:"+param);
     	String directoryName = System.getProperty("user.dir");
         String folderPath = directoryName + "\\src\\main\\resources\\static\\images\\profile\\";
     	String oriName=inputfile[0].getOriginalFilename();
@@ -82,13 +82,17 @@ public class MemberController {
     	}
 
     	String msg="";
-    	String loc="/login/main";
+    	String loc="";
 		int result = service.updateProfile(param);
 		Map<String,Object> m = loginservice.selectMember(param);
 		mv.addObject("loginMember",m);
+		if(m.get("INTRO")==null) {
+			m.put("INTRO", null);
+		}
 		
 		if(result>0) {
 			msg="수정완료!";
+			loc="/login/main";
 		}else {
 			msg="수정실패! 다시 시도해주세요.";
 			loc="/member/mypage";

@@ -1,0 +1,23 @@
+.col-100 {
+    width: 100%;
+}
+table.search-result {
+    text-align: center;
+    width: 100%;
+    font-size: 17px;
+}
+
+th {
+    background-color: #f7f7f7;
+    border: 1px solid rgba(224, 224, 224, 0.2);
+    height: 50px;
+    color: black;
+    font-size: 20px;
+}
+
+tr,
+td {
+    padding: 4px 0px;
+    border: 1px solid rgba(224, 224, 224, 0.2);
+    font-size: 17px;
+}
