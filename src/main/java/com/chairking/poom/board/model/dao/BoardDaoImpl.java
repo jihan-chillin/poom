@@ -107,7 +107,7 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.selectBoardNotice(cate);
 	}
 
-	
-	
+
+
 
 }

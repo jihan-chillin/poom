@@ -105,5 +105,5 @@ public interface BoardMapper {
 	@Select("SELECT NOTICE_TITLE, NOTICE_DATE FROM NOTICE JOIN CATEGORY USING(CATEGORY_NO) WHERE CATEGORY_NO=#{cate} AND NOTICE_STATUS=0 ORDER BY NOTICE_DATE DESC")
 	public List<Map<String,Object>> selectBoardNotice(String cate);
 	
-	
+
 }

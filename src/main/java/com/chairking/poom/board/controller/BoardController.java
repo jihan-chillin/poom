@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
+import com.chairking.poom.noti.controller.NotiController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -137,6 +137,11 @@ public class BoardController {
 		//해당 no로 board테이블에 like count 추가하고 
 		//좋아요 테이블에 컬럼 추가하기
 		int result=service.changeLike(map);
+
+		// 알림 테이블에 데이터 넣기 by 희웅
+		NotiController nc = new NotiController();
+		nc.insertLikesNotiData(map.get("no"),map.get("id"));
+
 		//좋아요 리스트 다시 가져오기
 		String[] likeTable = service.likeTable(map.get("id"));
 		
