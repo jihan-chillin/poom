@@ -50,6 +50,7 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public List<Map<String, Object>> feedList(BoardMapper mapper, Map param) {
+		System.out.println("보드daoImpi 피드리스트"+param);
 		if(param.get("loc").equals("")) {
 				return mapper.feedListAllAll(param);
 		}else {
