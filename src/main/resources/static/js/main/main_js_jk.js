@@ -127,27 +127,32 @@ function feedNew() {
 }
 
 //왼쪽 카테고리 누르면 해당 카테고리 페이지 이동 ajax
+// function moveToBoard(cate){
+// 	$('.feed_write').remove();
+// 	$('.feed_new').remove();
+//
+// 	$('.feed').css({
+// 		"background": "#f7f7f7","border-radius":"20px",
+// 		"height" : "800px"
+// 	});
+// 	$.ajax({
+// 		url:getContextPath()+"/board/boardList",
+// 		data:{"cate":cate},
+// 		success:function (result){
+// 			$('.feed').html(result)
+//
+// 		},
+// 		error:(e,m,i)=>{
+// 			console.log(e);
+// 			console.log(m);
+// 			console.log(i);
+// 		}
+// 	})
+// }
+
 function moveToBoard(cate){
-	$('.feed_write').remove();
-	$('.feed_new').remove();
-
-	$('.feed').css({
-		"background": "#f7f7f7","border-radius":"20px",
-		"height" : "800px"
-	});
-	$.ajax({
-		url:getContextPath()+"/board/boardList",
-		data:{"cate":cate},
-		success:function (result){
-			$('.feed').html(result)
-
-		},
-		error:(e,m,i)=>{
-			console.log(e);
-			console.log(m);
-			console.log(i);
-		}
-	})
+	// console.log("넘어가는 주소값 : "+getContextPath()+"/board/view?cate="+cate);
+	location.assign(getContextPath()+"/board/view?cate="+cate);
 }
 
 //피드 글자수(200자) 체크 + 제한

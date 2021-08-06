@@ -51,11 +51,11 @@ public class BoardController {
 		List<Map<String, Object>> oList = service.selectAllBoard(cPage, numPerpage);
 
 		mv.addObject("oList", oList);
-		mv.setViewName("board/board_list");
+		mv.setViewName("/board/real_board");
 		return mv;
 	}
 	
-	//게시글 상세 조회
+//	게시글 상세 조회
 	@GetMapping("/board/view")
 	public ModelAndView boardView(@RequestParam String boardNo, ModelAndView mv,HttpServletRequest req) {
 		System.out.println(boardNo);
@@ -67,6 +67,7 @@ public class BoardController {
 		mv.addObject("commentList", service.selectCommentList(boardNo));
 		return mv;
 	}
+
 
 	//메인피드등록하기(파일X, 텍스트만 가능)
 	@PostMapping("/board/feedWrite")
@@ -163,21 +164,43 @@ public class BoardController {
 	}
 	
 	//왼쪽 게시판 이름 누르면 카테고리로 이동하기
-	@RequestMapping("/board/boardList")
-	public ModelAndView boardList(@RequestParam String cate, ModelAndView mv,HttpServletRequest req ) {
-		int numPerpage = 5;
-		//카테고리별 게시글 리스트
-		List<Map<String, Object>> list = service.selectBoardList(cate,1, numPerpage);
-		//좋아요 가져오기
-		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
-		//공지사항 가져오기
-		List<Map<String,Object>> notices=service.selectBoardNotice(cate);
-		System.out.println(notices);
-		mv.addObject("list", list);
-		mv.addObject("likeTable",likeTable);
-		mv.addObject("notice", notices);
-		mv.addObject("name",list.get(0).get("CATEGORY_NAME"));
-		mv.setViewName("board/board_list_list");
+//	@RequestMapping("/board/boardList")
+//	public ModelAndView boardList(@RequestParam String cate, ModelAndView mv,HttpServletRequest req ) {
+//		int numPerpage = 5;
+//		//카테고리별 게시글 리스트
+//		List<Map<String, Object>> list = service.selectBoardList(cate,1, numPerpage);
+//		//좋아요 가져오기
+//		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+//		//공지사항 가져오기
+//		List<Map<String,Object>> notices=service.selectBoardNotice(cate);
+//		System.out.println(notices);
+//		mv.addObject("list", list);
+//		mv.addObject("likeTable",likeTable);
+//		mv.addObject("notice", notices);
+//		mv.addObject("name",list.get(0).get("CATEGORY_NAME"));
+//		mv.setViewName("board/board_list_list");
+//		return mv;
+//	}
+
+	@RequestMapping("/board/view")
+	public ModelAndView boardList(@RequestParam Map<String, String> cate,
+								  ModelAndView mv,HttpServletRequest req ) {
+
+		System.out.println("몰라"+cate);
+//		int cPage = 1;
+//		int numPerpage = 5;
+//		//카테고리별 게시글 리스트
+//		List<Map<String, Object>> list = service.selectBoardList(cate,cPage,numPerpage);
+////		//좋아요 가져오기
+////		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+////		//공지사항 가져오기
+////		List<Map<String,Object>> notices=service.selectBoardNotice(cate);
+////		System.out.println(notices);
+//		mv.addObject("list", list);
+////		mv.addObject("likeTable",likeTable);
+////		mv.addObject("notice", notices);
+//		mv.addObject("name",list.get(0).get("CATEGORY_NAME"));
+//		mv.setViewName("board/board_list_list");
 		return mv;
 	}
 }
