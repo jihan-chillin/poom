@@ -167,14 +167,6 @@ div#board-form-content{
     background-color:#F77B1E;
 }
 
-.submitposition{
-    position: absolute;
-    left: 220px;
-}
-
-.cancelposition{
-    margin-right: 50px;
-}
 
 .blue-btn{
     width: 70px;
