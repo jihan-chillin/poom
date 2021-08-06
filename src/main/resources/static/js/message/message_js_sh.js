@@ -97,7 +97,7 @@ function showPopup() {
 }
 
 
-//답장하기도 동일하게 넘기기
+//
 function showMsgPop(member) {
     let rcvNm = $(member).children('.find-name').html();
     let rcvId = $(member).children('.find-id').html();
@@ -115,7 +115,7 @@ function showReplyPop(recvId){
 
 
 function showMsgDtl(e, msgNo) {
-    alert(e.target);
+    // alert(e.target);
     window.open(getContextPath()+"/message/content?msgNo=" + msgNo,"content","width=400,height=300");
 
 }

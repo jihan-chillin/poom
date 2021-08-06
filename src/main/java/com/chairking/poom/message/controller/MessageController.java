@@ -156,6 +156,22 @@ public class MessageController {
         return "message/message_content";
     }
 
+    //받은쪽지 내용팝업
+    @GetMapping("/receiveContent")
+    public String receivePopup(@RequestParam String msgNo, Model m){
+        int result = 0;
+        List<Map<String,Object>> list = service.messageContent(msgNo);
+        m.addAttribute("list",list);
+
+        if (list != null) {
+            result = service.setMsgRead(msgNo);
+        }
+
+        if (result > 0)
+            System.out.println("읽음처리 성공");
+        return "message/message_receiveContent";
+    }
+
 
 
 
