@@ -189,6 +189,24 @@ div#board-form-content{
     cursor: pointer;
 }
 
+.tooltip{
+    width: 180px;
+    position: absolute;
+    bottom: 45px;
+    right: 700px;
+    opacity: 70%;
+    display: none;
+}
+
+#ckeditor-table tr:nth-of-type(5) th{
+    position : relative;
+}
+
+#ckeditor-table tr:nth-of-type(5) button:hover + .tooltip{
+    display: inline;
+}
+
+
 
 
 

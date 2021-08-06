@@ -104,6 +104,20 @@ public interface BoardMapper {
 	//카테고리별 공지사항 가져오기
 	@Select("SELECT NOTICE_TITLE, NOTICE_DATE FROM NOTICE JOIN CATEGORY USING(CATEGORY_NO) WHERE CATEGORY_NO=#{cate} AND NOTICE_STATUS=0 ORDER BY NOTICE_DATE DESC")
 	public List<Map<String,Object>> selectBoardNotice(String cate);
-	
-	
+
+	// BOARDTAG 테이블 안에 집어넣기
+	@Insert("INSERT INTO BOARDTAG VALUES(SEQ_BOARDTAGNO.NEXTVAL, #{#{boardNo}}, #{tagText})")
+	int insertBoardTag(String boardNo, String tagText);
+
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM BOARD B ORDER BY BOARD_DATE DESC) WHERE RNUM = 1")
+	String getBoardNo();
+
+	@Insert("INSERT INTO TAG VALUES(#{tagText})")
+	int insertTag(String tagText);
+
+	@Select("SELECT TAG_NAME FROM TAG WHERE TAG_NAME like '%${tagText}%' ")
+	List<Map<String, String>> dupleTagCheck(String tagText);
+
+	// TAG 안에 집어넣기
+
 }

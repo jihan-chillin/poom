@@ -51,7 +51,9 @@
 							</tr>
 							<tr>
 								<th colspan="2">
-									<button type="button" class="create-tag" onmouseover="toolTip();" onmouseout="leaveToolTip()" onclick="InputTag();">#해시태그</button>
+									<img th:src="@{/images/ui/tooltip.png}" alt="tooltip" class="tooltip">
+									<button type="button" class="create-tag" onmouseover="appearTag();" onmouseout="disappearTag();" onclick="InputTag();">#해시태그</button>
+
 								</th>
 
 							</tr>
