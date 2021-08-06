@@ -15,6 +15,8 @@ function fn_message_move(mType) {
             type: 'POST',
 
         }).done(function (fragment){
+            // 알림 보내는 함수 by 희웅
+            sendNoti();
             $("#target").html(fragment);
         });
     }else if(mType=='block'){
