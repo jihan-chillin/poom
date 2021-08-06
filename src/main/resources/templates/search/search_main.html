@@ -59,17 +59,16 @@
 
         </div>
       </div>
-
-  </div>
-</div>
 </body>
 <script>
   function fn_ajax_paging(i){
+	  var uInput = $('#uInput').val();
     $.ajax({
       url:getContextPath()+"/search/list",
       data:{
         "currentPage":i,
-      }
+        "uInput":uInput,
+      },
     }).done(function(fragment){
       $(".feed").html(fragment);
     });

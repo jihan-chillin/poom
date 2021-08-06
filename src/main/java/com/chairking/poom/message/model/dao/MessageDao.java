@@ -34,4 +34,6 @@ public interface MessageDao {
     int selectBlock(MessageMapper mapper, String msgNo);
 
     int messageCount(MessageMapper mapper, String condition);
+
+    String getRecentMessageNo(MessageMapper mapper);
 }

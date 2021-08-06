@@ -75,14 +75,14 @@
 		});
 		//뒤로가기 해보기
 		//history.pushState(data, title, url)
-		history.pushState({ 
+		/* history.pushState({ 
 			url: getContextPath()+"/admin/notice", 
 			page: i-1 
-			}, "page"+page, getContextPath()+"/admin/notice?page="+i-1);
+			}, "page"+page, getContextPath()+"/admin/notice?page="+i-1); */
 
 	};
 	//이벤트 감지해서 뒤로가기 불러오는 ajax 
-	$(window).on('popstate', function (event) { 
+/* 	$(window).on('popstate', function (event) { 
 		const data = event.originalEvent.state; 
 		console.log(data);
 		$.ajax({ 
@@ -94,7 +94,7 @@
 				$("#target").html(result); 
 			}
 		})
-	})
+	}) */
 
 	//공지사항 view 이동
 	$("[name=moveToView]").click((e)=>{

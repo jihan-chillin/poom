@@ -31,4 +31,6 @@ public interface MessageService {
     int selectBlock(String msgNo);
 
     int messageCount(String condition);
+
+    String getRecentMessageNo();
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.dom4j.rule.Mode;
+import com.chairking.poom.noti.controller.NotiController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -179,5 +180,4 @@ public class BoardController {
 		mv.setViewName("board/board_list_list");
 		return mv;
 	}
-
 }

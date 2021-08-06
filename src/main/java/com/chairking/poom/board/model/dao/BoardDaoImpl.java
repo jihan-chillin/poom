@@ -122,8 +122,4 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.insertTag(tagText);
 	}
 
-	@Override
-	public List<Map<String, String>> dupleTagCheck(BoardMapper mapper, String tagText) {
-		return mapper.dupleTagCheck(tagText);
-	}
 }

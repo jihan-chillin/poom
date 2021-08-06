@@ -12,5 +12,5 @@ public interface SearchDao {
 
     List<Map<String, Object>> searchList(SearchMapper mapper, String where, Pagination pagination);
 
-    int searchCount(SearchMapper mapper);
+    int searchCount(SearchMapper mapper, String where);
 }

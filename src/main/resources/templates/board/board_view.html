@@ -32,7 +32,8 @@
             		<button type="button" class="btn" th:data-n="${board['BOARD_NO']}" th:onclick="|fn_boardBlame(this.getAttribute('data-n'))|" style="background:#F77B1E;color:white;border:none;">신고</button>&nbsp;&nbsp;
             	</th:block>
             	<th:block th:if="${session.loginMember.MEMBER_ID eq board['MEMBER_ID']} ">
-            		<button type="button" class="btn" onclick="board_modify();" style="background:#247094;color:white;border:none;">수정</button>&nbsp;&nbsp;
+            		<button type="button" class="btn" onsubmit="board_modify();" style="background:#247094;color:white;border:none;">수정</button>&nbsp;&nbsp;
+            		<button type="button" class="btn" onclick="location.assign('/');">삭제</button>
             		<button type="button" class="btn" onclick="location.assign('/');">취소</button>
             	</th:block>
             </span>

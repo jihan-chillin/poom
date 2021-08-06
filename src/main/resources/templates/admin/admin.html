@@ -55,13 +55,14 @@
   	const type=[[${type}]];
   	console.log(type);
   	
-  	$(function(){
+  	/* $(function(){
    		fn_load(type);
-  	});
+  	}); */
   	
   	function fn_load(type){
 	   	if(type=='notice'){
-	   		$.ajax({
+	   		location.assign(getContextPath()+"/admin/main?type=notice");
+	   		/* $.ajax({
 	   			url:getContextPath()+"/admin/notice",
 	   			data:{"type":type},
 	   		}).done(function (fragment) {
@@ -69,9 +70,10 @@
 	    		$("#admin_menu>ul>li").css("color","black");
 	    		$("#blame_menu").hide();
 	   			$("#admin_menu>ul>li:first").css("color","#F77B1E");
-	   		});
+	   		}); */
 	   	}else if(type=='blame'){
-	   		$.ajax({
+	   		location.assign(getContextPath()+"/admin/main?type=blame");
+	   		/* $.ajax({
 	   			url:getContextPath()+"/blame",
 	   			data:{"type":type},
 	   		}).done(function (fragment) {
@@ -80,9 +82,10 @@
 	    		$("#blame_menu").parent().css("color","#F77B1E");
 	   			$("#blame_menu").show();
 	   			$("#blame_menu").children().first().css({"color":"#F77B1E","list-style-type": "disc"});
-	   		});
+	   		}); */
 	   	}else if(type=='pay'){
-	   		$.ajax({
+	   		location.assign(getContextPath()+"/admin/main?type=pay");
+	   		/* $.ajax({
 	   			url:getContextPath()+"/payAdmin",
 	   			data:{"type":type},
 	   		}).done(function (fragment) {
@@ -90,7 +93,7 @@
 	    		$("#admin_menu>ul>li").css("color","black");
 	    		$("#admin_menu>ul>li:last").css("color","#F77B1E");
 	    		$("#blame_menu").hide();
-	   		});
+	   		}); */
 	   	};
   	}
   	

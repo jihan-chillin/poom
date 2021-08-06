@@ -75,4 +75,9 @@ public class MessageDaoImpl implements MessageDao{
         return mapper.messageCount(condition);
     }
 
+    @Override
+    public String getRecentMessageNo(MessageMapper mapper) {
+        return mapper.getRecentMessageNo();
+    }
+
 }

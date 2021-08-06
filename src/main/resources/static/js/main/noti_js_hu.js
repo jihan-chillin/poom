@@ -141,7 +141,7 @@ function getNotificationData(){
 
       $('.modal-content-list').append(val);
       $('.modal-content-list').append(val2);
-
+      $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_receive.png) no-repeat center; background-size: contain;");
     }
   });
 }

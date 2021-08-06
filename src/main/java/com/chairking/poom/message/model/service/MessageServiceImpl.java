@@ -86,5 +86,10 @@ public class MessageServiceImpl implements MessageService {
         return dao.messageCount(mapper,condition);
     }
 
+    @Override
+    public String getRecentMessageNo() {
+        return dao.getRecentMessageNo(mapper);
+    }
+
 
 }
