@@ -20,19 +20,17 @@ function moveToView(tRow){
     if(cate=='board') {
         $.ajax({
             url: getContextPath() + "/board/view",
-            data: {
-                "boardNo": no
-            },
+            data: {"boardNo": no},
             success: data => {
                 $("#content").html(data);
             }
         });
     }else if(cate=='notice'){
         $.ajax({
-            url:getContextPath()+"/admin/noticeView",
+            url:getContextPath()+"/board/boardNotice",
             data:{"no":no}
         }).done(function (fragment){
-            $("#target").html(fragment);
+            $("#content").html(fragment);
         });
     }
 
