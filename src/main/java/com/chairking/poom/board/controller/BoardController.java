@@ -94,32 +94,34 @@ public class BoardController {
 	@RequestMapping("/board/feedNew")
 	public ModelAndView feedNew(@RequestParam Map param, ModelAndView mv) {
 		
-		System.out.println("feednew map"+param);
 		//좋아요 테이블 불러오기
 		String[] likeTable = service.likeTable((String)param.get("id"));
-		System.out.println("feednew like"+likeTable);
 		List<Map<String, Object>> feedList;
 		if(param.get("loc").equals("전국")) {
 			param.put("loc","");
 		}
 		
+		String noFeed="";
 		if(param.get("list").equals("feedkey")) {
+			//키워드 글 조회
 			String[] myTag=service.myTag(param);
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("myTag",myTag);
 			map.put("loc", param.get("loc"));
 			feedList = service.feedKeyList(map);
+			noFeed="등록된 태그가 없습니다. 마이태그를 추가해보세요!";
 		}else {
 			feedList = service.feedList(param);
+			noFeed="등록된 피드가 없습니다.";
 		}
 		
-		if(feedList!=null) {
-			mv.addObject("likeTable",likeTable);
+		if(feedList.size()>0) {
 			mv.addObject("feedList",feedList);
 		}else {
-			mv.addObject("feedList","등록된 글이 없습니다.");
+			mv.addObject("noFeed",noFeed);
 		}
 		
+		mv.addObject("likeTable",likeTable);
 		mv.setViewName("main/feedList");
 		return mv;
 	}
