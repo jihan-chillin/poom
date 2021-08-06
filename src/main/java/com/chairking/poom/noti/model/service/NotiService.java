@@ -9,6 +9,7 @@ public interface NotiService {
     int insertLikesNotiData(String num,String loginId);
     int insertMessageNotiData(String num,String loginId);
     int insertCommentNotiData(String num,String loginId);
+    String getBoardWriter(String boardNo);
     List<Map<String,String>> getMyNotiData(String loginId);
     String getBoardTitleFromBoardNo(String boardNo);
     String getBoardTitleFromCommentNo(String commentNo);

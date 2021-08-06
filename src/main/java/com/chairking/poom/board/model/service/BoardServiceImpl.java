@@ -115,8 +115,24 @@ public class BoardServiceImpl implements BoardService {
 	public List<Map<String, Object>> selectBoardNotice(String cate) {
 		return dao.selectBoardNotice(mapper,cate);
 	}
-	
-	
-	
-	
+
+	@Override
+	public String getBoardNo() {
+		return dao.getBoardNo(mapper);
+	}
+
+	@Override
+	public int insertBoardTag(String boardNo, String tagText) {
+		return dao.insertBoardTag(mapper, boardNo, tagText);
+	}
+
+	@Override
+	public int insertTag(String tagText) {
+		return dao.insertTag(mapper, tagText);
+	}
+
+	@Override
+	public List<Map<String, String>> dupleTagCheck(String tagText) {
+		return dao.dupleTagCheck(mapper, tagText);
+	}
 }

@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.dom4j.rule.Mode;
 import com.chairking.poom.noti.controller.NotiController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -59,9 +61,6 @@ public class BoardController {
 		System.out.println(boardNo);
 		//좋아요 가져오기
 		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
-		
-		//태그들 가져오기
-		
 		mv.addObject("likeTable",likeTable);
 		mv.setViewName("board/board_view");
 		mv.addObject("board", service.selectBoard(boardNo));
@@ -94,33 +93,38 @@ public class BoardController {
 	@RequestMapping("/board/feedNew")
 	public ModelAndView feedNew(@RequestParam Map param, ModelAndView mv) {
 		
-		System.out.println("feednew map"+param);
+
 		//좋아요 테이블 불러오기
 		String[] likeTable = service.likeTable((String)param.get("id"));
-		System.out.println("feednew like"+likeTable);
 		List<Map<String, Object>> feedList;
 		if(param.get("loc").equals("전국")) {
 			param.put("loc","");
 		}
 		
+		String noFeed="";
 		if(param.get("list").equals("feedkey")) {
+			//키워드 글 조회
 			String[] myTag=service.myTag(param);
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("myTag",myTag);
-			map.put("loc", param.get("loc"));
-			feedList = service.feedKeyList(map);
-			System.out.println(feedList.size());
+			if(myTag.length>0) {
+				map.put("myTag",myTag);
+				map.put("loc", param.get("loc"));
+				feedList = service.feedKeyList(map);
+				mv.addObject("feedList",feedList);
+			}else {
+				noFeed="등록된 태그가 없습니다. 마이태그를 추가해보세요!";
+			}
 		}else {
 			feedList = service.feedList(param);
+			if(feedList!=null) {
+				mv.addObject("feedList",feedList);
+			}else {
+				noFeed="등록된 피드가 없습니다.";
+			}
 		}
 		
-		if(feedList!=null) {
-			mv.addObject("likeTable",likeTable);
-			mv.addObject("feedList",feedList);
-		}else {
-			mv.addObject("feedList","등록된 글이 없습니다.");
-		}
-		
+		mv.addObject("noFeed",noFeed);
+		mv.addObject("likeTable",likeTable);
 		mv.setViewName("main/feedList");
 		return mv;
 	}
@@ -141,11 +145,6 @@ public class BoardController {
 		//해당 no로 board테이블에 like count 추가하고 
 		//좋아요 테이블에 컬럼 추가하기
 		int result=service.changeLike(map);
-
-		// 알림 테이블에 데이터 넣기 by 희웅
-		NotiController nc = new NotiController();
-		nc.insertLikesNotiData(map.get("no"),map.get("id"));
-
 		//좋아요 리스트 다시 가져오기
 		String[] likeTable = service.likeTable(map.get("id"));
 		

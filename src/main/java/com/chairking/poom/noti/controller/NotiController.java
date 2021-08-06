@@ -24,17 +24,18 @@ public class NotiController {
     private NotiService notiService;
 
     // 알림테이블에 데이터 넣기
-    public int insertLikesNotiData(String number,String loginId){
-
-        return notiService.insertLikesNotiData(number,loginId);
+    public void insertLikesNotiData(String number,String loginId){
+        notiService.insertLikesNotiData(number,loginId);
     }
     public int insertCommentNotiData(String number,String loginId){
-
         return notiService.insertCommentNotiData(number,loginId);
     }
     public int insertMessageNotiData(String number,String loginId){
-
         return notiService.insertMessageNotiData(number,loginId);
+    }
+
+    public String getBoardWriter(String no){
+        return notiService.getBoardWriter(no);
     }
 
     @GetMapping("/noti/my/data")

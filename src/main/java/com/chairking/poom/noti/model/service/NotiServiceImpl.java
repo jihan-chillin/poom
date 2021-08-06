@@ -42,6 +42,11 @@ public class NotiServiceImpl implements NotiService {
     }
 
     @Override
+    public String getBoardWriter(String boardNo) {
+        return dao.getBoardWriter(mapper,boardNo);
+    }
+
+    @Override
     public List<Map<String, String>> getMyNotiData(String loginId) {
         return dao.getMyNotiData(mapper,loginId);
     }

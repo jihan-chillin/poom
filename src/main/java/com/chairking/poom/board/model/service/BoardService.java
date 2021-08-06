@@ -44,4 +44,12 @@ public interface BoardService {
 	
 	//카테고리별 공지사항 가져오기
 	List<Map<String,Object>> selectBoardNotice(String cate);
+
+    String getBoardNo();
+
+	int insertBoardTag(String boardNo, String tagText);
+
+	int insertTag(String tagText);
+
+	List<Map<String, String>> dupleTagCheck(String tagText);
 }
