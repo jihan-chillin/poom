@@ -127,6 +127,11 @@ div#board-form-content{
     cursor: pointer;
 }
 
+#ckeditor-form{
+    background-color: #f7f7f7;
+    border-radius: 20px;
+}
+
 
 #board_form li>textarea{
 	border:1px solid lightgray;
@@ -162,37 +167,34 @@ div#board-form-content{
     background-color:#F77B1E;
 }
 
-/* 해시태그 이거 눌러서 입력하라는 메시지 출력해줄 예정 */
-.arrow-box{
-    width: 180px;
-    background-color: black;
-    opacity: 30%;
-    color: white;
-    font-size: 12px;
-    padding: 10px;
-    border-radius: 10px;
-    position: relative;
-    display: none;
-    margin-left: 15px;
-    float: left;
-}
-
-.arrow-box:after{
-    border-right: 10px solid transparent;
-    border-bottom: 10px solid black;
-    content: "";
-    top: -10px;
-    left: 10px;
-    position: absolute;
-}
-
 .submitposition{
     position: absolute;
-    left: 200px;
+    left: 220px;
 }
 
 .cancelposition{
     margin-right: 50px;
+}
+
+.blue-btn{
+    width: 70px;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background: #287094;
+    color: white;
+    cursor: pointer;
+}
+
+.blacksolid-btn{
+    width: 70px;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    border: 1px solid black;
+    background: #f7f7f7;
+    cursor: pointer;
 }
 
 
