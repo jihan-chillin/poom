@@ -1,5 +1,6 @@
 package com.chairking.poom.message.model.service;
 
+import com.chairking.poom.common.Pagination;
 import com.chairking.poom.message.model.vo.Message;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public interface MessageService {
 
     List<Map<String,Object>> searchReceiver();
 
-    List<Map<String,Object>> getMessage(String condition);
+    List<Map<String,Object>> getMessage(String condition, Pagination pagination);
 
     List<Map<String,Object>> messageContent(String msgNo);
 
@@ -28,4 +29,6 @@ public interface MessageService {
     int emptyBlock();
 
     int selectBlock(String msgNo);
+
+    int messageCount(String condition);
 }
