@@ -27,7 +27,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardService service;
-	
+	@Autowired
+	private NotiController nc;
+
 	//게시글 등록 페이지로 이동
 	@RequestMapping(path="/board/form", method=RequestMethod.GET)
 
@@ -143,8 +145,8 @@ public class BoardController {
 		int result=service.changeLike(map);
 
 		// 알림 테이블에 데이터 넣기 by 희웅
-		NotiController nc = new NotiController();
-		nc.insertLikesNotiData(map.get("no"),map.get("id"));
+		String boardNo = map.get("no");
+		nc.insertLikesNotiData(boardNo,nc.getBoardWriter(boardNo));
 
 		//좋아요 리스트 다시 가져오기
 		String[] likeTable = service.likeTable(map.get("id"));
