@@ -59,6 +59,9 @@ public class BoardController {
 		System.out.println(boardNo);
 		//좋아요 가져오기
 		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+		
+		//태그들 가져오기
+		
 		mv.addObject("likeTable",likeTable);
 		mv.setViewName("board/board_view");
 		mv.addObject("board", service.selectBoard(boardNo));
