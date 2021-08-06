@@ -8,10 +8,11 @@
     	<ul>
     		<li>
     			<span th:text="${board['BOARD_TITLE']}">제목</span>
-    			<span th:text="${#arrays.contains(likeTable,board['BOARD_NO'])?'♥':'♡'}"
+    			<span th:title="${board['BOARD_NO']}" th:text="${#arrays.contains(likeTable,board['BOARD_NO'])}?'♥':'♡'" name="likeHeart"></span>
+    			<!-- <span th:text="${#arrays.contains(likeTable,board['BOARD_NO'])?'♥':'♡'}"
     				th:data-add="${board['BOARD_NO']}" th:data-id="${session.loginMember.MEMBER_ID}" 
 					th:data-like="${#arrays.contains(likeTable,board['BOARD_NO'])}?'누름':'안누름'"
-					th:onclick="|fn_changeLike(this.getAttribute('data-add'),this.getAttribute('data-id'),this.getAttribute('data-like'));|" ></span>
+					th:onclick="|fn_changeLike(this.getAttribute('data-add'),this.getAttribute('data-id'),this.getAttribute('data-like'));|" ></span> -->
    			</li>
    			<li>
    				<span th:text="'작성자 : '+${board['B_WRITER']}">닉네임</span>
@@ -72,6 +73,34 @@ $(function(){
 })
 
 //좋아요
+$("span[name=likeHeart]").click(e=>{
+	var boardNo=$(e.target).attr("title");
+ 	var id=[[${session.loginMember.MEMBER_ID}]];
+ 	var like=$(e.target).text();
+ 	
+ 	if(like=='♥'){		//이미 누른상태 = >클릭했으면 좋아요취소하는거
+ 		like='누름';
+ 	}else{
+ 		like='안누름';
+ 		// 알림 보내는 함수 by 희웅
+		sendNoti();
+ 	};
+ 	
+ 	//하트바꾸기
+ 	if(like=='누름') $(e.target).text('♡');
+ 	else $(e.target).text('♥');
+ 	$.ajax({
+		url:getContextPath()+"/board/changeLike",
+		data:{
+			"no":boardNo,
+			"id":id,
+			"like":like
+		}
+	}).done(function(fragment){
+		
+	})
+})
+
 function fn_changeLike(no,id,like){
 	$.ajax({
 		url:getContextPath()+"/board/changeLike",
@@ -79,7 +108,6 @@ function fn_changeLike(no,id,like){
 			"no":no,
 			"id":id,
 			"like":like,
-			"type":"view"
 		}
 	}).done(function (fragment){
 		// 알림 보내는 함수 by 희웅
