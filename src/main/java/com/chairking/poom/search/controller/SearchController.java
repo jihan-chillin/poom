@@ -29,7 +29,7 @@ public class SearchController {
         @RequestParam(value = "cntPerPage", required = false, defaultValue = "15") int cntPerPage,
         @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
 
-
+        System.out.println(uInput);
         Pagination pagination = new Pagination(currentPage,cntPerPage,pageSize);
         pagination.setTotalRecordCount(service.searchCount());
         String where = "WHERE "

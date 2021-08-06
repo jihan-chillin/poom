@@ -2,10 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="/fragments/header.html :: fragment-header"></div>
-    <!-- css -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/board/board_list.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_view.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_form.css}">
 </head>
 
 <body>
@@ -38,7 +34,7 @@
 	                </select>
 	                <input type="text" name="title" value="" placeholder="제목을 입력하세요">
 	                <hr>
-                	<textarea name="content" onkeyup="resize(this)" placeholder="200자 내로 피드를 등록해보세요. 더 자세한 글작성은 하단 글쓰기 버튼을 이용해주세요!"></textarea>
+                	<textarea name="content" placeholder="200자 내로 피드를 등록해보세요. 더 자세한 글작성은 하단 글쓰기 버튼을 이용해주세요!"></textarea>
                 	<span id="intro_cnt">(0 / 200)</span>
 	                <hr>
 
