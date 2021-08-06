@@ -27,6 +27,10 @@ public interface BoardDao {
 	int selectBoardNo(BoardMapper mapper, Board b);
 	List<Map> selectCommentList(BoardMapper mapper, String boardNo);
 	Map<String,Object> selectNotice(BoardMapper mapper, String noticeNo);
+
+	// 보드 넘버 가져오기
+	String getBoardNo(BoardMapper mapper);
+
 	//좋아요+1
 	int addLike(BoardMapper mapper, Map<String,String> map);
 	int addLikeTable(BoardMapper mapper, Map<String,String> map);
@@ -43,5 +47,10 @@ public interface BoardDao {
 	List<Map<String,Object>> selectBoardList(BoardMapper mapper, String cate, int cPage, int numPerpage);
 	//카테고리별 공지사항 가져오기
 	List<Map<String,Object>> selectBoardNotice(BoardMapper mapper, String cate);
-	
+
+	int insertBoardTag(BoardMapper mapper, String boardNo, String tagText);
+
+	int insertTag(BoardMapper mapper, String tagText);
+
+	List<Map<String, String>> dupleTagCheck(BoardMapper mapper, String tagText);
 }

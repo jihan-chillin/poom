@@ -11,6 +11,7 @@ public interface NotiDao {
     int insertLikesNotiData(NotiMapper mapper,String num,String loginId);
     int insertMessageNotiData(NotiMapper mapper,String num,String loginId);
     int insertCommentNotiData(NotiMapper mapper,String num,String loginId);
+    String getBoardWriter(NotiMapper mapper,String boardNo);
     List<Map<String,String>> getMyNotiData(NotiMapper mapper,String loginId);
     String getBoardTitleFromBoardNo(NotiMapper mapper,String boardNo);
     String getBoardTitleFromCommentNo(NotiMapper mapper,String commentNo);

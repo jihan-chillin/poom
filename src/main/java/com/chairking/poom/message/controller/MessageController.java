@@ -29,6 +29,8 @@ public class MessageController {
     private MessageService service;
     @Autowired
     PasswordEncoder pwEncoder;
+    @Autowired
+    private NotiController mc;
     //쪽지함 탭 보이는 메인페이지
     @GetMapping()
     public String message(String mType, HttpSession session, Model m){
@@ -212,9 +214,9 @@ public class MessageController {
     public ModelAndView sendMsg(HttpServletRequest request, HttpSession session, ModelAndView mv){
         //세션에서 내 아이디를 가져온다.
         Message msg = new Message();
-        String memberId = request.getParameter("memberId");
-        msg.setMemberId(memberId);
-        msg.setRecvMember(request.getParameter("recvMember"));
+        String recvMember =request.getParameter("recvMember") ;
+        msg.setMemberId(request.getParameter("memberId"));
+        msg.setRecvMember(recvMember);
         msg.setMsgContent(request.getParameter("msgContent"));
         msg.setType(1);
         int result = 0;
@@ -224,8 +226,7 @@ public class MessageController {
         mv.addObject("mType", "send");
 
         // 알람 테이블에 데이터 넣는 메소드 by 희웅
-        NotiController mc =new NotiController();
-        mc.insertMessageNotiData(getRecentMessageNo(),memberId);
+        mc.insertMessageNotiData(getRecentMessageNo(),recvMember);
 
         if(result>0){
             mv.setViewName("message/message_sendMessage");
