@@ -15,7 +15,7 @@ function fn_message_move(mType) {
             type: 'POST',
 
         }).done(function (fragment){
-            $("#target").html(fragment);
+                $("#target").html(fragment);
         });
     }else if(mType=='block'){
         $.ajax({
@@ -77,14 +77,19 @@ function sendMsg(frm){
             type:'POST',
         }).done(function (){
             alert("메시지가 전송되었습니다.");
+            self.parent.close();
+            self.close();
+            parent.opener.location = getContextPath()+"/message/send";
+
+
 
             // 실시간 알림 보내는 메소드 by 희웅
+
             sendNoti();
-            self.close();
+
 
         });
     }
-    fn_message_move('send');
 }
 
 function showPopup() {
@@ -92,23 +97,25 @@ function showPopup() {
 }
 
 
-//답장하기도 동일하게 넘기기
+//
 function showMsgPop(member) {
     let rcvNm = $(member).children('.find-name').html();
     let rcvId = $(member).children('.find-id').html();
     //alert(rcvNm);
     window.open("./popup?rcvNm=" + rcvNm + "&rcvId=" + rcvId, "", "width=400,height=300");
-    self.parent.close();
+    //self.parent.close();
 }
 
-function showReplyPop(){
-    window.open("")
+
+function showReplyPop(recvId){
+    var rcvId = recvId.text();
+    window.open(getContextPath() + "/message/popup?rcvNm=" + rcvId + "&rcvId=" + rcvId, "", "width=400,height=300")
 }
 
 
 
 function showMsgDtl(e, msgNo) {
-    alert(e.target);
+    // alert(e.target);
     window.open(getContextPath()+"/message/content?msgNo=" + msgNo,"content","width=400,height=300");
 
 }

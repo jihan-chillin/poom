@@ -7,6 +7,6 @@ function searchList(e) {
     }).done(function (fragment){
         $(".feed").html(fragment);
     }).fail(function (fragment){
-        alert('실퍂');
+        alert('실ㅍㅐ');
     })
 }

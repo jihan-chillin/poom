@@ -74,8 +74,25 @@ public class MyWriteController {
 
     // 내가 찜한 글
     @GetMapping("/mylike")
-    public String mylike(){
-        return "/member/mylike";
+    public ModelAndView mylike(ModelAndView mv, HttpServletRequest req,
+                         @RequestParam(value = "cPage", defaultValue = "1") int cPage){
+
+        Object memberId = ((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
+        System.out.println("memberId는  : " + memberId);
+
+        // 내가 찜한 글 개수
+        int totalData = service.countMyLike();
+        int numPerpage = 10;
+
+        List<Map<String, Object>> list = service.MyLikeList(cPage, numPerpage, memberId);
+
+        System.out.println("리스트에 들어오는 값 잘 들어오는지?"+list);
+        mv.addObject("list", list);
+
+
+        mv.setViewName("/member/mylike");
+        return mv;
+
     }
 
 }
