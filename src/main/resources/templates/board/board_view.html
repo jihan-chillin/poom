@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_view.css}">
 
 <div id="board_view">
 <!-- 게시글 상세화면 -->
@@ -81,6 +82,8 @@ function fn_changeLike(no,id,like){
 			"type":"view"
 		}
 	}).done(function (fragment){
+		// 알림 보내는 함수 by 희웅
+		sendNoti();
 		$("#content").html(fragment);
 	})
 }
