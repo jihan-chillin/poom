@@ -11,14 +11,12 @@
     <div id="popup+content">
 <!--        <div th:text="${list.get(0)}"></div>-->
         <div class="search-receiver">
-        보낸사람: <span id='recvId' th:text="${list.get(0).MEMBER_ID}"></span></div>
+        받는사람: <span id='recvId' th:text="${list.get(0).RECV_MEMBER}"></span></div>
         <div class="msg-content">
             <textarea readonly th:text="${list.get(0).MSG_CONTENT}"></textarea>
         </div>
         <div id="message_buttons">
 
-            <button class="message_buttons" type="button" onclick="showReplyPop($('#recvId'));">답장하기
-            </button>
             <button class="message_buttons2" type="button" onclick="javascript:self.close();">확인</button>
         </div>
     </div>
@@ -28,20 +26,6 @@
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script th:src="@{/js/message/message_js_sh.js}"></script>
 <script th:src="@{/js/main/contextPath_js_hu.js}"></script>
-<script>
 
-    function showMsgDtl(msgNo) {
-        window.open(getContextPath()+"/message/content?msgNo=" + msgNo,"content","width=400,height=300");
-    }
-
-    // $(window).load(function () {
-    //     window.resizeTo(500, 400);
-    // });
-
-    // function showPopup() {
-    //     window.open(getContextPath() + "/message/popup", "", "width=400,height=300");
-    // }
-
-</script>
 
 </html>

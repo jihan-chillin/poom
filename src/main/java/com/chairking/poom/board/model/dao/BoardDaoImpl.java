@@ -50,7 +50,6 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Override
 	public List<Map<String, Object>> feedList(BoardMapper mapper, Map param) {
-		System.out.println("보드daoImpi 피드리스트"+param);
 		if(param.get("loc").equals("")) {
 				return mapper.feedListAllAll(param);
 		}else {
@@ -99,7 +98,7 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectBoardList(BoardMapper mapper, String cate, int cPage, int numPerpage) {
+	public List<Map<String, Object>> selectBoardList(BoardMapper mapper, Map<String, String> cate, int cPage, int numPerpage) {
 		return mapper.selectBoardList(cate,cPage,numPerpage);
 	}
 
@@ -108,7 +107,24 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.selectBoardNotice(cate);
 	}
 
+	@Override
+	public String getBoardNo(BoardMapper mapper) {
+		return mapper.getBoardNo();
+	}
 
+	@Override
+	public int insertBoardTag(BoardMapper mapper, String boardNo, String tagText) {
+		return mapper.insertBoardTag(boardNo, tagText);
+	}
 
+	@Override
+	public int insertTag(BoardMapper mapper, String tagText) {
+		return mapper.insertTag(tagText);
+	}
+
+	@Override
+	public List<Map<String, String>> dupleTagCheck(BoardMapper mapper, String tagText) {
+		return mapper.dupleTagCheck(tagText);
+	}
 
 }

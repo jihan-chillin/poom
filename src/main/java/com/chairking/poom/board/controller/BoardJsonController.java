@@ -24,6 +24,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 @RestController
 public class BoardJsonController {
@@ -152,5 +153,33 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
         mv.setViewName("redirect:/");
 
         return mv;
+    }
+//
+//    @RequestMapping("/board/addTag")
+//    public ModelAndView addTagfromForm(ModelAndView mv, HttpServletRequest req,
+//                                       @RequestParam(value = "tagText") String tagText){
+//
+//        System.out.println(tagText);
+//
+//        // BOARDTAG 테이블에 넣는 거
+//        int result = service.insertBoardTag(getBoardNo(), tagText);
+//
+//        System.out.println("getBoardNo() : "+getBoardNo()+"tagText : "+tagText);
+//
+//        // TAG 테이블에 넣는 거
+//        int tagResult = service.insertTag(tagText);
+//
+//        return mv;
+//    }
+//
+//    public String getBoardNo(){
+//        return service.getBoardNo();
+//    }
+
+    @GetMapping("/board/dupleTagCheck")
+    public List<Map<String, String>> dupleTagCheck(
+                            @RequestParam(value = "tagText") String tagText){
+
+        return service.dupleTagCheck(tagText);
     }
 }

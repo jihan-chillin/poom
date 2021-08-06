@@ -52,21 +52,25 @@ public interface BoardMapper {
 	
 	//메인피드 게시글(전국,전체)
 	@Select("SELECT *"
-			+ "FROM (SELECT B.*, M.MEMBER_NICKNAME AS NICKNAME, C.CATEGORY_NAME AS CATEGORY, T.TAG_NAME AS TAG"
-					+ " FROM BOARD B JOIN MEMBER M ON (B.MEMBER_ID=M.MEMBER_ID)"
-					+ " JOIN CATEGORY C ON (B.BOARD_CATE=C.CATEGORY_NO)"
-					+ " JOIN BOARDTAG T ON (B.BOARD_NO=T.BOARD_NO))"
-			+ " ORDER BY BOARD_DATE DESC")
+			+ "FROM (SELECT B.*, C.CATEGORY_NAME AS CATEGORY, I.RENAME_IMG AS IMG FROM BOARD B JOIN CATEGORY C ON (BOARD_CATE=CATEGORY_NO)"
+			+ "LEFT JOIN IMAGE I ON (B.BOARD_NO=I.BOARD_NO))"
+			+ "ORDER BY BOARD_DATE DESC")
 	public List<Map<String, Object>> feedListAllAll(Map param);
+	
+	//메인피드 게시글(전국,키워드)
+	@Select("SELECT * FROM BOARD ORDER BY BOARD_DATE DESC")
+	public List<Map<String, Object>> feedListAllKey(Map param);
 	
 	//메인피드 게시글(지역,전체)
 	@Select("SELECT *"
-			+ "FROM (SELECT B.*, M.MEMBER_NICKNAME AS NICKNAME, C.CATEGORY_NAME AS CATEGORY, T.TAG_NAME AS TAG"
-					+ " FROM BOARD B JOIN MEMBER M ON (B.MEMBER_ID=M.MEMBER_ID)"
-					+ " JOIN CATEGORY C ON (B.BOARD_CATE=C.CATEGORY_NO)"
-					+ " JOIN BOARDTAG T ON (B.BOARD_NO=T.BOARD_NO))"
-			+ " WHERE BOARD_LOC=#{loc} ORDER BY BOARD_DATE DESC")
+			+ "FROM (SELECT B.*, C.CATEGORY_NAME AS CATEGORY, I.RENAME_IMG AS IMG FROM BOARD B JOIN CATEGORY C ON (BOARD_CATE=CATEGORY_NO)"
+			+ "LEFT JOIN IMAGE I ON (B.BOARD_NO=I.BOARD_NO))"
+			+ "WHERE BOARD_LOC=#{loc} ORDER BY BOARD_DATE DESC")
 	public List<Map<String, Object>> feedListLocAll(Map param);
+		
+	//메인피드 게시글(지역,키워드)
+	@Select("SELECT * FROM BOARD ORDER BY BOARD_DATE DESC")
+	public List<Map<String, Object>> feedListLocKey(Map param);
 	
 	//게시판에서 공지사항클릭
 	@Select("SELECT * FROM NOTICE WHERE NOTICE_NO=#{no}")
@@ -95,11 +99,25 @@ public interface BoardMapper {
 	public int cancelLikeTable(Map<String,String> map);
 	
 	//카테고리별 게시글 리스트 가져오기
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.*, (SELECT COUNT(*) FROM COMMENTS A WHERE A.BOARD_NO = B.BOARD_NO) AS CNT FROM (SELECT * FROM BOARD JOIN CATEGORY ON BOARD_CATE = CATEGORY_NO WHERE DEL_STATUS=0 AND CATEGORY_NO=#{cate} ORDER BY BOARD_DATE DESC)B) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
-	public List<Map<String,Object>> selectBoardList(String cate, int cPage, int numPerpage);
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM (SELECT * FROM BOARD JOIN CATEGORY ON (BOARD_CATE = CATEGORY_NO) WHERE DEL_STATUS=0 AND CATEGORY_NO=#{cate} ORDER BY BOARD_DATE DESC)B) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
+	public List<Map<String,Object>> selectBoardList(Map<String, String> cate, int cPage, int numPerpage);
 	//카테고리별 공지사항 가져오기
 	@Select("SELECT NOTICE_TITLE, NOTICE_DATE FROM NOTICE JOIN CATEGORY USING(CATEGORY_NO) WHERE CATEGORY_NO=#{cate} AND NOTICE_STATUS=0 ORDER BY NOTICE_DATE DESC")
 	public List<Map<String,Object>> selectBoardNotice(String cate);
-	
+
+	// BOARDTAG 테이블 안에 집어넣기
+	@Insert("INSERT INTO BOARDTAG VALUES(SEQ_BOARDTAGNO.NEXTVAL, #{#{boardNo}}, #{tagText})")
+	int insertBoardTag(String boardNo, String tagText);
+
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM BOARD B ORDER BY BOARD_DATE DESC) WHERE RNUM = 1")
+	String getBoardNo();
+
+	@Insert("INSERT INTO TAG VALUES(#{tagText})")
+	int insertTag(String tagText);
+
+	@Select("SELECT TAG_NAME FROM TAG WHERE TAG_NAME like '%${tagText}%' ")
+	List<Map<String, String>> dupleTagCheck(String tagText);
+
+	// TAG 안에 집어넣기
 
 }

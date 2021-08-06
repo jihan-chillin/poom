@@ -1,18 +1,22 @@
- <div id="search_content">
+<div id="search_content">
         <div id="table1" th:if="${list!=null}" >
-          <table class="col-100 col" >
+          <table class="search-result">
             <colgroup>
-              <col width="10%">
+              <col width="5%">
+              <!--<col width="0%">
+              <col width="0%">
+              <col width="0%">-->
+              <col width="25%">
+              <col width="40%">
               <col width="20%">
-              <col width="*%">
-              <col width="*%">
+              <col width="10%">
             </colgroup>
             <thead>
             <tr>
-              <th style="display:none">no</th>
+              <th>no</th>
               <th style="display:none">카테고리 번호</th>
-              <th>카테고리 이름</th>
-              <th>게시물 종류</th>
+              <th style="display:none">카테고리 이름</th>
+              <th style="display:none">게시물 종류</th>
               <th>제목</th>
               <th>내용</th>
               <th>작성일자</th>
@@ -20,11 +24,11 @@
             </tr>
             </thead>
             <tbody  id="searchBody">
-            <tr th:each="mv:${list}">
-              <td style="display:none" th:text="${mv.SEARCH_NO}" ></td>
+            <tr th:each="mv:${list}" onclick="moveToView($(this));">
+              <td class="sNum" th:text="${mv.SEARCH_NO}" ></td>
               <td style="display:none" th:text="${mv.CATEGORY_NO}"></td>
-              <td th:text="${mv.CATEGORY_NAME}" ></td>
-              <td th:text="${mv.CON_TYPE}"></td>
+              <td style="display:none" th:text="${mv.CATEGORY_NAME}" ></td>
+              <td class="cateNm" style="display:none" th:text="${mv.CON_TYPE}"></td>
               <td th:text="${mv.TITLE}"></td>
               <td th:text="${mv.CONTENT}"></td>
               <td th:text="${mv.WRITE_DATE}"></td>

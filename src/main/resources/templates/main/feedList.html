@@ -21,6 +21,10 @@
 		</li>
 	</ul>
 </div>
+<div class="fList" th:unless="${feedList}!=null">
+	<p th:text="${noFeed}"></p>
+<div>
+
 <script th:inline="javascript">
 $("span[name=likeHeart]").click(e=>{
 	var boardNo=$(e.target).attr("title");
