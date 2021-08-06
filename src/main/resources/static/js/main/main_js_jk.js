@@ -1,5 +1,5 @@
 $(document).ready(function(){
- 	feedNew();
+ 	//feedNew();
  	
     // 좌측메뉴바 show/hide 스크립트
     $('.menu_open').on('click', function(){
