@@ -112,23 +112,6 @@ $(function(){
         }
     });
 
-    //비밀번호 유효성검사
-    $("[name=memberPw]").on("blur",function() {
-    	var pw = $("[name=memberPw]").val();
-        if(pw=="") {
-            alert("비밀번호를 입력해주세요");
-            return;
-        }
-    	
-        //비밀번호 영문소문자+숫자(8~20자리 입력) 정규식
-        var pwCheck = /^(?=.*[a-z])(?=.*[0-9]).{8,20}$/;
-        var result = pwCheck.exec(pw);
-
-        if(result == null) {
-        	alert("비밀번호는 8~20자의 영어소문자+숫자 조합으로 사용해야 합니다.");
-        }
-    });
-
     //비밀번호 확인
     $("[name=pwc]").on("keyup",function() {
         var checkResult = $("#pwCheck");
@@ -172,7 +155,6 @@ $(function(){
         }
     });
     
-    
     //회원가입 버튼 눌렀을 때, 빈칸 있으면 다시 유효성 검사진행    
     $("button[type=submit]").on("click",function(){
         var id = $("[name=memberId]").val();
@@ -202,8 +184,20 @@ $(function(){
             $("[name=memberPw]").focus();
             return false;
         }
+        
+        //비밀번호 영문소문자+숫자(8~20자리 입력) 정규식
+        var pwCheck = /^(?=.*[a-z])(?=.*[0-9]).{8,20}$/;
+        var result = pwCheck.exec(pw);
+
+        if(result == null) {
+        	alert("비밀번호는 8~20자의 영어소문자+숫자 조합으로 사용해야 합니다.");
+        	$("[name=memberPw]").focus();
+        	return false;
+        }
+        
         if($("[name=memberPw]").val() != $("[name=pwc]").val()) {
-        	alert("비밀번호가 일치하지 않습니다! 다시 설정해주세요.");
+        	alert("비밀번호가 일치하지 않습니다.");
+        	$("[name=memberPw]").focus();
         	return false;
         }
 

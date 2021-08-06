@@ -7,6 +7,10 @@
     	<ul>
     		<li>
     			<span th:text="${board['BOARD_TITLE']}">제목</span>
+    			<span th:text="${#arrays.contains(likeTable,board['BOARD_NO'])?'♥':'♡'}"
+    				th:data-add="${board['BOARD_NO']}" th:data-id="${session.loginMember.MEMBER_ID}" 
+					th:data-like="${#arrays.contains(likeTable,board['BOARD_NO'])}?'누름':'안누름'"
+					th:onclick="|fn_changeLike(this.getAttribute('data-add'),this.getAttribute('data-id'),this.getAttribute('data-like'));|" ></span>
    			</li>
    			<li>
    				<span th:text="'작성자 : '+${board['B_WRITER']}">닉네임</span>
@@ -65,4 +69,19 @@ $(function(){
 	$(".profile").remove();
 	$("#content").css("justify-content","normal");
 })
+
+//좋아요
+function fn_changeLike(no,id,like){
+	$.ajax({
+		url:getContextPath()+"/board/changeLike",
+		data:{
+			"no":no,
+			"id":id,
+			"like":like,
+			"type":"view"
+		}
+	}).done(function (fragment){
+		$("#content").html(fragment);
+	})
+}
 </script>

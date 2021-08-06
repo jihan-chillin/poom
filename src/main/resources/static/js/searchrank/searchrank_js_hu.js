@@ -13,7 +13,7 @@ function searchRank(){
 
       $('.rank>ul').append(val);
       $('.rank>ul>li').click(e=>{
-        moveBoard(data[$(e.target).text().substring(0,1)-1].BOARD_NO);
+        moveBoardView(data[$(e.target).text().substring(0,1)-1].BOARD_NO);
       });
     }
   });
@@ -24,7 +24,7 @@ searchRank();
 setInterval(searchRank,90000);
 
 // 클릭시 게시글 상세화면으로 이동
-function moveBoard(boardNo){
+function moveBoardView(boardNo){
   $.ajax({
     url:getContextPath()+'/board/view',
     data:{

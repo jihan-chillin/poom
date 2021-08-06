@@ -36,22 +36,22 @@
 
 			</tr>
 			<tr>
-				<th colspan="2s">
-						<button class="create-tag">#해시태그</button>
-						<span class="arrow-box">해시태그를 입력해보세요!</span>
+				<th colspan="2">
+
+<!--					<button type="button" class="create-tag" onmouseenter="toolTip();" onmouseout="leaveToolTip();" onclick="InputTag();">#해시태그</button>-->
+					<button type="button" class="create-tag" onmouseover="toolTip();" onmouseout="leaveToolTip()" onclick="InputTag();">#해시태그</button>
 				</th>
 
 			</tr>
 
-			<tr>
-				<input type="hidden" name="boardTag" id="boardTag" value="" class="input-style">
-<!--				<td colspan="2"><input id="inputBoardTag" type="text" name="boardTag" placeholder="태그를 입력하세요(최대 10자)" class="input-style"></td>-->
-			</tr>
 
 			<tr>
-				<td colspan="2">
-					<input type="submit" id ="ckeditor-btn" class="blue-btn" value="등록">
-					<button type="button" id="btn-cancel" class="blacksolid-btn" onclick="history.back();" >취소</button>
+				<td>
+					<div class="arrow-box">해시태그를 입력해보세요!<br>최대 5개까지만!<br>div 밀리는 거 조정할 예정</div>
+				</td>
+				<td style="position : relative;">
+					<input type="submit" id ="ckeditor-btn" class="blue-btn submitposition" value="등록">
+					<button type="button" id="btn-cancel" class="blacksolid-btn cancelposition" onclick="history.back();" >취소</button>
 				</td>
 
 			</tr>

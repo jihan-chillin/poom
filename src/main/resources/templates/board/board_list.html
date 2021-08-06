@@ -18,7 +18,6 @@
 
 						<td colspan="3">
 
-							<!-- 이거 ajax로 바꿔야 함.-->
 							
 							<a href="#" th:data-no="${b.BOARD_NO}" th:onclick="|moveToView(this.getAttribute('data-no'))|">
 								<span th:text="${b.BOARD_TITLE} + '('+${b.CNT}+')'"></span>

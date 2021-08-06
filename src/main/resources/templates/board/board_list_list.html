@@ -1,0 +1,54 @@
+<div id="board_box">
+	<div th:text="${name}" style="text-align:center;"> 카테고리이름</div>
+	<div id="board_list_title">
+		<ul name="bList">
+			<li th:each="n,i:${notice}">
+				<span th:text="'[공지] '+${n.NOTICE_TITLE}"></span>
+				<span style="display:inline-block;float:right;margin-right:20px;font-size:14px;" th:text="${#dates.format(n.NOTICE_DATE,'yyyy-MM-dd')}"></span>
+			</li>
+<!-- 			<li>
+				<span th:text="'[공지] '+${notice[1].NOTICE_TITLE}"></span>
+				<span th:text="${#dates.format(notice[1].NOTICE_DATE,'yyyy-MM-dd')}"></span>
+			</li> -->
+			<li style="font-size:25px;text-align:center;cursor:pointer;">▼</li>
+		</ul>
+	</div>
+	<div class="bList" th:if="${list}!=null" th:each="b : ${list}">
+		<div>
+			<span th:data-no="${b.BOARD_NO}" th:onclick="|moveToView(this.getAttribute('data-no'))|" th:text="${b.BOARD_TITLE}"></span>
+		</div>
+		<div th:text="${b.BOARD_CONTENT}"></div>
+		<img alt="품 미리보기" th:src="@{/images/profile/}+${b.PREVIEW_IMG}">
+		<ul>
+			<li><i class="gg-menu-boxed"></i><span th:text="${b.COMMENTS_COUNT}"></span></li>
+			<li>
+				<span th:text="${#arrays.contains(likeTable,b.BOARD_NO)}?'♥':'♡'" style="font-size:23px;cursor:pointer;" ></span>
+				 <span th:text="${b.LIKE_COUNT}"></span>
+			</li>
+		</ul>
+	</div>
+	<!-- 페이지 바 -->
+	<div>페이지바</div>
+	
+	<!-- 제목 / 제목+내용 검색 창 & 글쓰기 버튼-->
+	<div>
+		<input type="text" id="title-searchbar" name="searchbar" placeholder="- 제목 / 제목+내용">
+		<input type="submit" class="search-btn" name="search-btn" value="검색">
+	</div>
+</div>
+<script>
+//3번째 공지부턴 숨기기
+$(function(){
+	$("[name=bList]>li:eq(1)").nextAll().hide();
+	$("[name=bList]>li:last").show();
+	
+	$("[name=bList]>li:last").click(e=>{
+		$("[name=bList]>li:eq(1)").nextAll().slideToggle();
+		$("[name=bList]>li:last").show();
+	})
+})
+
+</script>
+<link th:href="@{/css/board/board_list_list.css}" rel="stylesheet" type="text/css">
+
+
