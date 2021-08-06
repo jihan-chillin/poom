@@ -39,7 +39,6 @@ public class SearchController {
                 + "member_id like '%" + uInput + "%') "
                 + "ORDER BY write_date desc";
         List<Map<String,Object>> list = service.searchList(where, pagination);
-        System.out.println(list);
         mv.addObject("pagination",pagination);
         mv.addObject("list", list);
         mv.setViewName("search/search_main");

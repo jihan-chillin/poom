@@ -24,4 +24,13 @@ public interface MywriteMapper {
 
     @Select("SELECT * FROM ( SELECT ROWNUM AS RNUM, B.BOARD_TITLE, (SELECT COUNT(*) FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO) FROM BOARD B ORDER BY BOARD_NO DESC) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
     public  List<Map<String, Object>>commentCount(int cPage, int numPerpage);
+
+    // 수정해야함.
+    @Select("SELECT COUNT(*) FROM BOARD WHERE MEMBER_ID = 'kimjihan77'")
+    int countMyLike();
+
+
+    // 내가 찜함글
+    @Select("SELECT * FROM (SELECT ROWNUM AS RNUM, M.MEMBER_NICKNAME, C.CATEGORY_NAME, B.BOARD_TITLE,B.BOARD_DATE,(SELECT COUNT(*) FROM COMMENTS A WHERE A.BOARD_NO = B.BOARD_NO) AS CNT FROM (SELECT * FROM BOARD JOIN LIKES USING (BOARD_NO) WHERE MEMBER_ID=#{memberId} AND DEL_STATUS = 0 ORDER BY BOARD_DATE DESC) B JOIN CATEGORY C ON(C.CATEGORY_NO = B.BOARD_CATE) JOIN MEMBER M USING(MEMBER_ID)) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
+    List<Map<String, Object>> MyLikeList(int cPage, int numPerpage, Object memberId);
 }

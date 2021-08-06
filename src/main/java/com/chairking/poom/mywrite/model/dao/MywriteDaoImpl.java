@@ -34,4 +34,14 @@ public class MywriteDaoImpl implements MywriteDao{
     public List<Map<String, Object>> commentCount(MywriteMapper mapper, int cPage, int numPerpage) {
         return mapper.commentCount(cPage,numPerpage);
     }
+
+    @Override
+    public int countMyLike(MywriteMapper mapper) {
+        return mapper.countMyLike();
+    }
+
+    @Override
+    public List<Map<String, Object>> myLikeList(MywriteMapper mapper, int cPage, int numPerpage, Object memberId) {
+        return mapper.MyLikeList(cPage, numPerpage, memberId);
+    }
 }
