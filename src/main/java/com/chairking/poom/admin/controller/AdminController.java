@@ -39,13 +39,13 @@ public class AdminController {
 		return "admin/admin_main";
 	}
 	
-	@GetMapping("/main")
-	public ModelAndView main(String type, ModelAndView mv) {
-		mv.addObject("type",type);
-		mv.setViewName("admin/admin");
-		return mv;
-	}
-	
+//	@GetMapping("/main")
+//	public ModelAndView main(String type, ModelAndView mv) {
+//		mv.addObject("type",type);
+//		mv.setViewName("admin/admin");
+//		return mv;
+//	}
+//	
 	//ajax
 	@GetMapping("/notice")
 	public ModelAndView notice(ModelAndView mv, 

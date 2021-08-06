@@ -55,13 +55,13 @@
   	const type=[[${type}]];
   	console.log(type);
   	
-  	/* $(function(){
+  	$(function(){
    		fn_load(type);
-  	}); */
+  	});
   	
   	function fn_load(type){
 	   	if(type=='notice'){
-	   		location.assign(getContextPath()+"/admin/main?type=notice");
+	   		location.assign(getContextPath()+"/admin/notice?type=notice");
 	   		/* $.ajax({
 	   			url:getContextPath()+"/admin/notice",
 	   			data:{"type":type},
