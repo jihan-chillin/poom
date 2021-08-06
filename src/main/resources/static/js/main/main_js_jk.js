@@ -24,6 +24,10 @@ function messageBox(){
     location.assign(getContextPath()+"/message");
 }
 
+// function searchList(){
+// 	location.assign(getContextPath()+"search/list");
+// }
+
 // 프로필 부분 edit버튼 클릭시 정보수정 페이지로 이동 ajax
 function mypage(){
 	$('.feed').remove();

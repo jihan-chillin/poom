@@ -30,8 +30,8 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public int searchCount() {
-        return dao.searchCount(mapper);
+    public int searchCount(String where) {
+        return dao.searchCount(mapper, where);
     }
 
     ;

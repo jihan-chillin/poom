@@ -24,20 +24,20 @@ public class SearchController {
 
     @RequestMapping ("/list")
     public ModelAndView search(ModelAndView mv,
-        @RequestParam(value = "uInput", required = false, defaultValue="") String uInput,
+        //@RequestParam(value = "uInput", required = false, defaultValue="") String uInput,
+    	@RequestParam Map<String,String> map,
         @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
         @RequestParam(value = "cntPerPage", required = false, defaultValue = "15") int cntPerPage,
         @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
-
-
-        Pagination pagination = new Pagination(currentPage,cntPerPage,pageSize);
-        pagination.setTotalRecordCount(service.searchCount());
+    	String uInput= map.get("uInput");
         String where = "WHERE "
                 + "(title like '%" + uInput + "%' OR "
                 + "content like '%" + uInput + "%' OR "
                 + "write_date like '%" + uInput + "%' OR "
                 + "member_id like '%" + uInput + "%') "
                 + "ORDER BY write_date desc";
+        Pagination pagination = new Pagination(currentPage,cntPerPage,pageSize);
+        pagination.setTotalRecordCount(service.searchCount(where));
         List<Map<String,Object>> list = service.searchList(where, pagination);
         mv.addObject("pagination",pagination);
         mv.addObject("list", list);

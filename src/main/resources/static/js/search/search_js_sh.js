@@ -1,8 +1,10 @@
-function searchList(e) {
+function searchList() {
     var uInput = $('#uInput').val();
     $.ajax({
         url:getContextPath()+"/search/list",
-        data:{"uInput":uInput},
+        data:{
+        	"uInput":uInput,
+        },
         type: 'POST',
     }).done(function (fragment){
         $(".feed").html(fragment);

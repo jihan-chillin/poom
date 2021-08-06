@@ -59,6 +59,9 @@ public class BoardController {
 		System.out.println(boardNo);
 		//좋아요 가져오기
 		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+		
+		//태그들 가져오기
+		
 		mv.addObject("likeTable",likeTable);
 		mv.setViewName("board/board_view");
 		mv.addObject("board", service.selectBoard(boardNo));
@@ -91,9 +94,10 @@ public class BoardController {
 	@RequestMapping("/board/feedNew")
 	public ModelAndView feedNew(@RequestParam Map param, ModelAndView mv) {
 		
-		
+		System.out.println("feednew map"+param);
 		//좋아요 테이블 불러오기
 		String[] likeTable = service.likeTable((String)param.get("id"));
+		System.out.println("feednew like"+likeTable);
 		List<Map<String, Object>> feedList;
 		if(param.get("loc").equals("전국")) {
 			param.put("loc","");
