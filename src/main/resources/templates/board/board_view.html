@@ -82,6 +82,8 @@ function fn_changeLike(no,id,like){
 			"type":"view"
 		}
 	}).done(function (fragment){
+		// 알림 보내는 함수 by 희웅
+		sendNoti();
 		$("#content").html(fragment);
 	})
 }
