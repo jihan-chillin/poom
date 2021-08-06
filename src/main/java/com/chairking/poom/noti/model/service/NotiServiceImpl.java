@@ -27,8 +27,8 @@ public class NotiServiceImpl implements NotiService {
     }
 
     @Override
-    public int insertLikesNotiData(String num,String loginId) {
-        return dao.insertLikesNotiData(mapper,num,loginId);
+    public void insertLikesNotiData(String num,String loginId) {
+         dao.insertLikesNotiData(mapper,num,loginId);
     }
 
     @Override
@@ -52,23 +52,38 @@ public class NotiServiceImpl implements NotiService {
     }
 
     @Override
-    public String getBoardTitleFromBoardNo(String boardNo) {
+    public Map<String,String> getBoardTitleFromBoardNo(String boardNo) {
         return dao.getBoardTitleFromBoardNo(mapper,boardNo);
     }
 
     @Override
-    public String getBoardTitleFromCommentNo(String commentNo) {
+    public Map<String,String> getBoardTitleFromCommentNo(String commentNo) {
         return dao.getBoardTitleFromCommentNo(mapper,commentNo);
     }
 
     @Override
-    public String getMsgContentFromMsgNo(String msgNo) {
+    public Map<String,String> getMsgContentFromMsgNo(String msgNo) {
         return dao.getMsgContentFromMsgNo(mapper,msgNo);
     }
 
     @Override
-    public int deleteNotiBoardDelStatus(String boardNo) {
-        return dao.deleteNotiBoardDelStatus(mapper,boardNo);
+    public void deleteNotiBoardDelStatus(String boardNo) {
+        dao.deleteNotiBoardDelStatus(mapper,boardNo);
+    }
+
+    @Override
+    public void deleteNotifyComment(String no) {
+        dao.deleteNotifyComment(mapper,no);
+    }
+
+    @Override
+    public void deleteNotifyMessage(String no) {
+        dao.deleteNotifyMessage(mapper,no);
+    }
+
+    @Override
+    public void deleteNotifyLikes(String no) {
+        dao.deleteNotifyLikes(mapper,no);
     }
 
 }
