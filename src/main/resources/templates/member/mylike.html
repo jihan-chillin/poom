@@ -18,25 +18,19 @@
         <div id="like-list">
             <table>
                 <thead>
-                <th>작성자</th>
-                <th>게시판</th>
-                <th>제목(댓글수)</th>
-                <th>날짜</th>
+                    <th>작성자</th>
+                    <th>게시판</th>
+                    <th>제목(댓글수)</th>
+                    <th>날짜</th>
                 </thead>
 
                 <tbody>
-                <tr>
-                    <td>코줍</td>
-                    <td>서울 >> 분실물</td>
-                    <td>코치 검정색 장지갑 찾습니다!</td>
-                    <td>2021-07-21</td>
-                </tr>
-                <tr>
-                    <td>코줍</td>
-                    <td>서울 >> 분실물</td>
-                    <td>코치 검정색 장지갑 찾습니다!</td>
-                    <td>2021-07-21</td>
-                </tr>
+                    <tr th:each=" l : ${list}">
+                        <td th:text="${l.MEMBER_NICKNAME}"></td>
+                        <td th:text = "${l.CATEGORY_NAME}"></td>
+                        <td th:text="${l.BOARD_TITLE}+'('+${l.CNT}+')'"></td>
+                        <td th:text="${#dates.format(l.BOARD_DATE, 'yyyy-MM-dd')}"></td>
+                    </tr>
                 </tbody>
             </table>
 

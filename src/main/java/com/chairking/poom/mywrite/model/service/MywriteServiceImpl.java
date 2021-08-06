@@ -44,4 +44,14 @@ public class MywriteServiceImpl implements MywriteService{
     public  List<Map<String, Object>> commentCount(int cPage, int numPerpage) {
         return dao.commentCount(mapper,cPage, numPerpage);
     }
+
+    @Override
+    public int countMyLike() {
+        return dao.countMyLike(mapper);
+    }
+
+    @Override
+    public List<Map<String, Object>> MyLikeList(int cPage, int numPerpage, Object memberId) {
+        return dao.myLikeList(mapper, cPage, numPerpage, memberId);
+    }
 }
