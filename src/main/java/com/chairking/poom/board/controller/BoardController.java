@@ -106,22 +106,24 @@ public class BoardController {
 			//키워드 글 조회
 			String[] myTag=service.myTag(param);
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("myTag",myTag);
-			map.put("loc", param.get("loc"));
-			feedList = service.feedKeyList(map);
-			noFeed="등록된 태그가 없습니다. 마이태그를 추가해보세요!";
-			System.out.println(feedList.size());
+			if(myTag.length>0) {
+				map.put("myTag",myTag);
+				map.put("loc", param.get("loc"));
+				feedList = service.feedKeyList(map);
+				mv.addObject("feedList",feedList);
+			}else {
+				noFeed="등록된 태그가 없습니다. 마이태그를 추가해보세요!";
+			}
 		}else {
 			feedList = service.feedList(param);
-			noFeed="등록된 피드가 없습니다.";
+			if(feedList!=null) {
+				mv.addObject("feedList",feedList);
+			}else {
+				noFeed="등록된 피드가 없습니다.";
+			}
 		}
 		
-		if(feedList.size()>0) {
-			mv.addObject("feedList",feedList);
-		}else {
-			mv.addObject("noFeed",noFeed);
-		}
-		
+		mv.addObject("noFeed",noFeed);
 		mv.addObject("likeTable",likeTable);
 		mv.setViewName("main/feedList");
 		return mv;
