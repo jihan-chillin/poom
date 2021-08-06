@@ -29,9 +29,7 @@ public class SearchController {
         @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
         @RequestParam(value = "cntPerPage", required = false, defaultValue = "15") int cntPerPage,
         @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
-    	System.out.println(map);
     	String uInput= map.get("uInput");
-    	System.out.println("uInput>>"+uInput);
         String where = "WHERE "
                 + "(title like '%" + uInput + "%' OR "
                 + "content like '%" + uInput + "%' OR "
