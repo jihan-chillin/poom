@@ -22,6 +22,10 @@
 		</li>
 	</ul>
 </div>
+<div class="fList" th:unless="${feedList}!=null">
+	<p th:text="${noFeed}"></p>
+<div>
+
 <script th:inline="javascript">
 function fn_boardBlame(no){
 	var id=[[${session.loginMember.MEMBER_ID}]];

@@ -16,12 +16,14 @@ public interface NotiMapper {
     @Select("select * from likes where BOARD_NO=#{boardNo}")
     public String getEnrolledLikedNo(String boardNo);
 
-    @Insert("insert into NOTIFICATION values (seq_notificationno.nextval,'2','like',default,default,'',#{boardNo},'',#{loginId})")
+    @Insert("insert into NOTIFICATION values(seq_notificationno.nextval,'2','like',default,default,'0',#{boardNo},'0',#{loginId})")
     public int insertLikesNotiData(String boardNo,String loginId);
-    @Insert("insert into NOTIFICATION values (seq_notificationno.nextval,'1','msg',default,default,'','',#{messageNo},#{loginId})")
+    @Insert("insert into NOTIFICATION values(seq_notificationno.nextval,'1','msg',default,default,'0','0',#{messageNo},#{loginId})")
     public int insertMessageNotiData(String messageNo,String loginId);
-    @Insert("insert into NOTIFICATION values (seq_notificationno.nextval,'0','cmt',default,default,#{commentNo},'','',#{loginId})")
+    @Insert("insert into NOTIFICATION values(seq_notificationno.nextval,'0','cmt',default,default,#{commentNo},'0','0',#{loginId})")
     public int insertCommentNotiData(String commentNo,String loginId);
+    @Select("select member_id from board where BOARD_NO=#{boardNo}")
+    public String getBoardWriter(String boardNo);
     @Select("select * from notification where member_id=#{loginId} and NOT_DEL ='0' and NOT_CHECK ='0'")
     public List<Map<String,String>> getMyNotiData(String loginId);
     @Select("select board_title from board where board_no=#{boardNo} and del_status='0'")

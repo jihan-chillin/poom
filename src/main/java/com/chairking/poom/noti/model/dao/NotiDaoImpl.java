@@ -34,6 +34,11 @@ public class NotiDaoImpl implements NotiDao{
     }
 
     @Override
+    public String getBoardWriter(NotiMapper mapper, String boardNo) {
+        return mapper.getBoardWriter(boardNo);
+    }
+
+    @Override
     public List<Map<String, String>> getMyNotiData(NotiMapper mapper, String loginId) {
         return mapper.getMyNotiData(loginId);
     }
