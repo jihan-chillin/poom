@@ -2,46 +2,70 @@
 	<div>
 		<span th:text="'# '+${f.CATEGORY}"></span>
 		<span th:data-no="${f.BOARD_NO}" th:onclick="|moveToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_TITLE}"></span>
+		<span th:if=${f.MEMBER_ID!=session.loginMember.MEMBER_ID} class="feed_blame">
+			<i class="gg-more-vertical-alt"></i><div>신고하기</div>
+		</span>
+		<span th:unless=${f.MEMBER_ID!=session.loginMember.MEMBER_ID}></span>
 	</div>
 	<div th:text="${f.BOARD_CONTENT}"></div>
 	<img alt="품 미리보기" th:src="@{/uploadCKImage/}+${f.PREVIEW_IMG}">
 	<ul>
 		<li><i class="gg-menu-boxed"></i><span th:text="${f.COMMENTS_COUNT}"></span></li>
 		<li>
-			<span th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" style="font-size:23px;cursor:pointer;" 
+			<span th:title="${f.BOARD_NO}" th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" name="likeHeart">1</span>
+			<!-- <span th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" style="font-size:23px;cursor:pointer;" 
 					th:data-add="${f.BOARD_NO}" th:data-id="${session.loginMember.MEMBER_ID}" 
-					th:data-like="${#arrays.contains(likeTable,f.BOARD_NO)}?'누름':'안누름'"
-					th:onclick="|fn_changeLike(this.getAttribute('data-add'),this.getAttribute('data-id'),this.getAttribute('data-like'));|" ></span>
+					th:data-like="${#arrays.contains(likeTable,f.BOARD_NO)}?'누름':'안누름'" name="likeHeart"
+					th:onclick="|fn_changeLike(this.getAttribute('data-add'),this.getAttribute('data-id'),this.getAttribute('data-like'));|" ></span> -->
 			 <span th:text="${f.LIKE_COUNT}"></span>
 		</li>
 	</ul>
 </div>
-<script>
-//좋아요 +1
-function fn_changeLike(no,id,like){
-	var loc="";
-	if($(check).prop("checked")) {
-		loc = $("p.onoffBtn:eq(0)").html();
-	}else {
-		loc = $("p.onoffBtn:eq(1)").html();
-	}
-	
-	var list="";
-	if($("ul.feedtab>li").hasClass('feedtab_on')) {
-		list = $("li.feedtab_on").attr('id');
-	}
-	$.ajax({
+<script th:inline="javascript">
+$("span[name=likeHeart]").click(e=>{
+	var boardNo=$(e.target).attr("title");
+ 	var id=[[${session.loginMember.MEMBER_ID}]];
+ 	var like=$(e.target).text();
+ 	//카운트 바꾸기
+ 	var count=Number($(e.target).next().text());
+ 	//$(e.target).next().text(count);
+ 	
+ 	if(like=='♥'){		//이미 누른상태 = >클릭했으면 좋아요취소하는거
+ 		like='누름';
+ 		$(e.target).next().text(count-1);
+ 	}else{
+ 		like='안누름';
+ 		$(e.target).next().text(count+1);
+ 		// 알림 보내는 함수 by 희웅
+		sendNoti();
+ 	};
+ 	
+ 	//하트바꾸기
+ 	if(like=='누름') $(e.target).text('♡');
+ 	else $(e.target).text('♥');
+ 	
+ 	$.ajax({
 		url:getContextPath()+"/board/changeLike",
 		data:{
-			"no":no,
+			"no":boardNo,
 			"id":id,
-			"loc":loc,
-			"list":list,
 			"like":like
 		}
-	}).done(function (fragment){
-		$("#feed_content").html(fragment);
+	}).done(function(fragment){
+		
 	})
-}
+});
+
+$("span.feed_blame").hover(function() {
+	$(this).children('div').css({"display":"block"});
+},function() {
+	$(this).children('div').css({"display":"none"});
+});
+
+$("span.feed_blame>div").hover(function(){
+	$(this).css({"text-decoration":"underline"});
+},function() {
+	$(this).css({"text-decoration":"none"});
+});
 </script>
 

@@ -105,7 +105,6 @@ public class BoardController {
 			map.put("myTag",myTag);
 			map.put("loc", param.get("loc"));
 			feedList = service.feedKeyList(map);
-			System.out.println(feedList.size());
 		}else {
 			feedList = service.feedList(param);
 		}
