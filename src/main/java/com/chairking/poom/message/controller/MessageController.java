@@ -2,9 +2,9 @@ package com.chairking.poom.message.controller;
 
 
 import com.chairking.poom.common.Pagination;
-import com.chairking.poom.member.model.vo.Member;
 import com.chairking.poom.message.model.service.MessageService;
 import com.chairking.poom.message.model.vo.Message;
+import com.chairking.poom.noti.controller.NotiController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -212,7 +212,8 @@ public class MessageController {
     public ModelAndView sendMsg(HttpServletRequest request, HttpSession session, ModelAndView mv){
         //세션에서 내 아이디를 가져온다.
         Message msg = new Message();
-        msg.setMemberId(request.getParameter("memberId"));
+        String memberId = request.getParameter("memberId");
+        msg.setMemberId(memberId);
         msg.setRecvMember(request.getParameter("recvMember"));
         msg.setMsgContent(request.getParameter("msgContent"));
         msg.setType(1);
@@ -221,12 +222,21 @@ public class MessageController {
         msg.setType(2);
         result += service.sendMsg(msg);
         mv.addObject("mType", "send");
+
+        // 알람 테이블에 데이터 넣는 메소드 by 희웅
+        NotiController mc =new NotiController();
+        mc.insertMessageNotiData(getRecentMessageNo(),memberId);
+
         if(result>0){
             mv.setViewName("message/message_sendMessage");
         }
         return mv;
     }
 
+    // 촤근 보낸 메세지 번호 가져오는 메소드.
+    public String getRecentMessageNo(){
+        return service.getRecentMessageNo();
+    }
 //
 //    @GetMapping("/reply")
 //    public ModelAndView replyPopup()

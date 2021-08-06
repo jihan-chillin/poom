@@ -53,4 +53,7 @@ public interface MessageMapper {
 
     @Select("SELECT COUNT (*) FROM MESSAGE WHERE 1=1 ${condition}")
     int messageCount(String condition);
+
+    @Select("select MSG_NO from MESSAGE where rownum=1 order by MSG_NO desc")
+    String getRecentMessageNo();
 }
