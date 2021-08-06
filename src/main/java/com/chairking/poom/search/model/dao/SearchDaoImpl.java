@@ -14,11 +14,11 @@ public class SearchDaoImpl implements SearchDao {
     @Override
     public List<Map<String, Object>> searchList(SearchMapper mapper, String where, Pagination pagination){
 
-        return mapper.searchList(where, pagination.getFirstRecordIndex(), pagination.getLastRecordIndex());
+        return mapper.searchList(where, pagination);
     }
 
     @Override
-    public int searchCount(SearchMapper mapper) {
-        return mapper.searchCount();
+    public int searchCount(SearchMapper mapper, String where) {
+        return mapper.searchCount(where);
     }
 }

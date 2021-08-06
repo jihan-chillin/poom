@@ -59,25 +59,16 @@
 
         </div>
       </div>
-
-
-
-
-
-    <!-- HOT키워드순위창 -->
-    <div th:replace="/fragments/rank.html :: fragment-rank"></div>
-
-
-  </div>
-</div>
 </body>
 <script>
   function fn_ajax_paging(i){
+	  var uInput = $('#uInput').val();
     $.ajax({
       url:getContextPath()+"/search/list",
       data:{
         "currentPage":i,
-      }
+        "uInput":uInput,
+      },
     }).done(function(fragment){
       $(".feed").html(fragment);
     });

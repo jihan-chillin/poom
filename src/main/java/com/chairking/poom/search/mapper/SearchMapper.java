@@ -2,6 +2,8 @@ package com.chairking.poom.search.mapper;
 
 import org.apache.ibatis.annotations.*;
 
+import com.chairking.poom.common.Pagination;
+
 import java.util.List;
 import java.util.Map;
 
@@ -25,11 +27,11 @@ public interface SearchMapper {
             + "board_date as write_date, "
             + "member_id from board) A join CATEGORY C on A.category_no = C.category_no "
             + "${where}"
-            + ") WHERE rnum between #{pagingFirstIndex} AND #{pagingLastIndex}";
+            + ") WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}";
 
 
     @Select(query)
-    public List<Map<String,Object>> searchList(String where, int pagingFirstIndex, int pagingLastIndex);
+    public List<Map<String,Object>> searchList(String where, Pagination pagination);
 
 
     //페이징 처리 카운트 세기
@@ -49,7 +51,7 @@ public interface SearchMapper {
                     + "board_title as title, "
                     + "SUBSTR(board_content, 0, 15) || '...' as content, "
                     + "board_date as write_date, "
-                    + "member_id from board) A join CATEGORY C on A.category_no = C.category_no )";
+                    + "member_id from board) A join CATEGORY C on A.category_no = C.category_no ) ${where}";
     @Select(count)
-    public int searchCount();
+    public int searchCount(String where);
 }

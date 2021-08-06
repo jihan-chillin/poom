@@ -43,7 +43,6 @@ $("span[name=likeHeart]").click(e=>{
  	//하트바꾸기
  	if(like=='누름') $(e.target).text('♡');
  	else $(e.target).text('♥');
- 	
  	$.ajax({
 		url:getContextPath()+"/board/changeLike",
 		data:{
@@ -54,7 +53,7 @@ $("span[name=likeHeart]").click(e=>{
 	}).done(function(fragment){
 		
 	})
-});
+})
 
 $("span.feed_blame").hover(function() {
 	$(this).children('div').css({"display":"block"});

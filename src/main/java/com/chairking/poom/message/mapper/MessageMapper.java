@@ -1,5 +1,6 @@
 package com.chairking.poom.message.mapper;
 
+import com.chairking.poom.common.Pagination;
 import com.chairking.poom.member.model.vo.Member;
 import com.chairking.poom.message.model.vo.Message;
 import org.apache.ibatis.annotations.*;
@@ -13,8 +14,10 @@ public interface MessageMapper {
     @Select("SELECT * FROM MEMBER")
     public List<Map<String,Object>> searchReceiver();
 
-
-    @Select("SELECT MSG_NO, MEMBER_ID, RECV_MEMBER, MSG_DATE, MSG_TYPE, SUBSTR(MSG_CONTENT, 0, 15) || '...' AS MSG_CONTENT, nvl(READ_CHECK, TO_DATE('0001/01/01', 'yyyy/mm/dd')) AS READ_CHECK FROM MESSAGE WHERE 1=1  ${condition} ORDER BY MSG_DATE DESC")
+    String query = "SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM(SELECT MSG_NO, MEMBER_ID, RECV_MEMBER, MSG_DATE, MSG_TYPE, SUBSTR(MSG_CONTENT, 0, 15) || '...' AS MSG_CONTENT, "
+            + "nvl(READ_CHECK, TO_DATE('0001/01/01', 'yyyy/mm/dd')) AS READ_CHECK FROM MESSAGE "
+            + "WHERE 1=1  ${condition} ";
+    @Select(query)
     public List<Map<String,Object>> getMessage(String condition);
 
     @Select("SELECT * FROM MESSAGE WHERE MSG_NO = #{msgNo}")
@@ -36,10 +39,10 @@ public interface MessageMapper {
     List<Map<String, Object>> searchReceiverCondition(String condition);
 
     //message 보내기
-    @Insert("INSERT INTO MESSAGE VALUES (MSG_NO.NEXTVAL, '${memberId}', '${recvMember}', sysdate, '1', '${msgContent}',null)")
+    @Insert("INSERT INTO MESSAGE VALUES (MSG_NO.NEXTVAL, '${memberId}', '${recvMember}', sysdate, '${type}', '${msgContent}',null)")
     int sendMsg(Message msgNo);
 
-    @Select("SELECT * FROM MESSAGE WHERE MSG_TYPE = 2")
+    @Select("SELECT * FROM MESSAGE WHERE MSG_TYPE = 1")
     List<Map<String, Object>> getsendMessage(String msgNo);
 
     @Delete("DELETE FROM MESSAGE WHERE MSG_TYPE = 3")
@@ -47,4 +50,10 @@ public interface MessageMapper {
 
     @Delete("DELETE FROM MESSAGE WHERE MSG_NO = #{msgNo}")
     int selectBlock(String msgNo);
+
+    @Select("SELECT COUNT (*) FROM MESSAGE WHERE 1=1 ${condition}")
+    int messageCount(String condition);
+
+    @Select("select MSG_NO from MESSAGE where rownum=1 order by MSG_NO desc")
+    String getRecentMessageNo();
 }

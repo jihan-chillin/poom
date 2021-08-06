@@ -24,6 +24,10 @@ function messageBox(){
     location.assign(getContextPath()+"/message");
 }
 
+// function searchList(){
+// 	location.assign(getContextPath()+"search/list");
+// }
+
 // 프로필 부분 edit버튼 클릭시 정보수정 페이지로 이동 ajax
 function mypage(){
 	location.assign(getContextPath()+'/member/mypage');
@@ -53,11 +57,13 @@ function feedWrite() {
         $("[name=content]").focus();
         return false;
     }
-		// 태그 입력창이 비어있는지 확인하는 메소드
-		return checkTagInputEmpty();
-
-		// 사용자가 입력한 태그 등록하는 메소드
-		addTagEach(getConfirmTag());
+    
+	// 태그 입력창이 비어있는지 확인하는 메소드
+	if( !checkTagInputEmpty()){
+		return false;
+	}
+	// 사용자가 입력한 태그 등록하는 메소드
+	addTagEach(getConfirmTag());
 
     $("[name=feedWrite_form]").submit();
 } 

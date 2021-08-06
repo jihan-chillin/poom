@@ -5,22 +5,22 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
+import com.chairking.poom.noti.controller.NotiController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chairking.poom.board.model.service.BoardService;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Controller
+@RestController
 //@RequestMapping("/")
 @Slf4j
 public class BoardController {
@@ -59,6 +59,9 @@ public class BoardController {
 		System.out.println(boardNo);
 		//좋아요 가져오기
 		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+		
+		//태그들 가져오기
+		
 		mv.addObject("likeTable",likeTable);
 		mv.setViewName("board/board_view");
 		mv.addObject("board", service.selectBoard(boardNo));
@@ -91,9 +94,10 @@ public class BoardController {
 	@RequestMapping("/board/feedNew")
 	public ModelAndView feedNew(@RequestParam Map param, ModelAndView mv) {
 		
-		
+		System.out.println("feednew map"+param);
 		//좋아요 테이블 불러오기
 		String[] likeTable = service.likeTable((String)param.get("id"));
+		System.out.println("feednew like"+likeTable);
 		List<Map<String, Object>> feedList;
 		if(param.get("loc").equals("전국")) {
 			param.put("loc","");
@@ -132,31 +136,10 @@ public class BoardController {
 	
 	//좋아요=> +1하기
 	@RequestMapping("/board/changeLike")
-	public ModelAndView changeLike(@RequestParam Map<String,String> map,ModelAndView mv) {
+	public void changeLike(@RequestParam Map<String,String> map) {
 		//해당 no로 board테이블에 like count 추가하고 
 		//좋아요 테이블에 컬럼 추가하기
 		int result=service.changeLike(map);
-		//좋아요 리스트 다시 가져오기
-		String[] likeTable = service.likeTable(map.get("id"));
-		
-		//메인에서 좋아요 눌렀을때
-		if(map.get("type")==null) {
-			//추가 후 list다시 불러오기
-			List<Map<String, Object>> feedList = service.feedList(map);
-			if(feedList!=null) {
-				mv.addObject("likeTable",likeTable);
-				mv.addObject("feedList",feedList);
-			}else {
-				mv.addObject("feedList","등록된 글이 없습니다.");
-			}
-			mv.setViewName("main/feedList");
-		}else {			//게시글에서 좋아요 눌렀을때
-			mv.addObject("likeTable",likeTable);
-			mv.setViewName("board/board_view");
-			mv.addObject("board", service.selectBoard(map.get("no")));
-			mv.addObject("commentList", service.selectCommentList(map.get("no")));
-		}
-		return mv;
 	}
 	
 	//왼쪽 게시판 이름 누르면 카테고리로 이동하기
