@@ -30,21 +30,7 @@ function messageBox(){
 
 // 프로필 부분 edit버튼 클릭시 정보수정 페이지로 이동 ajax
 function mypage(){
-	$('.feed').remove();
-  	$('.profile').remove();
-  	$('.rank').remove();
-
-    $.ajax({
-    	url: getContextPath()+'/member/mypage',
-    	success:function(data){
-        	$('#content').html(data)
-    	},
-    	error:(e,m,i)=>{
-	      console.log(e);
-	      console.log(m);
-	      console.log(i);
-    	}
-	});
+	location.assign(getContextPath()+'/member/mypage');
 }
 
 //내가쓴글 페이지로 이동
@@ -71,13 +57,14 @@ function feedWrite() {
         $("[name=content]").focus();
         return false;
     }
-		// 태그 입력창이 비어있는지 확인하는 메소드
-		if( !checkTagInputEmpty()){
-			return false;
-		}
+    
+	// 태그 입력창이 비어있는지 확인하는 메소드
+	if( !checkTagInputEmpty()){
+		return false;
+	}
+	// 사용자가 입력한 태그 등록하는 메소드
+	addTagEach(getConfirmTag());
 
-		// 사용자가 입력한 태그 등록하는 메소드
-		addTagEach(getConfirmTag());
     $("[name=feedWrite_form]").submit();
 } 
 
@@ -98,7 +85,10 @@ check.click(function(){
 		}
 		feedNew();
 	}else {
-		alert('결제권을 구매하시면 전국게시글을 보실 수 있습니다.');
+		var confirmResult = confirm('결제권을 구매하시면 전국게시글을 보실 수 있습니다. 확인을 누르면 결제창으로 이동합니다.');
+		if(confirmResult==true) {
+			location.assign(getContextPath()+"/pay");
+		}
 	}
 });
 

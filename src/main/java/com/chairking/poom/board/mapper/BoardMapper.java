@@ -52,25 +52,21 @@ public interface BoardMapper {
 	
 	//메인피드 게시글(전국,전체)
 	@Select("SELECT *"
-			+ "FROM (SELECT B.*, C.CATEGORY_NAME AS CATEGORY, I.RENAME_IMG AS IMG FROM BOARD B JOIN CATEGORY C ON (BOARD_CATE=CATEGORY_NO)"
-			+ "LEFT JOIN IMAGE I ON (B.BOARD_NO=I.BOARD_NO))"
-			+ "ORDER BY BOARD_DATE DESC")
+			+ "FROM (SELECT B.*, M.MEMBER_NICKNAME AS NICKNAME, C.CATEGORY_NAME AS CATEGORY, T.TAG_NAME AS TAG"
+					+ " FROM BOARD B JOIN MEMBER M ON (B.MEMBER_ID=M.MEMBER_ID)"
+					+ " JOIN CATEGORY C ON (B.BOARD_CATE=C.CATEGORY_NO)"
+					+ " JOIN BOARDTAG T ON (B.BOARD_NO=T.BOARD_NO))"
+			+ " ORDER BY BOARD_DATE DESC")
 	public List<Map<String, Object>> feedListAllAll(Map param);
-	
-	//메인피드 게시글(전국,키워드)
-	@Select("SELECT * FROM BOARD ORDER BY BOARD_DATE DESC")
-	public List<Map<String, Object>> feedListAllKey(Map param);
 	
 	//메인피드 게시글(지역,전체)
 	@Select("SELECT *"
-			+ "FROM (SELECT B.*, C.CATEGORY_NAME AS CATEGORY, I.RENAME_IMG AS IMG FROM BOARD B JOIN CATEGORY C ON (BOARD_CATE=CATEGORY_NO)"
-			+ "LEFT JOIN IMAGE I ON (B.BOARD_NO=I.BOARD_NO))"
-			+ "WHERE BOARD_LOC=#{loc} ORDER BY BOARD_DATE DESC")
+			+ "FROM (SELECT B.*, M.MEMBER_NICKNAME AS NICKNAME, C.CATEGORY_NAME AS CATEGORY, T.TAG_NAME AS TAG"
+					+ " FROM BOARD B JOIN MEMBER M ON (B.MEMBER_ID=M.MEMBER_ID)"
+					+ " JOIN CATEGORY C ON (B.BOARD_CATE=C.CATEGORY_NO)"
+					+ " JOIN BOARDTAG T ON (B.BOARD_NO=T.BOARD_NO))"
+			+ " WHERE BOARD_LOC=#{loc} ORDER BY BOARD_DATE DESC")
 	public List<Map<String, Object>> feedListLocAll(Map param);
-		
-	//메인피드 게시글(지역,키워드)
-	@Select("SELECT * FROM BOARD ORDER BY BOARD_DATE DESC")
-	public List<Map<String, Object>> feedListLocKey(Map param);
 	
 	//게시판에서 공지사항클릭
 	@Select("SELECT * FROM NOTICE WHERE NOTICE_NO=#{no}")

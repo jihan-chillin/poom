@@ -547,7 +547,61 @@ div.fList div:first-child span:first-of-type {
 	font-weight: normal;
 	border-right: 3px solid lightgray;
 }
-div.fList div:nth-child(2) {
+div.fList div:first-child span:nth-child(2){
+	width: 480px;
+}
+div.fList div:first-child span:last-child {
+	width: 24px;
+    padding-left: 20px;
+    height: auto;
+}
+div.fList div:first-child span:last-child>div {
+   	padding: 7px 0;
+    width: 86px;
+    text-align: center;
+    background: #247094;
+    font-style: normal;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    top: 45px;
+    right: 187px;
+    border-radius: 7px;
+    display: none;
+}
+
+/* 더보기 아이콘 */
+.gg-more-vertical-alt {
+    transform: scale(var(--ggs,1));
+}
+.gg-more-vertical-alt,
+.gg-more-vertical-alt::after,
+.gg-more-vertical-alt::before {
+    box-sizing: border-box;
+    position: relative;
+    bottom: 4px;
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background: currentColor;
+    border-radius: 100%;
+    color: darkgray;
+}
+.gg-more-vertical-alt::after,
+.gg-more-vertical-alt::before {
+    content: "";
+    position: absolute;
+}
+.gg-more-vertical-alt::after {
+    left: 0;
+    top: 7px;
+}
+.gg-more-vertical-alt::before {
+    top: -7px;
+    right: 0
+}
+
+div.fList>div:nth-child(2) {
   	display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
