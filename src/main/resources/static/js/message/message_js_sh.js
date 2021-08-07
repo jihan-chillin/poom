@@ -15,8 +15,6 @@ function fn_message_move(mType) {
             type: 'POST',
 
         }).done(function (fragment){
-            // 알림 보내는 함수 by 희웅
-            sendNoti();
             $("#target").html(fragment);
         });
     }else if(mType=='block'){
@@ -80,15 +78,14 @@ function sendMsg(frm){
             type:'POST',
 
         }).done(function (){
+            // 실시간 알림 보내는 메소드 by 희웅
+            sendNoti();
+            
             alert("메시지가 전송되었습니다.");
             self.close();
-            // 실시간 알림 보내는 메소드 by 희웅
-            //sendNoti();
-
 
         });
     }
-
 }
 
 function showPopup() {

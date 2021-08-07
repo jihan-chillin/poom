@@ -15,12 +15,10 @@ function onNotiConnected(){
 }
 
 function sendNoti(){
-  notiStompClient.send("/send/notification/alarm",{},JSON.stringify("ㅎㅇㅎㅇ"));
+  notiStompClient.send("/send/notification/alarm",{},{});
 }
 
-function onNotiReceived(payload){
-  console.log(JSON.parse(payload.body));
-
+function onNotiReceived(){
   getNotificationData();
 }
 

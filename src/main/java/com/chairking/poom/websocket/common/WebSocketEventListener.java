@@ -21,7 +21,7 @@ public class WebSocketEventListener {
 
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectEvent event){
-        log.info(" 웹소켓 연결됨");
+//        log.info(" 웹소켓 연결됨");
 //        log.info("simpSessionId :{}",event.getMessage().getHeaders().get("simpSessionId"));
     }
 
@@ -34,7 +34,7 @@ public class WebSocketEventListener {
     // -> 제일 큰 단점임.
     @EventListener
     public void handlerWebSocketDisconnectListener(SessionDisconnectEvent event){
-        log.info(" 웹소켓 끝");
+//        log.info(" 웹소켓 끝");
 
     }
 }

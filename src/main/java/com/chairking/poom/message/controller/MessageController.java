@@ -218,6 +218,8 @@ public class MessageController {
         mv.addObject("mType", "send");
 
         // 알람 테이블에 데이터 넣는 메소드 by 희웅
+        mc.insertMessageNotiData(getRecentMessageNo(),recvMember);
+
         if(result>0){
             mv.setViewName("message/message_sendMessage");
         }

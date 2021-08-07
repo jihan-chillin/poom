@@ -44,6 +44,17 @@ public class AdminController {
 		mv.addObject("type",type);
 		mv.setViewName("admin/admin");
 		return mv;
+//		if(type.equals("notice")) {
+//			mv.addObject("type",type);
+//			mv.setViewName("admin/admin_notice");
+//		}else if(type.equals("blame")) {
+//			mv.addObject("type",type);
+//			mv.setViewName("admin/admin_blame");
+//		}else {
+//			mv.addObject("type",type);
+//			mv.setViewName("admin/admin_pay");
+//		}
+//		return mv;
 	}
 	
 	//ajax
@@ -72,7 +83,7 @@ public class AdminController {
 		mv.addObject("endpage", endPage);
 		mv.addObject("list", list);
 		mv.addObject("totalPage", totalPage);
-		mv.setViewName("admin/admin_notice");
+		mv.setViewName("admin/notice_content");
 		return mv;
 	}
 	
