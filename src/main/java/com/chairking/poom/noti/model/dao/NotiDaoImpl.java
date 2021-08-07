@@ -60,7 +60,11 @@ public class NotiDaoImpl implements NotiDao{
 
     @Override
     public void deleteNotiBoardDelStatus(NotiMapper mapper, String boardNo) {
-        mapper.deleteNotiBoardDelStatus(boardNo);
+        try {
+            mapper.deleteNotiBoardDelStatus(boardNo);
+        }catch (Exception e){
+            return ;
+        }
     }
 
     @Override
@@ -76,6 +80,11 @@ public class NotiDaoImpl implements NotiDao{
     @Override
     public void deleteNotifyLikes(NotiMapper mapper, String no) {
         mapper.deleteNotifyLikes(no);
+    }
+
+    @Override
+    public void changeNotifyType(NotiMapper mapper, String no) {
+        mapper.changeNotifyType(no);
     }
 
 }

@@ -1,9 +1,6 @@
 package com.chairking.poom.noti.mapper;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -32,7 +29,7 @@ public interface NotiMapper {
     @Select("select * from ( select * from notification where member_id=#{loginId} order by to_number(NOT_NO) desc) where ROWNUM between 1 and 10")
     public  List<Map<String,String>> getMyNotiData(String loginId);
 
-    @Select("select b.BOARD_NO,b.BOARD_TITLE,l.LIKES_NO from board b  join LIKES l on b.BOARD_NO = l.BOARD_NO where b.DEL_STATUS='0' and b.BOARD_NO=#{boardNo}")
+    @Select("select b.BOARD_NO,b.BOARD_TITLE from board b where b.DEL_STATUS='0' and b.BOARD_NO=#{boardNo}")
     public Map<String,String> getBoardTitleFromBoardNo(String boardNo);
 
     @Select("select BOARD_TITLE,board_no from COMMENTS join BOARD B on B.BOARD_NO = COMMENTS.BOARD_NO where COMMENTS.COMMENT_NO=#{commentNo}")
@@ -52,4 +49,7 @@ public interface NotiMapper {
 
     @Delete("delete from NOTIFICATION where board_no=#{board_no}")
     public void deleteNotifyLikes(String boardNo);
+
+    @Update("update NOTIFICATION set NOT_CHECK = '1' where NOT_NO=#{notiNo}")
+    public void changeNotifyType(String notiNo);
 }

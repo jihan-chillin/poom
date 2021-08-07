@@ -18,5 +18,6 @@ public interface NotiService {
     void deleteNotifyComment(String no);
     void deleteNotifyMessage(String no);
     void deleteNotifyLikes(String no);
+    void changeNotifyType(String no);
 
 }

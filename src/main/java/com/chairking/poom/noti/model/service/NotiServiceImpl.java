@@ -86,4 +86,9 @@ public class NotiServiceImpl implements NotiService {
         dao.deleteNotifyLikes(mapper,no);
     }
 
+    @Override
+    public void changeNotifyType(String no) {
+        dao.changeNotifyType(mapper,no);
+    }
+
 }

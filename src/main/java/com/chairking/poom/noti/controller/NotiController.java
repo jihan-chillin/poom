@@ -51,28 +51,38 @@ public class NotiController {
         List<Map<String,String>> getMsgContentFromMsgNo= new ArrayList<>();
 
 
-        for(int i =0; i<myNotiData.size(); i++){
+        for(int i =0; i<myNotiData.size(); i++) {
 
             // 삭제처리된 게시물은 알림테이블에서 삭제
             notiService.deleteNotiBoardDelStatus(myNotiData.get(i).get("BOARD_NO"));
+            String boardNo = myNotiData.get(i).get("BOARD_NO");
 
-            if(myNotiData.get(i).get("BOARD_NO") != null){
-                getBoardTitleFromBoardNo.add(i,
-                        notiService.getBoardTitleFromBoardNo(myNotiData.get(i).get("BOARD_NO"))
-                );
+            getBoardTitleFromBoardNo.add(i,
+                    notiService.getBoardTitleFromBoardNo(boardNo)
+            );
 
-            }else if(myNotiData.get(i).get("COMMENT_NO") != null){
+        }
+
+        for(int i =0; i<myNotiData.size(); i++) {
+            String commentNo = myNotiData.get(i).get("COMMENT_NO");
+
+            if (Integer.parseInt(commentNo) != 0) {
                 getBoardTitleFromCommentNo.add(i,
-                    notiService.getBoardTitleFromCommentNo(myNotiData.get(i).get("COMMENT_NO"))
+                        notiService.getBoardTitleFromCommentNo(commentNo)
                 );
-
-            }else if(myNotiData.get(i).get("MSG_NO") != null){
-                getMsgContentFromMsgNo.add(i,
-                        notiService.getMsgContentFromMsgNo(myNotiData.get(i).get("MSG_NO"))
-                );
-
             }
         }
+
+        for(int i =0; i<myNotiData.size(); i++) {
+            String msgNo = myNotiData.get(i).get("MSG_NO");
+
+            if (Integer.parseInt(msgNo) != 0) {
+                getMsgContentFromMsgNo.add(i,
+                        notiService.getMsgContentFromMsgNo(msgNo)
+                );
+            }
+        }
+
 
         data.put("notiData",myNotiData);
         data.put("boardTitleFromBoardNo",getBoardTitleFromBoardNo);
@@ -112,6 +122,13 @@ public class NotiController {
         }else if(ref ==3){
             notiService.deleteNotifyLikes(no);
         }
+    }
+    /*
+    알림 읽었을 때 알림 readType 변경
+     */
+    @RequestMapping("/noti/read/type")
+    public void changeNotifyType(@RequestParam(value ="no")String no){
+        notiService.changeNotifyType(no);
     }
 
 }

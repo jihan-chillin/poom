@@ -15,7 +15,8 @@ function onNotiConnected(){
 }
 
 function sendNoti(){
-  notiStompClient.send("/send/notification/alarm",{},JSON.stringify("ㅎㅇㅎㅇ"));
+  console.log("되니?>");
+  notiStompClient.send("/send/notification/alarm",{},{});
 }
 
 function onNotiReceived(payload){

@@ -69,8 +69,11 @@ function getNotificationData(){
       "loginid":$('#loginMember_id').text()
     },
     success:data=>{
+      // console.log(data);
       /*
         notiData = 알림 데이터
+        notiData[i].NOT_NO => 알림번호
+
         boardTitleFromBoardNo = 좋아요 게시글 제목
         getBoardTitleFromCommentNo = 댓글 달린 게시글 제목
         getMsgContentFromMsgNo = 쪽지 내용
@@ -121,6 +124,8 @@ function getNotificationData(){
               val += '<span onclick="deleteNotify('+data.getMsgContentFromMsgNo[i].MSG_NO+',2)">X</span>';
               val += '<span class="noti-content-title" onclick="showMsgDtl('+data.getMsgContentFromMsgNo[i].MSG_NO+')">';
                 val += data.getMsgContentFromMsgNo[i].MSG_CONTENT.substring(0,21);
+          $('.noti-info-message').append(val2);
+
 
         }else{// 좋아요
             val += '<svg xmlns="http://www.w3.org/2000/svg" class="noti-content-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="Heart"><path d="M7 3C4.239 3 2 5.216 2 7.95c0 2.207.875 7.445 9.488 12.74a.985.985 0 0 0 1.024 0C21.125 15.395 22 10.157 22 7.95 22 5.216 19.761 3 17 3s-5 3-5 3-2.239-3-5-3z"/></svg>';
@@ -164,7 +169,7 @@ function getMessageDataToNotify(){
       let val2 ='<div class="alarm-count"><span>N</span></div></div>';
 
       if(data.getMsgContentFromMsgNo.length === 0){
-        $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_receive.png) no-repeat center; background-size: contain;");
+        $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_normal.png) no-repeat center; background-size: contain;");
         val += '<div class="noti-content-box">';
         val += '<div class="noti-img">';
         val += '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="CircleAlert"><circle cx="12" cy="12" r="10"/><path d="M12 7v6m0 3.5v.5"/></svg>';
@@ -230,6 +235,7 @@ function deleteNotify(no,ref){
         "ref":ref
       },
       success:data=>{
+        $('.alarm-count').remove();
         getNotificationData();
       }
     });
@@ -241,7 +247,7 @@ function deleteNotify(no,ref){
  */
 function changeNotifyReadType(no){
   $.ajax({
-    url:getContextPath()+'',
+    url:getContextPath()+'/noti/read/type',
     data:{
       "no":no,
     },
