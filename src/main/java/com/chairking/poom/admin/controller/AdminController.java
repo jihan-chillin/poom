@@ -39,13 +39,24 @@ public class AdminController {
 		return "admin/admin_main";
 	}
 	
-//	@GetMapping("/main")
-//	public ModelAndView main(String type, ModelAndView mv) {
-//		mv.addObject("type",type);
-//		mv.setViewName("admin/admin");
+	@GetMapping("/main")
+	public ModelAndView main(String type, ModelAndView mv) {
+		mv.addObject("type",type);
+		mv.setViewName("admin/admin");
+		return mv;
+//		if(type.equals("notice")) {
+//			mv.addObject("type",type);
+//			mv.setViewName("admin/admin_notice");
+//		}else if(type.equals("blame")) {
+//			mv.addObject("type",type);
+//			mv.setViewName("admin/admin_blame");
+//		}else {
+//			mv.addObject("type",type);
+//			mv.setViewName("admin/admin_pay");
+//		}
 //		return mv;
-//	}
-//	
+	}
+	
 	//ajax
 	@GetMapping("/notice")
 	public ModelAndView notice(ModelAndView mv, 
@@ -72,7 +83,7 @@ public class AdminController {
 		mv.addObject("endpage", endPage);
 		mv.addObject("list", list);
 		mv.addObject("totalPage", totalPage);
-		mv.setViewName("admin/admin_notice");
+		mv.setViewName("admin/notice_content");
 		return mv;
 	}
 	

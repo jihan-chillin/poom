@@ -21,15 +21,15 @@
                 관리자님, 환영합니다.<br>
                 <span>POOM 관리자 페이지 입니다.</span>
             </span >
-            <div id="notice" th:onclick="|location.assign('@{/admin/notice');|">
+            <div id="notice" th:onclick="|location.assign('@{/admin/main?type=notice}');|">
                 <p class="admin_menu_title">공지사항관리</p>
                 <p class="admin_menu_content">게시판별 공지사항을 관리할 수 있습니다.</p>
             </div>
-            <div id="blame" th:onclick="|location.assign('@{/blame}');|">
+            <div id="blame" th:onclick="|location.assign('@{/admin/main?type=blame}');|">
                 <p class="admin_menu_title">신고관리</p>
                 <p class="admin_menu_content">신고된 게시글 및 댓글, 유저를 관리할 수 있습니다.</p>
             </div>
-            <div id="pay" th:onclick="|location.assign('@{/payAdmin');|">
+            <div id="pay" th:onclick="|location.assign('@{/admin/main?type=pay}');|">
                 <p class="admin_menu_title">결제관리</p>
                 <p class="admin_menu_content">회원별 결제 내역을 조회할 수 있습니다.</p>
             </div>

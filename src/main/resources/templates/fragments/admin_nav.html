@@ -11,10 +11,10 @@
             <span>POOM 관리자님, 환영합니다.</span>
         </div>
         <ul>
-            <li th:onclick="location.assign('@{/admin/notice');">
+            <li th:onclick="|location.assign('@{/admin/main?type=notice}');|">
             	<img th:src="@{/images/admin/notice.png}" >공지사항관리
             </li>
-            <li th:onclick="location.assign('@{/blame}');">
+            <li th:onclick="|location.assign('@{/admin/main?type=blame}');|">
             	<img th:src="@{/images/admin/siren.PNG}" >신고관리
                 <ul id="blame_menu" style="display:none">
                     <li>신고된 게시글</li>
@@ -23,7 +23,7 @@
                     <li>정지된 회원관리</li>
                 </ul>
             </li>
-            <li th:onclick="location.assign('@{/payAdmin');">
+            <li th:onclick="|location.assign('@{/admin/main?type=pay}');">
             	<img th:src="@{/images/admin/pay.png}" >결제관리
             	</li>
         </ul>
