@@ -4,6 +4,7 @@ import com.chairking.poom.noti.model.service.NotiService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -94,8 +95,7 @@ public class NotiController {
 
     @MessageMapping("/notification/alarm")
     @SendTo("/receive/noti")
-    public  String sendData(){
-//        log.info(loginId);
+    public String sendData(){
         return "1";
     }
 
