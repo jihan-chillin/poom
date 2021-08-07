@@ -6,13 +6,18 @@ import java.util.Map;
 public interface NotiService {
     List getEnrolledMyBoardNo(String memberId);
     String getEnrolledLikedNo(String boardNo);
-    int insertLikesNotiData(String num,String loginId);
+    void insertLikesNotiData(String num,String loginId);
     int insertMessageNotiData(String num,String loginId);
     int insertCommentNotiData(String num,String loginId);
     String getBoardWriter(String boardNo);
     List<Map<String,String>> getMyNotiData(String loginId);
-    String getBoardTitleFromBoardNo(String boardNo);
-    String getBoardTitleFromCommentNo(String commentNo);
-    String getMsgContentFromMsgNo(String msgNo);
-    int deleteNotiBoardDelStatus(String boardNo);
+    Map<String,String> getBoardTitleFromBoardNo(String boardNo);
+    Map<String,String> getBoardTitleFromCommentNo(String commentNo);
+    Map<String,String> getMsgContentFromMsgNo(String msgNo);
+    void deleteNotiBoardDelStatus(String boardNo);
+    void deleteNotifyComment(String no);
+    void deleteNotifyMessage(String no);
+    void deleteNotifyLikes(String no);
+    void changeNotifyType(String no);
+
 }

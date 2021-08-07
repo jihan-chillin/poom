@@ -9,15 +9,16 @@ import java.util.Map;
 
 @Mapper
 public interface SearchMapper {
-    String query = "SELECT * FROM ("
-            + "SELECT rownum as rnum, A.*, C.category_name FROM "
-            + "(SELECT notice_no as search_no, "
+    String query = "SELECT * FROM ( "
+            + "SELECT rownum as rnum, B.* FROM ( "
+            + "SELECT A.*, C.category_name FROM ( "
+            + "SELECT notice_no as search_no, "
             + "'notice' as con_type, "
             + "category_no, "
             + "notice_title as title, "
             + "SUBSTR(notice_content, 0, 15) || '...' as content, "
             + "notice_date as write_date, "
-            + "'관리자' as member_id from notice "
+            + "'관리자' as member_id from notice where notice_status = 0 "
             + "UNION "
             + "SELECT board_no as search_no, "
             + "'board' as con_type, "
@@ -27,7 +28,7 @@ public interface SearchMapper {
             + "board_date as write_date, "
             + "member_id from board) A join CATEGORY C on A.category_no = C.category_no "
             + "${where}"
-            + ") WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}";
+            + ")B) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}";
 
 
     @Select(query)
@@ -43,7 +44,7 @@ public interface SearchMapper {
                     + "notice_title as title, "
                     + "SUBSTR(notice_content, 0, 15) || '...' as content, "
                     + "notice_date as write_date, "
-                    + "'관리자' as member_id from notice "
+                    + "'관리자' as member_id from notice where notice_status = 0 "
                     + "UNION "
                     + "SELECT board_no as search_no, "
                     + "'board' as con_type, "

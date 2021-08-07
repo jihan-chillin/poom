@@ -3,7 +3,6 @@ package com.chairking.poom.board.model.service;
 import java.util.List;
 import java.util.Map;
 
-import com.chairking.poom.board.mapper.BoardMapper;
 import com.chairking.poom.board.model.vo.Board;
 import com.chairking.poom.board.model.vo.BoardImage;
 
@@ -40,7 +39,7 @@ public interface BoardService {
 	List<Map<String, Object>> feedKeyList(Map map);
 	
 	//카테고리별 게시글 가져오기
-	List<Map<String,Object>> selectBoardList(String cate, int cPage, int numPerpage);
+	List<Map<String,Object>> selectBoardList(Map<String, String> cate, int cPage, int numPerpage);
 	
 	//카테고리별 공지사항 가져오기
 	List<Map<String,Object>> selectBoardNotice(String cate);

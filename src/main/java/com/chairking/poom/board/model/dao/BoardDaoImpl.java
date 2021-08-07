@@ -98,7 +98,7 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectBoardList(BoardMapper mapper, String cate, int cPage, int numPerpage) {
+	public List<Map<String, Object>> selectBoardList(BoardMapper mapper, Map<String, String> cate, int cPage, int numPerpage) {
 		return mapper.selectBoardList(cate,cPage,numPerpage);
 	}
 
