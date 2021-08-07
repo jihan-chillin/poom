@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<div th:replace="/fragments/header.html :: fragment-header"></div>
+	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_list_list.css}">
+</head>
+
+<body>
+	<div id="wrapper">
+		<!-- 헤더바 -->
+		<div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+		<!-- 좌측메뉴바 -->
+		<div th:replace="/fragments/nav.html :: fragment-nav"></div>
+
+		<!-- 우측콘텐츠 / 고정+변동 -->
+		<div id="content">
+			<!-- 프로필 -->
+			<div th:replace="/fragments/profile.html :: fragment-profile"></div>
+
+			<!--board 리스트  -->
+			<div id="board_box">
+					<div class="bList">
+						<!-- 카테고리 : 전체 게시판-->
+						<div style="text-align:center;" >전체글</div>
+						<!--공지사항 나오는 곳 -->
+						<div id="board_list_title">
+							<ul name="bList">
+								<li>
+									<span>공지 제목</span>
+									<span>공지 날짜</span>
+								</li>
+
+								<li style="font-size:25px;text-align:center;cursor:pointer;">▼</li>
+							</ul>
+						</div>
+					</div>
+
+						<!--게시글 나오게 하는 부분 -->
+					<div class="bList">
+						<div>
+							<span>#여기에 카테고리</span>
+							<span>여기에 제목`</span>
+						</div>
+
+						<div>게시글 내용</div>
+						<img alt="썸네일" th:src="@{/images/profile/poom_profile.jpg}">
+
+
+						<ul>
+							<li class="tag-list" style="margin-right: auto">
+								<span>#해시태그</span>
+								<span>#해시태그</span>
+								<span>#해시태그</span>
+								<span>#해시태그</span>
+								<span>#해시태그</span>
+							</li>
+							<li><i>댓글수</i></li>
+							<li>
+								<span>♥</span>
+								<span >하트수</span>
+							</li>
+						</ul>
+					</div>
+
+
+						<!--페이비바 -->
+						<div style="text-align: center;">
+							페이지바
+						</div>
+
+						<!-- 제목 / 제목+내용 검색 창 & 글쓰기 버튼-->
+						<div>
+							<form action="" id="searchBox">
+								<input type="text" id="title-searchbar" name="searchbar" placeholder="- 제목 / 제목+내용">
+								<input type="submit" class="search-btn" name="search-btn" value="검색">
+							</form>
+						</div>
+
+			</div>
+
+			<!-- HOT키워드순위창 -->
+			<div th:replace="/fragments/rank.html :: fragment-rank"></div>
+
+		</div>
+
+	</div>
+
+</body>

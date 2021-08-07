@@ -6,7 +6,7 @@
     <button class="menu_open">click!</button>
     <p th:text="${session.loginMember.MEMBER_LOC}"></p>
     <ul>
-        <li><a href="javascript:allBoardList()"># 전체글</a></li>
+        <li><a th:href="@{/board/all}"># 전체글</a></li>
         <li><a th:href="@{/board/view(cate=1)}"># 출산,육아,교육</a></li>
         <li><a th:href="@{/board/view(cate=${2})}"># 분실물</a></li>
         <li><a th:href="@{/board/view(cate=${3})}"># 일손(품앗이)</a></li>
