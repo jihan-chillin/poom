@@ -4,10 +4,11 @@ div#board_box{
     height: auto;
     background: #f7f7f7;
     border-radius: 20px;
-    margin-top: 7px;
+    /*margin-top: 7px;*/
     padding: 30px;
     position: relative;
     z-index: 100;
+	flex-basis: 64%;
 }
 div#board_list_title{
 	/* height:300px; */
@@ -113,4 +114,40 @@ div.bList ul>li {
 }
 div.bList ul>li:last-child {
 	margin-right: 10px;
+}
+
+#searchBox{
+	text-align: center;
+}
+
+#searchBox input:nth-of-type(1){
+	width: 300px;
+	height: 25px;
+	text-align: center;
+	font-style: italic;
+	margin: 20px 10px 10px 10px;
+}
+
+#searchBox input:last-of-type{
+	width: 50px;
+	height: 25px;
+}
+
+.tag-list span{
+	margin-right: 8px;
+	font-size: 15px;
+	color: #287094;
+}
+
+.bList:nth-of-type(2) div>span:first-of-type{
+	width: 180px;
+	border-right: 2px solid darkgray;
+	/* padding-right: 50px; */
+	font-size: 15px;
+	font-style: italic;
+	color: grey;
+}
+
+.bList:nth-of-type(2) div>span:last-of-type {
+	margin-left: 10px;
 }

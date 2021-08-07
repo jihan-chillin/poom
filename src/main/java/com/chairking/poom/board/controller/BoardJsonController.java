@@ -154,32 +154,28 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
         return mv;
     }
-//
-//    @RequestMapping("/board/addTag")
-//    public ModelAndView addTagfromForm(ModelAndView mv, HttpServletRequest req,
-//                                       @RequestParam(value = "tagText") String tagText){
-//
-//        System.out.println(tagText);
-//
-//        // BOARDTAG 테이블에 넣는 거
-//        int result = service.insertBoardTag(getBoardNo(), tagText);
-//
-//        System.out.println("getBoardNo() : "+getBoardNo()+"tagText : "+tagText);
-//
-//        // TAG 테이블에 넣는 거
-//        int tagResult = service.insertTag(tagText);
-//
-//        return mv;
-//    }
-//
-//    public String getBoardNo(){
-//        return service.getBoardNo();
-//    }
 
     @GetMapping("/board/dupleTagCheck")
     public List<Map<String, String>> dupleTagCheck(
                             @RequestParam(value = "tagText") String tagText){
 
         return service.dupleTagCheck(tagText);
+    }
+
+    //모든 게시글 리스트 가져오는 서비스
+    @GetMapping("/board/all")
+    public ModelAndView selectAllBoard(ModelAndView mv,
+                                       @RequestParam(value="cPage", defaultValue = "1") int cPage) {
+
+        // 게시글 조회수
+        // 얘는 나중에 로그인 session값으로 들어오는 거 적용되면 할 것
+        //int readcount = service.readcount();
+        int numPerpage = 5;
+
+        List<Map<String, Object>> oList = service.selectAllBoard(cPage, numPerpage);
+
+        mv.addObject("oList", oList);
+        mv.setViewName("/board/board_alllist");
+        return mv;
     }
 }

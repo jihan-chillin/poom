@@ -37,23 +37,6 @@ public class BoardController {
 
 		return "board/board_form";
 	}
-
-	//모든 게시글 리스트 가져오는 서비스
-	@GetMapping("/board/all")
-	public ModelAndView selectAllBoard(ModelAndView mv,
-									   @RequestParam(value="cPage", defaultValue = "1") int cPage) {
-
-		// 게시글 조회수
-		// 얘는 나중에 로그인 session값으로 들어오는 거 적용되면 할 것
-		//int readcount = service.readcount();
-		int numPerpage = 5;
-
-		List<Map<String, Object>> oList = service.selectAllBoard(cPage, numPerpage);
-
-		mv.addObject("oList", oList);
-		mv.setViewName("/board/real_board");
-		return mv;
-	}
 	
 //	게시글 상세 조회
 	@GetMapping("/board/view")
