@@ -3,6 +3,7 @@ package com.chairking.poom.board.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.chairking.poom.common.Pagination;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -99,7 +100,7 @@ public interface BoardMapper {
 	public int cancelLikeTable(Map<String,String> map);
 	
 	//카테고리별 게시글 리스트 가져오기
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM (SELECT * FROM BOARD JOIN CATEGORY ON (BOARD_CATE = CATEGORY_NO) WHERE DEL_STATUS=0 AND CATEGORY_NO=#{cate} ORDER BY BOARD_DATE DESC)B) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM (SELECT * FROM BOARD JOIN CATEGORY ON (BOARD_CATE = CATEGORY_NO) WHERE DEL_STATUS=0 AND CATEGORY_NO=#{cate} ORDER BY BOARD_DATE DESC)B) WHERE RNUM BETWEEN 1 and 100")
 	public List<Map<String,Object>> selectBoardList(Map<String, String> cate, int cPage, int numPerpage);
 	//카테고리별 공지사항 가져오기
 	@Select("SELECT NOTICE_TITLE, NOTICE_DATE FROM NOTICE JOIN CATEGORY USING(CATEGORY_NO) WHERE CATEGORY_NO=#{cate} AND NOTICE_STATUS=0 ORDER BY NOTICE_DATE DESC")
@@ -117,6 +118,15 @@ public interface BoardMapper {
 
 	@Select("SELECT TAG_NAME FROM TAG WHERE TAG_NAME like '%${tagText}%' ")
 	List<Map<String, String>> dupleTagCheck(String tagText);
+
+	@Select("SELECT COUNT(*) FROM BOARD")
+    int allBoardCount();
+
+	@Select("SELECT * FROM ( SELECT ROWNUM AS RNUM, C.CATEGORY_NAME,B.PREVIEW_IMG, B.BOARD_TITLE, B.BOARD_CONTENT,(SELECT COUNT(*) AS CNT FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO) AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) WHERE B.DEL_STATUS=0 ORDER BY BOARD_DATE DESC ) WHERE RNUM BETWEEN 1 and 100")
+	List<Map<String, Object>> allBoard(Pagination pagination);
+
+	@Select("SELECT C.CATEGORY_NO, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.NOTICE_DATE, N.NOTICE_STATUS, C.CATEGORY_NAME FROM NOTICE N JOIN CATEGORY C on (C.CATEGORY_NO = N.CATEGORY_NO) ORDER BY C.CATEGORY_NO")
+	List<Map<String, Object>> selectAllBoardNotice();
 
 	// TAG 안에 집어넣기
 
