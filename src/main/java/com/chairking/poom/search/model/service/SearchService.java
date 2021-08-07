@@ -7,7 +7,7 @@ import java.util.Map;
 
 public interface SearchService {
 
-    List<Map<String,Object>> searchList(String where);
+    List<Map<String,Object>> searchList(String where, Pagination pagination);
 
-    int searchCount();
+    int searchCount(String where);
 }

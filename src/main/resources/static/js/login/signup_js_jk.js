@@ -20,7 +20,7 @@ function success(pos) {
             if (status === kakao.maps.services.Status.OK) {
                 //지역명 받아오기
                 var locate = result[0].address.region_1depth_name;
-                console.log(locate);
+                //console.log(locate);
                 $('input[name=memberLoc]').val(locate);
             }
         };
@@ -98,42 +98,23 @@ $(function(){
         if(id=="") {
             alert("아이디를 입력해주세요");
             $("[name=memberId]").focus();
-            return;
         } 
 
-        //아이디 영문소문자+숫자(8~20자리 입력) 정규식
-        var idCheck = /^(?=.*[a-z])(?=.*[0-9]).{4,15}$/;
+        //아이디 영문소문자+숫자(8~15자리 입력) 정규식
+        var idCheck = /^(?=.*[a-z])(?=.*[0-9]).{8,15}$/;
         var result = idCheck.exec(id);
 
         if(result !=null) {
             window.open(getContextPath()+"/login/duplCheck?type=id&check="+id,"","width=500px,height=300px,top=300px,left=200px");
         }else {
-            alert("아이디는 4~15자의 영어소문자+숫자 조합으로 사용해야 합니다.");
+            alert("아이디는 8~15자의 영어소문자+숫자 조합으로 사용해야 합니다.");
             $("[name=memberId]").focus();
-        }
-    });
-
-    //비밀번호 유효성검사
-    $("[name=pw]").on("blur",function() {
-    	var pw = $("[name=memberPw]").val();
-        if(pw=="") {
-            alert("비밀번호를 입력해주세요");
-            return;
-        }
-    	
-        //비밀번호 영문소문자+숫자(8~20자리 입력) 정규식
-        var pwCheck = /^(?=.*[a-z])(?=.*[0-9]).{8,20}$/;
-        var result = pwCheck.exec(pw);
-
-        if(result == null) {
-        	alert("비밀번호는 8~20자의 영어소문자+숫자 조합으로 사용해야 합니다.");
         }
     });
 
     //비밀번호 확인
     $("[name=pwc]").on("keyup",function() {
         var checkResult = $("#pwCheck");
-
         if($("[name=memberPw]").val() == $("[name=pwc]").val()) {
             checkResult.html("O 일치");
             checkResult.attr("class", "correct");
@@ -153,7 +134,7 @@ $(function(){
         } 
 
         //닉네임 영문소문자 또는 한글(2~8자리 입력) 정규식
-        var nicknameCheck = /^[가-힣|a-z]+$/;
+        var nicknameCheck = /^[가-힣|a-z]{2,8}$/;
         var result = nicknameCheck.exec(nickname);
 
         if(result !=null) {
@@ -173,7 +154,6 @@ $(function(){
             alert('3개까지만 선택할 수 있습니다.')
         }
     });
-    
     
     //회원가입 버튼 눌렀을 때, 빈칸 있으면 다시 유효성 검사진행    
     $("button[type=submit]").on("click",function(){
@@ -204,8 +184,20 @@ $(function(){
             $("[name=memberPw]").focus();
             return false;
         }
+        
+        //비밀번호 영문소문자+숫자(8~20자리 입력) 정규식
+        var pwCheck = /^(?=.*[a-z])(?=.*[0-9]).{8,20}$/;
+        var result = pwCheck.exec(pw);
+
+        if(result == null) {
+        	alert("비밀번호는 8~20자의 영어소문자+숫자 조합으로 사용해야 합니다.");
+        	$("[name=memberPw]").focus();
+        	return false;
+        }
+        
         if($("[name=memberPw]").val() != $("[name=pwc]").val()) {
-        	alert("비밀번호가 일치하지 않습니다! 다시 설정해주세요.");
+        	alert("비밀번호가 일치하지 않습니다.");
+        	$("[name=memberPw]").focus();
         	return false;
         }
 

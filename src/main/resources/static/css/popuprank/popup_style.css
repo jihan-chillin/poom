@@ -1,9 +1,29 @@
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NEXON Lv2 Gothic Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* 팝업창 */
 .popup_container{
-    position:absolute;
-    top:10px;
-    left:30px;
     z-index: 9999;
+    width: 310px;
+    height: 460px;
 }
 
 /* 순위 표시부분 */
@@ -38,11 +58,14 @@
 
 /* 나머지 유저 */
 .popup>div:nth-child(2)~div{
-    display:flex;
-    padding:10px;
-    padding-left:50px; padding-right:50px;
-    justify-content: space-between;
-    cursor:pointer;
+    display: grid;
+    grid-template-columns: 30px 90px 120px 60px;
+    font-family: 'NEXON Lv1 Gothic OTF';
+    font-size: 15px;
+}
+.popup>div:nth-child(2)~div>span:nth-child(3){
+    cursor: pointer;
+    font-weight: 800;
 }
 
 /* 일주일간 보지않기/닫기 */

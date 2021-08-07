@@ -99,7 +99,9 @@
   align-content: center;
   border-bottom: 1px #000000 solid;
 }
-
+.chatroom-list-container .chatroom-info .chatroom-info-header>div:nth-child(3){
+  position: relative;
+}
 .chatroom-list-container .chatroom-info .chatroom-info-header .chatroom-icon-study{
   /* border: 1px solid #000000; */
   border-radius: 20px;
@@ -150,7 +152,8 @@
   display: none;
   position: absolute;
   background-color: #F9F9F9;
-  min-width: 160px;
+  min-width: 230px;
+  left: -100px;
   height: 80px;
   padding: 8px;
   font-size: 23px;

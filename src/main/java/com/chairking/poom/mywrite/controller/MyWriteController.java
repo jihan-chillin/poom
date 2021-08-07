@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,16 +26,23 @@ public class MyWriteController {
     // 내가 쓴 글 리스트 가져오기
     // 댓글수 넣는 거 수정해야 함.
     @GetMapping("/mywrite")
-    public ModelAndView mywrite( ModelAndView mv,
-            // cPage : 페이지바에 숫 자 몇 개?
-            @RequestParam(value = "cPage", defaultValue = "1") int cPage
-            ){
+    public ModelAndView mywrite(ModelAndView mv, HttpServletRequest req,
+                                // cPage : 페이지바에 숫 자 몇 개?
+                                @RequestParam(value = "cPage", defaultValue = "1") int cPage
+           ){
+
+//             Map memberId  = (Map)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
+//             System.out.println("멤버아이디 가져오기"+memberId);
+
+            Object memberId = ((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
+            System.out.println("memberId는  : " + memberId);
+
             // 내가 쓴 글 개수
             int totalData = service.countMyWrite();
             // 한 페이지 당 띄울 글 개수
             int numPerpage = 10;
 
-            List<Map<String, Object>> list = service.MywriteList(cPage, numPerpage);
+            List<Map<String, Object>> list = service.MywriteList(cPage, numPerpage, memberId);
              // 1. 내가 쓴 글 리스트
             mv.addObject("list", list);
 
@@ -66,8 +74,25 @@ public class MyWriteController {
 
     // 내가 찜한 글
     @GetMapping("/mylike")
-    public String mylike(){
-        return "/member/mylike";
+    public ModelAndView mylike(ModelAndView mv, HttpServletRequest req,
+                         @RequestParam(value = "cPage", defaultValue = "1") int cPage){
+
+        Object memberId = ((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
+        System.out.println("memberId는  : " + memberId);
+
+        // 내가 찜한 글 개수
+        int totalData = service.countMyLike();
+        int numPerpage = 10;
+
+        List<Map<String, Object>> list = service.MyLikeList(cPage, numPerpage, memberId);
+
+        System.out.println("리스트에 들어오는 값 잘 들어오는지?"+list);
+        mv.addObject("list", list);
+
+
+        mv.setViewName("/member/mylike");
+        return mv;
+
     }
 
 }

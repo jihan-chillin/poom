@@ -1,5 +1,6 @@
 package com.chairking.poom.message.model.dao;
 
+import com.chairking.poom.common.Pagination;
 import com.chairking.poom.message.mapper.MessageMapper;
 import com.chairking.poom.message.model.vo.Message;
 
@@ -10,7 +11,7 @@ public interface MessageDao {
 
     List<Map<String, Object>> searchReceiver(MessageMapper mapper);
 
-    List<Map<String, Object>> getMessage(MessageMapper mapper, String condition);
+    List<Map<String, Object>> getMessage(MessageMapper mapper, String condition, Pagination pagination);
 
     List<Map<String, Object>> messageContent(MessageMapper mapper, String msgNo);
 
@@ -31,4 +32,8 @@ public interface MessageDao {
     int emptyBlock(MessageMapper mapper);
 
     int selectBlock(MessageMapper mapper, String msgNo);
+
+    int messageCount(MessageMapper mapper, String condition);
+
+    String getRecentMessageNo(MessageMapper mapper);
 }

@@ -11,5 +11,5 @@ public interface MemberDao {
     int updateProfile(MemberMapper mapper, Map param);
 
     // 개인정보 수정
-    int updatePrivacy( Member m);
+    int updatePrivacy(MemberMapper mapper, Map param);
 }

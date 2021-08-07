@@ -1,0 +1,83 @@
+<div id="admin_section">
+    <div id="admin_page_title">공지사항 관리</div>
+    <div id="admin_content">
+        <table id="notice_table" th:if="${list!=null}">
+            <thead>
+            <tr >
+                <th>게시판종류</th>
+                <th>제목</th>
+                <th>등록날짜</th>
+                <th>게시여부</th>
+            </tr>
+            </thead>
+	        <tbody >
+	        	<tr th:each="n,  iterState : ${list}">
+	        		<th:block th:switch="${n.categoryNo}">
+	        			<td th:case="1">출산/육아/교육</td>
+	        			<td th:case="2">분실물</td>
+	        			<td th:case="3">일손(품앗이)</td>
+	        			<td th:case="4">스터디/소모임</td>
+	        			<td th:case="5">공동구매</td>
+	        			<td th:case="6">자유게시판</td>
+	        		</th:block>
+	        		<td th:text="${n.noticeTitle}" name="moveToView" th:title="${n.noticeNo}">
+					</td>
+	        		<td th:text="${#dates.format(n.noticeDate,'yyyy-MM-dd')}"></td>
+	        		<td th:text="${n.noticeStatus} eq 0?'게시중':'삭제'"></td>
+	            </tr>
+	        </tbody>    
+        </table>
+        <div id="admin_pagebar">
+			<div >
+				<!-- 이전 -->
+				<div>
+					<a th:if="${cPage} eq 1" >&lt;</a>
+					<a href="#" th:unless="${cPage} eq 1" th:onclick="|fn_ajax_paging('${cPage-1}')|">&lt;</a>
+				</div>
+				<!-- 페이지블록 -->
+				<th:block th:each="n:${#numbers.sequence(startpage,endpage)}">
+				<div th:if="${cPage eq n}" style="background-color: #F77B1E;color:white;font-size:20px;">
+					<a th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}" >1</a>
+				</div>
+				
+				<div th:unless="${cPage eq n}">
+					<a  href="#" th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}">1</a>
+				</div>
+				</th:block>
+				<!-- 다음 -->
+				<div>
+					<a th:if="${totalPage==cPage}">&gt;</a>
+					<a href="#" th:unless="${totalPage==cPage}" th:onclick="|fn_ajax_paging('${cPage+1}')|">&gt;</a>
+				</div>
+			</div>
+        	<button class="admin_buttons" onclick="fn_notice_write();" style="position:absolute;left:1070px;">작성하기</button>
+        </div>
+    </div>
+</div>
+<script>
+
+//ajax 페이징처리
+function fn_ajax_paging(i){
+ 	$.ajax({
+		url:getContextPath()+"/admin/notice",
+		data:{
+			"page":i-1,
+		}
+	}).done(function(fragment){
+		$("#target").html(fragment);
+	}); 
+}
+//공지사항 view 이동
+$("[name=moveToView]").click((e)=>{
+	const no=e.target.title;
+	console.log(no);
+	$.ajax({
+		url:getContextPath()+"/admin/noticeView",
+		data:{"no":no}
+	}).done(function (fragment){
+		$("#target").html(fragment);
+	});
+});
+
+
+</script>

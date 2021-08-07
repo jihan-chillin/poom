@@ -7,6 +7,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.chairking.poom.common.Pagination;
@@ -21,32 +22,26 @@ public class SearchController {
     @Autowired
     private SearchService service;
 
-    @GetMapping String search(){
-        return "search/search_main";
-    }
-
-    @RequestMapping("/list")
+    @RequestMapping ("/list")
     public ModelAndView search(ModelAndView mv,
-        @RequestParam(value = "uInput", required = false, defaultValue="") String uInput,
+        //@RequestParam(value = "uInput", required = false, defaultValue="") String uInput,
+    	@RequestParam Map<String,String> map,
         @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
         @RequestParam(value = "cntPerPage", required = false, defaultValue = "15") int cntPerPage,
         @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
-
-
-        Pagination pagination = new Pagination(currentPage,cntPerPage,pageSize);
-        pagination.setTotalRecordCount(service.searchCount());
-        String where = "WHERE rownum BETWEEN "
-                + pagination.getFirstRecordIndex()
-                + " AND "
-                + pagination.getLastRecordIndex()
-                + " AND (title like '%" + uInput + "%' OR "
+    	String uInput= map.get("uInput");
+        String where = "WHERE "
+                + "(title like '%" + uInput + "%' OR "
                 + "content like '%" + uInput + "%' OR "
                 + "write_date like '%" + uInput + "%' OR "
                 + "member_id like '%" + uInput + "%') "
                 + "ORDER BY write_date desc";
-        List<Map<String,Object>> list = service.searchList(where);
+        Pagination pagination = new Pagination(currentPage,cntPerPage,pageSize);
+        pagination.setTotalRecordCount(service.searchCount(where));
+        List<Map<String,Object>> list = service.searchList(where, pagination);
+        mv.addObject("pagination",pagination);
         mv.addObject("list", list);
-        mv.setViewName("search/search_list");
+        mv.setViewName("search/search_main");
         return mv;
     }
 }

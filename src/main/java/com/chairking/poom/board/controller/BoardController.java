@@ -1,41 +1,26 @@
 package com.chairking.poom.board.controller;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import ch.qos.logback.core.util.FileUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.dom4j.rule.Mode;
+import com.chairking.poom.noti.controller.NotiController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.chairking.poom.board.model.service.BoardService;
-import com.chairking.poom.board.model.vo.Board;
-import com.chairking.poom.board.model.vo.BoardImage;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.RandomStringUtils;
 
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 //@RequestMapping("/")
@@ -44,7 +29,7 @@ public class BoardController {
 
 	@Autowired
 	private BoardService service;
-
+	
 	//게시글 등록 페이지로 이동
 	@RequestMapping(path="/board/form", method=RequestMethod.GET)
 
@@ -52,208 +37,20 @@ public class BoardController {
 
 		return "board/board_form";
 	}
-
-	// ckeditor 파일 업로드
-
-	@RequestMapping(value="/images/ckeditor", method = RequestMethod.POST)
-	public void imageUpload(HttpServletResponse res, HttpServletRequest req,
-							MultipartHttpServletRequest multireq, @RequestParam MultipartFile upload) throws Exception{
-
-
-		res.setCharacterEncoding("utf-8"); // 입력된 파일 받을 때 한글깨짐 방지
-		res.setContentType("text/html;charset=utf-8"); // textarea상으로 이미지 받을 대 한글깨짐 방지
-
-		OutputStream out = null;
-		PrintWriter writer = null;
-
-		// 나중에 rename할 때 필요한 것들
-		int rndNum=(int)(Math.random()*100000);
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
-
-		// 폴더 경로 구해보자
-		Path path = Paths.get("");
-		String directoryName = path.toAbsolutePath().normalize().toString(); // C:\Users\JIHAN\IdeaProjects\poom
-		String folderPath = directoryName + "\\src\\main\\resources\\static\\images\\ckImage\\";
-
-
-		// 파일 원래 이름
-		// 얘를 서버에 전송해줘야 함.
-		String filename = upload.getOriginalFilename();
-//		byte[] bytes = filename.getBytes(StandardCharsets.UTF_8);
-
-		// 파일명이랑 확장자 분리
-		String subname  = filename.substring(0, filename.lastIndexOf("."));
-		String ext  = filename.substring(filename.lastIndexOf(".")).toLowerCase();
-		System.out.println(subname+ " : subname, 얘는 확장자 :" + ext);
-
-		System.out.println("이거 OKKY " + req.getSession().getServletContext().getRealPath("/"));
-
-
-
-		try{
-
-			// 랜덤문자로 rename
-			String renamedFile =sdf.format(System.currentTimeMillis())+"_"+rndNum+"_"+subname+ext;
-			System.out.println("renamedFile은 얘 : "+renamedFile +"/ renamed 형"+ renamedFile.getClass().getName());
-			byte[] bytes = renamedFile.getBytes();
-
-			String absolute = req.getContextPath().concat("resources");
-
-			// 로컬 폴더주소
-			String filepath = absolute+File.separator+ "/images/ckeditor";
-
-			System.out.println("폴더주소" + filepath);
-
-			// 로컬폴더 만들기
-			File uploadDir = new File(filepath);
-			System.out.println("새로운 폴더 만들어봄");
-			if(!uploadDir.exists()){
-				uploadDir.mkdirs();
-				System.out.println ("기존에 폴더가 없어서 새로운 폴더 생성");
-			}
-
-			File uploadFile = new File(uploadDir,renamedFile);
-			// 해당 파일이 없을 경우 filepath
-			if(!uploadFile.exists()){
-				uploadFile.mkdirs();
-			}
-
-			// 이미지 보내야지
-			String fileUrl = req.getContextPath()+"/images/ckeditor";
-
-			out = new FileOutputStream(new File(fileUrl+renamedFile));
-			out.write(bytes);
-			// outputStream에 저장된 데이터를 전송 + 초기화
-			out.flush();
-
-
-			String callback = req.getParameter("CKEditorFuncNum");
-			writer = res.getWriter();
-			// json으로 보내기
-			writer.println("{\"filename\" : \"" + renamedFile + "\", \"uploaded\" : 1, \"url\":\"" + fileUrl + "\"}");
-			writer.flush();
-
-
-
-
-		}catch (IOException e){
-			e.printStackTrace();
-		}finally {
-			if(out!=null){
-				out.close();
-			}
-			if(writer !=null){
-				writer.close();
-			}
-		}
-
-		return;
-	}
-
-	// 이미지 다운로드 받기
-//	@RequestMapping("/ckeditor/fileDownload")
-//	public void ckSubmit(@RequestParam(value="fileName") String fileName, HttpServletRequest request, HttpServletResponse response) {
-//		File file = FileUtilities.getDownloadFile(fileName, "files/ckeditor");
-//		try {
-//			byte[] data = FileUtils.readFileToByteArray(file);
-
-//			response.setContentType(FileUtilities.getMediaType(fileName).toString());
-//			response.setContentLength(data.length);
-//			response.setHeader("Content-Transfer-Encoding", "binary");
-//			response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName, "UTF-8") + "\";"); response.getOutputStream().write(data);
-//			response.getOutputStream().flush(); response.getOutputStream().close();
-//			} catch (IOException e) {
-//				throw new RuntimeException("파일 다운로드에 실패하였습니다.");
-//			} catch (Exception e) {
-//				throw new RuntimeException("시스템에 문제가 발생하였습니다.");
-//		} }
-
-
-
-
-
-
-
-		//게시글 등록 서비스
-	@PostMapping("/board/insert")
-	public ModelAndView insertBoard(Board board, ModelAndView mv, MultipartFile[] boardImg) throws IOException {
-		board.setMemberId("test");
-		board.setBoardLoc("1");
-		
-		//받아온 게시글 첨부파일을 imgs객체로 저장하기
-		List<BoardImage> imgs=new ArrayList<>();
-		
-		if(boardImg !=null) {
-//			String path=req.getServletContext().getRealPath("/images/board/");
-			String path="";
-			File dir=new File(path);
-			if(!dir.exists()) dir.mkdirs();
-			
-			for(MultipartFile f:boardImg) {
-				if(!f.isEmpty()) {
-					String oriName=f.getOriginalFilename();
-					String ext=oriName.substring(oriName.lastIndexOf("."));
-					SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
-					int rndNum=(int)(Math.random()*10000);
-					String reName=sdf.format(System.currentTimeMillis())+"_"+rndNum+ext+"_"+board.getBoardCate();
-					
-//					System.out.println(oriName+" -> "+reName);
-					
-					try {
-						f.transferTo(new File(path+reName));
-						BoardImage bi=new BoardImage();
-						bi.setOriginImg(oriName);
-						bi.setRenameImg(reName);
-						System.out.println(bi);
-						imgs.add(bi);
-					}catch(IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-		
-		board.setImages(imgs);
-
-		//게시글 등록
-		int result=service.insertBoard(board);
-		
-		if(result!=0) {
-			mv.addObject("board", service.selectBoard(String.valueOf(service.selectBoardNo(board))));
-			mv.setViewName("board/board_view");
-		}else {
-			//에러 처리
-			mv.setViewName("index");
-		}
-		return mv;
-	}
-
-	//모든 게시글 리스트 가져오는 서비스
-	@GetMapping("/board/all")
-	public ModelAndView selectAllBoard(ModelAndView mv,
-									   @RequestParam(value="cPage", defaultValue = "1") int cPage) {
-
-		// 게시글 조회수
-		// 얘는 나중에 로그인 session값으로 들어오는 거 적용되면 할 것
-		//int readcount = service.readcount();
-		int numPerpage = 5;
-
-		List<Map<String, Object>> oList = service.selectAllBoard(cPage, numPerpage);
-
-		mv.addObject("oList", oList);
-		mv.setViewName("board/board_list");
-		return mv;
-	}
 	
-	//게시글 상세 조회
+//	게시글 상세 조회
 	@GetMapping("/board/view")
-	public ModelAndView boardView(@RequestParam String boardNo, ModelAndView mv) {
+	public ModelAndView boardView(@RequestParam String boardNo, ModelAndView mv,HttpServletRequest req) {
 		System.out.println(boardNo);
+		//좋아요 가져오기
+		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+		mv.addObject("likeTable",likeTable);
 		mv.setViewName("board/board_view");
 		mv.addObject("board", service.selectBoard(boardNo));
 		mv.addObject("commentList", service.selectCommentList(boardNo));
 		return mv;
 	}
+
 
 	//메인피드등록하기(파일X, 텍스트만 가능)
 	@PostMapping("/board/feedWrite")
@@ -280,15 +77,119 @@ public class BoardController {
 	@RequestMapping("/board/feedNew")
 	public ModelAndView feedNew(@RequestParam Map param, ModelAndView mv) {
 		
+
+		//좋아요 테이블 불러오기
+		String[] likeTable = service.likeTable((String)param.get("id"));
+		List<Map<String, Object>> feedList;
 		if(param.get("loc").equals("전국")) {
 			param.put("loc","");
 		}
 		
-		List<Map<String, Object>> feedList = service.feedList(param);
-		System.out.println(feedList.get(0));
-		mv.addObject("feedList",feedList);
-		mv.setViewName("main/feedList");
+		String noFeed="";
+		if(param.get("list").equals("feedkey")) {
+			//키워드 글 조회
+			String[] myTag=service.myTag(param);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			if(myTag.length>0) {
+				map.put("myTag",myTag);
+				map.put("loc", param.get("loc"));
+				feedList = service.feedKeyList(map);
+				mv.addObject("feedList",feedList);
+			}else {
+				noFeed="등록된 태그가 없습니다. 마이태그를 추가해보세요!";
+			}
+		}else {
+			feedList = service.feedList(param);
+			if(feedList!=null) {
+				mv.addObject("feedList",feedList);
+			}else {
+				noFeed="등록된 피드가 없습니다.";
+			}
+		}
 		
+		mv.addObject("noFeed",noFeed);
+		mv.addObject("likeTable",likeTable);
+		mv.setViewName("main/feedList");
+		return mv;
+	}
+	
+	//게시판에서 공지사항 클릭
+	@RequestMapping("/board/boardNotice")
+	public ModelAndView boardNotice(String no, ModelAndView mv) {
+		Map<String,Object> notice = service.selectNotice(no);
+		System.out.println(notice);
+		mv.addObject("notice", notice);
+		mv.setViewName("board/board_notice_view");
+		return mv;
+	}
+	
+	//좋아요=> +1하기
+	@RequestMapping("/board/changeLike")
+	public ModelAndView changeLike(@RequestParam Map<String,String> map,ModelAndView mv) {
+		//해당 no로 board테이블에 like count 추가하고 
+		//좋아요 테이블에 컬럼 추가하기
+		int result=service.changeLike(map);
+		//좋아요 리스트 다시 가져오기
+		String[] likeTable = service.likeTable(map.get("id"));
+		
+		//메인에서 좋아요 눌렀을때
+		if(map.get("type")==null) {
+			//추가 후 list다시 불러오기
+			List<Map<String, Object>> feedList = service.feedList(map);
+			if(feedList!=null) {
+				mv.addObject("likeTable",likeTable);
+				mv.addObject("feedList",feedList);
+			}else {
+				mv.addObject("feedList","등록된 글이 없습니다.");
+			}
+			mv.setViewName("main/feedList");
+		}else {			//게시글에서 좋아요 눌렀을때
+			mv.addObject("likeTable",likeTable);
+			mv.setViewName("board/board_view");
+			mv.addObject("board", service.selectBoard(map.get("no")));
+			mv.addObject("commentList", service.selectCommentList(map.get("no")));
+		}
+		return mv;
+	}
+	
+	//왼쪽 게시판 이름 누르면 카테고리로 이동하기
+//	@RequestMapping("/board/boardList")
+//	public ModelAndView boardList(@RequestParam String cate, ModelAndView mv,HttpServletRequest req ) {
+//		int numPerpage = 5;
+//		//카테고리별 게시글 리스트
+//		List<Map<String, Object>> list = service.selectBoardList(cate,1, numPerpage);
+//		//좋아요 가져오기
+//		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+//		//공지사항 가져오기
+//		List<Map<String,Object>> notices=service.selectBoardNotice(cate);
+//		System.out.println(notices);
+//		mv.addObject("list", list);
+//		mv.addObject("likeTable",likeTable);
+//		mv.addObject("notice", notices);
+//		mv.addObject("name",list.get(0).get("CATEGORY_NAME"));
+//		mv.setViewName("board/board_list_list");
+//		return mv;
+//	}
+
+	@RequestMapping("/board/view")
+	public ModelAndView boardList(@RequestParam Map<String, String> cate,
+								  ModelAndView mv,HttpServletRequest req ) {
+
+		System.out.println("몰라"+cate);
+//		int cPage = 1;
+//		int numPerpage = 5;
+//		//카테고리별 게시글 리스트
+//		List<Map<String, Object>> list = service.selectBoardList(cate,cPage,numPerpage);
+////		//좋아요 가져오기
+////		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+////		//공지사항 가져오기
+////		List<Map<String,Object>> notices=service.selectBoardNotice(cate);
+////		System.out.println(notices);
+//		mv.addObject("list", list);
+////		mv.addObject("likeTable",likeTable);
+////		mv.addObject("notice", notices);
+//		mv.addObject("name",list.get(0).get("CATEGORY_NAME"));
+//		mv.setViewName("board/board_list_list");
 		return mv;
 	}
 }

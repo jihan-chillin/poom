@@ -19,8 +19,8 @@ public class NotiDaoImpl implements NotiDao{
     }
 
     @Override
-    public int insertLikesNotiData(NotiMapper mapper, String num,String loginId) {
-        return mapper.insertLikesNotiData(num,loginId);
+    public void insertLikesNotiData(NotiMapper mapper, String num,String loginId) {
+        mapper.insertLikesNotiData(num,loginId);
     }
 
     @Override
@@ -34,27 +34,57 @@ public class NotiDaoImpl implements NotiDao{
     }
 
     @Override
+    public String getBoardWriter(NotiMapper mapper, String boardNo) {
+        return mapper.getBoardWriter(boardNo);
+    }
+
+    @Override
     public List<Map<String, String>> getMyNotiData(NotiMapper mapper, String loginId) {
         return mapper.getMyNotiData(loginId);
     }
 
     @Override
-    public String getBoardTitleFromBoardNo(NotiMapper mapper, String boardNo) {
+    public Map<String,String> getBoardTitleFromBoardNo(NotiMapper mapper, String boardNo) {
         return mapper.getBoardTitleFromBoardNo(boardNo);
     }
 
     @Override
-    public String getBoardTitleFromCommentNo(NotiMapper mapper, String commentNo) {
+    public Map<String,String> getBoardTitleFromCommentNo(NotiMapper mapper, String commentNo) {
         return mapper.getBoardTitleFromCommentNo(commentNo);
     }
 
     @Override
-    public String getMsgContentFromMsgNo(NotiMapper mapper, String msgNo) {
+    public Map<String,String> getMsgContentFromMsgNo(NotiMapper mapper, String msgNo) {
         return mapper.getMsgContentFromMsgNo(msgNo);
     }
 
     @Override
-    public int deleteNotiBoardDelStatus(NotiMapper mapper, String boardNo) {
-        return mapper.deleteNotiBoardDelStatus(boardNo);
+    public void deleteNotiBoardDelStatus(NotiMapper mapper, String boardNo) {
+        try {
+            mapper.deleteNotiBoardDelStatus(boardNo);
+        }catch (Exception e){
+            return ;
+        }
     }
+
+    @Override
+    public void deleteNotifyComment(NotiMapper mapper, String no) {
+        mapper.deleteNotifyComment(no);
+    }
+
+    @Override
+    public void deleteNotifyMessage(NotiMapper mapper, String no) {
+        mapper.deleteNotifyMessage(no);
+    }
+
+    @Override
+    public void deleteNotifyLikes(NotiMapper mapper, String no) {
+        mapper.deleteNotifyLikes(no);
+    }
+
+    @Override
+    public void changeNotifyType(NotiMapper mapper, String no) {
+        mapper.changeNotifyType(no);
+    }
+
 }

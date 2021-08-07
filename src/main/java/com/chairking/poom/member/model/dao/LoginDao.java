@@ -10,7 +10,7 @@ public interface LoginDao {
 	int insertMember(LoginMapper mapper, Map m);
 	int inesrtMemberKeyword(LoginMapper mapper, Map memberTag);
 	Map<String,Object> selectMember(LoginMapper mapper, Map param);
-	Map<String,Object> idFind(LoginMapper mapper, Map param);
+	String idFind(LoginMapper mapper, Map param);
 	Map<String,Object> pwFind(LoginMapper mapper, Map param);
 	int updatePw(LoginMapper mapper, Map param);
 }

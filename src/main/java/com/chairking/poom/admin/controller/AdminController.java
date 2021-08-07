@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.chairking.poom.admin.domain.NoticeRepository;
 import com.chairking.poom.admin.domain.Notice;
+import com.chairking.poom.admin.domain.NoticeRepository;
 import com.chairking.poom.admin.model.service.AdminService;
 import com.chairking.poom.admin.model.vo.Notice1;
 
@@ -50,6 +50,7 @@ public class AdminController {
 	@GetMapping("/notice")
 	public ModelAndView notice(ModelAndView mv, 
 						@PageableDefault(size=10,sort= {"noticeDate"},direction=Direction.DESC) Pageable pageable) {
+		
 		//Pageable을 사용하여 페이징처리하기
 //		List<Map<String,Object>> list = service.allNotice(startIndex,10);
 		Page<Notice> list = pageNotice.findAll(pageable);
@@ -72,7 +73,7 @@ public class AdminController {
 		mv.addObject("endpage", endPage);
 		mv.addObject("list", list);
 		mv.addObject("totalPage", totalPage);
-		mv.setViewName("admin/admin_notice");
+		mv.setViewName("admin/notice_content");
 		return mv;
 	}
 	

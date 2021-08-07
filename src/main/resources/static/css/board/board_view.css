@@ -8,9 +8,11 @@
 	height:1000px;
 } */
 div#board_view{
-	width:1300px;
+	width:1320px;
 	display:flex;
 	justify-content:space-between;
+	margin-left:20px;
+	height:680px;
 }
 div#board_view>div{
 	background: #f7f7f7;
@@ -24,8 +26,8 @@ div#board_view>div{
 #board_view li{
     list-style:none;
     /* margin:30px; */
-    padding:20px 0;
-    padding-left: 20px;
+    padding:20px 20px;
+    /* padding-left: 20px; */
     margin: auto;
     font-size: 17px;
     border-radius: 10px;
@@ -34,28 +36,47 @@ div#board_view>div{
     background: #fdfdfd;
 }
 
+
 /* 게시글 부분 */
 div#board_container{
 	width:730px;
+	height:750px;
 }
-div#board_container li:nth-child(2){
-	height:300px;
+div#board_container>ul>li:first-child>span:nth-child(2){
+	display:inline-block;
+	float:right;
+	font-size:25px;
+	line-height:25px;
+	cursor:pointer;
+}
+div#board_container li:nth-child(3){
+	height:400px;
 	overflow-y:scroll;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
-div#board_container li:nth-child(2)::-webkit-scrollbar {
+div#board_container li:nth-child(3)::-webkit-scrollbar {
    display: none; /* Chrome, Safari, Opera */
 }
 /* 버튼 */
 div#board_container>div:last-child{
 	display:flex;
 	justify-content:space-between;
-	padding:0 20px; padding-top:10px;
+	padding:0 20px; 
+	padding-top:10px;
+	margin-top:30px;
 }
 div#board_container>div:last-child button{
 	display:inline-block;
-	height:30px;
+	width: 80px;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background:#f7f7f7;
+    font-size: 15px;
+    cursor: pointer;
+    border:1px solid lightgray;
 } 
 
 /* 댓글 부분 */

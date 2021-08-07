@@ -1,6 +1,5 @@
 package com.chairking.poom.noti.controller;
 
-import com.chairking.poom.board.model.service.BoardService;
 import com.chairking.poom.noti.model.service.NotiService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +7,10 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,66 +21,20 @@ import java.util.Map;
 public class NotiController {
     @Autowired
     private NotiService notiService;
-    @Autowired
-    private BoardService boardService;
-
-    // 좋아요 눌린 게시글 제목 리턴 하는 메소드.
-    public List getPushedLikeBoardInfoData(HttpServletRequest req){
-        String loginId = (String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
-
-        // 내가 쓴 게시글 번호
-        List<String> getEnrolledMyBoardNo = getEnrolledMyBoardNo(req);
-        // 내 어떤 게시글에 좋아요 눌렸나
-        List<String> getEnrolledLikedNo = new ArrayList();
-        // 좋아요 눌린 게시글의 제목
-        List<String> getBoardTitle = new ArrayList();
-
-        for(int i =0; i<getEnrolledMyBoardNo.size(); i++){
-            getEnrolledLikedNo.add(i,getEnrolledLikedNo(getEnrolledMyBoardNo.get(i)));
-        }
-
-        for(int i=0; i<getEnrolledLikedNo.size(); i++){
-            getBoardTitle.add(i,getBoardTitle(getEnrolledLikedNo.get(i)));
-            // 좋아요 눌린 게시글을 알림 테이블에 등록
-            insertLikesNotiData(getEnrolledLikedNo.get(i),loginId);
-        }
-
-        return getBoardTitle;
-    }
-    // 게시물 제목 가져오는 메소드
-    public String getBoardTitle(String boardNo){
-        return (String) boardService.selectBoard(boardNo).get("BOARD_TITLE");
-    }
-    // 좋아요 눌린 게시글 번호 가져오는 메소드
-    public String getEnrolledLikedNo(String boardNo){
-       return notiService.getEnrolledLikedNo(boardNo);
-    }
-
-    // 내가 쓴 게시글 번호
-    public List getEnrolledMyBoardNo(HttpServletRequest req){
-        String memberId = (String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
-        List boardNo = notiService.getEnrolledMyBoardNo(memberId);
-
-        return boardNo;
-    }
-
-    // 내가 쓴 댓글 번호 가져오는 메소드
-//    public List getEnrolledMyCommnetNo(){
-//        return
-//    }
 
     // 알림테이블에 데이터 넣기
-    public int insertLikesNotiData(String number,String loginId){
-
-        return notiService.insertLikesNotiData(number,loginId);
+    public void insertLikesNotiData(String number,String loginId){
+        notiService.insertLikesNotiData(number,loginId);
     }
     public int insertCommentNotiData(String number,String loginId){
-
         return notiService.insertCommentNotiData(number,loginId);
     }
     public int insertMessageNotiData(String number,String loginId){
-
         return notiService.insertMessageNotiData(number,loginId);
+    }
+
+    public String getBoardWriter(String no){
+        return notiService.getBoardWriter(no);
     }
 
     @GetMapping("/noti/my/data")
@@ -92,35 +45,45 @@ public class NotiController {
         // 알림 정보
         List<Map<String,String>> myNotiData = notiService.getMyNotiData(loginId);
         // 게시물 제목 from boardNo
-        List<String>  getBoardTitleFromBoardNo= new ArrayList<>();
+        List<Map<String,String>> getBoardTitleFromBoardNo= new ArrayList<>();
         // 게시물 제목 from commentNo
-        List<String>  getBoardTitleFromCommentNo=new ArrayList<>();
+        List<Map<String,String>> getBoardTitleFromCommentNo=new ArrayList<>();
         // 쪽지 내용 from MsgNo
-        List<String>  getMsgContentFromMsgNo= new ArrayList<>();
+        List<Map<String,String>> getMsgContentFromMsgNo= new ArrayList<>();
 
 
-        for(int i =0; i<myNotiData.size(); i++){
+        for(int i =0; i<myNotiData.size(); i++) {
 
             // 삭제처리된 게시물은 알림테이블에서 삭제
             notiService.deleteNotiBoardDelStatus(myNotiData.get(i).get("BOARD_NO"));
+            String boardNo = myNotiData.get(i).get("BOARD_NO");
 
-            if(myNotiData.get(i).get("BOARD_NO") != null){
-                getBoardTitleFromBoardNo.add(i,
-                        notiService.getBoardTitleFromBoardNo(myNotiData.get(i).get("BOARD_NO"))
-                );
+            getBoardTitleFromBoardNo.add(i,
+                    notiService.getBoardTitleFromBoardNo(boardNo)
+            );
 
-            }else if(myNotiData.get(i).get("COMMENT_NO") != null){
+        }
+
+        for(int i =0; i<myNotiData.size(); i++) {
+            String commentNo = myNotiData.get(i).get("COMMENT_NO");
+
+            if (Integer.parseInt(commentNo) != 0) {
                 getBoardTitleFromCommentNo.add(i,
-                    notiService.getBoardTitleFromCommentNo(myNotiData.get(i).get("COMMENT_NO"))
+                        notiService.getBoardTitleFromCommentNo(commentNo)
                 );
-
-            }else if(myNotiData.get(i).get("MSG_NO") != null){
-                getMsgContentFromMsgNo.add(i,
-                        notiService.getMsgContentFromMsgNo(myNotiData.get(i).get("MSG_NO"))
-                );
-
             }
         }
+
+        for(int i =0; i<myNotiData.size(); i++) {
+            String msgNo = myNotiData.get(i).get("MSG_NO");
+
+            if (Integer.parseInt(msgNo) != 0) {
+                getMsgContentFromMsgNo.add(i,
+                        notiService.getMsgContentFromMsgNo(msgNo)
+                );
+            }
+        }
+
 
         data.put("notiData",myNotiData);
         data.put("boardTitleFromBoardNo",getBoardTitleFromBoardNo);
@@ -132,8 +95,40 @@ public class NotiController {
 
     @MessageMapping("/notification/alarm")
     @SendTo("/receive/noti")
-    public  String sendData(){
-//        log.info(loginId);
+    public String sendData(){
         return "1";
     }
+
+
+    /*
+        글번호, 쪽지번호, 댓글 번호를 받아서
+        해당하는 알람을 지우고 알림 목록을 다시 받아오는 함수
+        no => 번호
+        ref
+        =>
+        1 : 댓글
+        2 : 메세지
+        3 : 좋아요
+
+     */
+    @RequestMapping("/noti/delete")
+    public void deleteNotify(@RequestParam(value="no")String no,
+                             @RequestParam(value = "ref")int ref){
+
+        if(ref == 1){
+            notiService.deleteNotifyComment(no);
+        }else if(ref==2){
+            notiService.deleteNotifyMessage(no);
+        }else if(ref ==3){
+            notiService.deleteNotifyLikes(no);
+        }
+    }
+    /*
+    알림 읽었을 때 알림 readType 변경
+     */
+    @RequestMapping("/noti/read/type")
+    public void changeNotifyType(@RequestParam(value ="no")String no){
+        notiService.changeNotifyType(no);
+    }
+
 }

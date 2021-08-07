@@ -4,10 +4,10 @@
 <!-- 헤더영역 / 고정 -->
 <div id="header" th:fragment="fragment-headerbar">
     <div class="logo"></div>
-    <form id="search">
+    <form id="searchFrm" method="POST" >
     <div class="search_bar">
         <input type="text" name="uInput" id="uInput" placeholder="#품 #지역기반커뮤니티 #무엇이든 검색하세요!">
-        <button id="searchgo" onclick="searchList();">go</button>
+        <button id="searchgo" type="button" onclick="searchList()">go</button>
     </div>
     </form>
     <ul class="header_ui">
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </li>
-        <li onclick="membermodi();"></li>
+        <li onclick="mypage();"></li>
         <li onclick="logOut();"></li>
     </ul>
 </div>

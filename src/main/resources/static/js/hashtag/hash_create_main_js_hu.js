@@ -6,8 +6,39 @@
  */
 
 $('.create_tag_input').click(e=>{
+
+  if(preventInputCreate()){
+   return;
+  }
+
+  if (preventConfirmTag()){
+    return;
+  }
   createTagInput(e);
 });
+
+function preventInputCreate(){
+  if($('.tag-input-container').length >= 1){
+    return true;
+  }
+}
+
+function preventConfirmTag(){
+  if($('.tag-confirm').length>5){
+    alert("태그는 최대 5개까지 입력가능합니다.");
+    return true;
+  }
+}
+
+function checkTagInputEmpty(){
+  if($('.field__input').val() !== undefined){
+    if($('.field__input').val().trim().length === 0){
+      alert("태그를 입력해주세요");
+      return false;
+    }
+  }
+  return true;
+}
 
 function createTagInput(e){
 
@@ -34,13 +65,19 @@ function createTagInput(e){
     $('.field__input').keyup(e=>{
       let keyword =$(e.target).val().trim();
       //검색어 입력시 태그 검색
-      checkKeyword(keyword);
+      if(checkKeyword(keyword)){
+        return;
+      }
     });
   }
 
   // 엔터 두번 방지
   $('.field__input').keypress(e=>{
     let keyword =$(e.target).val().trim();
+
+    if(checkKeyword(keyword)){
+      return;
+    }
 
     if(e.keyCode === 13 ){
       countTag(keyword);
@@ -70,7 +107,6 @@ function confirmTag(keyword){
 
 
     $('.delete-confirm-Tag').on("click",function(e) {
-      console.log("ㅎㅇ");
       $(e.target).parent().remove();
     });
     return;
@@ -79,13 +115,13 @@ function confirmTag(keyword){
 
 /*
 
- 메인 page에서 글쓰기 누르면 실행되는 메소드
+ 메인 page에서 글쓰기 누르면 실행되는 함수
  필요값 => 입력된 태그
  결과 => tag 테이블에 사용자가 입력한 태그가 등록됨
 
  */
 
-// 입력한 태그 가져오는 메소드
+// 입력한 태그 가져오는 함수
 function getConfirmTag(){
   let tagText = $('.tag-confirm').text();
 
@@ -99,7 +135,7 @@ function getConfirmTag(){
   return;
 }
 
-// 등록된 태그 각각 db에 등록하는 메소드
+// 등록된 태그 각각 db에 등록하는 함수
 function addTagEach(getConfirmTag){
   // 0번 인덱스는 항상 빈값
   for(let i=1; i<getConfirmTag.length; i++){
@@ -109,8 +145,10 @@ function addTagEach(getConfirmTag){
         "keyword": getConfirmTag[i]
       },
       success:data=>{
+        // console.log(getConfirmTag[i]);
         // 메인피드의 게시물에서 요청
-        if(data === null) {
+        if(data.length === 0) {
+          console.log("추가?");
           addTagFromMainPage(getConfirmTag[i]);
         }
       }
@@ -118,13 +156,16 @@ function addTagEach(getConfirmTag){
   }
 }
 
-// 메인 페이지에서 태그 등록하는 메소드
+// 메인 페이지에서 태그 등록하는 함수
 function addTagFromMainPage(keyword){
   $.ajax({
     url:getContextPath()+'/tag/add',
     data:{
       "keyword":keyword,
       "ref":"feed"
+    },
+    success:data=>{
+      console.log("테이블에 추가");
     }
   });
 }

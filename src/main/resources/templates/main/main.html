@@ -2,10 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <div th:replace="/fragments/header.html :: fragment-header"></div>
-    <!-- css -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/board/board_list.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_view.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_form.css}">
 </head>
 
 <body>
@@ -23,8 +19,10 @@
         <div th:replace="/fragments/profile.html :: fragment-profile"></div>
 
         <!-- main 피드 -->
+		<link rel="stylesheet" type="text/css" th:href="@{/css/search/search_content.css}">
         <div class="feed">
 			<link rel="stylesheet" type="text/css" th:href="@{/css/hashtag/main_board_tag.css}">
+			<link rel="stylesheet" type="text/css" th:href="@{/css/search/search_content.css}">
 			<form id="mainBoard_form" th:action="@{/board/feedWrite}" method="post" name="feedWrite_form">
         		<input type="hidden" name="id" th:value="${session.loginMember.MEMBER_ID}">
 				<input type="hidden" name="loc" th:value="${session.loginMember.MEMBER_LOC}">
@@ -38,7 +36,8 @@
 	                </select>
 	                <input type="text" name="title" value="" placeholder="제목을 입력하세요">
 	                <hr>
-	                <textarea name="content" onkeyup="resize(this)" placeholder="간단한 글을 작성해보세요. 더 자세한 글작성은 하단 글쓰기 버튼을 이용해주세요!"></textarea>
+                	<textarea name="content" placeholder="200자 내로 피드를 등록해보세요. 더 자세한 글작성은 하단 글쓰기 버튼을 이용해주세요!"></textarea>
+                	<span id="intro_cnt">(0 / 200)</span>
 	                <hr>
 
 	                <button type="button" class="create_tag_input"><i class="gg-add"></i></i> 태그추가</button>
@@ -48,15 +47,16 @@
             </form>
             <div class="feed_new">
             	<div class="loc_onoff">
+            		<input type="hidden" name="payLevel" th:value="${session.loginMember.PAY_LEVEL}" />
 	           		<label class="loc_switch">
-					    <input type="checkbox" name="loc_check" checked>
-					    <span class="slider round"></span>
+					    <input type="checkbox" name="loc_check">
+					    <span class="round"></span>
 					</label>
-					<p class="onoffBtn" th:text="${session.loginMember.MEMBER_LOC}"></p><p class="onoffBtn" style="display:none;">전국</p>
+					<p class="onoffBtn" th:text="${session.loginMember.MEMBER_LOC}"></p>
 				</div>
            		<ul class="feedtab">
-		            <li class="feedtab_on" id="feedall">전체글보기</li><span>|</span>
-		            <li id="feedkey">키워드글보기</li>
+		            <li class="feedtab_on" id="feedall">전체글</li><span>|</span>
+		            <li id="feedkey">#마이태그글</li>
 		        </ul>
 		        <div id="feed_content"></div>
             </div>
@@ -69,8 +69,9 @@
     </div>
 </div>
 </body>
+<script th:src="@{/js/popuprank/popuprank_js_hu.js}"></script>
 <script th:src="@{/js/hashtag/hash_create_main_js_hu.js}"></script>
-<script th:src="@{/js/main/main_js_jk.js}"></script>
+<script th:src="@{/js/main/mainfeed_js_jk.js}"></script>
 <script th:src="@{/js/board/board_list_sh.js}"></script>
 <script th:src="@{/js/main/noti_js_hu.js}"></script>
 <script th:src="@{/js/member/membermodi_jh.js}"></script>
@@ -78,5 +79,8 @@
 <script th:src="@{/js/board/board_list_sh.js}"></script>
 <script th:src="@{/js/board/board_form_sh.js}"></script>
 <script th:src="@{/js/search/search_js_sh.js}"></script>
+<script th:src="@{/js/board/board_view_sh.js}"></script>
+<script th:src="@{/js/board/boardForm_jh.js}"></script>
+
 
 </html>

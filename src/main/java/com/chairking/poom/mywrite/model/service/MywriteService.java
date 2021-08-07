@@ -14,7 +14,7 @@ public interface MywriteService {
     // 내가 쓴 글 갯수
     int countMyWrite();
     // 내가 쓴 글 리스트
-    List<Map<String, Object>> MywriteList(int cPage, int numPerpage);
+    List<Map<String, Object>> MywriteList(int cPage, int numPerpage, Object memberId);
 
     // 내가 쓴 댓글 갯수
     int countMyComment();
@@ -23,4 +23,8 @@ public interface MywriteService {
 
     // 해당 글에 있는 댓글 가져오기
     List<Map<String, Object>> commentCount(int cPage, int numPerpage);
+
+    int countMyLike();
+
+    List<Map<String, Object>> MyLikeList(int cPage, int numPerpage, Object memberId);
 }

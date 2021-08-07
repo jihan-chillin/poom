@@ -60,10 +60,10 @@ public interface AdminMapper {
 	@Select("SELECT COUNT(*) FROM MEMBER WHERE BLAME_COUNT !=0")
 	public int allMemberBlameCount();
 	
-	
+	//신고하기 각 신고테이블+1, 각 개별테이블 +1
 	@Insert("INSERT INTO BOARD_BLAME VALUES(SEQ_BRD_BLAME_NO.NEXTVAL,#{no},#{target_mem},sysdate,#{blame_reason})")
 	public int insertBoardBlame(Map<String,String> map);
-	@Update("UPDATE BOARD SET BLAME_COOUNT=BLAME_COUNT+1 WHERE BOARD_NO=#{no}")
+	@Update("UPDATE BOARD SET BLAME_COUNT=BLAME_COUNT+1 WHERE BOARD_NO=#{no}")
 	public int updateBrdBlameCount(String no);
 	
 	@Insert("INSERT INTO COMMENTS_BLAME VALUES(SEQ_BC_BLAME_NO.NEXTVAL,#{target_mem},sysdate,'테스트',#{no},#{blame_reason})")
@@ -75,16 +75,8 @@ public interface AdminMapper {
 	public int insertChatBlame(Map<String,String> map);
 	@Update("UPDATE CHAT SET BLAME_COUNT=BLAME_COUNT+1 WHERE CHAT_NO=#{no}")
 	public int updateChatBlameCount(String no);
-	
-	@Select("select * from board_blame join board on b_target_board_no=board_no where board_no=#{no}")
-	public List<Map<String,Object>> selectBoardBlame(String no);
-	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}")
-	public List<Map<String,Object>> selectCommentsBlame(String no);
-	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}")
-	public List<Map<String,Object>> selectChatBlame(String no);
-	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}")
-	public List<Map<String,Object>> selectMemberBlame(String no);
-	
+
+	//기타사유가져오기
 	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=4 AND BLAME_REASON LIKE '기타%'")
 	public List<Map<String,String>> selectEctAll(Map<String,Object> map);
 	
@@ -98,9 +90,16 @@ public interface AdminMapper {
 	
 	
 	//결제관리
-	@Select("SELECT * FROM PAYMENT JOIN ITEMS USING(ITEM_NO) WHERE PAY_DATE BETWEEN SYSDATE-8 AND SYSDATE-1 ORDER BY PAY_DATE DESC")
-	public List<Map<String,Object>> allPayment();
-	
+	//리스트
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM (SELECT PAY_DATE,MEMBER_ID, MEMBER_NICKNAME, ITEM_TYPE FROM PAYMENT JOIN ITEMS USING(ITEM_NO) join MEMBER USING(MEMBER_ID) ORDER BY PAY_DATE DESC)A)WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex} ")
+	public List<Map<String,Object>> allPayment(Pagination pagination);
+	//카운트
+	@Select("SELECT COUNT(*) FROM PAYMENT ORDER BY PAY_DATE DESC")
+	public int allPaymentCount();
+	//각 날짜별, 아이템별 합계금액
 	@Select("SELECT PAY_DATE,ITEM_TYPE, SUM(ITEM_PRICE) AS S FROM PAYMENT JOIN ITEMS USING(ITEM_NO) WHERE PAY_DATE BETWEEN SYSDATE-8 AND SYSDATE-1 GROUP BY ROLLUP(PAY_DATE,ITEM_TYPE)")
 	public List<Map<String,Object>> sumAllPayment();
+	//매출상세내역
+	@Select("SELECT ITEM_TYPE, ITEM_PRICE, SUM(ITEM_PRICE) AS SUM, COUNT(*) AS COUNT FROM PAYMENT JOIN ITEMS USING(ITEM_NO) WHERE PAY_DATE BETWEEN TO_DATE(#{first},'yy-mm-dd') AND TO_DATE(#{second},'yy-mm-dd') GROUP BY ROLLUP(ITEM_PRICE,ITEM_TYPE)")
+	public List<Map<String,String>> selectPayDetail(Map<String,String> map);
 }

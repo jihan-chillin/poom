@@ -1,5 +1,6 @@
 package com.chairking.poom.message.model.dao;
 
+import com.chairking.poom.common.Pagination;
 import com.chairking.poom.message.mapper.MessageMapper;
 import com.chairking.poom.message.model.vo.Message;
 import org.springframework.stereotype.Repository;
@@ -17,7 +18,7 @@ public class MessageDaoImpl implements MessageDao{
     }
 
     @Override
-    public List<Map<String, Object>> getMessage(MessageMapper mapper,String condition){
+    public List<Map<String, Object>> getMessage(MessageMapper mapper, String condition, Pagination pagination){
 
         return mapper.getMessage(condition);
     }
@@ -67,6 +68,16 @@ public class MessageDaoImpl implements MessageDao{
     @Override
     public int selectBlock(MessageMapper mapper, String msgNo) {
         return mapper.selectBlock(msgNo);
+    }
+
+    @Override
+    public int messageCount(MessageMapper mapper, String condition) {
+        return mapper.messageCount(condition);
+    }
+
+    @Override
+    public String getRecentMessageNo(MessageMapper mapper) {
+        return mapper.getRecentMessageNo();
     }
 
 }

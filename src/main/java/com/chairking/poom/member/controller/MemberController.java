@@ -2,18 +2,18 @@ package com.chairking.poom.member.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -22,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.chairking.poom.member.model.service.LoginService;
 import com.chairking.poom.member.model.service.MemberService;
-import com.chairking.poom.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/member")
@@ -33,25 +32,33 @@ public class MemberController {
     private MemberService service;
     
     @Autowired	
-	LoginService loginservice;
+	private LoginService loginservice;
     
-    @Autowired
-	ResourceLoader resourceLoader;
+    //암호화
+  	@Autowired
+  	PasswordEncoder pwEncoder;
 
-    // 1. 프로필정보 수정창으로 이동
-    // 화면 전환용
+    //edit 클릭시 마이페이지로 이동
+    @RequestMapping("/mypage")
+    public String myPage() {
+    	return "member/mypage";
+    }
+    
+    //프로필 수정 창으로 이동 ajax -> 화면전환용
     @GetMapping("/modiprofile")
     public String membermodi() {
         return "member/modiprofile";
     }
 
-    // 2. 프로필 수정완료되면 프로필 수정페이지로 이동
+    //프로필 수정 -> 완료시 메인화면으로
     @PostMapping("/updateProfile")
     public ModelAndView updateProfile(ModelAndView mv,
 			@RequestParam(value="input_file",required=false) MultipartFile[] inputfile,
-			@RequestParam Map param, HttpServletRequest req) {
+			@RequestParam Map param, HttpServletResponse res, HttpServletRequest req) throws Exception {
     	
-    	String absolutePath = System.getProperty("user.dir")+"/src/main/resources/static/images/profile/";
+    	System.out.println("이거임:"+param);
+    	String directoryName = System.getProperty("user.dir");
+        String folderPath = directoryName + "\\src\\main\\resources\\static\\images\\profile\\";
     	String oriName=inputfile[0].getOriginalFilename();
     	
     	if(oriName.equals("")) {
@@ -60,28 +67,35 @@ public class MemberController {
     	}else {
 			String ext=oriName.substring(oriName.lastIndexOf("."));
 			//리네임규칙설정
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmssSSS");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 			int rndNum=(int)(Math.random()*10000);
-			String reName=sdf.format(System.currentTimeMillis())+"_"+rndNum+ext;
+			String reName=sdf.format(System.currentTimeMillis())+"_pro"+rndNum+ext;
 			param.put("memberImg", reName);
+			
 			//리네임으로 파일업로드하기
 			try {
-				inputfile[0].transferTo(new File(absolutePath+reName));
+				inputfile[0].transferTo(new File(folderPath+reName));
 			}catch(IOException e) {
 				e.printStackTrace();
 			}
+			
     	}
 
     	String msg="";
-    	String loc="/login/main";
+    	String loc="";
 		int result = service.updateProfile(param);
 		Map<String,Object> m = loginservice.selectMember(param);
 		mv.addObject("loginMember",m);
+		if(m.get("INTRO")==null) {
+			m.put("INTRO", null);
+		}
 		
 		if(result>0) {
 			msg="수정완료!";
+			loc="/login/main";
 		}else {
 			msg="수정실패! 다시 시도해주세요.";
+			loc="/member/mypage";
 		}
 
 		mv.addObject("msg",msg);
@@ -91,39 +105,35 @@ public class MemberController {
         return mv;
     }
 
-    // 3. 개인정보 수정창으로 이동
+    //개인정보 수정 창으로 이동 ajax -> 화면전환용
     @GetMapping("/modiprivacy")
     public String modiprivacy() {
         return "member/modiprivacy";
     }
 
-    // 4. 개인정보 update완료 시 개인정보 창으로 이동
+    //개인정보 수정 -> 완료시 메인화면으로
     @PostMapping("/updatePrivacy")
-    public ModelAndView updatePrivacy(HttpServletRequest req, ModelAndView mv, Member m, @RequestBody Map<String, String> param) {
+    public ModelAndView updatePrivacy(ModelAndView mv, @RequestParam Map<String, String> param) {
+    	
+    	//비밀번호 암호화
+		param.put("pw", pwEncoder.encode((String)param.get("pw")));
+    	
+    	int result = service.updatePrivacy(param);
+    	Map<String,Object> m = loginservice.selectMember(param);
+		mv.addObject("loginMember",m);
+		
+		String msg="";
+    	String loc="/login/main";
+		if(result>0) {
+			msg="수정완료!";
+		}else {
+			msg="수정실패! 다시 시도해주세요.";
+			loc="/member/mypage";
+		}
 
-        // ▼ 회원 아이디 sessionr값 가져올 때
-        //HttpSession session = req.getSession();
-
-        // 임의 아이디
-        String id = "test";
-
-        // 파라미터 값 변수에 저장
-        String pw = param.get("pw");
-        String email = param.get("email");
-        String loc = param.get("loc");
-
-        // 객체에 파라미터 set
-        m.setMemberId(id);
-        m.setMemberPw(pw);
-        m.setMemberEmail(email);
-        m.setMemberLoc(loc);
-
-        System.out.println(m);
-
-        int result = service.updatePrivacy(m);
-
-        mv.addObject("m", m);
-        mv.setViewName("member/modiprivacy");
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
 
         return mv;
     }

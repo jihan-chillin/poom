@@ -12,10 +12,11 @@
 #ckeditor-table th {
     font-size: 20px;
     padding: 25px;
+    width: 300px;
 }
 
 #ckeditor-table tr:nth-of-type(5) th{
-    padding: 50px 25px;
+    padding: 30px 25px 15px 25px;
 }
 
 #ckeditor-table select{
@@ -25,7 +26,7 @@
 }
 
 .input-style{
-    width: 710px;
+    width:710px;
     font-size: 15px;
     font-style: italic;
     border: none;
@@ -44,33 +45,29 @@
     margin-left: 30px;
 }
 
+#ckeditor-table tr:nth-of-type(6) td{
 
+    padding: 0 0 30px 10px;
 
+}
 
+.boardTag{
+    /*width: 880px;*/
+    font-size: 15px;
+    font-style: italic;
+    border: none;
+    border-bottom: 1px solid lightgray;
+    padding: 10px;
+    background-color: #f7f7f7;
+}
 
+#textarea-td{
+    padding-left: 20px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#inputBoardTag{
+    width: 870px;
+}
 
 
 /*----------------- 이전 css ----------------- */
@@ -122,7 +119,18 @@ div#board-form-content{
     font-weight: bold;
 }
 
+.create-tag{
+    font-size: 20px;
+    font-weight: bolder;
+    border: none;
+    background-color: #f7f7f7;
+    cursor: pointer;
+}
 
+#ckeditor-form{
+    background-color: #f7f7f7;
+    border-radius: 20px;
+}
 
 
 #board_form li>textarea{
@@ -158,3 +166,48 @@ div#board-form-content{
 #board_form>form>div>input{
     background-color:#F77B1E;
 }
+
+
+.blue-btn{
+    width: 70px;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background: #287094;
+    color: white;
+    cursor: pointer;
+}
+
+.blacksolid-btn{
+    width: 70px;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    border: 1px solid black;
+    background: #f7f7f7;
+    cursor: pointer;
+}
+
+.tooltip{
+    width: 180px;
+    position: absolute;
+    bottom: 45px;
+    right: 700px;
+    opacity: 70%;
+    display: none;
+}
+
+#ckeditor-table tr:nth-of-type(5) th{
+    position : relative;
+}
+
+#ckeditor-table tr:nth-of-type(5) button:hover + .tooltip{
+    display: inline;
+}
+
+
+
+
+
+

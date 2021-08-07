@@ -1,6 +1,6 @@
 const move_list=()=>{
 	$.ajax({
-		url:"/board/all",
+		url:getContextPath()+"/board/all",
 		success:data=>{
 			$("div#content").html(data);
 		}
@@ -9,7 +9,7 @@ const move_list=()=>{
 const comment_write=()=>{
 	
 	$.ajax({
-		url:"/board/comment",
+		url:getContextPath()+"/board/comment",
 		success:data=>{
 			$("div#comment_container").append("li").html(data);
 		}

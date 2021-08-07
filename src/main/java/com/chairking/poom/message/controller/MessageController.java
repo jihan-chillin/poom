@@ -1,9 +1,10 @@
 package com.chairking.poom.message.controller;
 
 
-import com.chairking.poom.member.model.vo.Member;
+import com.chairking.poom.common.Pagination;
 import com.chairking.poom.message.model.service.MessageService;
 import com.chairking.poom.message.model.vo.Message;
+import com.chairking.poom.noti.controller.NotiController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,28 +29,38 @@ public class MessageController {
     private MessageService service;
     @Autowired
     PasswordEncoder pwEncoder;
+    @Autowired
+    private NotiController mc;
     //쪽지함 탭 보이는 메인페이지
     @GetMapping()
-    public String message(String mType,Model m){
-        //System.out.println("pw: " + pwEncoder.encode("1234"));
-        m.addAttribute("mType",mType);
+    public String message(String mType, HttpSession session, Model m){
+        if (mType != null)
+           session.setAttribute("mType", mType);
         return "message/message_main";
     }
 
 
     //ajax 받은 쪽지 페이지
     @RequestMapping("/receive")
-    public ModelAndView receiveMessage(HttpServletRequest req, ModelAndView mv){
+    public ModelAndView receiveMessage(HttpServletRequest req, ModelAndView mv,
+                                       @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+                                       @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
+                                       @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
         HttpSession session = req.getSession();
+        session.setAttribute("mType", "receive");
         // 세션에서 내 아이디 가져옴
         Map<String,String> val = (Map<String,String>)session.getAttribute("loginMember");
         String myId = val.get("MEMBER_ID");
+        String condition = "AND RECV_MEMBER = '" + myId + "' AND MSG_TYPE =2 ORDER BY MSG_DATE DESC";
 
-        System.out.println("myId:" + myId);
-        String condition = "AND RECV_MEMBER = '" + myId + "' AND MSG_TYPE !=3";
-        List<Map<String,Object>> list = service.getMessage(condition);
+
+        Pagination pagination = new Pagination(currentPage,cntPerPage,pageSize);
+        pagination.setTotalRecordCount(service.messageCount(condition));
+        condition += (")A) WHERE RNUM BETWEEN " + pagination.getFirstRecordIndex() + " AND " + pagination.getLastRecordIndex());
+        List<Map<String,Object>> list = service.getMessage(condition,pagination);
         mv.addObject("list",list);
-        System.out.println(list);
+        mv.addObject("pagination", pagination);
+
         mv.setViewName("message/message_receiveMessage");
         return mv;
     }
@@ -58,35 +69,53 @@ public class MessageController {
 
     //ajax 보낸 쪽지 페이지
     @RequestMapping("/send")
-    public ModelAndView sendMessage(HttpServletRequest req, ModelAndView mv){
+    public ModelAndView sendMessage(HttpServletRequest req, ModelAndView mv,
+                                    @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+                                    @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
+                                    @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
         HttpSession session = req.getSession();
+        session.setAttribute("mType", "send");
         // 세션에서 내 아이디 가져옴
         Map<String,String> val = (Map<String,String>)session.getAttribute("loginMember");
         String myId = val.get("MEMBER_ID");
+        String condition = "AND MEMBER_ID = '" + myId + "' AND MSG_TYPE = 1  ORDER BY MSG_DATE DESC";
 
-        System.out.println("myId:" + myId);
-        String condition = "AND MEMBER_ID = '" + myId + "' AND MSG_TYPE !=3";
-        List<Map<String,Object>>list = service.getMessage(condition);
+        Pagination pagination = new Pagination(currentPage,cntPerPage,pageSize);
+        pagination.setTotalRecordCount(service.messageCount(condition));
+        condition += (")A) WHERE RNUM BETWEEN " + pagination.getFirstRecordIndex() + " AND " + pagination.getLastRecordIndex());
+
+        List<Map<String,Object>>list = service.getMessage(condition,pagination);
         if (list.size() != 0) {
             if (list.get(0).get("READ_CHECK") == null)
                 System.out.println("null이다");
         }
         mv.addObject("list",list);
+        mv.addObject("pagination", pagination);
         mv.setViewName("message/message_sendMessage");
         return mv;
     }
 
     //ajax 휴지통
     @RequestMapping("/block")
-    public ModelAndView blockMessage(HttpServletRequest req, ModelAndView mv){
+    public ModelAndView blockMessage(HttpServletRequest req, ModelAndView mv,
+                                     @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+                                     @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
+                                     @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
         HttpSession session = req.getSession();
+        session.setAttribute("mType", "block");
         // 세션에서 내 아이디 가져옴
         Map<String,String> val = (Map<String,String>)session.getAttribute("loginMember");
         String myId = val.get("MEMBER_ID");
 
-        String condition = "AND (RECV_MEMBER = '" + myId + "' OR MEMBER_ID = '" + myId + "') AND MSG_TYPE=3";
-        List<Map<String,Object>>list = service.getMessage(condition);
+        String condition = "AND ((RECV_MEMBER = '" + myId + "' AND MSG_TYPE = 4) OR (MEMBER_ID = '" + myId + "' AND MSG_TYPE=3))  ORDER BY MSG_DATE DESC";
+
+        Pagination pagination = new Pagination(currentPage,cntPerPage,pageSize);
+        pagination.setTotalRecordCount(service.messageCount(condition));
+        condition += (")A) WHERE RNUM BETWEEN " + pagination.getFirstRecordIndex() + " AND " + pagination.getLastRecordIndex());
+
+        List<Map<String,Object>>list = service.getMessage(condition,pagination);
         mv.addObject("list",list);
+        mv.addObject("pagination", pagination);
         mv.setViewName("message/message_blockMessage");
         return mv;
     }
@@ -116,6 +145,14 @@ public class MessageController {
     //쪽지내용 팝업
     @GetMapping("/content")
     public String contentPopup(@RequestParam String msgNo, Model m){
+        List<Map<String,Object>> list = service.messageContent(msgNo);
+        m.addAttribute("list",list);
+        return "message/message_content";
+    }
+
+    //받은쪽지 내용팝업
+    @GetMapping("/receiveContent")
+    public String receivePopup(@RequestParam String msgNo, Model m){
         int result = 0;
         List<Map<String,Object>> list = service.messageContent(msgNo);
         m.addAttribute("list",list);
@@ -126,24 +163,25 @@ public class MessageController {
 
         if (result > 0)
             System.out.println("읽음처리 성공");
-        return "message/message_content";
+        return "message/message_receiveContent";
     }
 
 
 
-    //메세지 차단함으로 이동
+
+    //메세지 차단함으로 이동 하는중 
     @RequestMapping("/moveBlock")
-    public String moveBlock(@RequestParam String msgNo, ModelAndView mv){
-        System.out.println("move블럭 되나요? " + msgNo);
+    public ModelAndView moveBlock(@RequestParam String msgNo, ModelAndView mv){
         int result= service.moveBlock(msgNo);
-        System.out.println("나와라 " + result);
-       return "/message/message_blockMessage";
+        if(result >0){
+            mv.setViewName("/message/message_blockMessage");
+        }
+        return mv;
     }
 
     //메세지 발송취소
     @RequestMapping ("/cancelMsg")
     public ModelAndView cancelMsg(@RequestParam String msgNo, ModelAndView mv){
-        System.out.println("moveBlockCtrl " + msgNo);
         int result= service.cancelMsg(msgNo);
         if(result>0){
             mv.setViewName("message/message_sendMessage");
@@ -161,7 +199,6 @@ public class MessageController {
     //휴지통 선택 삭제
     @RequestMapping("/selectBlock")
     public String selectBlock(@RequestParam String msgNo){
-        System.out.println("삭제할 메세지 번호" + msgNo);
         int result = service.selectBlock(msgNo);
         return "message/message_blockMessage";
     }
@@ -170,17 +207,31 @@ public class MessageController {
     //메세지 보내기
     @RequestMapping("/sendMsg")
     public ModelAndView sendMsg(HttpServletRequest request, HttpSession session, ModelAndView mv){
-        //세션에서 내 아이디를 가져온다.
+
         Message msg = new Message();
+        String recvMember =request.getParameter("recvMember") ;
         msg.setMemberId(request.getParameter("memberId"));
-        msg.setRecvMember(request.getParameter("recvMember"));
+        msg.setRecvMember(recvMember);
         msg.setMsgContent(request.getParameter("msgContent"));
-        int result= service.sendMsg(msg);
+        msg.setType(1);
+        int result = 0;
+        result += service.sendMsg(msg);
+        msg.setType(2);
+        result += service.sendMsg(msg);
         mv.addObject("mType", "send");
+
+        // 알람 테이블에 데이터 넣는 메소드 by 희웅
+        mc.insertMessageNotiData(getRecentMessageNo(),recvMember);
+
         if(result>0){
             mv.setViewName("message/message_sendMessage");
         }
         return mv;
+    }
+
+    // 촤근 보낸 메세지 번호 가져오는 메소드.
+    public String getRecentMessageNo(){
+        return service.getRecentMessageNo();
     }
 
 
@@ -196,8 +247,6 @@ public class MessageController {
             condition += (" OR member_nickname like '%" + sCondition + "%')");
 
         }
-
-        System.out.println("검색조건" + condition);
 
         List<Map<String,Object>> list = service.searchReceiverCondition(condition);
 

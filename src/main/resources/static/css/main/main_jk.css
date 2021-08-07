@@ -93,8 +93,7 @@ ul.header_ui>li {
     cursor: pointer;
 }
 ul.header_ui>li:first-child {
-    background: url(../../images/ui/alarm.png) no-repeat center;
-    background-size: contain;
+    /*background-size: contain;*/
 }
 ul.header_ui>li:nth-child(2) {
     background: url(../../images/ui/mypage.png) no-repeat center;
@@ -331,6 +330,7 @@ div.feed_write {
     background: #f7f7f7;
     border-radius: 20px;
     padding: 20px 30px;
+    position: relative;
 }
 div.feed_write>select  {
     width: 150px;
@@ -345,14 +345,22 @@ div.feed_write>select  {
 div.feed_write>input {
     width: 700px;
     border: none;
-    outline: none;
     background: none;
     font-size: 17px;
+    padding: 5px;
+    font-weight: bold;
+}
+div.feed_write>span#intro_cnt {
+	position: absolute;
+	right: 60px;
+	bottom: 83px;
+	font-size: 15px;
 }
 div.feed_write>input::placeholder,
 div.feed_write>textarea::placeholder {
     font-style: italic;
     font-size: 15px;
+    font-weight: normal
 }
 div.feed_write>hr {
     margin: 10px 0;
@@ -443,6 +451,7 @@ div.feed_new {
     margin-top: 7px;
     padding: 30px;
     position: relative;
+    z-index: 100;
 }
 div.loc_onoff {
 	position: absolute;
@@ -454,6 +463,8 @@ label.loc_switch {
   width: 40px;
   height: 23px;
   vertical-align: middle;
+  border-radius: 34px;
+  background: #247094;
 }
 
 label.loc_switch input {
@@ -462,44 +473,21 @@ label.loc_switch input {
 .slider {
   position: absolute;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 17px;
-  width: 17px;
-  left: 3px;
+  left: 2px;
   bottom: 3px;
-  background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
 }
-
-label.loc_switch input:checked + .slider {
-  background-color: #247094;
-}
-
-label.loc_switch input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-label.loc_switch input:checked + .slider:before {
-  -webkit-transform: translateX(17px);
-  -ms-transform: translateX(17px);
-  transform: translateX(17px);
-}
-.slider.round {
-  border-radius: 37px;
-}
-.slider.round:before {
-  border-radius: 50%;
+.round {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    right: 2px;
+    bottom: 3px;
+    cursor: pointer;
 }
 div.feed_new p.onoffBtn {
 	margin-right:2px;
@@ -542,6 +530,7 @@ div.fList div:first-child {
 	width: 80%;
 	padding: 0 20px 10px 20px;
 	border-bottom: 1px solid lightgray;
+	cursor: pointer;
 } 
 div.fList div:first-child span {
 	font-size: 20px;
@@ -558,7 +547,61 @@ div.fList div:first-child span:first-of-type {
 	font-weight: normal;
 	border-right: 3px solid lightgray;
 }
-div.fList div:nth-child(2) {
+div.fList div:first-child span:nth-child(2){
+	width: 480px;
+}
+div.fList div:first-child span:last-child {
+	width: 24px;
+    padding-left: 20px;
+    height: auto;
+}
+div.fList div:first-child span:last-child>div {
+   	padding: 7px 0;
+    width: 86px;
+    text-align: center;
+    background: #247094;
+    font-style: normal;
+    font-size: 15px;
+    color: white;
+    position: absolute;
+    top: 45px;
+    right: 187px;
+    border-radius: 7px;
+    display: none;
+}
+
+/* 더보기 아이콘 */
+.gg-more-vertical-alt {
+    transform: scale(var(--ggs,1));
+}
+.gg-more-vertical-alt,
+.gg-more-vertical-alt::after,
+.gg-more-vertical-alt::before {
+    box-sizing: border-box;
+    position: relative;
+    bottom: 4px;
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background: currentColor;
+    border-radius: 100%;
+    color: darkgray;
+}
+.gg-more-vertical-alt::after,
+.gg-more-vertical-alt::before {
+    content: "";
+    position: absolute;
+}
+.gg-more-vertical-alt::after {
+    left: 0;
+    top: 7px;
+}
+.gg-more-vertical-alt::before {
+    top: -7px;
+    right: 0
+}
+
+div.fList>div:nth-child(2) {
   	display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -568,15 +611,17 @@ div.fList div:nth-child(2) {
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 25px;
+    cursor: pointer;
 }
-div.fList div:nth-child(3) {
+div.fList>img {
 	width: 160px;
 	height: 160px;
 	border-radius: 15px;
-	background: blue;
 	position: absolute;
 	top: 20px;
 	right: 20px;
+	border: 1px solid lightgray;
+	cursor: pointer;
 }
 div.fList ul {
 	width:80%;
@@ -592,6 +637,7 @@ div.fList ul>li {
     padding: 0 10px;
     font-weight: bold;
     color: darkgray;
+    cursor: pointer;
 }
 div.fList ul>li:last-child {
 	margin-right: 10px;
@@ -622,52 +668,7 @@ div.fList ul>li:last-child {
     left: 2px;
     box-shadow: 0 4px 0, 0 8px 0
 }
-/* 찜 ui css */
-.gg-heart {
-    margin-right: 7px;
-    margin-top: 2px;
-}
-.gg-heart,
-.gg-heart::after {
-    border: 2px solid;
-    border-top-left-radius: 100px;
-    border-top-right-radius: 100px;
-    width: 10px;
-    height: 8px;
-    border-bottom: 0
-}
-.gg-heart {
-    box-sizing: border-box;
-    position: relative;
-    transform:
-        translate(
-            calc(-10px / 2 * var(--ggs,1)),
-            calc(-6px / 2 * var(--ggs,1))
-        )
-        rotate(-45deg)
-        scale(var(--ggs,1));
-    display: block
-}
-.gg-heart::after,
-.gg-heart::before {
-    content: "";
-    display: block;
-    box-sizing: border-box;
-    position: absolute
-}
-.gg-heart::after {
-    right: -9px;
-    transform: rotate(90deg);
-    top: 5px
-}
-.gg-heart::before {
-    width: 11px;
-    height: 11px;
-    border-left: 2px solid;
-    border-bottom: 2px solid;
-    left: -2px;
-    top: 3px
-}
+
 div.feed>div.topBtn {
 	padding: 7px 13px;
     background: #247094;

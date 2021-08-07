@@ -50,9 +50,6 @@ div#admin_menu>ul>li img{
     margin-right:10px;
     vertical-align:middle;
 }
-/* div#admin_menu>ul>li:hover{
-    color:#F77B1E;
-} */
 ul#blame_menu li{
     margin-left:50px;
     font-size: 16px;
@@ -201,17 +198,16 @@ table#blame_table{
 table#blame_table input[type="radio"]{
     margin-top:5px;
 }
-table#blame_table>thead>tr{
+table#blame_table>thead>tr, table#paydetail_table>thead>tr{
     border-bottom : 2px solid gray;
 }
 table#blame_table td, #blame_table th{
     height:50px;
 }
-table#blame_table tr{
+table#blame_table tr, table#paydetail_table tr{
     border-bottom:1px lightgray solid;
 }
 /*테이블 넓이 설정*/
-/*table#blame_table>thead>tr>th>input[type="checkbox"]*/
 table#blame_table tr td:nth-child(1), table#blame_table tr th:nth-child(1){
     width:5%;
 }
@@ -225,10 +221,6 @@ table#blame_table tr td:nth-child(5), table#blame_table tr th:nth-child(5){
     width:10%;
     padding-right:30px;
 }
-/* table#blame_table tr td:nth-child(5), table#blame_table tr th:nth-child(5){
-	width:300px;
-	text-align:left;
-} */
 table#blame_table tr td:nth-child(4){
 	font-weight:bold;
 }
@@ -244,8 +236,6 @@ div#pay_section{
     left:300px;
     height:100%;
     width:1620px;
-    
-    /* justify-content: center; */
     padding-top:30px;
 }
 div#pay_section>div:first-child{
@@ -257,7 +247,6 @@ div#pay_section>div:first-child{
 #chart{
     width:750px;
     height:350px;
-    /* border:1px #287094 solid; */
 }
 
 div#sales{
@@ -292,10 +281,8 @@ div#pay_table_content{
 	border-top:1px solid lightgray;
 	padding-top:10px;
     width: 1300px;
-    /* height:300px; */
     margin:auto;
     text-align: right;
-    /* border:1px #287094 solid; */
     margin-top: 10px;
 }
 div#pay_table_content>p{
@@ -315,14 +302,181 @@ div#pay_table_content>table{
     margin-top: 50px;
     margin-bottom:20px;
 }
-table#pay_table>thead>tr{
+table#payAdmin_table{
+	border-collapse: collapse;
+    text-align: center;
+    width:1200px;
+    border-top : 2px solid gray;
+    border-bottom : 2px solid gray;
+    font-size:14px;
+}
+table#pay_table>thead>tr,table#payAdmin_table>thead>tr{
     border-bottom : 2px solid gray;
 }
-table#pay_table td, #pay_table th{
+table#pay_table td, #pay_table th, #payAdmin_table td, #payAdmin_table th{
     height:50px;
 }
-table#pay_table tr{
+table#pay_table tr, table#payAdmin_table tr{
     border-bottom:1px lightgray solid;
 }
-
+table#payAdmin_table tr td, table#payAdmin_bale tr th{
+	width:25%;
+}
+/*매출 상세내역 */
+div#paydetail_title{
+    height: 200px;
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
+    line-height: 200px;
+    margin-left: 195px;
+    width: 1200px;
+}
+div#paydetail_content{
+    position: absolute;
+    top: 130px;
+    margin-left: 195px;
+    margin-top: 50px;
+}
+div#paydetail_content>div{
+	height:70px;
+}
+div#paydetail_content>div>span:first-child{
+	display: inline-block;
+    font-size: 17px;
+    font-weight: bold;
+    margin-right: 20px;
+    width: 50px;
+    text-align: center;
+}
+span.span_info{
+	display:inline-block;
+	font-size:13px;
+	color:darkgray;
+	padding-top:10px;
+}
+div#paydetail_content>div>input{
+	font-size:15px;
+}
+div#paydetail_content>div>button{
+    width: 70px;
+    height: 30px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background:#F77B1E;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    margin-left:17px;
+}
+table#paydetail_table{
+	border-collapse: collapse;
+    width: 1200px;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
+    text-align: center;
+    font-size: 18px;
+    margin-top:30px;
+}
+table#paydetail_table tr, table#paydetail_table th{
+	height:80px;
+}
+tr#total_tr{
+	border-top:2px gray solid;
+	font-weight:bold;
+	text-align:right;
+}
+/*매출 상세내역 끝*/
 /*결제관리 끝*/
+
+/*게시글에서 공지사항 눌렀을때의 view*/
+div#board_notice_section{
+	margin:10px;
+    position: fixed;
+    top:120px;
+    left:300px;
+    height:785px;
+    /* width:1590px; */
+    width:1330px;
+    justify-content: center;
+    background-color:#f7f7f7;
+    border-radius:20px;
+}
+div#board_notice_box{
+	background-color:#fdfdfd;
+	border-radius:20px;
+	height:730px;
+	width:1250px;
+	margin:30px auto;
+}
+div#board_notice_title{
+    height:130px;
+    font-size: 30px;
+    font-weight: bolder;
+    line-height: 130px;
+    text-align:center;
+}
+div#board_notice_content{
+	border: none;
+	margin:0 25px;
+}
+div#notice_content_title{
+	padding:0 20px;
+	height:70px;
+}
+div#notice_content_title>div:first-child{
+	padding:5px;
+	float:left;
+}
+div#notice_content_title>div:nth-child(2){
+	padding:5px;
+	float:right;
+	text-align:right;
+}
+.title_bold{
+    font-weight: bolder;
+    display: inline-block;
+    width:150px;
+    font-size: 20px;
+}
+
+div#board_notice_content span{
+    margin-left: 10px;
+    background:none;
+}
+div#board_notice_content span:nth-child(2){
+	font-size:18px;
+}
+div#board_notice_content>textarea{
+    width:100%;
+    height:430px;
+    border:none;
+    outline: none;
+    font-size: 18px;
+    border-bottom: 1px solid #287094;
+    border-top: 1px solid #287094;
+    padding:10px;
+    background:none;
+}
+div#board_notice_buttons{
+    position: fixed;
+    top:825px;
+    width: 1200px;
+    /* align-items: center; */
+    border-bottom:none !important;
+    /* left:495px; */
+    text-align:center;
+}
+button.board_notice_btn{
+	width: 80px;
+    height: 40px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background:#f7f7f7;
+    font-size: 15px;
+    cursor: pointer;
+    border:1px solid lightgray;
+}
+/*게시글에서 공지사항 눌렀을때의 view 끝*/

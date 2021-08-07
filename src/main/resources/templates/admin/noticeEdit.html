@@ -18,6 +18,7 @@
 	            <label><input type="checkbox" th:checked="${notice.CATEGORY_NO eq '3'}" name="cateChk" class="chk" value="3"> 일손(품앗이)</label>
 	            <label><input type="checkbox" th:checked="${notice.CATEGORY_NO eq '4'}" name="cateChk" class="chk" value="4"> 스터디, 소모임</label>
 	            <label><input type="checkbox" th:checked="${notice.CATEGORY_NO eq '5'}" name="cateChk" class="chk" value="5"> 공동구매</label>
+	            <label><input type="checkbox" th:checked="${notice.CATEGORY_NO eq '6'}" name="cateChk" class="chk" value="6"> 자유게시판</label>
 	        </div>
 	        <div id="notice_content_content">
 	            <textarea name="noticeContent" id="notice_content_write" placeholder="내용을 입력해주세요." th:text="${notice.NOTICE_CONTENT}" style="border: 1px solid #287094;padding:10px;"></textarea>

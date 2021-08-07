@@ -18,7 +18,7 @@ function sendNoti(){
   notiStompClient.send("/send/notification/alarm",{},{});
 }
 
-function onNotiReceived(payload){
+function onNotiReceived(){
   getNotificationData();
 }
 

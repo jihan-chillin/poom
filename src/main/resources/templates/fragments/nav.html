@@ -6,13 +6,13 @@
     <button class="menu_open">click!</button>
     <p th:text="${session.loginMember.MEMBER_LOC}"></p>
     <ul>
-        <li><a href="javascript:allBoardList()"># 전체글</a></li>
-        <li><a href="#"># 출산,육아,교육</a></li>
-        <li><a href="#"># 분실물</a></li>
-        <li><a href="#"># 일손(품앗이)</a></li>
-        <li><a href="#"># 공동구매</a></li>
-        <li><a href="#"># 자유게시판</a></li>
-        <li><a href="javascript:moveChatList()"># 스터디,소모임</a></li>
+        <li><a th:href="@{/board/all}"># 전체글</a></li>
+        <li><a th:href="@{/board/view(cate=1)}"># 출산,육아,교육</a></li>
+        <li><a th:href="@{/board/view(cate=${2})}"># 분실물</a></li>
+        <li><a th:href="@{/board/view(cate=${3})}"># 일손(품앗이)</a></li>
+        <li><a th:href="@{/board/view?cate='4'}"># 스터디,소모임</a></li>
+        <li><a th:href="@{/board/view?cate=5}"># 공동구매</a></li>
+        <li><a th:href="@{/board/view?cate='6'}"># 자유게시판</a></li>
     </ul>
 
     <!-- 좌측상단 click!시 나타나는 창 -->
@@ -37,5 +37,4 @@
         </ul>
     </div>
 </div>
-        
 </html>

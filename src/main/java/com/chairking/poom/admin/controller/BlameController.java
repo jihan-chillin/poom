@@ -72,13 +72,16 @@ public class BlameController {
 	@PostMapping("/insertblame")
 	@Transactional
 	public ModelAndView insertBlame(@RequestParam Map<String,String> map, ModelAndView mv) {
-		
-		if(map.get("textarea").length()>1) {
+		if(map.get("textarea").length()>1 && map.get("blame_reason").equals("기타")) {
 			map.put("blame_reason", "기타 - "+map.get("textarea"));
 		}
 		System.out.println("insertblame:"+map);
 		//type에따라 각 해당하는 신고테이블에 넣기
-		int result=service.insertBlame(map);	//서비스에 트랜젝션처리함 근데 에러뜨면 에러페이지 이동하게 해놓거나 msg로 이동하게 해서 처리하기
+		int result=service.insertBlame(map);	
+		
+		//insert+update 후 
+		//해당 no의 blame_count가져오고 그걸 토대로 del_status=1로 update하기
+		int reply=service.hiddenCheck(map);
 		mv.addObject("map",map);
 		mv.setViewName("admin/blame_popup_suc");
 		return mv;
@@ -91,6 +94,7 @@ public class BlameController {
 		//type & no받기=> db연결해서 사유 가져와야함
 		//총 select * 한 리스트
 		List<Map<String,Object>> list=service.selectBlame(map);
+		System.out.println("댓글신고팝업"+list);
 		
 		//각 신고개수 돈 리스트
 		Map<String,Object> countMap=service.selectCountBlame(map);
@@ -104,8 +108,6 @@ public class BlameController {
 		mv.addObject("list",list);
 		mv.addObject("countMap", countMap);
 		mv.addObject("ectMap", ectMap);
-		System.out.println("list:"+list);
-		System.out.println("ectMap"+ectMap.isEmpty());
 		mv.setViewName("admin/check_blamecount_pop");
 		return mv;
 	}
@@ -117,7 +119,6 @@ public class BlameController {
 		Map<String,Object> map= new HashMap();
 		map.put("type", type);
 		map.put("arr", checkArr);
-		System.out.println(map);
 		int result=service.deleteBlame(map);
 		switch(type) {
 			case "게시글": type="1";break;

@@ -3,6 +3,7 @@ package com.chairking.poom.board.model.service;
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,29 +22,15 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
 	private BoardMapper mapper;
+
+	@Autowired
+	private SqlSessionTemplate session;
 	
 	@Override
-	public int insertBoard(Board b) {
-		//게시물 등록
-		int result=dao.insertBoard(mapper, b);
-		
-		//게시물 첨부파일 등록
-		if(b.getImages()!=null && result!=0) {
-			//게시글 번호
-			int boardNo=selectBoardNo(b);
-//			System.out.println(boardNo);
-			
-			for(BoardImage bi:b.getImages()) {
-				if(result!=0 && bi!=null) {
-					bi.setBoardNo(boardNo);
-					result=insertBoardImg(bi);
-				}
-//				System.out.println(bi);
-			}
-		}
-		return result;
+	public int insertBoard(Map param) {
+		return dao.insertBoard(mapper, param);
 	}
-	
+
 	@Override
 	public int insertBoardImg(BoardImage bi) {
 		return dao.insertBoardImg(mapper, bi);
@@ -78,6 +65,74 @@ public class BoardServiceImpl implements BoardService {
 	public List<Map<String, Object>> feedList(Map param) {
 		return dao.feedList(mapper, param);
 	}
-	
-	
+
+	@Override
+	public Map<String, Object> selectNotice(String noticeNo) {
+		return dao.selectNotice(mapper, noticeNo);
+	}
+
+	@Override
+	public String[] likeTable(String id) {
+		return dao.likeTable(mapper, id);
+	}
+
+	@Override
+	@Transactional
+	public int changeLike(Map<String, String> map) {
+		//map.get("like")가 누름 => 현재 이미 누른 상태 에서 한번더 click이니 좋아요-1로 바꾸기
+		//안누름 => 현재 안누른상태에서 누른것 => 좋아요+1
+		int result=0;
+		if(map.get("like").equals("안누름")) {
+			result=dao.addLike(mapper, map);
+			if(result>0) {
+				result=dao.addLikeTable(mapper,map);
+			}
+		}else {
+			result=dao.cancelLike(mapper,map);
+			if(result>0) {
+				result=dao.cancelLikeTable(mapper,map);
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public String[] myTag(Map param) {
+		return dao.myTag(mapper,param);
+	}
+
+	@Override
+	public List<Map<String, Object>> feedKeyList(Map map) {
+		return dao.feedKeyList(session,map);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectBoardList(Map<String, String> cate, int cPage, int numPerpage) {
+		return dao.selectBoardList(mapper, cate, cPage, numPerpage);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectBoardNotice(String cate) {
+		return dao.selectBoardNotice(mapper,cate);
+	}
+
+	@Override
+	public String getBoardNo() {
+		return dao.getBoardNo(mapper);
+	}
+
+	@Override
+	public int insertBoardTag(String boardNo, String tagText) {
+		return dao.insertBoardTag(mapper, boardNo, tagText);
+	}
+
+	@Override
+	public int insertTag(String tagText) {
+		return dao.insertTag(mapper, tagText);
+	}
+
+	@Override
+	public List<Map<String, String>> dupleTagCheck(String tagText) {
+		return dao.dupleTagCheck(mapper, tagText);
+	}
 }
