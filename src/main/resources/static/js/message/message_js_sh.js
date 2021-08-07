@@ -15,8 +15,6 @@ function fn_message_move(mType) {
             type: 'POST',
 
         }).done(function (fragment){
-            // 알림 보내는 함수 by 희웅
-            sendNoti();
             $("#target").html(fragment);
         });
     }else if(mType=='block'){
@@ -31,6 +29,7 @@ function fn_message_move(mType) {
 }
 
 function showMsgDtl(msgNo) {
+    alert("js para1");
     window.open(getContextPath() + "/message/content?msgNo=" + msgNo, "content", "width=400,height=300");
 
 }
@@ -77,16 +76,16 @@ function sendMsg(frm){
             url:"./sendMsg",
             data: formData,
             type:'POST',
-        }).done(function (){
-            alert("메시지가 전송되었습니다.");
 
+        }).done(function (){
             // 실시간 알림 보내는 메소드 by 희웅
             sendNoti();
+            
+            alert("메시지가 전송되었습니다.");
             self.close();
 
         });
     }
-    fn_message_move('send');
 }
 
 function showPopup() {
@@ -100,17 +99,18 @@ function showMsgPop(member) {
     let rcvId = $(member).children('.find-id').html();
     //alert(rcvNm);
     window.open("./popup?rcvNm=" + rcvNm + "&rcvId=" + rcvId, "", "width=400,height=300");
-    self.parent.close();
+
 }
 
-function showReplyPop(){
-    window.open("")
+function showReplyPop(rId){
+    let id = rId.html();
+    window.open("./popup?rcvNm=" + id + "&rcvId=" + id, "", "width=400,height=300");
 }
 
 
 
 function showMsgDtl(e, msgNo) {
-    alert(e.target);
+    alert("js para2");
     window.open(getContextPath()+"/message/content?msgNo=" + msgNo,"content","width=400,height=300");
 
 }
@@ -130,6 +130,15 @@ $('.messages').click(function(e) {
         return;
     } else
         window.open(getContextPath() + "/message/content?msgNo=" + msgNo, "content", "width=400,height=300");
+});
+$('.rMessages').click(function(e) {
+    var msgNo = $(e.currentTarget).children('.msgNo').html();
+    var tClassNm = e.target.className.toString();
+
+    if(tClassNm == 'targetChk' || tClassNm == 'checkbox2 m-0') {
+        return;
+    } else
+        window.open(getContextPath() + "/message/receiveContent?msgNo=" + msgNo, "content", "width=400,height=300");
 });
 
 

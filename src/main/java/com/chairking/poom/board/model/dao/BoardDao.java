@@ -44,7 +44,7 @@ public interface BoardDao {
 	List<Map<String, Object>> feedKeyList(SqlSessionTemplate session, Map map);
 	
 	//카테고리별 게시판 가져오기
-	List<Map<String,Object>> selectBoardList(BoardMapper mapper, String cate, int cPage, int numPerpage);
+	List<Map<String,Object>> selectBoardList(BoardMapper mapper, Map<String, String> cate, int cPage, int numPerpage);
 	//카테고리별 공지사항 가져오기
 	List<Map<String,Object>> selectBoardNotice(BoardMapper mapper, String cate);
 

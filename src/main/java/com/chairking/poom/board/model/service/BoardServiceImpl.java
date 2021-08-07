@@ -107,7 +107,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectBoardList(String cate,int cPage, int numPerpage) {
+	public List<Map<String, Object>> selectBoardList(Map<String, String> cate, int cPage, int numPerpage) {
 		return dao.selectBoardList(mapper, cate, cPage, numPerpage);
 	}
 

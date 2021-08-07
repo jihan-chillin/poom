@@ -39,7 +39,7 @@ public class TagController {
         List<Map<String, Object>> boardData = tagService.getBoardNoFromTag(tagName,cPage,numPerPage);
 
         mv.addObject("oList",boardData);
-        mv.setViewName("board/board_list");
+        mv.setViewName("board_alllist");
         return mv;
     }
 }

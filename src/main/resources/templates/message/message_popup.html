@@ -34,7 +34,12 @@
     </div>
 
 </body>
+<!-- 실시간 알림 위한 js 파일 추가-->
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script th:src="@{/js/main/contextPath_js_hu.js}"></script>
 <script th:src="@{/js/message/message_js_sh.js}"></script>
 <script th:src="@{/js/message/messagePopup_js_sh.js}"> </script>
+<script th:src="@{/js/main/notification/websocket_noti_hu.js}"></script>
 
 </html>

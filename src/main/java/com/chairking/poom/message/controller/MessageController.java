@@ -78,7 +78,7 @@ public class MessageController {
         // 세션에서 내 아이디 가져옴
         Map<String,String> val = (Map<String,String>)session.getAttribute("loginMember");
         String myId = val.get("MEMBER_ID");
-        String condition = "AND MEMBER_ID = '" + myId + "' AND MSG_TYPE = 1";
+        String condition = "AND MEMBER_ID = '" + myId + "' AND MSG_TYPE = 1  ORDER BY MSG_DATE DESC";
 
         Pagination pagination = new Pagination(currentPage,cntPerPage,pageSize);
         pagination.setTotalRecordCount(service.messageCount(condition));
@@ -107,7 +107,7 @@ public class MessageController {
         Map<String,String> val = (Map<String,String>)session.getAttribute("loginMember");
         String myId = val.get("MEMBER_ID");
 
-        String condition = "AND ((RECV_MEMBER = '" + myId + "' AND MSG_TYPE = 4) OR (MEMBER_ID = '" + myId + "' AND MSG_TYPE=3))";
+        String condition = "AND ((RECV_MEMBER = '" + myId + "' AND MSG_TYPE = 4) OR (MEMBER_ID = '" + myId + "' AND MSG_TYPE=3))  ORDER BY MSG_DATE DESC";
 
         Pagination pagination = new Pagination(currentPage,cntPerPage,pageSize);
         pagination.setTotalRecordCount(service.messageCount(condition));
@@ -145,16 +145,8 @@ public class MessageController {
     //쪽지내용 팝업
     @GetMapping("/content")
     public String contentPopup(@RequestParam String msgNo, Model m){
-        int result = 0;
         List<Map<String,Object>> list = service.messageContent(msgNo);
         m.addAttribute("list",list);
-
-        if (list != null) {
-            result = service.setMsgRead(msgNo);
-        }
-
-        if (result > 0)
-            System.out.println("읽음처리 성공");
         return "message/message_content";
     }
 
