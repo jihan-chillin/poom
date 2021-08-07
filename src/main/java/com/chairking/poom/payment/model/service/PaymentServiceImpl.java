@@ -1,5 +1,8 @@
 package com.chairking.poom.payment.model.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +18,22 @@ public class PaymentServiceImpl implements PaymentService{
 	@Autowired
 	private PaymentMapper mapper;
 	
+	//이용권 목록 가져오는 서비스
+	@Override
+	public List<Map<String, String>> itemList(){
+		return dao.itemList(mapper);
+	}
+	
+	//이용권 구매 서비스
 	@Override
 	public int buyItem(String memberId, String itemNo) {
 		return dao.buyItem(memberId, itemNo, mapper);
+	}
+
+	//이용권 구매시 회원 결제상태 변경
+	@Override
+	public int changePaylevel(String memberId, String itemNo) {
+		return dao.changePayLevel(memberId, itemNo, mapper);
 	}
 	
 	

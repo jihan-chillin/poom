@@ -21,18 +21,20 @@ public class PaymentController {
 	
 	//결제화면 연결
 	@GetMapping("/pay")
-	public String pay() {
-		return "pay/pay";
+	public ModelAndView pay(ModelAndView mv) {
+		mv.setViewName("pay/pay");
+		return mv;
 	}
 	
 	//결제 후 데이터 저장
 	@RequestMapping(value="/pay/end", method= {RequestMethod.GET, RequestMethod.POST})
 	public String payEnd(String itemNo, HttpSession session) {
+		System.out.println(itemNo);
 		String memberId=((Map<String, String>)session.getAttribute("loginMember")).get("MEMBER_ID");
-//		System.out.println(itemNo);
-//		System.out.println(memberId);
-		int result=service.buyItem(itemNo, memberId);
-		return "board/board_list";
+		System.out.println(itemNo);
+		System.out.println(memberId);
+		int result=service.buyItem(memberId, itemNo);
+		return "index";
 	}
 	
 }
