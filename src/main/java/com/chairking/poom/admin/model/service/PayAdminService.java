@@ -9,5 +9,6 @@ public interface PayAdminService {
 	List<Map<String,Object>> allPayment(Pagination pagination);
 	int allPaymentCount();
 	List<Map<String,Object>> sumAllPayment();
+	List<Map<String,String>> selectPayDetail(Map<String,String> map);
 	
 }

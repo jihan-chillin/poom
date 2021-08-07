@@ -32,6 +32,11 @@ public class PayAdminServiceImpl implements PayAdminService {
 	public List<Map<String, Object>> sumAllPayment() {
 		return dao.sumAllPayment(mapper);
 	}
+
+	@Override
+	public List<Map<String, String>> selectPayDetail(Map<String,String> map) {
+		return dao.selectPayDetail(mapper,map);
+	}
 	
 	
 }
