@@ -192,6 +192,7 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
         mv.addObject("list", list);
         mv.addObject("likeTable", likeTable);
         mv.addObject("notices", notices);
+        mv.addObject("pagination", pagination);
         mv.setViewName("/board/board_alllist");
         return mv;
     }

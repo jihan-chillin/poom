@@ -206,22 +206,20 @@ div.bList ul>li:last-child {
 }
 
 /*페이지바*/
-div#admin_pagebar{
+div#main_pagebar{
 	height:80px;
 	display:flex;
 	position:relative;
-	/* justify-content:center; */
 	padding-top:30px;
-	/* flex-direction:row; */
 }
-div#admin_pagebar>div{
+div#main_pagebar>div{
 	position:absolute;
-	left:495px;
+	left:390px;
 	width:210px;
 	display:flex;
 	justify-content: center;
 }
-div#admin_pagebar>div div{
+div#main_pagebar>div div{
 	height:30px;
 	width:30px;
 	text-align: center;
