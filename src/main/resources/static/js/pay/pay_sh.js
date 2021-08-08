@@ -85,7 +85,7 @@ function pay()	{
 		        	url:getContextPath()+"/pay/end",
 		        	type:"post",
 		        	data:{
-		        		itemNo:$("div#pay_container li.item_selected").val()
+		        		itemNo:$("div#pay_container li.item_selected").find("input[type=radio]").val()
 		        	},
 		        	success:data=>{
 		        		$("div#content").html(data);
