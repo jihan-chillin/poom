@@ -97,17 +97,17 @@ public class BoardController {
 				if(feedList.size()>0) {
 					mv.addObject("feedList",feedList);
 				}else {
-					noFeed="마이태그에 해당하는 피드가 없습니다.";
+					noFeed="noFeed";
 				}
 			}else {
-				noFeed="등록된 태그가 없습니다. 마이태그를 추가해보세요!";
+				noFeed="noTag";
 			}
 		}else {
 			feedList = service.feedList(param);
 			if(feedList.size()>0) {
 				mv.addObject("feedList",feedList);
 			}else {
-				noFeed="등록된 피드가 없습니다.";
+				noFeed="noFeed";
 			}
 		}
 		
