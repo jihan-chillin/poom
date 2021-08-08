@@ -16,18 +16,18 @@
             </thead>
             <tr>
                 <td>7일권</td>
-                <td th:text="${#lists.isEmpty(list)?'0개':list[1].COUNT+'개'}">개수</td>
-                <td th:text="${#lists.isEmpty(list)?'0원':#numbers.formatInteger(list[1].SUM,3,'COMMA')+'원'}">금액</td>
+                <td th:text="${#lists.isEmpty(list) and list[0].ITEM_TYPE eq '7'?list[0].COUNT+'개':'0개'}">개수</td>
+                <td th:text="${#lists.isEmpty(list) and list[0].ITEM_TYPE eq '7'?#numbers.formatInteger(list[0].SUM,3,'COMMA')+'원':'0원'}">금액</td>
             </tr>
             <tr>
                 <td>14일권</td>
-                <td th:text="${#lists.isEmpty(list)?'0개':list[3].COUNT+'개'}">개수</td>
-                <td th:text="${#lists.isEmpty(list)?'0원':#numbers.formatInteger(list[3].SUM,3,'COMMA')+'원'}">금액</td>
+                <td th:text="${#lists.isEmpty(list) and list[1].ITEM_TYPE eq '14'?list[1].COUNT+'개':'0개'}">개수</td>
+                <td th:text="${#lists.isEmpty(list) and list[1].ITEM_TYPE eq '14'?'0원':#numbers.formatInteger(list[1].SUM,3,'COMMA')+'원'}">금액</td>
             </tr>
             <tr>
                 <td>30일권</td>
-                <td th:text="${#lists.isEmpty(list)?'0개':list[5].COUNT+'개'}">개수</td>
-                <td th:text="${#lists.isEmpty(list)?'0원':#numbers.formatInteger(list[5].SUM,3,'COMMA')+'원'}">금액</td>
+                <td th:text="${#lists.isEmpty(list) and list[2].ITEM_TYPE eq '30'?list[2].COUNT+'개':'0개'}">개수</td>
+                <td th:text="${#lists.isEmpty(list)?'0원':#numbers.formatInteger(list[2].SUM,3,'COMMA')+'원'}">금액</td>
             </tr>
             <tr id="total_tr">
                 <td colspan="3" style="padding-right:20px;" th:text="${#lists.isEmpty(list)?'0원':'총 매출액 : '+#numbers.formatInteger(list[6].SUM,3,'COMMA')+'원'}">총금액 : 0000원</td>

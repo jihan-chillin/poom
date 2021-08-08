@@ -50,7 +50,7 @@ function moveTooWriteForm(){
 }
 
 //게시판리스트에서 view로 이동 ajax
-function moveToView(no){
+function feedToView(no){
 	$.ajax({
 		url:getContextPath()+"/board/view",
 		data : {

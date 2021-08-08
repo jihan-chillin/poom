@@ -1,7 +1,7 @@
 <div class="fList" th:if="${feedList}!=null" th:each="f : ${feedList}">
 	<div>
-		<span th:text="${f.CATEGORY}"></span>
-		<span th:data-no="${f.BOARD_NO}" th:onclick="|moveToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_TITLE}"></span>
+		<span th:text="'# '+${f.CATEGORY}"></span>
+		<span th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_TITLE}"></span>
 		<span th:if=${f.MEMBER_ID!=session.loginMember.MEMBER_ID} class="feed_blame">
 			<i class="gg-more-vertical-alt"></i>
 			<div th:data-n="${f.BOARD_NO}" th:onclick="|fn_boardBlame(this.getAttribute('data-n'))|">신고하기</div>
