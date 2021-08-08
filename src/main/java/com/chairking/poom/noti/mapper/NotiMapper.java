@@ -50,6 +50,12 @@ public interface NotiMapper {
     @Delete("delete from NOTIFICATION where board_no=#{board_no}")
     public void deleteNotifyLikes(String boardNo);
 
-    @Update("update NOTIFICATION set NOT_CHECK = '1' where NOT_NO=#{notiNo}")
-    public void changeNotifyType(String notiNo);
+    @Update("update NOTIFICATION set NOT_CHECK = '1' where not_no=#{notNo}")
+    public void updateNotifyComment(String notNo);
+
+    @Update("update NOTIFICATION set NOT_CHECK = '1' where not_no=#{notNo}")
+    public void updateNotifyMessage(String notNo);
+
+    @Update("update NOTIFICATION set NOT_CHECK = '1' where not_no=#{notNo}")
+    public void updateNotifyLikes(String notNo);
 }

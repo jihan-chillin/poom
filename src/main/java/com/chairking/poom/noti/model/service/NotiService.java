@@ -18,6 +18,8 @@ public interface NotiService {
     void deleteNotifyComment(String no);
     void deleteNotifyMessage(String no);
     void deleteNotifyLikes(String no);
-    void changeNotifyType(String no);
+    void updateNotifyComment(String no);
+    void updateNotifyMessage(String no);
+    void updateNotifyLikes(String no);
 
 }

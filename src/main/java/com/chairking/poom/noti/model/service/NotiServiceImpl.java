@@ -87,8 +87,17 @@ public class NotiServiceImpl implements NotiService {
     }
 
     @Override
-    public void changeNotifyType(String no) {
-        dao.changeNotifyType(mapper,no);
+    public void updateNotifyComment(String no) {
+        dao.updateNotifyComment(mapper,no);
     }
 
+    @Override
+    public void updateNotifyMessage(String no) {
+        dao.updateNotifyMessage(mapper,no);
+    }
+
+    @Override
+    public void updateNotifyLikes(String no) {
+        dao.updateNotifyLikes(mapper,no);
+    }
 }
