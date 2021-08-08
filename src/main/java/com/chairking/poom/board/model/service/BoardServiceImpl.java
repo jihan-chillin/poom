@@ -166,4 +166,9 @@ public class BoardServiceImpl implements BoardService {
 	public List<Map<String, Object>> selectAllCateNotice(String cate) {
 		return dao.selectAllCateNotice(mapper, cate);
 	}
+
+	@Override
+	public Map<String, Object> selectCateName(String cate) {
+		return dao.selectCateName(mapper, cate);
+	}
 }

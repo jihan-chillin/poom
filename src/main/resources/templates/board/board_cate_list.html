@@ -20,13 +20,13 @@
 
         <div class="feed">
             <!--board 리스트  -->
-            <div id="board_box" th:each="n : ${notices}">
+            <div id="board_box">
                 <!-- 카테고리 : 전체 게시판-->
-                <div th:text="${n.CATEGORY_NAME} " style="text-align: center"></div>
+                <div style="text-align: center" th:text="${cName}"></div>
                 <!--공지사항 나오는 곳 -->
                 <div id="notice-list-title">
-                    <ul name="noticeList">
-                        <li>
+                    <ul name="noticeList" >
+                        <li th:each="n : ${notices}">
                             <span th:text="${n.NOTICE_TITLE}"></span>
                             <span th:text="${#dates.format(n.NOTICE_DATE, 'yyyy-MM-dd')}"></span>
                         </li>

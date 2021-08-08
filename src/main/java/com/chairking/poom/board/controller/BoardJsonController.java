@@ -216,9 +216,14 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
         // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
         List<Map<String, Object>> list = service.allCateBoard(pagination, cate, memberloc);
 
+        // 카테고리 이름 가져오기
+        Map<String, Object> cateName = service.selectCateName(cate);
+        Object cName = cateName.get("CATEGORY_NAME");
+
         // 공지사항 가져와보기
         List<Map<String, Object>> notices = service.selectAllCateNotice(cate);
 
+        mv.addObject("cName", cName);
         mv.addObject("list", list);
         mv.addObject("notices", notices);
         mv.setViewName("/board/board_cate_list");
