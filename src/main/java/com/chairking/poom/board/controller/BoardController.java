@@ -174,7 +174,7 @@ public class BoardController {
         // 페이징처리
         Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
         // 전체 게시글 개수
-        int totalData = service.allBoardCount();
+        int totalData = service.allBoardCount(memberloc);
         // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
         pagination.setTotalRecordCount(totalData);
         // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
