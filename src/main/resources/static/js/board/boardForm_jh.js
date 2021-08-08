@@ -72,6 +72,8 @@ function countLimitOfTag(){
     if($('.confirm-tag').length>4){
         alert("태그는 최대 5개까지 입력가능합니다.");
         return true;
+    }else{
+
     }
 }
 
@@ -80,7 +82,6 @@ function countLimitOfTag(){
 function createTagSpan(tagText){
     // 이미 추가한 태그일 경우 중복방지
     if($('.tag_input').text().split('#').indexOf(tagText) === -1 ){
-        console.log("태그텍스트" + tagText);
         console.log($('.tag_input').text().split('#'));
         $('.tag_input').remove();
 
@@ -115,32 +116,15 @@ function getTagSpan(){
 
 // 등록된 태그 각각 db에 등록하는 함수
 function addTag(getTagSpan){
-    for(let i=1; i<getTagSpan.length; i++){
-        $.ajax({
-            url:getContextPath()+'/board/dupleTagCheck',
-            data:{
-                "tagText" : getTagSpan[i]
-            },
-            success:data=>{
-                if(data.length === 0 ){
-                    console.log("DB에 하나하나 등록되나? : "+getTagSpan[i]);
-                    addTagFromBoardForm(getTagSpan[i]);
-                }
-            }
-        })
+    // 0번 인덱스는 항상 빈값
+    for(let i=1; i<getConfirmTag.length; i++){
+        addTagFromBoardForm(getConfirmTag[i]);
+
     }
 }
 
 function addTagFromBoardForm(tagText){
-    $.ajax({
-        url:getContextPath()+'/board/insert',
-        data:{
-            "tagText" : tagText,
-        },
-        success:data =>{
-            console.log("테이블 추가");
-    }
-    });
+    console.log(tagText);
 }
 
 

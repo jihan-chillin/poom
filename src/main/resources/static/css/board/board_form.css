@@ -190,11 +190,11 @@ div#board-form-content{
 }
 
 .tooltip{
-    width: 180px;
+    width: 190px;
     position: absolute;
-    bottom: 45px;
+    bottom: 40px;
     right: 700px;
-    opacity: 70%;
+    opacity: 75%;
     display: none;
 }
 
