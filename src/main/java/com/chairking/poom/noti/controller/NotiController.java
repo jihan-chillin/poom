@@ -127,8 +127,16 @@ public class NotiController {
     알림 읽었을 때 알림 readType 변경
      */
     @RequestMapping("/noti/read/type")
-    public void changeNotifyType(@RequestParam(value ="no")String no){
-        notiService.changeNotifyType(no);
+    public void updateNotifyRead(@RequestParam(value="no")String no,
+                             @RequestParam(value = "ref")int ref){
+
+        if(ref == 1){
+            notiService.updateNotifyComment(no);
+        }else if(ref==2){
+            notiService. updateNotifyMessage(no);
+        }else if(ref ==3){
+            notiService. updateNotifyLikes(no);
+        }
     }
 
 }

@@ -20,5 +20,7 @@ public interface NotiDao {
     void deleteNotifyComment(NotiMapper mapper,String no);
     void deleteNotifyMessage(NotiMapper mapper,String no);
     void deleteNotifyLikes(NotiMapper mapper,String no);
-    void changeNotifyType(NotiMapper mapper,String no);
+    void updateNotifyComment(NotiMapper mapper,String no);
+    void updateNotifyMessage(NotiMapper mapper,String no);
+    void updateNotifyLikes(NotiMapper mapper,String no);
 }

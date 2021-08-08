@@ -83,8 +83,22 @@ public class NotiDaoImpl implements NotiDao{
     }
 
     @Override
-    public void changeNotifyType(NotiMapper mapper, String no) {
-        mapper.changeNotifyType(no);
+    public void updateNotifyComment(NotiMapper mapper, String no) {
+        mapper.updateNotifyComment(no);
+
     }
+
+    @Override
+    public void updateNotifyMessage(NotiMapper mapper, String no) {
+        mapper.updateNotifyMessage(no);
+
+    }
+
+    @Override
+    public void updateNotifyLikes(NotiMapper mapper, String no) {
+        mapper.updateNotifyLikes(no);
+
+    }
+
 
 }
