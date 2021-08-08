@@ -167,12 +167,16 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
     @GetMapping("/board/all")
     public ModelAndView selectAllBoard(ModelAndView mv, HttpServletRequest req,
                                        @RequestParam(value="cPage", defaultValue = "1") int cPage,
-                                       @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage, //numPerpage
+                                       @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
                                        @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
         // 페이징처리
         Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
+
+
         // 전체 게시글 개수
-        pagination.setTotalPageCount(service.allBoardCount());
+        int totalData = service.allBoardCount();
+        // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
+        pagination.setTotalRecordCount(totalData);
         // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
         List<Map<String, Object>> list = service.allBoard(pagination);
         //------------------------------------------------------------------------------------------
@@ -182,7 +186,7 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
         // 공지사항 가져오기
         List<Map<String,Object>> notices=service.selectAllBoardNotice();
 
-        System.out.print("공지사항 : " + notices);
+//        System.out.print("공지사항 : " + notices);
 
         mv.addObject("list", list);
         mv.addObject("likeTable", likeTable);
