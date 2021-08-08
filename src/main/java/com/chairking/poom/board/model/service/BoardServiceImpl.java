@@ -3,6 +3,7 @@ package com.chairking.poom.board.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.chairking.poom.common.Pagination;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -134,5 +135,20 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<Map<String, String>> dupleTagCheck(String tagText) {
 		return dao.dupleTagCheck(mapper, tagText);
+	}
+
+	@Override
+	public int allBoardCount() {
+		return dao.allBoardCount(mapper);
+	}
+
+	@Override
+	public List<Map<String, Object>> allBoard(Pagination pagination) {
+		return dao.allBoard(mapper, pagination);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllBoardNotice() {
+		return dao.selectAllBoardNotice(mapper);
 	}
 }
