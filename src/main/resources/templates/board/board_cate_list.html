@@ -42,7 +42,7 @@
                 <!--게시글 나오게 하는 부분 -->
                 <div class="bList bSpan" th:each="l:${list}">
                     <div>
-                        <span th:text="${l.BOARD_TITLE}" class="cate-title"></span>
+                    	<span th:data-no="${l.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${l.BOARD_TITLE}"></span>
                     </div>
 
                     <div th:text="${l.BOARD_CONTENT}"></div>
