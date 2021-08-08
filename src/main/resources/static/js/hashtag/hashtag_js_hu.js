@@ -58,22 +58,31 @@ function getMyTagData(){
         let keyword =$(e.target).val().trim();
 
         if(checkKeyword(keyword)){
-         return;
+          $('.tag-search-result-container').attr('style','display:none');
+
+          return;
         }
         // 엔터 누르면 실행
         if(e.keyCode === 13){
           insertMyTag(keyword);
+          $('.field__input').val('');
+
+          if(keyword.length === 0){
+            return;
+          }
         }
       });
 
       // 태그를 누르면 게시글로 이동
-      $('.my-tag').click(e=>{
+      $('.my-tag>span:first-child').click(e=>{
 
         const tagName = $(e.target).text().replace("x","");
         tagContainsBoardList(tagName);
       });
     }
   });
+  $('.tag-search-result-container').attr('style','display:none');
+
 }
 
 function tagContainsBoardList(tagName){
@@ -119,38 +128,33 @@ function checkKeyword(keyword){
 
 // 키워드를 나의 태그에 추가
 function insertMyTag(keyword){
-  if($('.tag-search-result>span').text() !== '검색결과가 없습니다.' ){
-    if(!confirm(keyword+" 태그를 나의 해시태그에 추가하시겠습니까?")){
-      return;
+  let text = $('.tag-search-result>span').text();
+
+  if(text !== '검색결과가 없습니다.'){
+
+    if(confirm(keyword+" 태그를 나의 해시태그에 추가하시겠습니까?")){
+      $.ajax({
+        url:getContextPath()+'/tag/add',
+        data:{
+          "keyword":keyword,
+          "ref":"member"
+        },
+        success:data=>{
+          $('.tag-search-result-container').attr('style','display:none');
+
+          if(data === 0){
+            alert("이미 등록된 태그입니다.");
+
+          }else {
+            alert("태그가 등록되었습니다.");
+            getMyTagData();
+          }
+        }
+      });
     }else{
-      addTag(keyword);
+      $('.tag-search-result-container').attr('style','display:none');
     }
-  }else{
-    return;
   }
-}
-
-// 태그 등록
-function addTag(keyword){
-  $.ajax({
-    url:getContextPath()+'/tag/add',
-    data:{
-      "keyword":keyword,
-      "ref":"member"
-    },
-    success:data=>{
-      if(data === 0){
-        alert("이미 등록된 태그입니다.");
-        return;
-
-      }else {
-        alert("태그가 등록되었습니다.");
-        getMyTagData();
-        return;
-
-      }
-    }
-  });
 }
 
 // 태그 삭제

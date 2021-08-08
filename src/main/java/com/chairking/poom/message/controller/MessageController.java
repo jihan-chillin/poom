@@ -169,7 +169,7 @@ public class MessageController {
 
 
 
-    //메세지 차단함으로 이동 하는중 
+    //메세지 차단함으로 이동 하는중
     @RequestMapping("/moveBlock")
     public ModelAndView moveBlock(@RequestParam String msgNo, ModelAndView mv){
         int result= service.moveBlock(msgNo);

@@ -81,6 +81,9 @@ public class BoardController {
 
 		//좋아요 테이블 불러오기
 		String[] likeTable = service.likeTable((String)param.get("id"));
+		//보드태그 테이블 불러오기
+		List<Map<String, Object>> boardTag = service.boardTag();
+		
 		List<Map<String, Object>> feedList;
 		if(param.get("loc").equals("전국")) {
 			param.put("loc","");
@@ -114,6 +117,7 @@ public class BoardController {
 		
 		mv.addObject("noFeed",noFeed);
 		mv.addObject("likeTable",likeTable);
+		mv.addObject("boardTag",boardTag);
 		mv.setViewName("main/feedList");
 		return mv;
 	}

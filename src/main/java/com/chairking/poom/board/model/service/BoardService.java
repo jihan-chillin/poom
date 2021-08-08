@@ -17,6 +17,8 @@ public interface BoardService {
 	List<Map<String, Object>> feedList(Map param);
 	//좋아요 테이블 가져오기
 	String[] likeTable(String no);
+	//보드태그 테이블 가져오기
+	List<Map<String, Object>> boardTag();
 	
 	// 게시글 전체 가져오기
 	List<Map<String, Object>> selectAllBoard(int cPage, int numPerpage);

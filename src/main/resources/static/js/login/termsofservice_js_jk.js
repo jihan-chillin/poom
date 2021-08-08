@@ -13,38 +13,32 @@ function allCheck(a) {
 //아래 체크갯수에 따라 전체항목 체크여부 바꾸기
 function oneCheck(a) {
     var allChkBox = $("#checkAll");
-   // var chkBoxName = $(a).attr("id");
-
-    if($(a).prop("checked")) {
-        //전체체크박스 수(모두동의하기 체크박스 제외)
-        checkBoxLength = $(".nomal").length;
-        //체크된 체크박스 수
-        checkedLength = $(".nomal:checked").length;
-
-        if( checkBoxLength == checkedLength ) {
-            //전체체크박스수 == 체크된 체크박스 수 같다면 모두체크
-            allChkBox.prop("checked", true);
-            $("button.agree").prop("disabled",false).addClass('button_able');
-        }else if( checkedLength <= 3 && $("#check04:checked") ) {
-    		allChkBox.prop("checked", false);
-        	$("button.agree").prop("disabled",true).removeClass('button_able');	
-        	//if ( $("#check04:checked") ) {
-	        //	$("button.agree").prop("disabled",true).removeClass('button_able');
-	       // }else {
-	        //	$("button.agree").prop("disabled",false).addClass('button_able');
-			//}	        
-        }else {
-            allChkBox.prop("checked", false);
-            $("button.agree").prop("disabled",false).removeClass('button_able');
-        }
-        
-    }else {
-        allChkBox.prop("checked", false);
+    var chkBoxName = $(a).attr("id");
+    
+    //전체체크박스 수(모두동의하기 체크박스 제외)
+    checkBoxLength = $(".nomal").length;
+    //체크된 체크박스 수
+    checkedLength = $(".nomal:checked").length;
+    
+    if( checkBoxLength == checkedLength ) {
+        //전체체크박스수 == 체크된 체크박스 수 같다면 모두체크
+        allChkBox.prop("checked", true);
+        $("button.agree").prop("disabled",false).addClass('button_able');
+    }else if( checkedLength == 3 ) {
+    console.log("오니?");
+		allChkBox.prop("checked", false);
+		if($("#check04").is(':checked')) {
+        	$("button.agree").prop("disabled",true).removeClass('button_able');	       
+		}else {
+        	$("button.agree").prop("disabled",false).addClass('button_able');	       
+		}
+    }else if(checkedLength < 3) {
+    	allChkBox.prop("checked", false);
         $("button.agree").prop("disabled",true).removeClass('button_able');
-        
     }
 };
 
+//&& $("#check04:checked")
 $(function(){
     //모두동의하기 체크박스 클릭시
     $("#checkAll").click(function(){
