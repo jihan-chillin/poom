@@ -33,16 +33,26 @@ public class TagJsonController {
             HttpServletRequest req
                       ){
         String loginId = (String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
+        log.info("태그 추가 :{}",loginId);
+
+        int result;
 
         if(ref.equals("member")) {
             // 멤버태그에 추가
-            tagService.insertMemberTag(loginId, keyword);
+           result= tagService.insertMemberTag(loginId, keyword);
         }else{
             // 게시물태그에 추가
-            tagService.insertBoardTag(getBoardNo(),keyword);
+            int boardNo = Integer.parseInt(getBoardNo())+1;
+            result= tagService.insertBoardTag(Integer.toString(boardNo),keyword);
         }
 
-        return tagService.addTag(keyword);
+        try{
+            result =tagService.addTag(keyword);
+        }catch (Exception e){
+
+        }
+
+        return result;
     }
     @GetMapping("/tag/delete")
     public void deleteTag(@RequestParam(value = "tagName")String tagName){

@@ -153,6 +153,11 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+
+	public List<Map<String, Object>> boardTag() {
+		return dao.boardTag(mapper);
+	}
+
 	public List<Map<String, Object>> allCateBoard(Pagination pagination, String cate, Object memberloc) {
 		return dao.allCateBoard(mapper, pagination, cate, memberloc);
 	}
