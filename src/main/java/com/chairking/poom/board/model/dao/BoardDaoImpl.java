@@ -130,8 +130,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int allBoardCount(BoardMapper mapper) {
-		return mapper.allBoardCount();
+	public int allBoardCount(Object memberloc, BoardMapper mapper) {
+		return mapper.allBoardCount(memberloc);
 	}
 
 	@Override
@@ -154,8 +154,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int allcateBoardCount(BoardMapper mapper, String cate) {
-		return mapper.allcateBoardCount(cate);
+	public int allcateBoardCount(BoardMapper mapper, String cate, Object memberloc) {
+		return mapper.allcateBoardCount(cate, memberloc);
 	}
 
 	@Override

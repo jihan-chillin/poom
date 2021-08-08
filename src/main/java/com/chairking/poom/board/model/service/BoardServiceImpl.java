@@ -138,8 +138,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int allBoardCount() {
-		return dao.allBoardCount(mapper);
+	public int allBoardCount(Object memberloc) {
+		return dao.allBoardCount(memberloc,mapper);
 	}
 
 	@Override
@@ -163,8 +163,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int allcateBoardCount(String cate) {
-		return dao.allcateBoardCount(mapper, cate);
+	public int allcateBoardCount(String cate, Object memberloc) {
+		return dao.allcateBoardCount(mapper, cate, memberloc);
 	}
 
 	@Override
