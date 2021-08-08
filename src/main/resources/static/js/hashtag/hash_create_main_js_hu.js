@@ -148,7 +148,6 @@ function addTagEach(getConfirmTag){
         // console.log(getConfirmTag[i]);
         // 메인피드의 게시물에서 요청
         if(data.length === 0) {
-          console.log("추가?");
           addTagFromMainPage(getConfirmTag[i]);
         }
       }

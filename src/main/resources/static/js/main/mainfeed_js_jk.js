@@ -21,8 +21,6 @@ function feedWrite() {
 	if( !checkTagInputEmpty()){
 		return false;
 	}
-	// 사용자가 입력한 태그 등록하는 메소드
-	addTagEach(getConfirmTag());
 
     $("[name=feedWrite_form]").submit();
 } 
