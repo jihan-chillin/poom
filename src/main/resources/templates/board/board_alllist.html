@@ -59,7 +59,7 @@
 							</li>
 							<li th:text="${l.CNT}"></li>
 							<li>
-								<span>♥</span>
+								<span th:title="${l.BOARD_NO}" th:text="${#arrays.contains(likeTable,l.BOARD_NO)}?'♥':'♡'" name="likeHeart">1</span>
 								<span th:text="${l.LIKE_COUNT}"></span>
 							</li>
 						</ul>

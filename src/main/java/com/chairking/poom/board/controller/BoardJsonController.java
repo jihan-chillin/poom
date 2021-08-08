@@ -188,7 +188,7 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
         List<Map<String,Object>> notices=service.selectAllBoardNotice();
 
 //        System.out.print("공지사항 : " + notices);
-
+        System.out.println("전체글보드리스트"+list);
         mv.addObject("list", list);
         mv.addObject("likeTable", likeTable);
         mv.addObject("notices", notices);
