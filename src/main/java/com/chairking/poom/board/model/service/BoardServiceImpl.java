@@ -151,4 +151,11 @@ public class BoardServiceImpl implements BoardService {
 	public List<Map<String, Object>> selectAllBoardNotice() {
 		return dao.selectAllBoardNotice(mapper);
 	}
+
+	@Override
+	public List<Map<String, Object>> boardTag() {
+		return dao.boardTag(mapper);
+	}
+	
+	
 }

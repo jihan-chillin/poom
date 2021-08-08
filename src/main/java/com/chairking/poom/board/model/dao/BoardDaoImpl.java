@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.chairking.poom.common.Pagination;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -142,4 +143,10 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Map<String, Object>> selectAllBoardNotice(BoardMapper mapper) {
 		return mapper.selectAllBoardNotice();
 	}
+
+	@Override
+	public List<Map<String, Object>> boardTag(BoardMapper mapper) {
+		return mapper.boardTag();
+	}
+	
 }

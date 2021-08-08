@@ -20,6 +20,8 @@ public interface BoardDao {
 	List<Map<String, Object>> feedList(BoardMapper mapper, Map param);
 	//좋아요 테이블 가져오기
 	String[] likeTable(BoardMapper mapper, String id);
+	//보드태그 테입르 가져오기
+	List<Map<String,Object>> boardTag(BoardMapper mapper);
 	
 	List<Map<String, Object>> selectAllBoard(BoardMapper mapper, int cPage, int numPerpage);
 

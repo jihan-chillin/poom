@@ -1,6 +1,6 @@
 <div class="fList" th:if="${feedList}!=null" th:each="f : ${feedList}">
 	<div>
-		<span th:text="'# '+${f.CATEGORY}"></span>
+		<span th:text="${f.CATEGORY}"></span>
 		<span th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_TITLE}"></span>
 		<span th:if=${f.MEMBER_ID!=session.loginMember.MEMBER_ID} class="feed_blame">
 			<i class="gg-more-vertical-alt"></i>
@@ -11,9 +11,14 @@
 	<div th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_CONTENT}"></div>
 	<img alt="품 미리보기" th:src="@{/uploadCKImage/}+${f.PREVIEW_IMG}">
 	<ul>
+		<li>
+			<span th:if="${f.BOARD_NO eq t.BOARD_NO}" th:each="t:${boardTag}">
+				<span style="padding-right:3px;font-size:18px;" th:text="'#'+${t.TAG_NAME}"></span>
+			</span>
+		</li>
 		<li><i class="gg-menu-boxed"></i><span th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${f.COMMENTS_COUNT}"></span></li>
 		<li>
-			<span th:title="${f.BOARD_NO}" th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" name="likeHeart">1</span>
+			<span th:title="${f.BOARD_NO}" th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" name="likeHeart" style="font-size:21px;"></span>
 			<!-- <span th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" style="font-size:23px;cursor:pointer;" 
 					th:data-add="${f.BOARD_NO}" th:data-id="${session.loginMember.MEMBER_ID}" 
 					th:data-like="${#arrays.contains(likeTable,f.BOARD_NO)}?'누름':'안누름'" name="likeHeart"

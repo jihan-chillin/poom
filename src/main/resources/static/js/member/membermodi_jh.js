@@ -4,6 +4,10 @@ function goMain(){
 }
 
 // 자기소개 글자수 체크
+$(document).ready(function(){
+	$('#intro_cnt').html("("+$('[name=intro]').val().length+" / 30)");
+});
+
 $('[name=intro]').on('keyup', function() {
 	$('#intro_cnt').html("("+$(this).val().length+" / 30)");
  

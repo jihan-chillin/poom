@@ -73,6 +73,10 @@ public interface BoardMapper {
 	@Select("SELECT BOARD_NO FROM LIKES WHERE PUSH_LIKES=#{id}")
 	public String[] likeTable(String id);
 	
+	//보드태그 테이블 가져오기
+	@Select("SELECT * FROM BOARDTAG")
+	public List<Map<String,Object>> boardTag();
+	
 	//보드테이블에 좋아요 카운트 +1하기
 	@Update("UPDATE BOARD SET LIKE_COUNT=LIKE_COUNT+1 WHERE BOARD_NO=#{no}")
 	public int addLike(Map<String,String> map);
