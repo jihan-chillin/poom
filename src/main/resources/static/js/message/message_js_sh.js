@@ -38,7 +38,6 @@ function showMsgDtl(msgNo) {
 function cancelMsg(msgNo) {
     //alert("msgNo" + msgNo);
     if (confirm("발송취소하시겠습니까? 취소하시면 메세지가 삭제됩니다.")) {
-        //alert('cancelMsg');
         $.ajax({
             url: getContextPath()+"/message/cancelMsg",
             data: {"msgNo": msgNo},

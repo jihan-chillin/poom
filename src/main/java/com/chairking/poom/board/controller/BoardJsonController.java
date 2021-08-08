@@ -223,11 +223,14 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
         // 공지사항 가져와보기
         List<Map<String, Object>> notices = service.selectAllCateNotice(cate);
-
+        mv.addObject("cate", cate);
         mv.addObject("cName", cName);
         mv.addObject("list", list);
         mv.addObject("notices", notices);
+        mv.addObject("pagination", pagination);
         mv.setViewName("/board/board_cate_list");
         return mv;
     }
+    
+    
 }

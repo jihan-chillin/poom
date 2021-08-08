@@ -84,8 +84,9 @@ $(function(){
 		$("[name=noticeList]>li:last").show();
 	})
 })
-//ajax페이징처리
-function fn_ajax_paging(i){
+
+//전체글ajax페이징처리
+function fn_alllist_paging(i){
 	$.ajax({
 		url:getContextPath()+"/board/allAjax",
 		data:{
@@ -95,3 +96,4 @@ function fn_ajax_paging(i){
 		$("#board_box").html(fragment);
 	});
 };
+
