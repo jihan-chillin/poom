@@ -1,5 +1,5 @@
 'use strict';
-let notiStompClient=null;
+var notiStompClient=null;
 
 function notiConnent(){
   let contextPath = getContextPath()+'/scno';

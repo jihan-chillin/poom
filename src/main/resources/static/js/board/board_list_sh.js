@@ -73,3 +73,25 @@ function fn_moveBoardNotice(){
 		$("#content").html(fragment);
 	})
 }
+
+//3번째 공지부턴 숨기기
+$(function(){
+	$("[name=noticeList]>li:eq(1)").nextAll().hide();
+	$("[name=noticeList]>li:last").show();
+
+	$("[name=noticeList]>li:last").click(e=>{
+		$("[name=noticeList]>li:eq(1)").nextAll().slideToggle();
+		$("[name=noticeList]>li:last").show();
+	})
+})
+//ajax페이징처리
+function fn_ajax_paging(i){
+	$.ajax({
+		url:getContextPath()+"/board/allAjax",
+		data:{
+			"cPage":i,
+		}
+	}).done(function(fragment){
+		$("#board_box").html(fragment);
+	});
+};
