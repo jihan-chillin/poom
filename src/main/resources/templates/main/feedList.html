@@ -23,7 +23,6 @@
 					th:data-add="${f.BOARD_NO}" th:data-id="${session.loginMember.MEMBER_ID}" 
 					th:data-like="${#arrays.contains(likeTable,f.BOARD_NO)}?'누름':'안누름'" name="likeHeart"
 					th:onclick="|fn_changeLike(this.getAttribute('data-add'),this.getAttribute('data-id'),this.getAttribute('data-like'));|" ></span> -->
-			<span th:title="${f.BOARD_NO}" th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" name="likeHeart">1</span>
 			<span th:text="${f.LIKE_COUNT}"></span>
 		</li>
 	</ul>
