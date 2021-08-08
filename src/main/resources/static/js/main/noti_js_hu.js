@@ -73,6 +73,7 @@ function getNotificationData(){
       /*
         notiData = 알림 데이터
         notiData[i].NOT_NO => 알림번호
+        notiData[i].NOT_CHECK => 읽음여부
 
         boardTitleFromBoardNo = 좋아요 게시글 제목
         getBoardTitleFromCommentNo = 댓글 달린 게시글 제목
@@ -99,7 +100,14 @@ function getNotificationData(){
 
       for(let i =0; i<data.notiData.length; i++){
         $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_receive.png) no-repeat center; background-size: contain;");
-        val += '<div class="noti-content-box">';
+
+        // 읽은 메세지라면
+        if(data.notiData[i].NOT_CHECK === '1'){
+          val += '<div class="noti-content-box" style="color: #b7b7b7;">';
+        }else{ // 안읽은 메세지라면
+          val += '<div class="noti-content-box">';
+        }
+
           val += '<div class="noti-img">';
 
         // 댓글
@@ -110,7 +118,7 @@ function getNotificationData(){
             val += '<div class="noti-detail">';
               val += '<span>댓글 알림</span>';
               val += '<span onclick="deleteNotify('+data.getBoardTitleFromCommentNo[i].BOARD_NO+',1)">X</span>';
-              val += '<span class="noti-content-title" onclick="moveToView('+data.getBoardTitleFromCommentNo[i].BOARD_NO+')">';
+              val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',1); moveToView('+data.getBoardTitleFromCommentNo[i].BOARD_NO+');">';
                 val += '\''+data.getBoardTitleFromCommentNo[i].COMMENT_CONTENT+'\'에<br> 댓글이 달렸습니다.';
 
 
@@ -122,7 +130,7 @@ function getNotificationData(){
             val += '<div class="noti-detail">';
               val += '<span>쪽지 알림</span>';
               val += '<span onclick="deleteNotify('+data.getMsgContentFromMsgNo[i].MSG_NO+',2)">X</span>';
-              val += '<span class="noti-content-title" onclick="showMsgDtl('+data.getMsgContentFromMsgNo[i].MSG_NO+')">';
+              val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',2); showMsgDtl('+data.getMsgContentFromMsgNo[i].MSG_NO+');">';
                 val += data.getMsgContentFromMsgNo[i].MSG_CONTENT.substring(0,21);
           $('.noti-info-message').append(val2);
 
@@ -134,7 +142,7 @@ function getNotificationData(){
             val += '<div class="noti-detail">';
               val += '<span>좋아요 알림</span>';
               val += '<span onclick="deleteNotify('+data.boardTitleFromBoardNo[i].BOARD_NO+',3)">X</span>';
-              val += '<span class="noti-content-title" onclick="moveToView('+data.boardTitleFromBoardNo[i].BOARD_NO+')">';
+              val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',3); moveToView('+data.boardTitleFromBoardNo[i].BOARD_NO+');">';
                 val += '\''+data.boardTitleFromBoardNo[i].BOARD_TITLE+'\'에<br>  좋아요가 눌렸습니다.';
         }
 
@@ -142,10 +150,9 @@ function getNotificationData(){
             val += '</div>';
           val += '</div>';
 
+        $('.modal-content-list').append(val);
+        $('.noti-info-alarm').append(val2);
       }
-
-      $('.modal-content-list').append(val);
-      $('.noti-info-alarm').append(val2);
 
       $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_receive.png) no-repeat center; background-size: contain;");
     }
@@ -192,7 +199,7 @@ function getMessageDataToNotify(){
           val += '<div class="noti-detail">';
           val += '<span>쪽지 알림</span>';
           val += '<span onclick="deleteNotify('+data.getMsgContentFromMsgNo[i].MSG_NO+',2)">X</span>';
-          val += '<span class="noti-content-title" onclick="showMsgDtl('+data.getMsgContentFromMsgNo[i].MSG_NO+')">';
+          val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',2); showMsgDtl('+data.getMsgContentFromMsgNo[i].MSG_NO+');">';
           val += data.getMsgContentFromMsgNo[i].MSG_CONTENT.substring(0,21);
           $('.noti-info-alarm').append(val2);
 
@@ -245,11 +252,12 @@ function deleteNotify(no,ref){
 /*
   알림 읽었을때 읽었다는 표시로 바꿈
  */
-function changeNotifyReadType(no){
+function updateCheckStatus(no,ref){
   $.ajax({
     url:getContextPath()+'/noti/read/type',
     data:{
       "no":no,
+      "ref":ref
     },
     success:data=>{
       getNotificationData();

@@ -94,16 +94,20 @@ public class BoardController {
 				map.put("myTag",myTag);
 				map.put("loc", param.get("loc"));
 				feedList = service.feedKeyList(map);
-				mv.addObject("feedList",feedList);
+				if(feedList.size()>0) {
+					mv.addObject("feedList",feedList);
+				}else {
+					noFeed="noFeed";
+				}
 			}else {
-				noFeed="등록된 태그가 없습니다. 마이태그를 추가해보세요!";
+				noFeed="noTag";
 			}
 		}else {
 			feedList = service.feedList(param);
-			if(feedList!=null) {
+			if(feedList.size()>0) {
 				mv.addObject("feedList",feedList);
 			}else {
-				noFeed="등록된 피드가 없습니다.";
+				noFeed="noFeed";
 			}
 		}
 		

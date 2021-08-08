@@ -91,7 +91,7 @@ $("button#emailSend").click(function() {// 메일 입력 유효성 검사
 			}
 		});
 	
-		alert("인증번호가 전송되었습니다. 메일을 확인해주세요!");
+		alert("인증번호가 전송되었습니다. 메일을 확인해주세요.");
 		$("[name=checked_email]").val("y");
 	}
 });
@@ -132,7 +132,7 @@ $('button.btn_submitpri').click(function(){
 	//비밀번호 유효성검사
 	var pw = $("[name=pw]").val();
     if(pw=="") {
-        alert("비밀번호를 입력해주세요");
+        alert("비밀번호를 입력해주세요.");
         $("[name=pw]").focus();
         return false;
     }
@@ -166,7 +166,7 @@ $('button.btn_submitpri').click(function(){
 		$("[name=checked_emailNumber]").val("y");
 	}
 	if(newmail=="" || $("[name=checked_emailNumber]").val()=="") {
-		alert('이메일 변경은 인증을 해야합니다!');
+		alert('이메일 변경은 인증을 해야합니다.');
 		$("[name=memberEmail]").focus();
 		return false;
 	}

@@ -34,13 +34,16 @@
 	                    <option value="5">공동구매</option>
 	                    <option value="6">자유게시판</option>
 	                </select>
-	                <input type="text" name="title" value="" placeholder="제목을 입력하세요">
+	                <input type="text" name="title" value="" placeholder="제목을 입력하세요.">
 	                <hr>
-                	<textarea name="content" placeholder="200자 내로 피드를 등록해보세요. 더 자세한 글작성은 하단 글쓰기 버튼을 이용해주세요!"></textarea>
+                	<textarea name="content" placeholder="200자 내로 피드를 등록해보세요. 더 자세한 글작성은 하단 글쓰기 버튼을 이용해주세요."></textarea>
                 	<span id="intro_cnt">(0 / 200)</span>
 	                <hr>
 
-	                <button type="button" class="create_tag_input"><i class="gg-add"></i></i> 태그추가</button>
+	                <button type="button" class="create_tag_input">
+	                	<i class="gg-add"></i></i> 태그추가
+	                	<img th:src="@{/images/ui/m_tooltip.png}" alt="tag_tooltip" />
+	                </button>
 	                <button type="button" onclick="feedWrite();">등록</button>
 	                <button type="button" onclick="goWriteForm();">상세글쓰기</button>
 	            </div>
@@ -56,7 +59,7 @@
 				</div>
            		<ul class="feedtab">
 		            <li class="feedtab_on" id="feedall">전체글</li><span>|</span>
-		            <li id="feedkey">#마이태그글</li>
+		            <li id="feedkey">마이태그글</li>
 		        </ul>
 		        <div id="feed_content"></div>
             </div>
@@ -68,6 +71,7 @@
 
     </div>
 </div>
+
 </body>
 <script th:src="@{/js/popuprank/popuprank_js_hu.js}"></script>
 <script th:src="@{/js/hashtag/hash_create_main_js_hu.js}"></script>
@@ -81,6 +85,6 @@
 <script th:src="@{/js/search/search_js_sh.js}"></script>
 <script th:src="@{/js/board/board_view_sh.js}"></script>
 <script th:src="@{/js/board/boardForm_jh.js}"></script>
-
+<script th:src="@{/js/message/message_js_sh.js}"></script>
 
 </html>

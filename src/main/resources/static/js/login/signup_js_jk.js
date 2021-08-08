@@ -63,7 +63,7 @@ $("button#emailSend").click(function() {// 메일 입력 유효성 검사
 			}
 		});
 	
-		alert("인증번호가 전송되었습니다. 메일을 확인해주세요!");
+		alert("인증번호가 전송되었습니다. 메일을 확인해주세요.");
 		$("[name=checked_email]").val("y");
 	}
 });
@@ -96,7 +96,7 @@ $(function(){
     $("#idCheck").on("click",function() {
         var id = $("[name=memberId]").val();
         if(id=="") {
-            alert("아이디를 입력해주세요");
+            alert("아이디를 입력해주세요.");
             $("[name=memberId]").focus();
         } 
 
@@ -234,12 +234,12 @@ $(function(){
           }
         
         if(location == ""){
-            alert("지역인증버튼을 눌러 지역을 인증하세요!");
+            alert("지역인증버튼을 눌러 지역을 인증하세요.");
             return false;
         }
 
         if(email == ""){
-            alert("이메일은 필수입력사항입니다. 입력 후 인증하세요!");
+            alert("이메일은 필수입력사항입니다. 입력 후 인증하세요.");
             $("[name=memberEmail]").focus();
             return false;
         }
