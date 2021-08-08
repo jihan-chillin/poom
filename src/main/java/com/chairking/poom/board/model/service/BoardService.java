@@ -57,7 +57,15 @@ public interface BoardService {
 
     int allBoardCount();
 
-	List<Map<String, Object>> allBoard(Pagination pagination);
+	List<Map<String, Object>> allBoard(Pagination pagination, Object memberloc);
 
 	List<Map<String, Object>> selectAllBoardNotice();
+
+    List<Map<String, Object>> allCateBoard(Pagination pagination, String cate, Object memberloc);
+
+	int allcateBoardCount(String cate);
+
+	List<Map<String, Object>> selectAllCateNotice(String cate);
+
+	Map<String, Object> selectCateName(String cate);
 }
