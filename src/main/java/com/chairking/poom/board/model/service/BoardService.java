@@ -68,4 +68,6 @@ public interface BoardService {
 	List<Map<String, Object>> selectAllCateNotice(String cate);
 
 	Map<String, Object> selectCateName(String cate);
+
+	int boardTag(String toString, String tagText);
 }

@@ -87,7 +87,7 @@ function createTagSpan(tagText){
         console.log($('.tag_input').text().split('#'));
         $('.tag_input').remove();
 
-        let val3 = "<span class = 'confirm-tag' style='color: #287094; margin-left: 10px;'>#"+ tagText +"<span class='delete-tag' style='cursor:pointer'>x</span>";
+        let val3 = "<span class = 'confirm-tag' style='font-style: italic; color: gray; margin-left: 10px;'>#"+ tagText +"<span class='delete-tag' style='cursor:pointer'>x</span>";
         val3 += "</span>";
         $('.create-tag').parent().append(val3);
 
@@ -104,7 +104,6 @@ function createTagSpan(tagText){
 // 입력한 태그 가져오기
 function getTagSpan(){
     let tagContent = $('.confirm-tag').text();
-    console.log("span태그에 들어가는 말" + tagContent);
     // 등록된 태그가 없다면
     if(tagContent=== null){
         return;
@@ -119,14 +118,24 @@ function getTagSpan(){
 // 등록된 태그 각각 db에 등록하는 함수
 function addTag(getTagSpan){
     // 0번 인덱스는 항상 빈값
-    for(let i=1; i<getConfirmTag.length; i++){
-        addTagFromBoardForm(getConfirmTag[i]);
+    for(let i=1; i<getTagSpan.length; i++){
+
+        addTagFromBoardForm(getTagSpan[i]);
 
     }
 }
 
 function addTagFromBoardForm(tagText){
-    console.log(tagText);
+    $.ajax({
+        url:getContextPath()+'/board/addTag',
+        data:{
+            "tagText":tagText,
+        },
+        success:data=>{
+            console.log(tagText);
+            console.log("테이블에 추가");
+        }
+    });
 }
 
 

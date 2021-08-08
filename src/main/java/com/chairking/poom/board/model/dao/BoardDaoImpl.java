@@ -53,9 +53,9 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public List<Map<String, Object>> feedList(BoardMapper mapper, Map param) {
 		if(param.get("loc").equals("")) {
-				return mapper.feedListAllAll(param);
+			return mapper.feedListAllAll(param);
 		}else {
-				return mapper.feedListLocAll(param);
+			return mapper.feedListLocAll(param);
 		}
 	}
 
@@ -148,7 +148,7 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Map<String, Object>> boardTag(BoardMapper mapper) {
 		return mapper.boardTag();
 	}
-	
+
 	public List<Map<String, Object>> allCateBoard(BoardMapper mapper, Pagination pagination, String cate, Object memberloc) {
 		return mapper.allCateBoard(pagination, cate, memberloc);
 	}
@@ -167,4 +167,5 @@ public class BoardDaoImpl implements BoardDao {
 	public Map<String, Object> selectCateName(BoardMapper mapper, String cate) {
 		return mapper.selectCateName(cate);
 	}
+
 }
