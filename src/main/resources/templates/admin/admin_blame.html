@@ -40,7 +40,7 @@
            			</td>
             		<td th:text="${b.BOARD_NO}">1</td>
             		<td th:text="${b.MEMBER_ID}"></td>
-            		<td th:text="${b.BOARD_TITLE}">
+            		<td th:text="${b.BOARD_TITLE}" th:data-brdno="${b.BOARD_NO}" th:onclick="|fn_blameBoardView(this.getAttribute('data-brdno'));|">
             			<!-- 게시글 제목클릭 => view이동하기 ㅊ추후 구현 -->
             		</td>
             		<td >
@@ -118,10 +118,14 @@
 			</div>
       		<button class="admin_buttons" th:onclick="|fn_del_status();|" style="position:absolute;left:1070px;">삭제</button><!-- 각 del_status의 상태를 바꾸는 것 -->
       	</div>
-        <!-- <button onclick="fn_goBlame();">신고팝업테스트</button> -->
     </div>
 </div>
 <script th:inline="javascript">
+//신고된 게시글 누르면 새창띄우기
+function fn_blameBoardView(no){
+	window.open(getContextPath()+"/board/view?boardNo="+no,"","width=420px,height=580px,top=260px,left=800px");
+}
+
 //체크박스 체크 후 삭제버튼 누르면 del_status를 0=>1로 바꾸기
 function fn_del_status(){
 	var type=[[${type}]];

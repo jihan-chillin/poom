@@ -3,6 +3,8 @@ package com.chairking.poom.board.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.chairking.poom.common.Pagination;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -127,4 +129,42 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.dupleTagCheck(tagText);
 	}
 
+	@Override
+	public int allBoardCount(BoardMapper mapper) {
+		return mapper.allBoardCount();
+	}
+
+	@Override
+	public List<Map<String, Object>> allBoard(BoardMapper mapper, Pagination pagination, Object memberloc) {
+		return mapper.allBoard(pagination,memberloc);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllBoardNotice(BoardMapper mapper) {
+		return mapper.selectAllBoardNotice();
+	}
+
+	@Override
+	public List<Map<String, Object>> boardTag(BoardMapper mapper) {
+		return mapper.boardTag();
+	}
+	
+	public List<Map<String, Object>> allCateBoard(BoardMapper mapper, Pagination pagination, String cate, Object memberloc) {
+		return mapper.allCateBoard(pagination, cate, memberloc);
+	}
+
+	@Override
+	public int allcateBoardCount(BoardMapper mapper, String cate) {
+		return mapper.allcateBoardCount(cate);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllCateNotice(BoardMapper mapper, String cate) {
+		return mapper.selectAllCateNotice(cate);
+	}
+
+	@Override
+	public Map<String, Object> selectCateName(BoardMapper mapper, String cate) {
+		return mapper.selectCateName(cate);
+	}
 }

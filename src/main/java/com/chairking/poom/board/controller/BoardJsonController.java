@@ -2,6 +2,7 @@ package com.chairking.poom.board.controller;
 
 import com.chairking.poom.board.model.service.BoardService;
 import com.chairking.poom.board.model.vo.CkFileupload;
+import com.chairking.poom.common.Pagination;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.aspectj.util.FileUtil;
@@ -164,18 +165,68 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
     //모든 게시글 리스트 가져오는 서비스
     @GetMapping("/board/all")
-    public ModelAndView selectAllBoard(ModelAndView mv,
-                                       @RequestParam(value="cPage", defaultValue = "1") int cPage) {
+    public ModelAndView selectAllBoard(ModelAndView mv, HttpServletRequest req,
+                                       @RequestParam(value="cPage", defaultValue = "1") int cPage,
+                                       @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
+                                       @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
 
-        // 게시글 조회수
-        // 얘는 나중에 로그인 session값으로 들어오는 거 적용되면 할 것
-        //int readcount = service.readcount();
-        int numPerpage = 5;
+        //멤버 지역 가져오기
+        Object memberloc = ((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_LOC");
+        // 페이징처리
+        Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
+        // 전체 게시글 개수
+        int totalData = service.allBoardCount();
+        // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
+        pagination.setTotalRecordCount(totalData);
+        // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
+        List<Map<String, Object>> list = service.allBoard(pagination, memberloc);
+        //------------------------------------------------------------------------------------------
 
-        List<Map<String, Object>> oList = service.selectAllBoard(cPage, numPerpage);
+        // 좋아요 가져오기
+        String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+        // 공지사항 가져오기
+        List<Map<String,Object>> notices=service.selectAllBoardNotice();
 
-        mv.addObject("oList", oList);
+//        System.out.print("공지사항 : " + notices);
+        System.out.println("전체글보드리스트"+list);
+        mv.addObject("list", list);
+        mv.addObject("likeTable", likeTable);
+        mv.addObject("notices", notices);
         mv.setViewName("/board/board_alllist");
+        return mv;
+    }
+
+    @GetMapping("board/cateList")
+    public ModelAndView selectCateBoard(ModelAndView mv, HttpServletRequest req,
+                                        @RequestParam(value = "cate") String cate,
+                                        @RequestParam(value="cPage", defaultValue = "1") int cPage,
+                                        @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
+                                        @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
+
+        //멤버 지역 가져오기
+        Object memberloc = ((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_LOC");
+
+       System.out.println("파라미터 카테고리 : " + cate + "/ cate의 형 " + cate.getClass().getName()) ;
+        // 페이징처리
+        Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
+        // 전체 게시글 개수
+        int totalData = service.allcateBoardCount(cate);
+        // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
+        pagination.setTotalRecordCount(totalData);
+        // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
+        List<Map<String, Object>> list = service.allCateBoard(pagination, cate, memberloc);
+
+        // 카테고리 이름 가져오기
+        Map<String, Object> cateName = service.selectCateName(cate);
+        Object cName = cateName.get("CATEGORY_NAME");
+
+        // 공지사항 가져와보기
+        List<Map<String, Object>> notices = service.selectAllCateNotice(cate);
+
+        mv.addObject("cName", cName);
+        mv.addObject("list", list);
+        mv.addObject("notices", notices);
+        mv.setViewName("/board/board_cate_list");
         return mv;
     }
 }

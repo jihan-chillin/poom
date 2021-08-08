@@ -11,5 +11,5 @@ public interface PayAdminDao {
 	List<Map<String,Object>> allPayment(AdminMapper mapper,Pagination pagination);
 	int allPaymentCount(AdminMapper mapper);
 	List<Map<String,Object>> sumAllPayment(AdminMapper mapper);
-	
+	List<Map<String,String>> selectPayDetail(AdminMapper mapper, Map<String,String> map);
 }

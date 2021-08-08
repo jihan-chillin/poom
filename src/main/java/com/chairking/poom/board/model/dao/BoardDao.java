@@ -3,6 +3,7 @@ package com.chairking.poom.board.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.chairking.poom.common.Pagination;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.chairking.poom.board.mapper.BoardMapper;
@@ -19,6 +20,8 @@ public interface BoardDao {
 	List<Map<String, Object>> feedList(BoardMapper mapper, Map param);
 	//좋아요 테이블 가져오기
 	String[] likeTable(BoardMapper mapper, String id);
+	//보드태그 테입르 가져오기
+	List<Map<String,Object>> boardTag(BoardMapper mapper);
 	
 	List<Map<String, Object>> selectAllBoard(BoardMapper mapper, int cPage, int numPerpage);
 
@@ -53,4 +56,18 @@ public interface BoardDao {
 	int insertTag(BoardMapper mapper, String tagText);
 
 	List<Map<String, String>> dupleTagCheck(BoardMapper mapper, String tagText);
+
+    int allBoardCount(BoardMapper mapper);
+
+	List<Map<String, Object>> allBoard(BoardMapper mapper, Pagination pagination, Object memberloc);
+
+	List<Map<String, Object>> selectAllBoardNotice(BoardMapper mapper);
+
+	List<Map<String, Object>> allCateBoard(BoardMapper mapper, Pagination pagination, String cate, Object memberloc);
+
+	int allcateBoardCount(BoardMapper mapper, String cate);
+
+	List<Map<String, Object>> selectAllCateNotice(BoardMapper mapper, String cate);
+
+	Map<String, Object> selectCateName(BoardMapper mapper, String cate);
 }

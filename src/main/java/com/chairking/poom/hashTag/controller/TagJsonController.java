@@ -1,14 +1,11 @@
 package com.chairking.poom.hashTag.controller;
 
-import com.chairking.poom.board.controller.BoardController;
 import com.chairking.poom.hashTag.model.service.TagService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -36,16 +33,26 @@ public class TagJsonController {
             HttpServletRequest req
                       ){
         String loginId = (String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
+        log.info("태그 추가 :{}",loginId);
+
+        int result;
 
         if(ref.equals("member")) {
             // 멤버태그에 추가
-            tagService.insertMemberTag(loginId, keyword);
+           result= tagService.insertMemberTag(loginId, keyword);
         }else{
             // 게시물태그에 추가
-            tagService.insertBoardTag(getBoardNo(),keyword);
+            int boardNo = Integer.parseInt(getBoardNo())+1;
+            result= tagService.insertBoardTag(Integer.toString(boardNo),keyword);
         }
 
-        return tagService.addTag(keyword);
+        try{
+            result =tagService.addTag(keyword);
+        }catch (Exception e){
+
+        }
+
+        return result;
     }
     @GetMapping("/tag/delete")
     public void deleteTag(@RequestParam(value = "tagName")String tagName){

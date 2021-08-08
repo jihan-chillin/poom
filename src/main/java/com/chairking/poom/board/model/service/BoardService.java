@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.chairking.poom.board.model.vo.Board;
 import com.chairking.poom.board.model.vo.BoardImage;
+import com.chairking.poom.common.Pagination;
 
 public interface BoardService {
 
@@ -16,6 +17,8 @@ public interface BoardService {
 	List<Map<String, Object>> feedList(Map param);
 	//좋아요 테이블 가져오기
 	String[] likeTable(String no);
+	//보드태그 테이블 가져오기
+	List<Map<String, Object>> boardTag();
 	
 	// 게시글 전체 가져오기
 	List<Map<String, Object>> selectAllBoard(int cPage, int numPerpage);
@@ -51,4 +54,18 @@ public interface BoardService {
 	int insertTag(String tagText);
 
 	List<Map<String, String>> dupleTagCheck(String tagText);
+
+    int allBoardCount();
+
+	List<Map<String, Object>> allBoard(Pagination pagination, Object memberloc);
+
+	List<Map<String, Object>> selectAllBoardNotice();
+
+    List<Map<String, Object>> allCateBoard(Pagination pagination, String cate, Object memberloc);
+
+	int allcateBoardCount(String cate);
+
+	List<Map<String, Object>> selectAllCateNotice(String cate);
+
+	Map<String, Object> selectCateName(String cate);
 }

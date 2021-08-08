@@ -1,6 +1,7 @@
 /* 글꼴 - 나눔고딕(googlefonts) */
 /* font-family: 'Nanum Gothic', sans-serif; */
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap'); */
+@import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
 
 /* 사용색상 */
 /* 청록색 - #287094 , 주황색 - #F77B1E */
@@ -12,7 +13,8 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Nanum Gothic', sans-serif;
+    /* font-family: 'Nanum Gothic', sans-serif; */
+    font-family: 'NanumSquareRound',sans-serif;
 }
 li {
     list-style: none;
@@ -67,7 +69,6 @@ div.search_bar>input {
 }
 div.search_bar>input::placeholder {
     text-align: center;
-    font-style: italic;
     font-size: 17px;
 }
 div.search_bar>button {
@@ -358,7 +359,6 @@ div.feed_write>span#intro_cnt {
 }
 div.feed_write>input::placeholder,
 div.feed_write>textarea::placeholder {
-    font-style: italic;
     font-size: 15px;
     font-weight: normal
 }
@@ -395,7 +395,6 @@ div.feed_write button {
    transform: scale(var(--ggs,1));
    border-radius: 20px;
    top: 5px;
-   transform: skew(-15deg);
 }
 .gg-add::after,
 .gg-add::before {
@@ -409,14 +408,12 @@ div.feed_write button {
    border-radius: 5px;
    top: 7px;
    left: 3px;
-   transform: skew(-15deg);
 }
 .gg-add::after {
    width: 2px;
    height: 10px;
    top: 3px;
    left: 7px;
-   transform: skew(-10deg);
 }
 div.feed_write button:first-of-type {
 	width: auto;
@@ -426,14 +423,21 @@ div.feed_write button:first-of-type {
 	background: none;
 	font-size: 18px;
     position: relative;
-	font-style: italic;
 	color: darkgray;
+}
+div.feed_write button:first-of-type>img {
+	width: 200px;
+    position: absolute;
+    bottom: 27px;
+    left: -29px;
+    opacity: 0.7;
+    display: none;
 }
 div.feed_write button:nth-of-type(2) {
 	float:right;
 	margin-right: 15px;
 	margin-left: 7px;
-	background: #247094;
+	background: #F77B1E;
 	color: white;
 	border: none;
 }
@@ -526,6 +530,32 @@ div#feed_content>div.fList {
     margin-bottom: 20px;
     position: relative;
 }
+div#feed_content p.nofeed {
+	width: 100%;
+    height: 150px;
+    background: #fdfdfd;
+    border-radius: 18px;
+    text-align: center;
+    line-height: 23px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+p.nofeed>button {
+	width: 120px;
+    height: 33px;
+    border-radius: 10px;
+    outline: none;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    color: #fdfdfd;
+    background: #F77B1E;
+    margin-top: 15px;
+    font-size: 15px;
+}
 div.fList div:first-child {
 	width: 80%;
 	padding: 0 20px 10px 20px;
@@ -541,10 +571,9 @@ div.fList div:first-child span {
 }
 div.fList div:first-child span:first-of-type {
 	width: 170px;
-	font-style: italic;
 	margin-right: 15px;
 	font-size: 17px;
-	font-weight: normal;
+	font-weight: 400;
 	border-right: 3px solid lightgray;
 }
 div.fList div:first-child span:nth-child(2){
@@ -568,6 +597,10 @@ div.fList div:first-child span:last-child>div {
     right: 187px;
     border-radius: 7px;
     display: none;
+}
+div.fList div:nth-child(2) {
+	font-weight: 200;
+	font-size: 17px;
 }
 
 /* 더보기 아이콘 */
@@ -631,17 +664,22 @@ div.fList ul {
 	justify-content: flex-end;
 }
 div.fList ul>li {
+	width: 10%;
 	display: flex;
     height: 30px;
     align-items: center;
     padding: 0 10px;
-    font-weight: bold;
     color: darkgray;
     cursor: pointer;
 }
-div.fList ul>li:last-child {
-	margin-right: 10px;
+div.fList ul>li:first-child {
+	width: 79%;
+	color: black;
+	font-weight: bold;
+	font-style: italic;
+	padding-top: 5px;
 }
+
 /* 댓글 ui css */
 .gg-menu-boxed {
     box-sizing: border-box;
@@ -653,7 +691,6 @@ div.fList ul>li:last-child {
     border-radius: 1px;
     border: 2px solid;
     margin-right: 3px;
-    margin-top: 2px;
 }
 .gg-menu-boxed::before {
     content: "";

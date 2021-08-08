@@ -17,33 +17,36 @@
 			<!-- 프로필 -->
 			<div th:replace="/fragments/profile.html :: fragment-profile"></div>
 
-			<!--board 리스트  -->
-			<div id="board_box">
-					<div class="bList">
-						<!-- 카테고리 : 전체 게시판-->
-						<div style="text-align:center;" >전체글</div>
-						<!--공지사항 나오는 곳 -->
-						<div id="board_list_title">
-							<ul name="bList">
-								<li>
-									<span>공지 제목</span>
-									<span>공지 날짜</span>
-								</li>
-
-								<li style="font-size:25px;text-align:center;cursor:pointer;">▼</li>
-							</ul>
-						</div>
+			<div class="feed">
+				<!--board 리스트  -->
+				<div id="board_box">
+					<!-- 카테고리 : 전체 게시판-->
+					<div style="text-align:center;" >전체글</div>
+					<!--공지사항 나오는 곳 -->
+					<div id="notice-list-title">
+						<ul name="noticeList">
+							<li th:each="n : ${notices}">
+								<span th:text="${n.NOTICE_TITLE}"></span>
+								<span th:text="${n.CATEGORY_NAME}"></span>
+							</li>
+							<li style="font-size:25px;text-align:center;cursor:pointer;">▼</li>
+						</ul>
 					</div>
 
-						<!--게시글 나오게 하는 부분 -->
-					<div class="bList">
+					<div class="writeBox">
+						<button type="button" onclick="goWriteForm();">글쓰기</button>
+					</div>
+
+
+					<!--게시글 나오게 하는 부분 -->
+					<div class="bList bSpan" th:each="l:${list}">
 						<div>
-							<span>#여기에 카테고리</span>
-							<span>여기에 제목`</span>
+							<span th:text="${l.CATEGORY_NAME}"></span>
+							<span th:data-no="${l.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${l.BOARD_TITLE}"></span>
 						</div>
 
-						<div>게시글 내용</div>
-						<img alt="썸네일" th:src="@{/images/profile/poom_profile.jpg}">
+						<div th:text="${l.BOARD_CONTENT}"></div>
+						<img alt="썸네일" th:src="@{/images/profile/}+${l.PREVIEW_IMG}">
 
 
 						<ul>
@@ -54,28 +57,50 @@
 								<span>#해시태그</span>
 								<span>#해시태그</span>
 							</li>
-							<li><i>댓글수</i></li>
+							<li><i class="gg-menu-boxed"></i><span th:text="${l.CNT}"></span></li>
 							<li>
-								<span>♥</span>
-								<span >하트수</span>
+								<span th:title="${l.BOARD_NO}" th:text="${#arrays.contains(likeTable,l.BOARD_NO)}?'♥':'♡'" name="likeHeart">1</span>
+								<span th:text="${l.LIKE_COUNT}"></span>
 							</li>
 						</ul>
 					</div>
 
 
-						<!--페이비바 -->
-						<div style="text-align: center;">
-							페이지바
-						</div>
+					<!--페이비바 -->
+<!--					<div id="admin_pagebar">-->
+<!--						<div>-->
+<!--							&lt;!&ndash; 이전 &ndash;&gt;-->
+<!--							<div>-->
+<!--								<a></a>-->
+<!--								<a></a>-->
+<!--							</div>-->
+<!--							&lt;!&ndash; 페이지블록 &ndash;&gt;-->
+<!--							<th:block th:each="n:${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">-->
+<!--								<div th:if="${pagination.currentPage eq n}" style="background-color: #F77B1E;color:white;font-size:20px;">-->
+<!--									<a th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}" >1</a>-->
+<!--								</div>&ndash;&gt;-->
 
-						<!-- 제목 / 제목+내용 검색 창 & 글쓰기 버튼-->
-						<div>
-							<form action="" id="searchBox">
-								<input type="text" id="title-searchbar" name="searchbar" placeholder="- 제목 / 제목+내용">
-								<input type="submit" class="search-btn" name="search-btn" value="검색">
-							</form>
-						</div>
+<!--								<div th:unless="${pagination.currentPage eq n}">&ndash;&gt;-->
+<!--									<a  href="#" th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}">1</a>-->
+<!--								</div>&ndash;&gt;-->
+<!--							</th:block>&ndash;&gt;-->
+<!--							&lt;!&ndash; 다음 &ndash;&gt;-->
+<!--							<div>&ndash;&gt;-->
+<!--								<a th:if="${pagination.totalPageCount==pagination.currentPage}">&gt;</a>-->
+<!--								<a href="#" th:unless="${pagination.totalPageCount==pagination.currentPage}" th:onclick="|fn_ajax_paging('${pagination.currentPage+1}')|">&gt;</a>-->
+<!--							</div>&ndash;&gt;-->
+<!--						</div>-->
+<!--					</div>-->
 
+					<!-- 제목 / 제목+내용 검색 창 & 글쓰기 버튼-->
+					<div>
+						<form action="" id="searchBox">
+							<input type="text" id="title-searchbar" name="searchbar" placeholder="- 제목 / 제목+내용">
+							<input type="submit" class="search-btn" name="search-btn" value="검색">
+						</form>
+					</div>
+
+				</div>
 			</div>
 
 			<!-- HOT키워드순위창 -->
@@ -86,3 +111,50 @@
 	</div>
 
 </body>
+<script th:src="@{/js/board/board_list_sh.js}"></script>
+<script th:inline="javascript">
+	//3번째 공지부턴 숨기기
+	$(function(){
+		$("[name=noticeList]>li:eq(1)").nextAll().hide();
+		$("[name=noticeList]>li:last").show();
+
+		$("[name=noticeList]>li:last").click(e=>{
+			$("[name=noticeList]>li:eq(1)").nextAll().slideToggle();
+			$("[name=noticeList]>li:last").show();
+		})
+	})
+	
+	//좋아요 처리
+	$("span[name=likeHeart]").click(e=>{
+		var boardNo=$(e.target).attr("title");
+	 	var id=[[${session.loginMember.MEMBER_ID}]];
+	 	var like=$(e.target).text();
+	 	//카운트 바꾸기
+	 	var count=Number($(e.target).next().text());
+	 	
+	 	if(like=='♥'){		//이미 누른상태 = >클릭했으면 좋아요취소하는거
+	 		like='누름';
+	 		$(e.target).next().text(count-1);
+	 	}else{
+	 		like='안누름';
+	 		$(e.target).next().text(count+1);
+	 		// 알림 보내는 함수 by 희웅
+			sendNoti();
+	 	};
+	 	
+	 	//하트바꾸기
+	 	if(like=='누름') $(e.target).text('♡');
+	 	else $(e.target).text('♥');
+	 	$.ajax({
+			url:getContextPath()+"/board/changeLike",
+			data:{
+				"no":boardNo,
+				"id":id,
+				"like":like
+			}
+		}).done(function(fragment){
+			
+		})
+	})
+</script>
+</html>

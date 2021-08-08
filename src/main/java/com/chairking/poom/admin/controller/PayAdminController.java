@@ -72,9 +72,9 @@ public class PayAdminController {
 		mv.setViewName("admin/admin_pay");
 		return mv;
 	}
-	
-	@GetMapping("/detail")
-	public ModelAndView detail(ModelAndView mv,
+	//최근결제내역상세
+	@GetMapping("/orderDetail")
+	public ModelAndView orderDetail(ModelAndView mv,
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage, //현재페이지
             @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage, //numPerpage
             @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
@@ -85,7 +85,45 @@ public class PayAdminController {
 		List<Map<String,Object>> list = service.allPayment(pagination);
 		mv.addObject("list", list);
 		mv.addObject("pagination",pagination);
-		mv.setViewName("admin/admin_pay_detail");
+		mv.setViewName("admin/order_detail");
+		return mv;
+	}
+	
+	//매출상세
+	@GetMapping("/payDetail")
+	public ModelAndView payDetail(@RequestParam (required=false) Map<String,String> map,ModelAndView mv) {
+		List<Map<String,String>> list;
+		String first="";
+		String second="";
+		if(map.isEmpty()) {
+			Calendar c1 = new GregorianCalendar();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 날짜 포맷 
+			c1.add(Calendar.DATE, -1); //
+			String d = sdf.format(c1.getTime()); // String으로 저장
+			Map<String,String> param = new HashMap();
+			param.put("first",d);
+			param.put("second",d);
+			first=param.get("first");
+			second=param.get("second");
+			list = service.selectPayDetail(param);
+		}else {
+			list = service.selectPayDetail(map);
+			first=map.get("first");
+			second=map.get("second");
+		}
+		// 총 리스트에서 토탈값만 가져오기
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).size()==3) {
+				list.remove(i);
+			}
+		}
+		for(Map m:list) {
+			System.out.println(m);
+		}
+		mv.addObject("first",first);
+		mv.addObject("second",second);
+		mv.addObject("list", list);
+		mv.setViewName("admin/paydetail");
 		return mv;
 	}
 		
