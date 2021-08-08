@@ -57,7 +57,13 @@ public interface BoardDao {
 
     int allBoardCount(BoardMapper mapper);
 
-	List<Map<String, Object>> allBoard(BoardMapper mapper, Pagination pagination);
+	List<Map<String, Object>> allBoard(BoardMapper mapper, Pagination pagination, Object memberloc);
 
 	List<Map<String, Object>> selectAllBoardNotice(BoardMapper mapper);
+
+	List<Map<String, Object>> allCateBoard(BoardMapper mapper, Pagination pagination, String cate, Object memberloc);
+
+	int allcateBoardCount(BoardMapper mapper, String cate);
+
+	List<Map<String, Object>> selectAllCateNotice(BoardMapper mapper, String cate);
 }

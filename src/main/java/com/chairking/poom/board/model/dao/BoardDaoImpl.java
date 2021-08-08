@@ -134,12 +134,27 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> allBoard(BoardMapper mapper, Pagination pagination) {
-		return mapper.allBoard(pagination);
+	public List<Map<String, Object>> allBoard(BoardMapper mapper, Pagination pagination, Object memberloc) {
+		return mapper.allBoard(pagination,memberloc);
 	}
 
 	@Override
 	public List<Map<String, Object>> selectAllBoardNotice(BoardMapper mapper) {
 		return mapper.selectAllBoardNotice();
+	}
+
+	@Override
+	public List<Map<String, Object>> allCateBoard(BoardMapper mapper, Pagination pagination, String cate, Object memberloc) {
+		return mapper.allCateBoard(pagination, cate, memberloc);
+	}
+
+	@Override
+	public int allcateBoardCount(BoardMapper mapper, String cate) {
+		return mapper.allcateBoardCount(cate);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllCateNotice(BoardMapper mapper, String cate) {
+		return mapper.selectAllCateNotice(cate);
 	}
 }

@@ -169,16 +169,17 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
                                        @RequestParam(value="cPage", defaultValue = "1") int cPage,
                                        @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
                                        @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
+
+        //멤버 지역 가져오기
+        Object memberloc = ((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_LOC");
         // 페이징처리
         Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
-
-
         // 전체 게시글 개수
         int totalData = service.allBoardCount();
         // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
         pagination.setTotalRecordCount(totalData);
         // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
-        List<Map<String, Object>> list = service.allBoard(pagination);
+        List<Map<String, Object>> list = service.allBoard(pagination, memberloc);
         //------------------------------------------------------------------------------------------
 
         // 좋아요 가져오기
@@ -192,6 +193,35 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
         mv.addObject("likeTable", likeTable);
         mv.addObject("notices", notices);
         mv.setViewName("/board/board_alllist");
+        return mv;
+    }
+
+    @GetMapping("board/cateList")
+    public ModelAndView selectCateBoard(ModelAndView mv, HttpServletRequest req,
+                                        @RequestParam(value = "cate") String cate,
+                                        @RequestParam(value="cPage", defaultValue = "1") int cPage,
+                                        @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
+                                        @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
+
+        //멤버 지역 가져오기
+        Object memberloc = ((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_LOC");
+
+       System.out.println("파라미터 카테고리 : " + cate + "/ cate의 형 " + cate.getClass().getName()) ;
+        // 페이징처리
+        Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
+        // 전체 게시글 개수
+        int totalData = service.allcateBoardCount(cate);
+        // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
+        pagination.setTotalRecordCount(totalData);
+        // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
+        List<Map<String, Object>> list = service.allCateBoard(pagination, cate, memberloc);
+
+        // 공지사항 가져와보기
+        List<Map<String, Object>> notices = service.selectAllCateNotice(cate);
+
+        mv.addObject("list", list);
+        mv.addObject("notices", notices);
+        mv.setViewName("/board/board_cate_list");
         return mv;
     }
 }

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/board/board_cate_list.css}">
+</head>
+
+<body>
+<div id="wrapper">
+
+    <!-- 헤더바 -->
+    <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+    <!-- 좌측메뉴바 -->
+    <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+
+    <!-- 우측콘텐츠 / 고정+변동 -->
+    <div id="content">
+        <!-- 프로필 -->
+        <div th:replace="/fragments/profile.html :: fragment-profile"></div>
+
+        <div class="feed">
+            <!--board 리스트  -->
+            <div id="board_box">
+                <!-- 카테고리 : 전체 게시판-->
+                <div style="text-align:center;" >전체글</div>
+                <!--공지사항 나오는 곳 -->
+                <div id="notice-list-title">
+                    <ul name="noticeList">
+                        <li th:each="n : ${notices}">
+                            <span th:text="${n.NOTICE_TITLE}"></span>
+                            <span th:text="${n.CATEGORY_NAME}"></span>
+                        </li>
+                        <li style="font-size:25px;text-align:center;cursor:pointer;">▼</li>
+                    </ul>
+                </div>
+
+                <div class="writeBox">
+                    <button type="button" onclick="goWriteForm();">글쓰기</button>
+                </div>
+
+
+                <!--게시글 나오게 하는 부분 -->
+                <div class="bList bSpan" th:each="l:${list}">
+                    <div>
+                        <span th:text="${l.BOARD_TITLE}" class="cate-title"></span>
+                    </div>
+
+                    <div th:text="${l.BOARD_CONTENT}"></div>
+                    <img alt="썸네일" th:src="@{/images/profile/}+${l.PREVIEW_IMG}">
+
+
+                    <ul>
+                        <li class="tag-list" style="margin-right: auto">
+                            <span>#해시태그</span>
+                            <span>#해시태그</span>
+                            <span>#해시태그</span>
+                            <span>#해시태그</span>
+                            <span>#해시태그</span>
+                        </li>
+                        <li th:text="${l.CNT}"></li>
+                        <li>
+                            <span>♥</span>
+                            <span th:text="${l.LIKE_COUNT}"></span>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <!--페이비바 -->
+                <!--					<div id="admin_pagebar">-->
+                <!--						<div>-->
+                <!--							&lt;!&ndash; 이전 &ndash;&gt;-->
+                <!--							<div>-->
+                <!--								<a></a>-->
+                <!--								<a></a>-->
+                <!--							</div>-->
+                <!--							&lt;!&ndash; 페이지블록 &ndash;&gt;-->
+                <!--							<th:block th:each="n:${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">-->
+                <!--								<div th:if="${pagination.currentPage eq n}" style="background-color: #F77B1E;color:white;font-size:20px;">-->
+                <!--									<a th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}" >1</a>-->
+                <!--								</div>&ndash;&gt;-->
+
+                <!--								<div th:unless="${pagination.currentPage eq n}">&ndash;&gt;-->
+                <!--									<a  href="#" th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}">1</a>-->
+                <!--								</div>&ndash;&gt;-->
+                <!--							</th:block>&ndash;&gt;-->
+                <!--							&lt;!&ndash; 다음 &ndash;&gt;-->
+                <!--							<div>&ndash;&gt;-->
+                <!--								<a th:if="${pagination.totalPageCount==pagination.currentPage}">&gt;</a>-->
+                <!--								<a href="#" th:unless="${pagination.totalPageCount==pagination.currentPage}" th:onclick="|fn_ajax_paging('${pagination.currentPage+1}')|">&gt;</a>-->
+                <!--							</div>&ndash;&gt;-->
+                <!--						</div>-->
+                <!--					</div>-->
+
+                <!-- 제목 / 제목+내용 검색 창 & 글쓰기 버튼-->
+                <div>
+                    <form action="" id="searchBox">
+                        <input type="text" id="title-searchbar" name="searchbar" placeholder="- 제목 / 제목+내용">
+                        <input type="submit" class="search-btn" name="search-btn" value="검색">
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- HOT키워드순위창 -->
+        <div th:replace="/fragments/rank.html :: fragment-rank"></div>
+
+</div>
+</body>
+</html>

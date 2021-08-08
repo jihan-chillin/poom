@@ -153,7 +153,7 @@ public class BoardController {
 	}
 	
 	//왼쪽 게시판 이름 누르면 카테고리로 이동하기
-//	@RequestMapping("/board/boardList")
+//	@RequestMapping("/board/cateList")
 //	public ModelAndView boardList(@RequestParam String cate, ModelAndView mv,HttpServletRequest req ) {
 //		int numPerpage = 5;
 //		//카테고리별 게시글 리스트
