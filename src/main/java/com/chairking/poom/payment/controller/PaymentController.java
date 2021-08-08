@@ -1,5 +1,9 @@
 package com.chairking.poom.payment.controller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,20 +19,22 @@ public class PaymentController {
 	@Autowired
 	private PaymentService service;
 	
+	//결제화면 연결
 	@GetMapping("/pay")
-	public String pay() {
-		return "pay/pay";
-	}
-	
-	@RequestMapping(value="/pay/payment",method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView payment(String memberId, String itemNo, ModelAndView mv) {
-//		int result=service.buyItem(memberId, itemNo);
-		System.out.println("===========결제=========");
-		System.out.println("memberId : "+memberId);
-		System.out.println("itemNo : "+itemNo);
-		System.out.println("======================");
+	public ModelAndView pay(ModelAndView mv) {
+		mv.setViewName("pay/pay");
 		return mv;
 	}
 	
+	//결제 후 데이터 저장
+	@RequestMapping(value="/pay/end", method= {RequestMethod.GET, RequestMethod.POST})
+	public String payEnd(String itemNo, HttpSession session) {
+		System.out.println(itemNo);
+		String memberId=((Map<String, String>)session.getAttribute("loginMember")).get("MEMBER_ID");
+		System.out.println(itemNo);
+		System.out.println(memberId);
+		int result=service.buyItem(memberId, itemNo);
+		return "index";
+	}
 	
 }

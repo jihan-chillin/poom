@@ -75,21 +75,7 @@ public interface AdminMapper {
 	public int insertChatBlame(Map<String,String> map);
 	@Update("UPDATE CHAT SET BLAME_COUNT=BLAME_COUNT+1 WHERE CHAT_NO=#{no}")
 	public int updateChatBlameCount(String no);
-	
-	
-	/*
-	 * @Select("select * from board_blame join board on b_target_board_no=board_no where board_no=#{no}"
-	 * ) public List<Map<String,Object>> selectBoardBlame(String no);
-	 * 
-	 * @Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}") public
-	 * List<Map<String,Object>> selectCommentsBlame(String no);
-	 * 
-	 * @Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}") public
-	 * List<Map<String,Object>> selectChatBlame(String no);
-	 * 
-	 * @Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=#{no}") public
-	 * List<Map<String,Object>> selectMemberBlame(String no);
-	 */
+
 	//기타사유가져오기
 	@Select("SELECT * FROM BOARD_BLAME WHERE B_TARGET_BOARD_NO=4 AND BLAME_REASON LIKE '기타%'")
 	public List<Map<String,String>> selectEctAll(Map<String,Object> map);
@@ -113,4 +99,7 @@ public interface AdminMapper {
 	//각 날짜별, 아이템별 합계금액
 	@Select("SELECT PAY_DATE,ITEM_TYPE, SUM(ITEM_PRICE) AS S FROM PAYMENT JOIN ITEMS USING(ITEM_NO) WHERE PAY_DATE BETWEEN SYSDATE-8 AND SYSDATE-1 GROUP BY ROLLUP(PAY_DATE,ITEM_TYPE)")
 	public List<Map<String,Object>> sumAllPayment();
+	//매출상세내역
+	@Select("SELECT ITEM_TYPE, ITEM_PRICE, SUM(ITEM_PRICE) AS SUM, COUNT(*) AS COUNT FROM PAYMENT JOIN ITEMS USING(ITEM_NO) WHERE PAY_DATE BETWEEN TO_DATE(#{first},'yy-mm-dd') AND TO_DATE(#{second},'yy-mm-dd') GROUP BY ROLLUP(ITEM_PRICE,ITEM_TYPE)")
+	public List<Map<String,String>> selectPayDetail(Map<String,String> map);
 }

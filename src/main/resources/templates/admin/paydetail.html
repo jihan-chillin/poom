@@ -1,0 +1,76 @@
+<div id="admin_section">
+    <div id="paydetail_title">기간별 상세 내역</div>
+    <div id="paydetail_content">
+	    <div>
+	        <span>결제일</span><input type="date" id="first" th:value="${first}">&nbsp;&nbsp; ~ &nbsp;&nbsp;<input type="date" id="second" th:value="${second}">
+	        <button id="pdsearch">조회</button><br>
+	        <span class="span_info">기본적으로 하루 전 매출이 조회되며, 기간 검색 시 지난 매출 내역을 조회하실 수 있습니다.</span>
+	    </div>
+        <table id="paydetail_table">
+        	<thead>
+            <tr>
+                <th></th>
+                <th>구매 개수</th>
+                <th>매출 금액</th>
+            </tr>
+            </thead>
+            <tr>
+                <td>7일권</td>
+                <td th:text="${#lists.isEmpty(list)?'0개':list[1].COUNT+'개'}">개수</td>
+                <td th:text="${#lists.isEmpty(list)?'0원':#numbers.formatInteger(list[1].SUM,3,'COMMA')+'원'}">금액</td>
+            </tr>
+            <tr>
+                <td>14일권</td>
+                <td th:text="${#lists.isEmpty(list)?'0개':list[3].COUNT+'개'}">개수</td>
+                <td th:text="${#lists.isEmpty(list)?'0원':#numbers.formatInteger(list[3].SUM,3,'COMMA')+'원'}">금액</td>
+            </tr>
+            <tr>
+                <td>30일권</td>
+                <td th:text="${#lists.isEmpty(list)?'0개':list[5].COUNT+'개'}">개수</td>
+                <td th:text="${#lists.isEmpty(list)?'0원':#numbers.formatInteger(list[5].SUM,3,'COMMA')+'원'}">금액</td>
+            </tr>
+            <tr id="total_tr">
+                <td colspan="3" style="padding-right:20px;" th:text="${#lists.isEmpty(list)?'0원':'총 매출액 : '+#numbers.formatInteger(list[6].SUM,3,'COMMA')+'원'}">총금액 : 0000원</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script>
+//어제날짜 셋팅
+var nowDate = new Date();
+var weekDate = nowDate.getTime() - (1*24*60*60*1000);
+nowDate.setTime(weekDate);
+
+var weekYear = nowDate.getFullYear();
+var weekMonth = nowDate.getMonth() + 1;
+var weekDay = nowDate.getDate();
+
+if(weekMonth < 10) {weekMonth = "0" + weekMonth};
+if(weekDay < 10) {weekDay = "0" + weekDay};
+var yeaterday = weekYear + "-" + weekMonth + "-" + weekDay;
+	
+var date=new Date();
+var today=date.getFullYear()+"-"+("0"+(date.getMonth()+1)).slice(-2)+"-"+("0"+date.getDate()).slice(-2);
+/* $("#first").val(yeaterday);
+$("#second").val(yeaterday); */
+
+$("#first").attr("max",today);
+$("#second").attr("max",today);
+
+//날짜 선택 후 조회버튼
+$("#pdsearch").click(e=>{
+	let first=$("#first").val();
+	let second=$("#second").val();
+	$.ajax({
+		url:getContextPath()+"/payAdmin/payDetail",
+		data:{
+			"first":first,
+			"second":second
+		}
+	}).done(function (fragment){
+		$("#target").html(fragment);
+	}).fail(function (fragment){
+		alert('페이지 로드 오류! 관리자에게 문의하세요!');
+	})
+})
+</script>

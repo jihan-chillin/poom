@@ -55,16 +55,17 @@
     </div>
 </div>
 <script>
+
 //ajax 페이징처리
 function fn_ajax_paging(i){
-	$.ajax({
+ 	$.ajax({
 		url:getContextPath()+"/admin/notice",
 		data:{
-			"page":i-1
+			"page":i-1,
 		}
 	}).done(function(fragment){
 		$("#target").html(fragment);
-	});
+	}); 
 }
 //공지사항 view 이동
 $("[name=moveToView]").click((e)=>{
@@ -77,4 +78,6 @@ $("[name=moveToView]").click((e)=>{
 		$("#target").html(fragment);
 	});
 });
+
+
 </script>

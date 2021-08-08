@@ -67,7 +67,7 @@ function fn_moveBoardNotice(){
 	$.ajax({
 		url:getContextPath()+"/board/boardNotice",
 		data:{
-			"no":1
+			"no":1							//나중에 no값 받아서 처리하기!!!! 
 		}
 	}).done(function (fragment){
 		$("#content").html(fragment);

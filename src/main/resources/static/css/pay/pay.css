@@ -2,7 +2,9 @@
 		/* position:absolute;
 		top:130px; */
 		/* border:1px solid black; */
-		width:1620px;	height:700px;
+		height:700px;
+	    flex-basis: 64%;
+	    overflow-y: auto;
 		padding:50px;
 	}
 	/* 페이지 제목 */
@@ -18,7 +20,7 @@
 	    background:#f7f7f7;;
 	    border-radius: 20px;
 	    padding:20px;
-	    width:80%; height:430px;
+	    width:80%;/*  height:510px; */
 	    margin:0 auto;
 /* 	    display:flex; 
     	flex-direction: column;
@@ -42,9 +44,6 @@
 	    position:relative;
 	    top:15px; left:30px;
 	    font-size:20px;
-	}
-	#pay_container li input{
-		display:none;
 	}
 	#pay_container li label{
 	    width:150px;

@@ -6,9 +6,10 @@
         <div id="sales" th:with="size=${#lists.size(sumList)-1}">
             <p class="p_font2">어제 총 매출액</p>
             <p th:text="${days[0] eq #dates.format(sumList[size].PAY_DATE,'M월 d일')?#numbers.formatInteger(sumList[size].S,3,'COMMA')+'원':'0원'}">1,000,000원</p>
-            <span class="span_font">금주 예상 매출액 : 1,000,000원</span><br>
+            <span class="span_font">금주 예상 매출액 : 400,000원</span><br>
             <span class="span_font">당월 예상 매출액 : 1,000,000원</span><br>
             <span class="span_font">전월  매출액 : 1,000,000원</span>
+            <button class="admin_buttons" th:onclick="|fn_payDetail();|" style="float:right;margin-top:50px;">상세</button>
         </div>
     </div>
     <div id="pay_table_content">
@@ -39,12 +40,12 @@
                 <td th:if="${list[1].ITEM_TYPE} eq '30'" >30일권</td>
             </tr>
             <tr>
-                <td th:text="${#dates.format(list[1].PAY_DATE,'yyyy.MM.dd')}">2021.07.18</td>
-                <td th:text="${list[1].MEMBER_ID}">qwerqwer</td>
-                <td th:text="${list[1].MEMBER_NICKNAME}">체어킹</td>
-                <td th:if="${list[1].ITEM_TYPE} eq '7'" >7일권</td>
-                <td th:if="${list[1].ITEM_TYPE} eq '14'" >14일권</td>
-                <td th:if="${list[1].ITEM_TYPE} eq '30'" >30일권</td>
+                <td th:text="${#dates.format(list[2].PAY_DATE,'yyyy.MM.dd')}">2021.07.18</td>
+                <td th:text="${list[2].MEMBER_ID}">qwerqwer</td>
+                <td th:text="${list[2].MEMBER_NICKNAME}">체어킹</td>
+                <td th:if="${list[2].ITEM_TYPE} eq '7'" >7일권</td>
+                <td th:if="${list[2].ITEM_TYPE} eq '14'" >14일권</td>
+                <td th:if="${list[2].ITEM_TYPE} eq '30'" >30일권</td>
             </tr>
 
         </table>
@@ -53,9 +54,20 @@
 </div>
 
 <script th:inline="javascript">
+//매출내역 상세
+function fn_payDetail(){
+	$.ajax({
+		url:getContextPath()+"/payAdmin/payDetail",
+	}).done(function (fragment){
+		$("#target").html(fragment);
+	}).fail(function (fragment){
+		alert('페이지 로드 오류! 관리자에게 문의하세요!');
+	})
+}
+//최근구매내역 더보기
 function fn_moveToDetail(){
 	$.ajax({
-		url:getContextPath()+"/payAdmin/detail",
+		url:getContextPath()+"/payAdmin/orderDetail",
 	}).done(function (fragment){
 		$("#target").html(fragment);
 	}).fail(function (fragment){
