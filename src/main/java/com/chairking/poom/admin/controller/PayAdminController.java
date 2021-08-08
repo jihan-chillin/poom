@@ -117,6 +117,9 @@ public class PayAdminController {
 				list.remove(i);
 			}
 		}
+		for(Map m:list) {
+			System.out.println(m);
+		}
 		mv.addObject("first",first);
 		mv.addObject("second",second);
 		mv.addObject("list", list);
