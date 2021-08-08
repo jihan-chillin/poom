@@ -80,6 +80,8 @@ function countLimitOfTag(){
 
 // tag를 span태그로 가져오게 하는 방법
 function createTagSpan(tagText){
+    console.log("이거 확인햅자" + $('.tag_input').text().split('#').indexOf(tagText));
+
     // 이미 추가한 태그일 경우 중복방지
     if($('.tag_input').text().split('#').indexOf(tagText) === -1 ){
         console.log($('.tag_input').text().split('#'));
@@ -102,12 +104,12 @@ function createTagSpan(tagText){
 // 입력한 태그 가져오기
 function getTagSpan(){
     let tagContent = $('.confirm-tag').text();
-
+    console.log("span태그에 들어가는 말" + tagContent);
     // 등록된 태그가 없다면
-    if(  tagContent=== null){
+    if(tagContent=== null){
         return;
     }else{
-        return  tagContent.replace("x","").split("#");
+        return tagContent.replaceAll("x","").split("#");
     }
 
     return;
