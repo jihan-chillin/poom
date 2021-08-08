@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chairking.poom.board.model.service.BoardService;
+import com.chairking.poom.common.Pagination;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -160,23 +161,37 @@ public class BoardController {
 		return mv;
 	}
 	
-	//왼쪽 게시판 이름 누르면 카테고리로 이동하기
-//	@RequestMapping("/board/cateList")
-//	public ModelAndView boardList(@RequestParam String cate, ModelAndView mv,HttpServletRequest req ) {
-//		int numPerpage = 5;
-//		//카테고리별 게시글 리스트
-//		List<Map<String, Object>> list = service.selectBoardList(cate,1, numPerpage);
-//		//좋아요 가져오기
-//		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
-//		//공지사항 가져오기
-//		List<Map<String,Object>> notices=service.selectBoardNotice(cate);
-//		System.out.println(notices);
-//		mv.addObject("list", list);
-//		mv.addObject("likeTable",likeTable);
-//		mv.addObject("notice", notices);
-//		mv.addObject("name",list.get(0).get("CATEGORY_NAME"));
-//		mv.setViewName("board/board_list_list");
-//		return mv;
-//	}
+	//전체글 ajax 페이징처리
+	@RequestMapping("/board/allAjax")
+	public ModelAndView allListAjax(ModelAndView mv,HttpServletRequest req,
+							@RequestParam(value="cPage", required = false,defaultValue = "1") int cPage,
+                           @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
+                           @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
+		
+		System.out.println("ajax cPage"+cPage);
+		//멤버 지역 가져오기
+        Object memberloc = ((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_LOC");
+        // 페이징처리
+        Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
+        // 전체 게시글 개수
+        int totalData = service.allBoardCount(memberloc);
+        // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
+        pagination.setTotalRecordCount(totalData);
+        // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
+        List<Map<String, Object>> list = service.allBoard(pagination, memberloc);
+
+        // 좋아요 가져오기
+        String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+        // 공지사항 가져오기
+        List<Map<String,Object>> notices=service.selectAllBoardNotice();
+        System.out.println("페이지네이션"+pagination);
+        System.out.println("전체글보드리스트"+list);
+        mv.addObject("list", list);
+        mv.addObject("likeTable", likeTable);
+        mv.addObject("notices", notices);
+        mv.addObject("pagination", pagination);
+        mv.setViewName("/board/board_allist_ajax");
+		return mv;
+	}
 
 }

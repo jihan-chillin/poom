@@ -57,7 +57,7 @@ public interface BoardDao {
 
 	List<Map<String, String>> dupleTagCheck(BoardMapper mapper, String tagText);
 
-    int allBoardCount(BoardMapper mapper);
+    int allBoardCount(Object memberloc, BoardMapper mapper);
 
 	List<Map<String, Object>> allBoard(BoardMapper mapper, Pagination pagination, Object memberloc);
 
@@ -65,7 +65,7 @@ public interface BoardDao {
 
 	List<Map<String, Object>> allCateBoard(BoardMapper mapper, Pagination pagination, String cate, Object memberloc);
 
-	int allcateBoardCount(BoardMapper mapper, String cate);
+	int allcateBoardCount(BoardMapper mapper, String cate, Object memberloc);
 
 	List<Map<String, Object>> selectAllCateNotice(BoardMapper mapper, String cate);
 

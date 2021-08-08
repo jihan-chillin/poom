@@ -115,8 +115,8 @@ public interface BoardMapper {
 	@Select("SELECT TAG_NAME FROM TAG WHERE TAG_NAME like '%${tagText}%' ")
 	List<Map<String, String>> dupleTagCheck(String tagText);
 
-	@Select("SELECT COUNT(*) FROM BOARD")
-    int allBoardCount();
+	@Select("SELECT COUNT(*) FROM BOARD WHERE BOARD_LOC = #{memberloc}")
+    int allBoardCount(Object memberloc);
 
 	@Select("SELECT * FROM ( SELECT ROWNUM AS RNUM, C.CATEGORY_NAME,B.PREVIEW_IMG, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT,(SELECT COUNT(*) AS CNT FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO) AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_LOC = #{memberloc} ORDER BY BOARD_DATE DESC ) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
 	List<Map<String, Object>> allBoard(Pagination pagination, Object memberloc);
@@ -127,8 +127,8 @@ public interface BoardMapper {
 	@Select("SELECT * FROM ( SELECT ROWNUM AS RNUM, C.CATEGORY_NAME,B.PREVIEW_IMG, B.BOARD_NO,B.BOARD_TITLE, B.BOARD_CONTENT,(SELECT COUNT(*) AS CNT FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO) AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_CATE=#{cate} AND B.BOARD_LOC = #{memberloc}ORDER BY BOARD_DATE DESC ) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
     List<Map<String, Object>> allCateBoard(Pagination pagination, String cate, Object memberloc);
 
-	@Select("SELECT COUNT(*) FROM BOARD WHERE BOARD_CATE = #{cate}")
-	int allcateBoardCount(String cate);
+	@Select("SELECT COUNT(*) FROM BOARD WHERE BOARD_CATE = #{cate} AND BOARD_LOC = #{memberloc}")
+	int allcateBoardCount(String cate, Object memberloc);
 
 	@Select("SELECT C.CATEGORY_NO, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.NOTICE_DATE, N.NOTICE_STATUS, C.CATEGORY_NAME FROM NOTICE N JOIN CATEGORY C on (C.CATEGORY_NO = N.CATEGORY_NO) where c.category_no = #{cate} order by n.notice_date desc")
 	List<Map<String, Object>> selectAllCateNotice(String cate);
