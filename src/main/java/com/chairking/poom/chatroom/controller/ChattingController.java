@@ -1,5 +1,6 @@
 package com.chairking.poom.chatroom.controller;
 
+import com.chairking.poom.board.model.service.BoardService;
 import com.chairking.poom.chatroom.model.service.ChattingService;
 import com.chairking.poom.chatroom.model.vo.ChatMessage;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -20,6 +22,9 @@ import java.util.Map;
 public class ChattingController {
     @Autowired
     private ChattingService service;
+
+    @Autowired
+    private BoardService boardService;
 //    html 가져오기용 Controller
 
     // 내 채팅방 리스트
@@ -28,6 +33,16 @@ public class ChattingController {
         return "chatting/my-chattingList";
     }
 
+    // 채팅방 소모임
+    @GetMapping("/chat/main")
+    public ModelAndView chattingMain(ModelAndView mv){
+        // 공지사항 가져와보기
+        List<Map<String, Object>> notices = boardService.selectAllCateNotice("4");
+        mv.addObject("cName", "스터디 / 소모임");
+        mv.addObject("notices", notices);
+        mv.setViewName("chatting/chattingMain");
+        return mv;
+    }
     // 채팅방 입장
     @GetMapping("/chat/chatroom/page")
     public ModelAndView chatroom(ModelAndView model, HttpServletRequest req,
