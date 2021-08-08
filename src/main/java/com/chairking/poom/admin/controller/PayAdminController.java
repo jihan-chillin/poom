@@ -111,6 +111,15 @@ public class PayAdminController {
 			first=map.get("first");
 			second=map.get("second");
 		}
+		// 총 리스트에서 토탈값만 가져오기
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).size()==3) {
+				list.remove(i);
+			}
+		}
+		for(Map m:list) {
+			System.out.println(m);
+		}
 		mv.addObject("first",first);
 		mv.addObject("second",second);
 		mv.addObject("list", list);

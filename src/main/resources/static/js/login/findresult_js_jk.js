@@ -27,7 +27,7 @@ function updatePw() {
 	//비밀번호 유효성검사
 	var pw = $("[name=memberPw]").val();
     if(pw=="") {
-        alert("비밀번호를 입력해주세요");
+        alert("비밀번호를 입력해주세요.");
          $("[name=memberPw]").focus();
         return false;
     }

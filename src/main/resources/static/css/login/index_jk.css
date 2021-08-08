@@ -1,6 +1,7 @@
 /* 글꼴 - 나눔고딕(googlefonts) */
 /* font-family: 'Nanum Gothic', sans-serif; */
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap'); */
+@import url('https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css');
 
 /* 사용색상 */
 /* 청록색 - #287094 , 주황색 - #F77B1E */
@@ -10,7 +11,8 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Nanum Gothic', sans-serif;
+    /* font-family: 'Nanum Gothic', sans-serif; */
+    font-family: 'NanumSquareRound',sans-serif;
 }
 li {
     list-style: none;

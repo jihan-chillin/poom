@@ -29,7 +29,6 @@ public class PaymentController {
 	//결제 후 데이터 저장
 	@RequestMapping(value="/pay/end", method= {RequestMethod.GET, RequestMethod.POST})
 	public String payEnd(String itemNo, HttpSession session) {
-		System.out.println(itemNo);
 		String memberId=((Map<String, String>)session.getAttribute("loginMember")).get("MEMBER_ID");
 		System.out.println(itemNo);
 		System.out.println(memberId);

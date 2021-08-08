@@ -1,17 +1,17 @@
 <div class="fList" th:if="${feedList}!=null" th:each="f : ${feedList}">
 	<div>
 		<span th:text="'# '+${f.CATEGORY}"></span>
-		<span th:data-no="${f.BOARD_NO}" th:onclick="|moveToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_TITLE}"></span>
+		<span th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_TITLE}"></span>
 		<span th:if=${f.MEMBER_ID!=session.loginMember.MEMBER_ID} class="feed_blame">
 			<i class="gg-more-vertical-alt"></i>
 			<div th:data-n="${f.BOARD_NO}" th:onclick="|fn_boardBlame(this.getAttribute('data-n'))|">신고하기</div>
 		</span>
 		<span th:unless=${f.MEMBER_ID!=session.loginMember.MEMBER_ID}></span>
 	</div>
-	<div th:text="${f.BOARD_CONTENT}"></div>
+	<div th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_CONTENT}"></div>
 	<img alt="품 미리보기" th:src="@{/uploadCKImage/}+${f.PREVIEW_IMG}">
 	<ul>
-		<li><i class="gg-menu-boxed"></i><span th:text="${f.COMMENTS_COUNT}"></span></li>
+		<li><i class="gg-menu-boxed"></i><span th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${f.COMMENTS_COUNT}"></span></li>
 		<li>
 			<span th:title="${f.BOARD_NO}" th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" name="likeHeart">1</span>
 			<!-- <span th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" style="font-size:23px;cursor:pointer;" 
@@ -22,8 +22,11 @@
 		</li>
 	</ul>
 </div>
-<div class="fList" th:unless="${feedList}!=null">
-	<p th:text="${noFeed}"></p>
+
+<!-- 피드에 글이 없을 경우 -->
+<div th:unless="${feedList}!=null">
+	<p class="nofeed" th:if="${noFeed}!='noTag'">해당하는 글이 없어요.<br><span style="color:darkgray;">게시글을 작성하고 공유해보세요.</span><button onclick="goWriteForm();">게시글등록</button></p>
+	<p class="nofeed" th:unless="${noFeed}!='noTag'">#마이태그가 없습니다. 관심있는 항목을 마이태그에 추가해보세요.<button onclick="moveMyTagPage();">마이태그추가</button></p>
 </div>
 
 <script th:inline="javascript">
