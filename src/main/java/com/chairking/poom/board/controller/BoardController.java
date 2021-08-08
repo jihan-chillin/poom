@@ -80,6 +80,9 @@ public class BoardController {
 
 		//좋아요 테이블 불러오기
 		String[] likeTable = service.likeTable((String)param.get("id"));
+		//보드태그 테이블 불러오기
+		List<Map<String, Object>> boardTag = service.boardTag();
+		
 		List<Map<String, Object>> feedList;
 		if(param.get("loc").equals("전국")) {
 			param.put("loc","");
@@ -94,21 +97,26 @@ public class BoardController {
 				map.put("myTag",myTag);
 				map.put("loc", param.get("loc"));
 				feedList = service.feedKeyList(map);
-				mv.addObject("feedList",feedList);
+				if(feedList.size()>0) {
+					mv.addObject("feedList",feedList);
+				}else {
+					noFeed="noFeed";
+				}
 			}else {
-				noFeed="등록된 태그가 없습니다. 마이태그를 추가해보세요!";
+				noFeed="noTag";
 			}
 		}else {
 			feedList = service.feedList(param);
-			if(feedList!=null) {
+			if(feedList.size()>0) {
 				mv.addObject("feedList",feedList);
 			}else {
-				noFeed="등록된 피드가 없습니다.";
+				noFeed="noFeed";
 			}
 		}
 		
 		mv.addObject("noFeed",noFeed);
 		mv.addObject("likeTable",likeTable);
+		mv.addObject("boardTag",boardTag);
 		mv.setViewName("main/feedList");
 		return mv;
 	}
@@ -153,7 +161,7 @@ public class BoardController {
 	}
 	
 	//왼쪽 게시판 이름 누르면 카테고리로 이동하기
-//	@RequestMapping("/board/boardList")
+//	@RequestMapping("/board/cateList")
 //	public ModelAndView boardList(@RequestParam String cate, ModelAndView mv,HttpServletRequest req ) {
 //		int numPerpage = 5;
 //		//카테고리별 게시글 리스트

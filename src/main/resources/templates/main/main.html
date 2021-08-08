@@ -40,7 +40,10 @@
                 	<span id="intro_cnt">(0 / 200)</span>
 	                <hr>
 
-	                <button type="button" class="create_tag_input"><i class="gg-add"></i></i> 태그추가</button>
+	                <button type="button" class="create_tag_input">
+	                	<i class="gg-add"></i></i> 태그추가
+	                	<img th:src="@{/images/ui/m_tooltip.png}" alt="tag_tooltip" />
+	                </button>
 	                <button type="button" onclick="feedWrite(); addTagEach(getConfirmTag());">등록</button>
 	                <button type="button" onclick="goWriteForm();">상세글쓰기</button>
 	            </div>

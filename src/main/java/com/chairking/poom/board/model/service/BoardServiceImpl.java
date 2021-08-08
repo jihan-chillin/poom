@@ -143,12 +143,37 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Map<String, Object>> allBoard(Pagination pagination) {
-		return dao.allBoard(mapper, pagination);
+	public List<Map<String, Object>> allBoard(Pagination pagination, Object memberloc) {
+		return dao.allBoard(mapper, pagination, memberloc);
 	}
 
 	@Override
 	public List<Map<String, Object>> selectAllBoardNotice() {
 		return dao.selectAllBoardNotice(mapper);
+	}
+
+	@Override
+
+	public List<Map<String, Object>> boardTag() {
+		return dao.boardTag(mapper);
+	}
+
+	public List<Map<String, Object>> allCateBoard(Pagination pagination, String cate, Object memberloc) {
+		return dao.allCateBoard(mapper, pagination, cate, memberloc);
+	}
+
+	@Override
+	public int allcateBoardCount(String cate) {
+		return dao.allcateBoardCount(mapper, cate);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllCateNotice(String cate) {
+		return dao.selectAllCateNotice(mapper, cate);
+	}
+
+	@Override
+	public Map<String, Object> selectCateName(String cate) {
+		return dao.selectCateName(mapper, cate);
 	}
 }

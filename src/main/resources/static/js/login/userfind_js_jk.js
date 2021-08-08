@@ -43,7 +43,7 @@ $("button#emailSend").click(function() {// 메일 입력 유효성 검사
 			}
 		});
 	
-		alert("인증번호가 전송되었습니다. 메일을 확인해주세요!");
+		alert("인증번호가 전송되었습니다. 메일을 확인해주세요.");
 		$("[name=checked_email]").val("y");
 	}
 });
@@ -73,7 +73,7 @@ $("button.btn_submit").on("click",function(){
     
     if($(this).is('#pwBtn')===true) {
         if(id=="") {
-            alert("아이디를 입력해주세요");
+            alert("아이디를 입력해주세요.");
             $("[name=id]").focus();
             return false;
         } 

@@ -20,6 +20,8 @@ public interface BoardDao {
 	List<Map<String, Object>> feedList(BoardMapper mapper, Map param);
 	//좋아요 테이블 가져오기
 	String[] likeTable(BoardMapper mapper, String id);
+	//보드태그 테입르 가져오기
+	List<Map<String,Object>> boardTag(BoardMapper mapper);
 	
 	List<Map<String, Object>> selectAllBoard(BoardMapper mapper, int cPage, int numPerpage);
 
@@ -57,7 +59,15 @@ public interface BoardDao {
 
     int allBoardCount(BoardMapper mapper);
 
-	List<Map<String, Object>> allBoard(BoardMapper mapper, Pagination pagination);
+	List<Map<String, Object>> allBoard(BoardMapper mapper, Pagination pagination, Object memberloc);
 
 	List<Map<String, Object>> selectAllBoardNotice(BoardMapper mapper);
+
+	List<Map<String, Object>> allCateBoard(BoardMapper mapper, Pagination pagination, String cate, Object memberloc);
+
+	int allcateBoardCount(BoardMapper mapper, String cate);
+
+	List<Map<String, Object>> selectAllCateNotice(BoardMapper mapper, String cate);
+
+	Map<String, Object> selectCateName(BoardMapper mapper, String cate);
 }

@@ -50,9 +50,9 @@
                         <th>자기소개</th>
                         <td>
                         	<textarea th:if="${session.loginMember.INTRO}!=null" name="intro" cols="40" rows="3" th:text="${session.loginMember.INTRO}"></textarea>
-                        	<div th:if="${session.loginMember.INTRO}!=null" id="intro_cnt">(0 / 100)</div>
+                        	<div th:if="${session.loginMember.INTRO}!=null" id="intro_cnt"></div>
                         	<textarea th:unless="${session.loginMember.INTRO}!=null" name="intro" cols="40" rows="3" placeholder="30자 이내로 멋진 자기소개를 해보아요!"></textarea>
-                       		<div th:unless="${session.loginMember.INTRO}!=null" id="intro_cnt">(0 / 100)</div>
+                       		<div th:unless="${session.loginMember.INTRO}!=null" id="intro_cnt"></div>
                         </td>
                     </tr>
                     <tr>

@@ -92,3 +92,11 @@ $('[name=content]').on('keyup', function() {
 		$('#intro_cnt').html("(200 / 200)");
 	}
 }); 
+
+//마우스 호버시 툴팁박스 나오기
+var toolTip = $('div.feed_write button:first-of-type');
+toolTip.hover(function() {
+	$(this).children('img').show();
+}, function() {
+	$(this).children('img').hide();
+});
