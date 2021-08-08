@@ -64,4 +64,6 @@ public interface BoardService {
 	int allcateBoardCount(String cate);
 
 	List<Map<String, Object>> selectAllCateNotice(String cate);
+
+	Map<String, Object> selectCateName(String cate);
 }

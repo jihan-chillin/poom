@@ -157,4 +157,9 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Map<String, Object>> selectAllCateNotice(BoardMapper mapper, String cate) {
 		return mapper.selectAllCateNotice(cate);
 	}
+
+	@Override
+	public Map<String, Object> selectCateName(BoardMapper mapper, String cate) {
+		return mapper.selectCateName(cate);
+	}
 }

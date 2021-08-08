@@ -66,4 +66,6 @@ public interface BoardDao {
 	int allcateBoardCount(BoardMapper mapper, String cate);
 
 	List<Map<String, Object>> selectAllCateNotice(BoardMapper mapper, String cate);
+
+	Map<String, Object> selectCateName(BoardMapper mapper, String cate);
 }

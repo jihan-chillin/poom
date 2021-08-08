@@ -194,12 +194,15 @@ div.bList ul>li:last-child {
 
 .writeBox button{
 	width: 60px;
-	height: 25px;
 	border-radius: 5px;
 	border: 1px solid lightgrey;
 	margin-bottom: 10px;
 	margin-right: 20px;
 	cursor: pointer;
+	background-color: #F77B1E;
+	height: 28px;
+	color: white;
+	font-weight: bolder;
 }
 
 /*페이지바*/
@@ -228,5 +231,6 @@ div#admin_pagebar>div div{
 	border-radius: 5px;
 	margin:0 3px;
 }
+
 
 
