@@ -184,7 +184,7 @@ public class MessageController {
     public ModelAndView cancelMsg(@RequestParam String msgNo, ModelAndView mv){
         int result= service.cancelMsg(msgNo);
         if(result>0){
-            mv.setViewName("message/message_sendMessage");
+            mv.setViewName("/message/message_sendMessage");
         }
         return mv;
     }
