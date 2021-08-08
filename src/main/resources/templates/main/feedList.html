@@ -22,6 +22,7 @@
 		</li>
 	</ul>
 </div>
+
 <!-- 피드에 글이 없을 경우 -->
 <div th:unless="${feedList}!=null">
 	<p class="nofeed" th:if="${noFeed}!='noTag'">해당하는 글이 없어요.<br><span style="color:darkgray;">게시글을 작성하고 공유해보세요.</span><button onclick="goWriteForm();">게시글등록</button></p>

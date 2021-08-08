@@ -26,7 +26,8 @@ public interface MessageMapper {
     @Delete("DELETE FROM MESSAGE WHERE MSG_NO = #{msgNo}")
     int deleteMessage(String msgNo);
 
-    @Update("UPDATE MESSAGE SET MSG_TYPE=3 WHERE MSG_NO = #{msgNo}")
+    //수정중
+    @Update("UPDATE MESSAGE SET ${MSG_TYPE} WHERE MSG_NO = #{msgNo} AND ${MSG_TYPE}")
     int moveBlock(String msgNo);
 
     @Update("UPDATE MESSAGE SET READ_CHECK=sysdate WHERE MSG_NO = #{msgNo}")

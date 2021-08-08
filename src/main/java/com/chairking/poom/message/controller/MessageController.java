@@ -169,11 +169,14 @@ public class MessageController {
 
 
 
-    //메세지 차단함으로 이동
+    //메세지 차단함으로 이동 하는중 
     @RequestMapping("/moveBlock")
-    public String moveBlock(@RequestParam String msgNo, ModelAndView mv){
+    public ModelAndView moveBlock(@RequestParam String msgNo, ModelAndView mv){
         int result= service.moveBlock(msgNo);
-       return "/message/message_blockMessage";
+        if(result >0){
+            mv.setViewName("/message/message_blockMessage");
+        }
+        return mv;
     }
 
     //메세지 발송취소
@@ -204,7 +207,7 @@ public class MessageController {
     //메세지 보내기
     @RequestMapping("/sendMsg")
     public ModelAndView sendMsg(HttpServletRequest request, HttpSession session, ModelAndView mv){
-        //세션에서 내 아이디를 가져온다.
+
         Message msg = new Message();
         String recvMember =request.getParameter("recvMember") ;
         msg.setMemberId(request.getParameter("memberId"));
@@ -230,9 +233,6 @@ public class MessageController {
     public String getRecentMessageNo(){
         return service.getRecentMessageNo();
     }
-//
-//    @GetMapping("/reply")
-//    public ModelAndView replyPopup()
 
 
     //받는사람 검색

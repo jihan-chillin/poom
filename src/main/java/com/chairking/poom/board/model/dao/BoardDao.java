@@ -3,6 +3,7 @@ package com.chairking.poom.board.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.chairking.poom.common.Pagination;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.chairking.poom.board.mapper.BoardMapper;
@@ -53,4 +54,10 @@ public interface BoardDao {
 	int insertTag(BoardMapper mapper, String tagText);
 
 	List<Map<String, String>> dupleTagCheck(BoardMapper mapper, String tagText);
+
+    int allBoardCount(BoardMapper mapper);
+
+	List<Map<String, Object>> allBoard(BoardMapper mapper, Pagination pagination);
+
+	List<Map<String, Object>> selectAllBoardNotice(BoardMapper mapper);
 }

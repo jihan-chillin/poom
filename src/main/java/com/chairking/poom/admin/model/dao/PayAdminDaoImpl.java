@@ -27,5 +27,12 @@ public class PayAdminDaoImpl implements PayAdminDao {
 	public List<Map<String, Object>> sumAllPayment(AdminMapper mapper) {
 		return mapper.sumAllPayment();
 	}
+
+
+	@Override
+	public List<Map<String, String>> selectPayDetail(AdminMapper mapper, Map<String, String> map) {
+		return mapper.selectPayDetail(map);
+	}
+	
 	
 }

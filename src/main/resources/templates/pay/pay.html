@@ -21,26 +21,8 @@
 	        <!-- 구매화면 -->
 	        <div id="pay_container">
 	            <p>열람권 구매하기</p>
-	            <form action="">
+	            <form id="pay_form" action="/pay/end" method="post">
 	                <ul>
-	                    <li>
-	                        <label><input type="radio" name="itemNo" value="1">7일 이용권</label>
-	                        <span>\ 4,900</span>
-	                        <span>➔</span>
-	                        <span>\ 2,900</span>
-	                    </li>
-	                    <li>
-	                        <label><input type="radio" name="itemNo" value="2">14일 이용권</label>
-	                        <span>\ 9,900</span>
-	                        <span>➔</span>
-	                        <span>\ 4,900</span>
-	                    </li>
-	                    <li>
-	                        <label><input type="radio" name="itemNo" value="3">30일 이용권</label>
-	                        <span>\ 19,800</span>
-	                        <span>➔</span>
-	                        <span>\ 5,900</span>
-	                    </li>
 	                </ul>
 	                <div>
 	                    <button type="button" class="btn" onclick="pay()">결제</button>

@@ -175,25 +175,4 @@ public class BoardController {
 //		return mv;
 //	}
 
-	@RequestMapping("/board/view")
-	public ModelAndView boardList(@RequestParam Map<String, String> cate,
-								  ModelAndView mv,HttpServletRequest req ) {
-
-		System.out.println("몰라"+cate);
-//		int cPage = 1;
-//		int numPerpage = 5;
-//		//카테고리별 게시글 리스트
-//		List<Map<String, Object>> list = service.selectBoardList(cate,cPage,numPerpage);
-////		//좋아요 가져오기
-////		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
-////		//공지사항 가져오기
-////		List<Map<String,Object>> notices=service.selectBoardNotice(cate);
-////		System.out.println(notices);
-//		mv.addObject("list", list);
-////		mv.addObject("likeTable",likeTable);
-////		mv.addObject("notice", notices);
-//		mv.addObject("name",list.get(0).get("CATEGORY_NAME"));
-//		mv.setViewName("board/board_list_list");
-		return mv;
-	}
 }

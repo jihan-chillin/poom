@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.chairking.poom.board.model.vo.Board;
 import com.chairking.poom.board.model.vo.BoardImage;
+import com.chairking.poom.common.Pagination;
 
 public interface BoardService {
 
@@ -51,4 +52,10 @@ public interface BoardService {
 	int insertTag(String tagText);
 
 	List<Map<String, String>> dupleTagCheck(String tagText);
+
+    int allBoardCount();
+
+	List<Map<String, Object>> allBoard(Pagination pagination);
+
+	List<Map<String, Object>> selectAllBoardNotice();
 }
