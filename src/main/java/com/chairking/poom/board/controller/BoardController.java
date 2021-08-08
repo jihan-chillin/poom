@@ -164,7 +164,7 @@ public class BoardController {
 	//전체글 ajax 페이징처리
 	@RequestMapping("/board/allAjax")
 	public ModelAndView allListAjax(ModelAndView mv,HttpServletRequest req,
-							@RequestParam(value="cPage", required = false,defaultValue = "1") int cPage,
+							@RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
                            @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
                            @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
 		

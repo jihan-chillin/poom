@@ -227,6 +227,7 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
         mv.addObject("cName", cName);
         mv.addObject("list", list);
         mv.addObject("notices", notices);
+        mv.addObject("pagination", pagination);
         mv.setViewName("/board/board_cate_list");
         return mv;
     }
