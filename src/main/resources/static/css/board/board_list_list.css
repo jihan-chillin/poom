@@ -241,6 +241,16 @@ div#main_pagebar>div div{
 	border-radius: 5px;
 	margin:0 3px;
 }
+div#tagBorderBox{
+	width: 100%;
+	height: auto;
+	background: #f7f7f7;
+	border-radius: 20px;
+	padding: 30px;
+	position: relative;
+	z-index: 100;
+	flex-basis: 64%;
+}
 
 
 

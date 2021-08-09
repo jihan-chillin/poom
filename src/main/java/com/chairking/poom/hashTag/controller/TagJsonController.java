@@ -71,5 +71,12 @@ public class TagJsonController {
         return tagService.getBoardNo();
     }
 
-
+    // 태그 클릭시 게시물로 이동.
+    @GetMapping("/tag/board/data")
+    public List<Map<String, Object>> moveToBoardFromTag(@RequestParam(value = "tagName") String tagName,
+                                           @RequestParam(value = "cPage")int cPage){
+        int numPerPage= 5;
+        List<Map<String, Object>> boardData = tagService.getBoardNoFromTag(tagName,cPage,numPerPage);
+        return boardData;
+    }
 }
