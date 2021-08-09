@@ -7,8 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chairking.poom.payment.model.service.PaymentService;
@@ -27,13 +27,21 @@ public class PaymentController {
 	}
 	
 	//결제 후 데이터 저장
-	@RequestMapping(value="/pay/end", method= {RequestMethod.GET, RequestMethod.POST})
-	public String payEnd(String itemNo, HttpSession session) {
+	@PostMapping("/pay/end")
+	public ModelAndView payEnd(String itemNo, String itemType, HttpSession session, ModelAndView mv) {
 		String memberId=((Map<String, String>)session.getAttribute("loginMember")).get("MEMBER_ID");
 		System.out.println(itemNo);
 		System.out.println(memberId);
+		System.out.println(itemType);
 		int result=service.buyItem(memberId, itemNo);
-		return "index";
+		if(result>0) {
+			result=service.changePayStatus(memberId, itemType);
+		}
+//		mv.addObject("msg", result!=0?"결제를 성공했습니다.":"결제를 실패하였습니다.");
+//		mv.addObject("loc", "board/board_alllist");
+//		mv.setViewName("common/msg");
+		mv.setViewName("board/board_alllist");
+		return mv;
 	}
-	
+
 }
