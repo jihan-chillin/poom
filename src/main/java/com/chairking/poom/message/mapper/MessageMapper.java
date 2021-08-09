@@ -27,13 +27,13 @@ public interface MessageMapper {
     int deleteMessage(String msgNo);
 
     //수정중
-    @Update("UPDATE MESSAGE SET ${MSG_TYPE} WHERE MSG_NO = #{msgNo} AND ${MSG_TYPE}")
+    @Update("UPDATE MESSAGE SET MSG_TYPE = CASE WHEN MSG_TYPE = 1 THEN 3 WHEN MSG_TYPE = 2 THEN 4 END WHERE MSG_NO = #{msgNo}")
     int moveBlock(String msgNo);
 
     @Update("UPDATE MESSAGE SET READ_CHECK=sysdate WHERE MSG_NO = #{msgNo}")
     int setMsgRead(String msgNo);
 
-    @Delete("DELETE FROM MESSAGE WHERE MSG_NO = #{msgNo}")
+    @Delete("DELETE FROM MESSAGE WHERE MSG_TYPE= 1 OR MSG_TYPE = 2 AND MSG_NO = #{msgNo}")
     int cancelMsg(String msgNo);
 
     @Select("SELECT * FROM MEMBER ${condition}")
@@ -46,7 +46,7 @@ public interface MessageMapper {
     @Select("SELECT * FROM MESSAGE WHERE MSG_TYPE = 1")
     List<Map<String, Object>> getsendMessage(String msgNo);
 
-    @Delete("DELETE FROM MESSAGE WHERE MSG_TYPE = 3")
+    @Delete("DELETE FROM MESSAGE WHERE MSG_TYPE = 3 OR MSG_TYPE = 4")
     int emptyBlock();
 
     @Delete("DELETE FROM MESSAGE WHERE MSG_NO = #{msgNo}")

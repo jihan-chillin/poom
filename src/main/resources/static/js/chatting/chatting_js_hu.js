@@ -251,12 +251,11 @@ function moveChatList(){
     listCount =1;
   }
 
-  $('.feed>*').remove();
 
   $.ajax({
     url:getContextPath()+'/chat/list/page',
     success:function(data){
-      $('.feed').html(data);
+      $('.feed').append(data);
       // $('.feed').attr('style','height:905px');
       $('.chatroom-list-container>*').remove();
     },

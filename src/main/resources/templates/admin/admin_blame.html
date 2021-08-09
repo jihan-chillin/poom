@@ -40,7 +40,7 @@
            			</td>
             		<td th:text="${b.BOARD_NO}">1</td>
             		<td th:text="${b.MEMBER_ID}"></td>
-            		<td th:text="${b.BOARD_TITLE}" th:data-brdno="${b.BOARD_NO}" th:onclick="|fn_blameBoardView(this.getAttribute('data-brdno'));|">
+            		<td th:text="${b.BOARD_TITLE}" th:data-brdno="${b.BOARD_NO}" th:onclick="|fn_blameBoardView(this.getAttribute('data-brdno'));|" style="cursor:pointer;">
             			<!-- 게시글 제목클릭 => view이동하기 ㅊ추후 구현 -->
             		</td>
             		<td >
@@ -57,7 +57,7 @@
            			</td>
             		<td th:text="${bc.BOARD_NO}">1</td>
             		<td th:text="${bc.COMMENT_WRITER}"></td>
-            		<td th:text="${bc.COMMENT_CONTENT}"></td>
+            		<td th:text="${bc.COMMENT_CONTENT}" th:data-brdno="${bc.BOARD_NO}" th:onclick="|fn_blameBoardView(this.getAttribute('data-brdno'));|" style="cursor:pointer;"></td>
             		<td>
             			<a style="cursor:pointer;"th:data-p1="${type}" th:data-p2="${bc.COMMENT_NO}" 
             				th:onclick="|fn_check_pop(this.getAttribute('data-p1'),this.getAttribute('data-p2'))|" th:text="${bc.BLAME_COUNT}"></a>
@@ -123,7 +123,7 @@
 <script th:inline="javascript">
 //신고된 게시글 누르면 새창띄우기
 function fn_blameBoardView(no){
-	window.open(getContextPath()+"/board/view?boardNo="+no,"","width=420px,height=580px,top=260px,left=800px");
+	window.open(getContextPath()+"/board/view?boardNo="+no,"","width=1370px,height=830px,top=120px,left=300px");
 }
 
 //체크박스 체크 후 삭제버튼 누르면 del_status를 0=>1로 바꾸기

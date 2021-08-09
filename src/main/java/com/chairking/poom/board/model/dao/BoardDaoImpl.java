@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.chairking.poom.common.Pagination;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -52,9 +53,9 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public List<Map<String, Object>> feedList(BoardMapper mapper, Map param) {
 		if(param.get("loc").equals("")) {
-				return mapper.feedListAllAll(param);
+			return mapper.feedListAllAll(param);
 		}else {
-				return mapper.feedListLocAll(param);
+			return mapper.feedListLocAll(param);
 		}
 	}
 
@@ -129,8 +130,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int allBoardCount(BoardMapper mapper) {
-		return mapper.allBoardCount();
+	public int allBoardCount(Object memberloc, BoardMapper mapper) {
+		return mapper.allBoardCount(memberloc);
 	}
 
 	@Override
@@ -144,17 +145,36 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
+	public List<Map<String, Object>> boardTag(BoardMapper mapper) {
+		return mapper.boardTag();
+	}
+
 	public List<Map<String, Object>> allCateBoard(BoardMapper mapper, Pagination pagination, String cate, Object memberloc) {
 		return mapper.allCateBoard(pagination, cate, memberloc);
 	}
 
 	@Override
-	public int allcateBoardCount(BoardMapper mapper, String cate) {
-		return mapper.allcateBoardCount(cate);
+	public int allcateBoardCount(BoardMapper mapper, String cate, Object memberloc) {
+		return mapper.allcateBoardCount(cate, memberloc);
 	}
 
 	@Override
 	public List<Map<String, Object>> selectAllCateNotice(BoardMapper mapper, String cate) {
 		return mapper.selectAllCateNotice(cate);
+	}
+
+	@Override
+	public Map<String, Object> selectCateName(BoardMapper mapper, String cate) {
+		return mapper.selectCateName(cate);
+	}
+
+	@Override
+	public int boardTagFromform(BoardMapper mapper, String strBoardNo, String tagText) {
+		return mapper.boardTagFromform(strBoardNo, tagText);
+	}
+
+	@Override
+	public int TagFromform(BoardMapper mapper, String tagText) {
+		return mapper.TagFromform(tagText);
 	}
 }

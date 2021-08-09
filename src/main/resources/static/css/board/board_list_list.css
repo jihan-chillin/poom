@@ -147,6 +147,7 @@ div.bList ul>li {
     padding: 0 10px;
     font-weight: bold;
     color: darkgray;
+    cursor:pointer;
 }
 div.bList ul>li:last-child {
 	margin-right: 10px;
@@ -172,15 +173,13 @@ div.bList ul>li:last-child {
 .tag-list span{
 	margin-right: 8px;
 	font-size: 15px;
-	color: #287094;
+	color: grey;
 }
 
 .bSpan div>span:first-of-type{
 	width: 180px;
 	border-right: 2px solid darkgray;
-	font-size: 15px !important;
-	font-style: italic;
-	color: grey;
+	font-size: 17px !important;
 }
 
 .bSpan div>span:last-of-type {
@@ -193,31 +192,32 @@ div.bList ul>li:last-child {
 
 .writeBox button{
 	width: 60px;
-	height: 25px;
 	border-radius: 5px;
 	border: 1px solid lightgrey;
 	margin-bottom: 10px;
 	margin-right: 20px;
 	cursor: pointer;
+	background-color: #F77B1E;
+	height: 28px;
+	color: white;
+	font-weight: bolder;
 }
 
 /*페이지바*/
-div#admin_pagebar{
+div#main_pagebar{
 	height:80px;
 	display:flex;
 	position:relative;
-	/* justify-content:center; */
 	padding-top:30px;
-	/* flex-direction:row; */
 }
-div#admin_pagebar>div{
+div#main_pagebar>div{
 	position:absolute;
-	left:495px;
+	left:390px;
 	width:210px;
 	display:flex;
 	justify-content: center;
 }
-div#admin_pagebar>div div{
+div#main_pagebar>div div{
 	height:30px;
 	width:30px;
 	text-align: center;
@@ -227,5 +227,6 @@ div#admin_pagebar>div div{
 	border-radius: 5px;
 	margin:0 3px;
 }
+
 
 

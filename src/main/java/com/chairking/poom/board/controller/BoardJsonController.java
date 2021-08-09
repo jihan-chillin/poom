@@ -3,6 +3,7 @@ package com.chairking.poom.board.controller;
 import com.chairking.poom.board.model.service.BoardService;
 import com.chairking.poom.board.model.vo.CkFileupload;
 import com.chairking.poom.common.Pagination;
+import com.chairking.poom.hashTag.controller.TagJsonController;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.aspectj.util.FileUtil;
@@ -175,7 +176,7 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
         // 페이징처리
         Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
         // 전체 게시글 개수
-        int totalData = service.allBoardCount();
+        int totalData = service.allBoardCount(memberloc);
         // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
         pagination.setTotalRecordCount(totalData);
         // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
@@ -188,10 +189,11 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
         List<Map<String,Object>> notices=service.selectAllBoardNotice();
 
 //        System.out.print("공지사항 : " + notices);
-
+        System.out.println("전체글보드리스트"+list);
         mv.addObject("list", list);
         mv.addObject("likeTable", likeTable);
         mv.addObject("notices", notices);
+        mv.addObject("pagination", pagination);
         mv.setViewName("/board/board_alllist");
         return mv;
     }
@@ -210,18 +212,44 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
         // 페이징처리
         Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
         // 전체 게시글 개수
-        int totalData = service.allcateBoardCount(cate);
+        int totalData = service.allcateBoardCount(cate, memberloc);
         // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
         pagination.setTotalRecordCount(totalData);
         // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
         List<Map<String, Object>> list = service.allCateBoard(pagination, cate, memberloc);
 
+        // 카테고리 이름 가져오기
+        Map<String, Object> cateName = service.selectCateName(cate);
+        Object cName = cateName.get("CATEGORY_NAME");
+
         // 공지사항 가져와보기
         List<Map<String, Object>> notices = service.selectAllCateNotice(cate);
-
+        mv.addObject("cate", cate);
+        mv.addObject("cName", cName);
         mv.addObject("list", list);
         mv.addObject("notices", notices);
+        mv.addObject("pagination", pagination);
         mv.setViewName("/board/board_cate_list");
         return mv;
     }
+
+    // 상세 글에서 해시태그 추가하는 controller
+    @GetMapping("/board/addTag")
+    public ModelAndView addTagFromForm(@RequestParam(value = "tagText") String tagText,
+                                       HttpServletRequest req, ModelAndView mv){
+
+        System.out.println("택텍스트 들어오는지"+tagText);
+
+        // 방금전에 등록한 게시글 번호 가져오기
+        TagJsonController tagJsonController = new TagJsonController();
+        int boardNo = Integer.parseInt(tagJsonController.getBoardNo())+1;
+        String strBoardNo = Integer.toString(boardNo);
+
+//      boardTag 추가
+        int result = service.boardTagFromform(strBoardNo, tagText);
+        int result2 = service.TagFromform(tagText);
+
+        return  mv;
+    }
+
 }

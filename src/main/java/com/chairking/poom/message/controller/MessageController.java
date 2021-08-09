@@ -169,7 +169,7 @@ public class MessageController {
 
 
 
-    //메세지 차단함으로 이동 하는중 
+    //메세지 차단함으로 이동 하는중
     @RequestMapping("/moveBlock")
     public ModelAndView moveBlock(@RequestParam String msgNo, ModelAndView mv){
         int result= service.moveBlock(msgNo);
@@ -184,7 +184,7 @@ public class MessageController {
     public ModelAndView cancelMsg(@RequestParam String msgNo, ModelAndView mv){
         int result= service.cancelMsg(msgNo);
         if(result>0){
-            mv.setViewName("message/message_sendMessage");
+            mv.setViewName("/message/message_sendMessage");
         }
         return mv;
     }
