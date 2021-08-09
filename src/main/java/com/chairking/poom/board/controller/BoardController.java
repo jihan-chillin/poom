@@ -76,7 +76,6 @@ public class BoardController {
 	public ModelAndView feedNew(@RequestParam Map param,
 								@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, ModelAndView mv) {
 		
-		System.out.println(cPage);
 		int numPerpage=10;
 		//좋아요 테이블 불러오기
 		String[] likeTable = service.likeTable((String)param.get("id"));
@@ -91,10 +90,12 @@ public class BoardController {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			if(myTag.length>0) {
 				map.put("myTag",myTag);
-				map.put("cPage", cPage);
-				map.put("numPerpage", numPerpage);
+				map.put("cPage", (cPage-1)*numPerpage+1);
+				map.put("numPerpage", cPage*numPerpage);
 				map.put("loc", param.get("loc"));
 				feedList = service.feedKeyList(map);
+				System.out.println(cPage);
+				System.out.println(feedList.size());
 				if(feedList.size()>0) {
 					for(int i=1; i<feedList.size(); i++) {
 						if(feedList.get(i).get("BOARD_NO").equals(feedList.get(i-1).get("BOARD_NO"))) {
