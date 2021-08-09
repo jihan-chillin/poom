@@ -142,7 +142,10 @@ function addTagFromBoardForm(tagText){
 function boardWriteFromForm(){
     // 제목, 카테고리, 내용
     let boardTitle =  $("[name=board-title]").val();
-    let boardContent = $("[name=boardContent]").val();
+    let boardContent = CKEDITOR.instances['ckeditorarea'].getData();
+
+    console.log("boarTitle : " + boardTitle);
+    console.log("boardContent : " + boardContent);
 
     if(boardTitle  == ""){
         alert("제목을 입력해주세요.");
@@ -152,13 +155,11 @@ function boardWriteFromForm(){
 
     if(boardContent = ""){
         alert("내용을 입력해주세요.");
-        $("[name=boardCate]").focus();
+        $("[name=boardContent]").focus();
         return false;
     }
 
-    $("[name=board-title]").submit();
-    $("[name=boardCate]").submit();
-    $("[name=boardContent]").submit();
+    $("[name=ckeditor-form]").submit();
 }
 
 
