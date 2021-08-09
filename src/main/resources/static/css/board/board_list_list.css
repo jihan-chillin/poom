@@ -170,6 +170,7 @@ span[name=likeHeart]{
 }
 #searchBox{
 	text-align: center;
+	padding-left: 70px;
 }
 
 #searchBox input:nth-of-type(1){
