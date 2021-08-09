@@ -37,9 +37,9 @@ public class TagController {
                                    @RequestParam(value = "cPage", defaultValue = "1")int cPage){
         int numPerPage= 5;
         List<Map<String, Object>> boardData = tagService.getBoardNoFromTag(tagName,cPage,numPerPage);
-
-        mv.addObject("oList",boardData);
-        mv.setViewName("board/board_alllist");
+        mv.addObject("tagName",boardData.get(0).get("TAG_NAME"));
+        mv.addObject("list",boardData);
+        mv.setViewName("hashtag/tagSearchList");
         return mv;
     }
 }

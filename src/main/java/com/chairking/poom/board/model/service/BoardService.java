@@ -72,4 +72,11 @@ public interface BoardService {
 	int boardTagFromform(String strBoardNo, String tagText);
 
 	int TagFromform(String tagText);
+
+    String getBoardNoFromForm();
+    
+    //보드뷰에서 태그들 가져오기
+    List<String> boardTagList(String boardNo);
+    //전체글리스트 태그 가져오기
+    List<Map<String,String>> selectAllBoardTag ();
 }

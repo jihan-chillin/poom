@@ -138,6 +138,32 @@ function addTagFromBoardForm(tagText){
     });
 }
 
+// 등록된 제목과 이런거 다 보내기
+function boardWriteFromForm(){
+    // 제목, 카테고리, 내용
+    let boardTitle =  $("[name=board-title]").val();
+    let bContent = CKEDITOR.instances['ckeditorarea'].getData();
+    // let boardContent = CKEDITOR.instances['ckeditorarea'].getData();
+    let boardContent = bContent.replace(/(<([^>]+)>)/ig,"");
+
+    console.log("boarTitle : " + boardTitle);
+    console.log("boardContent : " + boardContent);
+
+    if(boardTitle  == ""){
+        alert("제목을 입력해주세요.");
+        $("[name=board-title]").focus();
+        return false;
+    }
+
+    if(boardContent = ""){
+        alert("내용을 입력해주세요.");
+        $("[name=boardContent]").focus();
+        return false;
+    }
+
+    $("[name=ckeditor-form]").submit();
+}
+
 
 
 

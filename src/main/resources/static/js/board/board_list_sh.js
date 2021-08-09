@@ -61,28 +61,59 @@ function feedToView(no){
 		}
 	})
 }
-
+//전체글에서 view로 이동 ajax
+function allToView(no){
+	$.ajax({
+		url:getContextPath()+"/board/view",
+		data : {
+			"boardNo":no,
+			"cate":"all"
+		},
+		success:data=>{
+			$("#content").html(data);
+		}
+	})
+}
 //게시판에서 공지사항 들어가기
-function fn_moveBoardNotice(){
+function fn_moveBoardNotice(no){
 	$.ajax({
 		url:getContextPath()+"/board/boardNotice",
 		data:{
-			"no":1							//나중에 no값 받아서 처리하기!!!! 
+			"no":no							//나중에 no값 받아서 처리하기!!!! 
+		}
+	}).done(function (fragment){
+		$("#content").html(fragment);
+	})
+}
+//전체글에서 공지사항 들어가기
+function fn_moveBoardAllNotice(no,cate){
+	$.ajax({
+		url:getContextPath()+"/board/boardNotice",
+		data:{
+			"no":no,
+			"cate":cate							//나중에 no값 받아서 처리하기!!!! 
 		}
 	}).done(function (fragment){
 		$("#content").html(fragment);
 	})
 }
 
+
 //3번째 공지부턴 숨기기
 $(function(){
 	$("[name=noticeList]>li:eq(1)").nextAll().hide();
-	$("[name=noticeList]>li:last").show();
 
-	$("[name=noticeList]>li:last").click(e=>{
-		$("[name=noticeList]>li:eq(1)").nextAll().slideToggle();
-		$("[name=noticeList]>li:last").show();
-	})
+})
+//공지사항 토글하기 
+$("#notiToggle").click(e=>{
+ 	if($("[name=noticeList]>li:eq(1)").nextAll().is(":visible") ){
+        $("[name=noticeList]>li:eq(1)").nextAll().slideUp();
+        $(e.target).text("▼");
+    }else{
+        $("[name=noticeList]>li:eq(1)").nextAll().slideDown();
+		$(e.target).text("▲");
+    }
+	
 })
 
 //전체글ajax페이징처리
@@ -96,4 +127,5 @@ function fn_alllist_paging(i){
 		$("#board_box").html(fragment);
 	});
 };
+
 

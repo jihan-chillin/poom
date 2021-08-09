@@ -6,8 +6,8 @@
               <!--<col width="0%">
               <col width="0%">
               <col width="0%">-->
-              <col width="25%">
-              <col width="40%">
+              <col width="20%">
+              <col width="45%">
               <col width="20%">
               <col width="10%">
             </colgroup>
@@ -28,10 +28,10 @@
               <td class="sNum" th:text="${mv.SEARCH_NO}" ></td>
               <td style="display:none" th:text="${mv.CATEGORY_NO}"></td>
               <td style="display:none" th:text="${mv.CATEGORY_NAME}" ></td>
-              <td class="cateNm" style="display:none" th:text="${mv.CON_TYPE}"></td>
+              <td class="cateNm" th:text="${mv.CON_TYPE}"></td>
               <td th:text="${mv.TITLE}"></td>
-              <td th:text="${mv.CONTENT}"></td>
-              <td th:text="${mv.WRITE_DATE}"></td>
+              <td style="display:none" th:text="${mv.CONTENT}"></td>
+              <td th:text="${#dates.format(mv.WRITE_DATE,'yyyy-MM-dd')}"></td>
               <td th:text="${mv.MEMBER_ID}"></td>
             </tr>
             </tbody>

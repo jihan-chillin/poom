@@ -18,10 +18,10 @@ div#board_list_title{
     display:inline-block;
 }
 div#board_box>div:first-child{
-    font-size: 35px;
-    font-weight: bold;
-    color: #F77B1E;
-    margin-bottom:50px;
+	font-size: 60px;
+    font-weight: 900;
+    color: #247094;
+    margin: 40px;
 }
 div#board_list_title>ul {
     width: 100%;
@@ -64,15 +64,32 @@ div#board_list_title>ul>li>span:nth-chlid(2){
 
 #notice-list-title>ul {
     width: 100%;
-    /* height:auto; */
-    /* height: 250px; */
     background: #fdfdfd;
     border-radius: 20px;
     padding: 5px 20px;
+  	position:relative;
 }
-
+#notice-list-title>ul>div{
+    position: absolute;
+    top: 17px;
+    right: 41px;
+    /* background: #f7f7f7; */
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    /* padding: 10px; */
+    /* border-radius: 50%; */
+    color: #247094;
+}
 #notice-list-title li{
-    margin: 10px 10px 20px 10px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    padding: 10px 20px;
+    /* border-bottom: 1px solid lightgray; */
+    width: 95%;
+    margin: auto;
 }
 
 
@@ -151,9 +168,12 @@ div.bList ul>li {
 div.bList ul>li:last-child {
     margin-right: 10px;
 }
-
+span[name=likeHeart]{
+	cursor:pointer;
+}
 #searchBox{
     text-align: center;
+    padding-left: 70px;
 }
 
 #searchBox input:nth-of-type(1){

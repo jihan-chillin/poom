@@ -3,11 +3,11 @@
     <!--공지사항 나오는 곳 -->
     <div id="notice-list-title">
         <ul name="noticeList" >
+           	<div id="notiToggle">▼</div>
             <li th:each="n : ${notices}">
-                <span th:text="${n.NOTICE_TITLE}"></span>
+                <span style="cursor:pointer;"th:text="'[공지] '+${n.NOTICE_TITLE}" th:data-notiNo="${n.NOTICE_NO}"th:onclick="|fn_moveBoardNotice(this.getAttribute('data-notiNo'))|"></span>
                 <span th:text="${#dates.format(n.NOTICE_DATE, 'yyyy-MM-dd')}"></span>
             </li>
-            <li style="font-size:25px;text-align:center;cursor:pointer;">▼</li>
         </ul>
     </div>
 
@@ -26,15 +26,13 @@
 	    <img alt="썸네일" th:src="@{/images/profile/}+${l.PREVIEW_IMG}">
         <ul>
             <li class="tag-list" style="margin-right: auto">
-               <span>#해시태그</span>
-               <span>#해시태그</span>
-               <span>#해시태그</span>
-               <span>#해시태그</span>
-               <span>#해시태그</span>
+               <th:block th:if="${l.BOARD_NO eq t.BOARD_NO}" th:each="t:${tagList}">
+              	 	<span style="padding-right:3px;font-size:18px;" th:text="'#'+${t.TAG_NAME}"></span>
+               </th:block>
            </li>
            <li th:text="${l.CNT}"><i class="gg-menu-boxed"></i></li>
            <li>
-               <span>♥</span>
+               <span th:title="${l.BOARD_NO}" th:text="${#arrays.contains(likeTable,l.BOARD_NO)}?'♥':'♡'" name="likeHeart">1</span>
                <span th:text="${l.LIKE_COUNT}"></span>
            </li>
        </ul>
@@ -44,7 +42,7 @@
 			<!-- 이전 -->
 			<div>
 				<a th:if="${pagination.currentPage} eq 1" >&lt;</a>
-				<a href="#" th:unless="${pagination.currentPage} eq 1" th:onclick="|fn_cate_paging('${pagination.currentPage-1}')|">&lt;</a>
+				<a href="#board_box" th:unless="${pagination.currentPage} eq 1" th:onclick="|fn_cate_paging('${pagination.currentPage-1}')|">&lt;</a>
 			</div>
 			<!-- 페이지블록 -->
 			<th:block th:each="n:${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">
@@ -53,13 +51,13 @@
 			</div>
 			
 			<div th:unless="${pagination.currentPage eq n}">
-				<a  href="#" th:onclick="|fn_cate_paging('${n}')|" th:text="${n}">1</a>
+				<a  href="#board_box" th:onclick="|fn_cate_paging('${n}')|" th:text="${n}">1</a>
 			</div>
 			</th:block>
 			<!-- 다음 -->
 			<div>
 				<a th:if="${pagination.totalPageCount==pagination.currentPage}">&gt;</a>
-				<a href="#" th:unless="${pagination.totalPageCount==pagination.currentPage}" th:onclick="|fn_cate_paging('${pagination.currentPage+1}')|">&gt;</a>
+				<a href="#board_box" th:unless="${pagination.totalPageCount==pagination.currentPage}" th:onclick="|fn_cate_paging('${pagination.currentPage+1}')|">&gt;</a>
 			</div>
 		</div>
    	</div>
@@ -75,12 +73,18 @@
 //3번째 공지부턴 숨기기
 $(function(){
 	$("[name=noticeList]>li:eq(1)").nextAll().hide();
-	$("[name=noticeList]>li:last").show();
 
-	$("[name=noticeList]>li:last").click(e=>{
-		$("[name=noticeList]>li:eq(1)").nextAll().slideToggle();
-		$("[name=noticeList]>li:last").show();
-	})
+})
+//공지사항 토글하기 
+$("#notiToggle").click(e=>{
+ 	if($("[name=noticeList]>li:eq(1)").nextAll().is(":visible") ){
+        $("[name=noticeList]>li:eq(1)").nextAll().slideUp();
+        $(e.target).text("▼");
+    }else{
+        $("[name=noticeList]>li:eq(1)").nextAll().slideDown();
+		$(e.target).text("▲");
+    }
+	
 })
 //카테고리별 ajax페이징처리
 function fn_cate_paging(i){
@@ -109,8 +113,6 @@ $("span[name=likeHeart]").click(e=>{
  	}else{
  		like='안누름';
  		$(e.target).next().text(count+1);
- 		// 알림 보내는 함수 by 희웅
-		sendNoti();
  	};
  	
  	//하트바꾸기
@@ -123,8 +125,11 @@ $("span[name=likeHeart]").click(e=>{
 			"id":id,
 			"like":like
 		}
-	}).done(function(fragment){
-		
-	})
+    }).done(function(fragment){
+      if(like==='안누름'){
+        // 알림 보내는 함수 by 희웅
+        sendNoti();
+      }
+    })
 })
 </script>

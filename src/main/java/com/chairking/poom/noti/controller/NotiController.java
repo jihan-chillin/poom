@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,8 +39,8 @@ public class NotiController {
     }
 
     @GetMapping("/noti/my/data")
-    public Map<String,Object> myNotiData(@RequestParam(value = "loginid")String loginId){
-//        String loginId = (String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
+    public Map<String,Object> myNotiData(HttpServletRequest req){
+        String loginId = (String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
         //결과 데이터
         Map<String,Object> data = new HashMap<>();
         // 알림 정보
@@ -58,9 +59,11 @@ public class NotiController {
             notiService.deleteNotiBoardDelStatus(myNotiData.get(i).get("BOARD_NO"));
             String boardNo = myNotiData.get(i).get("BOARD_NO");
 
-            getBoardTitleFromBoardNo.add(i,
-                    notiService.getBoardTitleFromBoardNo(boardNo)
-            );
+            if (Integer.parseInt(boardNo) != 0) {
+                getBoardTitleFromBoardNo.add(i,
+                        notiService.getBoardTitleFromBoardNo(boardNo)
+                );
+            }
 
         }
 
