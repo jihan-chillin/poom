@@ -151,4 +151,9 @@ public interface BoardMapper {
 
 	@Select("SELECT * FROM ( SELECT BOARD_NO, BOARD_DATE, BOARD_TITLE FROM BOARD ORDER BY  BOARD_DATE DESC ) WHERE ROWNUM = 1")
     String getBoardNoFromForm();
+	
+	//보드뷰에 해시태그 넣기
+	@Select("SELECT TAG_NAME FROM BOARDTAG WHERE BOARD_NO=#{boardNo}")
+	List<String> boardTagList(String boardNo);
 }
+

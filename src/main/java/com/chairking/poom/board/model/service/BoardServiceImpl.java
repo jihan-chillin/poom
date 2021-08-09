@@ -190,4 +190,11 @@ public class BoardServiceImpl implements BoardService {
 	public String getBoardNoFromForm() {
 		return dao.getBoardNoFromForm(mapper);
 	}
+
+	@Override
+	public List<String> boardTagList(String boardNo) {
+		return dao.boardTagList(mapper,boardNo);
+	}
+	
+	
 }
