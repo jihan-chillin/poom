@@ -143,8 +143,12 @@ public class BoardController {
 	public ModelAndView boardNotice(@RequestParam Map<String,String> map, ModelAndView mv) {
 		String no=map.get("no");
 		Map<String,Object> notice = service.selectNotice(no);
-		System.out.println(notice);
-		if(map.get("cate")!=null) {
+		System.out.println(map);
+		if(map.get("cate")==null) {
+			
+		}else if(map.get("cate").equals("4")) {
+			mv.addObject("cate", "4");
+		}else if(map.get("cate").equals("all")) {
 			mv.addObject("cate", "all");
 		}
 		mv.addObject("notice", notice);
