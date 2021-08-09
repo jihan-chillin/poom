@@ -6,7 +6,7 @@
         <!-- 글 카테고리 -->
         <div id="comment-bar">
             <ul>
-                <li><img th:src="@{/images/ui/chat.png}" ></li>
+
                 <li><button class="mywrite-btn" onclick="barmywrite();">내가 쓴 글</button></li>
                 <li><button class="mycomment-btn" >내가 쓴 댓글</button></li>
                 <li><button class="mylike-btn" onclick="mylike();">내가 찜한 글</button></li>
@@ -18,7 +18,6 @@
         <div id="comment-list">
             <table>
                 <thead>
-                    <th>닉네임</th>
                     <th>제목</th>
                     <th>내 댓글</th>
                     <th>날짜</th>
@@ -27,7 +26,6 @@
                 <tbody>
 
                 <tr th:each="c : ${cList}" >
-                    <td th:text="${c.MEMBER_NICKNAME}"></td>
                     <td th:text="${c.BOARD_TITLE}"></td>
                     <td th:test="${c.COMMENT_CONTENT}"></td>
                     <td th:text="${#dates.format(c.COMMENT_DATE, 'yyyy-MM-dd')}"></td>
