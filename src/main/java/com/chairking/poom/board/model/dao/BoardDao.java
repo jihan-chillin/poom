@@ -22,7 +22,7 @@ public interface BoardDao {
 	String[] likeTable(BoardMapper mapper, String id);
 	//보드태그 테입르 가져오기
 	List<Map<String,Object>> boardTag(BoardMapper mapper);
-	
+
 	List<Map<String, Object>> selectAllBoard(BoardMapper mapper, int cPage, int numPerpage);
 
 	Map selectBoard(BoardMapper mapper, String boardNo);
@@ -70,4 +70,8 @@ public interface BoardDao {
 	List<Map<String, Object>> selectAllCateNotice(BoardMapper mapper, String cate);
 
 	Map<String, Object> selectCateName(BoardMapper mapper, String cate);
+
+	int boardTagFromform(BoardMapper mapper, String strBoardNo, String tagText);
+
+	int TagFromform(BoardMapper mapper, String tagText);
 }

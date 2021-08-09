@@ -27,23 +27,26 @@
 }
 
 #room-container{
-  width: 98%;
+  width: 99%;
   display: grid;
   /* border: 1px #000000 solid; */
   margin-left: 10px;
   margin-right: 10px;
+  margin-top: 10px;
   /* width: 100%; */
   height: auto;
   background: #f7f7f7;
   border-radius: 20px;
   padding: 30px;
-  grid-template-rows: repeat(3,minmax(50px,auto));
+  grid-template-rows: repeat(2,minmax(50px,auto));
 }
 
 #room-container .board-title{
   /* margin-top: 20px; */
-  font-family: 'NEXON Lv2 Gothic Bold';
-  font-size:40px;
+  font-family: 'NanumSquareRound',sans-serif;;
+  font-size:35px;
+  font-weight: bold;
+  color: #F77B1E;
   justify-self: center;
   align-self: center;
 }

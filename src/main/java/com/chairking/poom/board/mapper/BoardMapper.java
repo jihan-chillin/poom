@@ -72,11 +72,7 @@ public interface BoardMapper {
 	//좋아요 테이블 가져오기
 	@Select("SELECT BOARD_NO FROM LIKES WHERE PUSH_LIKES=#{id}")
 	public String[] likeTable(String id);
-	
-	//보드태그 테이블 가져오기
-	@Select("SELECT * FROM BOARDTAG")
-	public List<Map<String,Object>> boardTag();
-	
+
 	//보드테이블에 좋아요 카운트 +1하기
 	@Update("UPDATE BOARD SET LIKE_COUNT=LIKE_COUNT+1 WHERE BOARD_NO=#{no}")
 	public int addLike(Map<String,String> map);
@@ -94,6 +90,9 @@ public interface BoardMapper {
 	//좋아요테이블에 좋아요한 내용 삭제하기
 	@Delete("DELETE FROM LIKES WHERE BOARD_NO=#{no} AND PUSH_LIKES=#{id}")
 	public int cancelLikeTable(Map<String,String> map);
+	//보드태그 테이블 가져오기
+	@Select("SELECT * FROM BOARDTAG")
+	public List<Map<String,Object>> boardTag();
 	
 	//카테고리별 게시글 리스트 가져오기
 	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM (SELECT * FROM BOARD JOIN CATEGORY ON (BOARD_CATE = CATEGORY_NO) WHERE DEL_STATUS=0 AND CATEGORY_NO=#{cate} ORDER BY BOARD_DATE DESC)B) WHERE RNUM BETWEEN 1 and 100")
@@ -136,6 +135,11 @@ public interface BoardMapper {
 	@Select("SELECT CATEGORY_NAME FROM CATEGORY WHERE CATEGORY_NO = #{cate}")
 	Map<String, Object> selectCateName(String cate);
 
-	// TAG 안에 집어넣기
+	//boardTAG 안에 집어넣기
+//	strBoardNo, tagText
+	@Insert("INSERT INTO BOARDTAG VALUES(SEQ_BOARDTAGNO.NEXTVAL,#{strBoardNo}, #{tagText}")
+	int boardTagFromform(String strBoardNo, String tagText);
 
+	@Insert("INSERT INTO TAG VALUES (#{tagText})")
+	int TagFromform(String tagText);
 }
