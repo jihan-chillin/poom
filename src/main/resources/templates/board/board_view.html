@@ -8,7 +8,7 @@
     	<ul>
     		<li>
     			<span th:text="${board['BOARD_TITLE']}">제목</span>
-    			<span th:title="${board['BOARD_NO']}" th:text="${#arrays.contains(likeTable,board['BOARD_NO'])}?'♥':'♡'" name="likeHeart"></span>
+    			<span th:unless="${session.loginMember.MEMBER_ID eq 'admin'}"th:title="${board['BOARD_NO']}" th:text="${#arrays.contains(likeTable,board['BOARD_NO'])}?'♥':'♡'" name="likeHeart"></span>
    			</li>
    			<li>
    				<span th:text="'작성자 : '+${board['B_WRITER']}">닉네임</span>
@@ -21,11 +21,11 @@
     	</ul>
         <div >
         	<span>
-        		<button type="button" class="btn" onsubmit="move_list();">목록으로</button>
+        		<button  th:unless="${session.loginMember.MEMBER_ID eq 'admin'}" type="button" class="btn" onsubmit="move_list();">목록으로</button>
         	</span>
             <span >
             	<!-- loingMember 일치여부 확인 후 버튼 보여주기 -->
-            	<th:block th:unless="${session.loginMember.MEMBER_ID eq board['MEMBER_ID']}" >
+            	<th:block th:unless="${session.loginMember.MEMBER_ID eq board['MEMBER_ID'] or session.loginMember.MEMBER_ID eq 'admin'}" >
             		<button type="button" class="btn" th:data-n="${board['BOARD_NO']}" th:onclick="|fn_boardBlame(this.getAttribute('data-n'))|" style="background:#F77B1E;color:white;border:none;">신고</button>&nbsp;&nbsp;
             	</th:block>
             	<th:block th:if="${session.loginMember.MEMBER_ID eq board['MEMBER_ID']} ">
@@ -51,8 +51,10 @@
     	</div>
     </div>
 </div>
+<th:block th:unless="${session.loginMember.MEMBER_ID eq 'admin'}">
  <!-- HOT키워드순위창 -->
  <div th:replace="/fragments/rank.html :: fragment-rank"></div>
+ </th:block>
 <script th:inline="javascript">
 //신고하기 버튼 => 팝업 이동 
 function fn_boardBlame(no){
