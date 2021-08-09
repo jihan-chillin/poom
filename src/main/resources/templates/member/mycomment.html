@@ -27,7 +27,7 @@
 
                 <tr th:each="c : ${cList}" >
                     <td th:text="${c.BOARD_TITLE}"></td>
-                    <td th:test="${c.COMMENT_CONTENT}"></td>
+                    <td th:test="${c.COMMENT_CONTENT}" style="cursor:pointer;"></td>
                     <td th:text="${#dates.format(c.COMMENT_DATE, 'yyyy-MM-dd')}"></td>
                 </tr>
 
