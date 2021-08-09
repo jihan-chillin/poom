@@ -61,7 +61,19 @@ function feedToView(no){
 		}
 	})
 }
-
+//전체글에서 view로 이동 ajax
+function allToView(no){
+	$.ajax({
+		url:getContextPath()+"/board/view",
+		data : {
+			"boardNo":no,
+			"cate":"all"
+		},
+		success:data=>{
+			$("#content").html(data);
+		}
+	})
+}
 //게시판에서 공지사항 들어가기
 function fn_moveBoardNotice(no){
 	$.ajax({
@@ -115,4 +127,5 @@ function fn_alllist_paging(i){
 		$("#board_box").html(fragment);
 	});
 };
+
 

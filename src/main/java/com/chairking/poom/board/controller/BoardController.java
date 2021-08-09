@@ -40,7 +40,9 @@ public class BoardController {
 	
 //	게시글 상세 조회
 	@GetMapping("/board/view")
-	public ModelAndView boardView(@RequestParam String boardNo, ModelAndView mv,HttpServletRequest req) {
+	public ModelAndView boardView(@RequestParam String boardNo, 
+							@RequestParam (value="cate", required=false, defaultValue="none") String cate,
+							ModelAndView mv,HttpServletRequest req) {
 		System.out.println(boardNo);
 		//좋아요 가져오기
 		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
@@ -51,6 +53,7 @@ public class BoardController {
 		mv.setViewName("board/board_view");
 		mv.addObject("board", service.selectBoard(boardNo));
 		mv.addObject("commentList", service.selectCommentList(boardNo));
+		mv.addObject("cate", cate);
 		return mv;
 	}
 
