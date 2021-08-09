@@ -6,7 +6,6 @@
 CKEDITOR.editorConfig = function( config ) {
 	config.filebrowserUploadMethod='form'; //파일 오류났을때 alert띄워줌
 
-
 	// 기존 config.js ▼
 	// // Define changes to default configuration here.
 	// // For complete reference see:

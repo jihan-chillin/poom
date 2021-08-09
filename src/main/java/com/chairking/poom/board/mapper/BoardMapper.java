@@ -125,7 +125,7 @@ public interface BoardMapper {
 	@Select("SELECT * FROM ( SELECT ROWNUM AS RNUM, C.CATEGORY_NAME,B.PREVIEW_IMG, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT,(SELECT COUNT(*) AS CNT FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO) AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_LOC = #{memberloc} ORDER BY BOARD_DATE DESC ) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
 	List<Map<String, Object>> allBoard(Pagination pagination, Object memberloc);
 
-	@Select("SELECT C.CATEGORY_NO, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.NOTICE_DATE, N.NOTICE_STATUS, C.CATEGORY_NAME FROM NOTICE N JOIN CATEGORY C on (C.CATEGORY_NO = N.CATEGORY_NO) ORDER BY C.CATEGORY_NO")
+	@Select("SELECT N.NOTICE_NO, C.CATEGORY_NO, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.NOTICE_DATE, N.NOTICE_STATUS, C.CATEGORY_NAME FROM NOTICE N JOIN CATEGORY C on (C.CATEGORY_NO = N.CATEGORY_NO) ORDER BY C.CATEGORY_NO")
 	List<Map<String, Object>> selectAllBoardNotice();
 
 	@Select("SELECT * FROM ( SELECT ROWNUM AS RNUM, C.CATEGORY_NAME,B.PREVIEW_IMG, B.BOARD_NO,B.BOARD_TITLE, B.BOARD_CONTENT,(SELECT COUNT(*) AS CNT FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO) AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_CATE=#{cate} AND B.BOARD_LOC = #{memberloc}ORDER BY BOARD_DATE DESC ) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
@@ -134,7 +134,7 @@ public interface BoardMapper {
 	@Select("SELECT COUNT(*) FROM BOARD WHERE BOARD_CATE = #{cate} AND BOARD_LOC = #{memberloc}")
 	int allcateBoardCount(String cate, Object memberloc);
 
-	@Select("SELECT C.CATEGORY_NO, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.NOTICE_DATE, N." +
+	@Select("SELECT N.NOTICE_NO,C.CATEGORY_NO, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.NOTICE_DATE, N." +
 			"NOTICE_STATUS, C.CATEGORY_NAME FROM NOTICE N JOIN CATEGORY C on (C.CATEGORY_NO = N.CATEGORY_NO) where c.category_no = #{cate} order by n.notice_date desc")
 	List<Map<String, Object>> selectAllCateNotice(String cate);
 
@@ -151,4 +151,13 @@ public interface BoardMapper {
 
 	@Select("SELECT * FROM ( SELECT BOARD_NO, BOARD_DATE, BOARD_TITLE FROM BOARD ORDER BY  BOARD_DATE DESC ) WHERE ROWNUM = 1")
     String getBoardNoFromForm();
+	
+	//보드뷰에 해시태그 넣기
+	@Select("SELECT TAG_NAME FROM BOARDTAG WHERE BOARD_NO=#{boardNo}")
+	List<String> boardTagList(String boardNo);
+	
+	//전체글 리스트에 해시태그 넣기
+	@Select("SELECT BOARD_NO, TAG_NAME FROM BOARDTAG")
+	List<Map<String,String>> selectAllBoardTag();
 }
+

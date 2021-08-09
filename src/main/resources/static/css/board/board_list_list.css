@@ -161,14 +161,16 @@ div.bList ul>li {
     padding: 0 10px;
     font-weight: bold;
     color: darkgray;
-    cursor:pointer;
 }
 div.bList ul>li:last-child {
 	margin-right: 10px;
 }
-
+span[name=likeHeart]{
+	cursor:pointer;
+}
 #searchBox{
 	text-align: center;
+	padding-left: 70px;
 }
 
 #searchBox input:nth-of-type(1){
@@ -240,6 +242,16 @@ div#main_pagebar>div div{
 	color:darkgray;
 	border-radius: 5px;
 	margin:0 3px;
+}
+div#tagBorderBox{
+	width: 100%;
+	height: auto;
+	background: #f7f7f7;
+	border-radius: 20px;
+	padding: 30px;
+	position: relative;
+	z-index: 100;
+	flex-basis: 64%;
 }
 
 
