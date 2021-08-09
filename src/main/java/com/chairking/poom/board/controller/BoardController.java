@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.chairking.poom.noti.controller.NotiController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +28,10 @@ public class BoardController {
 
 	@Autowired
 	private BoardService service;
-	
+
+	@Autowired
+	private NotiController nc;
+
 	//게시글 등록 페이지로 이동
 	@RequestMapping(path="/board/form", method=RequestMethod.GET)
 
@@ -135,6 +139,11 @@ public class BoardController {
 		//해당 no로 board테이블에 like count 추가하고 
 		//좋아요 테이블에 컬럼 추가하기
 		int result=service.changeLike(map);
+
+		// 알림테이블에 좋아요 데이터 넣기
+		if(map.get("like").equals("안누름")){
+			nc.insertLikesNotiData(map.get("no"),nc.getBoardWriter(map.get("no")));
+		}
 	}
 	
 	//전체글 ajax 페이징처리
