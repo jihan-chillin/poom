@@ -168,7 +168,9 @@ div.bList ul>li {
 div.bList ul>li:last-child {
     margin-right: 10px;
 }
-
+span[name=likeHeart]{
+	cursor:pointer;
+}
 #searchBox{
     text-align: center;
 }

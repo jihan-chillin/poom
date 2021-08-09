@@ -161,12 +161,13 @@ div.bList ul>li {
     padding: 0 10px;
     font-weight: bold;
     color: darkgray;
-    cursor:pointer;
 }
 div.bList ul>li:last-child {
 	margin-right: 10px;
 }
-
+span[name=likeHeart]{
+	cursor:pointer;
+}
 #searchBox{
 	text-align: center;
 }

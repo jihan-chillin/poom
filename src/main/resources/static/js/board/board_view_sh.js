@@ -1,6 +1,10 @@
-const move_list=()=>{
+//게시글 뷰에서 목록으로 연결하기
+function move_list(cate){
 	$.ajax({
-		url:getContextPath()+"/board/all",
+		url:getContextPath()+"/board/cateList",
+		data:{
+			"cate":cate
+		},
 		success:data=>{
 			$("div#content").html(data);
 		}
