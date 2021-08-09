@@ -5,24 +5,22 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.dom4j.rule.Mode;
-import com.chairking.poom.noti.controller.NotiController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.chairking.poom.board.model.service.BoardService;
+import com.chairking.poom.common.Pagination;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Controller
+@RestController
 //@RequestMapping("/")
 @Slf4j
 public class BoardController {
@@ -145,6 +143,80 @@ public class BoardController {
 		return mv;
 	}
 	
+	//좋아요=> +1하기
+	@RequestMapping("/board/changeLike")
+	public void changeLike(@RequestParam Map<String,String> map) {
+		//해당 no로 board테이블에 like count 추가하고 
+		//좋아요 테이블에 컬럼 추가하기
+		int result=service.changeLike(map);
+	}
+	
+	//전체글 ajax 페이징처리
+	@RequestMapping("/board/allAjax")
+	public ModelAndView allListAjax(ModelAndView mv,HttpServletRequest req,
+							@RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
+                           @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
+                           @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
+		
+		//멤버 지역 가져오기
+        Object memberloc = ((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_LOC");
+        // 페이징처리
+        Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
+        // 전체 게시글 개수
+        int totalData = service.allBoardCount(memberloc);
+        // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
+        pagination.setTotalRecordCount(totalData);
+        // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
+        List<Map<String, Object>> list = service.allBoard(pagination, memberloc);
 
+        // 좋아요 가져오기
+        String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+        // 공지사항 가져오기
+        List<Map<String,Object>> notices=service.selectAllBoardNotice();
+        System.out.println("페이지네이션"+pagination);
+        System.out.println("전체글보드리스트"+list);
+        mv.addObject("list", list);
+        mv.addObject("likeTable", likeTable);
+        mv.addObject("notices", notices);
+        mv.addObject("pagination", pagination);
+        mv.setViewName("/board/board_allist_ajax");
+		return mv;
+	}
+	
+	//카테고리별 ajax 처리
+	@GetMapping("board/cateAjax")
+    public ModelAndView cateListAjax(ModelAndView mv, HttpServletRequest req,
+                                        @RequestParam(value = "cate") String cate,
+                                        @RequestParam(value="cPage", defaultValue = "1") int cPage,
+                                        @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
+                                        @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
+
+        //멤버 지역 가져오기
+        Object memberloc = ((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_LOC");
+
+       System.out.println("파라미터 카테고리 : " + cate + "/ cate의 형 " + cate.getClass().getName()) ;
+        // 페이징처리
+        Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
+        // 전체 게시글 개수
+        int totalData = service.allcateBoardCount(cate, memberloc);
+        // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
+        pagination.setTotalRecordCount(totalData);
+        // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
+        List<Map<String, Object>> list = service.allCateBoard(pagination, cate, memberloc);
+
+        // 카테고리 이름 가져오기
+        Map<String, Object> cateName = service.selectCateName(cate);
+        Object cName = cateName.get("CATEGORY_NAME");
+
+        // 공지사항 가져와보기
+        List<Map<String, Object>> notices = service.selectAllCateNotice(cate);
+        mv.addObject("cate", cate);
+        mv.addObject("cName", cName);
+        mv.addObject("list", list);
+        mv.addObject("notices", notices);
+        mv.addObject("pagination", pagination);
+        mv.setViewName("/board/board_cate_ajax");
+        return mv;
+    }
 
 }

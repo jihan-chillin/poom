@@ -77,11 +77,7 @@ public interface BoardMapper {
 	//좋아요 테이블 가져오기
 	@Select("SELECT BOARD_NO FROM LIKES WHERE PUSH_LIKES=#{id}")
 	public String[] likeTable(String id);
-	
-	//보드태그 테이블 가져오기
-	@Select("SELECT * FROM BOARDTAG")
-	public List<Map<String,Object>> boardTag();
-	
+
 	//보드테이블에 좋아요 카운트 +1하기
 	@Update("UPDATE BOARD SET LIKE_COUNT=LIKE_COUNT+1 WHERE BOARD_NO=#{no}")
 	public int addLike(Map<String,String> map);
@@ -99,6 +95,9 @@ public interface BoardMapper {
 	//좋아요테이블에 좋아요한 내용 삭제하기
 	@Delete("DELETE FROM LIKES WHERE BOARD_NO=#{no} AND PUSH_LIKES=#{id}")
 	public int cancelLikeTable(Map<String,String> map);
+	//보드태그 테이블 가져오기
+	@Select("SELECT * FROM BOARDTAG")
+	public List<Map<String,Object>> boardTag();
 	
 	//카테고리별 게시글 리스트 가져오기
 	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM (SELECT * FROM BOARD JOIN CATEGORY ON (BOARD_CATE = CATEGORY_NO) WHERE DEL_STATUS=0 AND CATEGORY_NO=#{cate} ORDER BY BOARD_DATE DESC)B) WHERE RNUM BETWEEN 1 and 100")
@@ -120,8 +119,8 @@ public interface BoardMapper {
 	@Select("SELECT TAG_NAME FROM TAG WHERE TAG_NAME like '%${tagText}%' ")
 	List<Map<String, String>> dupleTagCheck(String tagText);
 
-	@Select("SELECT COUNT(*) FROM BOARD")
-    int allBoardCount();
+	@Select("SELECT COUNT(*) FROM BOARD WHERE BOARD_LOC = #{memberloc}")
+    int allBoardCount(Object memberloc);
 
 	@Select("SELECT * FROM ( SELECT ROWNUM AS RNUM, C.CATEGORY_NAME,B.PREVIEW_IMG, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT,(SELECT COUNT(*) AS CNT FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO) AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_LOC = #{memberloc} ORDER BY BOARD_DATE DESC ) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
 	List<Map<String, Object>> allBoard(Pagination pagination, Object memberloc);
@@ -132,8 +131,8 @@ public interface BoardMapper {
 	@Select("SELECT * FROM ( SELECT ROWNUM AS RNUM, C.CATEGORY_NAME,B.PREVIEW_IMG, B.BOARD_NO,B.BOARD_TITLE, B.BOARD_CONTENT,(SELECT COUNT(*) AS CNT FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO) AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_CATE=#{cate} AND B.BOARD_LOC = #{memberloc}ORDER BY BOARD_DATE DESC ) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
     List<Map<String, Object>> allCateBoard(Pagination pagination, String cate, Object memberloc);
 
-	@Select("SELECT COUNT(*) FROM BOARD WHERE BOARD_CATE = #{cate}")
-	int allcateBoardCount(String cate);
+	@Select("SELECT COUNT(*) FROM BOARD WHERE BOARD_CATE = #{cate} AND BOARD_LOC = #{memberloc}")
+	int allcateBoardCount(String cate, Object memberloc);
 
 	@Select("SELECT C.CATEGORY_NO, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.NOTICE_DATE, N.NOTICE_STATUS, C.CATEGORY_NAME FROM NOTICE N JOIN CATEGORY C on (C.CATEGORY_NO = N.CATEGORY_NO) where c.category_no = #{cate} order by n.notice_date desc")
 	List<Map<String, Object>> selectAllCateNotice(String cate);
@@ -141,6 +140,11 @@ public interface BoardMapper {
 	@Select("SELECT CATEGORY_NAME FROM CATEGORY WHERE CATEGORY_NO = #{cate}")
 	Map<String, Object> selectCateName(String cate);
 
-	// TAG 안에 집어넣기
+	//boardTAG 안에 집어넣기
+//	strBoardNo, tagText
+	@Insert("INSERT INTO BOARDTAG VALUES(SEQ_BOARDTAGNO.NEXTVAL,#{strBoardNo}, #{tagText}")
+	int boardTagFromform(String strBoardNo, String tagText);
 
+	@Insert("INSERT INTO TAG VALUES (#{tagText})")
+	int TagFromform(String tagText);
 }

@@ -21,8 +21,8 @@ public class PaymentDaoImpl implements PaymentDao {
 	}
 
 	@Override
-	public int changePayLevel(String memberId, String itemNo, PaymentMapper mapper) {
-		return mapper.changePayLevel(memberId, itemNo);
+	public int changePayStatus(String memberId, String itemType, PaymentMapper mapper) {
+		return mapper.changePayStatus(memberId, itemType);
 	}
 	
 	

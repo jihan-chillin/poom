@@ -54,6 +54,7 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Map<String, Object>> feedList(BoardMapper mapper, String loc, int cPage, int numPerpage) {
 		if(loc.equals("")) {
 			return mapper.feedListAllAll(loc, (cPage-1)*numPerpage+1, (cPage*numPerpage));
+
 		}else {
 			return mapper.feedListLocAll(loc, (cPage-1)*numPerpage+1, (cPage*numPerpage));
 		}
@@ -130,8 +131,8 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int allBoardCount(BoardMapper mapper) {
-		return mapper.allBoardCount();
+	public int allBoardCount(Object memberloc, BoardMapper mapper) {
+		return mapper.allBoardCount(memberloc);
 	}
 
 	@Override
@@ -148,14 +149,14 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Map<String, Object>> boardTag(BoardMapper mapper) {
 		return mapper.boardTag();
 	}
-	
+
 	public List<Map<String, Object>> allCateBoard(BoardMapper mapper, Pagination pagination, String cate, Object memberloc) {
 		return mapper.allCateBoard(pagination, cate, memberloc);
 	}
 
 	@Override
-	public int allcateBoardCount(BoardMapper mapper, String cate) {
-		return mapper.allcateBoardCount(cate);
+	public int allcateBoardCount(BoardMapper mapper, String cate, Object memberloc) {
+		return mapper.allcateBoardCount(cate, memberloc);
 	}
 
 	@Override
@@ -166,5 +167,15 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public Map<String, Object> selectCateName(BoardMapper mapper, String cate) {
 		return mapper.selectCateName(cate);
+	}
+
+	@Override
+	public int boardTagFromform(BoardMapper mapper, String strBoardNo, String tagText) {
+		return mapper.boardTagFromform(strBoardNo, tagText);
+	}
+
+	@Override
+	public int TagFromform(BoardMapper mapper, String tagText) {
+		return mapper.TagFromform(tagText);
 	}
 }

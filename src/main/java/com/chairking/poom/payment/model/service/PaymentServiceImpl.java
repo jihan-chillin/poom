@@ -29,12 +29,12 @@ public class PaymentServiceImpl implements PaymentService{
 	public int buyItem(String memberId, String itemNo) {
 		return dao.buyItem(memberId, itemNo, mapper);
 	}
-
-	//이용권 구매시 회원 결제상태 변경
-	@Override
-	public int changePaylevel(String memberId, String itemNo) {
-		return dao.changePayLevel(memberId, itemNo, mapper);
-	}
 	
+	//이용권 결제상태 확인하는 서비스
+	@Override
+	public int changePayStatus(String memberId, String itemType) {
+		return dao.changePayStatus(memberId, itemType, mapper);
+	}
+
 	
 }

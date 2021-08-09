@@ -55,7 +55,7 @@ public interface BoardService {
 
 	List<Map<String, String>> dupleTagCheck(String tagText);
 
-    int allBoardCount();
+    int allBoardCount(Object memberloc);
 
 	List<Map<String, Object>> allBoard(Pagination pagination, Object memberloc);
 
@@ -63,9 +63,13 @@ public interface BoardService {
 
     List<Map<String, Object>> allCateBoard(Pagination pagination, String cate, Object memberloc);
 
-	int allcateBoardCount(String cate);
+	int allcateBoardCount(String cate, Object memberloc);
 
 	List<Map<String, Object>> selectAllCateNotice(String cate);
 
 	Map<String, Object> selectCateName(String cate);
+
+	int boardTagFromform(String strBoardNo, String tagText);
+
+	int TagFromform(String tagText);
 }
