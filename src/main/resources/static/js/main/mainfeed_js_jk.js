@@ -61,6 +61,7 @@ $('ul.feedtab li').click(function(){
 function feedNew() {
 	var loc=$("p.onoffBtn").html();
 	var list="";
+	var cPage;
 	if($("ul.feedtab>li").hasClass('feedtab_on')) {
 		list = $("li.feedtab_on").attr('id');
 	}
@@ -100,3 +101,9 @@ toolTip.hover(function() {
 }, function() {
 	$(this).children('img').hide();
 });
+
+//무한스크롤
+var target =$('div.fList>div');
+console.log(target);
+var breakList =10; 
+var listCount = 0; 
