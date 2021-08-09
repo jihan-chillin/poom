@@ -11,5 +11,6 @@ public interface PaymentDao {
 	
 	int buyItem(String memberId, String itemNo, PaymentMapper mapper);
 	
-	int changePayLevel(String memberId, String itemNo, PaymentMapper mapper);
+	int changePayStatus(String memberId, String itemType, PaymentMapper mapper);
+	
 }

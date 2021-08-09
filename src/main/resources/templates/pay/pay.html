@@ -21,12 +21,12 @@
 	        <!-- 구매화면 -->
 	        <div id="pay_container">
 	            <p>열람권 구매하기</p>
-	            <form id="pay_form" action="/pay/end" method="post">
+	            <form id="pay_form" th:action="@{/pay/end}" method="post">
 	                <ul>
 	                </ul>
 	                <div>
-	                    <button type="button" class="btn" onclick="pay()">결제</button>
-	                    <button type="button" class="btn" onclick="location.assign('/');">취소</button>
+	                    <button type="button" class="btn" onclick="pay();">결제</button>
+	                    <button type="button" class="btn" onclick="toList();">취소</button>
 	                </div>
 	            </form>
 	        </div>

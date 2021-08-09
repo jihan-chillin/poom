@@ -33,7 +33,7 @@ public interface MessageMapper {
     @Update("UPDATE MESSAGE SET READ_CHECK=sysdate WHERE MSG_NO = #{msgNo}")
     int setMsgRead(String msgNo);
 
-    @Delete("DELETE FROM MESSAGE WHERE MSG_TYPE= 3 OR MSG_TYPE = 4 AND MSG_NO = #{msgNo}")
+    @Delete("DELETE FROM MESSAGE WHERE MSG_TYPE= 1 OR MSG_TYPE = 2 AND MSG_NO = #{msgNo}")
     int cancelMsg(String msgNo);
 
     @Select("SELECT * FROM MEMBER ${condition}")
