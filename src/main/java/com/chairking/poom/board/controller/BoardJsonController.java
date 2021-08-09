@@ -253,9 +253,9 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
         int result = service.boardTagFromform(strBoardNo, tagText);
 
         int result2 = service.TagFromform(tagText);
-
-        mv.addObject("result", result);
-        mv.addObject("restul2", result2);
+//
+//        mv.addObject("result", result);
+//        mv.addObject("restul2", result2);
         return  mv;
     }
 
