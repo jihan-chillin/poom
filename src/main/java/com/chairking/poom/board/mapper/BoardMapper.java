@@ -49,25 +49,25 @@ public interface BoardMapper {
 	
 	//메인피드 등록
 	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.NEXTVAL, #{title}, #{content}, DEFAULT, DEFAULT, DEFAULT, "
-			+ "#{loc}, DEFAULT, #{category}, #{id}, DEFAULT, DEFAULT, DEFAULT)")
+			+ "#{loc}, DEFAULT, #{category}, #{id}, DEFAULT, DEFAULT, DEFAULT, #{content})")
 	public int insertFeed(Map param);
 	
 	//메인피드 게시글(전국,전체)
 	@Select("SELECT * FROM("
-			+ "SELECT ROWNUM, A.*"
+			+ "SELECT ROWNUM AS RNUM, A.*"
 			+ "FROM (SELECT B.*, M.MEMBER_NICKNAME AS NICKNAME, C.CATEGORY_NAME AS CATEGORY "
 			+ "FROM BOARD B JOIN MEMBER M ON (B.MEMBER_ID=M.MEMBER_ID)"
 			+ "JOIN CATEGORY C ON (B.BOARD_CATE=C.CATEGORY_NO)"
-			+ "WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC) A) WHERE ROWNUM BETWEEN #{cPage} AND #{numPerpage}")
+			+ "WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC) A) WHERE RNUM >= #{cPage} AND RNUM <= #{numPerpage}")
 	public List<Map<String, Object>> feedListAllAll(String loc, int cPage, int numPerpage);
 	
 	//메인피드 게시글(지역,전체)
 	@Select("SELECT * FROM("
-			+ "SELECT ROWNUM, A.*"
+			+ "SELECT ROWNUM AS RNUM, A.*"
 			+ "FROM (SELECT B.*, M.MEMBER_NICKNAME AS NICKNAME, C.CATEGORY_NAME AS CATEGORY "
 			+ "FROM BOARD B JOIN MEMBER M ON (B.MEMBER_ID=M.MEMBER_ID)"
 			+ "JOIN CATEGORY C ON (B.BOARD_CATE=C.CATEGORY_NO)"
-			+ "WHERE DEL_STATUS=0 AND BOARD_LOC=#{loc} ORDER BY BOARD_DATE DESC) A) WHERE ROWNUM BETWEEN #{cPage} AND #{numPerpage}")
+			+ "WHERE DEL_STATUS=0 AND BOARD_LOC=#{loc} ORDER BY BOARD_DATE DESC) A) WHERE RNUM >= #{cPage} AND RNUM <= #{numPerpage}")
 	public List<Map<String, Object>> feedListLocAll(@Param("loc")String loc, int cPage, int numPerpage);
 	
 	//게시판에서 공지사항클릭

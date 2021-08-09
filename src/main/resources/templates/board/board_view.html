@@ -83,10 +83,8 @@ $("span[name=likeHeart]").click(e=>{
  		like='누름';
  	}else{
  		like='안누름';
- 		// 알림 보내는 함수 by 희웅
-		sendNoti();
  	};
- 	
+
  	//하트바꾸기
  	if(like=='누름') $(e.target).text('♡');
  	else $(e.target).text('♥');
@@ -98,7 +96,10 @@ $("span[name=likeHeart]").click(e=>{
 			"like":like
 		}
 	}).done(function(fragment){
-		
+		if(like==='안누름'){
+			// 알림 보내는 함수 by 희웅
+			sendNoti();
+		}
 	})
 })
 

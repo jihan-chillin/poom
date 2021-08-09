@@ -54,7 +54,6 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Map<String, Object>> feedList(BoardMapper mapper, String loc, int cPage, int numPerpage) {
 		if(loc.equals("")) {
 			return mapper.feedListAllAll(loc, (cPage-1)*numPerpage+1, (cPage*numPerpage));
-
 		}else {
 			return mapper.feedListLocAll(loc, (cPage-1)*numPerpage+1, (cPage*numPerpage));
 		}

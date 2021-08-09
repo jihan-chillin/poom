@@ -119,8 +119,6 @@
 	 	}else{
 	 		like='안누름';
 	 		$(e.target).next().text(count+1);
-	 		// 알림 보내는 함수 by 희웅
-			sendNoti();
 	 	};
 	 	
 	 	//하트바꾸기
@@ -133,9 +131,12 @@
 				"id":id,
 				"like":like
 			}
-		}).done(function(fragment){
-			
-		})
+        }).done(function(fragment){
+          if(like==='안누름'){
+            // 알림 보내는 함수 by 희웅
+            sendNoti();
+          }
+        })
 	})
 //카테고리별 ajax페이징처리
 function fn_cate_paging(i){
