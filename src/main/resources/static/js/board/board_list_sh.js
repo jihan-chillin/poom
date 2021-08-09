@@ -63,16 +63,29 @@ function feedToView(no){
 }
 
 //게시판에서 공지사항 들어가기
-function fn_moveBoardNotice(){
+function fn_moveBoardNotice(no){
 	$.ajax({
 		url:getContextPath()+"/board/boardNotice",
 		data:{
-			"no":1							//나중에 no값 받아서 처리하기!!!! 
+			"no":no							//나중에 no값 받아서 처리하기!!!! 
 		}
 	}).done(function (fragment){
 		$("#content").html(fragment);
 	})
 }
+//전체글에서 공지사항 들어가기
+function fn_moveBoardAllNotice(no,cate){
+	$.ajax({
+		url:getContextPath()+"/board/boardNotice",
+		data:{
+			"no":no,
+			"cate":cate							//나중에 no값 받아서 처리하기!!!! 
+		}
+	}).done(function (fragment){
+		$("#content").html(fragment);
+	})
+}
+
 
 //3번째 공지부턴 숨기기
 $(function(){

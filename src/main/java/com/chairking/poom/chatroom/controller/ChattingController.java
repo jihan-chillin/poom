@@ -40,6 +40,7 @@ public class ChattingController {
         List<Map<String, Object>> notices = boardService.selectAllCateNotice("4");
         mv.addObject("cName", "스터디 / 소모임");
         mv.addObject("notices", notices);
+        mv.addObject("cate", "4");
         mv.setViewName("chatting/chattingMain");
         return mv;
     }
