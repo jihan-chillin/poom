@@ -6,7 +6,7 @@
         <!-- 글 카테고리 -->
         <div id="like-bar">
             <ul>
-                <li><img th:src="@{/images/ui/like.png}" ></li>
+
                 <li><button class="mywrite-btn" onclick="barmywrite();">내가 쓴 글</button></li>
                 <li><button class="mycomment-btn" onclick="mycomment();">내가 쓴 댓글</button></li>
                 <li><button class="mylike-btn" >내가 찜한 글</button></li>
@@ -18,7 +18,6 @@
         <div id="like-list">
             <table>
                 <thead>
-                    <th>작성자</th>
                     <th>게시판</th>
                     <th>제목(댓글수)</th>
                     <th>날짜</th>
@@ -26,9 +25,8 @@
 
                 <tbody>
                     <tr th:each=" l : ${list}">
-                        <td th:text="${l.MEMBER_NICKNAME}"></td>
                         <td th:text = "${l.CATEGORY_NAME}"></td>
-                        <td th:text="${l.BOARD_TITLE}+'('+${l.CNT}+')'"></td>
+                        <td th:text="${l.BOARD_TITLE}+'('+${l.CNT}+')'" th:data-param="${l.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-param'))|" style="cursor:pointer;"></td>
                         <td th:text="${#dates.format(l.BOARD_DATE, 'yyyy-MM-dd')}"></td>
                     </tr>
                 </tbody>

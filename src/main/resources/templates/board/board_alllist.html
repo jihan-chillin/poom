@@ -47,7 +47,7 @@
 							<span th:data-no="${l.BOARD_NO}" th:onclick="|allToView(this.getAttribute('data-no'))|" th:text="${l.BOARD_TITLE}"></span>
 						</div>
 
-						<div th:text="${l.BOARD_CONTENT}"></div>
+						<div th:utext="${l.BOARD_CONTENT}"></div>
 						<img alt="썸네일" th:src="@{/images/profile/}+${l.PREVIEW_IMG}">
 
 

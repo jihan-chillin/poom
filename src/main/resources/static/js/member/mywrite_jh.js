@@ -35,3 +35,4 @@ function barmywrite(){
     location.assign(getContextPath()+"/mywrite");
 }
 
+

@@ -146,12 +146,34 @@ public void ckSubmit(@RequestParam(value = "fileName") String fileName,
 public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
 
-        System.out.println(param); // DB에 태그로 들어가는데 어떡하지
+        // img, br, p 태그 빼고 나 제외하기
+    String pattern = "<(\\/?)(?!\\/####)([^<|>]+)?>";
+    String bContetn = (String)param.get("boardContent");
+
+    String[] allowTags = "img,br,p".split(",");
+
+    StringBuffer buffer = new StringBuffer();
+    for(int i=0; i<allowTags.length; i++){
+        buffer.append("|"+allowTags[i].trim() +"(?!\\w)");
+    }
+
+    pattern = pattern.replace("####", buffer.toString());
+
+    System.out.println("이미지태그랑 이것저것 제외해봄 : "+pattern);
+
+//        String bContetn = (String)param.get("boardContent"); // boardContent 태그 붙어있는채로 나옴.
+//        Object removeTagContent = bContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+
+//        System.out.println("태그를 없애본 거임 : "+removeTagContent);
+
+
+
+        System.out.println("보드 컨텐트가 어떻게 나오게요? : "+param.get("boardContent"));
         int result =  service.insertBoard(param);
 
 
         String msg="";
-        String loc="redirect:/";
+        String loc="redirect://";
 
         if(result>0){
             msg="게시글 등록 성공";
