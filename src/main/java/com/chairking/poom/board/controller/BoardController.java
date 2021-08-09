@@ -140,9 +140,13 @@ public class BoardController {
 	
 	//게시판에서 공지사항 클릭
 	@RequestMapping("/board/boardNotice")
-	public ModelAndView boardNotice(String no, ModelAndView mv) {
+	public ModelAndView boardNotice(@RequestParam Map<String,String> map, ModelAndView mv) {
+		String no=map.get("no");
 		Map<String,Object> notice = service.selectNotice(no);
 		System.out.println(notice);
+		if(map.get("cate")!=null) {
+			mv.addObject("cate", "all");
+		}
 		mv.addObject("notice", notice);
 		mv.setViewName("board/board_notice_view");
 		return mv;
@@ -240,12 +244,12 @@ public class BoardController {
 		// 공지사항 가져오기
 		List<Map<String,Object>> notices=service.selectAllBoardNotice();
 
-        System.out.print("공지사항 : " + notices);
 		System.out.println("전체글보드리스트"+list);
 		mv.addObject("list", list);
 		mv.addObject("likeTable", likeTable);
 		mv.addObject("notices", notices);
 		mv.addObject("pagination", pagination);
+		mv.addObject("cate","all");
 		mv.setViewName("/board/board_alllist");
 		return mv;
 	}

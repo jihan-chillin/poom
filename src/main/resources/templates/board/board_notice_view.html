@@ -25,9 +25,7 @@
 	            <textarea name="noticeContent" id="notice_content_write" placeholder="내용을 입력해주세요." th:text="${notice.NOTICE_CONTENT}" readonly ></textarea>
 	        </div>
 		    <div id="board_notice_buttons">
-		        <!-- <button type="button" onclick="fn_edit_notice();" class="admin_buttons" th:text="${type}"></button>
-		        <button class="admin_buttons1" type="button" onclick="fn_del_notice();" th:text="${notice.NOTICE_STATUS} eq 1?'재게시':'삭제'">삭제</button> -->
-				<button type="button" onclick="alert('목록')" class="board_notice_btn">목록으로</button>
+				<button type="button" th:data-cateno="${notice.CATEGORY_NO}"th:onclick="|fn_moveToCateList(this.getAttribute('data-cateno'))|" class="board_notice_btn">목록으로</button>
 		    </div>
     	</div> 
     </div> 
@@ -42,4 +40,13 @@ $(function(){
 		"left":"1660px"
 	});
 })
+function fn_moveToCateList(no){
+	if([[${cate}]]=='all'){
+		location.assign(getContextPath()+"/board/all");
+	}else if([[${cate}]]=='4'){
+		location.assign(getContextPath()+"/chat/main");
+	}else{
+		location.assign(getContextPath()+"/board/cateList?cate="+no);
+	}
+}
 </script>
