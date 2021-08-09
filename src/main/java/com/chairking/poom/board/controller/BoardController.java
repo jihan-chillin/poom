@@ -240,7 +240,7 @@ public class BoardController {
 		// 공지사항 가져오기
 		List<Map<String,Object>> notices=service.selectAllBoardNotice();
 
-//        System.out.print("공지사항 : " + notices);
+        System.out.print("공지사항 : " + notices);
 		System.out.println("전체글보드리스트"+list);
 		mv.addObject("list", list);
 		mv.addObject("likeTable", likeTable);
@@ -276,6 +276,7 @@ public class BoardController {
 
 		// 공지사항 가져와보기
 		List<Map<String, Object>> notices = service.selectAllCateNotice(cate);
+		System.out.println("카테고리notice"+notices);
 		mv.addObject("cate", cate);
 		mv.addObject("cName", cName);
 		mv.addObject("list", list);

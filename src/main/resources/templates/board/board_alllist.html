@@ -29,7 +29,7 @@
 		                        ▼
 		                    </div>
 							<li th:each="n : ${notices}">
-								<span th:text="${n.NOTICE_TITLE}"></span>
+								<span style="cursor:pointer;" th:text="${n.NOTICE_TITLE}" th:data-notiNo="${n.NOTICE_NO}"th:onclick="|fn_moveBoardNotice(this.getAttribute('data-notiNo'))|"></span>
 								<span th:text="${n.CATEGORY_NAME}"></span>
 							</li>
 						</ul>
