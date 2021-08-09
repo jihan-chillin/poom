@@ -56,7 +56,6 @@ public class MemberController {
 			@RequestParam(value="input_file",required=false) MultipartFile[] inputfile,
 			@RequestParam Map param, HttpServletResponse res, HttpServletRequest req) throws Exception {
     	
-    	System.out.println("이거임:"+param);
     	String directoryName = System.getProperty("user.dir");
         String folderPath = directoryName + "\\src\\main\\resources\\static\\images\\profile\\";
     	String oriName=inputfile[0].getOriginalFilename();

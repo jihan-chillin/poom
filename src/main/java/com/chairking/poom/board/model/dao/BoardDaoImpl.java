@@ -51,11 +51,11 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> feedList(BoardMapper mapper, Map param) {
-		if(param.get("loc").equals("")) {
-				return mapper.feedListAllAll(param);
+	public List<Map<String, Object>> feedList(BoardMapper mapper, String loc, int cPage, int numPerpage) {
+		if(loc.equals("")) {
+			return mapper.feedListAllAll(loc, (cPage-1)*numPerpage+1, (cPage*numPerpage));
 		}else {
-				return mapper.feedListLocAll(param);
+			return mapper.feedListLocAll(loc, (cPage-1)*numPerpage+1, (cPage*numPerpage));
 		}
 	}
 

@@ -3,15 +3,16 @@ package com.chairking.poom.board.mapper;
 import java.util.List;
 import java.util.Map;
 
-import com.chairking.poom.common.Pagination;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.chairking.poom.board.model.vo.Board;
 import com.chairking.poom.board.model.vo.BoardImage;
+import com.chairking.poom.common.Pagination;
 
 @Mapper
 public interface BoardMapper {
@@ -52,18 +53,22 @@ public interface BoardMapper {
 	public int insertFeed(Map param);
 	
 	//메인피드 게시글(전국,전체)
-	@Select("SELECT *"
-			+ "FROM (SELECT B.*, C.CATEGORY_NAME AS CATEGORY, I.RENAME_IMG AS IMG FROM BOARD B JOIN CATEGORY C ON (BOARD_CATE=CATEGORY_NO)"
-			+ "LEFT JOIN IMAGE I ON (B.BOARD_NO=I.BOARD_NO))"
-			+ "WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC")
-	public List<Map<String, Object>> feedListAllAll(Map param);
+	@Select("SELECT * FROM("
+			+ "SELECT ROWNUM, A.*"
+			+ "FROM (SELECT B.*, M.MEMBER_NICKNAME AS NICKNAME, C.CATEGORY_NAME AS CATEGORY "
+			+ "FROM BOARD B JOIN MEMBER M ON (B.MEMBER_ID=M.MEMBER_ID)"
+			+ "JOIN CATEGORY C ON (B.BOARD_CATE=C.CATEGORY_NO)"
+			+ "WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC) A) WHERE ROWNUM BETWEEN #{cPage} AND #{numPerpage}")
+	public List<Map<String, Object>> feedListAllAll(String loc, int cPage, int numPerpage);
 	
 	//메인피드 게시글(지역,전체)
-	@Select("SELECT *"
-			+ "FROM (SELECT B.*, C.CATEGORY_NAME AS CATEGORY, I.RENAME_IMG AS IMG FROM BOARD B JOIN CATEGORY C ON (BOARD_CATE=CATEGORY_NO)"
-			+ "LEFT JOIN IMAGE I ON (B.BOARD_NO=I.BOARD_NO))"
-			+ "WHERE DEL_STATUS=0 AND BOARD_LOC=#{loc} ORDER BY BOARD_DATE DESC")
-	public List<Map<String, Object>> feedListLocAll(Map param);
+	@Select("SELECT * FROM("
+			+ "SELECT ROWNUM, A.*"
+			+ "FROM (SELECT B.*, M.MEMBER_NICKNAME AS NICKNAME, C.CATEGORY_NAME AS CATEGORY "
+			+ "FROM BOARD B JOIN MEMBER M ON (B.MEMBER_ID=M.MEMBER_ID)"
+			+ "JOIN CATEGORY C ON (B.BOARD_CATE=C.CATEGORY_NO)"
+			+ "WHERE DEL_STATUS=0 AND BOARD_LOC=#{loc} ORDER BY BOARD_DATE DESC) A) WHERE ROWNUM BETWEEN #{cPage} AND #{numPerpage}")
+	public List<Map<String, Object>> feedListLocAll(@Param("loc")String loc, int cPage, int numPerpage);
 	
 	//게시판에서 공지사항클릭
 	@Select("SELECT * FROM NOTICE WHERE NOTICE_NO=#{no}")

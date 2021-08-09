@@ -75,19 +75,16 @@ public class BoardController {
 	
 	//메인피드글 불러오기
 	@RequestMapping("/board/feedNew")
-	public ModelAndView feedNew(@RequestParam Map param, ModelAndView mv) {
+	public ModelAndView feedNew(@RequestParam Map param,
+								@RequestParam(value="cPage", defaultValue="1") int cPage, ModelAndView mv) {
 		
-
+		int numPerpage=10;
 		//좋아요 테이블 불러오기
 		String[] likeTable = service.likeTable((String)param.get("id"));
 		//보드태그 테이블 불러오기
 		List<Map<String, Object>> boardTag = service.boardTag();
 		
 		List<Map<String, Object>> feedList;
-		if(param.get("loc").equals("전국")) {
-			param.put("loc","");
-		}
-		
 		String noFeed="";
 		if(param.get("list").equals("feedkey")) {
 			//키워드 글 조회
@@ -95,9 +92,19 @@ public class BoardController {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			if(myTag.length>0) {
 				map.put("myTag",myTag);
+				map.put("cPage", cPage);
+				map.put("numPerpage", numPerpage);
 				map.put("loc", param.get("loc"));
 				feedList = service.feedKeyList(map);
 				if(feedList.size()>0) {
+					System.out.println("전: "+feedList.size());
+					
+					for(int i=1; i<feedList.size(); i++) {
+						if(feedList.get(i).get("BOARD_NO").equals(feedList.get(i-1).get("BOARD_NO"))) {
+							feedList.remove(i);
+						}
+					}
+					System.out.println("후: "+feedList.size());
 					mv.addObject("feedList",feedList);
 				}else {
 					noFeed="noFeed";
@@ -106,7 +113,14 @@ public class BoardController {
 				noFeed="noTag";
 			}
 		}else {
-			feedList = service.feedList(param);
+			String loc="";
+			if(param.get("loc").equals("전국")) {
+				loc="";
+			}else {
+				loc = (String)param.get("loc");
+			}
+			
+			feedList = service.feedList(loc,cPage,numPerpage);
 			if(feedList.size()>0) {
 				mv.addObject("feedList",feedList);
 			}else {
@@ -131,52 +145,6 @@ public class BoardController {
 		return mv;
 	}
 	
-	//좋아요=> +1하기
-	@RequestMapping("/board/changeLike")
-	public ModelAndView changeLike(@RequestParam Map<String,String> map,ModelAndView mv) {
-		//해당 no로 board테이블에 like count 추가하고 
-		//좋아요 테이블에 컬럼 추가하기
-		int result=service.changeLike(map);
-		//좋아요 리스트 다시 가져오기
-		String[] likeTable = service.likeTable(map.get("id"));
-		
-		//메인에서 좋아요 눌렀을때
-		if(map.get("type")==null) {
-			//추가 후 list다시 불러오기
-			List<Map<String, Object>> feedList = service.feedList(map);
-			if(feedList!=null) {
-				mv.addObject("likeTable",likeTable);
-				mv.addObject("feedList",feedList);
-			}else {
-				mv.addObject("feedList","등록된 글이 없습니다.");
-			}
-			mv.setViewName("main/feedList");
-		}else {			//게시글에서 좋아요 눌렀을때
-			mv.addObject("likeTable",likeTable);
-			mv.setViewName("board/board_view");
-			mv.addObject("board", service.selectBoard(map.get("no")));
-			mv.addObject("commentList", service.selectCommentList(map.get("no")));
-		}
-		return mv;
-	}
-	
-	//왼쪽 게시판 이름 누르면 카테고리로 이동하기
-//	@RequestMapping("/board/cateList")
-//	public ModelAndView boardList(@RequestParam String cate, ModelAndView mv,HttpServletRequest req ) {
-//		int numPerpage = 5;
-//		//카테고리별 게시글 리스트
-//		List<Map<String, Object>> list = service.selectBoardList(cate,1, numPerpage);
-//		//좋아요 가져오기
-//		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
-//		//공지사항 가져오기
-//		List<Map<String,Object>> notices=service.selectBoardNotice(cate);
-//		System.out.println(notices);
-//		mv.addObject("list", list);
-//		mv.addObject("likeTable",likeTable);
-//		mv.addObject("notice", notices);
-//		mv.addObject("name",list.get(0).get("CATEGORY_NAME"));
-//		mv.setViewName("board/board_list_list");
-//		return mv;
-//	}
+
 
 }

@@ -17,7 +17,7 @@ public interface BoardDao {
 	//메인피드 글 등록하기
 	int insertFeed(BoardMapper mapper, Map param);
 	//메인 피드 리스트 가져오기
-	List<Map<String, Object>> feedList(BoardMapper mapper, Map param);
+	List<Map<String, Object>> feedList(BoardMapper mapper, String loc, int cPage, int numPetpage);
 	//좋아요 테이블 가져오기
 	String[] likeTable(BoardMapper mapper, String id);
 	//보드태그 테입르 가져오기

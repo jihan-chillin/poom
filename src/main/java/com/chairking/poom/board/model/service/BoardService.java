@@ -14,7 +14,7 @@ public interface BoardService {
 	//메인피드 글 등록하기
 	int insertFeed(Map param);
 	//메인 피드 리스트 가져오기
-	List<Map<String, Object>> feedList(Map param);
+	List<Map<String, Object>> feedList(String loc, int cPage, int numPerpage);
 	//좋아요 테이블 가져오기
 	String[] likeTable(String no);
 	//보드태그 테이블 가져오기
