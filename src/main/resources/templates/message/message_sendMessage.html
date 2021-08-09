@@ -31,7 +31,7 @@
                     <td th:text="${mv.MSG_CONTENT}"></td>
 <!--                    <td th:utext="${mv.READ_CHECK.toString()} eq '0001-01-01 00:00:00.0'? '<input type=\'button\' id=\'cancel\' value=\'발송취소\' onclick=\'cancelMsg(' + ${mv.MSG_NO} + ')\'/>':${mv.READ_CHECK}" ></td>-->
 <!--                    -->
-                    <td th:text="${mv.containsKey('READ_CHECK')?#dates.format(mv.READ_CHECK, 'yyyy-MM-dd HH:mm:ss'):'발송취소'}" th:data-mno="${mv.MSG_NO}" th:onclick="|cancelMsg(this.getAttribute('data-mno'))|" id="cancelMsg"></td>
+                    <td th:text="${mv.containsKey('READ_CHECK')?#dates.format(mv.READ_CHECK, 'yyyy-MM-dd HH:mm:ss'):'발송취소'}" th:title="${mv.MSG_NO}" class="cancelMsg"></td>
                 </tr>
                 </tbody>
             </table>

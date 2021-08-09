@@ -34,25 +34,22 @@ function fn_message_move(mType) {
 // }
 
 //메세지 안읽음에 따른 발송취소
-function cancelMsg(msgNo) {
-    alert($("#cancelMsg").text());
-    // if($("#cancelMsg").text()=='발송취소'){
-    //     if (confirm("발송취소하시겠습니까? 취소하시면 메세지가 삭제됩니다.")) {
-    //         $.ajax({
-    //             url: getContextPath()+"/message/cancelMsg",
-    //             data: {"msgNo": msgNo},
-    //             type: 'POST',
-    //         }).done(function () {
-    //             alert("취소되었습니다.");
-    //             // fn_message_move('send');
-    //             //$("#target").html(fragment);
-    //         });
-    //     }
-    // }else{
-    //     alert('읽었음!!');
-    // }
+$(".cancelMsg").click(e=>{
+    if($(e.target).text()=='발송취소'){
+        var msgNo=$(e.target).attr("title");
+        if (confirm("발송취소하시겠습니까? 취소하시면 메세지가 삭제됩니다.")) {
+            $.ajax({
+                url: getContextPath()+"/message/cancelMsg",
+                data: {"msgNo": msgNo},
+                type: 'POST',
+            }).done(function () {
+                alert("취소되었습니다.");
+                fn_message_move('send');
+            });
+        }
+    }
+})
 
-}
 
 function fn_move_Block() {
     if (confirm("휴지통으로 이동시키겠습니까?")) {
@@ -128,12 +125,15 @@ function tableFilter(e) {
 $('.messages').click(function(e) {
     var msgNo = $(e.currentTarget).children('.msgNo').html();
     var tClassNm = e.target.className.toString();
+    var cancle = $(e.currentTarget).children('.cancelMsg').text();
 
-    if(tClassNm == 'targetChk' || tClassNm == 'checkbox2 m-0') {
+    if(tClassNm == 'targetChk' || tClassNm == 'checkbox2 m-0' || cancle == '발송취소' ) {
         return;
     } else
         window.open(getContextPath() + "/message/content?msgNo=" + msgNo, "content", "width=400,height=300");
 });
+
+
 $('.rMessages').click(function(e) {
     var msgNo = $(e.currentTarget).children('.msgNo').html();
     var tClassNm = e.target.className.toString();

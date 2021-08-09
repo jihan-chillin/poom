@@ -161,7 +161,6 @@ public class MessageController {
 
         List<Map<String,Object>> list = service.messageContent(msgNo);
         m.addAttribute("list",list);
-        System.out.println("읽음처리 성공");
         return "message/message_receiveContent";
     }
 
@@ -186,7 +185,6 @@ public class MessageController {
         if(result>0){
             mv.setViewName("/message/message_sendMessage");
         }
-        System.out.println("msgNo는 뭘까요 : " + msgNo);
         return mv;
     }
 
