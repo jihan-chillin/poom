@@ -8,7 +8,8 @@ public interface PaymentService {
 	List<Map<String, String>> itemList();
 	
 	int buyItem(String memberId, String itemNo);
-	
-	int changePaylevel(String memberId, String itemNo);
 
+	int changePayStatus(String memberId, String itemType);
+	
+	
 }

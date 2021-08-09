@@ -77,12 +77,18 @@ function fn_moveBoardNotice(){
 //3번째 공지부턴 숨기기
 $(function(){
 	$("[name=noticeList]>li:eq(1)").nextAll().hide();
-	$("[name=noticeList]>li:last").show();
 
-	$("[name=noticeList]>li:last").click(e=>{
-		$("[name=noticeList]>li:eq(1)").nextAll().slideToggle();
-		$("[name=noticeList]>li:last").show();
-	})
+})
+//공지사항 토글하기 
+$("#notiToggle").click(e=>{
+ 	if($("[name=noticeList]>li:eq(1)").nextAll().is(":visible") ){
+        $("[name=noticeList]>li:eq(1)").nextAll().slideUp();
+        $(e.target).text("▼");
+    }else{
+        $("[name=noticeList]>li:eq(1)").nextAll().slideDown();
+		$(e.target).text("▲");
+    }
+	
 })
 
 //전체글ajax페이징처리
