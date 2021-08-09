@@ -74,4 +74,8 @@ public interface BoardDao {
 	int boardTagFromform(BoardMapper mapper, String strBoardNo, String tagText);
 
 	int TagFromform(BoardMapper mapper, String tagText);
+
+	String getBoardNoFromForm(BoardMapper mapper);
+	
+	List<String> boardTagList(BoardMapper mapper, String boardNo);
 }

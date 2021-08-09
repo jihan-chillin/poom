@@ -7,7 +7,7 @@
     <div id="board_container">
     	<ul>
     		<li>
-    			<span th:text="${board['BOARD_TITLE']}">제목</span>
+    			<span style="font-size: 20px;font-weight: bold;" th:text="${board['BOARD_TITLE']}">제목</span>
     			<span th:unless="${session.loginMember.MEMBER_ID eq 'admin'}"th:title="${board['BOARD_NO']}" th:text="${#arrays.contains(likeTable,board['BOARD_NO'])}?'♥':'♡'" name="likeHeart"></span>
    			</li>
    			<li>
@@ -16,7 +16,9 @@
    			</li>
     		<li><span th:text="${board['BOARD_CONTENT']}">내용</span></li>
     		<li>
-    			<span>해시태그들</span>
+    			<th:block th:each="t:${tagList}">
+    				<span style="padding-right:3px;font-size:18px;font-weight: bold;" th:text="'#'+${t}">해시태그들</span>
+    			</th:block>
     		</li>
     	</ul>
         <div >
@@ -31,7 +33,6 @@
             	<th:block th:if="${session.loginMember.MEMBER_ID eq board['MEMBER_ID']} ">
             		<button type="button" class="btn" onsubmit="board_modify();" style="background:#247094;color:white;border:none;">수정</button>&nbsp;&nbsp;
             		<button type="button" class="btn" onclick="location.assign('/');">삭제</button>
-            		<button type="button" class="btn" onclick="location.assign('/');">취소</button>
             	</th:block>
             </span>
         </div>
