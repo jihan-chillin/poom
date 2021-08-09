@@ -129,7 +129,8 @@ public interface BoardMapper {
 	@Select("SELECT COUNT(*) FROM BOARD WHERE BOARD_CATE = #{cate} AND BOARD_LOC = #{memberloc}")
 	int allcateBoardCount(String cate, Object memberloc);
 
-	@Select("SELECT C.CATEGORY_NO, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.NOTICE_DATE, N.NOTICE_STATUS, C.CATEGORY_NAME FROM NOTICE N JOIN CATEGORY C on (C.CATEGORY_NO = N.CATEGORY_NO) where c.category_no = #{cate} order by n.notice_date desc")
+	@Select("SELECT C.CATEGORY_NO, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.NOTICE_DATE, N." +
+			"NOTICE_STATUS, C.CATEGORY_NAME FROM NOTICE N JOIN CATEGORY C on (C.CATEGORY_NO = N.CATEGORY_NO) where c.category_no = #{cate} order by n.notice_date desc")
 	List<Map<String, Object>> selectAllCateNotice(String cate);
 
 	@Select("SELECT CATEGORY_NAME FROM CATEGORY WHERE CATEGORY_NO = #{cate}")
@@ -137,9 +138,12 @@ public interface BoardMapper {
 
 	//boardTAG 안에 집어넣기
 //	strBoardNo, tagText
-	@Insert("INSERT INTO BOARDTAG VALUES(SEQ_BOARDTAGNO.NEXTVAL,#{strBoardNo}, #{tagText}")
+	@Insert("INSERT INTO BOARDTAG VALUES(SEQ_BOARDTAGNO.NEXTVAL,#{strBoardNo}, #{tagText})")
 	int boardTagFromform(String strBoardNo, String tagText);
 
 	@Insert("INSERT INTO TAG VALUES (#{tagText})")
 	int TagFromform(String tagText);
+
+	@Select("SELECT * FROM ( SELECT BOARD_NO, BOARD_DATE, BOARD_TITLE FROM BOARD ORDER BY  BOARD_DATE DESC ) WHERE ROWNUM = 1")
+    String getBoardNoFromForm();
 }

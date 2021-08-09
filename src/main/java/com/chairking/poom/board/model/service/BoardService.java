@@ -72,4 +72,6 @@ public interface BoardService {
 	int boardTagFromform(String strBoardNo, String tagText);
 
 	int TagFromform(String tagText);
+
+    String getBoardNoFromForm();
 }

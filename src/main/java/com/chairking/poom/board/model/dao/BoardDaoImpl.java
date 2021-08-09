@@ -177,4 +177,9 @@ public class BoardDaoImpl implements BoardDao {
 	public int TagFromform(BoardMapper mapper, String tagText) {
 		return mapper.TagFromform(tagText);
 	}
+
+	@Override
+	public String getBoardNoFromForm(BoardMapper mapper) {
+		return mapper.getBoardNoFromForm();
+	}
 }

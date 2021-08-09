@@ -4,6 +4,7 @@ import com.chairking.poom.board.model.service.BoardService;
 import com.chairking.poom.board.model.vo.CkFileupload;
 import com.chairking.poom.common.Pagination;
 import com.chairking.poom.hashTag.controller.TagJsonController;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.aspectj.util.FileUtil;
@@ -29,6 +30,7 @@ import java.util.Map;
 import java.util.List;
 
 @RestController
+@Slf4j
 public class BoardJsonController {
 
     @Autowired
@@ -36,6 +38,9 @@ public class BoardJsonController {
 
     @Autowired
     private BoardService service;
+
+    @Autowired
+    private TagJsonController tagJsonController;
 
     // 프로젝트 내에 첨부파일 저장하고
     // 그 파일 서버로 전송
@@ -234,22 +239,28 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
     }
 
     // 상세 글에서 해시태그 추가하는 controller
-    @GetMapping("/board/addTag")
+    @GetMapping("board/addTag")
     public ModelAndView addTagFromForm(@RequestParam(value = "tagText") String tagText,
                                        HttpServletRequest req, ModelAndView mv){
 
         System.out.println("택텍스트 들어오는지"+tagText);
 
         // 방금전에 등록한 게시글 번호 가져오기
-        TagJsonController tagJsonController = new TagJsonController();
-        int boardNo = Integer.parseInt(tagJsonController.getBoardNo())+1;
+        int boardNo = Integer.parseInt(getBoardNoFromForm())+1;
         String strBoardNo = Integer.toString(boardNo);
 
 //      boardTag 추가
         int result = service.boardTagFromform(strBoardNo, tagText);
+
         int result2 = service.TagFromform(tagText);
 
+        mv.addObject("result", result);
+        mv.addObject("restul2", result2);
         return  mv;
     }
 
+    // 방금전에 등록한 게시글 번호 가져오기
+    public String getBoardNoFromForm(){
+        return service.getBoardNoFromForm();
+    }
 }

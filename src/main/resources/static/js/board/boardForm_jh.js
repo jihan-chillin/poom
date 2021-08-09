@@ -138,6 +138,29 @@ function addTagFromBoardForm(tagText){
     });
 }
 
+// 등록된 제목과 이런거 다 보내기
+function boardWriteFromForm(){
+    // 제목, 카테고리, 내용
+    let boardTitle =  $("[name=board-title]").val();
+    let boardContent = $("[name=boardContent]").val();
+
+    if(boardTitle  == ""){
+        alert("제목을 입력해주세요.");
+        $("[name=board-title]").focus();
+        return false;
+    }
+
+    if(boardContent = ""){
+        alert("내용을 입력해주세요.");
+        $("[name=boardCate]").focus();
+        return false;
+    }
+
+    $("[name=board-title]").submit();
+    $("[name=boardCate]").submit();
+    $("[name=boardContent]").submit();
+}
+
 
 
 

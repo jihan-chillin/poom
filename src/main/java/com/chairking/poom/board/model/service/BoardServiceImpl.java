@@ -185,4 +185,9 @@ public class BoardServiceImpl implements BoardService {
 	public int TagFromform(String tagText) {
 		return dao.TagFromform(mapper, tagText);
 	}
+
+	@Override
+	public String getBoardNoFromForm() {
+		return dao.getBoardNoFromForm(mapper);
+	}
 }
