@@ -22,19 +22,19 @@
 
         <div id="content">
             <!--프로필 영역 -->
-            <div th:replace="/fragments/profile.html :: fragment-profile"></div>
+            <div th:replace="/fragments/profile.html :: fragment-profile" id="profileBox"></div>
 
             <div class="feed" style="height:1000px">
                 <div id = "mywrite-whole-content">
                     <div id ="mywrite-content">
                         <!-- 글 카테고리 -->
                         <div id="write-bar">
+
                             <ul>
-                                <li><img th:src="@{/images/ui/write.png}"></li>
                                 <li><button class="mywrite-btn">내가 쓴 글</button></li>
                                 <li><button onclick="mycomment();">내가 쓴 댓글</button></li>
                                 <li><button onclick="mylike();">내가 찜한 글</button></li>
-                                <!--                            <li><img src="/../../images/mywrite/pencil.png"></li>-->
+
                             </ul>
                         </div>
 
@@ -42,7 +42,6 @@
                         <div id="write-list">
                             <table>
                                 <thead>
-                                <th>닉네임</th>
                                 <th>게시판</th>
                                 <th>제목(댓글수)</th>
                                 <th>날짜</th>
@@ -50,12 +49,17 @@
 
                                 <tbody>
                                 <tr th:each="m : ${list}">
-<!--                                    <td th:text="${m.MEMBER_NICKNAME}"></td>-->
-                                    <td th:text="${session.loginMember.MEMBER_NICKNAME}"></td>
+
                                     <td th:text="${m.CATEGORY_NAME}"></td>
-                                    <td th:text="${m.BOARD_TITLE}+'('+${m.CNT}+')'"></td>
+                                    <td style="cursor:pointer;" th:text="${m.BOARD_TITLE}+'('+${m.CNT}+')'" th:data-parameter="${m.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-parameter'))|"></td>
                                     <td th:text="${#dates.format(m.BOARD_DATE, 'yyyy-MM-dd')}"></td>
 
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <span>페이지바바</span>
+                                   </td>
                                 </tr>
                                 </tbody>
                             </table>

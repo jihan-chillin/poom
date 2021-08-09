@@ -30,11 +30,11 @@
                 <!--공지사항 나오는 곳 -->
                 <div id="notice-list-title">
                     <ul name="noticeList" >
+                    	<div id="notiToggle">▼</div>
                         <li th:each="n : ${notices}">
                             <span style="cursor:pointer;"th:text="'[공지] '+${n.NOTICE_TITLE}" th:data-notiNo="${n.NOTICE_NO}"th:onclick="|fn_moveBoardNotice(this.getAttribute('data-notiNo'))|"></span>
                             <span th:text="${#dates.format(n.NOTICE_DATE, 'yyyy-MM-dd')}"></span>
                         </li>
-                        <li style="font-size:25px;text-align:center;cursor:pointer;">▼</li>
                     </ul>
                 </div>
             </div>
@@ -55,21 +55,40 @@
 <script th:src="@{/js/board/board_view_sh.js}"></script>
 <script th:src="@{/js/board/boardForm_jh.js}"></script>
 <script th:src="@{/js/message/message_js_sh.js}"></script>
-<script th:src="@{/js/board/board_list_sh.js}"></script>
 <script>
     $(function(){
       moveChatList();
 
-      //3번째 공지부턴 숨기기
-      $("[name=noticeList]>li:eq(1)").nextAll().hide();
-      $("[name=noticeList]>li:last").show();
+    //3번째 공지부턴 숨기기
+      $(function(){
+      	$("[name=noticeList]>li:eq(1)").nextAll().hide();
 
-      $("[name=noticeList]>li:last").click(e=>{
-
-        $("[name=noticeList]>li:eq(1)").nextAll().slideToggle();
-        $("[name=noticeList]>li:last").show();
-      });
+      })
+      //공지사항 토글하기 
+      $("#notiToggle").click(e=>{
+       	if($("[name=noticeList]>li:eq(1)").nextAll().is(":visible") ){
+              $("[name=noticeList]>li:eq(1)").nextAll().slideUp();
+              $(e.target).text("▼");
+          }else{
+              $("[name=noticeList]>li:eq(1)").nextAll().slideDown();
+      		$(e.target).text("▲");
+          }
+      	
+      })
 
     });
+    
+  //소모임게시판에서 공지사항 들어가기
+    function fn_moveBoardNotice(no){
+    	$.ajax({
+    		url:getContextPath()+"/board/boardNotice",
+    		data:{
+    			"no":no,
+    			"cate":[[${cate}]]
+    		}
+    	}).done(function (fragment){
+    		$("#content").html(fragment);
+    	})
+    }
 </script>
 </html>

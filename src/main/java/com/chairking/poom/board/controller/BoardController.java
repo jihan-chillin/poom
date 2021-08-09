@@ -40,7 +40,9 @@ public class BoardController {
 	
 //	게시글 상세 조회
 	@GetMapping("/board/view")
-	public ModelAndView boardView(@RequestParam String boardNo, ModelAndView mv,HttpServletRequest req) {
+	public ModelAndView boardView(@RequestParam String boardNo, 
+							@RequestParam (value="cate", required=false, defaultValue="none") String cate,
+							ModelAndView mv,HttpServletRequest req) {
 		System.out.println(boardNo);
 		//좋아요 가져오기
 		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
@@ -51,6 +53,7 @@ public class BoardController {
 		mv.setViewName("board/board_view");
 		mv.addObject("board", service.selectBoard(boardNo));
 		mv.addObject("commentList", service.selectCommentList(boardNo));
+		mv.addObject("cate", cate);
 		return mv;
 	}
 
@@ -143,8 +146,12 @@ public class BoardController {
 	public ModelAndView boardNotice(@RequestParam Map<String,String> map, ModelAndView mv) {
 		String no=map.get("no");
 		Map<String,Object> notice = service.selectNotice(no);
-		System.out.println(notice);
-		if(map.get("cate")!=null) {
+		System.out.println(map);
+		if(map.get("cate")==null) {
+			
+		}else if(map.get("cate").equals("4")) {
+			mv.addObject("cate", "4");
+		}else if(map.get("cate").equals("all")) {
 			mv.addObject("cate", "all");
 		}
 		mv.addObject("notice", notice);
@@ -176,6 +183,10 @@ public class BoardController {
         List<Map<String,Object>> notices=service.selectAllBoardNotice();
         System.out.println("페이지네이션"+pagination);
         System.out.println("전체글보드리스트"+list);
+      //태그 가져오기
+  		List<Map<String,String>> tagList=service.selectAllBoardTag();
+  		System.out.println("태그리스트"+tagList);
+  		mv.addObject("tagList", tagList);
         mv.addObject("list", list);
         mv.addObject("likeTable", likeTable);
         mv.addObject("notices", notices);
@@ -204,18 +215,24 @@ public class BoardController {
         pagination.setTotalRecordCount(totalData);
         // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
         List<Map<String, Object>> list = service.allCateBoard(pagination, cate, memberloc);
-
+        // 좋아요 가져오기
+        String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
         // 카테고리 이름 가져오기
         Map<String, Object> cateName = service.selectCateName(cate);
         Object cName = cateName.get("CATEGORY_NAME");
 
         // 공지사항 가져와보기
         List<Map<String, Object>> notices = service.selectAllCateNotice(cate);
+      //태그 가져오기
+  		List<Map<String,String>> tagList=service.selectAllBoardTag();
+  		System.out.println("태그리스트"+tagList);
+  		mv.addObject("tagList", tagList);
         mv.addObject("cate", cate);
         mv.addObject("cName", cName);
         mv.addObject("list", list);
         mv.addObject("notices", notices);
         mv.addObject("pagination", pagination);
+        mv.addObject("likeTable", likeTable);
         mv.setViewName("/board/board_cate_ajax");
         return mv;
     }
@@ -243,13 +260,16 @@ public class BoardController {
 		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
 		// 공지사항 가져오기
 		List<Map<String,Object>> notices=service.selectAllBoardNotice();
-
+		//태그 가져오기
+		List<Map<String,String>> tagList=service.selectAllBoardTag();
+		System.out.println("태그리스트"+tagList);
 		System.out.println("전체글보드리스트"+list);
 		mv.addObject("list", list);
 		mv.addObject("likeTable", likeTable);
 		mv.addObject("notices", notices);
 		mv.addObject("pagination", pagination);
 		mv.addObject("cate","all");
+		mv.addObject("tagList", tagList);
 		mv.setViewName("/board/board_alllist");
 		return mv;
 	}
@@ -277,11 +297,17 @@ public class BoardController {
 		// 카테고리 이름 가져오기
 		Map<String, Object> cateName = service.selectCateName(cate);
 		Object cName = cateName.get("CATEGORY_NAME");
-
+		// 좋아요 가져오기
+		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
 		// 공지사항 가져와보기
 		List<Map<String, Object>> notices = service.selectAllCateNotice(cate);
+		//태그 가져오기
+		List<Map<String,String>> tagList=service.selectAllBoardTag();
+		System.out.println("태그리스트"+tagList);
+		mv.addObject("tagList", tagList);
 		System.out.println("카테고리notice"+notices);
 		mv.addObject("cate", cate);
+		mv.addObject("likeTable", likeTable);
 		mv.addObject("cName", cName);
 		mv.addObject("list", list);
 		mv.addObject("notices", notices);

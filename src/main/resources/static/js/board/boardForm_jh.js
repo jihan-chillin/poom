@@ -142,7 +142,9 @@ function addTagFromBoardForm(tagText){
 function boardWriteFromForm(){
     // 제목, 카테고리, 내용
     let boardTitle =  $("[name=board-title]").val();
-    let boardContent = CKEDITOR.instances['ckeditorarea'].getData();
+    let bContent = CKEDITOR.instances['ckeditorarea'].getData();
+    // let boardContent = CKEDITOR.instances['ckeditorarea'].getData();
+    let boardContent = bContent.replace(/(<([^>]+)>)/ig,"");
 
     console.log("boarTitle : " + boardTitle);
     console.log("boardContent : " + boardContent);
