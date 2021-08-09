@@ -188,6 +188,11 @@ public class BoardDaoImpl implements BoardDao {
 	public List<String> boardTagList(BoardMapper mapper, String boardNo) {
 		return mapper.boardTagList(boardNo);
 	}
+
+	@Override
+	public List<Map<String, String>> selectAllBoardTag(BoardMapper mapper) {
+		return mapper.selectAllBoardTag();
+	}
 	
 	
 }

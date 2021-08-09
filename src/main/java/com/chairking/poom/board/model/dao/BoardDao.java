@@ -78,4 +78,6 @@ public interface BoardDao {
 	String getBoardNoFromForm(BoardMapper mapper);
 	
 	List<String> boardTagList(BoardMapper mapper, String boardNo);
+	
+	List<Map<String,String>> selectAllBoardTag(BoardMapper mapper);
 }

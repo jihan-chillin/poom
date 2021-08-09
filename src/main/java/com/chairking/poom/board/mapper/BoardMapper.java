@@ -155,5 +155,9 @@ public interface BoardMapper {
 	//보드뷰에 해시태그 넣기
 	@Select("SELECT TAG_NAME FROM BOARDTAG WHERE BOARD_NO=#{boardNo}")
 	List<String> boardTagList(String boardNo);
+	
+	//전체글 리스트에 해시태그 넣기
+	@Select("SELECT BOARD_NO, TAG_NAME FROM BOARDTAG")
+	List<Map<String,String>> selectAllBoardTag();
 }
 

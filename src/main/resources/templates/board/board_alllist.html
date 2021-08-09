@@ -53,11 +53,9 @@
 
 						<ul>
 							<li class="tag-list" style="margin-right: auto">
-								<span>#해시태그</span>
-								<span>#해시태그</span>
-								<span>#해시태그</span>
-								<span>#해시태그</span>
-								<span>#해시태그</span>
+								<th:block th:if="${l.BOARD_NO eq t.BOARD_NO}" th:each="t:${tagList}">
+                            	<span style="padding-right:3px;font-size:18px;" th:text="'#'+${t.TAG_NAME}"></span>
+                            	</th:block>
 							</li>
 							<li><i class="gg-menu-boxed"></i><span th:text="${l.CNT}"></span></li>
 							<li>

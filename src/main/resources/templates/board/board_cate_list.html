@@ -51,15 +51,13 @@
 
                     <ul>
                         <li class="tag-list" style="margin-right: auto">
-                            <span>#해시태그</span>
-                            <span>#해시태그</span>
-                            <span>#해시태그</span>
-                            <span>#해시태그</span>
-                            <span>#해시태그</span>
+                        	<th:block th:if="${l.BOARD_NO eq t.BOARD_NO}" th:each="t:${tagList}">
+                            <span style="padding-right:3px;font-size:18px;" th:text="'#'+${t.TAG_NAME}"></span>
+                            </th:block>
                         </li>
                         <li th:text="${l.CNT}"><i class="gg-menu-boxed"></i></li>
                         <li>
-                            <span>♥</span>
+                            <span th:title="${l.BOARD_NO}" th:text="${#arrays.contains(likeTable,l.BOARD_NO)}?'♥':'♡'" name="likeHeart">1</span>
                             <span th:text="${l.LIKE_COUNT}"></span>
                         </li>
                     </ul>

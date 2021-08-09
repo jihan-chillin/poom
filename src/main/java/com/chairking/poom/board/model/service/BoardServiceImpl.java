@@ -195,6 +195,11 @@ public class BoardServiceImpl implements BoardService {
 	public List<String> boardTagList(String boardNo) {
 		return dao.boardTagList(mapper,boardNo);
 	}
+
+	@Override
+	public List<Map<String, String>> selectAllBoardTag() {
+		return dao.selectAllBoardTag(mapper);
+	}
 	
 	
 }
