@@ -74,8 +74,9 @@ public class BoardController {
 	//메인피드글 불러오기
 	@RequestMapping("/board/feedNew")
 	public ModelAndView feedNew(@RequestParam Map param,
-								@RequestParam(value="cPage", defaultValue="1") int cPage, ModelAndView mv) {
+								@RequestParam(value="cPage", required=false, defaultValue="1") int cPage, ModelAndView mv) {
 		
+		System.out.println(cPage);
 		int numPerpage=10;
 		//좋아요 테이블 불러오기
 		String[] likeTable = service.likeTable((String)param.get("id"));
@@ -95,14 +96,11 @@ public class BoardController {
 				map.put("loc", param.get("loc"));
 				feedList = service.feedKeyList(map);
 				if(feedList.size()>0) {
-					System.out.println("전: "+feedList.size());
-					
 					for(int i=1; i<feedList.size(); i++) {
 						if(feedList.get(i).get("BOARD_NO").equals(feedList.get(i-1).get("BOARD_NO"))) {
 							feedList.remove(i);
 						}
 					}
-					System.out.println("후: "+feedList.size());
 					mv.addObject("feedList",feedList);
 				}else {
 					noFeed="noFeed";
