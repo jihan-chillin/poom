@@ -41,7 +41,6 @@ public class NotiController {
     @GetMapping("/noti/my/data")
     public Map<String,Object> myNotiData(HttpServletRequest req){
         String loginId = (String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
-        log.info("알림 로그인아이디:{}",loginId);
         //결과 데이터
         Map<String,Object> data = new HashMap<>();
         // 알림 정보
