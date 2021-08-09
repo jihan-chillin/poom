@@ -69,5 +69,7 @@ public interface BoardService {
 
 	Map<String, Object> selectCateName(String cate);
 
-	int boardTag(String toString, String tagText);
+	int boardTagFromform(String strBoardNo, String tagText);
+
+	int TagFromform(String tagText);
 }

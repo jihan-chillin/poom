@@ -238,13 +238,16 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
     public ModelAndView addTagFromForm(@RequestParam(value = "tagText") String tagText,
                                        HttpServletRequest req, ModelAndView mv){
 
+        System.out.println("택텍스트 들어오는지"+tagText);
+
         // 방금전에 등록한 게시글 번호 가져오기
         TagJsonController tagJsonController = new TagJsonController();
         int boardNo = Integer.parseInt(tagJsonController.getBoardNo())+1;
         String strBoardNo = Integer.toString(boardNo);
 
-        // boardTag 추가
-//        int restul = service.boardTagFromform(strBoardNo, tagText);
+//      boardTag 추가
+        int result = service.boardTagFromform(strBoardNo, tagText);
+        int result2 = service.TagFromform(tagText);
 
         return  mv;
     }

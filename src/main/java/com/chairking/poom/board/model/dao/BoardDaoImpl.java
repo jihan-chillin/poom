@@ -168,4 +168,13 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.selectCateName(cate);
 	}
 
+	@Override
+	public int boardTagFromform(BoardMapper mapper, String strBoardNo, String tagText) {
+		return mapper.boardTagFromform(strBoardNo, tagText);
+	}
+
+	@Override
+	public int TagFromform(BoardMapper mapper, String tagText) {
+		return mapper.TagFromform(tagText);
+	}
 }

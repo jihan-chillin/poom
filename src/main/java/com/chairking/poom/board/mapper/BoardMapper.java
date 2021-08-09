@@ -135,7 +135,11 @@ public interface BoardMapper {
 	@Select("SELECT CATEGORY_NAME FROM CATEGORY WHERE CATEGORY_NO = #{cate}")
 	Map<String, Object> selectCateName(String cate);
 
+	//boardTAG 안에 집어넣기
+//	strBoardNo, tagText
+	@Insert("INSERT INTO BOARDTAG VALUES(SEQ_BOARDTAGNO.NEXTVAL,#{strBoardNo}, #{tagText}")
+	int boardTagFromform(String strBoardNo, String tagText);
 
-	// TAG 안에 집어넣기
-
+	@Insert("INSERT INTO TAG VALUES (#{tagText})")
+	int TagFromform(String tagText);
 }

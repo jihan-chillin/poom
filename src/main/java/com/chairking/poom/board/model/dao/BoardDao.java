@@ -71,4 +71,7 @@ public interface BoardDao {
 
 	Map<String, Object> selectCateName(BoardMapper mapper, String cate);
 
+	int boardTagFromform(BoardMapper mapper, String strBoardNo, String tagText);
+
+	int TagFromform(BoardMapper mapper, String tagText);
 }
