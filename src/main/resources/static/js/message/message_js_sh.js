@@ -28,26 +28,30 @@ function fn_message_move(mType) {
     }
 }
 
-function showMsgDtl(msgNo) {
-    alert("js para1");
-    window.open(getContextPath() + "/message/content?msgNo=" + msgNo, "content", "width=400,height=300");
-
-}
+// function showMsgDtl(msgNo) {
+//     window.open(getContextPath() + "/message/content?msgNo=" + msgNo, "content", "width=400,height=300");
+//
+// }
 
 //메세지 안읽음에 따른 발송취소
 function cancelMsg(msgNo) {
-    //alert("msgNo" + msgNo);
-    if (confirm("발송취소하시겠습니까? 취소하시면 메세지가 삭제됩니다.")) {
-        $.ajax({
-            url: getContextPath()+"/message/cancelMsg",
-            data: {"msgNo": msgNo},
-            type: 'POST',
-        }).done(function () {
-            alert("취소되었습니다.");
-            fn_message_move('send');
-            //$("#target").html(fragment);
-        });
-    }
+    alert($("#cancelMsg").text());
+    // if($("#cancelMsg").text()=='발송취소'){
+    //     if (confirm("발송취소하시겠습니까? 취소하시면 메세지가 삭제됩니다.")) {
+    //         $.ajax({
+    //             url: getContextPath()+"/message/cancelMsg",
+    //             data: {"msgNo": msgNo},
+    //             type: 'POST',
+    //         }).done(function () {
+    //             alert("취소되었습니다.");
+    //             // fn_message_move('send');
+    //             //$("#target").html(fragment);
+    //         });
+    //     }
+    // }else{
+    //     alert('읽었음!!');
+    // }
+
 }
 
 function fn_move_Block() {
@@ -92,7 +96,7 @@ function showPopup() {
 }
 
 
-//답장하기도 동일하게 넘기기
+//보낸쪽지 팝업
 function showMsgPop(member) {
     let rcvNm = $(member).children('.find-name').html();
     let rcvId = $(member).children('.find-id').html();
@@ -101,6 +105,7 @@ function showMsgPop(member) {
 
 }
 
+//받은쪽지 팝업
 function showReplyPop(rId){
     let id = rId.html();
     window.open("./popup?rcvNm=" + id + "&rcvId=" + id, "", "width=400,height=300");
@@ -109,7 +114,6 @@ function showReplyPop(rId){
 
 
 function showMsgDtl(e, msgNo) {
-    alert("js para2");
     window.open(getContextPath()+"/message/content?msgNo=" + msgNo,"content","width=400,height=300");
 
 }

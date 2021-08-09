@@ -50,6 +50,7 @@ public class MessageController {
         session.setAttribute("mType", "receive");
         // 세션에서 내 아이디 가져옴
         Map<String,String> val = (Map<String,String>)session.getAttribute("loginMember");
+
         String myId = val.get("MEMBER_ID");
         String condition = "AND RECV_MEMBER = '" + myId + "' AND MSG_TYPE =2 ORDER BY MSG_DATE DESC";
 
@@ -58,6 +59,7 @@ public class MessageController {
         pagination.setTotalRecordCount(service.messageCount(condition));
         condition += (")A) WHERE RNUM BETWEEN " + pagination.getFirstRecordIndex() + " AND " + pagination.getLastRecordIndex());
         List<Map<String,Object>> list = service.getMessage(condition,pagination);
+
         mv.addObject("list",list);
         mv.addObject("pagination", pagination);
 
@@ -89,6 +91,7 @@ public class MessageController {
             if (list.get(0).get("READ_CHECK") == null)
                 System.out.println("null이다");
         }
+        System.out.println("보낸쪽지리스트  " + list);
         mv.addObject("list",list);
         mv.addObject("pagination", pagination);
         mv.setViewName("message/message_sendMessage");
@@ -153,16 +156,12 @@ public class MessageController {
     //받은쪽지 내용팝업
     @GetMapping("/receiveContent")
     public String receivePopup(@RequestParam String msgNo, Model m){
-        int result = 0;
+        int result = service.setMsgRead(msgNo);
+        System.out.println(msgNo);
+
         List<Map<String,Object>> list = service.messageContent(msgNo);
         m.addAttribute("list",list);
-
-        if (list != null) {
-            result = service.setMsgRead(msgNo);
-        }
-
-        if (result > 0)
-            System.out.println("읽음처리 성공");
+        System.out.println("읽음처리 성공");
         return "message/message_receiveContent";
     }
 
@@ -182,10 +181,12 @@ public class MessageController {
     //메세지 발송취소
     @RequestMapping ("/cancelMsg")
     public ModelAndView cancelMsg(@RequestParam String msgNo, ModelAndView mv){
+        System.out.println(msgNo);
         int result= service.cancelMsg(msgNo);
         if(result>0){
             mv.setViewName("/message/message_sendMessage");
         }
+        System.out.println("msgNo는 뭘까요 : " + msgNo);
         return mv;
     }
 
