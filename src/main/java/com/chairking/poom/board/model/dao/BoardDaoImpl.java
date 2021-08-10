@@ -211,8 +211,13 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> searchBoardList(BoardMapper mapper, String condition) {
-		return mapper.searchBoardList(condition);
+	public List<Map<String, Object>> searchBoardList(BoardMapper mapper, Pagination pagination, Object condition) {
+		return mapper.searchBoardList(pagination, condition);
+	}
+
+	@Override
+	public int searchBoardCount(BoardMapper mapper, Object condition) {
+		return mapper.searchBoardCount(condition);
 	}
 
 
