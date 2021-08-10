@@ -16,7 +16,7 @@
 				<span style="padding-right:3px;font-size:18px;" th:text="'#'+${t.TAG_NAME}"></span>
 			</span>
 		</li>
-		<li><i class="gg-menu-boxed"></i><span th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${f.COMMENTS_COUNT}"></span></li>
+		<li th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|"><i class="gg-menu-boxed"></i><span th:text="${f.COMMENTS_COUNT}"></span></li>
 		<li>
 			<span th:title="${f.BOARD_NO}" th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" name="likeHeart" style="font-size:21px;"></span>
 			<!-- <span th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" style="font-size:23px;cursor:pointer;" 
