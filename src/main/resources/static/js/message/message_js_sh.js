@@ -5,7 +5,7 @@ function fn_message_move(mType) {
             url: getContextPath()+"/message/receive",
             data: {"mType": mType},
             type: 'POST',
-        }).done(function (fragment) {
+        }).done(function(fragment) {
             $("#target").html(fragment);
         });
     }else if(mType=='send'){

@@ -16,7 +16,8 @@ body{
     border-collapse: collapse;
 }
 
-button {
+
+.buttonM {
     background-color: #f7f7f7;
     padding: 8px 30px !important;
     width: 140px;
