@@ -48,13 +48,25 @@ function moveTooWriteForm(){
 		}
 	});
 }
-
+//메인피드 리스트에서 view로 이동 ajax
+function mainToView(no){
+	$.ajax({
+		url:getContextPath()+"/board/view",
+		data : {
+			"boardNo":no,
+			"cate":"feed"
+		},
+		success:data=>{
+			$("#content").html(data);
+		}
+	})
+}
 //게시판리스트에서 view로 이동 ajax
 function feedToView(no){
 	$.ajax({
 		url:getContextPath()+"/board/view",
 		data : {
-			"boardNo":no
+			"boardNo":no,
 		},
 		success:data=>{
 			$("#content").html(data);
