@@ -34,10 +34,12 @@ check.click(function(){
 		if(check.is(':checked')==true) {
 			$("span.round").addClass("slider");
 			$("p.onoffBtn").html("전국");
+			$("label.loc_switch").css({"background":"darkgray"});
 			check.removeAttr('checked');
 		}else {
 			$("span.round").removeClass("slider");
 			$("p.onoffBtn").html(loc);
+			$("label.loc_switch").css({"background":"#247094"});
 			check.attr('checked');
 		}
 		
