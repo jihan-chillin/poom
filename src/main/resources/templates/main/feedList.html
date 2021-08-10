@@ -1,14 +1,14 @@
 <div class="fList" th:if="${feedList}!=null" th:each="f : ${feedList}">
 	<div>
 		<span th:text="${f.CATEGORY}"></span>
-		<span th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_TITLE}"></span>
+		<span th:data-no="${f.BOARD_NO}" th:onclick="|mainToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_TITLE}"></span>
 		<span th:if=${f.MEMBER_ID!=session.loginMember.MEMBER_ID} class="feed_blame">
 			<i class="gg-more-vertical-alt"></i>
 			<div th:data-n="${f.BOARD_NO}" th:onclick="|fn_boardBlame(this.getAttribute('data-n'))|">신고하기</div>
 		</span>
 		<span th:unless=${f.MEMBER_ID!=session.loginMember.MEMBER_ID}></span>
 	</div>
-	<div th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_CONTENT.replaceAll('&'+'nbsp;', ' ').replaceAll('<[^>]*>', '')}" ></div>
+	<div th:data-no="${f.BOARD_NO}" th:onclick="|mainToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_CONTENT.replaceAll('&'+'nbsp;', ' ').replaceAll('<[^>]*>', '')}" ></div>
 	<img alt="품 미리보기" th:src="@{/uploadCKImage/}+${f.PREVIEW_IMG}">
 	<ul>
 		<li>
@@ -16,7 +16,7 @@
 				<span style="padding-right:3px;font-size:18px;" th:text="'#'+${t.TAG_NAME}"></span>
 			</span>
 		</li>
-		<li><i class="gg-menu-boxed"></i><span th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${f.COMMENTS_COUNT}"></span></li>
+		<li><i class="gg-menu-boxed"></i><span th:data-no="${f.BOARD_NO}" th:onclick="|mainToView(this.getAttribute('data-no'))|" th:text="${f.COMMENTS_COUNT}"></span></li>
 		<li>
 			<span th:title="${f.BOARD_NO}" th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" name="likeHeart" style="font-size:21px;"></span>
 			<!-- <span th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" style="font-size:23px;cursor:pointer;" 
