@@ -47,3 +47,14 @@ function moveToBoard(cate){
 	// console.log("넘어가는 주소값 : "+getContextPath()+"/board/view?cate="+cate);
 	location.assign(getContextPath()+"/board/view?cate="+cate);
 }
+	
+	function pay_check(loc){
+		var payLevel=$("div.city_bar").children("p").text();
+		if($("div#nav>p").text()==loc || payLevel=='1'){
+			location.assign(getContextPath()+"/board/all");
+		}else{
+			if(confirm("이용권이 필요한 메뉴입니다. 이용권을 구매하시겠습니까?")===true){
+				location.assign(getContextPath()+"/pay");
+			}
+		}
+	}

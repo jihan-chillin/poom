@@ -96,4 +96,8 @@ public interface BoardDao {
 	List<Map<String,Object>> searchBoardList(BoardMapper mapper, Pagination pagination, Object condition);
 
 	int searchBoardCount(BoardMapper mapper, Object condition);
+
+	int commentModify(BoardMapper mapper, Map<String, String> param);
+
+    int modifyBoard(BoardMapper mapper, Map param, String imgName);
 }

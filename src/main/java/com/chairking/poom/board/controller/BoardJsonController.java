@@ -249,7 +249,8 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
         nc.insertCommentNotiData(boardNo,nc.getBoardWriter(boardNo));
     	return param;
     }
-
+    
+    //댓글목록 ajax로 가져오는 메소드
     @GetMapping("/comment/list")
     public ModelAndView commentList(String boardNo, ModelAndView mv) {
     	mv.addObject("commentList", service.selectCommentList(boardNo));
@@ -257,10 +258,21 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
     	return mv;
     }
 
+    //댓글삭제
     @RequestMapping("/comment/delete")
     public String commentDelete(String boardNo, String commentNo) {
     	int result=service.commentDelete(boardNo, commentNo);
     	if(result>0) service.commentCountUpdate(-1, boardNo);
+    	return "";
+    }
+    
+    //댓글 수정
+    @RequestMapping("/comment/modify")
+    public String commentModify(@RequestParam Map<String, String> param) {
+//    	System.out.println(param.get("boardNo"));
+//    	System.out.println(param.get("commentNo"));
+//    	System.out.println(param.get("commentContent"));
+    	int result=service.commentModify(param);
     	return "";
     }
 
@@ -275,5 +287,50 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
     	System.out.println(no);
     	int result = service.boardDelete(no);
     	return "";
+    }
+
+    // 게시글 수정하기
+    @PostMapping("/board/modify")
+    public ModelAndView modiBoard(ModelAndView mv,@RequestParam Map param ){
+
+
+        System.out.println("파라미터 일단 이렇게 들어옴 : " + param);
+
+
+        // 썸네일 이미지 따로 분리 할것
+        String boardContent = param.get("boardContent").toString(); // boardContent에 태그 포함 다 들어감.
+        // 1. 사진 첨부시 첫 번째 이미지파일 썸네일 컬럼에 넣기
+        // 2. 사진 첨부가 안되어 있을 경우,
+        boolean flag = boardContent.contains("img");
+        String imgName = "";
+
+        if(flag == true){
+            String firstTarget = "fileName=";
+            String lastTarget = ".";
+            imgName = boardContent.substring(boardContent.indexOf(firstTarget)+9,boardContent.indexOf(lastTarget)+4 );
+        }else if (flag != true)
+        {
+            imgName = "preview_poom.jpg";
+        }
+
+        System.out.println("이미지 네임이 어떻게 나오는지 보자" + imgName);
+
+        int result = service.modifyBoard(param, imgName);
+
+
+        String msg="";
+        String loc="redirect:/login.";
+
+        if(result>0){
+            msg="게시글 등록 성공";
+        }else{
+            msg = "동륵실패! 다시 시도해주세요.";
+        }
+
+        mv.addObject("msg", msg);
+        mv.addObject("loc",loc);
+        mv.setViewName("redirect:/");
+
+        return mv;
     }
 }

@@ -63,7 +63,7 @@ function comment_write(){
 function delete_comment(target){
 	//console.log("test");
 	//console.log($(target));
-	var commentNo=$(target).siblings("span.commentNo").text();
+	var commentNo=$(target).parent().parent().find("span.commentNo").text();
 	$.ajax({
 		url:getContextPath()+"/comment/delete",
 		data:{
@@ -79,31 +79,45 @@ function delete_comment(target){
 
 //수정화면 나오도록 하기
 function change_modify(target){
-	$(target).parent().parent().find("span#original_content");
-	$(target).parent().parent().find("div.modify_container").css("display", "block");
-	$(target).parent().parent().find("div.modify_container").find("input.modify_content").text();
-	$(target).parent().parent().find("div.modify_container").find("input").text($("span.original_content").text());
+	var li=$(target).parent().parent();
+	
+	//원래내용 지우기
+	li.find("span.original_content").css("display","none");
+	//수정화면 보이게 하기
+	li.find("div.modify_container").css("display", "block");
+	li.find("div.modify_container").find("input.modify_content").val(li.find("original_content").text());
 }
 
 //댓글 수정기능
-function modify_comment(e){
+function modify_comment(target){
+	var commentNo=$(target).parent().parent().find("span.commentNo").text();
 	$.ajax({
 		url:getContextPath()+"/comment/modify",
 		data:{
 			boardNo:$("#comment_boardNo").text(),
 			commentNo:commentNo,
-			commentContent:"테스트"
+			commentContent:$(target).siblings("input.modify_content").val()
 		},
 		success:data=>{
 			console.log("수정메소드");
+			comment_list();
 		}
 	});
 }
 
+//댓글수정 취소하기
+function modify_cancel(target){
+	var li=$(target).parent().parent();
+	//원래내용 보이게하기
+	li.find("span.original_content").css("display","block");
+	//수정화면 보이게 하기
+	li.find("div.modify_container").css("display", "none");
+}
 
 $(function(){
 	comment_list();
-
+	
+	//댓글 메뉴 보이게하기
 	$("span.b_comment_menu").click(e=>{
 		if($(e.target).next("div").css("display")=="none") {
 			$("span.b_comment_menu").next("div").css("display", "none");
@@ -112,6 +126,9 @@ $(function(){
 			$(e.target).next("div").css("display", "none");
 		}
 	});
+	
+	
+
 });
 
 //게시판 view에서 삭제하기 구현
@@ -128,4 +145,9 @@ function fn_board_delete(no,cate){
 			alert('삭제 실패! 관리자에게 문의하세요');
 		})
 	}
+}
+
+function boardrealModi(boardNo){
+	console.log("모디");
+	location.assign(getContextPath()+"/board/modi?boardNo="+boardNo);
 }

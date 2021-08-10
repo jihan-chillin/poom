@@ -6,6 +6,9 @@
 CKEDITOR.editorConfig = function( config ) {
 	config.filebrowserUploadMethod='form'; //파일 오류났을때 alert띄워줌
 	config.enterMode = CKEDITOR.ENTER_BR; // p태그 자동삽입 방지
+	config.font_names= "맑은 고딕/Malgun Gothic;굴림/Gulim;돋움/Dotum;바탕/Batang;궁서/Gungsuh;Arial/Arial;Comic Sans MS/Comic Sans MS;Courier New/Courier New;Georgia/Georgia;Lucida Sans Unicode/Lucida Sans Unicode;Tahoma/Tahoma;Times New Roman/Times New Roman;MS Mincho/MS Mincho;Trebuchet MS/Trebuchet MS;Verdana/Verdana";
+	config.language = "ko";
+	config.font_defaultLabel = "맑은 고딕/Malgun Gothic";
 	// 기존 config.js ▼
 	// // Define changes to default configuration here.
 	// // For complete reference see:
