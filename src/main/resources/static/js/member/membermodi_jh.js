@@ -1,6 +1,6 @@
 // 취소버튼 클릭시 메인화면으로
 function goMain(){
-    location.href=getContextPath()+'/login/main';
+    location.assign(getContextPath()+"/login/main");
 }
 
 // 자기소개 글자수 체크

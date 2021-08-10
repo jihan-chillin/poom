@@ -578,6 +578,7 @@ div.fList div:first-child span:first-of-type {
 }
 div.fList div:first-child span:nth-child(2){
 	width: 480px;
+    text-overflow: ellipsis;
 }
 div.fList div:first-child span:last-child {
 	width: 24px;
