@@ -20,8 +20,8 @@
             <link rel="stylesheet" type="text/css" th:href="@{/css/hashtag/main_board_tag.css}">
             <!-- ckeditor api 가져오는 화면 -->
             <form id = "ckeditor-form" name="ckeditor-form" th:action="@{/board/modify}" method="post">
-                <input type="hidden" name="boardNo" th:value="${board.BOARD_NO}">
-                <input type="hidden" name="boardNo" th:value="${board.BOARD_CATE}">
+                <input type="hidden" name="boardNo" id="hiddenBno" th:value="${board.BOARD_NO}">
+                <input type="hidden" name="boardCate" th:value="${board.BOARD_CATE}">
                 <input type="hidden" name="memberId" th:value="${session.loginMember.MEMBER_ID}">
                 <input type="hidden" name="memberLoc" th:value="${session.loginMember.MEMBER_LOC}">
                 <table id="ckeditor-table">
@@ -61,7 +61,7 @@
                     <tr>
                         <th colspan="2">
                             <img th:src="@{/images/ui/tooltip.png}" alt="tooltip" class="tooltip">
-                            <button type="button" class="create-tag" onmouseover="appearTag();" onmouseout="disappearTag();" onclick="InputTag();"><i style="margin-right: 5px;" class="gg-add"></i>태그추가</button>
+                            <button type="button" th:bNo = "${board.BOARD_NO}" class="create-tag" onmouseover="appearTag();" onmouseout="disappearTag();"  th:onclick="|InputTag(this.getAttribute('bNo'))|" ><i style="margin-right: 5px;" class="gg-add"></i>태그추가</button>
 
                         </th>
 
@@ -123,6 +123,6 @@
 </body>
 <script th:src="@{/js/board/board_view_sh.js}"></script>
 <script th:src="@{/js/board/board_list_sh.js}"></script>
-<script th:src="@{/js/board/boardForm_jh.js}"></script>
+<script th:src="@{/js/board/boardModi_tag.js}"></script>
 
 </html>

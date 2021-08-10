@@ -44,7 +44,7 @@ public interface BoardMapper {
 	public Map selectBoard(String boardNo);
 	
 	//게시글 댓글 조회
-	@Select("SELECT C.*, (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_ID=C.COMMENT_WRITER) AS C_NICKNAME FROM COMMENTS C WHERE BOARD_NO=#{boardNo}")
+	@Select("SELECT C.*, (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_ID=C.COMMENT_WRITER) AS C_NICKNAME, (SELECT MEMBER_IMG FROM MEMBER WHERE MEMBER_ID=C.COMMENT_WRITER) AS C_PROFILE FROM COMMENTS C WHERE BOARD_NO=#{boardNo} AND DEL_STATUS=0 ORDER BY COMMENT_DATE DESC")
 	public List<Map> selectCommentList(String boardNo);
 	
 	//메인피드 등록
@@ -159,7 +159,7 @@ public interface BoardMapper {
 	int commentCountUpdate(int count, String boardNo);
 
 	//게시글 댓글 삭제
-	@Delete("DELETE FROM COMMENTS WHERE BOARD_NO=#{boardNo} AND COMMENT_NO=#{commentNo}")
+	@Update("UPDATE COMMENTS SET DEL_STATUS=1 WHERE BOARD_NO=#{boardNo} AND COMMENT_NO=#{commentNo}")
 	int commentDelete(String boardNo, String commentNo);
 
 
@@ -185,8 +185,8 @@ public interface BoardMapper {
 	//해당 보드번호의 태그 row들 삭제하기
 	@Delete("DELETE FROM BOARDTAG WHERE BOARD_NO=#{no}")
 	int boardTagDelete(String no);
-	
-	
+
+
 	//String query = "T D.CATEGORY_NAME,B.PREVIEW_IMG,B.BOARD_DATE, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT,B.COMMENTS_COUNT AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY D ON ( B.BOARD_CATE = D.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_LOC =#{memberloc} ORDER BY B.BOARD_DATE DESC )A) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}\")"
 	@Select("SELECT * FROM (SELECT ROWNUM as rnum, C.CATEGORY_NAME,B.PREVIEW_IMG,B.BOARD_DATE, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT, B.COMMENTS_COUNT AS CNT, B.LIKE_COUNT  FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) ${condition}) WHERE RNUM BETWEEN ${pagination.firstRecordIndex} and ${pagination.lastRecordIndex} ORDER BY BOARD_DATE DESC")
 	List<Map<String,Object>> searchBoardList(Pagination pagination, Object condition);
@@ -202,5 +202,9 @@ public interface BoardMapper {
 	//댓글 수정
 	@Update("UPDATE COMMENTS SET COMMENT_CONTENT=#{commentContent} WHERE BOARD_NO=#{boardNo} AND COMMENT_NO=#{commentNo}")
 	int commentModify(Map<String, String> param);
+
+	// 태그 수정
+	@Update("update boardtag set tag_name =#{tagText} where board_no=#{bNo}")
+	int modiTagFromModi(String bNo, String tagText);
 }
 
