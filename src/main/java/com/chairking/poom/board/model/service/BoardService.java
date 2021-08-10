@@ -89,6 +89,8 @@ public interface BoardService {
 	//댓글 삭제
 	int commentDelete(String boardNo, String commentNo);
 
+	//댓글 수정
+	int commentModify(Map<String, String> param);
 
     //게시글 삭제
     int boardDelete(String no);

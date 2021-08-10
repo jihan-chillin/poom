@@ -24,7 +24,7 @@ public interface BoardMapper {
 
 	// INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, '되는지 TEST', '그냥 오라클로 작성하는 거임', DEFAULT, 0, SYSDATE, '서울', 0, '1', 'kimjihan77',0)
 	//게시글 등록
-	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval,#{param.board-title}, #{param.boardContent}, DEFAULT, 0, SYSDATE, #{param.memberLoc}, 0, #{param.boardCate}, #{param.memberId}, 0,0, #{imgName})")
+	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, #{param.board-title}, #{param.boardContent}, DEFAULT, 0, SYSDATE, #{param.memberLoc}, 0, #{param.boardCate}, #{param.memberId}, 0,0, #{imgName})")
 	public int insertBoard(Map param, String imgName);
 	
 	//게시글 번호 가져오는 쿼리문
@@ -197,5 +197,9 @@ public interface BoardMapper {
 	@Update("UPDATE BOARD SET BOARD_TITLE = #{param.board-title}, BOARD_CONTENT =#{param.boardContent}, PREVIEW_IMG=#{imgName} WHERE BOARD_NO = #{param.boardNo}")
 	int modifyBoard(Map param, String imgName);
 
+
+	//댓글 수정
+	@Update("UPDATE COMMENTS SET COMMENT_CONTENT=#{commentContent} WHERE BOARD_NO=#{boardNo} AND COMMENT_NO=#{commentNo}")
+	int commentModify(Map<String, String> param);
 }
 

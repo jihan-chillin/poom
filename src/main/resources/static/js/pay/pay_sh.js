@@ -83,7 +83,7 @@ function pay()	{
 		  		
 		        msg += '결제 금액 : ' + rsp.paid_amount; */
 		        
-                /* $.ajax({
+                $.ajax({
 		        	url:getContextPath()+"/pay/end",
 		        	type:"post",
 		        	data:{
@@ -94,10 +94,11 @@ function pay()	{
 		        		toList();
 		        	}
         
-				}); */
+				});
 				$("form#pay_form").submit();
 				toList();
 		    } else {
+		    	alert('알수 없는 문제가 발생했습니다. 관리자에게 문의하세요.');
 		    	 //var msg = rsp.error_msg;
 		    }
 		    //alert(msg);

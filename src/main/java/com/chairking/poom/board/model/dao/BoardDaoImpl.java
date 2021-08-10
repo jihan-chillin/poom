@@ -192,12 +192,19 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Map<String, String>> selectAllBoardTag(BoardMapper mapper) {
 		return mapper.selectAllBoardTag();
 	}
+	
+	
 
 
 
 	@Override
 	public int commentWrite(BoardMapper mapper, Map<String, String> param) {
 		return mapper.commentWrite(param);
+	}
+
+	@Override
+	public int commentModify(BoardMapper mapper, Map<String, String> param) {
+		return mapper.commentModify(param);
 	}
 
 	@Override

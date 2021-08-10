@@ -36,5 +36,13 @@ public class PaymentServiceImpl implements PaymentService{
 		return dao.changePayStatus(memberId, itemType, mapper);
 	}
 
+	//모든 멤버의 PAY_STATUS 변경
+	@Override
+	public int checkExpireDate() {
+		return dao.checkExpireDate(mapper);
+	}
+	
+	
+
 	
 }

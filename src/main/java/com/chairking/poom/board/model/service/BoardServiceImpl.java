@@ -218,6 +218,13 @@ public class BoardServiceImpl implements BoardService {
 		return dao.commentDelete(mapper, boardNo, commentNo);
 	}
 
+	@Override
+	public int commentModify(Map<String, String> param) {
+		return dao.commentModify(mapper, param);
+	}
+	
+	
+
 
 	//검색기능
 	@Override

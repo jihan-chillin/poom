@@ -97,5 +97,7 @@ public interface BoardDao {
 
 	int searchBoardCount(BoardMapper mapper, Object condition);
 
+	int commentModify(BoardMapper mapper, Map<String, String> param);
+
     int modifyBoard(BoardMapper mapper, Map param, String imgName);
 }

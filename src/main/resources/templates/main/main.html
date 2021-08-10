@@ -86,4 +86,15 @@
 <script th:src="@{/js/board/boardForm_jh.js}"></script>
 <script th:src="@{/js/message/message_js_sh.js}"></script>
 
+<script th:inline="javascript">
+$(document).ready(function() {
+	var edit=[[${edit}]];
+	if([[${edit}]] == 'chat') {
+		moveMyChatList();
+	}else if([[${edit}]] == 'tag'){
+		moveMyTagPage()
+	};
+});
+</script>
+
 </html>
