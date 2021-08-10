@@ -36,6 +36,19 @@ function comment_list(){
 	});
 }
 
+//댓글의 답글 가져오는 메소드
+function recomment_list(){
+	$.ajax({
+		url:getContextPath()+"/comment/recomment",
+		data:{
+			
+		},
+		success:data=>{
+		
+		}
+	});
+}
+
 //댓글 입력
 function comment_write(){
 	var commentContent=$("#commentContent").val();
@@ -53,6 +66,7 @@ function comment_write(){
 			success:data=>{
 				comment_list();
 				// 알림 전송하는 함수 by 희웅
+				$("#commentContent").val("");
 				sendNoti();
 			}
 		});
