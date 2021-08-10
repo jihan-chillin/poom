@@ -8,7 +8,6 @@
 		</span>
 		<span th:unless=${f.MEMBER_ID!=session.loginMember.MEMBER_ID}></span>
 	</div>
-	<div th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_CONTENT}"></div>
 	<div th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_CONTENT.replaceAll('&'+'nbsp;', ' ').replaceAll('<[^>]*>', '')}" ></div>
 	<img alt="품 미리보기" th:src="@{/uploadCKImage/}+${f.PREVIEW_IMG}">
 	<ul>
