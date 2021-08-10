@@ -24,6 +24,12 @@ public class PaymentDaoImpl implements PaymentDao {
 	public int changePayStatus(String memberId, String itemType, PaymentMapper mapper) {
 		return mapper.changePayStatus(memberId, itemType);
 	}
+
+	@Override
+	public int checkExpireDate(PaymentMapper mapper) {
+		return mapper.checkExpireDate();
+	}
+	
 	
 	
 }

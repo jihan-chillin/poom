@@ -23,5 +23,8 @@ public interface PaymentMapper {
 	@Select("SELECT PAY_EXPIRE FROM MEMBER WHERE MEMBER_ID=#{memberId}")
 	public int selectPayStatus(String memberId);
 	
+	@Update("UPDATE MEMBER SET PAY_LEVEL=0, PAY_EXPIRE=DEFAULT WHERE PAY_EXPIRE<SYSDATE")
+	public int checkExpireDate();
+	
 	
 }

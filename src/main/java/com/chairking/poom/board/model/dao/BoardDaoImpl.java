@@ -192,12 +192,19 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Map<String, String>> selectAllBoardTag(BoardMapper mapper) {
 		return mapper.selectAllBoardTag();
 	}
+	
+	
 
 
 
 	@Override
 	public int commentWrite(BoardMapper mapper, Map<String, String> param) {
 		return mapper.commentWrite(param);
+	}
+
+	@Override
+	public int commentModify(BoardMapper mapper, Map<String, String> param) {
+		return mapper.commentModify(param);
 	}
 
 	@Override
@@ -240,7 +247,13 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.boardTagDelete(no);
 	}
 
-	
-	
-	
+	@Override
+	public int modifyBoard(BoardMapper mapper, Map param, String imgName) {
+		return mapper.modifyBoard(param, imgName);
+	}
+
+	@Override
+	public int modiTagFromModi(BoardMapper mapper, String bNo, String tagText) {
+		return mapper.modiTagFromModi(bNo, tagText);
+	}
 }

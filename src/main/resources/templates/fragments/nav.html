@@ -18,23 +18,25 @@
     <!-- 좌측상단 click!시 나타나는 창 -->
     <div class="city_bar">
         <button class="menu_close">X</button>
+        <p th:text="${session.loginMember.PAY_LEVEL}" style="display:none">
         <ul>
-            <li><a href="#"># 전국</a></li>
-            <li><a href="#"># 서울</a></li>
-            <li><a href="#"># 경기</a></li>
-            <li><a href="#"># 인천</a></li>
-            <li><a href="#"># 대전</a></li>
-            <li><a href="#"># 대구</a></li>
-            <li><a href="#"># 부산</a></li>
-            <li><a href="#"># 울산</a></li>
-            <li><a href="#"># 광주</a></li>
-            <li><a href="#"># 세종</a></li>
-            <li><a href="#"># 강원도</a></li>
-            <li><a href="#"># 충청도</a></li>
-            <li><a href="#"># 경상도</a></li>
-            <li><a href="#"># 전라도</a></li>
-            <li><a href="#"># 제주도</a></li>
+            <li><a onclick="pay_check('전국');"># 전국</a></li>
+            <li><a onclick="pay_check('서울');"># 서울</a></li>
+            <li><a onclick="pay_check('경기');"># 경기</a></li>
+            <li><a onclick="pay_check('인천');"># 인천</a></li>
+            <li><a onclick="pay_check('대전');"># 대전</a></li>
+            <li><a onclick="pay_check('대구');"># 대구</a></li>
+            <li><a onclick="pay_check('부산');"># 부산</a></li>
+            <li><a onclick="pay_check('울산');"># 울산</a></li>
+            <li><a onclick="pay_check('광주');"># 광주</a></li>
+            <li><a onclick="pay_check('세종');"># 세종</a></li>
+            <li><a onclick="pay_check('강원도');"># 강원도</a></li>
+            <li><a onclick="pay_check('충청도');"># 충청도</a></li>
+            <li><a onclick="pay_check('경상도');"># 경상도</a></li>
+            <li><a onclick="pay_check('전라도');"># 전라도</a></li>
+            <li><a onclick="pay_check('제주도');"># 제주도</a></li>
         </ul>
     </div>
 </div>
+
 </html>

@@ -8,7 +8,7 @@
     	<ul>
     		<li>
     			<span style="font-size: 20px;font-weight: bold;" th:text="${board['BOARD_TITLE']}">제목</span>
-    			<span th:unless="${session.loginMember.MEMBER_ID eq 'admin'}"th:title="${board['BOARD_NO']}" th:text="${#arrays.contains(likeTable,board['BOARD_NO'])}?'♥':'♡'" name="likeHeart"></span>
+    			<span th:unless="${session.loginMember.MEMBER_ID eq 'admin'}" th:title="${board['BOARD_NO']}" th:text="${#arrays.contains(likeTable,board['BOARD_NO'])}?'♥':'♡'" name="likeHeart"></span>
    			</li>
    			<li>
    				<span th:text="'작성자 : '+${board['B_WRITER']}">닉네임</span>
@@ -32,11 +32,11 @@
             <span >
             	<!-- loingMember 일치여부 확인 후 버튼 보여주기 -->
             	<th:block th:unless="${session.loginMember.MEMBER_ID eq board['MEMBER_ID'] or session.loginMember.MEMBER_ID eq 'admin'}" >
-            		<button type="button" class="btn" th:data-n="${board['BOARD_NO']}" th:onclick="|fn_boardBlame(this.getAttribute('data-n'))|" style="background:#F77B1E;color:white;border:none;">신고</button>&nbsp;&nbsp;
+            		<button type="button" class="btn" th:data-n="${board['BOARD_NO']}" th:onclick="|boardModi(this.getAttribute('data-n'))|" style="background:#F77B1E;color:white;border:none;">신고</button>&nbsp;&nbsp;
             	</th:block>
             	<th:block th:if="${session.loginMember.MEMBER_ID eq board['MEMBER_ID']} ">
-            		<button type="button" class="btn" onsubmit="board_modify();" style="background:#247094;color:white;border:none;">수정</button>&nbsp;&nbsp;
-            		<button type="button" class="btn" th:if="${cate eq 'feed'}" th:data-bcate="feed" th:data-bNo="${board['BOARD_NO']}" th:onclick="fn_board_delete(this.getAttribute('data-bNo'),this.getAttribute('data-bcate'));">삭제</button>
+					<button type="button" class="btn" th:data-boardNo = "${board.BOARD_NO}" th:onclick="|boardrealModi(this.getAttribute('data-boardNo'))|" style="background:#247094;color:white;border:none;">수정</button>&nbsp;&nbsp;
+					<button type="button" class="btn" th:if="${cate eq 'feed'}" th:data-bcate="feed" th:data-bNo="${board['BOARD_NO']}" th:onclick="fn_board_delete(this.getAttribute('data-bNo'),this.getAttribute('data-bcate'));">삭제</button>
             		<button type="button" class="btn" th:if="${cate eq 'all'}"  th:data-bcate="all" th:data-bNo="${board['BOARD_NO']}" th:onclick="fn_board_delete(this.getAttribute('data-bNo'),this.getAttribute('data-bcate'));">삭제</button>
             		<button type="button" class="btn" th:if="${cate eq 'none'}"  th:data-bcate="${board['BOARD_CATE']}" th:data-bNo="${board['BOARD_NO']}" th:onclick="fn_board_delete(this.getAttribute('data-bNo'),this.getAttribute('data-bcate'));">삭제</button>
             	</th:block>
@@ -44,7 +44,7 @@
         </div>
     </div>
     <div id="comment_container">
- 	    <ul>
+ 	    <ul class="comment_scroll">
  	    	<!-- 댓글 목록 불러옴 -->
     	</ul>
     	<div>

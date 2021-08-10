@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="/fragments/header.html :: fragment-header"></div>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/board/board_form.css}">
+</head>
+
+<body>
+<div id="wrapper">
+    <!-- 헤더바 -->
+    <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+    <!-- 좌측메뉴바 -->
+    <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+    <!-- 우측콘텐츠 / 고정+변동 -->
+    <div id="content">
+        <!-- 프로필 -->
+        <div th:replace="/fragments/profile.html :: fragment-profile"></div>
+        <!-- main 피드 -->
+        <div class="feed">
+            <link rel="stylesheet" type="text/css" th:href="@{/css/hashtag/main_board_tag.css}">
+            <!-- ckeditor api 가져오는 화면 -->
+            <form id = "ckeditor-form" name="ckeditor-form" th:action="@{/board/modify}" method="post">
+                <input type="hidden" name="boardNo" id="hiddenBno" th:value="${board.BOARD_NO}">
+                <input type="hidden" name="boardCate" th:value="${board.BOARD_CATE}">
+                <input type="hidden" name="memberId" th:value="${session.loginMember.MEMBER_ID}">
+                <input type="hidden" name="memberLoc" th:value="${session.loginMember.MEMBER_LOC}">
+                <table id="ckeditor-table">
+                    <tr>
+                        <th>제목</th>
+                        <td><input type="text" name="board-title" th:value="${board.BOARD_TITLE}" class="input-style input-title"></td>
+                    </tr>
+                    <tr>
+                        <th>카테고리</th>
+                        <td>
+                            <th:block th:switch="${data}">
+                                <span th:case="a">aa</span>
+                                <span th:case="b">bb</span>
+                            </th:block>
+
+
+                            <select th:block th:switch="${board.BOARD_CATE}">
+                                <option th:case="1">출산/육아/교육</option>
+                                <option th:case="2">분실물</option>
+                                <option th:case="3">일손(품앗이)</option>
+                                <option th:case="4">스터디/소모임</option>
+                                <option th:case="5">공동구매</option>
+                                <option th:case="6">자유게시판</option>
+                            </select>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th colspan="2">내용</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2" id="textarea-td">
+                            <textarea th:utext="${board.BOARD_CONTENT}" name="boardContent" id="ckeditorarea" rows = "6" cols = "115" ></textarea>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th colspan="2">
+                            <img th:src="@{/images/ui/tooltip.png}" alt="tooltip" class="tooltip">
+                            <button type="button" th:bNo = "${board.BOARD_NO}" class="create-tag" onmouseover="appearTag();" onmouseout="disappearTag();"  th:onclick="|InputTag(this.getAttribute('bNo'))|" ><i style="margin-right: 5px;" class="gg-add"></i>태그추가</button>
+
+                        </th>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td colspan="2" >
+                            <!--									// addTag(getTagSpan());-->
+                            <button type="button" id="ckeditor-btn" class="blue-btn submitposition" onclick="boardWriteFromForm(); addTag(getTagSpan());">등록</button>
+                            <!--									<input type="submit" id ="ckeditor-btn" class="blue-btn submitposition" value="등록">-->
+                            <button type="button" id="btn-cancel" class="blacksolid-btn cancelposition" onclick="history.back();" >취소</button>
+                        </td>
+
+                    </tr>
+
+                </table>
+            </form>
+        </div>
+
+        <!--textarea를 스마트 에디터로 변경할 것-->
+        <script>
+            $(document).ready(function(){
+                // CKEditor API 불러오기
+                // cKKEDITOR : CKEDITOR 인스턴스임.
+                CKEDITOR.replace('ckeditorarea', {
+
+                    filebrowserUploadUrl : getContextPath()+'/images/ckeditor',// 업로드 버튼생성
+                    height : '400px',
+                    fontSize_defaultLabel : "12",
+                });
+
+                // 첨부파일 커스터 마이징
+                // 이미지 주소로 업로드 하는 창, 이미지 사이즈 줄이기 창 없애고 걍 첨부파일만 할 수 있게
+                CKEDITOR.on('dialogDefinition', function(e){
+                    var dialogName = e.data.name;
+                    var dialogDefinition = e.data.definition;
+
+
+                    switch (dialogName){
+                        case 'image':
+                            dialogDefinition.removeContents('Link');
+                            break;
+                    }
+                })
+
+            })
+
+        </script>
+
+        </form>
+
+        <!-- HOT키워드순위창 -->
+        <div th:replace="/fragments/rank.html :: fragment-rank"></div>
+    </div>
+</div>
+
+</body>
+<script th:src="@{/js/board/board_view_sh.js}"></script>
+<script th:src="@{/js/board/board_list_sh.js}"></script>
+<script th:src="@{/js/board/boardModi_tag.js}"></script>
+
+</html>

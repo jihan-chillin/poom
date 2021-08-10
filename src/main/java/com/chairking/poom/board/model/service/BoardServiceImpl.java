@@ -218,6 +218,13 @@ public class BoardServiceImpl implements BoardService {
 		return dao.commentDelete(mapper, boardNo, commentNo);
 	}
 
+	@Override
+	public int commentModify(Map<String, String> param) {
+		return dao.commentModify(mapper, param);
+	}
+	
+	
+
 
 	//검색기능
 	@Override
@@ -256,4 +263,13 @@ public class BoardServiceImpl implements BoardService {
 		return dao.searchBoardCount(mapper,condition);
 	}
 
+	@Override
+	public int modifyBoard(Map param, String imgName) {
+		return dao.modifyBoard(mapper, param, imgName);
+	}
+
+	@Override
+	public int modiTagFromModi(String bNo, String tagText) {
+		return dao.modiTagFromModi(mapper, bNo, tagText);
+	}
 }

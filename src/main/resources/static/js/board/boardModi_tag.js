@@ -126,10 +126,15 @@ function addTag(getTagSpan){
 }
 
 function addTagFromBoardForm(tagText){
+
+    let bNo = $('#hiddenBno').val();
+    console.log("보드버번호 어케 가져오냐 "+ bNo);
+
     $.ajax({
-        url:getContextPath()+'/board/addTag',
+        url:getContextPath()+'/board/modiTag',
         data:{
             "tagText":tagText,
+            "bNo":bNo,
         },
         success:data=>{
             console.log(tagText);
@@ -154,24 +159,13 @@ function boardWriteFromForm(){
         $("[name=board-title]").focus();
         return false;
     }
-    
-    //제목 글자수 30자 제한
-	let tCheck = /^.{0,30}$/;
-    let checkResult = tCheck.exec(boardTitle);
-    if(checkResult == null) {
-    	alert("제목은 30자 이내로 입력해주세요.");
-    	$("[name=board-title]").focus();
-    	return false;
-    }
-    
+
     if(boardContent = ""){
         alert("내용을 입력해주세요.");
         $("[name=boardContent]").focus();
         return false;
     }
 
-	
-    
     $("[name=ckeditor-form]").submit();
 }
 
