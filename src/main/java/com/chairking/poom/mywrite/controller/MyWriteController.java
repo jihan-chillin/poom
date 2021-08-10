@@ -28,29 +28,32 @@ public class MyWriteController {
     @GetMapping("/mywrite")
     public ModelAndView mywrite(ModelAndView mv, HttpServletRequest req,
                                 // cPage : 페이지바에 숫 자 몇 개?
-                                @RequestParam(value = "cPage", defaultValue = "1") int cPage
+                                @RequestParam(value = "cPage", defaultValue = "1") int cPage,
+                                @RequestParam(value = "numPerpage", required = false, defaultValue = "10") int numPerpage,
+                                @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize
            ){
 
-//             Map memberId  = (Map)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
-//             System.out.println("멤버아이디 가져오기"+memberId);
-
+            // 로그인한 멤버 session가져오기
             Object memberId = ((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
             System.out.println("memberId는  : " + memberId);
-
-            // 내가 쓴 글 개수
+            // 페이징 처리
+            Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
+            // 전체 게시글 개수
             int totalData = service.countMyWrite();
-            // 한 페이지 당 띄울 글 개수
-            int numPerpage = 10;
 
-            List<Map<String, Object>> list = service.MywriteList(cPage, numPerpage, memberId);
-             // 1. 내가 쓴 글 리스트
+            System.out.println(totalData +" : 토탈데이터");
+
+            // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
+            pagination.setTotalRecordCount(totalData);
+
+            // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
+            List<Map<String, Object>> list = service.MywriteList(pagination, memberId);
+
+            System.out.println("페이지 리스트 : " + list);
+
             mv.addObject("list", list);
-
-
-            // 2. 해당 글의 댓글 수, 타이틀 가져오자.
-            List<Map<String, Object>> commentCount = service.commentCount(cPage, numPerpage);
-            mv.addObject("c", commentCount);
-            mv.setViewName("/member/mywrite");
+            mv.addObject("pagination", pagination);
+            mv.setViewName("member/mywrite");
             return mv;
     }
 

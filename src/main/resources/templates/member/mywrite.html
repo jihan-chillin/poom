@@ -48,29 +48,22 @@
                                 </thead>
 
                                 <tbody class="write-tbody">
-                                <tr th:each="m : ${list}">
+                                    <tr th:each="l:${list}" class="write-tr">
+                                        <td th:text="${l.CATEGORY_NAME}"></td>
+                                        <td th:data-no="${l.BOARD_NO}" th:onclick="|allToView(this.getAttribute('data-no'))|"th:text="${l.BOARD_TITLE}+'('+${l.COMMENTS_COUNT}+')'"></td>
+                                        <td th:text="${#dates.format(l.BOARD_DATE, 'yyyy-MM-dd')}"></td>
 
-                                    <td th:text="${m.CATEGORY_NAME}"></td>
-                                    <td style="cursor:pointer;" class="moveToView write-title" th:text="${m.BOARD_TITLE}+'('+${m.CNT}+')'" th:data-parameter="${m.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-parameter'))|"></td>
-                                    <td th:text="${#dates.format(m.BOARD_DATE, 'yyyy-MM-dd')}"></td>
+                                    </tr>
 
-                                </tr>
 
-                                <tr>
-                                    <td>
-                                        <span>페이지바바</span>
-                                   </td>
-                                </tr>
                                 </tbody>
+
                             </table>
 
                         </div>
                     </div>
                 </div>
-             </div>
-
-
-
+            </div>
             <!-- 키워드 순위 -->
             <div th:replace="/fragments/rank.html :: fragment-rank" ></div>
         </div>
