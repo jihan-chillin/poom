@@ -105,7 +105,7 @@ function showReplyPop(rId){
 
 
 
-function showMsgDtl(e, msgNo) {
+function showMsgDtl(msgNo) {
     window.open(getContextPath()+"/message/content?msgNo=" + msgNo,"content","width=400,height=300");
 
 }
