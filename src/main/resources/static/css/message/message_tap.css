@@ -74,8 +74,14 @@ body{
 .empty-message:hover{
     color: white;
 }
+
 button:hover {
   color: #287094;
+}
+
+button:focus{
+    background-color: #287094;
+    color: white;
 }
 
 input msgsearch{
