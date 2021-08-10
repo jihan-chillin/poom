@@ -100,6 +100,7 @@ public class ChattingJsonController {
 //       1주일 전까지 메세지만 가져옴 기준 -> int ref = 7
 //        list.put("messageContent",getPastChattingList(chatNo,7));
         list.put("chatData",service.getChatroomData(chatNo));
+        list.put("checkInterested",service.checkAlreadyInterested(chatNo,memberId(req)));
         list.put("loginMember",req.getSession().getAttribute("loginMember"));
 
         return list;

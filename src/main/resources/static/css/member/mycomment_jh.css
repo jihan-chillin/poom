@@ -67,7 +67,7 @@ div#comment-bar img{
 
 /*댓글 리스트 나오는 부분*/
 div#comment-list table{
-    margin: 20px auto;
+    margin: 10px auto 20px auto;
     text-align: center;
     border-spacing: 25px;
     background-color: white;

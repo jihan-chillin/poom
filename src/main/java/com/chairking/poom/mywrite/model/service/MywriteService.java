@@ -1,5 +1,6 @@
 package com.chairking.poom.mywrite.model.service;
 
+import com.chairking.poom.common.Pagination;
 import org.springframework.stereotype.Service;
 
 
@@ -14,7 +15,7 @@ public interface MywriteService {
     // 내가 쓴 글 갯수
     int countMyWrite();
     // 내가 쓴 글 리스트
-    List<Map<String, Object>> MywriteList(int cPage, int numPerpage, Object memberId);
+    List<Map<String, Object>> MywriteList(Pagination pagination, Object memberId);
 
     // 내가 쓴 댓글 갯수
     int countMyComment();
