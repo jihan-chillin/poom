@@ -22,8 +22,10 @@
     		</li>
 		</ul>
         <div >
-        	<span>
-        		<button  th:unless="${session.loginMember.MEMBER_ID eq 'admin'}" type="button" class="btn" th:data-bCate="${cate eq 'all'?'all':board['BOARD_CATE']}"th:onclick="move_list(this.getAttribute('data-bCate'));">목록으로</button>
+        	<span th:unless="${session.loginMember.MEMBER_ID eq 'admin'}">
+        		<button type="button" class="btn" th:if="${cate eq 'feed'}"th:data-bCate="feed" th:onclick="move_list(this.getAttribute('data-bCate'));">목록으로</button>
+        		<button type="button" class="btn" th:if="${cate eq 'all'}" th:data-bCate="all"th:onclick="move_list(this.getAttribute('data-bCate'));">목록으로</button>
+        		<button type="button" class="btn" th:if="${cate eq 'none'}" th:data-bCate="${board['BOARD_CATE']}"th:onclick="move_list(this.getAttribute('data-bCate'));">목록으로</button>
         	</span>
             <span >
             	<!-- loingMember 일치여부 확인 후 버튼 보여주기 -->
