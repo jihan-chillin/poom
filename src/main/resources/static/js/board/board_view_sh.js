@@ -53,6 +53,7 @@ function comment_write(){
 			success:data=>{
 				comment_list();
 				// 알림 전송하는 함수 by 희웅
+				$("#commentContent").val("");
 				sendNoti();
 			}
 		});
