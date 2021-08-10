@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.chairking.poom.noti.controller.NotiController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +44,7 @@ public class BoardController {
 	public ModelAndView boardView(@RequestParam String boardNo, 
 							@RequestParam (value="cate", required=false, defaultValue="none") String cate,
 							ModelAndView mv,HttpServletRequest req) {
-		System.out.println(boardNo);
+		System.out.println("어디서 넘어왔니"+cate);
 		//좋아요 가져오기
 		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
 		//해시태그 가져오기
@@ -182,10 +183,9 @@ public class BoardController {
         // 공지사항 가져오기
         List<Map<String,Object>> notices=service.selectAllBoardNotice();
         System.out.println("페이지네이션"+pagination);
-        System.out.println("전체글보드리스트"+list);
-      //태그 가져오기
+        System.out.println("ajax페이지"+list);
+        //태그 가져오기
   		List<Map<String,String>> tagList=service.selectAllBoardTag();
-  		System.out.println("태그리스트"+tagList);
   		mv.addObject("tagList", tagList);
         mv.addObject("list", list);
         mv.addObject("likeTable", likeTable);
@@ -225,7 +225,8 @@ public class BoardController {
         List<Map<String, Object>> notices = service.selectAllCateNotice(cate);
       //태그 가져오기
   		List<Map<String,String>> tagList=service.selectAllBoardTag();
-  		System.out.println("태그리스트"+tagList);
+  		System.out.println("전체글보드리스트"+list);
+		System.out.println("페이지"+pagination);
   		mv.addObject("tagList", tagList);
         mv.addObject("cate", cate);
         mv.addObject("cName", cName);
@@ -239,7 +240,7 @@ public class BoardController {
 
 	//모든 게시글 리스트 가져오는 서비스
 	@GetMapping("/board/all")
-	public ModelAndView selectAllBoard(ModelAndView mv, HttpServletRequest req,
+	public ModelAndView selectAllBoard(ModelAndView mv, HttpServletRequest req, @RequestParam (value="bCondition", defaultValue = "") String bCondition,
 									   @RequestParam(value="cPage", defaultValue = "1") int cPage,
 									   @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
 									   @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
@@ -251,9 +252,24 @@ public class BoardController {
 		// 전체 게시글 개수
 		int totalData = service.allBoardCount(memberloc);
 		// 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
-		pagination.setTotalRecordCount(totalData);
-		// 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
-		List<Map<String, Object>> list = service.allBoard(pagination, memberloc);
+		List<Map<String, Object>> list;
+		Object condition = "WHERE 1=1";
+		if (!bCondition.equals("")) {
+
+
+			condition += (" AND (member_id like '%" + bCondition + "'");
+			condition += (" OR board_title like '%" + bCondition + "%'");
+			condition += (" OR board_content like '%" + bCondition + "%')");
+			totalData = service.searchBoardCount(condition);
+			pagination.setTotalRecordCount(totalData);
+			list = service.searchBoardList(pagination, condition);
+		} else {
+			totalData = service.allBoardCount(memberloc);
+			pagination.setTotalRecordCount(totalData);
+			// 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
+			list = service.allBoard(pagination, memberloc);
+		}
+
 		//------------------------------------------------------------------------------------------
 
 		// 좋아요 가져오기
@@ -262,15 +278,16 @@ public class BoardController {
 		List<Map<String,Object>> notices=service.selectAllBoardNotice();
 		//태그 가져오기
 		List<Map<String,String>> tagList=service.selectAllBoardTag();
-		System.out.println("태그리스트"+tagList);
 		System.out.println("전체글보드리스트"+list);
+		System.out.println("페이지"+pagination);
+		mv.addObject("bCondition", bCondition);
 		mv.addObject("list", list);
 		mv.addObject("likeTable", likeTable);
 		mv.addObject("notices", notices);
 		mv.addObject("pagination", pagination);
 		mv.addObject("cate","all");
 		mv.addObject("tagList", tagList);
-		mv.setViewName("/board/board_alllist");
+		mv.setViewName("board/board_alllist");
 		return mv;
 	}
 
@@ -303,9 +320,7 @@ public class BoardController {
 		List<Map<String, Object>> notices = service.selectAllCateNotice(cate);
 		//태그 가져오기
 		List<Map<String,String>> tagList=service.selectAllBoardTag();
-		System.out.println("태그리스트"+tagList);
 		mv.addObject("tagList", tagList);
-		System.out.println("카테고리notice"+notices);
 		mv.addObject("cate", cate);
 		mv.addObject("likeTable", likeTable);
 		mv.addObject("cName", cName);
@@ -315,5 +330,4 @@ public class BoardController {
 		mv.setViewName("/board/board_cate_list");
 		return mv;
 	}
-
 }

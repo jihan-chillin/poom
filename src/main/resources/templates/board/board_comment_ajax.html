@@ -5,7 +5,7 @@
 		<div style="display:none">
 			<span th:text="${c['COMMENT_NO']}" class="commentNo" style="display:none"></span>
 			<th:block th:unless="${session.loginMember.MEMBER_ID eq c['COMMENT_WRITER'] or session.loginMember.MEMBER_ID eq 'admin'}">
-				<a>신고</a>
+				<a th:data-bcn="${c['COMMENT_NO']}" th:onclick="|fn_bcBlame(this.getAttribute('data-bcn'))|">신고</a>
 			</th:block>
 			<th:block th:if="${session.loginMember.MEMBER_ID eq c['COMMENT_WRITER']}">
 		 		<a onclick="delete_comment(this);">삭제</a>
@@ -22,7 +22,7 @@
 	</li>
 	</th:block>
 	
-	<script>
+	<script th:inline="javascript">
 		$("span.b_comment_menu").click(e=>{
 			if($(e.target).next("div").css("display")=="none") {
 				$("span.b_comment_menu").next("div").css("display", "none");
@@ -31,4 +31,5 @@
 				$(e.target).next("div").css("display", "none");
 			}
 		});
+		
 	</script>
