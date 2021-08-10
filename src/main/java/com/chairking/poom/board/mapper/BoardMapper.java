@@ -49,7 +49,7 @@ public interface BoardMapper {
 	
 	//메인피드 등록
 	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.NEXTVAL, #{title}, #{content}, DEFAULT, DEFAULT, DEFAULT, "
-			+ "#{loc}, DEFAULT, #{category}, #{id}, DEFAULT, DEFAULT, DEFAULT, #{content})")
+			+ "#{loc}, DEFAULT, #{category}, #{id}, DEFAULT, DEFAULT, DEFAULT)")
 	public int insertFeed(Map param);
 	
 	//메인피드 게시글(전국,전체)
