@@ -95,10 +95,12 @@ $("#notiToggle").click(e=>{
 })
 //ajax페이징처리
 function fn_alllist_paging(i){
+	var bCondition = $('#title-searchbar').val();
 	$.ajax({
-		url:getContextPath()+"/board/allAjax",
+		url:getContextPath()+"/board/loc/allAjax",
 		data:{
 			"cPage":i,
+			"bCondition": bCondition,
 		}
 	}).done(function(fragment){
 		$("#board_box").html(fragment);
