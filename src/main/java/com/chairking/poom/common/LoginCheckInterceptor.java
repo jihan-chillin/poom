@@ -17,8 +17,7 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
-		String loginMember =  (String)((Map)session.getAttribute("loginMember")).get("MEMBER_ID");
-        System.out.println(loginMember);
+		Object loginMember =  (Object)session.getAttribute("loginMember");
  
         if(loginMember!=null){
             return true;

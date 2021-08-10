@@ -3,35 +3,48 @@ $(document).ready(function(){
 });    
 
 function feedWrite() {
-	var title = $("[name=title]").val();
-	var content = $("[name=content]").val();
-
-    var tCheck = /^.{0,20}$/;
-    var result = tCheck.exec(title); 
-	if(title == ""){
-        alert("제목을 입력해주세요.");
-        $("[name=title]").focus();
-        return false;
-    }
-    if(result == null) {
-    	alert("제목은 30자 이내로 입력해주세요.");
-    	$("[name=title]").focus();
-    	return false;
-    }
-    if(content == ""){
-        alert("내용을 입력해주세요.");
-        $("[name=content]").focus();
-        return false;
-    }
-    
-    
-	// 태그 입력창이 비어있는지 확인하는 메소드
-	if( !checkTagInputEmpty()){
+	
+	var result = feedCheck();
+	console.log(result);
+	if(result == 'true') {
+		alert();
+	    $("[name=feedWrite_form]").submit();
+		addTagEach(getConfirmTag());
+	}else {
 		return false;
 	}
-
-    $("[name=feedWrite_form]").submit();
 } 
+
+function feedCheck() {
+	var checkResult='true';
+	var title = $("[name=title]").val();
+	var tCheck = /^.{0,30}$/;
+    var result = tCheck.exec(title);
+    var content = $("[name=content]").val();
+    
+	if(title == ""){
+		//제목유무 유효성 검사
+        alert("제목을 입력해주세요.");
+        $("[name=title]").focus();
+        checkResult='false';
+    }else if(result == null) {
+	    //제목 글자수 30자 제한 유효성 검사
+    	alert("제목은 30자 이내로 입력해주세요.");
+    	$("[name=title]").focus();
+    	checkResult='false';
+    }else if(content == ""){
+	    //내용유무 유효성 검사
+        alert("내용을 입력해주세요.");
+        $("[name=content]").focus();
+        checkResult='false';
+    }else if( !checkTagInputEmpty()){
+	    // 태그 입력창이 비어있는지 확인하는 메소드
+		checkResult='false';
+	}
+    
+    return checkResult;
+}
+
 
 //지역 on,off(결제권없으면 alert창 뜸)
 var check = $("input[name=loc_check]");
