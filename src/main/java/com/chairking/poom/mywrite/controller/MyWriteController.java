@@ -60,7 +60,7 @@ public class MyWriteController {
 
     // 내가 쓴 댓글 리스트
     @GetMapping("/mycomment")
-    public String mycomment(ModelAndView mv, HttpServletRequest req,
+    public ModelAndView mycomment(ModelAndView mv, HttpServletRequest req,
                             // cPage : 페이지바에 숫 자 몇 개?
                             @RequestParam(value = "cPage", defaultValue = "1") int cPage,
                             @RequestParam(value = "numPerpage", required = false, defaultValue = "10") int numPerpage,
@@ -75,12 +75,18 @@ public class MyWriteController {
         System.out.println(totalData +" : 코멘트 토탈데이터");
         // 페이징처리
         pagination.setTotalRecordCount(totalData);
+        System.out.println("마이댓글 토탈데이터 : " + totalData);
+
         // 내가 쓴 댓글 가져오기
         List<Map<String, Object>> cList = service.MyCommentList(pagination, memberId);
 
         mv.addObject("cList", cList);
+        mv.addObject("pagination", pagination);
+        mv.setViewName("member/mycomment");
 
-        return "/member/mycomment";
+        System.out.println("코멘트 mv : " + mv);
+
+        return mv;
     }
 
     // 내가 찜한 글
