@@ -6,16 +6,24 @@ function feedWrite() {
 	var title = $("[name=title]").val();
 	var content = $("[name=content]").val();
 
-		if(title == ""){
+    var tCheck = /^.{0,20}$/;
+    var result = tCheck.exec(title); 
+	if(title == ""){
         alert("제목을 입력해주세요.");
         $("[name=title]").focus();
         return false;
+    }
+    if(result == null) {
+    	alert("제목은 30자 이내로 입력해주세요.");
+    	$("[name=title]").focus();
+    	return false;
     }
     if(content == ""){
         alert("내용을 입력해주세요.");
         $("[name=content]").focus();
         return false;
     }
+    
     
 	// 태그 입력창이 비어있는지 확인하는 메소드
 	if( !checkTagInputEmpty()){
