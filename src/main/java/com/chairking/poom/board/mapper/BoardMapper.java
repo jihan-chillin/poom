@@ -24,7 +24,7 @@ public interface BoardMapper {
 
 	// INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, '되는지 TEST', '그냥 오라클로 작성하는 거임', DEFAULT, 0, SYSDATE, '서울', 0, '1', 'kimjihan77',0)
 	//게시글 등록
-	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, #{board-title}, #{boardContent}, DEFAULT, 0, SYSDATE, #{memberLoc}, 0, #{boardCate}, #{memberId}, 0,0, '20210804_10881_urbanbrush-20190629084930578298.png')")
+	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, #{board-title}, #{boardContent}, DEFAULT, 0, SYSDATE, #{memberLoc}, 0, #{boardCate}, #{memberId}, 0,0, '20210804_10881_urbanbrush-20190629084930578298.png', dd)")
 	public int insertBoard(Map param);
 	
 	//게시글 번호 가져오는 쿼리문
@@ -36,7 +36,7 @@ public interface BoardMapper {
 	public int insertBoardImg(BoardImage bi);
 	
 	//모든 게시글 조회
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.*, (SELECT COUNT(*) FROM COMMENTS A WHERE A.BOARD_NO = B.BOARD_NO) AS CNT FROM (SELECT * FROM BOARD WHERE DEL_STATUS=0 ORDER BY BOARD_DATE)B) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.*, (SELECT COUNT(*) FROM COMMENTS A WHERE A.BOARD_NO = B.BOARD_NO) AS CNT FROM BOARD B WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
 	public List<Map<String, Object>> selectAllBoard(int cPage, int numPerpage);
 	
 	//게시글 상세 조회
@@ -44,7 +44,7 @@ public interface BoardMapper {
 	public Map selectBoard(String boardNo);
 	
 	//게시글 댓글 조회
-	@Select("SELECT C.*, (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_ID=C.COMMENT_WRITER) AS C_NICKNAME FROM COMMENTS C WHERE BOARD_NO=${boardNo}")
+	@Select("SELECT C.*, (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_ID=C.COMMENT_WRITER) AS C_NICKNAME FROM COMMENTS C WHERE BOARD_NO=#{boardNo}")
 	public List<Map> selectCommentList(String boardNo);
 	
 	//메인피드 등록
@@ -149,13 +149,26 @@ public interface BoardMapper {
 	@Insert("INSERT INTO TAG VALUES (#{tagText})")
 	int TagFromform(String tagText);
 
+	//댓글등록 메소드
+	@Insert("INSERT INTO COMMENTS VALUES(SEQ_COMMENTNO.NEXTVAL, #{boardNo}, #{commentContent}, SYSDATE, DEFAULT, DEFAULT, DEFAULT, #{commentWriter}, DEFAULT)")
+	int commentWrite(Map<String, String> param);
+
+	//게시글의 댓글수 변경
+	@Update("UPDATE BOARD SET COMMENTS_COUNT=COMMENTS_COUNT+#{count} WHERE BOARD_NO=#{boardNo}")
+	int commentCountUpdate(int count, String boardNo);
+
+	//게시글 댓글 삭제
+	@Delete("DELETE FROM COMMENTS WHERE BOARD_NO=#{boardNo} AND COMMENT_NO=#{commentNo}")
+	int commentDelete(String boardNo, String commentNo);
+
+
 	@Select("SELECT * FROM ( SELECT BOARD_NO, BOARD_DATE, BOARD_TITLE FROM BOARD ORDER BY  BOARD_DATE DESC ) WHERE ROWNUM = 1")
     String getBoardNoFromForm();
-	
+
 	//보드뷰에 해시태그 넣기
 	@Select("SELECT TAG_NAME FROM BOARDTAG WHERE BOARD_NO=#{boardNo}")
 	List<String> boardTagList(String boardNo);
-	
+
 	//전체글 리스트에 해시태그 넣기
 	@Select("SELECT BOARD_NO, TAG_NAME FROM BOARDTAG")
 	List<Map<String,String>> selectAllBoardTag();

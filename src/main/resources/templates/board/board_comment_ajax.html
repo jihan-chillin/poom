@@ -1,0 +1,34 @@
+	<th:block th:each="c:${commentList}">
+	<li>
+		<span th:text="${c['C_NICKNAME']}"></span>
+		<span class="b_comment_menu">메뉴</span>
+		<div style="display:none">
+			<span th:text="${c['COMMENT_NO']}" class="commentNo" style="display:none"></span>
+			<th:block th:unless="${session.loginMember.MEMBER_ID eq c['COMMENT_WRITER'] or session.loginMember.MEMBER_ID eq 'admin'}">
+				<a>신고</a>
+			</th:block>
+			<th:block th:if="${session.loginMember.MEMBER_ID eq c['COMMENT_WRITER']}">
+		 		<a onclick="delete_comment(this);">삭제</a>
+		 		<hr style="border:1px solid #f7f7f7; margin:5px 0;">
+		 		<a onclick="change_modify(this);">수정</a>
+			</th:block>
+		</div>
+		<br>
+		<span class="original_content" th:text="${c['COMMENT_CONTENT']}"></span>
+		<div class="modify_container" style="display:none;">
+			<input type="text" class="modify_content">
+			<button onclick="modify_comment();">수정</button><button onclick="">취소</button>
+		</div>
+	</li>
+	</th:block>
+	
+	<script>
+		$("span.b_comment_menu").click(e=>{
+			if($(e.target).next("div").css("display")=="none") {
+				$("span.b_comment_menu").next("div").css("display", "none");
+				$(e.target).next("div").css("display", "block");
+			}else{
+				$(e.target).next("div").css("display", "none");
+			}
+		});
+	</script>

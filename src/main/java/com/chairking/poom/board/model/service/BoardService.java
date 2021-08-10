@@ -74,9 +74,20 @@ public interface BoardService {
 	int TagFromform(String tagText);
 
     String getBoardNoFromForm();
-    
+
     //보드뷰에서 태그들 가져오기
     List<String> boardTagList(String boardNo);
     //전체글리스트 태그 가져오기
     List<Map<String,String>> selectAllBoardTag ();
+
+	//게시글 댓글 입력
+	int commentWrite(Map<String, String> param);
+
+	//게시글 댓글 수 변경
+	int commentCountUpdate(int count, String boardNo);
+
+	//댓글 삭제
+	int commentDelete(String boardNo, String commentNo);
+
+
 }
