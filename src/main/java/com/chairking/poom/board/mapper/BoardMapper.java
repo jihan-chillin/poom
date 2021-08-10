@@ -173,11 +173,6 @@ public interface BoardMapper {
 	//전체글 리스트에 해시태그 넣기
 	@Select("SELECT BOARD_NO, TAG_NAME FROM BOARDTAG")
 	List<Map<String,String>> selectAllBoardTag();
-
-	//게시물 검색
-	@Select("SELECT * FROM BOARD ${codition}")
-	List<Map<String,Object>> searchBoardList(String codition);
-	
 	//게시글 삭제
 	@Update("UPDATE BOARD SET DEL_STATUS=1 WHERE BOARD_NO=#{no}")
 	int boardDelete(String no);
@@ -190,5 +185,13 @@ public interface BoardMapper {
 	//해당 보드번호의 태그 row들 삭제하기
 	@Delete("DELETE FROM BOARDTAG WHERE BOARD_NO=#{no}")
 	int boardTagDelete(String no);
+	
+	
+	//String query = "T D.CATEGORY_NAME,B.PREVIEW_IMG,B.BOARD_DATE, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT,B.COMMENTS_COUNT AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY D ON ( B.BOARD_CATE = D.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_LOC =#{memberloc} ORDER BY B.BOARD_DATE DESC )A) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}\")"
+	@Select("SELECT * FROM (SELECT ROWNUM as rnum, C.CATEGORY_NAME,B.PREVIEW_IMG,B.BOARD_DATE, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT, B.COMMENTS_COUNT AS CNT, B.LIKE_COUNT  FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) ${condition}) WHERE RNUM BETWEEN ${pagination.firstRecordIndex} and ${pagination.lastRecordIndex} ORDER BY BOARD_DATE DESC")
+	List<Map<String,Object>> searchBoardList(Pagination pagination, Object condition);
+
+	@Select("SELECT COUNT(*) FROM (SELECT ROWNUM as rnum, C.CATEGORY_NAME,B.PREVIEW_IMG,B.BOARD_DATE, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT, B.COMMENTS_COUNT AS CNT, B.LIKE_COUNT  FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) ${condition})")
+	int searchBoardCount(Object condition);
 }
 

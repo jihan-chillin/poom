@@ -155,27 +155,21 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
    // 썸네일 이미지 따로 분리 할것
     String boardContent = param.get("boardContent").toString(); // boardContent에 태그 포함 다 들어감.
-    String firstTarget = "fileName=";
-    String lastTarget = ".";
-    String imgName = boardContent.substring(boardContent.indexOf(firstTarget)+9,boardContent.indexOf(lastTarget)+4 );
+    // 1. 사진 첨부시 첫 번째 이미지파일 썸네일 컬럼에 넣기
+    // 2. 사진 첨부가 안되어 있을 경우,
+    boolean flag = boardContent.contains("img");
+    String imgName = "";
 
-    System.out.println("이미지 네임이 어떻게 나오는지 보자" + imgName);
-
-        // img, br, p 태그 빼고 나 제외하기
-    String pattern = "<(\\/?)(?!\\/####)([^<|>]+)?>";
-    String bContetn = (String)param.get("boardContent");
-
-    String[] allowTags = "img,br,p".split(",");
-
-    StringBuffer buffer = new StringBuffer();
-    for(int i=0; i<allowTags.length; i++){
-        buffer.append("|"+allowTags[i].trim() +"(?!\\w)");
-
+    if(flag == true){
+        String firstTarget = "fileName=";
+        String lastTarget = ".";
+        imgName = boardContent.substring(boardContent.indexOf(firstTarget)+9,boardContent.indexOf(lastTarget)+4 );
+    }else if (flag != true)
+    {
+        imgName = "preview_poom.jpg";
     }
 
-    pattern = pattern.replace("####", buffer.toString());
-
-    System.out.println("이미지태그랑 이것저것 제외해봄 : "+pattern);
+    System.out.println("이미지 네임이 어떻게 나오는지 보자" + imgName);
 
         int result =  service.insertBoard(param, imgName);
 
