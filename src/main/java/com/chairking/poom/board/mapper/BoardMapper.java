@@ -36,7 +36,7 @@ public interface BoardMapper {
 	public int insertBoardImg(BoardImage bi);
 	
 	//모든 게시글 조회
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.*, (SELECT COUNT(*) FROM COMMENTS A WHERE A.BOARD_NO = B.BOARD_NO) AS CNT FROM (SELECT * FROM BOARD WHERE DEL_STATUS=0 ORDER BY BOARD_DATE)B) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.*, (SELECT COUNT(*) FROM COMMENTS A WHERE A.BOARD_NO = B.BOARD_NO) AS CNT FROM (SELECT * FROM BOARD WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC)B) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
 	public List<Map<String, Object>> selectAllBoard(int cPage, int numPerpage);
 	
 	//게시글 상세 조회
