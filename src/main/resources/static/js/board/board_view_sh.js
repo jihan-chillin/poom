@@ -1,24 +1,25 @@
 //게시글 뷰에서 목록으로 연결하기
-function move_list(cate){
+function move_list(cate) {
 	//cate==all =>전체글에서 눌렀음
-	if(cate=='all'){
+	if (cate == 'all') {
 		$.ajax({
-			url:getContextPath()+"/board/all",
-			success:data=>{
+			url: getContextPath() + "/board/all",
+			success: data => {
 				$("div#content").html(data);
 			}
 		});
-	}else{
+	} else {
 		$.ajax({
-			url:getContextPath()+"/board/cateList",
-			data:{
-				"cate":cate
+			url: getContextPath() + "/board/cateList",
+			data: {
+				"cate": cate
 			},
-			success:data=>{
+			success: data => {
 				$("div#content").html(data);
 			}
 		});
 	}
+}
 
 //댓글 가져오는 메소드
 function comment_list(){
