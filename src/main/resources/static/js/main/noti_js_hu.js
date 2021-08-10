@@ -148,7 +148,15 @@ function getNotificationData(){
           val += '</div>';
 
         $('.modal-content-list').append(val);
-        $('.noti-info-alarm').append(val2);
+
+        if(data.notiData[i].NOT_CHECK ==='0'){
+          $('.noti-info-alarm').append(val2);
+        }else{
+          $('.alarm-count').remove();
+          $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_normal.png) no-repeat center; background-size: contain;");
+          return;
+        }
+
       }
 
       $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_receive.png) no-repeat center; background-size: contain;");

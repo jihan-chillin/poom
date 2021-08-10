@@ -14,11 +14,6 @@
                 <th>매출 금액</th>
             </tr>
             </thead>
-            <tbody th:if="${#lists.isEmpty(list)}">
-	            <tr>
-	            	<td>어제자 매출이 없습니다</td>
-	            </tr>
-            </tbody>
             <tbody th:unless="${#lists.isEmpty(list)}">
             <tr>
                 <td>7일권</td>
