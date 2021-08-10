@@ -146,9 +146,24 @@ public void ckSubmit(@RequestParam(value = "fileName") String fileName,
 public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
 
-        System.out.println("파라미터 일단 이렇게 들어옴 : " + param);
-//        String boardContent = param.get('boardContent');
-//        System.out.println(boardContent+ " 형 : " + boardContent.getClass());
+   System.out.println("파라미터 일단 이렇게 들어옴 : " + param);
+
+
+   // 썸네일 이미지 따로 분리 할것
+    String boardContent = param.get("boardContent").toString(); // boardContent에 태그 포함 다 들어감.
+    String firstTarget = "fileName=";
+    String targetPNG = "png"; // png 확장자
+    String targetJPG = "jpg"; // jpg 확장자
+    String targetGIF = "gif"; // git 확장자.
+
+
+
+
+    // 확장자 분리
+//    String
+//    String imgName = boardContent.substring(boardContent.lastIndexOf('?')+1, )
+
+
 
         // img, br, p 태그 빼고 나 제외하기
     String pattern = "<(\\/?)(?!\\/####)([^<|>]+)?>";
