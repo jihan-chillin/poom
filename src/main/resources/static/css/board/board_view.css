@@ -17,7 +17,7 @@ div#board_view{
 	display: flex;
 	justify-content: space-between;
 	margin-left: 20px;
-	height: 740px;
+	height: 795px;
 }
 div#board_view>div{
 	background: #f7f7f7;
@@ -55,7 +55,7 @@ div#board_container>ul>li:first-child>span:nth-child(2){
 	cursor:pointer;
 }
 div#board_container li:nth-child(3){
-	height:400px;
+	height:500px;
 	overflow-y:scroll;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
@@ -68,8 +68,8 @@ div#board_container>div:last-child{
 	display:flex;
 	justify-content:space-between;
 	padding:0 20px; 
-	padding-top:10px;
-	margin-top:30px;
+	/*padding-top:10px;*/
+	/*margin-top:30px;*/
 }
 div#board_container>div:last-child button{
 	display:inline-block;
@@ -143,7 +143,8 @@ div#comment_container>div{
 	display:flex; justify-content:center;
 }
 input#commentContent{
-	width:350px; height:40px;
+	width: 300px;
+	height: 40px;
 	margin-right:20px;
 	border: 1px solid lightgray;
 }

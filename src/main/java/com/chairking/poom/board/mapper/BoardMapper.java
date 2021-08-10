@@ -24,8 +24,8 @@ public interface BoardMapper {
 
 	// INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, '되는지 TEST', '그냥 오라클로 작성하는 거임', DEFAULT, 0, SYSDATE, '서울', 0, '1', 'kimjihan77',0)
 	//게시글 등록
-	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, #{board-title}, #{boardContent}, DEFAULT, 0, SYSDATE, #{memberLoc}, 0, #{boardCate}, #{memberId}, 0,0, '20210804_10881_urbanbrush-20190629084930578298.png', dd)")
-	public int insertBoard(Map param);
+	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, #{param.board-title}, #{param.boardContent}, DEFAULT, 0, SYSDATE, #{param.memberLoc}, 0, #{param.boardCate}, #{param.memberId}, 0,0, #{imgName})")
+	public int insertBoard(Map param, String imgName);
 	
 	//게시글 번호 가져오는 쿼리문
 	@Select("SELECT BOARD_NO AS boardNo FROM BOARD WHERE BOARD_TITLE=#{boardTitle} AND MEMBER_ID=#{memberId}")	
@@ -36,7 +36,7 @@ public interface BoardMapper {
 	public int insertBoardImg(BoardImage bi);
 	
 	//모든 게시글 조회
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.*, (SELECT COUNT(*) FROM COMMENTS A WHERE A.BOARD_NO = B.BOARD_NO) AS CNT FROM BOARD B WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
+	@Select("SELECT * FROM (B.*, (SELECT COUNT(*) FROM COMMENTS A WHERE A.BOARD_NO = B.BOARD_NO) AS CNT FROM BOARD B WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC) WHERE RONUM BETWEEN #{cPage} AND #{numPerpage}")
 	public List<Map<String, Object>> selectAllBoard(int cPage, int numPerpage);
 	
 	//게시글 상세 조회
@@ -122,14 +122,15 @@ public interface BoardMapper {
 	@Select("SELECT COUNT(*) FROM BOARD WHERE BOARD_LOC = #{memberloc}")
     int allBoardCount(Object memberloc);
 
-	@Select("SELECT * FROM ( SELECT ROWNUM AS RNUM, C.CATEGORY_NAME,B.PREVIEW_IMG, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT,(SELECT COUNT(*) AS CNT FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO) AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_LOC = #{memberloc} ORDER BY BOARD_DATE DESC ) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
+	@Select("SELECT * FROM ( SELECT ROWNUM AS RNUM,a.* FROM (SELECT D.CATEGORY_NAME,B.PREVIEW_IMG,B.BOARD_DATE, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT,B.COMMENTS_COUNT AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY D ON ( B.BOARD_CATE = D.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_LOC =#{memberloc} ORDER BY B.BOARD_DATE DESC )A) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
 	List<Map<String, Object>> allBoard(Pagination pagination, Object memberloc);
 
 	@Select("SELECT N.NOTICE_NO, C.CATEGORY_NO, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.NOTICE_DATE, N.NOTICE_STATUS, C.CATEGORY_NAME FROM NOTICE N JOIN CATEGORY C on (C.CATEGORY_NO = N.CATEGORY_NO) ORDER BY C.CATEGORY_NO")
 	List<Map<String, Object>> selectAllBoardNotice();
 
-	@Select("SELECT * FROM ( SELECT ROWNUM AS RNUM, C.CATEGORY_NAME,B.PREVIEW_IMG, B.BOARD_NO,B.BOARD_TITLE, B.BOARD_CONTENT,(SELECT COUNT(*) AS CNT FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO) AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_CATE=#{cate} AND B.BOARD_LOC = #{memberloc}ORDER BY BOARD_DATE DESC ) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
-    List<Map<String, Object>> allCateBoard(Pagination pagination, String cate, Object memberloc);
+//	@Select("SELECT * FROM ( SELECT ROWNUM AS RNUM, C.CATEGORY_NAME,B.PREVIEW_IMG, B.BOARD_NO,B.BOARD_TITLE, B.BOARD_CONTENT,(SELECT COUNT(*) AS CNT FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO) AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_CATE=#{cate} AND B.BOARD_LOC = #{memberloc}ORDER BY BOARD_DATE DESC ) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
+	@Select("SELECT * FROM (  SELECT ROWNUM AS RNUM,a.* FROM (SELECT C.CATEGORY_NAME,B.PREVIEW_IMG,B.BOARD_DATE, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT,B.COMMENTS_COUNT AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_CATE=#{cate} AND B.BOARD_LOC =#{memberloc} ORDER BY B.BOARD_DATE DESC )A) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
+	List<Map<String, Object>> allCateBoard(Pagination pagination, String cate, Object memberloc);
 
 	@Select("SELECT COUNT(*) FROM BOARD WHERE BOARD_CATE = #{cate} AND BOARD_LOC = #{memberloc}")
 	int allcateBoardCount(String cate, Object memberloc);
@@ -172,7 +173,27 @@ public interface BoardMapper {
 	//전체글 리스트에 해시태그 넣기
 	@Select("SELECT BOARD_NO, TAG_NAME FROM BOARDTAG")
 	List<Map<String,String>> selectAllBoardTag();
-	
+	//게시글 삭제
+	@Update("UPDATE BOARD SET DEL_STATUS=1 WHERE BOARD_NO=#{no}")
+	int boardDelete(String no);
+	//댓글테이블의 boardno가져오기
+	@Select("SELECT BOARD_NO FROM COMMENTS")
+	String[] allComments();
+	//해당 보드번호의 댓글row들 del_status=1로 수정하기
+	@Update("UPDATE COMMENTS SET DEL_STATUS=1 WHERE BOARD_NO=#{no}")
+	int commentsDelete(String no);
+	//해당 보드번호의 태그 row들 삭제하기
+	@Delete("DELETE FROM BOARDTAG WHERE BOARD_NO=#{no}")
+	int boardTagDelete(String no);
+
+
+	//String query = "T D.CATEGORY_NAME,B.PREVIEW_IMG,B.BOARD_DATE, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT,B.COMMENTS_COUNT AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY D ON ( B.BOARD_CATE = D.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_LOC =#{memberloc} ORDER BY B.BOARD_DATE DESC )A) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}\")"
+	@Select("SELECT * FROM (SELECT ROWNUM as rnum, C.CATEGORY_NAME,B.PREVIEW_IMG,B.BOARD_DATE, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT, B.COMMENTS_COUNT AS CNT, B.LIKE_COUNT  FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) ${condition}) WHERE RNUM BETWEEN ${pagination.firstRecordIndex} and ${pagination.lastRecordIndex} ORDER BY BOARD_DATE DESC")
+	List<Map<String,Object>> searchBoardList(Pagination pagination, Object condition);
+
+	@Select("SELECT COUNT(*) FROM (SELECT ROWNUM as rnum, C.CATEGORY_NAME,B.PREVIEW_IMG,B.BOARD_DATE, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT, B.COMMENTS_COUNT AS CNT, B.LIKE_COUNT  FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) ${condition})")
+	int searchBoardCount(Object condition);
+
 	//댓글 수정
 	@Update("UPDATE COMMENTS SET COMMENT_CONTENT=#{commentContent} WHERE BOARD_NO=#{boardNo} AND COMMENT_NO=#{commentNo}")
 	int commentModify(Map<String, String> param);

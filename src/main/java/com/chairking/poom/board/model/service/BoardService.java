@@ -9,7 +9,7 @@ import com.chairking.poom.common.Pagination;
 
 public interface BoardService {
 
-	int insertBoard(Map param);
+	int insertBoard(Map param, String imgName);
 
 	//메인피드 글 등록하기
 	int insertFeed(Map param);
@@ -92,4 +92,9 @@ public interface BoardService {
 	//댓글 수정
 	int commentModify(Map<String, String> param);
 
+    //게시글 삭제
+    int boardDelete(String no);
+    List<Map<String, Object>> searchBoardList(Pagination pagination, Object condition);
+
+	int searchBoardCount(Object condition);
 }

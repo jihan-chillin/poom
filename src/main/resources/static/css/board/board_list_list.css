@@ -187,9 +187,10 @@ span[name=likeHeart]{
 }
 
 .tag-list span{
-	margin-right: 8px;
+	margin-right: 3px;
 	font-size: 15px;
-	color: grey;
+	font-style: italic;
+	color: black
 }
 
 .bSpan div>span:first-of-type{

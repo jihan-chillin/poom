@@ -66,7 +66,7 @@ public interface AdminMapper {
 	@Update("UPDATE BOARD SET BLAME_COUNT=BLAME_COUNT+1 WHERE BOARD_NO=#{no}")
 	public int updateBrdBlameCount(String no);
 	
-	@Insert("INSERT INTO COMMENTS_BLAME VALUES(SEQ_BC_BLAME_NO.NEXTVAL,#{target_mem},sysdate,'테스트',#{no},#{blame_reason})")
+	@Insert("INSERT INTO COMMENTS_BLAME VALUES(SEQ_BC_BLAME_NO.NEXTVAL,#{target_mem},sysdate,#{no},#{boardNo},#{blame_reason})")
 	public int insertCommentsBlame(Map<String,String> map);
 	@Update("UPDATE COMMENTS SET BLAME_COUNT=BLAME_COUNT+1 WHERE COMMENT_NO=#{no}")
 	public int updateCommentsBlameCount(String no);

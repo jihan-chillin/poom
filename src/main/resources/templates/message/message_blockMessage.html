@@ -41,7 +41,7 @@
                     </div>
                     <!-- 페이지블록 -->
                     <th:block th:each="n:${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">
-                        <div th:if="${pagination.currentPage eq n}" style="background-color: #F77B1E;color:white;font-size:20px;">
+                        <div th:if="${pagination.currentPage eq n}" style="background-color:#247094 ;color:white;font-size:20px;">
                             <a th:onclick="|fn_ajax_paging('${n}')|" th:text="${n}" >1</a>
                         </div>
 

@@ -15,7 +15,7 @@ public interface LoginMapper {
 	public Map<String,Object> duplCheck(String duplsql);
 	
 	@Insert("INSERT INTO MEMBER VALUES (#{memberId},#{memberPw},#{memberNickname},#{memberName},#{memberEmail},"
-			+ "#{memberBirth},#{memberLoc},default,null,null,default,default)")
+			+ "#{memberBirth},#{memberLoc},default,null,null,default,default,null)")
 	public int insertMember(Map m);
 	
 	@Insert("INSERT INTO MEMBERTAG VALUES (SEQ_MTAGNO.NEXTVAL,#{id},#{keyword})")

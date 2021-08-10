@@ -51,42 +51,39 @@ public class NotiController {
         List<Map<String,String>> getBoardTitleFromCommentNo=new ArrayList<>();
         // 쪽지 내용 from MsgNo
         List<Map<String,String>> getMsgContentFromMsgNo= new ArrayList<>();
+        Map<String,String> emptyData = new HashMap<>();
+        emptyData.put("BOARD_TITLE","");
+        emptyData.put("BOARD_NO","");
 
+        Map<String,String> emptyMessage = new HashMap<>();
+        emptyData.put("MSG_CONTENT","");
+        emptyData.put("MSG_NO","");
 
         for(int i =0; i<myNotiData.size(); i++) {
-
             // 삭제처리된 게시물은 알림테이블에서 삭제
             notiService.deleteNotiBoardDelStatus(myNotiData.get(i).get("BOARD_NO"));
+            String comtNo = myNotiData.get(i).get("COMMENT_NO");
+            String msgNo = myNotiData.get(i).get("MSG_NO");
             String boardNo = myNotiData.get(i).get("BOARD_NO");
 
-            if (Integer.parseInt(boardNo) != 0) {
-                getBoardTitleFromBoardNo.add(i,
-                        notiService.getBoardTitleFromBoardNo(boardNo)
-                );
+            if (Integer.parseInt(comtNo) != 0) {
+                getBoardTitleFromCommentNo.add(i,notiService.getBoardTitleFromCommentNo(comtNo));
+            }else{
+                getBoardTitleFromCommentNo.add(i,emptyData);
             }
-
-        }
-
-        for(int i =0; i<myNotiData.size(); i++) {
-            String commentNo = myNotiData.get(i).get("COMMENT_NO");
-
-            if (Integer.parseInt(commentNo) != 0) {
-                getBoardTitleFromCommentNo.add(i,
-                        notiService.getBoardTitleFromCommentNo(commentNo)
-                );
-            }
-        }
-
-        for(int i =0; i<myNotiData.size(); i++) {
-            String msgNo = myNotiData.get(i).get("MSG_NO");
 
             if (Integer.parseInt(msgNo) != 0) {
-                getMsgContentFromMsgNo.add(i,
-                        notiService.getMsgContentFromMsgNo(msgNo)
-                );
+                getMsgContentFromMsgNo.add(i,notiService.getMsgContentFromMsgNo(msgNo));
+            }else{
+                getMsgContentFromMsgNo.add(i,emptyMessage);
+            }
+
+            if (Integer.parseInt(boardNo) != 0) {
+                getBoardTitleFromBoardNo.add(i,notiService.getBoardTitleFromBoardNo(boardNo));
+            }else{
+                getBoardTitleFromBoardNo.add(i,emptyData);
             }
         }
-
 
         data.put("notiData",myNotiData);
         data.put("boardTitleFromBoardNo",getBoardTitleFromBoardNo);

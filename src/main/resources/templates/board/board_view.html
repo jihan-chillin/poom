@@ -14,16 +14,20 @@
    				<span th:text="'작성자 : '+${board['B_WRITER']}">닉네임</span>
    				<span th:text="${#dates.format(board['BOARD_DATE'],'yyyy-MM-dd')}" style="display:inline-block;float:right;">작성일</span>
    			</li>
-    		<li><textarea style="border: none" readonly th:text="${board['BOARD_CONTENT']}" id="board-area">내용</textarea></li>
+    		<li><div style="border: none" th:utext="${board['BOARD_CONTENT']}" id="board-area">내용</div></li>
+<!--			<li><textarea style="border: none" readonly th:object="${CKEDITOR.instances[ckeditorarea].getData('board.BOARD_CONTENT')}" id="board-area">내용</textarea></li>-->
     		<li style="height:60px;">
+
     			<th:block th:each="t:${tagList}">
     				<span style="padding-right:3px;font-size:18px;font-weight: bold;" th:text="'#'+${t}">해시태그들</span>
     			</th:block>
     		</li>
 		</ul>
         <div >
-        	<span>
-        		<button  th:unless="${session.loginMember.MEMBER_ID eq 'admin'}" type="button" class="btn" th:data-bCate="${cate eq 'all'?'all':board['BOARD_CATE']}"th:onclick="move_list(this.getAttribute('data-bCate'));">목록으로</button>
+        	<span th:unless="${session.loginMember.MEMBER_ID eq 'admin'}">
+        		<button type="button" class="btn" th:if="${cate eq 'feed'}"th:data-bCate="feed" th:onclick="move_list(this.getAttribute('data-bCate'));">목록으로</button>
+        		<button type="button" class="btn" th:if="${cate eq 'all'}" th:data-bCate="all"th:onclick="move_list(this.getAttribute('data-bCate'));">목록으로</button>
+        		<button type="button" class="btn" th:if="${cate eq 'none'}" th:data-bCate="${board['BOARD_CATE']}"th:onclick="move_list(this.getAttribute('data-bCate'));">목록으로</button>
         	</span>
             <span >
             	<!-- loingMember 일치여부 확인 후 버튼 보여주기 -->
@@ -32,7 +36,9 @@
             	</th:block>
             	<th:block th:if="${session.loginMember.MEMBER_ID eq board['MEMBER_ID']} ">
             		<button type="button" class="btn" onsubmit="board_modify();" style="background:#247094;color:white;border:none;">수정</button>&nbsp;&nbsp;
-            		<button type="button" class="btn" onclick="fn_board_delete('${board['BOARD_NO']}');">삭제</button>
+            		<button type="button" class="btn" th:if="${cate eq 'feed'}" th:data-bcate="feed" th:data-bNo="${board['BOARD_NO']}" th:onclick="fn_board_delete(this.getAttribute('data-bNo'),this.getAttribute('data-bcate'));">삭제</button>
+            		<button type="button" class="btn" th:if="${cate eq 'all'}"  th:data-bcate="all" th:data-bNo="${board['BOARD_NO']}" th:onclick="fn_board_delete(this.getAttribute('data-bNo'),this.getAttribute('data-bcate'));">삭제</button>
+            		<button type="button" class="btn" th:if="${cate eq 'none'}"  th:data-bcate="${board['BOARD_CATE']}" th:data-bNo="${board['BOARD_NO']}" th:onclick="fn_board_delete(this.getAttribute('data-bNo'),this.getAttribute('data-bcate'));">삭제</button>
             	</th:block>
             </span>
         </div>
@@ -59,6 +65,12 @@
  </th:block>
 <script th:inline="javascript" th:src="@{/js/board/board_view_sh.js}"></script>
 <script th:inline="javascript">
+//댓글신고
+function fn_bcBlame(no){
+	var id=[[${session.loginMember.MEMBER_ID}]];
+	var bNo=[[${board['BOARD_NO']}]]
+	window.open(getContextPath()+"/blame/report?type=bc"+"&no="+no+"&id="+id+"&bNo="+bNo,"","width=495px,height=530px,top=260px,left=800px");
+}
 //신고하기 버튼 => 팝업 이동 
 function fn_boardBlame(no){
 	var id=[[${session.loginMember.MEMBER_ID}]];

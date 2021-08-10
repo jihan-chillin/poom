@@ -44,7 +44,7 @@ public class MessageController {
     @RequestMapping("/receive")
     public ModelAndView receiveMessage(HttpServletRequest req, ModelAndView mv,
                                        @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-                                       @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
+                                       @RequestParam(value = "cntPerPage", required = false, defaultValue = "15") int cntPerPage,
                                        @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
         HttpSession session = req.getSession();
         session.setAttribute("mType", "receive");
@@ -73,7 +73,7 @@ public class MessageController {
     @RequestMapping("/send")
     public ModelAndView sendMessage(HttpServletRequest req, ModelAndView mv,
                                     @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-                                    @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
+                                    @RequestParam(value = "cntPerPage", required = false, defaultValue = "15") int cntPerPage,
                                     @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
         HttpSession session = req.getSession();
         session.setAttribute("mType", "send");
@@ -102,7 +102,7 @@ public class MessageController {
     @RequestMapping("/block")
     public ModelAndView blockMessage(HttpServletRequest req, ModelAndView mv,
                                      @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
-                                     @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
+                                     @RequestParam(value = "cntPerPage", required = false, defaultValue = "15") int cntPerPage,
                                      @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
         HttpSession session = req.getSession();
         session.setAttribute("mType", "block");

@@ -8,6 +8,8 @@ function move_list(cate) {
 				$("div#content").html(data);
 			}
 		});
+	}else if(cate=='feed'){
+		location.assign(getContextPath()+"/login/main/");
 	} else {
 		$.ajax({
 			url: getContextPath() + "/board/cateList",
@@ -50,6 +52,8 @@ function comment_write(){
 			},
 			success:data=>{
 				comment_list();
+				// 알림 전송하는 함수 by 희웅
+				sendNoti();
 			}
 		});
 	}
@@ -128,7 +132,17 @@ $(function(){
 });
 
 //게시판 view에서 삭제하기 구현
-//진짜 삭제 아닌 del_status=>1로 변경
-function fn_board_delete(no){
-	alert(no);
+//진짜 삭제 아닌 del_status=>1로 변경 //restController
+function fn_board_delete(no,cate){
+	if(confirm("해당 게시글을 정말 삭제하시겠습니까?")){
+		$.ajax({
+			url:getContextPath()+"/board/boardDelete",
+			data:{"no":no}
+		}).done(function (fragment){
+			alert('삭제가 완료되었습니다');
+			move_list(cate);
+		}).fail(function(fragment){
+			alert('삭제 실패! 관리자에게 문의하세요');
+		})
+	}
 }

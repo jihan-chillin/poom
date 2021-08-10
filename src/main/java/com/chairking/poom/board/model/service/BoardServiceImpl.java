@@ -28,8 +28,8 @@ public class BoardServiceImpl implements BoardService {
 	private SqlSessionTemplate session;
 	
 	@Override
-	public int insertBoard(Map param) {
-		return dao.insertBoard(mapper, param);
+	public int insertBoard(Map param, String imgName) {
+		return dao.insertBoard(mapper, param, imgName);
 	}
 
 	@Override
@@ -225,5 +225,42 @@ public class BoardServiceImpl implements BoardService {
 	
 	
 
+
+	//검색기능
+	@Override
+	public List<Map<String, Object>> searchBoardList(Pagination pagination, Object condition) {
+		System.out.println("*********************************\n" + pagination + "\n" + condition);
+		return dao.searchBoardList(mapper, pagination, condition);
+
+	}
+	
+	//게시글 삭제
+	@Override
+	@Transactional
+	public int boardDelete(String no) {
+		int result=dao.boardDelete(mapper, no);
+		//만약 댓글테이블에 해당 보드넘버가 있다면 댓글들도 del_status=1로 변경하기
+		if(result>0) {
+			String[] comments=dao.allComments(mapper);
+			for(String s:comments) {
+				if(s.equals(no)) {
+					int apply=dao.commentsDelete(mapper,no);
+				}
+			}
+			//보드태그에도 있으면 지우기
+			List<Map<String,String>> tagList=dao.selectAllBoardTag(mapper);
+			for(Map m:tagList) {
+				if(m.get("BOARD_NO").equals((String)no)) {
+					int apply=dao.boardTagDelete(mapper, no);
+				}
+			}
+		}
+		return result;
+	}
+	
+	@Override
+	public int searchBoardCount(Object condition) {
+		return dao.searchBoardCount(mapper,condition);
+	}
 
 }

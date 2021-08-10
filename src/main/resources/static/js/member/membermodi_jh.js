@@ -1,6 +1,6 @@
 // 취소버튼 클릭시 메인화면으로
 function goMain(){
-    location.href=getContextPath()+'/login/main';
+    location.assign(getContextPath()+"/login/main");
 }
 
 // 자기소개 글자수 체크
@@ -177,3 +177,11 @@ $('button.btn_submitpri').click(function(){
 	
 	$("[name=updatePri_form]").submit();
 });
+
+//프로필 부분 채팅아이콘 클릭시 채팅리스트로 이동
+function moveMyChatList(){
+  location.assign(getContextPath()+"/login/main?edit=chat");
+}
+function moveMyTagPage(){
+  location.assign(getContextPath()+"/login/main?edit=tag");
+}

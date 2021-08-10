@@ -1,34 +1,38 @@
 package com.chairking.poom.board.controller;
 
-import com.chairking.poom.board.model.service.BoardService;
-import com.chairking.poom.board.model.vo.CkFileupload;
-import com.chairking.poom.common.Pagination;
-import com.chairking.poom.hashTag.controller.TagJsonController;
-import com.chairking.poom.noti.controller.NotiController;
-import lombok.extern.slf4j.Slf4j;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
-import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.awt.*;
-import java.io.*;
-import java.net.URLEncoder;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
+import com.chairking.poom.board.model.service.BoardService;
+import com.chairking.poom.board.model.vo.CkFileupload;
+import com.chairking.poom.hashTag.controller.TagJsonController;
+import com.chairking.poom.noti.controller.NotiController;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
@@ -146,38 +150,32 @@ public void ckSubmit(@RequestParam(value = "fileName") String fileName,
 public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
 
-        System.out.println("파라미터 일단 이렇게 들어옴 : " + param);
-//        String boardContent = param.get('boardContent');
-//        System.out.println(boardContent+ " 형 : " + boardContent.getClass());
+   System.out.println("파라미터 일단 이렇게 들어옴 : " + param);
 
-        // img, br, p 태그 빼고 나 제외하기
-    String pattern = "<(\\/?)(?!\\/####)([^<|>]+)?>";
-    String bContetn = (String)param.get("boardContent");
 
-    String[] allowTags = "img,br,p".split(",");
+   // 썸네일 이미지 따로 분리 할것
+    String boardContent = param.get("boardContent").toString(); // boardContent에 태그 포함 다 들어감.
+    // 1. 사진 첨부시 첫 번째 이미지파일 썸네일 컬럼에 넣기
+    // 2. 사진 첨부가 안되어 있을 경우,
+    boolean flag = boardContent.contains("img");
+    String imgName = "";
 
-    StringBuffer buffer = new StringBuffer();
-    for(int i=0; i<allowTags.length; i++){
-        buffer.append("|"+allowTags[i].trim() +"(?!\\w)");
+    if(flag == true){
+        String firstTarget = "fileName=";
+        String lastTarget = ".";
+        imgName = boardContent.substring(boardContent.indexOf(firstTarget)+9,boardContent.indexOf(lastTarget)+4 );
+    }else if (flag != true)
+    {
+        imgName = "preview_poom.jpg";
     }
 
-    pattern = pattern.replace("####", buffer.toString());
+    System.out.println("이미지 네임이 어떻게 나오는지 보자" + imgName);
 
-    System.out.println("이미지태그랑 이것저것 제외해봄 : "+pattern);
-
-//        String bContetn = (String)param.get("boardContent"); // boardContent 태그 붙어있는채로 나옴.
-//        Object removeTagContent = bContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
-
-//        System.out.println("태그를 없애본 거임 : "+removeTagContent);
-
-
-
-        System.out.println("보드 컨텐트가 어떻게 나오게요? : "+param.get("boardContent"));
-        int result =  service.insertBoard(param);
+        int result =  service.insertBoard(param, imgName);
 
 
         String msg="";
-        String loc="redirect://";
+        String loc="redirect:/login.";
 
         if(result>0){
             msg="게시글 등록 성공";
@@ -247,7 +245,8 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
     	int result=service.commentWrite(param);
     	if(result>0) result=service.commentCountUpdate(1, boardNo);
-
+    	// 댓글 작성시 알림테이블에 데이터 넣는 메소드
+        nc.insertCommentNotiData(boardNo,nc.getBoardWriter(boardNo));
     	return param;
     }
     
@@ -280,5 +279,13 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
     // 방금전에 등록한 게시글 번호 가져오기
     public String getBoardNoFromForm(){
         return service.getBoardNoFromForm();
+    }
+    
+    //게시글 삭제하기
+    @RequestMapping("/board/boardDelete")
+    public String boardDelete(String no) {
+    	System.out.println(no);
+    	int result = service.boardDelete(no);
+    	return "";
     }
 }
