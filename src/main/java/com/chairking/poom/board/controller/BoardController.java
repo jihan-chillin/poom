@@ -315,4 +315,23 @@ public class BoardController {
 		return mv;
 	}
 
+	// 게시글 수정하는 곳으로 이동
+	@GetMapping("board/modi")
+	public ModelAndView boardmodi(HttpServletRequest req, ModelAndView mv,
+			@RequestParam(value ="boardNo") String boardNo){
+
+		// 제목, 카테고리, 내용 가져오기
+		Map board = service.selectBoard(boardNo);
+
+
+		//태그 가져오기
+		List<Map<String,String>> tagList=service.selectAllBoardTag();
+
+		mv.addObject("tagList",tagList);
+		mv.addObject("board", board);
+		mv.setViewName("board/boardmodi");
+		return mv;
+	}
+
+
 }

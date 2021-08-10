@@ -256,4 +256,8 @@ public class BoardServiceImpl implements BoardService {
 		return dao.searchBoardCount(mapper,condition);
 	}
 
+	@Override
+	public int modifyBoard(Map param, String imgName) {
+		return dao.modifyBoard(mapper, param, imgName);
+	}
 }
