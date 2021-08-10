@@ -4,7 +4,7 @@
 	<li>
 		<span th:text="${c['COMMENT_NO']}" class="commentNo" style="display:none"></span>
 		<span th:text="${c['COMMENT_LEVEL']}" class="commentLevel" style="display:none"></span>
-		<img th:src="|@{/images/profile/}${c['C_PROFILE']}|" style="width:50px; height:50px; float:left; boarder-radius:25px;">
+		<img th:src="|${@environment.getProperty('profilePath')}${c['C_PROFILE']}|" style="width:50px; height:50px; float:left; boarder-radius:25px;">
 		<span th:text="${c['C_NICKNAME']}"></span>
 		<span class="b_comment_menu">메뉴</span>
 		<div style="display:none">

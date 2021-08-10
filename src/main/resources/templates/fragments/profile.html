@@ -4,7 +4,6 @@
 <!-- 프로필 -->
 <div class="profile" th:fragment="fragment-profile">
     <img th:src="${@environment.getProperty('profilePath')}+${session.loginMember.MEMBER_IMG}" alt="profile_img">
-    
     <p th:text="${session.loginMember.MEMBER_NICKNAME}" id="loginMember_id"></p>
     <div class="introduce">
 		<p th:if="${session.loginMember.INTRO!=null}" th:text="${session.loginMember.INTRO}"></p>
