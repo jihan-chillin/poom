@@ -11,5 +11,6 @@ public interface PaymentService {
 
 	int changePayStatus(String memberId, String itemType);
 	
+	int checkExpireDate();
 	
 }

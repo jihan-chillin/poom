@@ -44,7 +44,7 @@ public interface BoardMapper {
 	public Map selectBoard(String boardNo);
 	
 	//게시글 댓글 조회
-	@Select("SELECT C.*, (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_ID=C.COMMENT_WRITER) AS C_NICKNAME FROM COMMENTS C WHERE BOARD_NO=#{boardNo}")
+	@Select("SELECT C.*, (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_ID=C.COMMENT_WRITER) AS C_NICKNAME FROM COMMENTS C WHERE BOARD_NO=#{boardNo} AND DEL_STATUS=0 ORDER BY COMMENT_DATE DESC")
 	public List<Map> selectCommentList(String boardNo);
 	
 	//메인피드 등록
@@ -158,7 +158,7 @@ public interface BoardMapper {
 	int commentCountUpdate(int count, String boardNo);
 
 	//게시글 댓글 삭제
-	@Delete("DELETE FROM COMMENTS WHERE BOARD_NO=#{boardNo} AND COMMENT_NO=#{commentNo}")
+	@Update("UPDATE COMMENTS SET DEL_STATUS=1 WHERE BOARD_NO=#{boardNo} AND COMMENT_NO=#{commentNo}")
 	int commentDelete(String boardNo, String commentNo);
 
 
@@ -172,5 +172,9 @@ public interface BoardMapper {
 	//전체글 리스트에 해시태그 넣기
 	@Select("SELECT BOARD_NO, TAG_NAME FROM BOARDTAG")
 	List<Map<String,String>> selectAllBoardTag();
+	
+	//댓글 수정
+	@Update("UPDATE COMMENTS SET COMMENT_CONTENT=#{commentContent} WHERE BOARD_NO=#{boardNo} AND COMMENT_NO=#{commentNo}")
+	int commentModify(Map<String, String> param);
 }
 

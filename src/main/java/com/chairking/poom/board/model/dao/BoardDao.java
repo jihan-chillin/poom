@@ -86,4 +86,6 @@ public interface BoardDao {
 	int commentCountUpdate(BoardMapper mapper, int count, String boardNo);
 
 	int commentDelete(BoardMapper mapper, String boardNo, String commentNo);
+	
+	int commentModify(BoardMapper mapper, Map<String, String> param);
 }

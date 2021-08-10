@@ -250,7 +250,8 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
     	return param;
     }
-
+    
+    //댓글목록 ajax로 가져오는 메소드
     @GetMapping("/comment/list")
     public ModelAndView commentList(String boardNo, ModelAndView mv) {
     	mv.addObject("commentList", service.selectCommentList(boardNo));
@@ -258,10 +259,21 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
     	return mv;
     }
 
+    //댓글삭제
     @RequestMapping("/comment/delete")
     public String commentDelete(String boardNo, String commentNo) {
     	int result=service.commentDelete(boardNo, commentNo);
     	if(result>0) service.commentCountUpdate(-1, boardNo);
+    	return "";
+    }
+    
+    //댓글 수정
+    @RequestMapping("/comment/modify")
+    public String commentModify(@RequestParam Map<String, String> param) {
+//    	System.out.println(param.get("boardNo"));
+//    	System.out.println(param.get("commentNo"));
+//    	System.out.println(param.get("commentContent"));
+    	int result=service.commentModify(param);
     	return "";
     }
 
