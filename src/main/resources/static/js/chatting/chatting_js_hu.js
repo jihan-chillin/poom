@@ -137,6 +137,8 @@ function getMyChatroom(chatNo,url){
       chatNo
     },
     success:data=>{
+      console.log(data);
+
       const memberId = data.loginMember.MEMBER_ID;
       $('.entered-mem').remove();
       $('.chatroom-header>*').remove();
@@ -158,7 +160,12 @@ function getMyChatroom(chatNo,url){
         val2 += '<div>';
           val2 += '<span>...</span>';
           val2 += '<div class="chatroom-submenu">';
-            val2 += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatData.CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+              // 관심채팅방에 추가된 채팅방이면
+              if(data.checkInterested == 1){
+                val2 += '<div><span class="interested-chatroom" onclick="deleteInterestChatroom('+data.chatData.CHAT_NO+',\''+memberId+'\')">관심 채팅방에서 삭제</span></div>';
+              }else{ // 관심채팅방에 없으면
+                val2 += '<div><span class="interested-chatroom" onclick="checkAlreadyInterestedChatroom('+data.chatData.CHAT_NO+',\''+memberId+'\')">관심 채팅방에 추가</span></div>';
+              }
             val2 += '<div><span class="blame-chatroom" onclick="checkAlreadyBlame('+data.chatData.CHAT_NO+',\''+memberId+'\')">신고하기</span></div>';
         val2 += '</div>';
       val2 += '</div>';

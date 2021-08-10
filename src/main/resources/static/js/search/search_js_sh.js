@@ -36,3 +36,16 @@ function moveToView(tRow){
 
 }
 
+function moveToViewFromNotify(boardNo,cate){
+    $.ajax({
+        url: getContextPath() + "/board/view",
+        data: {
+            "boardNo": boardNo,
+            "cate":cate
+        },
+        success: data => {
+            $("#content").html(data);
+        }
+    });
+}
+

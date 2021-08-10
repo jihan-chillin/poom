@@ -1,6 +1,7 @@
 package com.chairking.poom.mywrite.model.dao;
 
 import com.chairking.poom.board.model.vo.Board;
+import com.chairking.poom.common.Pagination;
 import com.chairking.poom.mywrite.mapper.MywriteMapper;
 import org.springframework.stereotype.Repository;
 
@@ -16,8 +17,8 @@ public class MywriteDaoImpl implements MywriteDao{
     }
 
     @Override
-    public List<Map<String, Object>> MywriteList(MywriteMapper mapper, int cPage, int numPerpage, Object memberId) {
-        return mapper.MywriteMapper(cPage, numPerpage, memberId);
+    public List<Map<String, Object>> MywriteList(MywriteMapper mapper, Pagination pagination, Object memberId) {
+        return mapper.MywriteList(pagination, memberId);
     }
 
     @Override
@@ -26,8 +27,8 @@ public class MywriteDaoImpl implements MywriteDao{
     }
 
     @Override
-    public List<Map<String, Object>> MyCommentList(MywriteMapper mapper, int cPage, int numPerpage) {
-        return mapper.MyCommentList(cPage, numPerpage);
+    public List<Map<String, Object>> MyCommentList(MywriteMapper mapper, Pagination pagination, Object memberId) {
+        return mapper.MyCommentList(pagination, memberId);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class MywriteDaoImpl implements MywriteDao{
     }
 
     @Override
-    public List<Map<String, Object>> myLikeList(MywriteMapper mapper, int cPage, int numPerpage, Object memberId) {
-        return mapper.MyLikeList(cPage, numPerpage, memberId);
+    public List<Map<String, Object>> myLikeList(MywriteMapper mapper, Pagination pagination, Object memberId) {
+        return mapper.MyLikeList(pagination, memberId);
     }
 }

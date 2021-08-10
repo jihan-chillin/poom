@@ -36,6 +36,19 @@ function comment_list(){
 	});
 }
 
+//댓글의 답글 가져오는 메소드
+function recomment_list(){
+	$.ajax({
+		url:getContextPath()+"/comment/recomment",
+		data:{
+			
+		},
+		success:data=>{
+		
+		}
+	});
+}
+
 //댓글 입력
 function comment_write(){
 	var commentContent=$("#commentContent").val();
@@ -64,7 +77,7 @@ function comment_write(){
 function delete_comment(target){
 	//console.log("test");
 	//console.log($(target));
-	var commentNo=$(target).parent().parent().find("span.commentNo").text();
+	var commentNo=$(target).parent().parent().parent().find("span.commentNo").text();
 	$.ajax({
 		url:getContextPath()+"/comment/delete",
 		data:{
