@@ -7,6 +7,11 @@
 	position:absolute;
 	height:1000px;
 } */
+
+#board-area{
+	border: none;
+	width: 100%;
+}
 div#board_view{
 	width: 1320px;
 	display: flex;
