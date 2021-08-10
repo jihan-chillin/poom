@@ -44,7 +44,7 @@ public class BoardController {
 	public ModelAndView boardView(@RequestParam String boardNo, 
 							@RequestParam (value="cate", required=false, defaultValue="none") String cate,
 							ModelAndView mv,HttpServletRequest req) {
-		System.out.println(boardNo);
+		System.out.println("어디서 넘어왔니"+cate);
 		//좋아요 가져오기
 		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
 		//해시태그 가져오기
@@ -304,9 +304,7 @@ public class BoardController {
 		List<Map<String, Object>> notices = service.selectAllCateNotice(cate);
 		//태그 가져오기
 		List<Map<String,String>> tagList=service.selectAllBoardTag();
-		System.out.println("태그리스트"+tagList);
 		mv.addObject("tagList", tagList);
-		System.out.println("카테고리notice"+notices);
 		mv.addObject("cate", cate);
 		mv.addObject("likeTable", likeTable);
 		mv.addObject("cName", cName);
