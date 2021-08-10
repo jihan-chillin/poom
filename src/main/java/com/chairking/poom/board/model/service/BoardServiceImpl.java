@@ -28,8 +28,8 @@ public class BoardServiceImpl implements BoardService {
 	private SqlSessionTemplate session;
 	
 	@Override
-	public int insertBoard(Map param) {
-		return dao.insertBoard(mapper, param);
+	public int insertBoard(Map param, String imgName) {
+		return dao.insertBoard(mapper, param, imgName);
 	}
 
 	@Override

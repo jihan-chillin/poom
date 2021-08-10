@@ -24,8 +24,8 @@ public interface BoardMapper {
 
 	// INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, '되는지 TEST', '그냥 오라클로 작성하는 거임', DEFAULT, 0, SYSDATE, '서울', 0, '1', 'kimjihan77',0)
 	//게시글 등록
-	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, #{board-title}, #{boardContent}, DEFAULT, 0, SYSDATE, #{memberLoc}, 0, #{boardCate}, #{memberId}, 0,0, '20210804_10881_urbanbrush-20190629084930578298.png', dd)")
-	public int insertBoard(Map param);
+	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, #{param.board-title}, #{param.boardContent}, DEFAULT, 0, SYSDATE, #{param.memberLoc}, 0, #{param.boardCate}, #{param.memberId}, 0,0, #{imgName})")
+	public int insertBoard(Map param, String imgName);
 	
 	//게시글 번호 가져오는 쿼리문
 	@Select("SELECT BOARD_NO AS boardNo FROM BOARD WHERE BOARD_TITLE=#{boardTitle} AND MEMBER_ID=#{memberId}")	
