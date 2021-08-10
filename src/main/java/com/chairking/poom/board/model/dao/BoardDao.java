@@ -100,4 +100,6 @@ public interface BoardDao {
 	int commentModify(BoardMapper mapper, Map<String, String> param);
 
     int modifyBoard(BoardMapper mapper, Map param, String imgName);
+
+	int modiTagFromModi(BoardMapper mapper, String bNo, String tagText);
 }
