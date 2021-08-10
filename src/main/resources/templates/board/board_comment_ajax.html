@@ -4,19 +4,20 @@
 	<li>
 		<span th:text="${c['COMMENT_NO']}" class="commentNo" style="display:none"></span>
 		<span th:text="${c['COMMENT_LEVEL']}" class="commentLevel" style="display:none"></span>
-		<img th:src="|@{/images/profile/}${c['C_PROFILE']}|" style="width:50px; height:50px; float:left; boarder-radius:25px;">
+		<img th:src="|${@environment.getProperty('profilePath')}${c['C_PROFILE']}|">
 		<span th:text="${c['C_NICKNAME']}"></span>
-		<span class="b_comment_menu">메뉴</span>
-		<div style="display:none">
-			<th:block th:unless="${session.loginMember.MEMBER_ID eq c['COMMENT_WRITER'] or session.loginMember.MEMBER_ID eq 'admin'}">
-				<a th:data-bcn="${c['COMMENT_NO']}" th:onclick="|fn_bcBlame(this.getAttribute('data-bcn'))|">신고</a>
-			</th:block>
-			<th:block th:if="${session.loginMember.MEMBER_ID eq c['COMMENT_WRITER']}">
-		 		<a onclick="delete_comment(this);">삭제</a>
-		 		<hr style="border:1px solid #f7f7f7; margin:5px 0;">
-		 		<a onclick="change_modify(this);">수정</a>
-			</th:block>
-		</div>
+		<span class="b_comment_menu"><i class="gg-more-vertical-alt"></i>
+			<div style="display:none">
+				<th:block th:unless="${session.loginMember.MEMBER_ID eq c['COMMENT_WRITER'] or session.loginMember.MEMBER_ID eq 'admin'}">
+					<a th:data-bcn="${c['COMMENT_NO']}" th:onclick="|fn_bcBlame(this.getAttribute('data-bcn'))|">신고</a>
+				</th:block>
+				<th:block th:if="${session.loginMember.MEMBER_ID eq c['COMMENT_WRITER']}">
+			 		<a onclick="delete_comment(this);">삭제</a>
+			 		<hr style="border:1px solid #f7f7f7; margin:5px 0;">
+			 		<a onclick="change_modify(this);">수정</a>
+				</th:block>
+			</div>
+		</span>
 		<br>
 		<!-- 댓글내용 출력되는 부분 -->
 		<span class="original_content" th:text="${c['COMMENT_CONTENT']}"></span>

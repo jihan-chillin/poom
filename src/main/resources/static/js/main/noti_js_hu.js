@@ -115,7 +115,7 @@ function getNotificationData(){
             val += '<div class="noti-detail">';
             val += '<span>댓글 알림</span>';
             val += '<span onclick="deleteNotify('+data.getBoardTitleFromCommentNo[i].BOARD_NO+',1)">X</span>';
-            val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',1); moveToView(\''+data.getBoardTitleFromCommentNo[i].BOARD_NO+'\');">';
+            val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',1); moveToViewFromNotify(\''+data.getBoardTitleFromCommentNo[i].BOARD_NO+'\',\''+data.getBoardTitleFromCommentNo[i].BOARD_CATE+'\');">';
             val += '\''+data.getBoardTitleFromCommentNo[i].BOARD_TITLE+'\'에<br> 댓글이 달렸습니다.';
 
 
@@ -139,7 +139,7 @@ function getNotificationData(){
             val += '<div class="noti-detail">';
             val += '<span>좋아요 알림</span>';
             val += '<span onclick="deleteNotify('+data.boardTitleFromBoardNo[i].BOARD_NO+',3)">X</span>';
-            val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',3); moveToView('+data.boardTitleFromBoardNo[i].BOARD_NO+');">';
+            val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',3); moveToViewFromNotify(\''+data.boardTitleFromBoardNo[i].BOARD_NO+'\',\''+data.boardTitleFromBoardNo[i].BOARD_CATE+'\');">';
             val += '\''+data.boardTitleFromBoardNo[i].BOARD_TITLE+'\'에<br>  좋아요가 눌렸습니다.';
           }
 
@@ -216,7 +216,6 @@ function getMessageDataToNotify(){
         val += '</span>';
         val += '</div>';
         val += '</div>';
-        val2 += '<div class="alarm-count"><span>N</span></div></div>';
 
         if(data.notiData[i].NOT_CHECK ==='0'){
           $('.noti-info-alarm').append(val2);
@@ -227,7 +226,6 @@ function getMessageDataToNotify(){
       }
 
       $('.modal-content-list').append(val);
-      // $('.noti-info-message').append(val2);
     }
   })
 }

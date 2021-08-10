@@ -7,7 +7,6 @@ function feedWrite() {
 	var result = feedCheck();
 	console.log(result);
 	if(result == 'true') {
-		alert();
 	    $("[name=feedWrite_form]").submit();
 		addTagEach(getConfirmTag());
 	}else {

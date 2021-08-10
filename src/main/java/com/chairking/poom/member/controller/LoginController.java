@@ -52,10 +52,6 @@ public class LoginController {
 		mv.addObject("edit",edit);
 		mv.addObject("loginId",(String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
 		
-		Map m = (Map) req.getSession().getAttribute("loginMember");
-		m.put("logMAin", 0);
-		mv.addObject("loginMember",m);
-		
 		return mv;
 	}
 
