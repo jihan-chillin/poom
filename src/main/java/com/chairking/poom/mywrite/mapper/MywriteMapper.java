@@ -33,7 +33,7 @@ public interface MywriteMapper {
 
 
     // 내가 찜함글
-    @Select("SELECT * FROM ( SELECT ROWNUM AS RNUM, A.* FROM (L.BOARD_NO,B.LIKE_COUNT,C.CATEGORY_NAME, B.BOARD_TITLE, B.BOARD_DATE, B.COMMENTS_COUNT, L.LIKES_TIME FROM BOARD B JOIN CATEGORY C ON (C.CATEGORY_NO = B.BOARD_CATE) JOIN LIKES L ON(B.BOARD_NO = L.BOARD_NO) WHERE  l.push_likes = #{memberId} ORDER BY LIKES_TIME DESC)A) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
+    @Select("SELECT * FROM ( SELECT ROWNUM AS RNUM, A.* FROM (SELECT L.BOARD_NO,B.LIKE_COUNT,C.CATEGORY_NAME, B.BOARD_TITLE, B.BOARD_DATE, B.COMMENTS_COUNT, L.LIKES_TIME FROM BOARD B JOIN CATEGORY C ON (C.CATEGORY_NO = B.BOARD_CATE) JOIN LIKES L ON(B.BOARD_NO = L.BOARD_NO) WHERE  l.push_likes = #{memberId} ORDER BY LIKES_TIME DESC)A) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
     List<Map<String, Object>> MyLikeList(Pagination pagination, Object memberId);
 
 }
