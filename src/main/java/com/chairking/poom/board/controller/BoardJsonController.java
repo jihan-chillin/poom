@@ -63,12 +63,11 @@ public class BoardJsonController {
         OutputStream out = null;
         PrintWriter writer = null;
 
-        // 폴더 경로설정
-//        Path path = Paths.get("");
-//        String directoryName = path.toAbsolutePath().normalize().toString();
-        String directoryName = System.getProperty("user.dir"); // C:\Users\JIHAN\IdeaProjects\poom
-        String folderPath = directoryName + "\\src\\main\\resources\\static\\uploadCKImage\\";
-        //서버 : WEB-INF/classes/template/
+        // 1. 폴더 경로설정
+//        String directoryName = System.getProperty("user.dir"); // C:\Users\JIHAN\IdeaProjects\poom
+//        String folderPath = directoryName + "\\src\\main\\resources\\static\\uploadCKImage\\";
+        // 2. 서버용 폴더 경로
+        String folderPath=req.getServletContext().getRealPath("/resources/uploadCKImage/");
 
 
         // 폴더 생성 / 없으면 생성
@@ -121,8 +120,12 @@ public class BoardJsonController {
 public void ckSubmit(@RequestParam(value = "fileName") String fileName,
                      HttpServletRequest req, HttpServletResponse res) {
 
-    String directoryName = System.getProperty("user.dir"); // C:\Users\JIHAN\IdeaProjects\poom
-    String folderPath = directoryName + "\\src\\main\\resources\\static\\uploadCKImage\\";
+    // 1. 폴더 경로설정
+//    String directoryName = System.getProperty("user.dir"); // C:\Users\JIHAN\IdeaProjects\poom
+//    String folderPath = directoryName + "\\src\\main\\resources\\static\\uploadCKImage\\";
+    // 2. 서버용 폴더 경로
+    String folderPath=req.getServletContext().getRealPath("/resources/uploadCKImage/");
+
 
     File file = CkFileupload.getDownloadFile(fileName, folderPath);
 
