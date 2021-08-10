@@ -7,7 +7,7 @@ table.search-result {
     font-size: 17px;
 }
 
-th {
+.search-result th {
     background-color: #f7f7f7;
     border: 1px solid rgba(224, 224, 224, 0.2);
     height: 50px;
@@ -15,7 +15,7 @@ th {
     font-size: 20px;
 }
 
-tr,
+.search-result tr,
 td {
     padding: 4px 0px;
     border: 1px solid rgba(224, 224, 224, 0.2);
