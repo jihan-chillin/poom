@@ -251,5 +251,39 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
         return  mv;
     }
+    
+    //댓글 작성하는 메소드
+    @PostMapping("/comment/write")
+    public Map commentWrite(String boardNo, String commentContent, HttpServletRequest req) {
+    	String commentWriter=(String)((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
+    	
+//    	System.out.println("boardNo : "+boardNo);
+//    	System.out.println("commentContent : "+commentContent);
+//    	System.out.println("commentWriter : "+commentWriter);
+    	
+    	Map<String, String> param=new HashMap<String, String>();
+    	param.put("boardNo", boardNo);
+    	param.put("commentContent", commentContent);
+    	param.put("commentWriter", commentWriter);
+    	
+    	int result=service.commentWrite(param);
+    	if(result>0) result=service.commentCountUpdate(1, boardNo);
 
+    	return param;
+    }
+    
+    @GetMapping("/comment/list")
+    public ModelAndView commentList(String boardNo, ModelAndView mv) {
+    	mv.addObject("commentList", service.selectCommentList(boardNo));
+    	mv.setViewName("board/board_comment_ajax");
+    	return mv;
+    }
+    
+    @RequestMapping("/comment/delete")
+    public String commentDelete(String boardNo, String commentNo) {
+    	int result=service.commentDelete(boardNo, commentNo);
+    	if(result>0) service.commentCountUpdate(-1, boardNo);
+    	return "";
+    }
+    
 }

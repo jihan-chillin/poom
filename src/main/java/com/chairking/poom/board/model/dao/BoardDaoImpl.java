@@ -177,4 +177,22 @@ public class BoardDaoImpl implements BoardDao {
 	public int TagFromform(BoardMapper mapper, String tagText) {
 		return mapper.TagFromform(tagText);
 	}
+	
+	@Override
+	public int commentWrite(BoardMapper mapper, Map<String, String> param) {
+		return mapper.commentWrite(param);
+	}
+	
+	@Override
+	public int commentCountUpdate(BoardMapper mapper, int count, String boardNo) {
+		return mapper.commentCountUpdate(count, boardNo);
+	}
+
+	@Override
+	public int commentDelete(BoardMapper mapper, String boardNo, String commentNo) {
+		return mapper.commentDelete(boardNo, commentNo);
+	}
+	
+	
+	
 }

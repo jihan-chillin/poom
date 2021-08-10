@@ -84,5 +84,40 @@ div#comment_container{
 	width:550px; padding:0 20px;
 	display:flex; flex-direction: column;
 	justify-content:space-between;
+	position:relative;
+}
+/* 댓글 메뉴 */
+span.b_comment_menu{
+	float:right; cursor:pointer;
+}
+span.b_comment_menu+div{
+	width:70px; height:80px;
+	border:1px solid grey;
+	border-radius:5px;
+	padding:10px;
+	background:white;
+	z-index:999;
+	position:absolute; right:40px;
+}
+span.b_comment_menu+div>a{
+	display:block;
+	text-align:center;
+	cursor:pointer;
+}
+span.b_comment_menu+div>a:first-child{
+	margin-bottom:10px;
 }
 /* 댓글 입력창 */
+div#comment_container>div{
+	display:flex; justify-content:center;
+}
+input#commentContent{
+	width:350px; height:40px;
+	margin-right:20px;
+	border: 1px solid lightgray;
+}
+div#comment_container>div>input[type=submit]{
+	width:80px; height:40px;
+	border-radius:30px;
+	border: 1px solid lightgray;
+}

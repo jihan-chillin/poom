@@ -43,7 +43,7 @@ public interface BoardMapper {
 	public Map selectBoard(String boardNo);
 	
 	//게시글 댓글 조회
-	@Select("SELECT C.*, (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_ID=C.COMMENT_WRITER) AS C_NICKNAME FROM COMMENTS C WHERE BOARD_NO=${boardNo}")
+	@Select("SELECT C.*, (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_ID=C.COMMENT_WRITER) AS C_NICKNAME FROM COMMENTS C WHERE BOARD_NO=#{boardNo}")
 	public List<Map> selectCommentList(String boardNo);
 	
 	//메인피드 등록
@@ -142,4 +142,17 @@ public interface BoardMapper {
 
 	@Insert("INSERT INTO TAG VALUES (#{tagText})")
 	int TagFromform(String tagText);
+	
+	//댓글등록 메소드
+	@Insert("INSERT INTO COMMENTS VALUES(SEQ_COMMENTNO.NEXTVAL, #{boardNo}, #{commentContent}, SYSDATE, DEFAULT, DEFAULT, DEFAULT, #{commentWriter}, DEFAULT)")
+	int commentWrite(Map<String, String> param);
+	
+	//게시글의 댓글수 변경
+	@Update("UPDATE BOARD SET COMMENTS_COUNT=COMMENTS_COUNT+#{count} WHERE BOARD_NO=#{boardNo}")
+	int commentCountUpdate(int count, String boardNo);
+	
+	//게시글 댓글 삭제
+	@Delete("DELETE FROM COMMENTS WHERE BOARD_NO=#{boardNo} AND COMMENT_NO=#{commentNo}")
+	int commentDelete(String boardNo, String commentNo);
+	
 }

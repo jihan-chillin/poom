@@ -74,4 +74,10 @@ public interface BoardDao {
 	int boardTagFromform(BoardMapper mapper, String strBoardNo, String tagText);
 
 	int TagFromform(BoardMapper mapper, String tagText);
+	
+	int commentWrite(BoardMapper mapper, Map<String, String> param);
+	
+	int commentCountUpdate(BoardMapper mapper, int count, String boardNo);
+	
+	int commentDelete(BoardMapper mapper, String boardNo, String commentNo);
 }

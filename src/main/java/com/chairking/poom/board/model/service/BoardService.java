@@ -72,4 +72,15 @@ public interface BoardService {
 	int boardTagFromform(String strBoardNo, String tagText);
 
 	int TagFromform(String tagText);
+	
+	//게시글 댓글 입력
+	int commentWrite(Map<String, String> param);
+	
+	//게시글 댓글 수 변경
+	int commentCountUpdate(int count, String boardNo);
+	
+	//댓글 삭제
+	int commentDelete(String boardNo, String commentNo);
+	
+	
 }

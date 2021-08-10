@@ -185,4 +185,21 @@ public class BoardServiceImpl implements BoardService {
 	public int TagFromform(String tagText) {
 		return dao.TagFromform(mapper, tagText);
 	}
+	
+	@Override
+	public int commentWrite(Map<String, String> param) {
+		return dao.commentWrite(mapper, param);
+	}
+	
+	@Override
+	public int commentCountUpdate(int count, String boardNo) {
+		return dao.commentCountUpdate(mapper, count, boardNo);
+	}
+
+	@Override
+	public int commentDelete(String boardNo, String commentNo) {
+		return dao.commentDelete(mapper, boardNo, commentNo);
+	}
+	
+	
 }
