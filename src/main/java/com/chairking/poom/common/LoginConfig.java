@@ -15,9 +15,22 @@ public class LoginConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(interceptor)
 				.addPathPatterns("/login/main")
+				.addPathPatterns("/message")
+				.addPathPatterns("/payAdmin/*")
+				.addPathPatterns("/blame/*")
 				.addPathPatterns("/admin/*")
-				.addPathPatterns("/message");
-				//.excludePathPatterns("/login");
+				.addPathPatterns("/board/*")
+				.addPathPatterns("/chat/*")
+				.addPathPatterns("/tag/*")
+				.addPathPatterns("/member/*")
+				.addPathPatterns("/message/*")
+				.addPathPatterns("/mywrite/*")
+				.addPathPatterns("/mycomment/*")
+				.addPathPatterns("/mylike/*")
+				.addPathPatterns("/pay/*")
+				.addPathPatterns("/popup/*")
+				.addPathPatterns("/search/*")
+				.addPathPatterns("/rank/*");
 	}
 }
 
