@@ -16,6 +16,7 @@ $(document).ready(function(){
     $('div.logo').click(function(){
     	location.assign(getContextPath()+"/login/main");
     });
+    
 });    
 
 //프로필 부분 쪽지아이콘 클릭스 쪽지 페이지로 이동

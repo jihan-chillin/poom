@@ -47,8 +47,9 @@ public class LoginController {
 	PasswordEncoder pwEncoder;
 
 	@GetMapping("/main")
-	public ModelAndView logIn(ModelAndView mv, HttpServletRequest req) {
+	public ModelAndView logIn(@RequestParam(value="edit", required=false) String edit, ModelAndView mv, HttpServletRequest req) {
 		mv.setViewName("main/main");
+		mv.addObject("edit",edit);
 		mv.addObject("loginId",(String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
 		return mv;
 	}

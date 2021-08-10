@@ -177,3 +177,11 @@ $('button.btn_submitpri').click(function(){
 	
 	$("[name=updatePri_form]").submit();
 });
+
+//프로필 부분 채팅아이콘 클릭시 채팅리스트로 이동
+function moveMyChatList(){
+  location.assign(getContextPath()+"/login/main?edit=chat");
+}
+function moveMyTagPage(){
+  location.assign(getContextPath()+"/login/main?edit=tag");
+}
