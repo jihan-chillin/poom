@@ -19,10 +19,10 @@
     <!--게시글 나오게 하는 부분 -->
     <div class="bList bSpan" th:each="l:${list}">
 	    <div>
-	    	<span th:data-no="${l.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${l.BOARD_TITLE}"></span>
+	    	<span th:data-no="${l.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" tth:text="${l.BOARD_CONTENT.replaceAll('&'+'nbsp;', ' ').replaceAll('<[^>]*>', '')}"> </span>
 	    </div>
 	
-	    <div th:text="${l.BOARD_CONTENT}"></div>
+	    <div th:text="${l.BOARD_CONTENT.replaceAll('<[^>]*>', '')}"></div>
 	    <img alt="썸네일" th:src="@{/images/profile/}+${l.PREVIEW_IMG}">
         <ul>
             <li class="tag-list" style="margin-right: auto">
