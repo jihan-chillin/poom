@@ -247,7 +247,8 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.boardTagDelete(no);
 	}
 
-	
-	
-	
+	@Override
+	public int modifyBoard(BoardMapper mapper, Map param, String imgName) {
+		return mapper.modifyBoard(param, imgName);
+	}
 }

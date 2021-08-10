@@ -97,4 +97,6 @@ public interface BoardService {
     List<Map<String, Object>> searchBoardList(Pagination pagination, Object condition);
 
 	int searchBoardCount(Object condition);
+
+	int modifyBoard(Map param, String imgName);
 }

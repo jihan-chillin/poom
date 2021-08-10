@@ -147,3 +147,8 @@ function fn_board_delete(no,cate){
 		})
 	}
 }
+
+function boardrealModi(boardNo){
+	console.log("모디");
+	location.assign(getContextPath()+"/board/modi?boardNo="+boardNo);
+}

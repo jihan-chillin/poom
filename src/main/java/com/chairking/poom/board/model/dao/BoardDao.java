@@ -87,15 +87,17 @@ public interface BoardDao {
 
 	int commentDelete(BoardMapper mapper, String boardNo, String commentNo);
 
-
+	
 	int boardDelete(BoardMapper mapper,String no);
 	String[] allComments(BoardMapper mapper);
 	int commentsDelete(BoardMapper mapper, String no);
 	int boardTagDelete(BoardMapper mapper, String no);
-
+	
 	List<Map<String,Object>> searchBoardList(BoardMapper mapper, Pagination pagination, Object condition);
 
 	int searchBoardCount(BoardMapper mapper, Object condition);
 
 	int commentModify(BoardMapper mapper, Map<String, String> param);
+
+    int modifyBoard(BoardMapper mapper, Map param, String imgName);
 }
