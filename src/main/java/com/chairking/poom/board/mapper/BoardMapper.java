@@ -36,7 +36,7 @@ public interface BoardMapper {
 	public int insertBoardImg(BoardImage bi);
 	
 	//모든 게시글 조회
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.*, (SELECT COUNT(*) FROM COMMENTS A WHERE A.BOARD_NO = B.BOARD_NO) AS CNT FROM (SELECT * FROM BOARD WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC)B) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.*, (SELECT COUNT(*) FROM COMMENTS A WHERE A.BOARD_NO = B.BOARD_NO) AS CNT FROM (SELECT * FROM BOARD WHERE DEL_STATUS=0 ORDER BY BOARD_DATE)B) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
 	public List<Map<String, Object>> selectAllBoard(int cPage, int numPerpage);
 	
 	//게시글 상세 조회
@@ -49,25 +49,25 @@ public interface BoardMapper {
 	
 	//메인피드 등록
 	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.NEXTVAL, #{title}, #{content}, DEFAULT, DEFAULT, DEFAULT, "
-			+ "#{loc}, DEFAULT, #{category}, #{id}, DEFAULT, DEFAULT, DEFAULT)")
+			+ "#{loc}, DEFAULT, #{category}, #{id}, DEFAULT, DEFAULT, DEFAULT, #{content})")
 	public int insertFeed(Map param);
 	
 	//메인피드 게시글(전국,전체)
 	@Select("SELECT * FROM("
-			+ "SELECT ROWNUM, A.*"
+			+ "SELECT ROWNUM AS RNUM, A.*"
 			+ "FROM (SELECT B.*, M.MEMBER_NICKNAME AS NICKNAME, C.CATEGORY_NAME AS CATEGORY "
 			+ "FROM BOARD B JOIN MEMBER M ON (B.MEMBER_ID=M.MEMBER_ID)"
 			+ "JOIN CATEGORY C ON (B.BOARD_CATE=C.CATEGORY_NO)"
-			+ "WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC) A) WHERE ROWNUM BETWEEN #{cPage} AND #{numPerpage}")
+			+ "WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC) A) WHERE RNUM >= #{cPage} AND RNUM <= #{numPerpage}")
 	public List<Map<String, Object>> feedListAllAll(String loc, int cPage, int numPerpage);
 	
 	//메인피드 게시글(지역,전체)
 	@Select("SELECT * FROM("
-			+ "SELECT ROWNUM, A.*"
+			+ "SELECT ROWNUM AS RNUM, A.*"
 			+ "FROM (SELECT B.*, M.MEMBER_NICKNAME AS NICKNAME, C.CATEGORY_NAME AS CATEGORY "
 			+ "FROM BOARD B JOIN MEMBER M ON (B.MEMBER_ID=M.MEMBER_ID)"
 			+ "JOIN CATEGORY C ON (B.BOARD_CATE=C.CATEGORY_NO)"
-			+ "WHERE DEL_STATUS=0 AND BOARD_LOC=#{loc} ORDER BY BOARD_DATE DESC) A) WHERE ROWNUM BETWEEN #{cPage} AND #{numPerpage}")
+			+ "WHERE DEL_STATUS=0 AND BOARD_LOC=#{loc} ORDER BY BOARD_DATE DESC) A) WHERE RNUM >= #{cPage} AND RNUM <= #{numPerpage}")
 	public List<Map<String, Object>> feedListLocAll(@Param("loc")String loc, int cPage, int numPerpage);
 	
 	//게시판에서 공지사항클릭
@@ -100,7 +100,7 @@ public interface BoardMapper {
 	public List<Map<String,Object>> boardTag();
 	
 	//카테고리별 게시글 리스트 가져오기
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM (SELECT * FROM BOARD JOIN CATEGORY ON (BOARD_CATE = CATEGORY_NO) WHERE DEL_STATUS=0 AND CATEGORY_NO=#{cate} ORDER BY BOARD_DATE DESC)B) WHERE RNUM BETWEEN 1 and 100")
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM (SELECT * FROM BOARD JOIN CATEGORY ON (BOARD_CATE = CATEGORY_NO) WHERE DEL_STATUS=0 AND CATEGORY_NO=#{cate} ORDER BY BOARD_DATE)B) WHERE RNUM BETWEEN #{cPage} and #{numPerpage}")
 	public List<Map<String,Object>> selectBoardList(Map<String, String> cate, int cPage, int numPerpage);
 	//카테고리별 공지사항 가져오기
 	@Select("SELECT NOTICE_TITLE, NOTICE_DATE FROM NOTICE JOIN CATEGORY USING(CATEGORY_NO) WHERE CATEGORY_NO=#{cate} AND NOTICE_STATUS=0 ORDER BY NOTICE_DATE DESC")

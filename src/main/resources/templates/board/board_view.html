@@ -14,7 +14,7 @@
    				<span th:text="'작성자 : '+${board['B_WRITER']}">닉네임</span>
    				<span th:text="${#dates.format(board['BOARD_DATE'],'yyyy-MM-dd')}" style="display:inline-block;float:right;">작성일</span>
    			</li>
-    		<li><span th:text="${board['BOARD_CONTENT']}">내용</span></li>
+    		<li><textarea style="border: none" readonly th:text="${board['BOARD_CONTENT']}">내용</textarea></li>
     		<li style="height:60px;">
     			<th:block th:each="t:${tagList}">
     				<span style="padding-right:3px;font-size:18px;font-weight: bold;" th:text="'#'+${t}">해시태그들</span>
@@ -83,10 +83,8 @@ $("span[name=likeHeart]").click(e=>{
  		like='누름';
  	}else{
  		like='안누름';
- 		// 알림 보내는 함수 by 희웅
-		sendNoti();
  	};
- 	
+
  	//하트바꾸기
  	if(like=='누름') $(e.target).text('♡');
  	else $(e.target).text('♥');
@@ -98,7 +96,10 @@ $("span[name=likeHeart]").click(e=>{
 			"like":like
 		}
 	}).done(function(fragment){
-		
+		if(like==='안누름'){
+			// 알림 보내는 함수 by 희웅
+			sendNoti();
+		}
 	})
 })
 

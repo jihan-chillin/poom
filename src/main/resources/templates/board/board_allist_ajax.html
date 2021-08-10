@@ -23,7 +23,7 @@
 			<span th:data-no="${l.BOARD_NO}" th:onclick="|allToView(this.getAttribute('data-no'))|" th:text="${l.BOARD_TITLE}"></span>
 		</div>
 
-		<div th:text="${l.BOARD_CONTENT}"></div>
+		<div th:text="${l.BOARD_CONTENT.replaceAll('&'+'nbsp;', ' ').replaceAll('<[^>]*>', '')}" ></div>
 		<img alt="썸네일" th:src="@{/images/profile/}+${l.PREVIEW_IMG}">
 
 
@@ -118,8 +118,6 @@ $("span[name=likeHeart]").click(e=>{
  	}else{
  		like='안누름';
  		$(e.target).next().text(count+1);
- 		// 알림 보내는 함수 by 희웅
-		sendNoti();
  	};
  	
  	//하트바꾸기
@@ -132,9 +130,12 @@ $("span[name=likeHeart]").click(e=>{
 			"id":id,
 			"like":like
 		}
-	}).done(function(fragment){
-		
-	})
+    }).done(function(fragment){
+      if(like==='안누름'){
+        // 알림 보내는 함수 by 희웅
+        sendNoti();
+      }
+    })
 })
 
 </script>

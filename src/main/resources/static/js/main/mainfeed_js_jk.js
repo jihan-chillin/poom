@@ -40,6 +40,7 @@ check.click(function(){
 			$("p.onoffBtn").html(loc);
 			check.attr('checked');
 		}
+		
 		feedNew();
 	}else {
 		var confirmResult = confirm('결제권을 구매하시면 전국게시글을 보실 수 있습니다. 확인을 누르면 결제창으로 이동합니다.');
@@ -51,32 +52,26 @@ check.click(function(){
 
 //feed_new tab 클릭시 전환
 $('ul.feedtab li').click(function(){
-
     $('ul.feedtab li').removeClass('feedtab_on');
     $(this).addClass('feedtab_on');
-    feedNew();
     
+    feedNew();
 });
     
 function feedNew() {
 	var loc=$("p.onoffBtn").html();
 	var list="";
-	var cPage;
 	if($("ul.feedtab>li").hasClass('feedtab_on')) {
 		list = $("li.feedtab_on").attr('id');
 	}
 	var id=$("input[name=id]").val();
-	
-	console.log(loc);
-	console.log(list);
-	console.log(id);
 	
 	$.ajax({
 		url: getContextPath()+"/board/feedNew",
 		data:{
 			"loc" : loc,
 			"list" : list,
-			"id" : id
+			"id" : id,
 		},
 		success:data=>{
 			$("#feed_content").html(data);
@@ -103,7 +98,62 @@ toolTip.hover(function() {
 });
 
 //무한스크롤
-var target =$('div.fList>div');
-console.log(target);
-var breakList =10; 
-var listCount = 0; 
+$(function(){
+	let target =$('div.fList'); 
+    let breakList = 5;
+	let listCount = 2;
+      
+    let winTop;
+    let onTop;
+    
+    function getList() {
+    	let result;
+    	
+    	var loc=$("p.onoffBtn").html();
+		var list="";
+		if($("ul.feedtab>li").hasClass('feedtab_on')) {
+			list = $("li.feedtab_on").attr('id');
+		}
+		var id=$("input[name=id]").val();
+		
+		$.ajax({
+			url: getContextPath()+"/board/feedNew",
+			async: false,
+			data:{
+				"loc" : loc,
+				"list" : list,
+				"id" : id,
+				"cPage" : listCount
+			},
+			success: function(data) {
+				result = data;
+			}
+		});
+    	
+    	if(listCount>breakList) {
+    		result=null;
+    	}else {
+    		result;
+    	}
+    	listCount++;
+    	return result;
+    }
+    
+    $('div.feed').scroll(function() {
+        winTop=$(this).scrollTop();
+        onTop=$('div.feed').height() - $('div.feed_write').height() - $('div.fList').height();
+        console.log(onTop);
+
+        if(winTop>=onTop){ 
+          let data =getList(); 
+
+          if(data !== null){
+            $('div#feed_content').append(data);
+          }else{
+            return false;
+          }
+        }
+      });
+      
+      
+});
