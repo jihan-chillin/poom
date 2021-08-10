@@ -56,8 +56,13 @@ public class MemberController {
 			@RequestParam(value="input_file",required=false) MultipartFile[] inputfile,
 			@RequestParam Map param, HttpServletResponse res, HttpServletRequest req) throws Exception {
     	
-    	String directoryName = System.getProperty("user.dir");
-        String folderPath = directoryName + "\\src\\main\\resources\\static\\images\\profile\\";
+//    	String directoryName = System.getProperty("user.dir");
+//      String folderPath = directoryName + "\\src\\main\\resources\\static\\images\\profile\\";
+    	
+    	String path=req.getServletContext().getRealPath("/resources/profile/");
+    	File dir=new File(path);
+		//폴더가 없다면 생성
+		if(!dir.exists()) dir.mkdirs();
     	String oriName=inputfile[0].getOriginalFilename();
     	
     	if(oriName.equals("")) {
@@ -73,7 +78,7 @@ public class MemberController {
 			
 			//리네임으로 파일업로드하기
 			try {
-				inputfile[0].transferTo(new File(folderPath+reName));
+				inputfile[0].transferTo(new File(path+reName));
 			}catch(IOException e) {
 				e.printStackTrace();
 			}

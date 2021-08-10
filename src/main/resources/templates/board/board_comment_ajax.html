@@ -2,7 +2,7 @@
 	<p id="comment_title">댓글</p>
 	<th:block th:each="c:${commentList}">
 	<li>
-		<img th:src="|@{/images/profile/}${c['C_PROFILE']}|" style="width:50px; height:50px; float:left; boarder-radius:25px;">
+		<img th:src="|${@environment.getProperty('profilePath')}${c['C_PROFILE']}|" style="width:50px; height:50px; float:left; boarder-radius:25px;">
 		<span th:text="${c['C_NICKNAME']}"></span>
 		<span class="b_comment_menu">메뉴</span>
 		<div style="display:none">
