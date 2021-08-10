@@ -146,9 +146,16 @@ public void ckSubmit(@RequestParam(value = "fileName") String fileName,
 public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
 
-        System.out.println("파라미터 일단 이렇게 들어옴 : " + param);
-//        String boardContent = param.get('boardContent');
-//        System.out.println(boardContent+ " 형 : " + boardContent.getClass());
+   System.out.println("파라미터 일단 이렇게 들어옴 : " + param);
+
+
+   // 썸네일 이미지 따로 분리 할것
+    String boardContent = param.get("boardContent").toString(); // boardContent에 태그 포함 다 들어감.
+    String firstTarget = "fileName=";
+    String lastTarget = ".";
+    String imgName = boardContent.substring(boardContent.indexOf(firstTarget)+9,boardContent.indexOf(lastTarget)+4 );
+
+    System.out.println("이미지 네임이 어떻게 나오는지 보자" + imgName);
 
         // img, br, p 태그 빼고 나 제외하기
     String pattern = "<(\\/?)(?!\\/####)([^<|>]+)?>";
@@ -159,21 +166,14 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
     StringBuffer buffer = new StringBuffer();
     for(int i=0; i<allowTags.length; i++){
         buffer.append("|"+allowTags[i].trim() +"(?!\\w)");
+
     }
 
     pattern = pattern.replace("####", buffer.toString());
 
     System.out.println("이미지태그랑 이것저것 제외해봄 : "+pattern);
 
-//        String bContetn = (String)param.get("boardContent"); // boardContent 태그 붙어있는채로 나옴.
-//        Object removeTagContent = bContent.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
-
-//        System.out.println("태그를 없애본 거임 : "+removeTagContent);
-
-
-
-        System.out.println("보드 컨텐트가 어떻게 나오게요? : "+param.get("boardContent"));
-        int result =  service.insertBoard(param);
+        int result =  service.insertBoard(param, imgName);
 
 
         String msg="";

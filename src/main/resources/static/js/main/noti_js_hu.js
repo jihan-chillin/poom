@@ -66,6 +66,7 @@ function getNotificationData(){
   $.ajax({
     url:getContextPath()+'/noti/my/data',
     success:data=>{
+      console.log(data);
       /*
         notiData = 알림 데이터
         notiData[i].NOT_NO => 알림번호
@@ -80,7 +81,7 @@ function getNotificationData(){
       let val = '';
       let val2 ='<div class="alarm-count"><span>N</span></div></div>';
 
-      if(data.boardTitleFromBoardNo.length === 0){
+      if(data.notiData.length === 0){
         val += '<div class="noti-content-box">';
         val += '<div class="noti-img">';
         val += '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" display="block" id="CircleAlert"><circle cx="12" cy="12" r="10"/><path d="M12 7v6m0 3.5v.5"/></svg>';
@@ -115,7 +116,7 @@ function getNotificationData(){
               val += '<span>댓글 알림</span>';
               val += '<span onclick="deleteNotify('+data.getBoardTitleFromCommentNo[i].BOARD_NO+',1)">X</span>';
               val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',1); moveToView('+data.getBoardTitleFromCommentNo[i].BOARD_NO+');">';
-                val += '\''+data.getBoardTitleFromCommentNo[i].COMMENT_CONTENT+'\'에<br> 댓글이 달렸습니다.';
+                val += '\''+data.getBoardTitleFromCommentNo[i].BOARD_TITLE+'\'에<br> 댓글이 달렸습니다.';
 
 
 
@@ -147,7 +148,15 @@ function getNotificationData(){
           val += '</div>';
 
         $('.modal-content-list').append(val);
-        $('.noti-info-alarm').append(val2);
+
+        if(data.notiData[i].NOT_CHECK ==='0'){
+          $('.noti-info-alarm').append(val2);
+        }else{
+          $('.alarm-count').remove();
+          $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_normal.png) no-repeat center; background-size: contain;");
+          return;
+        }
+
       }
 
       $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_receive.png) no-repeat center; background-size: contain;");

@@ -32,8 +32,8 @@ public interface NotiMapper {
     @Select("select b.BOARD_NO,b.BOARD_TITLE from board b where b.DEL_STATUS='0' and b.BOARD_NO=#{boardNo}")
     public Map<String,String> getBoardTitleFromBoardNo(String boardNo);
 
-    @Select("select BOARD_TITLE,board_no from COMMENTS join BOARD B on B.BOARD_NO = COMMENTS.BOARD_NO where COMMENTS.COMMENT_NO=#{commentNo}")
-    public Map<String,String> getBoardTitleFromCommentNo(String commentNo);
+    @Select("select * from ( select B.BOARD_TITLE, B.board_no from COMMENTS c join BOARD B on B.BOARD_NO = c.BOARD_NO where b.BOARD_NO = #{boardNo} ) where ROWNUM = 1")
+    public Map<String,String> getBoardTitleFromCommentNo(String boardNo);
 
     @Select("select msg_content,msg_no from message where msg_no=#{msgNo}")
     public Map<String,String> getMsgContentFromMsgNo(String msgNo);

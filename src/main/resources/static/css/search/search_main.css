@@ -9,7 +9,7 @@ div#searchPageBar{
 }
 div#searchPageBar>div{
     position:absolute;
-    left:495px;
+    left:414px;
     width:210px;
     display:flex;
     justify-content: center;
