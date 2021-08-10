@@ -20,7 +20,7 @@
     				<span style="padding-right:3px;font-size:18px;font-weight: bold;" th:text="'#'+${t}">해시태그들</span>
     			</th:block>
     		</li>
-    	</ul>
+		</ul>
         <div >
         	<span>
         		<button  th:unless="${session.loginMember.MEMBER_ID eq 'admin'}" type="button" class="btn" th:data-bCate="${cate eq 'all'?'all':board['BOARD_CATE']}"th:onclick="move_list(this.getAttribute('data-bCate'));">목록으로</button>
@@ -39,16 +39,17 @@
     </div>
     <div id="comment_container">
  	    <ul>
- 	    	<th:block th:each="c:${commentList}">
-    		<li>
-		    	<span th:text="${c['C_NICKNAME']}"></span><span>...</span><br>
-	   			<span th:text="${c['COMMENT_CONTENT']}"></span>
-    		</li>
-   			</th:block>
+ 	    	<!-- 댓글 목록 불러옴 -->
     	</ul>
     	<div>
-			<input type="text" name="commentContent"/>
-			<input type="submit" value="입력"/>
+			<input type="text" id="commentContent" name="commentContent"/>
+			<span  id="comment_boardNo" th:text="${board['BOARD_NO']}" style="display:none"></span>
+			<th:block th:unless="${session.loginMember == null}">
+				<input type="submit" value="입력" onclick="comment_write();"/>
+			</th:block>
+			<th:block th:if="${session.loginMember == null}">
+				<input type="submit" value="입력" onclick="alert('로그인 후 사용 가능합니다.');">
+			</th:block>
     	</div>
     </div>
 </div>

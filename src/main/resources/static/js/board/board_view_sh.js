@@ -1,43 +1,116 @@
 //게시글 뷰에서 목록으로 연결하기
-function move_list(cate){
+function move_list(cate) {
 	//cate==all =>전체글에서 눌렀음
-	if(cate=='all'){
+	if (cate == 'all') {
 		$.ajax({
-			url:getContextPath()+"/board/all",
-			success:data=>{
+			url: getContextPath() + "/board/all",
+			success: data => {
 				$("div#content").html(data);
 			}
 		});
-	}else{
+	} else {
 		$.ajax({
-			url:getContextPath()+"/board/cateList",
-			data:{
-				"cate":cate
+			url: getContextPath() + "/board/cateList",
+			data: {
+				"cate": cate
 			},
-			success:data=>{
+			success: data => {
 				$("div#content").html(data);
 			}
 		});
 	}
 }
-const comment_write=()=>{
-	
+
+//댓글 가져오는 메소드
+function comment_list(){
 	$.ajax({
-		url:getContextPath()+"/board/comment",
+		url:getContextPath()+"/comment/list",
+		data:{
+			boardNo:$("#comment_boardNo").text()
+		},
 		success:data=>{
-			$("div#comment_container").append("li").html(data);
+			$("div#comment_container>ul").html(data);
 		}
 	});
 }
-$(".comment_menu>p").click(e=>{
-	if($(e.target).siblings("ul").first().css("display")=="block"){
-		$(e.target).siblings("ul").first().css("display", "none");
+
+//댓글 입력
+function comment_write(){
+	var commentContent=$("#commentContent").val();
+	var boardNo=$("#comment_boardNo").text();
+	if(commentContent==""){
+		alert("댓글 내용을 입력하세요.");
 	}else{
-		$(e.target).siblings("ul").first().css("display", "block");
+		$.ajax({
+			url:getContextPath()+"/comment/write",
+			method:"POST",
+			data:{
+				boardNo:boardNo,
+				commentContent:commentContent
+			},
+			success:data=>{
+				comment_list();
+			}
+		});
 	}
+}
+
+//댓글 삭제기능
+function delete_comment(target){
+	//console.log("test");
+	//console.log($(target));
+	var commentNo=$(target).siblings("span.commentNo").text();
+	$.ajax({
+		url:getContextPath()+"/comment/delete",
+		data:{
+			boardNo:$("#comment_boardNo").text(),
+			commentNo:commentNo
+		},
+		success:data=>{
+			alert("댓글이 삭제되었습니다.");
+			comment_list();
+		}
+	});
+}
+
+//수정화면 나오도록 하기
+function change_modify(target){
+	$(target).parent().parent().find("span#original_content");
+	$(target).parent().parent().find("div.modify_container").css("display", "block");
+	$(target).parent().parent().find("div.modify_container").find("input.modify_content").text();
+	$(target).parent().parent().find("div.modify_container").find("input").text($("span.original_content").text());
+}
+
+//댓글 수정기능
+function modify_comment(e){
+	$.ajax({
+		url:getContextPath()+"/comment/modify",
+		data:{
+			boardNo:$("#comment_boardNo").text(),
+			commentNo:commentNo,
+			commentContent:"테스트"
+		},
+		success:data=>{
+			console.log("수정메소드");
+		}
+	});
+}
+
+
+$(function(){
+	comment_list();
+
+	$("span.b_comment_menu").click(e=>{
+		if($(e.target).next("div").css("display")=="none") {
+			$("span.b_comment_menu").next("div").css("display", "none");
+			$(e.target).next("div").css("display", "block");
+		}else{
+			$(e.target).next("div").css("display", "none");
+		}
+	});
 });
 
-//게시판 view에서 삭제하기 구현 
+//게시판 view에서 삭제하기 구현
 //진짜 삭제 아닌 del_status=>1로 변경
 function fn_board_delete(no){
 	alert(no);
