@@ -18,14 +18,14 @@
             <table>
                 <thead>
                     <th>게시판</th>
-                    <th>제목(댓글수)</th>
+                    <th>제목</th>
                     <th>날짜</th>
                 </thead>
 
                 <tbody>
                     <tr th:each=" l : ${list}">
                         <td th:text = "${l.CATEGORY_NAME}"></td>
-                        <td th:text="${l.BOARD_TITLE}+'('+${l.CNT}+')'" th:data-param="${l.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-param'))|" style="cursor:pointer;"></td>
+                        <td class="moveToView" th:text="${l.BOARD_TITLE}+'('+${l.CNT}+')'" th:data-param="${l.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-param'))|" style="cursor:pointer;"></td>
                         <td th:text="${#dates.format(l.BOARD_DATE, 'yyyy-MM-dd')}"></td>
                     </tr>
                 </tbody>

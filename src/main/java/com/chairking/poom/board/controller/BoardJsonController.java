@@ -175,7 +175,7 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
 
         String msg="";
-        String loc="redirect://";
+        String loc="redirect:/login.";
 
         if(result>0){
             msg="게시글 등록 성공";
