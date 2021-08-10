@@ -251,4 +251,9 @@ public class BoardDaoImpl implements BoardDao {
 	public int modifyBoard(BoardMapper mapper, Map param, String imgName) {
 		return mapper.modifyBoard(param, imgName);
 	}
+
+	@Override
+	public int modiTagFromModi(BoardMapper mapper, String bNo, String tagText) {
+		return mapper.modiTagFromModi(bNo, tagText);
+	}
 }
