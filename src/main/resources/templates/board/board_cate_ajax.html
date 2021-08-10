@@ -23,7 +23,10 @@
 	    </div>
 	
 	    <div th:text="${l.BOARD_CONTENT.replaceAll('<[^>]*>', '')}"></div>
+        <!--1. 로컬용 img미리보기-->
         <img alt="품 미리보기" th:src="@{/uploadCKImage/}+${l.PREVIEW_IMG}">
+        <!--2. 서버용 img 미리보기 이미지 경로-->
+        <!--	<img alt="품 미리보기" th:src="${@environment.getProperty('ckediImgPath')}+${f.PREVIEW_IMG}">-->
         <ul>
             <li class="tag-list" style="margin-right: auto">
                <th:block th:if="${l.BOARD_NO eq t.BOARD_NO}" th:each="t:${tagList}">

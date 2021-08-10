@@ -10,9 +10,9 @@
 	</div>
 	<div th:data-no="${f.BOARD_NO}" th:onclick="|mainToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_CONTENT.replaceAll('&'+'nbsp;', ' ').replaceAll('<[^>]*>', '')}" ></div>
 	<!--1. 로컬용 img 미리보기 이미지 경로-->
-	<!--	<img alt="품 미리보기" th:src="@{/uploadCKImage/}+${f.PREVIEW_IMG}">-->
+	<img alt="품 미리보기" th:src="@{/uploadCKImage/}+${f.PREVIEW_IMG}">
 	<!--2. 서버용 img 미리보기 이미지 경로-->
-	<img alt="품 미리보기" th:src="${@environment.getProperty('ckediImgPath')}+${f.PREVIEW_IMG}">
+<!--	<img alt="품 미리보기" th:src="${@environment.getProperty('ckediImgPath')}+${f.PREVIEW_IMG}">-->
 	<ul>
 		<li>
 			<span th:if="${f.BOARD_NO eq t.BOARD_NO}" th:each="t:${boardTag}">
