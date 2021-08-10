@@ -91,4 +91,6 @@ public interface BoardService {
 
 
     List<Map<String, Object>> searchBoardList(String condition);
+    //게시글 삭제
+    int boardDelete(String no);
 }

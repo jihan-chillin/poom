@@ -177,5 +177,18 @@ public interface BoardMapper {
 	//게시물 검색
 	@Select("SELECT * FROM BOARD ${codition}")
 	List<Map<String,Object>> searchBoardList(String codition);
+	
+	//게시글 삭제
+	@Update("UPDATE BOARD SET DEL_STATUS=1 WHERE BOARD_NO=#{no}")
+	int boardDelete(String no);
+	//댓글테이블의 boardno가져오기
+	@Select("SELECT BOARD_NO FROM COMMENTS")
+	String[] allComments();
+	//해당 보드번호의 댓글row들 del_status=1로 수정하기
+	@Update("UPDATE COMMENTS SET DEL_STATUS=1 WHERE BOARD_NO=#{no}")
+	int commentsDelete(String no);
+	//해당 보드번호의 태그 row들 삭제하기
+	@Delete("DELETE FROM BOARDTAG WHERE BOARD_NO=#{no}")
+	int boardTagDelete(String no);
 }
 

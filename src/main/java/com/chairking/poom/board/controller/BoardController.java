@@ -330,5 +330,6 @@ public class BoardController {
 		mv.setViewName("/board/board_alllist");
 		return mv;
 	}
+	
 
 }

@@ -215,5 +215,27 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.searchBoardList(condition);
 	}
 
+	@Override
+	public int boardDelete(BoardMapper mapper,String no) {
+		return mapper.boardDelete(no);
+	}
 
+	@Override
+	public String[] allComments(BoardMapper mapper) {
+		return mapper.allComments();
+	}
+
+	@Override
+	public int commentsDelete(BoardMapper mapper, String no) {
+		return mapper.commentsDelete(no);
+	}
+
+	@Override
+	public int boardTagDelete(BoardMapper mapper, String no) {
+		return mapper.boardTagDelete(no);
+	}
+
+	
+	
+	
 }

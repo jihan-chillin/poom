@@ -1,34 +1,38 @@
 package com.chairking.poom.board.controller;
 
-import com.chairking.poom.board.model.service.BoardService;
-import com.chairking.poom.board.model.vo.CkFileupload;
-import com.chairking.poom.common.Pagination;
-import com.chairking.poom.hashTag.controller.TagJsonController;
-import com.chairking.poom.noti.controller.NotiController;
-import lombok.extern.slf4j.Slf4j;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
-import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.awt.*;
-import java.io.*;
-import java.net.URLEncoder;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
+import com.chairking.poom.board.model.service.BoardService;
+import com.chairking.poom.board.model.vo.CkFileupload;
+import com.chairking.poom.hashTag.controller.TagJsonController;
+import com.chairking.poom.noti.controller.NotiController;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
@@ -269,5 +273,13 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
     // 방금전에 등록한 게시글 번호 가져오기
     public String getBoardNoFromForm(){
         return service.getBoardNoFromForm();
+    }
+    
+    //게시글 삭제하기
+    @RequestMapping("/board/boardDelete")
+    public String boardDelete(String no) {
+    	System.out.println(no);
+    	int result = service.boardDelete(no);
+    	return "";
     }
 }

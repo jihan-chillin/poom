@@ -36,7 +36,9 @@
             	</th:block>
             	<th:block th:if="${session.loginMember.MEMBER_ID eq board['MEMBER_ID']} ">
             		<button type="button" class="btn" onsubmit="board_modify();" style="background:#247094;color:white;border:none;">수정</button>&nbsp;&nbsp;
-            		<button type="button" class="btn" onclick="fn_board_delete('${board['BOARD_NO']}');">삭제</button>
+            		<button type="button" class="btn" th:if="${cate eq 'feed'}" th:data-bcate="feed" th:data-bNo="${board['BOARD_NO']}" th:onclick="fn_board_delete(this.getAttribute('data-bNo'),this.getAttribute('data-bcate'));">삭제</button>
+            		<button type="button" class="btn" th:if="${cate eq 'all'}"  th:data-bcate="all" th:data-bNo="${board['BOARD_NO']}" th:onclick="fn_board_delete(this.getAttribute('data-bNo'),this.getAttribute('data-bcate'));">삭제</button>
+            		<button type="button" class="btn" th:if="${cate eq 'none'}"  th:data-bcate="${board['BOARD_CATE']}" th:data-bNo="${board['BOARD_NO']}" th:onclick="fn_board_delete(this.getAttribute('data-bNo'),this.getAttribute('data-bcate'));">삭제</button>
             	</th:block>
             </span>
         </div>
