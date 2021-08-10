@@ -146,6 +146,10 @@ public void ckSubmit(@RequestParam(value = "fileName") String fileName,
 public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
 
+        System.out.println("파라미터 일단 이렇게 들어옴 : " + param);
+//        String boardContent = param.get('boardContent');
+//        System.out.println(boardContent+ " 형 : " + boardContent.getClass());
+
         // img, br, p 태그 빼고 나 제외하기
     String pattern = "<(\\/?)(?!\\/####)([^<|>]+)?>";
     String bContetn = (String)param.get("boardContent");
