@@ -28,11 +28,6 @@ function fn_message_move(mType) {
     }
 }
 
-// function showMsgDtl(msgNo) {
-//     window.open(getContextPath() + "/message/content?msgNo=" + msgNo, "content", "width=400,height=300");
-//
-// }
-
 //메세지 안읽음에 따른 발송취소
 $(".cancelMsg").click(e=>{
     if($(e.target).text()=='발송취소'){
