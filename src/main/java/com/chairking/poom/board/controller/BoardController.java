@@ -318,7 +318,7 @@ public class BoardController {
 	}
 
 	//검색 기능 연결
-	@RequestMapping("bSearch")
+	@RequestMapping("/bSearch")
 	public ModelAndView searchBoardList(@RequestParam String bCondition, ModelAndView mv){
 		String condition = "WHERE 1=1";
 
@@ -329,7 +329,7 @@ public class BoardController {
 		}
 
 		List<Map<String,Object>> list = service.searchBoardList(condition);
-		mv.setViewName("board/board_alllist");
+		mv.setViewName("/board/board_alllist");
 		return mv;
 	}
 
