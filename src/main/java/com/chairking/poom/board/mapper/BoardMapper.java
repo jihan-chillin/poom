@@ -174,7 +174,6 @@ public interface BoardMapper {
 	@Select("SELECT BOARD_NO, TAG_NAME FROM BOARDTAG")
 	List<Map<String,String>> selectAllBoardTag();
 
-
 	//게시물 검색
 	@Select("SELECT * FROM BOARD ${codition}")
 	List<Map<String,Object>> searchBoardList(String codition);

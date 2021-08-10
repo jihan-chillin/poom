@@ -15,7 +15,9 @@
    				<span th:text="${#dates.format(board['BOARD_DATE'],'yyyy-MM-dd')}" style="display:inline-block;float:right;">작성일</span>
    			</li>
     		<li><textarea style="border: none" readonly th:text="${board['BOARD_CONTENT']}" id="board-area">내용</textarea></li>
+<!--			<li><textarea style="border: none" readonly th:object="${CKEDITOR.instances[ckeditorarea].setData('board.BOARD_CONTENT')}" id="board-area">내용</textarea></li>-->
     		<li style="height:60px;">
+
     			<th:block th:each="t:${tagList}">
     				<span style="padding-right:3px;font-size:18px;font-weight: bold;" th:text="'#'+${t}">해시태그들</span>
     			</th:block>
