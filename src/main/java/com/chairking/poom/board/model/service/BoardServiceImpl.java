@@ -219,4 +219,12 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 
+	//검색기능
+	@Override
+	public List<Map<String, Object>> searchBoardList(String condition) {
+		return dao.searchBoardList(mapper,condition);
+
+	}
+
+
 }
