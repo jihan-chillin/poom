@@ -9,7 +9,7 @@ import com.chairking.poom.common.Pagination;
 
 public interface BoardService {
 
-	int insertBoard(Map param);
+	int insertBoard(Map param, String imgName);
 
 	//메인피드 글 등록하기
 	int insertFeed(Map param);
