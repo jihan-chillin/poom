@@ -95,17 +95,19 @@ function showMsgPop(member) {
     //alert(rcvNm);
     window.open("./popup?rcvNm=" + rcvNm + "&rcvId=" + rcvId, "", "width=400,height=300");
 
+
 }
 
 //받은쪽지 팝업
 function showReplyPop(rId){
     let id = rId.html();
     window.open("./popup?rcvNm=" + id + "&rcvId=" + id, "", "width=400,height=300");
+    self.close();
 }
 
 
 
-function showMsgDtl(e, msgNo) {
+function showMsgDtl(msgNo) {
     window.open(getContextPath()+"/message/content?msgNo=" + msgNo,"content","width=400,height=300");
 
 }

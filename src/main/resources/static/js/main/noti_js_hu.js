@@ -115,7 +115,7 @@ function getNotificationData(){
             val += '<div class="noti-detail">';
               val += '<span>댓글 알림</span>';
               val += '<span onclick="deleteNotify('+data.getBoardTitleFromCommentNo[i].BOARD_NO+',1)">X</span>';
-              val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',1); moveToView('+data.getBoardTitleFromCommentNo[i].BOARD_NO+');">';
+              val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',1); moveToView(\''+data.getBoardTitleFromCommentNo[i].BOARD_NO+'\');">';
                 val += '\''+data.getBoardTitleFromCommentNo[i].BOARD_TITLE+'\'에<br> 댓글이 달렸습니다.';
 
 
@@ -148,7 +148,15 @@ function getNotificationData(){
           val += '</div>';
 
         $('.modal-content-list').append(val);
-        $('.noti-info-alarm').append(val2);
+
+        if(data.notiData[i].NOT_CHECK ==='0'){
+          $('.noti-info-alarm').append(val2);
+        }else{
+          $('.alarm-count').remove();
+          $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_normal.png) no-repeat center; background-size: contain;");
+          return;
+        }
+
       }
 
       $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_receive.png) no-repeat center; background-size: contain;");

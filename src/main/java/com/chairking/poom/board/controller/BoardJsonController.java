@@ -166,6 +166,7 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
     StringBuffer buffer = new StringBuffer();
     for(int i=0; i<allowTags.length; i++){
         buffer.append("|"+allowTags[i].trim() +"(?!\\w)");
+
     }
 
     pattern = pattern.replace("####", buffer.toString());
@@ -246,7 +247,7 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
     	int result=service.commentWrite(param);
     	if(result>0) result=service.commentCountUpdate(1, boardNo);
-        // 댓글 작성시 알림테이블에 데이터 넣는 메소드
+    	// 댓글 작성시 알림테이블에 데이터 넣는 메소드
         nc.insertCommentNotiData(boardNo,nc.getBoardWriter(boardNo));
     	return param;
     }

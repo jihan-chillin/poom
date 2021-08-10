@@ -32,47 +32,47 @@ body{
 .delete-message {
     width: 65px;
     height: 31px;
-    background-color: lightgrey;
+    background-color:  #f7f7f7;
     font-size: 16px;
     color: black;
-    border: none;
+    border: 1px solid lightgray;
     border-radius: 20px;
     transition-duration: 0.4s;
 }
 
 .delete-message:hover{
-    color: white;
+    background-color: lightgrey;
 }
 
 .send-message{
     width: 92px;
     height: 31px;
-    background-color: lightgrey;
+    background-color:  #f7f7f7;
     font-size: 16px;
     color: black;
-    border: none;
+    border: 1px solid lightgray;
     border-radius: 20px;
     transition-duration: 0.4s;
     margin-top: -20px;
 }
 
 .send-message:hover{
-    color : white;
+    background-color : lightgrey;
 }
 
 .empty-message{
     width: 111px;
     height: 31px;
-    background-color: lightgrey;
+    background-color: #f7f7f7;
     font-size: 16px;
     color: black;
-    border: none;
+    border: 1px solid lightgray;
     border-radius: 20px;
     transition-duration: 0.4s;
 }
 
 .empty-message:hover{
-    color: white;
+    background-color: lightgrey;
 }
 
 button:hover {
@@ -183,3 +183,4 @@ div#searchPageBar>div div{
     border-radius: 5px;
     margin:0 3px;
 }
+

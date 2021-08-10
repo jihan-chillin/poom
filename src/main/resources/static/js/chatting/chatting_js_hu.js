@@ -184,6 +184,7 @@ function getChatList(chatNo,url,memberId){
     success:data=>{
       $('.msg-container>*').remove();
       let val = '';
+      var memberId =$('#chatmem_id').val();
 
       for(let i=0; i<data.messageContent.length; i++){
       // 내가 쓴 메세지 일때

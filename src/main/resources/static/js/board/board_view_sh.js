@@ -8,6 +8,8 @@ function move_list(cate) {
 				$("div#content").html(data);
 			}
 		});
+	}else if(cate=='feed'){
+		location.assign(getContextPath()+"/login/main/");
 	} else {
 		$.ajax({
 			url: getContextPath() + "/board/cateList",
