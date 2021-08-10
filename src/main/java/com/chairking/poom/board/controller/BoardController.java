@@ -182,11 +182,9 @@ public class BoardController {
         // 공지사항 가져오기
         List<Map<String,Object>> notices=service.selectAllBoardNotice();
         System.out.println("페이지네이션"+pagination);
-        System.out.println("전체글보드리스트"+list);
-      //태그 가져오기
+        System.out.println("ajax페이지"+list);
+        //태그 가져오기
   		List<Map<String,String>> tagList=service.selectAllBoardTag();
-  		System.out.println("전체글보드리스트"+list);
-		System.out.println("페이지"+pagination);
   		mv.addObject("tagList", tagList);
         mv.addObject("list", list);
         mv.addObject("likeTable", likeTable);
