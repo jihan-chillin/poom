@@ -194,6 +194,7 @@ public interface BoardMapper {
 	@Select("SELECT COUNT(*) FROM (SELECT ROWNUM as rnum, C.CATEGORY_NAME,B.PREVIEW_IMG,B.BOARD_DATE, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT, B.COMMENTS_COUNT AS CNT, B.LIKE_COUNT  FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) ${condition})")
 	int searchBoardCount(Object condition);
 
+	// 게시글 수정
 	@Update("UPDATE BOARD SET BOARD_TITLE = #{param.board-title}, BOARD_CONTENT =#{param.boardContent}, PREVIEW_IMG=#{imgName} WHERE BOARD_NO = #{param.boardNo}")
 	int modifyBoard(Map param, String imgName);
 
