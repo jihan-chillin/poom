@@ -315,4 +315,20 @@ public class BoardController {
 		return mv;
 	}
 
+	//검색 기능 연결
+	@RequestMapping("/bSearch")
+	public ModelAndView searchBoardList(@RequestParam String bCondition, ModelAndView mv){
+		String condition = "WHERE 1=1";
+
+		if(bCondition != null || bCondition.equals("")){
+			condition += (" AND (member_id like '%" + bCondition + "%'");
+			condition += (" OR board_title like '%" + bCondition + "%'");
+			condition += (" OR board_content like '%" + bCondition + "%'");
+		}
+
+		List<Map<String,Object>> list = service.searchBoardList(condition);
+		mv.setViewName("/board/board_alllist");
+		return mv;
+	}
+
 }
