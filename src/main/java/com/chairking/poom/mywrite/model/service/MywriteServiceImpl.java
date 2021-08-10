@@ -1,6 +1,7 @@
 package com.chairking.poom.mywrite.model.service;
 
 import com.chairking.poom.board.model.vo.Board;
+import com.chairking.poom.common.Pagination;
 import com.chairking.poom.mywrite.mapper.MywriteMapper;
 import com.chairking.poom.mywrite.model.dao.MywriteDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,9 @@ public class MywriteServiceImpl implements MywriteService{
         return dao.countMyWrite(mapper);
     }
 
-
     @Override
-    public List<Map<String, Object>> MywriteList(int cPage, int numPerpage, Object memberId) {
-        return dao.MywriteList(mapper, cPage, numPerpage, memberId);
+    public List<Map<String, Object>> MywriteList(Pagination pagination, Object memberId) {
+        return dao.MywriteList(mapper, pagination, memberId);
     }
 
     @Override

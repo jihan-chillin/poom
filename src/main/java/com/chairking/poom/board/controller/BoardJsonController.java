@@ -185,7 +185,7 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
         mv.addObject("msg", msg);
         mv.addObject("loc",loc);
-        mv.setViewName("redirect:/");
+        mv.setViewName("/main/main");
 
         return mv;
     }
@@ -318,18 +318,7 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
         int result = service.modifyBoard(param, imgName);
 
 
-        String msg="";
-        String loc="redirect:/login.";
-
-        if(result>0){
-            msg="게시글 등록 성공";
-        }else{
-            msg = "동륵실패! 다시 시도해주세요.";
-        }
-
-        mv.addObject("msg", msg);
-        mv.addObject("loc",loc);
-        mv.setViewName("redirect:/");
+        mv.setViewName("/main/main");
 
         return mv;
     }
