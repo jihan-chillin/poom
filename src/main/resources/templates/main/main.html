@@ -88,13 +88,19 @@
 
 <script th:inline="javascript">
 $(document).ready(function() {
-	var edit=[[${edit}]];
 	if([[${edit}]] == 'chat') {
 		moveMyChatList();
 	}else if([[${edit}]] == 'tag'){
 		moveMyTagPage()
 	};
+
 });
+
+function noBack() {
+	if([[${session.loginMember.logMain}]] == 1) {
+		window.history.forward();
+	}
+}
 </script>
 
 </html>

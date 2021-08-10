@@ -51,6 +51,11 @@ public class LoginController {
 		mv.setViewName("main/main");
 		mv.addObject("edit",edit);
 		mv.addObject("loginId",(String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
+		
+		Map m = (Map) req.getSession().getAttribute("loginMember");
+		m.put("logMAin", 0);
+		mv.addObject("loginMember",m);
+		
 		return mv;
 	}
 
@@ -180,6 +185,7 @@ public class LoginController {
 			msg="poom 관리자님! 관리자페이지에 오신걸 환영합니다!";
 			loc="/admin";
 		}else if(m!=null && pwEncoder.matches((String)param.get("pw"), (String)m.get("MEMBER_PW"))) {
+			m.put("logMain", 1);
 			mv.addObject("loginMember",m);
 			msg="로그인 성공! "+m.get("MEMBER_NAME")+"님, poom에 오신걸 환영합니다!";
 			loc="/login/main";
