@@ -11,7 +11,7 @@ div#mycomment-content{
 
 /* 카테고리 바 영역*/
 div#comment-bar{
-    border-bottom: 1px solid black;
+    border-bottom: 3px solid grey;
     width: 90%;
     margin: 0 auto;
 }
@@ -20,14 +20,15 @@ div#comment-bar ul {
     display: flex;
     flex-direction: row;
     margin: 30px;
+    justify-content: center;
 }
 
 div#comment-bar li {
     margin: 0 20px;
 }
 
-div#comment-bar li:nth-of-type(2) button,
-div#comment-bar li:nth-of-type(4) button{
+div#comment-bar li:nth-of-type(1) button,
+div#comment-bar li:nth-of-type(3) button{
     width: 150px;
     height: 40px;
     border-radius: 30px;
@@ -38,7 +39,7 @@ div#comment-bar li:nth-of-type(4) button{
     cursor: pointer;
 }
 
-div#comment-bar li:nth-of-type(3) button{
+div#comment-bar li:nth-of-type(2) button{
     width: 150px;
     height: 40px;
     border-radius: 30px;
@@ -51,8 +52,8 @@ div#comment-bar li:nth-of-type(3) button{
     cursor: pointer;
 }
 
-div#comment-bar li:nth-of-type(2) button:hover,
-div#comment-bar li:nth-of-type(4) button:hover{
+div#comment-bar li:nth-of-type(1) button:hover,
+div#comment-bar li:nth-of-type(3) button:hover{
     border: 1px solid lightgray;
     background-color: lightgray;
     color: white;

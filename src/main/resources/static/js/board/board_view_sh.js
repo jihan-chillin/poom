@@ -1,7 +1,24 @@
-//게시글 목록으로 이동
-function move_list(){
-	location.assign(getContextPath()+"/board/all");
-}
+//게시글 뷰에서 목록으로 연결하기
+function move_list(cate){
+	//cate==all =>전체글에서 눌렀음
+	if(cate=='all'){
+		$.ajax({
+			url:getContextPath()+"/board/all",
+			success:data=>{
+				$("div#content").html(data);
+			}
+		});
+	}else{
+		$.ajax({
+			url:getContextPath()+"/board/cateList",
+			data:{
+				"cate":cate
+			},
+			success:data=>{
+				$("div#content").html(data);
+			}
+		});
+	}
 
 //댓글 가져오는 메소드
 function comment_list(){
@@ -81,7 +98,7 @@ function modify_comment(e){
 
 $(function(){
 	comment_list();
-	
+
 	$("span.b_comment_menu").click(e=>{
 		if($(e.target).next("div").css("display")=="none") {
 			$("span.b_comment_menu").next("div").css("display", "none");
@@ -91,3 +108,9 @@ $(function(){
 		}
 	});
 });
+
+//게시판 view에서 삭제하기 구현
+//진짜 삭제 아닌 del_status=>1로 변경
+function fn_board_delete(no){
+	alert(no);
+}

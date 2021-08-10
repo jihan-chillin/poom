@@ -14,7 +14,7 @@ public interface BoardService {
 	//메인피드 글 등록하기
 	int insertFeed(Map param);
 	//메인 피드 리스트 가져오기
-	List<Map<String, Object>> feedList(Map param);
+	List<Map<String, Object>> feedList(String loc, int cPage, int numPerpage);
 	//좋아요 테이블 가져오기
 	String[] likeTable(String no);
 	//보드태그 테이블 가져오기
@@ -72,15 +72,22 @@ public interface BoardService {
 	int boardTagFromform(String strBoardNo, String tagText);
 
 	int TagFromform(String tagText);
-	
+
+    String getBoardNoFromForm();
+
+    //보드뷰에서 태그들 가져오기
+    List<String> boardTagList(String boardNo);
+    //전체글리스트 태그 가져오기
+    List<Map<String,String>> selectAllBoardTag ();
+
 	//게시글 댓글 입력
 	int commentWrite(Map<String, String> param);
-	
+
 	//게시글 댓글 수 변경
 	int commentCountUpdate(int count, String boardNo);
-	
+
 	//댓글 삭제
 	int commentDelete(String boardNo, String commentNo);
-	
-	
+
+
 }

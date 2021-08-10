@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <div th:replace="/fragments/header.html :: fragment-header"></div>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/board/board_list_list.css}">
+</head>
+
+<body>
+<div id="wrapper">
+  <!-- 헤더바 -->
+  <div th:replace="/fragments/headerbar.html :: fragment-headerbar"></div>
+  <!-- 좌측메뉴바 -->
+  <div th:replace="/fragments/nav.html :: fragment-nav"></div>
+  <input type="hidden" id="tagName" th:value="${tagName}">
+
+  <!-- 우측콘텐츠 / 고정+변동 -->
+  <div id="content">
+  <!-- 프로필 -->
+    <div th:replace="/fragments/profile.html :: fragment-profile"></div>
+    <div class="feed">
+      <!--board 리스트  -->
+      <div id="tagBorderBox">
+        <div class="bList bSpan" id="tag_result_con" th:each="l:${list}">
+          <div>
+            <span th:text="${l.CATEGORY_NAME}"></span>
+            <span th:data-no="${l.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${l.BOARD_TITLE}"></span>
+          </div>
+          <div th:text="${l.BOARD_CONTENT}"></div>
+          <img alt="썸네일" th:src="@{/images/profile/}+${l.PREVIEW_IMG}">
+        </div>
+      </div>
+    </div>
+    <!-- HOT키워드순위창 -->
+    <div th:replace="/fragments/rank.html :: fragment-rank"></div>
+  </div>
+</div>
+</body>
+<script th:src="@{/js/board/board_list_sh.js}"></script>
+<script th:inline="javascript">
+  var cPage= 1;
+  let tagName = $("#tagName").val();
+  let win = $('.feed');
+  win.scroll(e=>{
+
+    if ( $(e.target).scrollTop() === $('#tagBorderBox').height()-win.height()) {
+      cPage++;
+      // console.log(tagName);
+      $.ajax({
+        url:getContextPath()+'/tag/board/data',
+        data:{
+          "cPage":cPage,
+          "tagName":tagName
+        },
+        success:data=>{
+          let val = '';
+
+          for(let i = 0; i< data.length; i++){
+            val += '<div class="bList bSpan" id="tag_result_con">';
+             val += '<div>';
+              val += '<span>'+data[i].CATEGORY_NAME+'</span>';
+              val += '<span data-on="'+data[i].BOARD_NO+'" onclick="feedToView(this.getAttribute(\'data-no\'))">'+data[i].BOARD_TITLE+'</span>';
+             val += '</div>';
+
+             val += '<div>'+data[i].BOARD_CONTENT+'</div>';
+             val += '<img alt="썸네일" src="/21AM_POOM_final/images/profile/'+data[i].PREVIEW_IMG+'">';
+            val += '</div>';
+          }
+        $('#tagBorderBox').append(val);
+        }
+      });
+    }
+  });
+</script>
+</html>

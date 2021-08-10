@@ -1,34 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <div th:replace="/fragments/header.html :: fragment-header"></div>
-    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<!-- iamport.payment.js -->
-	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_view.css}">
-</head>
+<link rel="stylesheet" type="text/css" th:href="@{/css/board/board_view.css}">
 
-<body>
 <div id="board_view">
 <!-- 게시글 상세화면 -->
     <div id="board_container">
     	<ul>
     		<li>
-    			<span th:text="${board['BOARD_TITLE']}">제목</span>
+    			<span style="font-size: 20px;font-weight: bold;" th:text="${board['BOARD_TITLE']}">제목</span>
     			<span th:unless="${session.loginMember.MEMBER_ID eq 'admin'}"th:title="${board['BOARD_NO']}" th:text="${#arrays.contains(likeTable,board['BOARD_NO'])}?'♥':'♡'" name="likeHeart"></span>
    			</li>
    			<li>
    				<span th:text="'작성자 : '+${board['B_WRITER']}">닉네임</span>
    				<span th:text="${#dates.format(board['BOARD_DATE'],'yyyy-MM-dd')}" style="display:inline-block;float:right;">작성일</span>
    			</li>
-    		<li><span th:text="${board['BOARD_CONTENT']}">내용</span></li>
-    		<li>
-    			<span>해시태그들</span>
+    		<li><textarea style="border: none" readonly th:text="${board['BOARD_CONTENT']}" id="board-area">내용</textarea></li>
+    		<li style="height:60px;">
+    			<th:block th:each="t:${tagList}">
+    				<span style="padding-right:3px;font-size:18px;font-weight: bold;" th:text="'#'+${t}">해시태그들</span>
+    			</th:block>
     		</li>
 		</ul>
         <div >
         	<span>
-        		<button  th:unless="${session.loginMember.MEMBER_ID eq 'admin'}" type="button" class="btn" onsubmit="move_list();">목록으로</button>
+        		<button  th:unless="${session.loginMember.MEMBER_ID eq 'admin'}" type="button" class="btn" th:data-bCate="${cate eq 'all'?'all':board['BOARD_CATE']}"th:onclick="move_list(this.getAttribute('data-bCate'));">목록으로</button>
         	</span>
             <span >
             	<!-- loingMember 일치여부 확인 후 버튼 보여주기 -->
@@ -37,8 +32,7 @@
             	</th:block>
             	<th:block th:if="${session.loginMember.MEMBER_ID eq board['MEMBER_ID']} ">
             		<button type="button" class="btn" onsubmit="board_modify();" style="background:#247094;color:white;border:none;">수정</button>&nbsp;&nbsp;
-            		<button type="button" class="btn" onclick="location.assign('/');">삭제</button>
-            		<button type="button" class="btn" onclick="location.assign('/');">취소</button>
+            		<button type="button" class="btn" onclick="fn_board_delete('${board['BOARD_NO']}');">삭제</button>
             	</th:block>
             </span>
         </div>
@@ -63,8 +57,7 @@
  <!-- HOT키워드순위창 -->
  <div th:replace="/fragments/rank.html :: fragment-rank"></div>
  </th:block>
- </body>
- <script th:src="@{/js/board/board_view_sh.js}"></script>
+<script th:inline="javascript" th:src="@{/js/board/board_view_sh.js}"></script>
 <script th:inline="javascript">
 //신고하기 버튼 => 팝업 이동 
 function fn_boardBlame(no){
@@ -91,10 +84,8 @@ $("span[name=likeHeart]").click(e=>{
  		like='누름';
  	}else{
  		like='안누름';
- 		// 알림 보내는 함수 by 희웅
-		sendNoti();
  	};
- 	
+
  	//하트바꾸기
  	if(like=='누름') $(e.target).text('♡');
  	else $(e.target).text('♥');
@@ -106,7 +97,10 @@ $("span[name=likeHeart]").click(e=>{
 			"like":like
 		}
 	}).done(function(fragment){
-		
+		if(like==='안누름'){
+			// 알림 보내는 함수 by 희웅
+			sendNoti();
+		}
 	})
 })
 

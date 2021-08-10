@@ -3,15 +3,16 @@ package com.chairking.poom.board.mapper;
 import java.util.List;
 import java.util.Map;
 
-import com.chairking.poom.common.Pagination;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.chairking.poom.board.model.vo.Board;
 import com.chairking.poom.board.model.vo.BoardImage;
+import com.chairking.poom.common.Pagination;
 
 @Mapper
 public interface BoardMapper {
@@ -23,7 +24,7 @@ public interface BoardMapper {
 
 	// INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, '되는지 TEST', '그냥 오라클로 작성하는 거임', DEFAULT, 0, SYSDATE, '서울', 0, '1', 'kimjihan77',0)
 	//게시글 등록
-	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, #{board-title}, #{boardContent}, DEFAULT, 0, SYSDATE, #{memberLoc}, 0, #{boardCate}, #{memberId}, 0,0, '20210804_10881_urbanbrush-20190629084930578298.png')")
+	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, #{board-title}, #{boardContent}, DEFAULT, 0, SYSDATE, #{memberLoc}, 0, #{boardCate}, #{memberId}, 0,0, '20210804_10881_urbanbrush-20190629084930578298.png', dd)")
 	public int insertBoard(Map param);
 	
 	//게시글 번호 가져오는 쿼리문
@@ -35,7 +36,7 @@ public interface BoardMapper {
 	public int insertBoardImg(BoardImage bi);
 	
 	//모든 게시글 조회
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.*, (SELECT COUNT(*) FROM COMMENTS A WHERE A.BOARD_NO = B.BOARD_NO) AS CNT FROM (SELECT * FROM BOARD WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC)B) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.*, (SELECT COUNT(*) FROM COMMENTS A WHERE A.BOARD_NO = B.BOARD_NO) AS CNT FROM BOARD B WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
 	public List<Map<String, Object>> selectAllBoard(int cPage, int numPerpage);
 	
 	//게시글 상세 조회
@@ -52,18 +53,22 @@ public interface BoardMapper {
 	public int insertFeed(Map param);
 	
 	//메인피드 게시글(전국,전체)
-	@Select("SELECT *"
-			+ "FROM (SELECT B.*, C.CATEGORY_NAME AS CATEGORY, I.RENAME_IMG AS IMG FROM BOARD B JOIN CATEGORY C ON (BOARD_CATE=CATEGORY_NO)"
-			+ "LEFT JOIN IMAGE I ON (B.BOARD_NO=I.BOARD_NO))"
-			+ "WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC")
-	public List<Map<String, Object>> feedListAllAll(Map param);
+	@Select("SELECT * FROM("
+			+ "SELECT ROWNUM AS RNUM, A.*"
+			+ "FROM (SELECT B.*, M.MEMBER_NICKNAME AS NICKNAME, C.CATEGORY_NAME AS CATEGORY "
+			+ "FROM BOARD B JOIN MEMBER M ON (B.MEMBER_ID=M.MEMBER_ID)"
+			+ "JOIN CATEGORY C ON (B.BOARD_CATE=C.CATEGORY_NO)"
+			+ "WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC) A) WHERE RNUM >= #{cPage} AND RNUM <= #{numPerpage}")
+	public List<Map<String, Object>> feedListAllAll(String loc, int cPage, int numPerpage);
 	
 	//메인피드 게시글(지역,전체)
-	@Select("SELECT *"
-			+ "FROM (SELECT B.*, C.CATEGORY_NAME AS CATEGORY, I.RENAME_IMG AS IMG FROM BOARD B JOIN CATEGORY C ON (BOARD_CATE=CATEGORY_NO)"
-			+ "LEFT JOIN IMAGE I ON (B.BOARD_NO=I.BOARD_NO))"
-			+ "WHERE DEL_STATUS=0 AND BOARD_LOC=#{loc} ORDER BY BOARD_DATE DESC")
-	public List<Map<String, Object>> feedListLocAll(Map param);
+	@Select("SELECT * FROM("
+			+ "SELECT ROWNUM AS RNUM, A.*"
+			+ "FROM (SELECT B.*, M.MEMBER_NICKNAME AS NICKNAME, C.CATEGORY_NAME AS CATEGORY "
+			+ "FROM BOARD B JOIN MEMBER M ON (B.MEMBER_ID=M.MEMBER_ID)"
+			+ "JOIN CATEGORY C ON (B.BOARD_CATE=C.CATEGORY_NO)"
+			+ "WHERE DEL_STATUS=0 AND BOARD_LOC=#{loc} ORDER BY BOARD_DATE DESC) A) WHERE RNUM >= #{cPage} AND RNUM <= #{numPerpage}")
+	public List<Map<String, Object>> feedListLocAll(@Param("loc")String loc, int cPage, int numPerpage);
 	
 	//게시판에서 공지사항클릭
 	@Select("SELECT * FROM NOTICE WHERE NOTICE_NO=#{no}")
@@ -95,7 +100,7 @@ public interface BoardMapper {
 	public List<Map<String,Object>> boardTag();
 	
 	//카테고리별 게시글 리스트 가져오기
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM (SELECT * FROM BOARD JOIN CATEGORY ON (BOARD_CATE = CATEGORY_NO) WHERE DEL_STATUS=0 AND CATEGORY_NO=#{cate} ORDER BY BOARD_DATE DESC)B) WHERE RNUM BETWEEN 1 and 100")
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM (SELECT * FROM BOARD JOIN CATEGORY ON (BOARD_CATE = CATEGORY_NO) WHERE DEL_STATUS=0 AND CATEGORY_NO=#{cate} ORDER BY BOARD_DATE)B) WHERE RNUM BETWEEN #{cPage} and #{numPerpage}")
 	public List<Map<String,Object>> selectBoardList(Map<String, String> cate, int cPage, int numPerpage);
 	//카테고리별 공지사항 가져오기
 	@Select("SELECT NOTICE_TITLE, NOTICE_DATE FROM NOTICE JOIN CATEGORY USING(CATEGORY_NO) WHERE CATEGORY_NO=#{cate} AND NOTICE_STATUS=0 ORDER BY NOTICE_DATE DESC")
@@ -120,7 +125,7 @@ public interface BoardMapper {
 	@Select("SELECT * FROM ( SELECT ROWNUM AS RNUM, C.CATEGORY_NAME,B.PREVIEW_IMG, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT,(SELECT COUNT(*) AS CNT FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO) AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_LOC = #{memberloc} ORDER BY BOARD_DATE DESC ) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
 	List<Map<String, Object>> allBoard(Pagination pagination, Object memberloc);
 
-	@Select("SELECT C.CATEGORY_NO, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.NOTICE_DATE, N.NOTICE_STATUS, C.CATEGORY_NAME FROM NOTICE N JOIN CATEGORY C on (C.CATEGORY_NO = N.CATEGORY_NO) ORDER BY C.CATEGORY_NO")
+	@Select("SELECT N.NOTICE_NO, C.CATEGORY_NO, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.NOTICE_DATE, N.NOTICE_STATUS, C.CATEGORY_NAME FROM NOTICE N JOIN CATEGORY C on (C.CATEGORY_NO = N.CATEGORY_NO) ORDER BY C.CATEGORY_NO")
 	List<Map<String, Object>> selectAllBoardNotice();
 
 	@Select("SELECT * FROM ( SELECT ROWNUM AS RNUM, C.CATEGORY_NAME,B.PREVIEW_IMG, B.BOARD_NO,B.BOARD_TITLE, B.BOARD_CONTENT,(SELECT COUNT(*) AS CNT FROM COMMENTS C WHERE C.BOARD_NO = B.BOARD_NO) AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_CATE=#{cate} AND B.BOARD_LOC = #{memberloc}ORDER BY BOARD_DATE DESC ) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
@@ -129,7 +134,8 @@ public interface BoardMapper {
 	@Select("SELECT COUNT(*) FROM BOARD WHERE BOARD_CATE = #{cate} AND BOARD_LOC = #{memberloc}")
 	int allcateBoardCount(String cate, Object memberloc);
 
-	@Select("SELECT C.CATEGORY_NO, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.NOTICE_DATE, N.NOTICE_STATUS, C.CATEGORY_NAME FROM NOTICE N JOIN CATEGORY C on (C.CATEGORY_NO = N.CATEGORY_NO) where c.category_no = #{cate} order by n.notice_date desc")
+	@Select("SELECT N.NOTICE_NO,C.CATEGORY_NO, N.NOTICE_TITLE, N.NOTICE_CONTENT, N.NOTICE_DATE, N." +
+			"NOTICE_STATUS, C.CATEGORY_NAME FROM NOTICE N JOIN CATEGORY C on (C.CATEGORY_NO = N.CATEGORY_NO) where c.category_no = #{cate} order by n.notice_date desc")
 	List<Map<String, Object>> selectAllCateNotice(String cate);
 
 	@Select("SELECT CATEGORY_NAME FROM CATEGORY WHERE CATEGORY_NO = #{cate}")
@@ -137,22 +143,34 @@ public interface BoardMapper {
 
 	//boardTAG 안에 집어넣기
 //	strBoardNo, tagText
-	@Insert("INSERT INTO BOARDTAG VALUES(SEQ_BOARDTAGNO.NEXTVAL,#{strBoardNo}, #{tagText}")
+	@Insert("INSERT INTO BOARDTAG VALUES(SEQ_BOARDTAGNO.NEXTVAL,#{strBoardNo}, #{tagText})")
 	int boardTagFromform(String strBoardNo, String tagText);
 
 	@Insert("INSERT INTO TAG VALUES (#{tagText})")
 	int TagFromform(String tagText);
-	
+
 	//댓글등록 메소드
 	@Insert("INSERT INTO COMMENTS VALUES(SEQ_COMMENTNO.NEXTVAL, #{boardNo}, #{commentContent}, SYSDATE, DEFAULT, DEFAULT, DEFAULT, #{commentWriter}, DEFAULT)")
 	int commentWrite(Map<String, String> param);
-	
+
 	//게시글의 댓글수 변경
 	@Update("UPDATE BOARD SET COMMENTS_COUNT=COMMENTS_COUNT+#{count} WHERE BOARD_NO=#{boardNo}")
 	int commentCountUpdate(int count, String boardNo);
-	
+
 	//게시글 댓글 삭제
 	@Delete("DELETE FROM COMMENTS WHERE BOARD_NO=#{boardNo} AND COMMENT_NO=#{commentNo}")
 	int commentDelete(String boardNo, String commentNo);
-	
+
+
+	@Select("SELECT * FROM ( SELECT BOARD_NO, BOARD_DATE, BOARD_TITLE FROM BOARD ORDER BY  BOARD_DATE DESC ) WHERE ROWNUM = 1")
+    String getBoardNoFromForm();
+
+	//보드뷰에 해시태그 넣기
+	@Select("SELECT TAG_NAME FROM BOARDTAG WHERE BOARD_NO=#{boardNo}")
+	List<String> boardTagList(String boardNo);
+
+	//전체글 리스트에 해시태그 넣기
+	@Select("SELECT BOARD_NO, TAG_NAME FROM BOARDTAG")
+	List<Map<String,String>> selectAllBoardTag();
 }
+

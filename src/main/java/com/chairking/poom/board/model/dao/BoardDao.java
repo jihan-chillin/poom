@@ -17,7 +17,7 @@ public interface BoardDao {
 	//메인피드 글 등록하기
 	int insertFeed(BoardMapper mapper, Map param);
 	//메인 피드 리스트 가져오기
-	List<Map<String, Object>> feedList(BoardMapper mapper, Map param);
+	List<Map<String, Object>> feedList(BoardMapper mapper, String loc, int cPage, int numPetpage);
 	//좋아요 테이블 가져오기
 	String[] likeTable(BoardMapper mapper, String id);
 	//보드태그 테입르 가져오기
@@ -74,10 +74,16 @@ public interface BoardDao {
 	int boardTagFromform(BoardMapper mapper, String strBoardNo, String tagText);
 
 	int TagFromform(BoardMapper mapper, String tagText);
-	
+
+	String getBoardNoFromForm(BoardMapper mapper);
+
+	List<String> boardTagList(BoardMapper mapper, String boardNo);
+
+	List<Map<String,String>> selectAllBoardTag(BoardMapper mapper);
+
 	int commentWrite(BoardMapper mapper, Map<String, String> param);
-	
+
 	int commentCountUpdate(BoardMapper mapper, int count, String boardNo);
-	
+
 	int commentDelete(BoardMapper mapper, String boardNo, String commentNo);
 }

@@ -8,7 +8,7 @@
 		</span>
 		<span th:unless=${f.MEMBER_ID!=session.loginMember.MEMBER_ID}></span>
 	</div>
-	<div th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_CONTENT}"></div>
+	<div th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_CONTENT.replaceAll('&'+'nbsp;', ' ').replaceAll('<[^>]*>', '')}" ></div>
 	<img alt="품 미리보기" th:src="@{/uploadCKImage/}+${f.PREVIEW_IMG}">
 	<ul>
 		<li>
@@ -29,7 +29,7 @@
 </div>
 
 <!-- 피드에 글이 없을 경우 -->
-<div th:unless="${feedList}!=null">
+<div th:if="${feedList}==null and ${cPage}!=null">
 	<p class="nofeed" th:if="${noFeed}!='noTag'">해당하는 글이 없어요.<br><span style="color:darkgray;">게시글을 작성하고 공유해보세요.</span><button onclick="goWriteForm();">게시글등록</button></p>
 	<p class="nofeed" th:unless="${noFeed}!='noTag'">#마이태그가 없습니다. 관심있는 항목을 마이태그에 추가해보세요.<button onclick="moveMyTagPage();">마이태그추가</button></p>
 </div>
@@ -55,8 +55,6 @@ $("span[name=likeHeart]").click(e=>{
  	}else{
  		like='안누름';
  		$(e.target).next().text(count+1);
- 		// 알림 보내는 함수 by 희웅
-		sendNoti();
  	};
  	
  	//하트바꾸기
@@ -70,7 +68,10 @@ $("span[name=likeHeart]").click(e=>{
 			"like":like
 		}
 	}).done(function(fragment){
-		
+		if(like==='안누름'){
+			// 알림 보내는 함수 by 희웅
+			sendNoti();
+		}
 	})
 })
 

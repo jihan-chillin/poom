@@ -25,9 +25,8 @@ function getInterestedChatList(){
         val += '<li class="chatroom"><div></div><div id="nochatroom">관심 채팅방이 없습니다.</div></li>';
       }else{
 
-        for(let i = 0; i<data.list.length; i++){
+        for(let i = 1; i<data.list.length; i++){
           let chatNo = data.list[i][0].CHAT_NO;
-
           // 채팅방 리스트가 있다면
           val +='<li class="chatroom">';
 

@@ -51,11 +51,11 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> feedList(BoardMapper mapper, Map param) {
-		if(param.get("loc").equals("")) {
-			return mapper.feedListAllAll(param);
+	public List<Map<String, Object>> feedList(BoardMapper mapper, String loc, int cPage, int numPerpage) {
+		if(loc.equals("")) {
+			return mapper.feedListAllAll(loc, (cPage-1)*numPerpage+1, (cPage*numPerpage));
 		}else {
-			return mapper.feedListLocAll(param);
+			return mapper.feedListLocAll(loc, (cPage-1)*numPerpage+1, (cPage*numPerpage));
 		}
 	}
 
@@ -177,12 +177,29 @@ public class BoardDaoImpl implements BoardDao {
 	public int TagFromform(BoardMapper mapper, String tagText) {
 		return mapper.TagFromform(tagText);
 	}
-	
+
+	@Override
+	public String getBoardNoFromForm(BoardMapper mapper) {
+		return mapper.getBoardNoFromForm();
+	}
+
+	@Override
+	public List<String> boardTagList(BoardMapper mapper, String boardNo) {
+		return mapper.boardTagList(boardNo);
+	}
+
+	@Override
+	public List<Map<String, String>> selectAllBoardTag(BoardMapper mapper) {
+		return mapper.selectAllBoardTag();
+	}
+
+
+
 	@Override
 	public int commentWrite(BoardMapper mapper, Map<String, String> param) {
 		return mapper.commentWrite(param);
 	}
-	
+
 	@Override
 	public int commentCountUpdate(BoardMapper mapper, int count, String boardNo) {
 		return mapper.commentCountUpdate(count, boardNo);
@@ -192,7 +209,7 @@ public class BoardDaoImpl implements BoardDao {
 	public int commentDelete(BoardMapper mapper, String boardNo, String commentNo) {
 		return mapper.commentDelete(boardNo, commentNo);
 	}
-	
-	
-	
+
+
+
 }

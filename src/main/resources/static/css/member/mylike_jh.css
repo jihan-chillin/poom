@@ -10,24 +10,24 @@ div#mylike-content{
 }
 
 /* 카테고리 바 영역*/
-div#like-bar{
-    border-bottom: 1px solid black;
+div#like-bar {
+    border-bottom: 3px solid grey;
     width: 90%;
     margin: 0 auto;
-}
 
+}
 div#like-bar ul {
     display: flex;
     flex-direction: row;
     margin: 30px;
-}
+    justify-content: center;}
 
 div#like-bar ul li {
     margin: 0 20px;
 }
 
 div#like-bar li:nth-of-type(2) button,
-div#like-bar li:nth-of-type(3) button{
+div#like-bar li:nth-of-type(1) button{
     width: 150px;
     height: 40px;
     border-radius: 30px;
@@ -38,7 +38,7 @@ div#like-bar li:nth-of-type(3) button{
     cursor: pointer;
 }
 
-div#like-bar li:nth-of-type(4) button{
+div#like-bar li:nth-of-type(3) button{
     width: 150px;
     height: 40px;
     border-radius: 30px;
@@ -52,7 +52,7 @@ div#like-bar li:nth-of-type(4) button{
 }
 
 div#like-bar li:nth-of-type(2) button:hover,
-div#like-bar li:nth-of-type(3) button:hover{
+div#like-bar li:nth-of-type(1) button:hover{
     border: 1px solid lightgray;
     background-color: lightgray;
     color: white;

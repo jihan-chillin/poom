@@ -5,7 +5,7 @@ function fn_message_move(mType) {
             url: getContextPath()+"/message/receive",
             data: {"mType": mType},
             type: 'POST',
-        }).done(function (fragment) {
+        }).done(function(fragment) {
             $("#target").html(fragment);
         });
     }else if(mType=='send'){
@@ -28,27 +28,28 @@ function fn_message_move(mType) {
     }
 }
 
-function showMsgDtl(msgNo) {
-    alert("js para1");
-    window.open(getContextPath() + "/message/content?msgNo=" + msgNo, "content", "width=400,height=300");
-
-}
+// function showMsgDtl(msgNo) {
+//     window.open(getContextPath() + "/message/content?msgNo=" + msgNo, "content", "width=400,height=300");
+//
+// }
 
 //메세지 안읽음에 따른 발송취소
-function cancelMsg(msgNo) {
-    //alert("msgNo" + msgNo);
-    if (confirm("발송취소하시겠습니까? 취소하시면 메세지가 삭제됩니다.")) {
-        $.ajax({
-            url: getContextPath()+"/message/cancelMsg",
-            data: {"msgNo": msgNo},
-            type: 'POST',
-        }).done(function () {
-            alert("취소되었습니다.");
-            fn_message_move('send');
-            //$("#target").html(fragment);
-        });
+$(".cancelMsg").click(e=>{
+    if($(e.target).text()=='발송취소'){
+        var msgNo=$(e.target).attr("title");
+        if (confirm("발송취소하시겠습니까? 취소하시면 메세지가 삭제됩니다.")) {
+            $.ajax({
+                url: getContextPath()+"/message/cancelMsg",
+                data: {"msgNo": msgNo},
+                type: 'POST',
+            }).done(function () {
+                alert("취소되었습니다.");
+                fn_message_move('send');
+            });
+        }
     }
-}
+})
+
 
 function fn_move_Block() {
     if (confirm("휴지통으로 이동시키겠습니까?")) {
@@ -92,7 +93,7 @@ function showPopup() {
 }
 
 
-//답장하기도 동일하게 넘기기
+//보낸쪽지 팝업
 function showMsgPop(member) {
     let rcvNm = $(member).children('.find-name').html();
     let rcvId = $(member).children('.find-id').html();
@@ -101,6 +102,7 @@ function showMsgPop(member) {
 
 }
 
+//받은쪽지 팝업
 function showReplyPop(rId){
     let id = rId.html();
     window.open("./popup?rcvNm=" + id + "&rcvId=" + id, "", "width=400,height=300");
@@ -109,7 +111,6 @@ function showReplyPop(rId){
 
 
 function showMsgDtl(e, msgNo) {
-    alert("js para2");
     window.open(getContextPath()+"/message/content?msgNo=" + msgNo,"content","width=400,height=300");
 
 }
@@ -124,12 +125,15 @@ function tableFilter(e) {
 $('.messages').click(function(e) {
     var msgNo = $(e.currentTarget).children('.msgNo').html();
     var tClassNm = e.target.className.toString();
+    var cancle = $(e.currentTarget).children('.cancelMsg').text();
 
-    if(tClassNm == 'targetChk' || tClassNm == 'checkbox2 m-0') {
+    if(tClassNm == 'targetChk' || tClassNm == 'checkbox2 m-0' || cancle == '발송취소' ) {
         return;
     } else
         window.open(getContextPath() + "/message/content?msgNo=" + msgNo, "content", "width=400,height=300");
 });
+
+
 $('.rMessages').click(function(e) {
     var msgNo = $(e.currentTarget).children('.msgNo').html();
     var tClassNm = e.target.className.toString();
