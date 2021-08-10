@@ -90,5 +90,7 @@ public interface BoardService {
 	int commentDelete(String boardNo, String commentNo);
 
 
-    List<Map<String, Object>> searchBoardList(String condition);
+    List<Map<String, Object>> searchBoardList(Pagination pagination, Object condition);
+
+	int searchBoardCount(Object condition);
 }

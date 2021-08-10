@@ -87,5 +87,7 @@ public interface BoardDao {
 
 	int commentDelete(BoardMapper mapper, String boardNo, String commentNo);
 
-	List<Map<String,Object>> searchBoardList(BoardMapper mapper, String condition);
+	List<Map<String,Object>> searchBoardList(BoardMapper mapper, Pagination pagination, Object condition);
+
+	int searchBoardCount(BoardMapper mapper, Object condition);
 }

@@ -221,9 +221,15 @@ public class BoardServiceImpl implements BoardService {
 
 	//검색기능
 	@Override
-	public List<Map<String, Object>> searchBoardList(String condition) {
-		return dao.searchBoardList(mapper,condition);
+	public List<Map<String, Object>> searchBoardList(Pagination pagination, Object condition) {
+		System.out.println("*********************************\n" + pagination + "\n" + condition);
+		return dao.searchBoardList(mapper, pagination, condition);
 
+	}
+
+	@Override
+	public int searchBoardCount(Object condition) {
+		return dao.searchBoardCount(mapper,condition);
 	}
 
 
