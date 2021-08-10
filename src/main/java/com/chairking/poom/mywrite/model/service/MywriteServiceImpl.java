@@ -35,9 +35,9 @@ public class MywriteServiceImpl implements MywriteService{
     }
 
     @Override
-    public List<Map<String, Object>> MyCommentList(int cPage, int numPerpage) {
+    public List<Map<String, Object>> MyCommentList(Pagination pagination, Object memberId) {
 
-        return dao.MyCommentList(mapper, cPage, numPerpage);
+        return dao.MyCommentList(mapper,pagination, memberId);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class MywriteServiceImpl implements MywriteService{
     }
 
     @Override
-    public List<Map<String, Object>> MyLikeList(int cPage, int numPerpage, Object memberId) {
-        return dao.myLikeList(mapper, cPage, numPerpage, memberId);
+    public List<Map<String, Object>> MyLikeList(Pagination pagination, Object memberId) {
+        return dao.myLikeList(mapper, pagination, memberId);
     }
 }

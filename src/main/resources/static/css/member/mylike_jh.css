@@ -13,6 +13,7 @@ div#mylike-content{
 div#like-bar {
     width: 90%;
     margin: 0 auto;
+    border-bottom: 1px solid darkgray;
 
 }
 div#like-bar ul {
@@ -69,9 +70,8 @@ div#like-list table{
     margin: 10px auto 20px auto;
     text-align: center;
     border-spacing: 25px;
-    background-color: white;
-    border-radius: 20px;
     width: 950px;
+    border-bottom: solid 1px darkgrey;
 }
 
 div#like-list thead{
@@ -81,5 +81,27 @@ div#like-list thead{
 td.moveToView:hover{
     font-weight: bolder;
     color: #ff6d00;
+}
+
+.like-tr td:nth-of-type(2){
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#page-div{
+    display: flex;
+    justify-content: center;
+    height: 45px;
+}
+
+#page-div div{
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    color: darkgray;
+    border-radius: 5px;
+    margin: 0 3px;
 }
 

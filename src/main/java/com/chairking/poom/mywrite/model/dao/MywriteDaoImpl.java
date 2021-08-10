@@ -27,8 +27,8 @@ public class MywriteDaoImpl implements MywriteDao{
     }
 
     @Override
-    public List<Map<String, Object>> MyCommentList(MywriteMapper mapper, int cPage, int numPerpage) {
-        return mapper.MyCommentList(cPage, numPerpage);
+    public List<Map<String, Object>> MyCommentList(MywriteMapper mapper, Pagination pagination, Object memberId) {
+        return mapper.MyCommentList(pagination, memberId);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class MywriteDaoImpl implements MywriteDao{
     }
 
     @Override
-    public List<Map<String, Object>> myLikeList(MywriteMapper mapper, int cPage, int numPerpage, Object memberId) {
-        return mapper.MyLikeList(cPage, numPerpage, memberId);
+    public List<Map<String, Object>> myLikeList(MywriteMapper mapper, Pagination pagination, Object memberId) {
+        return mapper.MyLikeList(pagination, memberId);
     }
 }
