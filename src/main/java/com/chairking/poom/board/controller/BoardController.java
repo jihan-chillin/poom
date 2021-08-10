@@ -240,7 +240,7 @@ public class BoardController {
 
 	//모든 게시글 리스트 가져오는 서비스
 	@GetMapping("/board/all")
-	public ModelAndView selectAllBoard(ModelAndView mv, HttpServletRequest req,
+	public ModelAndView selectAllBoard(ModelAndView mv, HttpServletRequest req, @RequestParam (value="bCondition", defaultValue = "") String bCondition,
 									   @RequestParam(value="cPage", defaultValue = "1") int cPage,
 									   @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
 									   @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
@@ -252,9 +252,24 @@ public class BoardController {
 		// 전체 게시글 개수
 		int totalData = service.allBoardCount(memberloc);
 		// 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
-		pagination.setTotalRecordCount(totalData);
-		// 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
-		List<Map<String, Object>> list = service.allBoard(pagination, memberloc);
+		List<Map<String, Object>> list;
+		Object condition = "WHERE 1=1";
+		if (!bCondition.equals("")) {
+
+
+			condition += (" AND (member_id like '%" + bCondition + "'");
+			condition += (" OR board_title like '%" + bCondition + "%'");
+			condition += (" OR board_content like '%" + bCondition + "%')");
+			totalData = service.searchBoardCount(condition);
+			pagination.setTotalRecordCount(totalData);
+			list = service.searchBoardList(pagination, condition);
+		} else {
+			totalData = service.allBoardCount(memberloc);
+			pagination.setTotalRecordCount(totalData);
+			// 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
+			list = service.allBoard(pagination, memberloc);
+		}
+
 		//------------------------------------------------------------------------------------------
 
 		// 좋아요 가져오기
@@ -265,6 +280,7 @@ public class BoardController {
 		List<Map<String,String>> tagList=service.selectAllBoardTag();
 		System.out.println("전체글보드리스트"+list);
 		System.out.println("페이지"+pagination);
+		mv.addObject("bCondition", bCondition);
 		mv.addObject("list", list);
 		mv.addObject("likeTable", likeTable);
 		mv.addObject("notices", notices);
@@ -312,22 +328,6 @@ public class BoardController {
 		mv.addObject("notices", notices);
 		mv.addObject("pagination", pagination);
 		mv.setViewName("/board/board_cate_list");
-		return mv;
-	}
-
-	//검색 기능 연결
-	@RequestMapping("/bSearch")
-	public ModelAndView searchBoardList(@RequestParam String bCondition, ModelAndView mv){
-		String condition = "WHERE 1=1";
-
-		if(bCondition != null || bCondition.equals("")){
-			condition += (" AND (member_id like '%" + bCondition + "%'");
-			condition += (" OR board_title like '%" + bCondition + "%'");
-			condition += (" OR board_content like '%" + bCondition + "%'");
-		}
-
-		List<Map<String,Object>> list = service.searchBoardList(condition);
-		mv.setViewName("/board/board_alllist");
 		return mv;
 	}
 
