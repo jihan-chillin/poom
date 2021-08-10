@@ -29,7 +29,7 @@ public interface NotiMapper {
     @Select("select * from ( select * from notification where member_id=#{loginId} order by to_number(NOT_NO) desc) where ROWNUM between 1 and 10")
     public  List<Map<String,String>> getMyNotiData(String loginId);
 
-    @Select("select b.BOARD_NO,b.BOARD_TITLE from board b where b.DEL_STATUS='0' and b.BOARD_NO=#{boardNo}")
+    @Select("select b.BOARD_TITLE,b.BOARD_NO from board b where b.DEL_STATUS='0' and b.BOARD_NO=#{boardNo}")
     public Map<String,String> getBoardTitleFromBoardNo(String boardNo);
 
     @Select("select * from ( select B.BOARD_TITLE, B.board_no from COMMENTS c join BOARD B on B.BOARD_NO = c.BOARD_NO where b.BOARD_NO = #{boardNo} ) where ROWNUM = 1")

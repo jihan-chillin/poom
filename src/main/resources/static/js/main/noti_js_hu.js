@@ -66,6 +66,8 @@ function getNotificationData(){
   $.ajax({
     url:getContextPath()+'/noti/my/data',
     success:data=>{
+
+      console.log(data);
       /*
         notiData = 알림 데이터
         notiData[i].NOT_NO => 알림번호
