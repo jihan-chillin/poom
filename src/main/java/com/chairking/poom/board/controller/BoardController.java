@@ -185,7 +185,8 @@ public class BoardController {
         System.out.println("전체글보드리스트"+list);
       //태그 가져오기
   		List<Map<String,String>> tagList=service.selectAllBoardTag();
-  		System.out.println("태그리스트"+tagList);
+  		System.out.println("전체글보드리스트"+list);
+		System.out.println("페이지"+pagination);
   		mv.addObject("tagList", tagList);
         mv.addObject("list", list);
         mv.addObject("likeTable", likeTable);
@@ -225,7 +226,8 @@ public class BoardController {
         List<Map<String, Object>> notices = service.selectAllCateNotice(cate);
       //태그 가져오기
   		List<Map<String,String>> tagList=service.selectAllBoardTag();
-  		System.out.println("태그리스트"+tagList);
+  		System.out.println("전체글보드리스트"+list);
+		System.out.println("페이지"+pagination);
   		mv.addObject("tagList", tagList);
         mv.addObject("cate", cate);
         mv.addObject("cName", cName);
@@ -262,15 +264,15 @@ public class BoardController {
 		List<Map<String,Object>> notices=service.selectAllBoardNotice();
 		//태그 가져오기
 		List<Map<String,String>> tagList=service.selectAllBoardTag();
-		System.out.println("태그리스트"+tagList);
 		System.out.println("전체글보드리스트"+list);
+		System.out.println("페이지"+pagination);
 		mv.addObject("list", list);
 		mv.addObject("likeTable", likeTable);
 		mv.addObject("notices", notices);
 		mv.addObject("pagination", pagination);
 		mv.addObject("cate","all");
 		mv.addObject("tagList", tagList);
-		mv.setViewName("/board/board_alllist");
+		mv.setViewName("board/board_alllist");
 		return mv;
 	}
 
