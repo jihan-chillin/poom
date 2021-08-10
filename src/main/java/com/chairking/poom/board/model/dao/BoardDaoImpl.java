@@ -210,6 +210,10 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.commentDelete(boardNo, commentNo);
 	}
 
+	@Override
+	public List<Map<String, Object>> searchBoardList(BoardMapper mapper, String condition) {
+		return mapper.searchBoardList(condition);
+	}
 
 
 }

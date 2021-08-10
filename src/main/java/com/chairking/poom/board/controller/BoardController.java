@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.chairking.poom.noti.controller.NotiController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -313,6 +314,22 @@ public class BoardController {
 		mv.addObject("notices", notices);
 		mv.addObject("pagination", pagination);
 		mv.setViewName("/board/board_cate_list");
+		return mv;
+	}
+
+	//검색 기능 연결
+	@RequestMapping("bSearch")
+	public ModelAndView searchBoardList(@RequestParam String bCondition, ModelAndView mv){
+		String condition = "WHERE 1=1";
+
+		if(bCondition != null || bCondition.equals("")){
+			condition += (" AND (member_id like '%" + bCondition + "%'");
+			condition += (" OR board_title like '%" + bCondition + "%'");
+			condition += (" OR board_content like '%" + bCondition + "%'");
+		}
+
+		List<Map<String,Object>> list = service.searchBoardList(condition);
+		mv.setViewName("board/board_alllist");
 		return mv;
 	}
 

@@ -115,7 +115,7 @@ function getNotificationData(){
             val += '<div class="noti-detail">';
               val += '<span>댓글 알림</span>';
               val += '<span onclick="deleteNotify('+data.getBoardTitleFromCommentNo[i].BOARD_NO+',1)">X</span>';
-              val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',1); moveToView('+data.getBoardTitleFromCommentNo[i].BOARD_NO+');">';
+              val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',1); moveToView(\''+data.getBoardTitleFromCommentNo[i].BOARD_NO+'\');">';
                 val += '\''+data.getBoardTitleFromCommentNo[i].BOARD_TITLE+'\'에<br> 댓글이 달렸습니다.';
 
 

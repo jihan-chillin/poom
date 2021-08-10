@@ -173,5 +173,10 @@ public interface BoardMapper {
 	//전체글 리스트에 해시태그 넣기
 	@Select("SELECT BOARD_NO, TAG_NAME FROM BOARDTAG")
 	List<Map<String,String>> selectAllBoardTag();
+
+
+	//게시물 검색
+	@Select("SELECT * FROM BOARD ${codition}")
+	List<Map<String,Object>> searchBoardList(String codition);
 }
 
