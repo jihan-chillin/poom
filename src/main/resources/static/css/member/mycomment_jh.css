@@ -11,7 +11,6 @@ div#mycomment-content{
 
 /* 카테고리 바 영역*/
 div#comment-bar{
-    border-bottom: 3px solid grey;
     width: 90%;
     margin: 0 auto;
 }
@@ -69,11 +68,18 @@ div#comment-bar img{
 /*댓글 리스트 나오는 부분*/
 div#comment-list table{
     margin: 20px auto;
-    width: 800px;
     text-align: center;
     border-spacing: 25px;
+    background-color: white;
+    border-radius: 20px;
+    width: 950px;
 }
 
 div#comment-list thead{
     font-size: 20px;
+}
+
+td.moveToView:hover{
+    font-weight: bolder;
+    color: #ff6d00;
 }

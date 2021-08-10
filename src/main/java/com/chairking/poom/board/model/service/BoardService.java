@@ -90,5 +90,9 @@ public interface BoardService {
 	int commentDelete(String boardNo, String commentNo);
 
 
-    List<Map<String, Object>> searchBoardList(String condition);
+    //게시글 삭제
+    int boardDelete(String no);
+    List<Map<String, Object>> searchBoardList(Pagination pagination, Object condition);
+
+	int searchBoardCount(Object condition);
 }

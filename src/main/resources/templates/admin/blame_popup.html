@@ -111,6 +111,9 @@
 							<input th:case="ch" type="hidden" name="type" th:value="ch">
 						</th:block>
 						<input type="hidden" name="no" th:value="${map.no}">
+						<th:block th:if="${map.type eq 'bc'}">
+						<input type="hidden" name="boardNo" th:value="${map.bNo}">
+						</th:block>
 					</li>
 					<li>
 						<input type="hidden" name="target_mem" th:value="${map.id}"/>
