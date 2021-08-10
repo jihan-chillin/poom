@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -56,9 +57,14 @@ public class MemberController {
 			@RequestParam(value="input_file",required=false) MultipartFile[] inputfile,
 			@RequestParam Map param, HttpServletResponse res, HttpServletRequest req) throws Exception {
     	
-    	String directoryName = System.getProperty("user.dir");
-        String folderPath = directoryName + "\\src\\main\\resources\\static\\images\\profile\\";
+    	//String directoryName = System.getProperty("user.dir");
+        //String folderPath = directoryName + "\\src\\main\\resources\\static\\images\\profile\\";
     	String oriName=inputfile[0].getOriginalFilename();
+    	
+    	String path=req.getServletContext().getRealPath("/resources/profile/");
+    	File dir=new File(path);
+		//폴더가 없다면 생성
+		if(!dir.exists()) dir.mkdirs();
     	
     	if(oriName.equals("")) {
     		oriName="poom_profile.jpg";
@@ -73,13 +79,13 @@ public class MemberController {
 			
 			//리네임으로 파일업로드하기
 			try {
-				inputfile[0].transferTo(new File(folderPath+reName));
+				inputfile[0].transferTo(new File(path+reName));
 			}catch(IOException e) {
 				e.printStackTrace();
 			}
 			
     	}
-
+    			
     	String msg="";
     	String loc="";
 		int result = service.updateProfile(param);
@@ -98,6 +104,7 @@ public class MemberController {
 		}
 
 		mv.addObject("msg",msg);
+		mv.addObject("path",path);
 		mv.addObject("loc",loc);
 		mv.setViewName("common/msg");
 
