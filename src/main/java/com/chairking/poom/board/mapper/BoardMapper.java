@@ -24,7 +24,7 @@ public interface BoardMapper {
 
 	// INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, '되는지 TEST', '그냥 오라클로 작성하는 거임', DEFAULT, 0, SYSDATE, '서울', 0, '1', 'kimjihan77',0)
 	//게시글 등록
-	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, #{board-title}, #{boardContent}, DEFAULT, 0, SYSDATE, #{memberLoc}, 0, #{boardCate}, #{memberId}, 0,0, '20210804_10881_urbanbrush-20190629084930578298.png')")
+	@Insert("INSERT INTO BOARD VALUES(SEQ_BOARDNO.nextval, #{board-title}, #{boardContent}, DEFAULT, 0, SYSDATE, #{memberLoc}, 0, #{boardCate}, #{memberId}, 0,0, '20210804_10881_urbanbrush-20190629084930578298.png', dd)")
 	public int insertBoard(Map param);
 	
 	//게시글 번호 가져오는 쿼리문
@@ -36,7 +36,7 @@ public interface BoardMapper {
 	public int insertBoardImg(BoardImage bi);
 	
 	//모든 게시글 조회
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.*, (SELECT COUNT(*) FROM COMMENTS A WHERE A.BOARD_NO = B.BOARD_NO) AS CNT FROM (SELECT * FROM BOARD WHERE DEL_STATUS=0 ORDER BY BOARD_DATE)B) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.*, (SELECT COUNT(*) FROM COMMENTS A WHERE A.BOARD_NO = B.BOARD_NO) AS CNT FROM BOARD B WHERE DEL_STATUS=0 ORDER BY BOARD_DATE DESC) WHERE RNUM BETWEEN #{cPage} AND #{numPerpage}")
 	public List<Map<String, Object>> selectAllBoard(int cPage, int numPerpage);
 	
 	//게시글 상세 조회
