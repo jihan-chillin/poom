@@ -101,8 +101,6 @@ public interface BoardDao {
 
     int modifyBoard(BoardMapper mapper, Map param, String imgName);
 
-	int modiTagFromModi(BoardMapper mapper, String bNo, String tagText);
-
 	int allLocBoardCount(BoardMapper mapper);
 
 	List<Map<String, Object>> allLocBoard(BoardMapper mapper, Pagination pagination);
