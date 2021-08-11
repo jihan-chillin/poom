@@ -20,7 +20,7 @@ $(function(){
       val +=' </div>';
 
 
-      for(let i =0;i<2; i++){
+      for(let i =0;i<3; i++){
         val +='<div>';
         val +='<span>'+(i+1)+'위</span>';
         val +='<span>'+data[i].MEMBER_NICKNAME+'</span>';
@@ -30,7 +30,7 @@ $(function(){
       }
 
       $('.popup').append(val);
-      $('.popup_profile').attr("style","background-image:url('/21AM_POOM_final/images/poprank/images/profile.png')")
+      $('.popup_profile').attr("style","background-image:url('http://rclass.iptime.org:9999/21AM_POOM_final/resources/profile/"+data[0].MEMBER_IMG+"')")
     }
   });
 });
