@@ -294,7 +294,7 @@ $(function(){
 // 스크롤시 채팅방 리스트 불러옴
   let win = $('.feed');
   win.scroll(function() {
-    let height =$('#room-container').height()-$('.chatroom-info').height()-$('.room-menu').height()-$('#notice-list-title').height()-52;
+    let height =$('#room-container').height()-$('.chatroom-info').height()-$('.room-menu').height()-$('#notice-list-title').height()-55;
     if ( win.scrollTop() >= height) {
       listCount++;
       // getChatroomListData(listCount);
