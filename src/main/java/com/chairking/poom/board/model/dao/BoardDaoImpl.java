@@ -256,4 +256,27 @@ public class BoardDaoImpl implements BoardDao {
 	public int modiTagFromModi(BoardMapper mapper, String bNo, String tagText) {
 		return mapper.modiTagFromModi(bNo, tagText);
 	}
+
+	@Override
+	public int allLocBoardCount(BoardMapper mapper){
+		return mapper.allLocBoardCount();
+	}
+
+	@Override
+	public List<Map<String, Object>> allLocBoard(BoardMapper mapper, Pagination pagination){
+		return mapper.allLocBoard(pagination);
+	}
+
+	@Override
+	public int allcateLocBoardCount(BoardMapper mapper, String cate) {
+		return mapper.allcateLocBoardCount(cate);
+	}
+
+	@Override
+	public List<Map<String, Object>> allCateLocBoard(BoardMapper mapper, Pagination pagination, String cate) {
+		return mapper.allCateLocBoard(pagination, cate);
+	}
+	
+	
+	
 }

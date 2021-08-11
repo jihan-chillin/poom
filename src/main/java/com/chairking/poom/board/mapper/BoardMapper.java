@@ -206,5 +206,21 @@ public interface BoardMapper {
 	// 태그 수정
 	@Update("update boardtag set tag_name =#{tagText} where board_no=#{bNo}")
 	int modiTagFromModi(String bNo, String tagText);
+
+	//모든 지역 게시글 갯수
+	@Select("SELECT COUNT(*) FROM BOARD")
+	int allLocBoardCount();
+
+	//모든 지역 게시글 리스트
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM BOARD WHERE DEL_STATUS=0 ORDER BY BOARD_DATE)B) WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
+	List<Map<String, Object>> allLocBoard(Pagination pagination);
+	
+	//모든지역 / 카테고리별 리스트 갯수
+	@Select("SELECT COUNT(*) FROM BOARD WHERE CATEGORY_NO=#{cate}")
+	int allcateLocBoardCount(String cate);
+	
+	@Select("SELECT * FROM (  SELECT ROWNUM AS RNUM,a.* FROM (SELECT C.CATEGORY_NAME,B.PREVIEW_IMG,B.BOARD_DATE, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT,B.COMMENTS_COUNT AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_CATE=#{cate} ORDER BY B.BOARD_DATE DESC )A) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
+	List<Map<String, Object>> allCateLocBoard(Pagination pagination, String cate);
+	
 }
 
