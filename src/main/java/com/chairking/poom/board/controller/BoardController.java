@@ -331,21 +331,37 @@ public class BoardController {
 	@RequestMapping("/board/loc/all")
 	public ModelAndView allLocList(ModelAndView mv,HttpServletRequest req,
 							@RequestParam(value="loc") String loc,
-							@RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
+								   @RequestParam (value="bCondition", defaultValue = "") String bCondition,
+								   @RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
                            @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
                            @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
 		System.out.println(loc);
         // 페이징처리
         Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
+
         // 전체 게시글 개수(선택 지역에 따라 달라짐)
 		int totalData = loc.equals("전국")?service.allLocBoardCount():service.allBoardCount(loc);
 		
 		System.out.println("totalData"+totalData);
-		
-        // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
-        pagination.setTotalRecordCount(totalData);
-        // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
-        List<Map<String, Object>> list = loc.equals("전국")?service.allLocBoard(pagination):service.allBoard(pagination, loc);
+
+		List<Map<String, Object>> list;
+		Object condition = "WHERE 1=1";
+		if (!bCondition.equals("")) {
+
+
+			condition += (" AND (member_id like '%" + bCondition + "'");
+			condition += (" OR board_title like '%" + bCondition + "%'");
+			condition += (" OR board_content like '%" + bCondition + "%')");
+			totalData = service.searchlocBoardCount(condition);
+			pagination.setTotalRecordCount(totalData);
+			list = service.searchlocBoardList(pagination, condition);
+		} else {
+			totalData = service.allBoardCount(loc);
+			pagination.setTotalRecordCount(totalData);
+			// 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
+			list = loc.equals("전국")?service.allLocBoard(pagination):service.allBoard(pagination, loc);
+
+		}
 
         // 좋아요 가져오기
         String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));

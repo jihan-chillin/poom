@@ -288,7 +288,15 @@ public class BoardServiceImpl implements BoardService {
 		return dao.allCateLocBoard(mapper, pagination, cate);
 	}
 
+	@Override
+	public List<Map<String, Object>> searchlocBoardList(Pagination pagination, Object condition) {
+		return dao.searchlocBoardList(mapper,pagination,condition);
+	}
 
+	@Override
+	public int searchlocBoardCount(Object condition) {
+		return dao.searchlocBoardCount(mapper,condition);
+	}
 
 
 }

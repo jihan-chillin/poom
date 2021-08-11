@@ -211,6 +211,12 @@ public interface BoardMapper {
 	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM BOARD WHERE DEL_STATUS=0 ORDER BY BOARD_DATE)B) WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
 	List<Map<String, Object>> allLocBoard(Pagination pagination);
 
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM BOARD B ${condition}) WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
+	List<Map<String,Object>> searchlocBoardList(Pagination pagination, Object condition);
+
+	@Select("SELECT COUNT (*) FROM (SELECT ROWNUM AS RNUM, B.* FROM BOARD B ${condition}) WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
+	int searchlocBoardCount(Object condition);
+
 	//모든지역 / 카테고리별 리스트 갯수
 	@Select("SELECT COUNT(*) FROM BOARD WHERE CATEGORY_NO=#{cate}")
 	int allcateLocBoardCount(String cate);

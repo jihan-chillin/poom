@@ -107,4 +107,8 @@ public interface BoardService {
 	int allcateLocBoardCount(String cate);
 
 	List<Map<String, Object>> allCateLocBoard(Pagination pagination, String cate);
+
+	List<Map<String, Object>> searchlocBoardList(Pagination pagination, Object condition);
+
+	int searchlocBoardCount(Object condition);
 }

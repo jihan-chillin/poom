@@ -270,6 +270,15 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.allCateLocBoard(pagination, cate);
 	}
 
+	@Override
+	public List<Map<String, Object>> searchlocBoardList(BoardMapper mapper, Pagination pagination,Object condition) {
+		return mapper.searchlocBoardList(pagination, condition);
+	}
+
+	@Override
+	public int searchlocBoardCount(BoardMapper mapper, Object condition) {
+		return mapper.searchlocBoardCount(condition);
+	}
 
 
 }

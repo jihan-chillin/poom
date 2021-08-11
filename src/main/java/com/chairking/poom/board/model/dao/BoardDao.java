@@ -108,4 +108,8 @@ public interface BoardDao {
 	int allcateLocBoardCount(BoardMapper mapper, String cate);
 
 	List<Map<String, Object>> allCateLocBoard(BoardMapper mapper, Pagination pagination, String cate);
+
+	List<Map<String, Object>> searchlocBoardList(BoardMapper mapper, Pagination pagination,Object condition);
+
+	int searchlocBoardCount(BoardMapper mapper, Object condition);
 }
