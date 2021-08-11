@@ -14,7 +14,7 @@ public interface MywriteMapper {
     @Select("SELECT COUNT(*) FROM BOARD WHERE DEL_STATUS = 0")
     int countMyWrite();
 
-    @Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM (SELECT B.BOARD_NO, B.BOARD_TITLE, B.COMMENTS_COUNT, B.BOARD_CONTENT, B.BOARD_DATE, C.CATEGORY_NAME FROM BOARD B JOIN CATEGORY C ON (C.CATEGORY_NO = B.BOARD_CATE) WHERE MEMBER_ID = #{memberId} order by b.board_date desc)A) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
+    @Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM (SELECT B.BOARD_NO, B.BOARD_TITLE, B.COMMENTS_COUNT, B.BOARD_CONTENT, B.BOARD_DATE, C.CATEGORY_NAME FROM BOARD B JOIN CATEGORY C ON (C.CATEGORY_NO = B.BOARD_CATE) WHERE MEMBER_ID = #{memberId} AND DEL_STATUS = 0 order by b.board_date desc)A) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
     List<Map<String, Object>> MywriteList(Pagination pagination,Object memberId);
 
     @Select("SELECT COUNT(*) FROM COMMENTS WHERE DEL_STATUS = 0")
