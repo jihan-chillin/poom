@@ -193,9 +193,6 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.selectAllBoardTag();
 	}
 	
-	
-
-
 
 	@Override
 	public int commentWrite(BoardMapper mapper, Map<String, String> param) {
