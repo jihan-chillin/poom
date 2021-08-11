@@ -249,10 +249,6 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.modifyBoard(param, imgName);
 	}
 
-	@Override
-	public int modiTagFromModi(BoardMapper mapper, String bNo, String tagText) {
-		return mapper.modiTagFromModi(bNo, tagText);
-	}
 
 	@Override
 	public int allLocBoardCount(BoardMapper mapper){
@@ -273,7 +269,7 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Map<String, Object>> allCateLocBoard(BoardMapper mapper, Pagination pagination, String cate) {
 		return mapper.allCateLocBoard(pagination, cate);
 	}
-	
-	
-	
+
+
+
 }

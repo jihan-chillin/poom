@@ -100,13 +100,11 @@ public interface BoardService {
 
 	int modifyBoard(Map param, String imgName);
 
-    int modiTagFromModi(String bNo, String tagText);
-
 	int allLocBoardCount();
 
 	List<Map<String, Object>> allLocBoard(Pagination pagination);
-	
+
 	int allcateLocBoardCount(String cate);
-	
+
 	List<Map<String, Object>> allCateLocBoard(Pagination pagination, String cate);
 }

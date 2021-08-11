@@ -58,19 +58,19 @@
                         </td>
 
                     </tr>
+<!--                    <tr>-->
+<!--                        <th colspan="2">-->
+<!--                            <img th:src="@{/images/ui/tooltip.png}" alt="tooltip" class="tooltip">-->
+<!--                            <button type="button" th:bNo = "${board.BOARD_NO}" class="create-tag" onmouseover="appearTag();" onmouseout="disappearTag();"  th:onclick="|InputTag(this.getAttribute('bNo'))|" ><i style="margin-right: 5px;" class="gg-add"></i>태그추가</button>-->
+
+<!--                        </th>-->
+
+<!--                    </tr>-->
+
+
                     <tr>
-                        <th colspan="2">
-                            <img th:src="@{/images/ui/tooltip.png}" alt="tooltip" class="tooltip">
-                            <button type="button" th:bNo = "${board.BOARD_NO}" class="create-tag" onmouseover="appearTag();" onmouseout="disappearTag();"  th:onclick="|InputTag(this.getAttribute('bNo'))|" ><i style="margin-right: 5px;" class="gg-add"></i>태그추가</button>
 
-                        </th>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td colspan="2" >
+                        <td colspan="2"  style="padding-top: 30px">
                             <!--									// addTag(getTagSpan());-->
                             <button type="button" id="ckeditor-btn" class="blue-btn submitposition" onclick="boardWriteFromForm(); addTag(getTagSpan());">등록</button>
                             <!--									<input type="submit" id ="ckeditor-btn" class="blue-btn submitposition" value="등록">-->

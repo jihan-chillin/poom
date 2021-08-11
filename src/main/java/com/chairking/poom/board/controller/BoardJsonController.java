@@ -326,25 +326,4 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
         return mv;
     }
 
-    // 게시글 수정시 해시태그 추가
-    @GetMapping("/board/modiTag")
-    public void modiTagFromModi(@RequestParam(value = "tagText") String tagText,
-                                @RequestParam(value = "bNo") String bNo){
-
-        System.out.println("택텍스트 들어오는지"+tagText);
-        System.out.println("보드넘버 어떻게 들어오는지 : " + bNo);
-
-//      boardTag 수정
-        int result = service.modiTagFromModi(bNo , tagText);
-
-        try{
-            int result2 = service.TagFromform(tagText);
-        }catch (Exception e){}
-
-    }
-
-
-
-
-
 }

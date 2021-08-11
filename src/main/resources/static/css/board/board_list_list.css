@@ -168,6 +168,11 @@ div.bList ul>li:last-child {
 span[name=likeHeart]{
 	cursor:pointer;
 }
+
+.search-btn{
+	height: 25px;
+	width: 80px;
+}
 #searchBox{
 	text-align: center;
 	padding-left: 70px;
@@ -182,9 +187,11 @@ span[name=likeHeart]{
 }
 
 #searchBox input:last-of-type{
-	width: 50px;
+	width: 300px;
 	height: 25px;
 }
+
+
 
 .tag-list span{
 	margin-right: 3px;
@@ -255,5 +262,9 @@ div#tagBorderBox{
 	flex-basis: 64%;
 }
 
+.search-input{
+	width: 300px;
+	height: 24px;
+}
 
 
