@@ -13,6 +13,7 @@ div#mycomment-content{
 div#comment-bar{
     width: 90%;
     margin: 0 auto;
+    border-bottom: 1px solid darkgray;
 }
 
 div#comment-bar ul {
@@ -69,10 +70,10 @@ div#comment-bar img{
 div#comment-list table{
     margin: 10px auto 20px auto;
     text-align: center;
+    width: 930px;
     border-spacing: 25px;
-    background-color: white;
-    border-radius: 20px;
-    width: 950px;
+    border-bottom: 1px solid darkgray;
+    padding-bottom: 10px;
 }
 
 div#comment-list thead{
@@ -82,4 +83,8 @@ div#comment-list thead{
 td.moveToView:hover{
     font-weight: bolder;
     color: #ff6d00;
+}
+
+.comment-tr td:nth-of-type(2){
+    font-weight: bolder;
 }

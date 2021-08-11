@@ -77,7 +77,7 @@ function comment_write(){
 function delete_comment(target){
 	//console.log("test");
 	//console.log($(target));
-	var commentNo=$(target).parent().parent().find("span.commentNo").text();
+	var commentNo=$(target).parent().parent().parent().find("span.commentNo").text();
 	$.ajax({
 		url:getContextPath()+"/comment/delete",
 		data:{
