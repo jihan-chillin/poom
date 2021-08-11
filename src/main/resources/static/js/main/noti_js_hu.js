@@ -66,8 +66,6 @@ function getNotificationData(){
   $.ajax({
     url:getContextPath()+'/noti/my/data',
     success:data=>{
-
-      console.log(data);
       /*
         notiData = 알림 데이터
         notiData[i].NOT_NO => 알림번호
@@ -149,6 +147,7 @@ function getNotificationData(){
 
 
           if(data.notiData[i].NOT_CHECK ==='0'){
+            $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_receive.png) no-repeat center; background-size: contain;");
             $('.noti-info-alarm').append(val2);
           }else{
             $('.alarm-count').remove();
@@ -192,6 +191,8 @@ function getMessageDataToNotify(){
       }
 
       for(let i =0; i<data.getMsgContentFromMsgNo.length; i++){
+        $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_receive.png) no-repeat center; background-size: contain;");
+
         // 읽은 메세지라면
         if(data.notiData[i].NOT_CHECK === '1'){
           val += '<div class="noti-content-box" style="color: #b7b7b7;">';
@@ -218,6 +219,7 @@ function getMessageDataToNotify(){
         val += '</div>';
 
         if(data.notiData[i].NOT_CHECK ==='0'){
+          $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_receive.png) no-repeat center; background-size: contain;");
           $('.noti-info-alarm').append(val2);
         }else{
           $('.alarm-count').remove();
