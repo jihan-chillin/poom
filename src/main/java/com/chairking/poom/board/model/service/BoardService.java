@@ -99,4 +99,12 @@ public interface BoardService {
 	int searchBoardCount(Object condition);
 
 	int modifyBoard(Map param, String imgName);
+
+	int allLocBoardCount();
+
+	List<Map<String, Object>> allLocBoard(Pagination pagination);
+
+	int allcateLocBoardCount(String cate);
+
+	List<Map<String, Object>> allCateLocBoard(Pagination pagination, String cate);
 }

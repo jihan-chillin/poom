@@ -268,4 +268,27 @@ public class BoardServiceImpl implements BoardService {
 		return dao.modifyBoard(mapper, param, imgName);
 	}
 
+	@Override
+	public int allLocBoardCount(){
+		return dao.allLocBoardCount(mapper);
+	}
+
+	@Override
+	public List<Map<String, Object>> allLocBoard(Pagination pagination){
+		return dao.allLocBoard(mapper, pagination);
+	}
+
+	@Override
+	public int allcateLocBoardCount(String cate) {
+		return dao.allcateLocBoardCount(mapper, cate);
+	}
+
+	@Override
+	public List<Map<String, Object>> allCateLocBoard(Pagination pagination, String cate) {
+		return dao.allCateLocBoard(mapper, pagination, cate);
+	}
+
+
+
+
 }

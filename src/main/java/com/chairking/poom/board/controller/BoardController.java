@@ -313,23 +313,25 @@ public class BoardController {
 	}
 	
 	//이용권 구매시 모든 지역 보여주기
-	//모든 지역, 모든 카테고리의 게시글 리스트
-	@RequestMapping("/board/loc/allAjax")
-	public ModelAndView allLocListAjax(ModelAndView mv,HttpServletRequest req,
+	//특정 지역의 게시글 보여주기
+	@RequestMapping("/board/loc/all")
+	public ModelAndView allLocList(ModelAndView mv,HttpServletRequest req,
+							@RequestParam(value="loc") String loc,
 							@RequestParam(value="cPage", required = false, defaultValue = "1") int cPage,
                            @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
                            @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize) {
-		
-		//멤버 지역 가져오기
-        Object memberloc = ((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_LOC");
+		System.out.println(loc);
         // 페이징처리
         Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
-        // 전체 게시글 개수
-        int totalData = service.allBoardCount(memberloc);
+        // 전체 게시글 개수(선택 지역에 따라 달라짐)
+		int totalData = loc.equals("전국")?service.allLocBoardCount():service.allBoardCount(loc);
+		
+		System.out.println("totalData"+totalData);
+		
         // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
         pagination.setTotalRecordCount(totalData);
         // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
-        List<Map<String, Object>> list = service.allBoard(pagination, memberloc);
+        List<Map<String, Object>> list = loc.equals("전국")?service.allLocBoard(pagination):service.allBoard(pagination, loc);
 
         // 좋아요 가져오기
         String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
@@ -339,114 +341,40 @@ public class BoardController {
         System.out.println("전체글보드리스트"+list);
       //태그 가져오기
   		List<Map<String,String>> tagList=service.selectAllBoardTag();
-  		System.out.println("태그리스트"+tagList);
-  		mv.addObject("tagList", tagList);
-        mv.addObject("list", list);
-        mv.addObject("likeTable", likeTable);
-        mv.addObject("notices", notices);
-        mv.addObject("pagination", pagination);
-        mv.setViewName("/board/board_allist_ajax");
-		return mv;
-	}
-	
-	//카테고리별 ajax 처리
-	@GetMapping("board/loc/cateAjax")
-    public ModelAndView cateLocListAjax(ModelAndView mv, HttpServletRequest req,
-                                        @RequestParam(value = "cate") String cate,
-                                        @RequestParam(value="cPage", defaultValue = "1") int cPage,
-                                        @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
-                                        @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
-
-        //멤버 지역 가져오기
-        Object memberloc = ((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_LOC");
-
-       System.out.println("파라미터 카테고리 : " + cate + "/ cate의 형 " + cate.getClass().getName()) ;
-        // 페이징처리
-        Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
-        // 전체 게시글 개수
-        int totalData = service.allcateBoardCount(cate, memberloc);
-        // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
-        pagination.setTotalRecordCount(totalData);
-        // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
-        List<Map<String, Object>> list = service.allCateBoard(pagination, cate, memberloc);
-        // 좋아요 가져오기
-        String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
-        // 카테고리 이름 가져오기
-        Map<String, Object> cateName = service.selectCateName(cate);
-        Object cName = cateName.get("CATEGORY_NAME");
-
-        // 공지사항 가져와보기
-        List<Map<String, Object>> notices = service.selectAllCateNotice(cate);
-      //태그 가져오기
-  		List<Map<String,String>> tagList=service.selectAllBoardTag();
-  		System.out.println("태그리스트"+tagList);
-  		mv.addObject("tagList", tagList);
-        mv.addObject("cate", cate);
-        mv.addObject("cName", cName);
-        mv.addObject("list", list);
-        mv.addObject("notices", notices);
-        mv.addObject("pagination", pagination);
-        mv.addObject("likeTable", likeTable);
-        mv.setViewName("/board/board_cate_ajax");
-        return mv;
-    }
-
-	//모든 게시글 리스트 가져오는 서비스
-	@GetMapping("/board/loc/all")
-	public ModelAndView selectAllLocBoard(ModelAndView mv, HttpServletRequest req,
-									   @RequestParam(value="cPage", defaultValue = "1") int cPage,
-									   @RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
-									   @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
-
-		//멤버 지역 가져오기
-		Object memberloc = ((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_LOC");
-		// 페이징처리
-		Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
-		// 전체 게시글 개수
-		int totalData = service.allBoardCount(memberloc);
-		// 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
-		pagination.setTotalRecordCount(totalData);
-		// 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
-		List<Map<String, Object>> list = service.allBoard(pagination, memberloc);
-		//------------------------------------------------------------------------------------------
-
-		// 좋아요 가져오기
-		String[] likeTable = service.likeTable((String)((Map)req.getSession().getAttribute("loginMember")).get("MEMBER_ID"));
-		// 공지사항 가져오기
-		List<Map<String,Object>> notices=service.selectAllBoardNotice();
-		//태그 가져오기
-		List<Map<String,String>> tagList=service.selectAllBoardTag();
-		System.out.println("태그리스트"+tagList);
+  		
 		System.out.println("전체글보드리스트"+list);
+		System.out.println("페이지"+pagination);
+		
 		mv.addObject("list", list);
 		mv.addObject("likeTable", likeTable);
 		mv.addObject("notices", notices);
 		mv.addObject("pagination", pagination);
 		mv.addObject("cate","all");
 		mv.addObject("tagList", tagList);
-		mv.setViewName("/board/board_alllist");
+		mv.addObject("selectedLoc", loc);
+		mv.setViewName("board/board_alllist");
 		return mv;
 	}
-
-	@GetMapping("board/loc/cateList")
-	public ModelAndView selectCateLocBoard(ModelAndView mv, HttpServletRequest req,
-										@RequestParam(value = "cate") String cate,
-										@RequestParam(value="cPage", defaultValue = "1") int cPage,
-										@RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
-										@RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
-
-		//멤버 지역 가져오기
-		Object memberloc = ((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_LOC");
+	
+	//이용권 구매자 카테고리별 게시글 조회
+	@RequestMapping("/board/loc/cate")
+	public ModelAndView allLocCate(ModelAndView mv, HttpServletRequest req,
+		@RequestParam(value = "loc") Object loc,
+		@RequestParam(value = "cate") String cate,
+		@RequestParam(value="cPage", defaultValue = "1") int cPage,
+		@RequestParam(value = "numPerpage", required = false, defaultValue = "5") int numPerpage,
+		@RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize){
 
 		System.out.println("파라미터 카테고리 : " + cate + "/ cate의 형 " + cate.getClass().getName()) ;
 		// 페이징처리
 		Pagination pagination = new Pagination(cPage, numPerpage, pageSize);
 		// 전체 게시글 개수
-		int totalData = service.allcateBoardCount(cate, memberloc);
+		int totalData = loc.equals("전국")?service.allcateLocBoardCount(cate):service.allcateBoardCount(cate, loc);
+//		int totalData = service.allcateBoardCount(cate, memberloc);
 		// 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
 		pagination.setTotalRecordCount(totalData);
 		// 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
-		List<Map<String, Object>> list = service.allCateBoard(pagination, cate, memberloc);
+		List<Map<String, Object>> list = loc.equals("전국")?service.allCateLocBoard(pagination, cate):service.allCateBoard(pagination, cate, loc);
 
 		// 카테고리 이름 가져오기
 		Map<String, Object> cateName = service.selectCateName(cate);
@@ -457,21 +385,18 @@ public class BoardController {
 		List<Map<String, Object>> notices = service.selectAllCateNotice(cate);
 		//태그 가져오기
 		List<Map<String,String>> tagList=service.selectAllBoardTag();
-		System.out.println("태그리스트"+tagList);
 		mv.addObject("tagList", tagList);
-		System.out.println("카테고리notice"+notices);
 		mv.addObject("cate", cate);
 		mv.addObject("likeTable", likeTable);
 		mv.addObject("cName", cName);
 		mv.addObject("list", list);
 		mv.addObject("notices", notices);
 		mv.addObject("pagination", pagination);
-		mv.setViewName("/board/board_cate_list");
+		mv.setViewName("/board/board_cate_ajax");
+		
 		return mv;
 	}
-
 	
-
 	// 게시글 수정하는 곳으로 이동
 	@GetMapping("board/modi")
 	public ModelAndView boardmodi(HttpServletRequest req, ModelAndView mv,

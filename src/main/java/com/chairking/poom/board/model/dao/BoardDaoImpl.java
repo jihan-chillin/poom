@@ -252,4 +252,27 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.modifyBoard(param, imgName);
 	}
 
+
+	@Override
+	public int allLocBoardCount(BoardMapper mapper){
+		return mapper.allLocBoardCount();
+	}
+
+	@Override
+	public List<Map<String, Object>> allLocBoard(BoardMapper mapper, Pagination pagination){
+		return mapper.allLocBoard(pagination);
+	}
+
+	@Override
+	public int allcateLocBoardCount(BoardMapper mapper, String cate) {
+		return mapper.allcateLocBoardCount(cate);
+	}
+
+	@Override
+	public List<Map<String, Object>> allCateLocBoard(BoardMapper mapper, Pagination pagination, String cate) {
+		return mapper.allCateLocBoard(pagination, cate);
+	}
+
+
+
 }
