@@ -177,6 +177,7 @@ div#board-form-content{
     background: #287094;
     color: white;
     cursor: pointer;
+    margin-right: 10px;
 }
 
 .blacksolid-btn{

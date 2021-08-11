@@ -269,11 +269,6 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int modiTagFromModi(String bNo, String tagText) {
-		return dao.modiTagFromModi(mapper, bNo, tagText);
-	}
-
-	@Override
 	public int allLocBoardCount(){
 		return dao.allLocBoardCount(mapper);
 	}
@@ -292,8 +287,8 @@ public class BoardServiceImpl implements BoardService {
 	public List<Map<String, Object>> allCateLocBoard(Pagination pagination, String cate) {
 		return dao.allCateLocBoard(mapper, pagination, cate);
 	}
-	
-	
-	
+
+
+
 
 }

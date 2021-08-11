@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<table>
+    <thead id="like-head">
+    <th>게시판</th>
+    <th>제목(좋아요 수)</th>
+    <th>날짜</th>
+    </thead>
+
+    <tbody>
+    <tr th:each=" l : ${list}" class="like-tr">
+        <td th:text = "${l.CATEGORY_NAME}"></td>
+        <td class="moveToView" th:text="${l.BOARD_TITLE}+'('+${l.LIKE_COUNT}+')'"  th:data-param="${l.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-param'))|"></td>
+        <td th:text="${#dates.format(l.LIKES_TIME , 'yyyy-MM-dd')}"></td>
+
+    </tr>
+    </tbody>
+
+</table>
+
+<div id = "page-div">
+
+    <!-- 이전 -->
+    <div>
+        <a th:if="${pagination.currentPage} eq 1" >&lt;</a>
+        <a href="#" th:unless="${pagination.currentPage} eq 1" th:onclick="|fn_ajax_pagingLike('${pagination.currentPage-1}')|">&lt;</a>
+    </div>
+
+    <!-- 페이지블록 -->
+    <th:block th:each="n:${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">
+        <div th:if="${pagination.currentPage eq n}" style="background-color: #F77B1E; color:white;font-size:20px;">
+            <a th:onclick="|fn_ajax_pagingLike('${n}')|" th:text="${n}" >1</a>
+        </div>
+
+        <div th:unless="${pagination.currentPage eq n}">
+            <a  href="#" th:onclick="|fn_ajax_pagingLike('${n}')|" th:text="${n}">1</a>
+        </div>
+    </th:block>
+
+
+    <!-- 다음 -->
+    <div>
+        <a th:if="${pagination.totalPageCount==pagination.currentPage}">&gt;</a>
+        <a href="#" th:unless="${pagination.totalPageCount==pagination.currentPage}" th:onclick="|fn_ajax_pagingLike('${pagination.currentPage+1}')|">&gt;</a>
+    </div>
+
+</div>
