@@ -13,6 +13,7 @@ div#mywrite-content{
 div#write-bar{
     width: 90%;
     margin: 0 auto;
+    border-bottom: 1px solid darkgray;
 }
 
 div#write-bar ul {
@@ -62,12 +63,11 @@ div#write-bar li:nth-of-type(2) button:hover{
 
 /*글 리스트 나오는 부분*/
 div#write-list table{
-    margin: 20px auto;
+    margin: 10px auto 20px auto;
     text-align: center;
     border-spacing: 25px;
-    background-color: white;
-    border-radius: 20px;
     width: 950px;
+    border-bottom: 1px solid darkgray;
 }
 
 div#write-list thead{
@@ -90,3 +90,33 @@ td.write-title{
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+tr.write-tr td:nth-of-type(2){
+
+    font-weight: bold;
+    cursor: pointer;
+}
+
+tr.write-tr td:nth-of-type(2):hover{
+    color: #F77B1E;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#page-div{
+    display: flex;
+    justify-content: center;
+    height: 45px;
+}
+
+#page-div div{
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    color: darkgray;
+    border-radius: 5px;
+    margin: 0 3px;
+}
+

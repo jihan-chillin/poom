@@ -94,6 +94,7 @@ div#comment_container{
 }
 div#comment_container>ul{
 	overflow-y:scroll;
+	height: 685px;
 }
 p#comment_title{
     font-size: 20px;
@@ -103,25 +104,54 @@ p#comment_title{
 }
 /* 댓글 메뉴 */
 span.b_comment_menu{
-	float:right; cursor:pointer;
+	float:right;
+	cursor:pointer;
+	position:relative;
 }
-span.b_comment_menu+div{
+span.b_comment_menu>div{
 	width:70px;
 	border:1px solid gainsboro;
 	border-radius:5px;
 	padding:10px;
 	background:white;
 	z-index:999;
-	position:absolute; right:40px;
+	position:absolute;
+	left: -33px;
+    top: 24px;
 }
-span.b_comment_menu+div>a{
+span.b_comment_menu>div>a{
 	display:block;
 	text-align:center;
 	cursor:pointer;
 }
-span.b_comment_menu+div>a:first-child{
+span.b_comment_menu>div>a:first-child{
 	margin-bottom:10px;
 }
+ul.comment_scroll>li {
+	padding: 15px !important;
+}
+ul.comment_scroll>li img {
+	width: 55px;
+    height: 55px;
+    float: left;
+    border-radius: 50%;
+    border: 1px solid lightgray;
+}
+ul.comment_scroll>li span:nth-of-type(3) {
+	width: 80%;
+    display: inline-block;
+    padding: 3px 15px 7px 15px;
+    border-bottom: 1px solid lightgray;
+    margin-left: 11px;
+    font-weight: bold;
+}
+ul.comment_scroll>li span:nth-of-type(5) {
+	width: 80%;
+    padding: 7px 15px 3px 15px;
+    display: inline-block;
+    margin-left: 11px;
+}
+
 /* 스크롤바 */
 .comment_scroll::-webkit-scrollbar {
   width: 6px;
@@ -139,17 +169,52 @@ span.b_comment_menu+div>a:first-child{
 }
 /* 댓글 입력창 */
 div#comment_container>div{
-	padding-top:10px;
-	display:flex; justify-content:center;
+	padding: 10px 20px;
+	display:flex;
+	justify-content:center;
 }
 input#commentContent{
-	width: 300px;
-	height: 40px;
-	margin-right:20px;
-	border: 1px solid lightgray;
+	width: 80%;
+    margin-right: 10px;
+    padding: 5px;
+    padding-left: 15px;
+    border: 1px solid lightgray;
+    border-radius: 30px;
+    outline: none;
 }
 div#comment_container>div>input[type=submit]{
 	width:80px; height:40px;
 	border-radius:30px;
 	border: 1px solid lightgray;
+}
+
+/* 더보기 아이콘 */
+.gg-more-vertical-alt {
+    transform: scale(var(--ggs,1));
+}
+.gg-more-vertical-alt,
+.gg-more-vertical-alt::after,
+.gg-more-vertical-alt::before {
+    box-sizing: border-box;
+    position: relative;
+    bottom: 1px;
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    background: currentColor;
+    border-radius: 100%;
+    color: darkgray;
+}
+.gg-more-vertical-alt::after,
+.gg-more-vertical-alt::before {
+    content: "";
+    position: absolute;
+}
+.gg-more-vertical-alt::after {
+    left: 0;
+    top: 7px;
+}
+.gg-more-vertical-alt::before {
+    top: -7px;
+    right: 0
 }

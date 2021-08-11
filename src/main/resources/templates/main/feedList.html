@@ -9,7 +9,10 @@
 		<span th:unless=${f.MEMBER_ID!=session.loginMember.MEMBER_ID}></span>
 	</div>
 	<div th:data-no="${f.BOARD_NO}" th:onclick="|mainToView(this.getAttribute('data-no'))|" th:text="${f.BOARD_CONTENT.replaceAll('&'+'nbsp;', ' ').replaceAll('<[^>]*>', '')}" ></div>
-	<img alt="품 미리보기" th:src="@{/uploadCKImage/}+${f.PREVIEW_IMG}">
+	<!--1. 로컬용 img 미리보기 이미지 경로-->
+<!--	<img alt="품 미리보기" th:src="@{/uploadCKImage/}+${f.PREVIEW_IMG}">-->
+	<!--2. 서버용 img 미리보기 이미지 경로-->
+	<img alt="품 미리보기" th:src="${@environment.getProperty('ckediImgPath')}+${f.PREVIEW_IMG}">
 	<ul>
 		<li>
 			<span th:if="${f.BOARD_NO eq t.BOARD_NO}" th:each="t:${boardTag}">
@@ -19,10 +22,6 @@
 		<li th:data-no="${f.BOARD_NO}" th:onclick="|feedToView(this.getAttribute('data-no'))|"><i class="gg-menu-boxed"></i><span th:text="${f.COMMENTS_COUNT}"></span></li>
 		<li>
 			<span th:title="${f.BOARD_NO}" th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" name="likeHeart" style="font-size:21px;"></span>
-			<!-- <span th:text="${#arrays.contains(likeTable,f.BOARD_NO)}?'♥':'♡'" style="font-size:23px;cursor:pointer;" 
-					th:data-add="${f.BOARD_NO}" th:data-id="${session.loginMember.MEMBER_ID}" 
-					th:data-like="${#arrays.contains(likeTable,f.BOARD_NO)}?'누름':'안누름'" name="likeHeart"
-					th:onclick="|fn_changeLike(this.getAttribute('data-add'),this.getAttribute('data-id'),this.getAttribute('data-like'));|" ></span> -->
 			<span th:text="${f.LIKE_COUNT}"></span>
 		</li>
 	</ul>

@@ -48,7 +48,10 @@
 					</div>
 
 					<div th:text="${l.BOARD_CONTENT.replaceAll('&'+'nbsp;', ' ').replaceAll('<[^>]*>', '')}"></div>
-					<img alt="품 미리보기" th:src="@{/uploadCKImage/}+${l.PREVIEW_IMG}">
+					<!--1. 로컬용 img미리보기-->
+<!--					<img alt="품 미리보기" th:src="@{/uploadCKImage/}+${l.PREVIEW_IMG}">-->
+					<!--2. 서버용 img 미리보기 이미지 경로-->
+					<img alt="품 미리보기" th:src="${@environment.getProperty('ckediImgPath')}+${l.PREVIEW_IMG}">
 
 
 					<ul>
@@ -65,31 +68,6 @@
 					</ul>
 				</div>
 
-
-				<!--					<div id="main_pagebar">-->
-				<!--						<div>-->
-				<!--							&lt;!&ndash; 이전 &ndash;&gt;-->
-				<!--							<div>-->
-				<!--								<a th:if="${pagination.currentPage} eq 1" >&lt;</a>-->
-				<!--								<a href="#board_box" th:unless="${pagination.currentPage} eq 1" th:onclick="|fn_alllist_paging('${pagination.currentPage-1}')|">&lt;</a>-->
-				<!--							</div>-->
-				<!--							&lt;!&ndash; 페이지블록 &ndash;&gt;-->
-				<!--							<th:block th:each="n:${#numbers.sequence(pagination.firstPage,pagination.lastPage)}">-->
-				<!--							<div th:if="${pagination.currentPage eq n}" style="background-color: #287094;color:white;font-size:20px;">-->
-				<!--								<a th:onclick="|fn_alllist_paging('${n}')|" th:text="${n}" >1</a>-->
-				<!--							</div>-->
-				<!--							-->
-				<!--							<div th:unless="${pagination.currentPage eq n}">-->
-				<!--								<a  href="#board_box" th:onclick="|fn_alllist_paging('${n}')|" th:text="${n}">1</a>-->
-				<!--							</div>-->
-				<!--							</th:block>-->
-				<!--							&lt;!&ndash; 다음 &ndash;&gt;-->
-				<!--							<div>-->
-				<!--								<a th:if="${pagination.totalPageCount==pagination.currentPage}">&gt;</a>-->
-				<!--								<a href="#board_box" th:unless="${pagination.totalPageCount==pagination.currentPage}" th:onclick="|fn_alllist_paging('${pagination.currentPage+1}')|">&gt;</a>-->
-				<!--							</div>-->
-				<!--						</div>-->
-				<!--			      	</div>-->
 				<div id="main_pagebar">
 					<div>
 						<!-- 이전 -->
@@ -135,7 +113,7 @@
 		var bCondition = $('#title-searchbar').val();
 		// var uInput = $('#uInput').val();
 		$.ajax({
-			url:getContextPath()+"/board/all",
+			url:getContextPath()+"/board/loc/allAjax",
 			data:{
 				"cPage":i,
 				"bCondition": bCondition,

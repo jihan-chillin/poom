@@ -66,8 +66,6 @@ function getNotificationData(){
   $.ajax({
     url:getContextPath()+'/noti/my/data',
     success:data=>{
-
-      console.log(data);
       /*
         notiData = 알림 데이터
         notiData[i].NOT_NO => 알림번호
@@ -115,7 +113,7 @@ function getNotificationData(){
             val += '<div class="noti-detail">';
             val += '<span>댓글 알림</span>';
             val += '<span onclick="deleteNotify('+data.getBoardTitleFromCommentNo[i].BOARD_NO+',1)">X</span>';
-            val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',1); moveToView(\''+data.getBoardTitleFromCommentNo[i].BOARD_NO+'\');">';
+            val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',1); moveToViewFromNotify(\''+data.getBoardTitleFromCommentNo[i].BOARD_NO+'\',\''+data.getBoardTitleFromCommentNo[i].BOARD_CATE+'\');">';
             val += '\''+data.getBoardTitleFromCommentNo[i].BOARD_TITLE+'\'에<br> 댓글이 달렸습니다.';
 
 
@@ -139,7 +137,7 @@ function getNotificationData(){
             val += '<div class="noti-detail">';
             val += '<span>좋아요 알림</span>';
             val += '<span onclick="deleteNotify('+data.boardTitleFromBoardNo[i].BOARD_NO+',3)">X</span>';
-            val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',3); moveToView('+data.boardTitleFromBoardNo[i].BOARD_NO+');">';
+            val += '<span class="noti-content-title" onclick="updateCheckStatus('+data.notiData[i].NOT_NO+',3); moveToViewFromNotify(\''+data.boardTitleFromBoardNo[i].BOARD_NO+'\',\''+data.boardTitleFromBoardNo[i].BOARD_CATE+'\');">';
             val += '\''+data.boardTitleFromBoardNo[i].BOARD_TITLE+'\'에<br>  좋아요가 눌렸습니다.';
           }
 
@@ -149,6 +147,7 @@ function getNotificationData(){
 
 
           if(data.notiData[i].NOT_CHECK ==='0'){
+            $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_receive.png) no-repeat center; background-size: contain;");
             $('.noti-info-alarm').append(val2);
           }else{
             $('.alarm-count').remove();
@@ -192,6 +191,8 @@ function getMessageDataToNotify(){
       }
 
       for(let i =0; i<data.getMsgContentFromMsgNo.length; i++){
+        $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_receive.png) no-repeat center; background-size: contain;");
+
         // 읽은 메세지라면
         if(data.notiData[i].NOT_CHECK === '1'){
           val += '<div class="noti-content-box" style="color: #b7b7b7;">';
@@ -216,9 +217,9 @@ function getMessageDataToNotify(){
         val += '</span>';
         val += '</div>';
         val += '</div>';
-        val2 += '<div class="alarm-count"><span>N</span></div></div>';
 
         if(data.notiData[i].NOT_CHECK ==='0'){
+          $('.noti_icon').attr("style","background: url("+getContextPath()+"/images/ui/alarm_receive.png) no-repeat center; background-size: contain;");
           $('.noti-info-alarm').append(val2);
         }else{
           $('.alarm-count').remove();
@@ -227,7 +228,6 @@ function getMessageDataToNotify(){
       }
 
       $('.modal-content-list').append(val);
-      // $('.noti-info-message').append(val2);
     }
   })
 }
