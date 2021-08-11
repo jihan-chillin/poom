@@ -23,7 +23,7 @@
                  <th>프로필사진</th>
                  <td class="profile-container">
                      <div class="profile-img">
-                         <img th:src="@{/images/profile/}+${session.loginMember.MEMBER_IMG}" alt="프로필이미지">
+                         <img th:src="${@environment.getProperty('profilePath')}+${session.loginMember.MEMBER_IMG}" alt="profile_img">
                      </div>
                      <div class="profile-txt">
                          <p>
