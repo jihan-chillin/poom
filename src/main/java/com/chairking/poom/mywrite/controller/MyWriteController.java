@@ -41,7 +41,7 @@ public class MyWriteController {
             // 전체 게시글 개수
             int totalData = service.countMyWrite();
 
-            System.out.println(totalData +" : 토탈데이터");
+//            System.out.println(totalData +" : 토탈데이터");
 
             // 전체 페이지 수 + lastindex + firstindex 등을 가져옴.
             pagination.setTotalRecordCount(totalData);
@@ -49,7 +49,7 @@ public class MyWriteController {
             // 전체 게시글 첫글 ~ 마지막글 ( 전체 게시글 개수를 알기에 )
             List<Map<String, Object>> list = service.MywriteList(pagination, memberId);
 
-            System.out.println("페이지 리스트 : " + list);
+            System.out.println("페이지네이션 : "+pagination);
 
             mv.addObject("list", list);
             mv.addObject("pagination", pagination);

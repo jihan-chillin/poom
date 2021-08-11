@@ -99,6 +99,4 @@ public interface BoardService {
 	int searchBoardCount(Object condition);
 
 	int modifyBoard(Map param, String imgName);
-
-    int modiTagFromModi(String bNo, String tagText);
 }

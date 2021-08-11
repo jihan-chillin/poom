@@ -203,8 +203,5 @@ public interface BoardMapper {
 	@Update("UPDATE COMMENTS SET COMMENT_CONTENT=#{commentContent} WHERE BOARD_NO=#{boardNo} AND COMMENT_NO=#{commentNo}")
 	int commentModify(Map<String, String> param);
 
-	// 태그 수정
-	@Update("update boardtag set tag_name =#{tagText} where board_no=#{bNo}")
-	int modiTagFromModi(String bNo, String tagText);
 }
 

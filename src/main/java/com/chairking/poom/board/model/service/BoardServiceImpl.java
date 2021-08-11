@@ -268,8 +268,4 @@ public class BoardServiceImpl implements BoardService {
 		return dao.modifyBoard(mapper, param, imgName);
 	}
 
-	@Override
-	public int modiTagFromModi(String bNo, String tagText) {
-		return dao.modiTagFromModi(mapper, bNo, tagText);
-	}
 }
