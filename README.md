@@ -38,14 +38,14 @@
 - Visual Studio Code
 
 ### 사용언어
-* FE(Front-End)
- * Html
- * css
- * javascript
- * jQuery
- * thymeleaf
+**FE(Front-End)**
+- Html
+- css
+- javascript
+- jQuery
+- thymeleaf
 
-* BE(Back-End)
+**BE(Back-End)**
  - Java 11 / Ajax
  - Was : Apache Tomcat 8.5
  - Database
@@ -53,14 +53,14 @@
  - Oracle 11g
  - MyBatis
 
-* FrameWork
- * Spring Boot 2.5.2 ( MVC 패턴 적용 ) 
+**FrameWork**
+- Spring Boot 2.5.2 ( MVC 패턴 적용 ) 
 
-* 사용한 오픈 API 
- * 네이버 geolocation 
- * 메일인증 API
- * Ckeditor 스마트에디터
- * KakaoPay 결제 API
+**사용한 오픈 API** 
+ - 네이버 geolocation 
+ - 메일인증 API
+ - Ckeditor 스마트에디터
+ - KakaoPay 결제 API
 
 ---
 ## DB구조
