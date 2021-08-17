@@ -1,4 +1,4 @@
-# 지역기반 커뮤니티 POOM
+# 지역기반 커뮤니티 POOM :two_women_holding_hands:
 
 ## 목차
  1. [개발목적 및 목표](#목적)
@@ -28,33 +28,40 @@
 김세희
 
 ## 개발환경
-#### 운영체제
+### 운영체제
 - Mac os 11.4
 - Windwos 10
 
-#### 개발도구
+### 개발도구
 - IntelliJ 21.01
 - STS3
 - Visual Studio Code
 
-#### 사용언어
+### 사용언어
 * FE(Front-End)
-+ Html
-+ css
-+ javascript
-+ jQuery
-+ thymeleaf
+ * Html
+ * css
+ * javascript
+ * jQuery
+ * thymeleaf
 
 * BE(Back-End)
-+ Java 11 / Ajax
-+ Was : Apache Tomcat 8.5
-+ Database
-- Maven
-- Oracle 11g
-- MyBatis
+ * Java 11 / Ajax
+ * Was : Apache Tomcat 8.5
+ * Database
+ * Maven
+ * Oracle 11g
+ * MyBatis
 
 * FrameWork
-+ Spring Boot 2.5.2
+ * Spring Boot 2.5.2 ( MVC 패턴 적용 ) 
+
+* 사용한 오픈 API 
+ * 네이버 geolocation 
+ * 메일인증 API
+ * Ckeditor 스마트에디터
+ * KakaoPay 결제 API
+
 ---
 ## DB구조
 ![스크린샷 2021-08-10 오전 12 52 01](https://user-images.githubusercontent.com/44770275/128790985-f04d2135-3f2b-4f24-ab9b-61e08acd0d4b.png)
