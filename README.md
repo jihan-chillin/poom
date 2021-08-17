@@ -2,10 +2,11 @@
 
 ## 목차
  1. [개발목적 및 목표](#목적)
- 2. [개발 환경](#개발환경)
- 3. [DB 구조](#DB구조)
- 4. [기능](#기능)
- 5. [느낀점 및 배운 것들](#느낀점)
+ 2. [팀원소개](#팀원소개)
+ 3. [개발 환경](#개발환경)
+ 4. [DB 구조](#DB구조)
+ 5. [기능](#기능)
+ 6. [느낀점 및 배운 것들](#느낀점)
 ----
 ## 개발목적 및 목표
 
@@ -18,28 +19,42 @@
  - ajax를 통해 사용자에게 최대한 화면의 깜빡임을 줄 일 수 있도록 만들자
 ------
 
+## 팀원소개
+장희웅(팀장)
+김지한
+이하은
+여진경
+홍서연
+김세희
+
 ## 개발환경
-운영체제
+#### 운영체제
 - Mac os 11.4
 - Windwos 10
 
-개발도구
+#### 개발도구
 - IntelliJ 21.01
 - STS3
 - Visual Studio Code
 
-환경
-- Spring Boot 2.5.2
-- Maven
-- Java 11
-- Mybatis
-- Thymeleaf
-- HTML
-- CSS
-- thymeleaf
-- JQuery
-- Oracle 11g
+#### 사용언어
+* FE(Front-End)
++ Html
++ css
++ javascript
++ jQuery
++ thymeleaf
 
+* BE(Back-End)
++ Java 11 / Ajax
++ Was : Apache Tomcat 8.5
++ Database
+- Maven
+- Oracle 11g
+- MyBatis
+
+* FrameWork
++ Spring Boot 2.5.2
 ---
 ## DB구조
 ![스크린샷 2021-08-10 오전 12 52 01](https://user-images.githubusercontent.com/44770275/128790985-f04d2135-3f2b-4f24-ab9b-61e08acd0d4b.png)
