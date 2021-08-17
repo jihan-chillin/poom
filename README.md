@@ -154,4 +154,4 @@
 4. 첫 프로젝트와는 다르게 코드를 재활용하는 파트를 따로 만들어놓는 등 효율에 대해 생각하면서 임한 프로젝트라 뜻깊었다. 
 ---
 ## POOM 노션주소
-[POOM 노션] https://www.notion.so/ignore-d78acbd63bdf4c1fae0f8ebc53624f0c
+[POOM 노션] https://www.notion.so/1bf6d666e9094815a21ce046a1880162
