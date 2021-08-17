@@ -46,12 +46,12 @@
  * thymeleaf
 
 * BE(Back-End)
- * Java 11 / Ajax
- * Was : Apache Tomcat 8.5
- * Database
- * Maven
- * Oracle 11g
- * MyBatis
+ - Java 11 / Ajax
+ - Was : Apache Tomcat 8.5
+ - Database
+ - Maven
+ - Oracle 11g
+ - MyBatis
 
 * FrameWork
  * Spring Boot 2.5.2 ( MVC 패턴 적용 ) 
