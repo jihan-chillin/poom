@@ -91,6 +91,9 @@ public interface BoardService {
 
 	//댓글 수정
 	int commentModify(Map<String, String> param);
+	
+	//댓글의 답글 가져오기
+	List<Map> selectRecommentList(String cNo);
 
     //게시글 삭제
     int boardDelete(String no);
@@ -111,4 +114,6 @@ public interface BoardService {
 	List<Map<String, Object>> searchlocBoardList(Pagination pagination, Object condition);
 
 	int searchlocBoardCount(Object condition);
+	
+	int recommentWrite(Map param);
 }

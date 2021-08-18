@@ -5,14 +5,14 @@
 		<span th:text="${c['COMMENT_NO']}" class="commentNo" style="display:none"></span>
 		<span th:text="${c['COMMENT_LEVEL']}" class="commentLevel" style="display:none"></span>
 		<img th:src="|${@environment.getProperty('profilePath')}${c['C_PROFILE']}|">
-		<span th:text="${c['C_NICKNAME']}"></span>
+		<span th:text="${c['C_NICKNAME']}" class="comment_li_title"></span>
 		<span class="b_comment_menu"><i class="gg-more-vertical-alt"></i>
 			<div style="display:none">
 				<th:block th:unless="${session.loginMember.MEMBER_ID eq c['COMMENT_WRITER'] or session.loginMember.MEMBER_ID eq 'admin'}">
 					<a th:data-bcn="${c['COMMENT_NO']}" th:onclick="|fn_bcBlame(this.getAttribute('data-bcn'))|">신고</a>
 				</th:block>
 				<th:block th:if="${session.loginMember.MEMBER_ID eq c['COMMENT_WRITER']}">
-			 		<a onclick="delete_comment(this);">삭제</a>
+			 		<a th:data-cNo="${c['COMMENT_NO']}" th:data-bNo="${boardNo}" onclick="delete_comment(this.getAttribute('data-cNo'), this.getAttribute('data-bNo'));">삭제</a>
 			 		<hr style="border:1px solid #f7f7f7; margin:5px 0;">
 			 		<a onclick="change_modify(this);">수정</a>
 				</th:block>
@@ -22,10 +22,44 @@
 		<!-- 댓글내용 출력되는 부분 -->
 		<span class="original_content" th:text="${c['COMMENT_CONTENT']}"></span>
 		<!-- 댓글 수정시 나타나는 부분 -->
-		<div class="modify_container" style="display:none;">
+		<span class="modify_container" style="display:none;">
 			<input type="text" class="modify_content">
-			<button onclick="modify_comment(this);">수정</button><button onclick="modify_cancel(this);">취소</button>
+			<button th:data-cNo="${c['COMMENT_NO']}" onclick="modify_comment(this);">수정</button><button onclick="modify_cancel(this);">취소</button>
+		</span>
+		<!-- 답글 입력 부분 -->
+		<span class="recomment_write_container" onclick="view_recomment(this);">답글 달기</span>
+		<div style="display:none;">
+			<input type="text">
+			<button th:data-bNo="${boardNo}" th:data-cRef="${c['COMMENT_NO']}" onclick="recomment_write(this);">입력</button>
 		</div>
+		<!-- 답글 목록 -->
+		<ul th:if="${recommentList.get(c['COMMENT_NO'])!=null}" class="recomment_container">
+			<li th:each="r:${recommentList.get(c['COMMENT_NO'])}">
+				<span th:text="${r['COMMENT_NO']}" class="recommentNo" style="display:none"></span>
+				<img th:src="|${@environment.getProperty('profilePath')}${r['C_PROFILE']}|">
+				<span th:text="${r['C_NICKNAME']}" class="comment_li_title"></span>
+				<span class="b_comment_menu"><i class="gg-more-vertical-alt"></i>
+					<div style="display:none">
+						<th:block th:unless="${session.loginMember.MEMBER_ID eq r['COMMENT_WRITER'] or session.loginMember.MEMBER_ID eq 'admin'}">
+							<a th:data-bcn="${r['COMMENT_NO']}" th:onclick="|fn_bcBlame(this.getAttribute('data-bcn'))|">신고</a>
+						</th:block>
+						<th:block th:if="${session.loginMember.MEMBER_ID eq r['COMMENT_WRITER']}">
+					 		<a th:data-cNo="${r['COMMENT_NO']}" th:data-bNo="${boardNo}" onclick="delete_comment(this.getAttribute('data-cNo'), this.getAttribute('data-bNo'));">삭제</a>
+					 		<hr style="border:1px solid #f7f7f7; margin:5px 0;">
+					 		<a onclick="change_modify(this);">수정</a>
+						</th:block>
+					</div>
+				</span>
+				<br>
+				<!-- 댓글내용 출력되는 부분 -->
+				<span class="original_content" th:text="${r['COMMENT_CONTENT']}"></span>
+				<!-- 댓글 수정시 나타나는 부분 -->
+				<span class="modify_container" style="display:none;">
+					<input type="text" class="modify_content"><br>
+					<button th:data-cNo="${r['COMMENT_NO']}" onclick="modify_comment(this);">수정</button><button onclick="modify_cancel(this);">취소</button>
+				</span>
+			</li>
+		</ul>
 	</li>
 	</th:block>
 	
@@ -40,7 +74,8 @@
 		});
 
 		$(document).ready(function(){
-			console.log($("div#comment_container>ul.comment_scroll").find("li"));
 			$("p#comment_title").text("댓글 ("+$("div#comment_container>ul.comment_scroll").find("li").length+")");
 		});
+
+
 	</script>

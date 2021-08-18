@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -234,19 +233,39 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
     //댓글 작성하는 메소드
     @PostMapping("/comment/write")
-    public Map commentWrite(String boardNo, String commentContent, HttpServletRequest req) {
+    public Map commentWrite(@RequestParam Map param, 
+    		HttpServletRequest req) {
     	String commentWriter=(String)((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
-
-//    	System.out.println("boardNo : "+boardNo);
-//    	System.out.println("commentContent : "+commentContent);
-//    	System.out.println("commentWriter : "+commentWriter);
-
-    	Map<String, String> param=new HashMap<String, String>();
-    	param.put("boardNo", boardNo);
-    	param.put("commentContent", commentContent);
     	param.put("commentWriter", commentWriter);
+    	
+    	System.out.println("boardNo : "+param.get("boardNo"));
+    	System.out.println("commentContent : "+param.get("commentContent"));
+    	System.out.println("commentWriter : "+param.get("commentWriter"));
+    	
+    	String boardNo=(String)param.get("boardNo");
 
     	int result=service.commentWrite(param);
+    	if(result>0) result=service.commentCountUpdate(1, boardNo);
+    	// 댓글 작성시 알림테이블에 데이터 넣는 메소드
+        nc.insertCommentNotiData(boardNo,nc.getBoardWriter(boardNo));
+    	return param;
+    }
+    
+    //대댓글 작성하는 메소드
+    @PostMapping("/recomment/write")
+    public Map recommentWrite(@RequestParam Map param, 
+    		HttpServletRequest req) {
+    	String commentWriter=(String)((Map) req.getSession().getAttribute("loginMember")).get("MEMBER_ID");
+    	param.put("commentWriter", commentWriter);
+    	
+    	System.out.println("boardNo : "+param.get("boardNo"));
+    	System.out.println("commentContent : "+param.get("commentContent"));
+    	System.out.println("commentWriter : "+param.get("commentWriter"));
+    	System.out.println("commentRef : "+param.get("boardCommentRef"));
+    	
+    	String boardNo=(String)param.get("boardNo");
+
+    	int result=service.recommentWrite(param);
     	if(result>0) result=service.commentCountUpdate(1, boardNo);
     	// 댓글 작성시 알림테이블에 데이터 넣는 메소드
         nc.insertCommentNotiData(boardNo,nc.getBoardWriter(boardNo));
@@ -256,8 +275,22 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
     //댓글목록 ajax로 가져오는 메소드
     @GetMapping("/comment/list")
     public ModelAndView commentList(String boardNo, ModelAndView mv) {
-    	mv.addObject("commentList", service.selectCommentList(boardNo));
+    	List<Map> commentList=service.selectCommentList(boardNo);
+    	mv.addObject("commentList", commentList);
+    	
+    	Map<String, List<Map>> recommentList=new HashMap();
+    	
+    	//댓글의 답글 가져오기
+    	for(Map c:commentList) {
+    		String cNo=(String)c.get("COMMENT_NO");
+    		System.out.println("댓글번호 : "+cNo);
+    		recommentList.put(cNo, service.selectRecommentList(cNo));
+    	}
+    	mv.addObject("recommentList", recommentList);
+    	
+    	mv.addObject("boardNo", boardNo);
     	mv.setViewName("board/board_comment_ajax");
+    	System.out.println("조회메소드 끝");
     	return mv;
     }
 

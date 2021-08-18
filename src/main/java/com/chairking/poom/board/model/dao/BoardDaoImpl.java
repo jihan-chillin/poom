@@ -280,5 +280,15 @@ public class BoardDaoImpl implements BoardDao {
 		return mapper.searchlocBoardCount(condition);
 	}
 
+	@Override
+	public List<Map> selectRecommentList(BoardMapper mapper, String cNo) {
+		return mapper.selectRecommentList(cNo);
+	}
+
+	@Override
+	public int recommentWrite(BoardMapper mapper, Map param) {
+		return mapper.recommentWrite(param);
+	}
+
 
 }

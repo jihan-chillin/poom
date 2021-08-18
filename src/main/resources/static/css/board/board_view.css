@@ -24,11 +24,13 @@ div#board_view>div{
     border-radius: 20px;
     padding: 20px 0;
 }
-#board_view ul{
+#board_view>div#comment_container>ul,
+#board_view>div#board_container>ul{
     padding:0 20px; margin:0;
     vertical-align: center;
 }
-#board_view li{
+#board_view>div#board_container>ul>li,
+#board_view>div#comment_container>ul>li{
     list-style:none;
     /* margin:30px; */
     padding:20px 20px;
@@ -40,7 +42,18 @@ div#board_view>div{
     text-align: left;
     background: #fdfdfd;
 }
-
+ul.recomment_container>li{
+    list-style:none;
+    /* margin:30px; */
+    padding:20px 0 0 50px;
+    /* padding-left: 20px; */
+    margin: auto;
+    font-size: 17px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    background: #fdfdfd;
+}
 
 /* 게시글 부분 */
 div#board_container{
@@ -102,6 +115,30 @@ p#comment_title{
     padding:10px;
     margin-bottom:10px;
 }
+/* 댓글 수정화면 */
+span.modify_container{
+	width: 80%;
+    padding: 7px 15px 3px 15px;
+    display: inline-block;
+    margin-left: 11px
+} 
+span.modify_container>input[type=text]{
+	height:30px; width:60%;
+	border:1px solid lightgray;
+	padding:5px;
+	border-radius:15px;
+}
+span.modify_container>button{
+	border:1px solid lightgray;
+	height:30px; width:45px;
+	border-radius:15px;
+}
+span.modify_container>button:nth-of-type(1){
+	margin-right:5px;
+	background:#247094;
+	color:white;
+}
+
 /* 댓글 메뉴 */
 span.b_comment_menu{
 	float:right;
@@ -137,7 +174,8 @@ ul.comment_scroll>li img {
     border-radius: 50%;
     border: 1px solid lightgray;
 }
-ul.comment_scroll>li span:nth-of-type(3) {
+/* ul.comment_scroll>li span:nth-of-type(3) { */
+ul.comment_scroll>li>span.comment_li_title{
 	width: 80%;
     display: inline-block;
     padding: 3px 15px 7px 15px;
@@ -186,6 +224,78 @@ div#comment_container>div>input[type=submit]{
 	width:80px; height:40px;
 	border-radius:30px;
 	border: 1px solid lightgray;
+}
+div#comment_container>ul>li>div{
+	display:flex; justify-content:space-between;
+}
+div#comment_container>ul>li>div>input{
+	width:80%; height:40px;
+	padding:5px;
+	border:1px solid lightgray;
+	border-radius:30px;
+}
+div#comment_container>ul>li>div>button{
+	width:60px; height:40px;
+	border:1px solid lightgray;
+	border-radius:30px;
+}
+
+/* 답글 입력창 */
+div#comment_container>ul>li>div{
+	display:flex; justify-content:space-between;
+}
+div#comment_container>ul>li>div>input{
+	width:80%; height:40px;
+	padding:5px;
+	border:1px solid lightgray;
+	border-radius:30px;
+}
+div#comment_container>ul>li>div>button{
+	width:60px; height:40px;
+	border:1px solid lightgray;
+	border-radius:30px;
+}
+/* 답글 수정화면 */
+ul.recomment_container>li>span.modify_container{
+	display:flex;
+}
+ul.recomment_container>li>span.modify_container>input{
+	width:100%; height:90px;
+	padding:5px;
+	border:1px solid lightgray;
+	border-radius:30px;
+	margin-bottom:10px;
+}
+ul.recomment_container>li>span.modify_container>button{
+	width:115px; height:40px;
+	border:1px solid lightgray;
+	border-radius:30px;
+}
+
+/* 답글목록 */
+ul.recomment_container{
+	padding-right:0;
+}
+ul.recomment_container>li{
+	padding-right:0;	
+}
+ul.recomment_container>span{
+	width:80%;
+	display:inline-block;
+}
+ul.recomment_container span.comment_li_title{
+	width: 75%;
+    display: inline-block;
+    padding: 3px 15px 7px 15px;
+    border-bottom: 1px solid lightgray;
+    margin-left: 11px;
+    font-weight: bold;
+}
+ul.recomment_container>li>span.original_content{
+	width: 60%;
+    padding: 7px 15px 3px 15px;
+    display: inline-block;
+    margin-left: 11px;
 }
 
 /* 더보기 아이콘 */
