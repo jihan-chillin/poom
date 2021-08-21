@@ -201,11 +201,13 @@ div.city_bar>ul>li {
     text-align: left;
     font-size: 22px;
     font-weight: bold;
+    cursor: pointer;
 }
 div.city_bar>ul>li:hover {
     background: white;
     color: #287094;
     border-radius: 30px;
+    cursor: pointer;
 }
 
 /* 우측콘텐츠 + 프로필 css */
