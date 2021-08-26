@@ -37,13 +37,15 @@
 	    height:60px;
 	    border-radius: 25px;
 	    background-color: #ffffff;
+		text-align: center;
 	}
 	#pay_container li>*{
 	    display:inline-block;
 	    width:100px;
 	    position:relative;
-	    top:15px; left:30px;
+	    top:15px;
 	    font-size:20px;
+		cursor: pointer;
 	}
 	#pay_container li label{
 	    width:150px;
@@ -73,13 +75,29 @@
 	}
 	/* 버튼 */
 	#pay_container>form>div *{
-	    width:150px; height:60px;
-	    cursor:pointer;
-	    border:1px solid gray;
-	    border-radius: 3px;
-	    background-color: #fdfdfd;
+		width: 80px;
+		height: 40px;
+		cursor: pointer;
+		border: 1px solid gray;
+		border-radius: 30px;
+		background-color: #fdfdfd;
 	}
 	#pay_container>form>div>button:first-child{
-	    background-color:#F77B1E;
-	    margin-right:20px;
+		background-color: #F77B1E;
+		margin-right: 15px;
+		width: 80px;
+		height: 40px;
+		border-radius: 30px;
+		font-weight: bolder;
+	}
+
+	.pay-info{
+		font-size: 18px !important;
+		font-weight: lighter !important;
+		color: grey;
+	}
+
+	.pay-info span{
+		font-weight: bold;
+		color: rgb(6, 102, 146);
 	}
