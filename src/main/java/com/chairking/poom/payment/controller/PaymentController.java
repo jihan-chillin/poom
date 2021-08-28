@@ -37,12 +37,10 @@ public class PaymentController {
 		System.out.println(memberId);
 		System.out.println(itemType);
 		int result=service.buyItem(memberId, itemNo);
+
 		if(result>0) {
 			result=service.changePayStatus(memberId, itemType);
 		}
-//		mv.addObject("msg", result!=0?"결제를 성공했습니다.":"결제를 실패하였습니다.");
-//		mv.addObject("loc", "board/board_alllist");
-//		mv.setViewName("common/msg");
 		
 		mv.addObject("loginMember", new LoginServiceImpl().selectMember(loginMember));
 		mv.setViewName("board/board_alllist");
@@ -53,19 +51,6 @@ public class PaymentController {
 	public void checkExpireDate() {
 		service.checkExpireDate();
 	}
-	
-//	@RequestMapping("/pay/locCheck")
-//	public ModelAndView locCheck(String loc, HttpSession session, ModelAndView mv) {
-//		int payLevel=Integer.parseInt(((Map<String, String>)session.getAttribute("loginMember")).get("PAY_LEVEL"));
-//		if(payLevel==0) {
-//			mv.addObject("msg", "이용권 구매 후 사용하실 수 있습니다.");
-//			mv.addObject("loc", "/pay");
-//			mv.setViewName("/common/msg");
-//		}else {
-//			
-//		}
-//		return mv;
-//	}
 	
 
 }

@@ -152,10 +152,6 @@ public void ckSubmit(@RequestParam(value = "fileName") String fileName,
 @PostMapping("/board/insert")
 public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
 
-
-   System.out.println("파라미터 일단 이렇게 들어옴 : " + param);
-
-
    // 썸네일 이미지 따로 분리 할것
     String boardContent = param.get("boardContent").toString(); // boardContent에 태그 포함 다 들어감.
     // 1. 사진 첨부시 첫 번째 이미지파일 썸네일 컬럼에 넣기
@@ -171,9 +167,6 @@ public ModelAndView insertBoard(ModelAndView mv,@RequestParam Map param ){
     {
         imgName = "preview_poom.jpg";
     }
-
-    System.out.println("이미지 네임이 어떻게 나오는지 보자" + imgName);
-
         int result =  service.insertBoard(param, imgName);
 
 

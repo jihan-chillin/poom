@@ -137,6 +137,26 @@ public class LoginController {
 		
 		int result;
 		int result2;
+
+		// 위치데이터 전처리
+		// 충남, 충북 -> 충청
+		// 전남, 전북 -> 전라
+		// 경남, 경북 -> 경상
+		String location = (String)m.get("memberLoc");
+		switch (location){
+			case "충남" : location ="충청"; break;
+			case "충북" : location = "충청"; break;
+			case "경남" : location = "경상"; break;
+			case "경북" : location = "경상" ; break;
+			case "전남" : location = "전라"; break;
+			case "전북" : location = "전라"; break;
+			default: location = location; break;
+		}
+
+		m.put("memberLoc", location);
+
+		System.out.println(m);
+
 		if(keyword != null) {
 			//회원가입(관심키워드O)
 			result = service.insertMember(m);
