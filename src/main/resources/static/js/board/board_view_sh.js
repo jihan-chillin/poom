@@ -25,10 +25,13 @@ function move_list(cate) {
 
 //댓글 가져오는 메소드
 function comment_list(){
+	boardNo=$("#comment_boardNo").text();
+	
+	console.log(boardNo);
 	$.ajax({
 		url:getContextPath()+"/comment/list",
 		data:{
-			boardNo:$("#comment_boardNo").text()
+			boardNo:boardNo
 		},
 		success:data=>{
 			$("div#comment_container>ul").html(data);
@@ -36,23 +39,10 @@ function comment_list(){
 	});
 }
 
-//댓글의 답글 가져오는 메소드
-function recomment_list(){
-	$.ajax({
-		url:getContextPath()+"/comment/recomment",
-		data:{
-			
-		},
-		success:data=>{
-		
-		}
-	});
-}
-
 //댓글 입력
-function comment_write(){
+function comment_write(bNo){
 	var commentContent=$("#commentContent").val();
-	var boardNo=$("#comment_boardNo").text();
+	console.log(commentContent);
 	if(commentContent==""){
 		alert("댓글 내용을 입력하세요.");
 	}else{
@@ -60,13 +50,41 @@ function comment_write(){
 			url:getContextPath()+"/comment/write",
 			method:"POST",
 			data:{
-				boardNo:boardNo,
+				boardNo:bNo,
 				commentContent:commentContent
 			},
 			success:data=>{
 				comment_list();
-				// 알림 전송하는 함수 by 희웅
 				$("#commentContent").val("");
+				// 알림 전송하는 함수 by 희웅
+				sendNoti();
+			}
+		});
+	}
+}
+
+//답글 입력
+function recomment_write(target){
+	var recommentContent=$(target).siblings("input").val();
+	var boardNo=target.getAttribute("data-bNo");
+	var boardCommentRef=target.getAttribute("data-cRef");
+	console.log(recommentContent);
+	if(commentContent==""){
+		alert("댓글 내용을 입력하세요.");
+	}else{
+		$.ajax({
+			url:getContextPath()+"/recomment/write",
+			method:"POST",
+			data:{
+				boardNo:boardNo,
+				commentContent:recommentContent,
+				boardCommentRef:boardCommentRef,
+				commentLevel:2
+			},
+			success:data=>{
+				comment_list();
+				$("#commentContent").val("");
+				// 알림 전송하는 함수 by 희웅
 				sendNoti();
 			}
 		});
@@ -74,15 +92,12 @@ function comment_write(){
 }
 
 //댓글 삭제기능
-function delete_comment(target){
-	//console.log("test");
-	//console.log($(target));
-	var commentNo=$(target).parent().parent().parent().find("span.commentNo").text();
+function delete_comment(cNo, bNo){
 	$.ajax({
 		url:getContextPath()+"/comment/delete",
 		data:{
-			boardNo:$("#comment_boardNo").text(),
-			commentNo:commentNo
+			boardNo:bNo,
+			commentNo:cNo
 		},
 		success:data=>{
 			alert("댓글이 삭제되었습니다.");
@@ -93,24 +108,28 @@ function delete_comment(target){
 
 //수정화면 나오도록 하기
 function change_modify(target){
-	var li=$(target).parent().parent();
-	
+	var li=$(target).parent().parent().parent();
 	//원래내용 지우기
 	li.find("span.original_content").css("display","none");
 	//수정화면 보이게 하기
-	li.find("div.modify_container").css("display", "block");
-	li.find("div.modify_container").find("input.modify_content").val(li.find("original_content").text());
+	li.find("span.modify_container").css("display", "inline-block");
+	
+	//아직 글내용 받아오게 안함-수정하기
+	li.find("span.modify_container").find("input.modify_content").val(li.find("span.original_content").text());
 }
 
 //댓글 수정기능
 function modify_comment(target){
-	var commentNo=$(target).parent().parent().find("span.commentNo").text();
+	var commentContent=$(target).siblings("input").val();
+	var commentNo=target.getAttribute('data-cNo');
+	console.log(commentNo, commentContent);
 	$.ajax({
 		url:getContextPath()+"/comment/modify",
 		data:{
 			boardNo:$("#comment_boardNo").text(),
 			commentNo:commentNo,
-			commentContent:$(target).siblings("input.modify_content").val()
+			//commentContent:$(target).siblings("input.modify_content").val()
+			commentContent:commentContent
 		},
 		success:data=>{
 			console.log("수정메소드");
@@ -123,9 +142,18 @@ function modify_comment(target){
 function modify_cancel(target){
 	var li=$(target).parent().parent();
 	//원래내용 보이게하기
-	li.find("span.original_content").css("display","block");
-	//수정화면 보이게 하기
-	li.find("div.modify_container").css("display", "none");
+	li.find("span.original_content").css("display","inline-block");
+	//수정화면 안보이게 하기
+	li.find("span.modify_container").css("display", "none");
+}
+
+//댓글 답글 작성화면 보이게 하는 함수
+function view_recomment(target){
+	if($(target).next("div").css("display")=="none") {
+		$(target).next("div").css("display", "block");
+	}else{
+		$(target).next("div").css("display", "none");
+	}
 }
 
 $(function(){
@@ -140,10 +168,9 @@ $(function(){
 			$(e.target).next("div").css("display", "none");
 		}
 	});
-	
-	
 
 });
+
 
 //게시판 view에서 삭제하기 구현
 //진짜 삭제 아닌 del_status=>1로 변경 //restController

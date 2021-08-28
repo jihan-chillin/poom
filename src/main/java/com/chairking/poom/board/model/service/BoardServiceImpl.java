@@ -298,5 +298,17 @@ public class BoardServiceImpl implements BoardService {
 		return dao.searchlocBoardCount(mapper,condition);
 	}
 
+	@Override
+	public List<Map> selectRecommentList(String cNo) {
+		return dao.selectRecommentList(mapper, cNo);
+	}
+
+	@Override
+	public int recommentWrite(Map param) {
+		return dao.recommentWrite(mapper, param);
+	}
+	
+	
+
 
 }

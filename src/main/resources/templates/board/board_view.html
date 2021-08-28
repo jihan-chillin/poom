@@ -49,9 +49,9 @@
     	</ul>
     	<div>
 			<input type="text" id="commentContent" name="commentContent"/>
-			<span  id="comment_boardNo" th:text="${board['BOARD_NO']}" style="display:none"></span>
+			<span id="comment_boardNo" th:text="${board['BOARD_NO']}" style="display:none"></span>
 			<th:block th:unless="${session.loginMember == null}">
-				<input type="submit" value="입력" onclick="comment_write();"/>
+				<input type="submit" th:data-bNo="${board['BOARD_NO']}" value="입력" onclick="comment_write(this.getAttribute('data-bNo'));"/>
 			</th:block>
 			<th:block th:if="${session.loginMember == null}">
 				<input type="submit" value="입력" onclick="alert('로그인 후 사용 가능합니다.');">

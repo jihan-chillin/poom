@@ -44,7 +44,7 @@ public interface BoardMapper {
 	public Map selectBoard(String boardNo);
 	
 	//게시글 댓글 조회
-	@Select("SELECT C.*, (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_ID=C.COMMENT_WRITER) AS C_NICKNAME, (SELECT MEMBER_IMG FROM MEMBER WHERE MEMBER_ID=C.COMMENT_WRITER) AS C_PROFILE FROM COMMENTS C WHERE BOARD_NO=#{boardNo} AND DEL_STATUS=0 ORDER BY COMMENT_DATE DESC")
+	@Select("SELECT C.*, (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_ID=C.COMMENT_WRITER) AS C_NICKNAME, (SELECT MEMBER_IMG FROM MEMBER WHERE MEMBER_ID=C.COMMENT_WRITER) AS C_PROFILE FROM COMMENTS C WHERE BOARD_NO=#{boardNo} AND DEL_STATUS=0 AND COMMENT_LEVEL=1 ORDER BY COMMENT_DATE")
 	public List<Map> selectCommentList(String boardNo);
 	
 	//메인피드 등록
@@ -151,12 +151,13 @@ public interface BoardMapper {
 	int TagFromform(String tagText);
 
 	//댓글등록 메소드
-	@Insert("INSERT INTO COMMENTS VALUES(SEQ_COMMENTNO.NEXTVAL, #{boardNo}, #{commentContent}, SYSDATE, DEFAULT, DEFAULT, DEFAULT, #{commentWriter}, DEFAULT)")
+	@Insert("INSERT INTO COMMENTS VALUES(SEQ_COMMENTNO.NEXTVAL, #{boardNo}, #{commentContent}, SYSDATE, DEFAULT, NULL, DEFAULT, #{commentWriter}, DEFAULT)")
 	int commentWrite(Map<String, String> param);
 
-	//게시글의 댓글수 변경
-	@Update("UPDATE BOARD SET COMMENTS_COUNT=COMMENTS_COUNT+#{count} WHERE BOARD_NO=#{boardNo}")
+	//게시글의 댓글수 변경	
+	@Update("UPDATE BOARD B SET COMMENTS_COUNT=(SELECT COUNT(*) FROM COMMENTS WHERE BOARD_NO=#{boardNo} AND DEL_STATUS=0) WHERE BOARD_NO=#{boardNo}")
 	int commentCountUpdate(int count, String boardNo);
+
 
 	//게시글 댓글 삭제
 	@Update("UPDATE COMMENTS SET DEL_STATUS=1 WHERE BOARD_NO=#{boardNo} AND COMMENT_NO=#{commentNo}")
@@ -208,7 +209,7 @@ public interface BoardMapper {
 	int allLocBoardCount();
 
 	//모든 지역 게시글 리스트
-	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM BOARD WHERE DEL_STATUS=0 ORDER BY BOARD_DATE)B) WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM BOARD WHERE DEL_STATUS=0 ORDER BY BOARD_DATE)B WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
 	List<Map<String, Object>> allLocBoard(Pagination pagination);
 
 	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, B.* FROM BOARD B ${condition}) WHERE RNUM BETWEEN #{firstRecordIndex} and #{lastRecordIndex}")
@@ -223,6 +224,13 @@ public interface BoardMapper {
 
 	@Select("SELECT * FROM (  SELECT ROWNUM AS RNUM,a.* FROM (SELECT C.CATEGORY_NAME,B.PREVIEW_IMG,B.BOARD_DATE, B.BOARD_NO, B.BOARD_TITLE, B.BOARD_CONTENT,B.COMMENTS_COUNT AS CNT, B.LIKE_COUNT FROM BOARD B JOIN CATEGORY C ON ( B.BOARD_CATE = C.CATEGORY_NO ) WHERE B.DEL_STATUS=0 AND B.BOARD_CATE=#{cate} ORDER BY B.BOARD_DATE DESC )A) WHERE RNUM BETWEEN #{pagination.firstRecordIndex} and #{pagination.lastRecordIndex}")
 	List<Map<String, Object>> allCateLocBoard(Pagination pagination, String cate);
+	
+	//댓글의 답글 가져오기
+	@Select("SELECT * FROM (SELECT ROWNUM AS RNUM, A.* FROM (SELECT COMMENT_NO, BOARD_NO, COMMENT_CONTENT, COMMENT_DATE, COMMENT_WRITER, (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_ID=COMMENT_WRITER) AS C_NICKNAME, (SELECT MEMBER_IMG FROM MEMBER WHERE MEMBER_ID=COMMENT_WRITER) AS C_PROFILE FROM COMMENTS WHERE COMMENT_LEVEL=2 AND BOARD_COMMENT_REF=#{cNo} AND DEL_STATUS=0 ORDER BY COMMENT_DATE) A)")
+	List<Map> selectRecommentList(String cNo);
+	
+	@Insert("INSERT INTO COMMENTS VALUES(SEQ_COMMENTNO.NEXTVAL, #{boardNo}, #{commentContent}, SYSDATE, #{commentLevel}, #{boardCommentRef}, DEFAULT, #{commentWriter}, DEFAULT)")
+	int recommentWrite(Map param);
 
 }
 

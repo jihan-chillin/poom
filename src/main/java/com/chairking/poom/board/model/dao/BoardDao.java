@@ -112,4 +112,8 @@ public interface BoardDao {
 	List<Map<String, Object>> searchlocBoardList(BoardMapper mapper, Pagination pagination,Object condition);
 
 	int searchlocBoardCount(BoardMapper mapper, Object condition);
+	
+	List<Map> selectRecommentList(BoardMapper mapper, String cNo);
+	
+	int recommentWrite(BoardMapper mapper, Map param);
 }
