@@ -5,7 +5,12 @@
         </div>
         <div id="sales" th:with="size=${#lists.size(sumList)-1}">
             <p class="p_font2">어제 총 매출액</p>
+            <th:block th:if="${#lists.isEmpty(sumList)}">
+            <p>0원</p>
+            </th:block>
+            <th:block th:unless="${#lists.isEmpty(sumList)}">
             <p th:text="${days[0] eq #dates.format(sumList[size].PAY_DATE,'M월 d일')?#numbers.formatInteger(sumList[size].S,3,'COMMA')+'원':'0원'}">1,000,000원</p>
+            </th:block>
             <span class="span_font">금주 예상 매출액 : 400,000원</span><br>
             <span class="span_font">당월 예상 매출액 : 1,000,000원</span><br>
             <span class="span_font">전월  매출액 : 1,000,000원</span>
@@ -26,7 +31,7 @@
             <tr>
                 <td th:text="${#dates.format(list[0].PAY_DATE,'yyyy.MM.dd')}">2021.07.18</td>
                 <td th:text="${list[0].MEMBER_ID}">qwerqwer</td>
-                <td th:text="${list[0].MEMBER_NICKNAME}">체어킹</td>
+                <td th:text="${list[0].MEMBER_NICKNAME}">체어킹</TD>
                 <td th:if="${list[0].ITEM_TYPE} eq '7'" >7일권</td>
                 <td th:if="${list[0].ITEM_TYPE} eq '14'" >14일권</td>
                 <td th:if="${list[0].ITEM_TYPE} eq '30'" >30일권</td>

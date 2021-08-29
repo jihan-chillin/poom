@@ -36,6 +36,7 @@ public class PayAdminController {
 		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
 		pagination.setTotalRecordCount(service.allPaymentCount());
 		List<Map<String,Object>> list = service.allPayment(pagination);
+
 		//rollup으로 총 합계금액 가져오는 쿼리
 		List<Map<String,Object>> sumList=service.sumAllPayment();
 		List<Map<String,Object>> real=new ArrayList();
@@ -64,6 +65,9 @@ public class PayAdminController {
 			c1.add(Calendar.DATE, -1); //
 			String d = sdf.format(c1.getTime()); // String으로 저장
 			dayArr[i]=d;
+		}
+		for(Map m:list){
+			System.out.println(m);
 		}
 		mv.addObject("type","pay");
 		mv.addObject("list",list);

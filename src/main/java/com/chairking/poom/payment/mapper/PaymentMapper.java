@@ -14,7 +14,7 @@ public interface PaymentMapper {
 	@Select("SELECT * FROM ITEMS")
 	public List<Map<String, String>> itemList();
 	
-	@Insert("INSERT INTO PAYMENT VALUES(SEQ_PAYNO.NEXTVAL, to_date(SYSDATE-1,'yy-MM-dd'), #{itemNo}, #{memberId})")
+	@Insert("INSERT INTO PAYMENT VALUES(SEQ_PAYNO.NEXTVAL, to_date(SYSDATE,'yy-MM-dd'), #{itemNo}, #{memberId})")
 	public int buyItem(String memberId, String itemNo);
 	
 	@Update("UPDATE MEMBER SET PAY_LEVEL=1, PAY_EXPIRE=TO_DATE((SELECT DECODE(PAY_EXPIRE, NULL, SYSDATE, PAY_EXPIRE) FROM MEMBER WHERE MEMBER_ID=#{memberId})+#{itemType}, 'yy-MM-dd') WHERE MEMBER_ID=#{memberId}")
