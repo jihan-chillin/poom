@@ -9,8 +9,8 @@ function getItemList(){
 			if(data!=null){
 				for(let i=1;i<data.length; i++){
 					val+="<li>";
-					val+="<input type='radio' style='display:none' name='itemType' value='"+data[i].ITEM_TYPE+"'>";
-					val+="<label for='item"+data[i].ITEM_NO+"' id='"+data[i].ITEM_TYPE+"'>";
+					val+="<input type='radio' style='display:none' name='itemType' value='"+data[i].ITEM_NO+"'>";
+					val+="<label for='item"+data[i].ITEM_NO+"' id='"+data[i].ITEM_NO+"'>";
 					val+=data[i].ITEM_TYPE+"일 이용권";
 					val+="</label>";
 					val+="<input type='radio' style='display:none' name='itemNo' value='"+data[i].ITEM_NO+"' id='item"+data[i].ITEM_NO+"'>";

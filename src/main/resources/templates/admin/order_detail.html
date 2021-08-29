@@ -13,7 +13,7 @@
 	        <tbody >
 	        	<tr th:each="p : ${list}">
         			<td th:text="${#dates.format(p.PAY_DATE,'yyyy.MM.dd')}">2021.07.18</td>
-	                <td th:text="${p.MEMBER_ID}">qwerqwer</td>
+	                <td th:text="${p.MEMBER_ID}"></td>
 	                <td th:text="${p.MEMBER_NICKNAME}">체어킹</td>
 	                <td th:if="${p.ITEM_TYPE} eq '7'" >7일권</td>
 	                <td th:if="${p.ITEM_TYPE} eq '14'" >14일권</td>
